@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:tools="http://schemas.android.com/tools"
+                android:layout_width="match_parent"
+                android:background="@color/white"
+                android:layout_height="wrap_content"
+
+>
+
+    <LinearLayout
+
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+        <TextView
+                android:id="@+id/textViewTitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:gravity="center"
+                android:padding="10dp"
+                android:textStyle="bold"
+                android:text="Message"
+                android:fontFamily="@font/assistantbold"
+                android:textColor="@color/black"
+                android:textSize="18sp"/>
+
+
+        <TextView
+                android:id="@+id/textViewDescrp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:gravity="center"
+                android:padding="10dp"
+                android:text="messg"
+                android:textColor="@color/black"
+                android:textSize="16sp"/>
+
+
+        <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:gravity="right"
+                android:background="@color/white"
+                android:layout_marginBottom="10dp"
+                android:layout_marginTop="10dp"
+                android:orientation="vertical">
+
+            <View android:layout_width="match_parent"
+                  android:layout_height="1dp"
+                  android:background="@color/light_gray"
+                  android:layout_marginStart="20dp"
+                  android:layout_marginEnd="20dp"
+            />
+            <Button
+                    android:id="@+id/btnAccept"
+                    android:layout_width="match_parent"
+                    android:background="@android:color/transparent"
+                    android:textSize="18sp"
+                    android:textColor="@android:color/holo_blue_light"
+                    android:text="Ok"
+                    android:layout_height="match_parent"/>
+
+        </LinearLayout>
+    </LinearLayout>
+</RelativeLayout>

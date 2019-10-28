@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "99618009716",
+    "firebase_url": "https://seekdishandroid.firebaseio.com",
+    "project_id": "seekdishandroid",
+    "storage_bucket": "seekdishandroid.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:99618009716:android:673af7e23d344f07",
+        "android_client_info": {
+          "package_name": "com.dish.seekdish"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "99618009716-3d05c6ehij1qk2q0924sbde0gu9a2msj.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCOLAHC1A0v-dFV3h8W4b15zXUMqia3EUk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "99618009716-3d05c6ehij1qk2q0924sbde0gu9a2msj.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

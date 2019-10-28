@@ -1,0 +1,395 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:tools="http://schemas.android.com/tools"
+            android:layout_width="match_parent"
+            android:background="@color/white"
+
+            android:layout_height="match_parent">
+    <LinearLayout android:layout_width="match_parent"
+                  android:layout_height="match_parent"
+                  android:orientation="vertical"
+                  tools:context=".ui.navDrawer.settings.SettingsFragment">
+        <TextView android:layout_width="match_parent"
+                  android:text="General"
+                  android:textColor="@color/dark_gray"
+                  android:layout_gravity="center_vertical"
+                  android:gravity="center_vertical"
+                  android:paddingStart="20dp"
+                  android:textSize="18sp"
+                  android:background="@color/gray_lighter"
+                  android:layout_height="48dp"/>
+
+        <!--autocomplete -->
+        <!--     <fragment
+                     android:id="@+id/autocomplete_fragment"
+                     android:layout_width="match_parent"
+                     android:layout_height="1dp"
+                     android:name=
+                             "com.google.android.libraries.places.widget.AutocompleteSupportFragment"
+             />-->
+
+        <FrameLayout android:layout_width="match_parent"
+                     android:layout_height="48dp"
+                     android:orientation="horizontal">
+            <TextView
+                    android:paddingStart="20dp"
+                    android:layout_width="match_parent"
+                    android:textSize="16sp"
+                    android:fontFamily="@font/assistantbold"
+                    android:gravity="center_vertical"
+                    android:text="Geolocation"
+                    android:layout_height="match_parent"
+            />
+
+            <Switch
+                    android:id="@+id/switchGeo"
+                    android:layout_width="match_parent"
+                    android:paddingEnd="20dp"
+                    android:layout_height="match_parent"
+                    android:gravity="end|center_vertical"/>
+        </FrameLayout>
+        <View android:layout_width="match_parent" android:layout_height="1dp"
+              android:background="@color/gray_lighter"
+              android:layout_marginStart="10dp"
+              android:layout_marginEnd="10dp"/>
+
+        <FrameLayout android:layout_width="match_parent"
+                     android:layout_height="48dp"
+                     android:orientation="horizontal">
+            <TextView
+                    android:paddingStart="20dp"
+                    android:layout_width="match_parent"
+                    android:textSize="16sp"
+                    android:fontFamily="@font/assistantbold"
+
+                    android:gravity="center_vertical"
+                    android:text="Push Notification"
+                    android:layout_height="match_parent"
+            />
+
+            <Switch
+                    android:id="@+id/switchPush"
+                    android:layout_width="match_parent"
+                    android:paddingEnd="20dp"
+                    android:layout_height="match_parent"
+                    android:gravity="end|center_vertical"/>
+        </FrameLayout>
+        <View android:layout_width="match_parent" android:layout_height="1dp"
+              android:background="@color/gray_lighter"
+              android:layout_marginStart="10dp"
+              android:layout_marginEnd="10dp"/>
+
+        <FrameLayout android:layout_width="match_parent"
+                     android:layout_height="48dp"
+                     android:orientation="horizontal">
+            <TextView
+                    android:paddingStart="20dp"
+                    android:layout_width="match_parent"
+                    android:textSize="16sp"
+                    android:gravity="center_vertical"
+                    android:fontFamily="@font/assistantbold"
+
+                    android:text="Private"
+                    android:layout_height="match_parent"
+            />
+
+            <Switch
+                    android:id="@+id/switchPrivate"
+                    android:layout_width="match_parent"
+                    android:paddingEnd="20dp"
+                    android:layout_height="match_parent"
+                    android:gravity="end|center_vertical"/>
+        </FrameLayout>
+        <View android:layout_width="match_parent" android:layout_height="1dp"
+              android:background="@color/gray_lighter"
+              android:layout_marginStart="10dp"
+              android:layout_marginEnd="10dp"/>
+
+        <FrameLayout android:layout_width="match_parent"
+                     android:layout_height="48dp"
+                     android:orientation="horizontal">
+            <TextView
+                    android:paddingStart="20dp"
+                    android:layout_width="match_parent"
+                    android:textSize="16sp"
+                    android:fontFamily="@font/assistantbold"
+
+                    android:gravity="center_vertical"
+                    android:text="Search Radius"
+                    android:layout_height="match_parent"
+            />
+            <LinearLayout
+                    xmlns:numberpicker="http://schemas.android.com/apk/res-auto"
+                    android:layout_marginEnd="45dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:gravity="end|center_vertical"
+                    tools:context="com.travijuu.numberpicker.sample.MainActivity">
+
+                <com.travijuu.numberpicker.library.NumberPicker
+                        android:id="@+id/number_picker"
+                        android:layout_width="130dp"
+                        android:layout_height="40dp"
+                        numberpicker:min="0"
+                        numberpicker:max="10"
+                        numberpicker:unit="1"
+                        numberpicker:focusable="false"
+                        numberpicker:custom_layout="@layout/number_picker_custom_layout"/>
+
+            </LinearLayout>
+            <TextView android:layout_width="match_parent"
+                      android:visibility="visible"
+                      android:layout_gravity="end|center_vertical"
+                      android:textColor="@color/gray"
+                      android:layout_height="match_parent"
+                      android:text="Km"
+                      android:layout_marginEnd="20dp"
+                      android:gravity="end|center_vertical"/>
+
+
+        </FrameLayout>
+        <View android:layout_width="match_parent" android:layout_height="1dp"
+              android:background="@color/gray_lighter"
+              android:layout_marginStart="10dp"
+              android:layout_marginEnd="10dp"/>
+
+        <LinearLayout
+                android:id="@+id/linRadiusCenter"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:orientation="horizontal">
+            <TextView
+                    android:paddingStart="20dp"
+                    android:layout_width="wrap_content"
+                    android:textSize="16sp"
+                    android:layout_weight="1"
+                    android:fontFamily="@font/assistantbold"
+                    android:gravity="center_vertical"
+                    android:text="Radius Center"
+                    android:layout_height="match_parent"
+            />
+
+            <TextView
+                    android:id="@+id/txtPlace"
+                    android:layout_width="200dp"
+                    android:layout_weight="1"
+                    android:visibility="visible"
+                    android:layout_marginEnd="20dp"
+                    android:layout_gravity="end|center_vertical"
+                    android:textColor="@color/gray"
+                    android:layout_height="match_parent"
+                    android:gravity="end|center_vertical"/>
+
+
+        </LinearLayout>
+        <View android:layout_width="match_parent" android:layout_height="1dp"
+              android:background="@color/gray_lighter"
+              android:layout_marginStart="10dp"
+              android:layout_marginEnd="10dp"/>
+        <LinearLayout
+                android:id="@+id/linLanguage"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:orientation="horizontal"
+                android:weightSum="2">
+            <TextView
+                    android:paddingStart="20dp"
+                    android:layout_width="0dp"
+                    android:textSize="16sp"
+                    android:layout_weight="1"
+                    android:fontFamily="@font/assistantbold"
+                    android:gravity="center_vertical"
+                    android:text="Language"
+                    android:layout_height="match_parent"
+            />
+
+            <!--            <Spinner
+                                android:visibility="visible"
+                                android:id="@+id/spinnerLanguageSelect"
+                                android:layout_width="0dp"
+                                android:paddingEnd="20dp"
+                                android:layout_marginStart="10dp"
+                                android:layout_weight="1"
+                                android:layout_height="match_parent"
+                                android:gravity="end|center_vertical"/>-->
+
+            <TextView
+                    android:visibility="visible"
+                    android:id="@+id/tvLanguage"
+                    android:layout_width="0dp"
+                    android:paddingEnd="20dp"
+                    android:layout_marginStart="10dp"
+                    android:layout_weight="1"
+                    android:textColor="@color/gray"
+                    android:layout_height="match_parent"
+                    android:gravity="end|center_vertical"/>
+        </LinearLayout>
+        <View android:layout_width="match_parent" android:layout_height="1dp"
+              android:background="@color/gray_lighter"
+              android:layout_marginStart="10dp"
+              android:layout_marginEnd="10dp"/>
+
+        <TextView android:layout_width="match_parent"
+                  android:text="Profile"
+                  android:textColor="@color/dark_gray"
+                  android:layout_gravity="center_vertical"
+                  android:gravity="center_vertical"
+                  android:paddingStart="20dp"
+                  android:textSize="18sp"
+                  android:background="@color/gray_lighter"
+                  android:layout_height="48dp"/>
+
+        <TextView
+                android:id="@+id/tvUpdateProfile"
+                android:layout_width="match_parent"
+                android:text="Update My Profile"
+                android:textColor="@color/dark_gray"
+                android:layout_gravity="center_vertical"
+                android:gravity="center_vertical"
+                android:fontFamily="@font/assistantbold"
+
+                android:paddingStart="20dp"
+                android:textSize="16sp"
+                android:layout_height="48dp"/>
+        <View android:layout_width="match_parent" android:layout_height="1dp"
+              android:background="@color/gray_lighter"
+              android:layout_marginStart="10dp"
+              android:layout_marginEnd="10dp"/>
+
+        <TextView android:layout_width="match_parent"
+                  android:text="Add Friends"
+                  android:textColor="@color/dark_gray"
+                  android:layout_gravity="center_vertical"
+                  android:gravity="center_vertical"
+                  android:fontFamily="@font/assistantbold"
+
+                  android:paddingStart="20dp"
+                  android:textSize="16sp"
+                  android:layout_height="48dp"/>
+        <View android:layout_width="match_parent" android:layout_height="1dp"
+              android:background="@color/gray_lighter"
+              android:layout_marginStart="10dp"
+              android:layout_marginEnd="10dp"/>
+
+        <FrameLayout
+                android:id="@+id/frameLike"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:orientation="horizontal">
+            <TextView
+                    android:paddingStart="20dp"
+                    android:layout_width="match_parent"
+                    android:textSize="16sp"
+                    android:gravity="center_vertical"
+                    android:text="I Like"
+                    android:fontFamily="@font/assistantbold"
+                    android:layout_height="match_parent"
+            />
+
+            <TextView android:layout_width="match_parent"
+                      android:paddingEnd="20dp"
+                      android:text="21 I Like"
+                      android:id="@+id/tvLikeCount"
+                      android:textColor="@color/gray"
+                      android:layout_height="match_parent"
+                      android:gravity="end|center_vertical"/>
+        </FrameLayout>
+        <View android:layout_width="match_parent" android:layout_height="1dp"
+              android:background="@color/gray_lighter"
+              android:layout_marginStart="10dp"
+              android:layout_marginEnd="10dp"/>
+
+        <FrameLayout
+                android:id="@+id/frameDislike"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:orientation="horizontal">
+            <TextView
+                    android:paddingStart="20dp"
+                    android:layout_width="match_parent"
+                    android:textSize="16sp"
+                    android:gravity="center_vertical"
+                    android:text="I Dislike"
+                    android:fontFamily="@font/assistantbold"
+
+                    android:layout_height="match_parent"
+            />
+
+            <TextView android:layout_width="match_parent"
+                      android:paddingEnd="20dp"
+                      android:text="5 I Dislike"
+                      android:id="@+id/tvDisLikeCount"
+
+                      android:textColor="@color/gray"
+                      android:layout_height="match_parent"
+                      android:gravity="end|center_vertical"/>
+        </FrameLayout>
+        <View android:layout_width="match_parent" android:layout_height="1dp"
+              android:background="@color/gray_lighter"
+              android:layout_marginStart="10dp"
+              android:layout_marginEnd="10dp"/>
+
+        <TextView android:layout_width="match_parent"
+                  android:text="Alert"
+                  android:textColor="@color/dark_gray"
+                  android:layout_gravity="center_vertical"
+                  android:gravity="center_vertical"
+                  android:paddingStart="20dp"
+                  android:textSize="18sp"
+                  android:background="@color/gray_lighter"
+                  android:layout_height="48dp"/>
+
+        <TextView
+                android:fontFamily="@font/assistantbold"
+
+                android:id="@+id/tvAlert"
+                android:layout_width="match_parent"
+                android:text="Managing Alerts"
+                android:textColor="@color/dark_gray"
+                android:layout_gravity="center_vertical"
+                android:gravity="center_vertical"
+                android:paddingStart="20dp"
+                android:textSize="16sp"
+                android:layout_height="48dp"/>
+        <View android:layout_width="match_parent" android:layout_height="1dp"
+              android:background="@color/gray_lighter"
+              android:layout_marginStart="10dp"
+              android:layout_marginEnd="10dp"/>
+
+        <TextView
+                android:fontFamily="@font/assistantbold"
+
+                android:id="@+id/tvRecievedReq"
+                android:layout_width="match_parent"
+                android:text="Received Friend Request"
+                android:textColor="@color/dark_gray"
+                android:layout_gravity="center_vertical"
+                android:gravity="center_vertical"
+                android:paddingStart="20dp"
+                android:textSize="16sp"
+                android:layout_height="48dp"/>
+        <View android:layout_width="match_parent" android:layout_height="1dp"
+              android:background="@color/gray_lighter"
+              android:layout_marginStart="10dp"
+              android:layout_marginEnd="10dp"/>
+
+        <TextView
+                android:id="@+id/tvSentReq"
+                android:fontFamily="@font/assistantbold"
+
+                android:layout_width="match_parent"
+                android:text="Sent Friends Request"
+                android:textColor="@color/dark_gray"
+                android:layout_gravity="center_vertical"
+                android:gravity="center_vertical"
+                android:paddingStart="20dp"
+                android:textSize="16sp"
+                android:layout_height="48dp"/>
+        <View android:layout_width="match_parent" android:layout_height="1dp"
+              android:background="@color/gray_lighter"
+              android:layout_marginStart="10dp"
+              android:layout_marginEnd="10dp"/>
+    </LinearLayout>
+
+</ScrollView>

@@ -1,0 +1,196 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:background="@color/white"
+
+        tools:context=".ui.navDrawer.dishDescription.MealRatingActivity">
+
+    <!--toolbar-->
+    <FrameLayout android:layout_width="match_parent"
+                 android:layout_height="48dp"
+                 android:gravity="center"
+                 android:background="@color/colorPrimary"
+                 android:orientation="horizontal">
+
+        <TextView
+                android:id="@+id/tvNext"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="10dp"
+                android:gravity="end"
+                android:layout_gravity="end|center_vertical"
+                android:text="Next"
+                android:textColor="@color/white"
+                android:textSize="18sp"/>
+        <TextView android:layout_width="wrap_content"
+                  android:layout_height="wrap_content"
+                  android:layout_gravity="center"
+                  android:text="Meal Rating"
+                  android:textColor="@color/white"
+                  android:textSize="20sp"/>
+        <TextView
+                android:id="@+id/tvBack"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="start"
+                android:layout_marginStart="10dp"
+                android:layout_gravity="start|center_vertical"
+                android:text="Back"
+                android:textColor="@color/white"
+                android:textSize="18sp"/>
+    </FrameLayout>
+    <FrameLayout android:layout_width="match_parent"
+                 android:layout_height="match_parent">
+        <ImageView android:layout_width="match_parent" android:layout_height="match_parent"
+                   android:src="@drawable/ic_foodex"
+                   android:scaleType="centerCrop"/>
+        <View android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:alpha=".9"
+              android:background="@color/white"/>
+        <LinearLayout android:layout_width="match_parent"
+                      android:weightSum="10"
+                      android:layout_gravity="center"
+                      android:orientation="vertical"
+                      android:layout_height="match_parent">
+            <LinearLayout android:layout_width="match_parent"
+                          android:layout_weight="3"
+                          android:layout_gravity="center"
+                          android:gravity="center"
+                          android:layout_height="0dp">
+
+
+                <de.hdodenhof.circleimageview.CircleImageView
+                        xmlns:app="http://schemas.android.com/apk/res-auto"
+                        android:id="@+id/profile_image"
+                        android:layout_width="140dp"
+                        android:layout_height="140dp"
+                        android:layout_gravity="center"
+
+                        android:layout_margin="20dp"
+                        android:src="@drawable/ic_foodex"
+                        app:civ_border_color="#ffffff"
+                        app:civ_border_width="1dp"/>
+            </LinearLayout>
+            <LinearLayout android:layout_width="match_parent"
+                          android:orientation="vertical"
+                          android:layout_weight="7"
+                          android:layout_height="0dp">
+
+                <TextView android:layout_width="wrap_content"
+                          android:layout_height="wrap_content"
+                          android:text="Taste"
+                          android:layout_gravity="center"
+                          android:gravity="center"
+                          android:textSize="18sp"
+                          android:textColor="@color/black"/>
+                <com.willy.ratingbar.ScaleRatingBar
+                        xmlns:app="http://schemas.android.com/apk/res-auto"
+                        android:id="@+id/simpleRatingBar"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        app:srb_rating="0"
+                        android:layout_gravity="center"
+                        android:gravity="center"
+                        app:srb_starPadding="10dp"
+                        app:srb_starWidth="30dp"
+                        app:srb_starHeight="30dp"
+                        app:srb_stepSize="1"
+                        app:srb_isIndicator="false"
+                        app:srb_clickable="true"
+                        app:srb_scrollable="true"
+                        app:srb_clearRatingEnabled="false"
+                        app:srb_drawableEmpty="@drawable/ic_star_grey"
+                        app:srb_drawableFilled="@drawable/ic_filled_star"/>
+
+                <TextView android:layout_width="wrap_content"
+                          android:layout_height="wrap_content"
+                          android:text="Presentation"
+                          android:layout_gravity="center"
+                          android:gravity="center"
+                          android:layout_marginTop="10dp"
+                          android:textSize="18sp"
+                          android:textColor="@color/black"/>
+                <com.willy.ratingbar.ScaleRatingBar
+                        xmlns:app="http://schemas.android.com/apk/res-auto"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        app:srb_rating="0"
+                        android:layout_gravity="center"
+                        android:gravity="center"
+                        app:srb_starPadding="10dp"
+                        app:srb_starWidth="30dp"
+                        app:srb_starHeight="30dp"
+                        app:srb_stepSize="1"
+                        app:srb_isIndicator="false"
+                        app:srb_clickable="true"
+                        app:srb_scrollable="true"
+                        app:srb_clearRatingEnabled="false"
+                        app:srb_drawableEmpty="@drawable/ic_star_grey"
+                        app:srb_drawableFilled="@drawable/ic_filled_star"/>
+
+                <TextView android:layout_width="wrap_content"
+                          android:layout_height="wrap_content"
+                          android:text="Texture"
+                          android:layout_gravity="center"
+                          android:gravity="center"
+                          android:textSize="18sp"
+                          android:layout_marginTop="10dp"
+
+                          android:textColor="@color/black"/>
+                <com.willy.ratingbar.ScaleRatingBar
+                        xmlns:app="http://schemas.android.com/apk/res-auto"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        app:srb_rating="0"
+                        android:layout_gravity="center"
+                        android:gravity="center"
+                        app:srb_starPadding="10dp"
+                        app:srb_starWidth="30dp"
+                        app:srb_starHeight="30dp"
+                        app:srb_stepSize="1"
+                        app:srb_isIndicator="false"
+                        app:srb_clickable="true"
+                        app:srb_scrollable="true"
+                        app:srb_clearRatingEnabled="false"
+                        app:srb_drawableEmpty="@drawable/ic_star_grey"
+                        app:srb_drawableFilled="@drawable/ic_filled_star"/>
+
+                <TextView android:layout_width="wrap_content"
+                          android:layout_height="wrap_content"
+                          android:text="Odor"
+                          android:layout_gravity="center"
+                          android:gravity="center"
+                          android:textSize="18sp"
+                          android:layout_marginTop="10dp"
+
+                          android:textColor="@color/black"/>
+                <com.willy.ratingbar.ScaleRatingBar
+                        xmlns:app="http://schemas.android.com/apk/res-auto"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        app:srb_rating="0"
+                        android:layout_marginBottom="20dp"
+                        android:layout_gravity="center"
+                        android:gravity="center"
+                        app:srb_starPadding="10dp"
+                        app:srb_starWidth="30dp"
+                        app:srb_starHeight="30dp"
+                        app:srb_stepSize="1"
+                        app:srb_isIndicator="false"
+                        app:srb_clickable="true"
+                        app:srb_scrollable="true"
+                        app:srb_clearRatingEnabled="false"
+                        app:srb_drawableEmpty="@drawable/ic_star_grey"
+                        app:srb_drawableFilled="@drawable/ic_filled_star"/>
+            </LinearLayout>
+        </LinearLayout>
+
+
+    </FrameLayout>
+</LinearLayout>

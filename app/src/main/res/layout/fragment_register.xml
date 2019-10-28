@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:app="http://schemas.android.com/apk/res-auto"
+              xmlns:tools="http://schemas.android.com/tools"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:layout_gravity="center"
+              android:gravity="center"
+
+              android:background="@drawable/ic_background"
+              android:orientation="vertical">
+
+    <ImageView
+            android:layout_width="200dp"
+            android:layout_height="200dp"
+            android:layout_gravity="center"
+            android:src="@drawable/ic_logo"/>
+
+    <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:text="Seekdish"
+            android:textColor="@android:color/white"
+            android:textSize="50sp"/>
+
+    <LinearLayout
+            android:layout_marginTop="30dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="30dp"
+            android:orientation="vertical"
+            android:layout_marginEnd="30dp">
+
+        <LinearLayout
+                android:id="@+id/linFacebookLogin"
+                android:layout_width="match_parent"
+                android:layout_height="45dp"
+                android:background="#547CB0"
+
+                android:orientation="horizontal"
+                android:layout_gravity="center"
+                android:gravity="center">
+            <TextView
+                    android:id="@+id/tvFacebook"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAllCaps="false"
+                    android:textSize="18sp"
+                    android:text="Connect with "
+                    android:fontFamily="@font/assistantbold"
+                    android:textColor="@android:color/white"/>
+            <TextView
+
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAllCaps="false"
+                    android:textSize="18sp"
+                    android:text="Facebook"
+                    android:fontFamily="@font/assistantregular"
+                    android:textColor="@android:color/white"/>
+        </LinearLayout>
+
+
+        <LinearLayout
+                android:layout_marginTop="20dp"
+                android:visibility="visible"
+                android:id="@+id/linTwitterLogin"
+                android:layout_width="match_parent"
+                android:layout_height="45dp"
+                android:background="#51B7E7"
+                android:orientation="horizontal"
+                android:layout_gravity="center"
+                android:gravity="center">
+            <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAllCaps="false"
+                    android:textSize="18sp"
+                    android:text="Connect with "
+                    android:fontFamily="@font/assistantbold"
+
+                    android:textColor="@android:color/white"/>
+            <TextView
+
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAllCaps="false"
+                    android:textSize="18sp"
+                    android:text="Twitter"
+                    android:fontFamily="@font/assistantregular"
+                    android:textColor="@android:color/white"/>
+        </LinearLayout>
+
+
+        <LinearLayout
+                android:id="@+id/linSignupManual"
+                android:layout_width="match_parent"
+                android:layout_height="45dp"
+                android:background="@drawable/white_border"
+                android:layout_marginTop="20dp"
+
+                android:orientation="horizontal"
+                android:layout_gravity="center"
+                android:gravity="center">
+            <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAllCaps="false"
+                    android:textSize="18sp"
+                    android:text="Connect with "
+                    android:fontFamily="@font/assistantbold"
+
+                    android:textColor="@android:color/white"/>
+            <TextView
+
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAllCaps="false"
+                    android:textSize="18sp"
+                    android:text="Email"
+                    android:fontFamily="@font/assistantregular"
+                    android:textColor="@android:color/white"/>
+        </LinearLayout>
+
+
+        <TextView
+                android:id="@+id/tvLogin"
+                android:layout_marginTop="20dp"
+                android:gravity="center"
+                android:textSize="18sp"
+                android:layout_gravity="center"
+                android:textColor="@android:color/white"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Already have an account? Sign in"/>
+
+        <TextView
+                android:visibility="gone"
+                android:id="@+id/tvlogout"
+                android:layout_marginTop="20dp"
+                android:gravity="center"
+                android:textSize="18sp"
+                android:layout_gravity="center"
+                android:textColor="@android:color/white"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="logout twitter"/>
+    </LinearLayout>
+
+</LinearLayout>

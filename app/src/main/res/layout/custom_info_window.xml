@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="wrap_content"
+        android:orientation="horizontal"
+        android:background="@drawable/roundege_color_primary"
+        android:layout_weight="5"
+        android:layout_height="wrap_content">
+    <LinearLayout android:layout_width="0dp"
+                  android:layout_weight="1"
+                  android:padding="2dp"
+                  android:orientation="vertical"
+                  android:layout_height="wrap_content">
+        <ImageView
+                android:id="@+id/imgInfoWindow"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:src="@drawable/ic_foodimg"/>
+
+    </LinearLayout>
+    <LinearLayout android:layout_width="0dp"
+                  android:layout_weight="4"
+                  android:weightSum="2"
+                  android:paddingEnd="5dp"
+                  android:layout_height="match_parent"
+                  android:orientation="vertical">
+        <TextView
+                android:id="@+id/tvRestro"
+                android:layout_width="match_parent"
+                android:layout_gravity="center"
+                android:gravity="center|center_vertical"
+                android:paddingStart="10dp"
+                android:layout_weight="1"
+                android:textSize="16sp"
+                android:textColor="@color/black"
+                android:fontFamily="@font/assistantbold"
+                android:layout_height="match_parent"
+                android:text="Tarte de Aux Abrecot"
+        />
+        <LinearLayout android:layout_width="match_parent"
+                      android:layout_height="match_parent"
+                      android:orientation="horizontal"
+                      android:layout_weight="1"
+                      android:weightSum="2"
+        >
+
+
+            <RatingBar
+                    android:id="@+id/infowindow_rating"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:gravity="center_horizontal"
+                    android:numStars="5"
+                    android:isIndicator="false"
+                    android:stepSize="1"
+                    android:scaleX=".6"
+                    android:scaleY=".8"
+                    style="@style/StarRatingBar"
+
+            />
+
+            <RatingBar
+                    android:id="@+id/euro_rating"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:gravity="center_horizontal"
+                    android:numStars="5"
+                    android:isIndicator="false"
+                    android:stepSize="1"
+                    android:scaleX=".6"
+                    android:scaleY=".7"
+                    style="@style/EuroRatingBar"
+            />
+            <!--   <com.willy.ratingbar.ScaleRatingBar
+                     xmlns:app="http://schemas.android.com/apk/res-auto"
+                     android:id="@+id/starRatingBar"
+                     android:layout_marginStart="5dp"
+                     android:layout_width="110dp"
+                     android:layout_height="match_parent"
+                     app:srb_rating="2"
+                     android:gravity="center"
+                     app:srb_starPadding="3dp"
+                     app:srb_starWidth="15dp"
+                     app:srb_starHeight="15dp"
+                     app:srb_stepSize="1"
+                     app:srb_isIndicator="false"
+                     app:srb_clickable="false"
+                     app:srb_scrollable="false"
+                     app:srb_clearRatingEnabled="false"
+                     app:srb_drawableEmpty="@drawable/star_empty_gold"
+                     app:srb_drawableFilled="@drawable/star_filled_gold">
+             </com.willy.ratingbar.ScaleRatingBar>
+            <com.willy.ratingbar.ScaleRatingBar
+                      android:visibility="gone"
+                      xmlns:app="http://schemas.android.com/apk/res-auto"
+                      android:layout_weight="1"
+                      android:id="@+id/euroRatingBar"
+                      android:layout_width="wrap_content"
+                      android:layout_height="wrap_content"
+                      android:layout_gravity="center"
+                      android:gravity="center"
+                      app:srb_starPadding="3dp"
+                      app:srb_rating="2"
+                      app:srb_starWidth="15dp"
+                      app:srb_starHeight="15dp"
+                      app:srb_stepSize="1"
+                      app:srb_isIndicator="false"
+                      app:srb_clickable="false"
+                      app:srb_scrollable="false"
+                      app:srb_clearRatingEnabled="false"
+                      app:srb_drawableEmpty="@drawable/ic_empty_euro"
+                      app:srb_drawableFilled="@drawable/ic_filled_star"/>-->
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+</LinearLayout>

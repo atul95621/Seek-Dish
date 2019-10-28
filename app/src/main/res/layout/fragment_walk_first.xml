@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+              android:layout_weight="5"
+ >
+
+
+    <LinearLayout android:layout_width="match_parent" android:layout_height="0dp"
+                  android:layout_weight="4"
+                  android:orientation="vertical">
+    <TextView
+        android:gravity="center"
+        android:layout_gravity="center"
+        android:id="@+id/notificationAlertsTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="100dp"
+        android:text="@string/discover"
+        android:textColor="@android:color/white"
+        android:textSize="45sp" />
+
+       <TextView
+
+               android:layout_width="match_parent"
+               android:layout_height="wrap_content"
+               android:layout_below="@+id/notificationAlertsTextView"
+               android:layout_marginEnd="20dp"
+               android:layout_marginStart="20dp"
+               android:layout_marginTop="40dp"
+               android:gravity="center"
+               android:text="Presentation"
+               android:textColor="@android:color/white"
+               android:textSize="15sp" />
+    <TextView
+
+        android:id="@+id/notificationAlertsSubTitleTextView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/notificationAlertsTextView"
+        android:layout_marginEnd="20dp"
+        android:layout_marginStart="20dp"
+        android:gravity="center"
+        android:text="@string/walk_descrp_1"
+        android:textColor="@android:color/white"
+        android:textSize="15sp" />
+    <TextView
+
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/notificationAlertsTextView"
+            android:layout_marginEnd="20dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="5dp"
+            android:gravity="center"
+            android:text="@string/walk_sub1"
+            android:textColor="@android:color/white"
+            android:textSize="15sp" />
+    <TextView
+
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/notificationAlertsTextView"
+            android:layout_marginEnd="20dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="5dp"
+            android:gravity="center"
+            android:text="@string/walk_sub_part2"
+            android:textColor="@android:color/white"
+            android:textSize="15sp" />
+    </LinearLayout>
+
+    <LinearLayout android:layout_width="match_parent" android:layout_height="0dp"
+                  android:layout_weight="1"
+                  android:orientation="vertical">
+    <Button
+        android:layout_marginTop="40dp"
+        android:id="@+id/btn_register"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:layout_marginStart="40dp"
+        android:layout_marginEnd="40dp"
+        android:layout_marginBottom="20dp"
+        android:gravity="center"
+        android:padding="1dp"
+        android:textAllCaps="false"
+        android:letterSpacing=".1"
+        android:background="@drawable/white_border"
+        android:text="Perfect! Register"
+        android:textColor="@android:color/white"
+        android:textSize="18sp"
+        />
+    </LinearLayout>
+</LinearLayout>

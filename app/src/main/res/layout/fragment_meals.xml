@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:tools="http://schemas.android.com/tools"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:orientation="vertical"
+              android:background="@color/white"
+
+              tools:context=".ui.navDrawer.dishDescription.similar.SimilarFragment">
+
+    <TextView android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:background="@color/light_gray"
+              android:textSize="18sp"
+              android:padding="2dp"
+              android:text="Cold Entrance"/>
+    <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rvMealsFrag"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:scrollbars="vertical"
+            tools:layout_editor_absoluteX="0dp"
+            tools:layout_editor_absoluteY="0dp"/>
+
+</LinearLayout>

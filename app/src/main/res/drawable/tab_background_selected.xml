@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<layer-list
+        xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+            android:left="@dimen/tab_spacing_half"
+            android:right="@dimen/tab_spacing_half"
+            android:top="@dimen/tab_spacing_half"
+            android:bottom="@dimen/tab_spacing_half">
+
+        <shape
+                android:shape="rectangle">
+
+            <corners
+                    android:radius="@dimen/border_radius_small">
+            </corners>
+
+            <solid
+                    android:width="@dimen/divider_height_thick"
+                    android:color="@color/colorPrimary"/>
+
+        </shape>
+
+    </item>
+
+</layer-list>
+        <!--
+        <shape xmlns:android="http://schemas.android.com/apk/res/android"
+            android:shape="rectangle">
+
+            &lt;!&ndash; radius should be half of the desired TabLayout height &ndash;&gt;
+            <corners
+                android:radius="18dp"/>
+
+            &lt;!&ndash; color of the selected tab &ndash;&gt;
+            <solid
+                android:color="@color/colorPrimary"/>
+
+        </shape>-->

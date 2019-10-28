@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:tools="http://schemas.android.com/tools"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:orientation="vertical"
+              android:background="@color/white"
+
+              tools:context=".ui.navDrawer.dishDescription.opinion.OpinionFragment">
+    <!--toolbar-->
+    <FrameLayout android:layout_width="match_parent"
+                 android:layout_height="48dp"
+                 android:gravity="center"
+                 android:background="@color/colorPrimary"
+                 android:orientation="horizontal">
+        <TextView android:layout_width="wrap_content"
+                  android:layout_height="wrap_content"
+                  android:layout_gravity="center"
+                  android:text="My Alert"
+                  android:textColor="@color/white"
+                  android:textSize="20sp"/>
+        <TextView
+                android:id="@+id/tvBack"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:gravity="start"
+                android:layout_gravity="start|center_vertical"
+                android:text="Next"
+                android:textColor="@color/white"
+                android:textSize="18sp"/>
+    </FrameLayout>
+    <LinearLayout android:layout_width="match_parent"
+                  android:layout_height="wrap_content"
+                  android:background="@color/gray"
+                  android:paddingTop="5dp"
+                  android:paddingBottom="5dp">
+        <LinearLayout
+                android:id="@+id/frameSearch"
+                android:layout_marginStart="20dp"
+                android:layout_marginEnd="20dp"
+                android:orientation="horizontal"
+                android:background="@drawable/roundedge_white_filled"
+                android:layout_width="match_parent"
+                android:layout_height="35dp">
+
+            <ImageView
+                    android:src="@drawable/search"
+                    android:padding="3dp"
+                    android:paddingStart="10dp"
+                    android:tint="@color/dark_gray"
+                    android:layout_gravity="center|start"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    tools:ignore="ContentDescription,RtlHardcoded"/>
+            <EditText
+                    android:id="@+id/edtSearch"
+                    android:layout_width="match_parent"
+                    android:layout_height="35dp"
+                    android:paddingStart="10dp"
+                    android:cursorVisible="false"
+                    android:paddingEnd="40dp"
+                    android:gravity="start|center_vertical"
+                    android:hint="Search a Restaurant"
+                    android:fontFamily="@font/assistantregular"
+                    android:background="@android:color/transparent"
+                    android:layout_gravity="center"
+                    android:textSize="18sp"
+                    tools:ignore="Autofill,LabelFor,RtlHardcoded,TextFields"/>
+
+        </LinearLayout>
+    </LinearLayout>
+
+    <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rvAlertsFrag"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:scrollbars="vertical"
+            tools:layout_editor_absoluteX="0dp"
+            tools:layout_editor_absoluteY="0dp"/>
+
+</LinearLayout>

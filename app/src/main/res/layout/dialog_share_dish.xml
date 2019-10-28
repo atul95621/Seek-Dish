@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:tools="http://schemas.android.com/tools"
+                android:layout_width="match_parent"
+                android:background="@color/white"
+                android:layout_height="wrap_content"
+>
+
+    <LinearLayout
+
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+
+        <TextView
+                android:id="@+id/tvShare"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:gravity="center"
+                android:padding="10dp"
+                android:fontFamily="@font/assistantregular"
+                android:text="Share"
+                android:textColor="@color/black"
+                android:textSize="16sp"/>
+        <View android:layout_width="match_parent" android:layout_height="1dp"
+              android:background="@color/light_gray"/>
+
+        <TextView
+                android:id="@+id/tvAddtodo"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:gravity="center"
+                android:padding="10dp"
+                android:fontFamily="@font/assistantregular"
+
+                android:text="Add to my list 'to do'"
+                android:textColor="@color/black"
+                android:textSize="16sp"/>
+        <View android:layout_width="match_parent" android:layout_height="1dp"
+              android:background="@color/light_gray"/>
+
+        <TextView
+                android:id="@+id/tvAddfav"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:gravity="center"
+                android:padding="10dp"
+                android:fontFamily="@font/assistantregular"
+
+                android:text="Add to my list 'favourite'"
+                android:textColor="@color/black"
+                android:textSize="16sp"/>
+        <View android:layout_width="match_parent" android:layout_height="1dp"
+              android:background="@color/light_gray"/>
+
+        <TextView
+                android:id="@+id/tvViewDetail"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:gravity="center"
+                android:fontFamily="@font/assistantregular"
+
+                android:padding="10dp"
+                android:text="View Detailed Restaurants"
+                android:textColor="@color/black"
+                android:textSize="16sp"/>
+        <View android:layout_width="match_parent" android:layout_height="1dp"
+              android:background="@color/light_gray"/>
+
+        <TextView
+                android:id="@+id/tvShowMap"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:gravity="center"
+                android:fontFamily="@font/assistantregular"
+
+                android:padding="10dp"
+                android:text="Show on Map"
+                android:textColor="@color/black"
+                android:textSize="16sp"/>
+        <View android:layout_width="match_parent" android:layout_height="1dp"
+              android:background="@color/light_gray"/>
+        <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:gravity="right"
+                android:background="@color/white"
+                android:layout_marginBottom="10dp"
+                android:layout_marginTop="10dp"
+                android:orientation="vertical">
+
+
+            <Button
+                    android:id="@+id/btnCancel"
+                    android:layout_width="match_parent"
+                    android:background="@android:color/transparent"
+                    android:textSize="18sp"
+                    android:fontFamily="@font/assistantregular"
+
+                    android:textColor="@android:color/holo_blue_light"
+                    android:text="Cancel"
+                    android:layout_height="match_parent"/>
+
+        </LinearLayout>
+    </LinearLayout>
+</RelativeLayout>

@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:card_view="http://schemas.android.com/apk/res-auto"
+            xmlns:tools="http://schemas.android.com/tools"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/ic_background"
+            android:fillViewport="true"
+>
+
+    <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center|bottom"
+            android:orientation="vertical">
+
+        <!-- <android.support.v7.widget.CardView
+             android:id="@+id/card"
+             android:layout_width="match_parent"
+             android:layout_height="0dp"
+             android:layout_weight="7"
+             android:layout_above="@+id/lin"
+             android:layout_marginLeft="20dp"
+             android:layout_marginRight="20dp"
+             android:layout_marginTop="40dp"
+             android:background="@color/white"
+             card_view:cardBackgroundColor="@color/gray_light"
+             card_view:cardElevation="2dp"
+             card_view:cardUseCompatPadding="true">
+
+             <RelativeLayout
+                 android:layout_width="match_parent"
+                 android:layout_height="match_parent"
+                 android:background="@color/white"
+                 android:gravity="center"
+                 android:elevation="5dp">-->
+
+        <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+            <ImageView
+                    android:visibility="gone"
+                    android:paddingStart="75dp"
+                    android:paddingEnd="75dp"
+                    android:paddingTop="75dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/app_logo"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:background="@android:color/transparent"
+                android:layout_weight="6.7">
+
+            <androidx.viewpager.widget.ViewPager
+
+                    android:layout_gravity="center"
+                    android:id="@+id/viewpager_info"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@android:color/transparent"
+                    tools:listitem="@layout/pager_walkthrough"/>
+        </LinearLayout>
+
+        <!--   </RelativeLayout>
+       </android.support.v7.widget.CardView>
+   -->
+
+        <LinearLayout
+                android:id="@+id/lin"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1.3"
+                android:orientation="vertical">
+
+
+            <LinearLayout android:layout_width="match_parent" android:layout_height="match_parent"
+                          android:orientation="vertical"
+                          android:gravity="bottom">
+                <Button
+                        android:id="@+id/btn_skip"
+                        android:layout_width="match_parent"
+                        android:layout_height="48dp"
+                        android:layout_marginStart="40dp"
+                        android:layout_marginEnd="40dp"
+                        android:layout_marginBottom="20dp"
+                        android:gravity="center"
+                        android:padding="1dp"
+                        android:textAllCaps="false"
+                        android:letterSpacing=".2"
+                        android:background="@drawable/white_border"
+                        android:text="Perfect! Register"
+                        android:textColor="@color/white"
+                        android:textSize="18sp"
+                />
+
+                <LinearLayout
+                        android:layout_alignParentBottom="true"
+                        android:layout_gravity="bottom"
+                        android:id="@+id/lin_viewPagerCountDots"
+                        android:layout_width="match_parent"
+                        android:layout_height="30dp"
+                        android:gravity="bottom"
+                        android:orientation="horizontal"/>
+            </LinearLayout>
+
+
+        </LinearLayout>
+
+    </LinearLayout>
+</ScrollView>

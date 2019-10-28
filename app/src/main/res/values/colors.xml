@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#A7D4CA</color>
+    <color name="colorPrimaryDark">#82B6AA</color>
+    <color name="colorAccent">#87CCB9</color>
+
+
+    <color name="white">#ffffff</color>
+    <color name="black">#000000</color>
+    <color name="gray">#BCBCBC</color>
+    <color name="transparent">#00000000</color>
+    <color name="dark_orange">#F88C29</color>
+    <color name="red_google">#EF0C1D</color>
+
+    <color name="orange_dark">#fa631f</color>
+    <color name="yellow">#f89c2d</color>
+    <color name="yellow_light">#FEFC1C</color>
+    <color name="gray_lighter">#efefef</color>
+    <color name="dark_gray">#7E7E7E</color>
+    <color name="light_gray">#EDEBEC</color>
+    <color name="edt_light_gray">#F4F4F4</color>
+    <color name="light_green">#7DD4A3</color>
+    <color name="green_dark">#2C882C</color>
+    <color name="blue_dark">#2874A6</color>
+
+
+</resources>

@@ -1,0 +1,198 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+          package="com.dish.seekdish">
+
+    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.CAMERA"/>
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
+
+    <uses-feature android:name="android.hardware.location.gps"/>
+    <uses-feature android:name="android.hardware.camera"/>
+    <uses-feature android:name="android.hardware.camera.autofocus"/>
+
+    <uses-permission android:name="com.google.android.providers.gsf.permission.READ_GSERVICES"/>
+    <uses-permission android:name="android.permission.CALL_PHONE"/>
+    <uses-permission android:name="android.permission.READ_PHONE_STATE"/>
+    <uses-permission android:name="android.permission.VIBRATE"/>
+
+    <application
+            android:allowBackup="true"
+            android:hardwareAccelerated="true"
+            android:icon="@mipmap/ic_launcher"
+            android:label="@string/app_name"
+            android:usesCleartextTraffic="true"
+            android:roundIcon="@mipmap/ic_launcher_round"
+            android:supportsRtl="true"
+            android:theme="@style/AppTheme">
+        <activity android:name=".ui.navDrawer.settings.activity.RadiusCenterActivity">
+        </activity>
+        <activity
+                android:name=".ui.ResetPasswordActivity"
+                android:screenOrientation="portrait">
+        </activity>
+        <activity
+                android:name=".ui.navDrawer.invitation.includeFriends.IncludeFriendsActivity"
+                android:screenOrientation="portrait">
+        </activity>
+        <activity
+                android:name=".ui.navDrawer.invitation.settings.InvitationSettingsActivity"
+                android:screenOrientation="portrait">
+        </activity>
+        <activity
+                android:name=".ui.navDrawer.invitation.InvitationActivity"
+                android:screenOrientation="portrait">
+        </activity>
+        <activity
+                android:name=".ui.navDrawer.settings.myAlerts.MyAlertsActivity"
+                android:screenOrientation="portrait">
+        </activity>
+        <activity
+                android:name=".ui.navDrawer.dishDescription.DishDetailActivity"
+                android:screenOrientation="portrait">
+        </activity>
+        <activity
+                android:name=".ui.navDrawer.dishDescription.OpinionDetailsActivity"
+                android:screenOrientation="portrait">
+        </activity>
+        <activity
+                android:name=".ui.navDrawer.restaurantDiscription.RestroDescrpActivity"
+                android:screenOrientation="portrait">
+        </activity>
+        <activity
+                android:name=".ui.navDrawer.dishDescription.RestoRatingActivity"
+                android:screenOrientation="portrait">
+        </activity>
+        <activity
+                android:name=".ui.navDrawer.dishDescription.MealRatingActivity"
+                android:screenOrientation="portrait">
+        </activity>
+        <activity
+                android:name=".ui.navDrawer.dishDescription.DishDescriptionActivity"
+                android:screenOrientation="portrait">
+        </activity>
+        <activity
+                android:name=".ui.navDrawer.friendInfo.FriendInfoActivity"
+                android:screenOrientation="portrait">
+        </activity>
+        <activity
+                android:name=".ui.navDrawer.settings.activity.SentRequestActivity"
+                android:screenOrientation="portrait">
+        </activity>
+        <activity
+                android:name=".ui.navDrawer.settings.activity.ReceivedRequestActivity"
+                android:screenOrientation="portrait">
+        </activity>
+        <activity
+                android:name=".ui.navDrawer.settings.activity.DislikeActivity"
+                android:screenOrientation="portrait">
+        </activity>
+        <activity
+                android:name=".ui.navDrawer.settings.activity.LikeActivity"
+                android:screenOrientation="portrait">
+        </activity>
+        <activity
+                android:name=".ui.navDrawer.activities.ContactActivity"
+                android:screenOrientation="portrait">
+        </activity>
+        <activity
+                android:name=".ui.navDrawer.activities.ChangePasswordActivity"
+                android:screenOrientation="portrait">
+        </activity>
+        <activity
+                android:name=".ui.navDrawer.activities.MyInformationActivity"
+                android:screenOrientation="portrait">
+        </activity>
+        <activity
+                android:name=".ui.navDrawer.activities.MyProfileActivity"
+                android:screenOrientation="portrait">
+        </activity>
+        <activity
+                android:name=".ui.home.HomeActivity"
+                android:hardwareAccelerated="true"
+                android:screenOrientation="portrait"
+                android:theme="@style/AppTheme.NoActionBar">
+
+            <!--
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
+
+                <category android:name="android.intent.category.LAUNCHER"/>
+            </intent-filter>
+            -->
+        </activity>
+        <activity
+                android:name=".ui.ForgotActivity"
+                android:screenOrientation="portrait">
+        </activity>
+        <activity
+                android:name=".ui.login.LoginActivity"
+                android:screenOrientation="portrait">
+        </activity>
+        <activity
+                android:name=".ui.WebViewActivity"
+                android:screenOrientation="portrait">
+        </activity>
+        <activity
+                android:name=".ui.signup.SignupActivity"
+                android:screenOrientation="portrait">
+        </activity>
+        <activity
+                android:name=".ui.language.LanguageActivity"
+                android:screenOrientation="portrait">
+        </activity>
+        <activity
+                android:name=".ui.SplashActivity"
+                android:screenOrientation="portrait">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
+
+                <category android:name="android.intent.category.LAUNCHER"/>
+            </intent-filter>
+        </activity>
+        <activity
+                android:name=".walkthrough.WalkThroughActivity"
+                android:screenOrientation="portrait"/>
+        <activity
+                android:name=".ui.navDrawer.checkin.CheckinActivity"
+                android:screenOrientation="portrait"/>
+
+        <meta-data
+                android:name="com.google.android.geo.API_KEY"
+                android:value="AIzaSyBf2Y7qbHzBRic4eJXFCpOlbeSyknV-Mnw"/> <!-- firebase notification -->
+        <meta-data
+                android:name="com.google.firebase.messaging.default_notification_icon"
+                android:resource="@drawable/ic_notify"/>
+
+        <service android:name=".firebase.MyFirebaseMessagingService">
+            <intent-filter>
+                <action android:name="com.google.firebase.MESSAGING_EVENT"/>
+            </intent-filter>
+        </service> <!-- facebook integration -->
+        <meta-data
+                android:name="com.facebook.sdk.ApplicationId"
+                android:value="@string/facebook_app_id"/>
+
+        <activity
+                android:name="com.facebook.FacebookActivity"
+                android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"
+                android:label="@string/app_name"/>
+        <activity
+                android:name="com.facebook.CustomTabActivity"
+                android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW"/>
+
+                <category android:name="android.intent.category.DEFAULT"/>
+                <category android:name="android.intent.category.BROWSABLE"/>
+
+                <data android:scheme="@string/fb_login_protocol_scheme"/>
+            </intent-filter>
+        </activity>
+    </application>
+
+</manifest>
