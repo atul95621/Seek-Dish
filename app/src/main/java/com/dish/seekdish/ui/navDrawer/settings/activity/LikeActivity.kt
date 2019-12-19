@@ -38,10 +38,9 @@ class LikeActivity : BaseActivity() {
     internal var arrayList = ArrayList<Data_Liked>()
 
     var sessionManager: SessionManager? = null;
-
     var likeVM: LikeVM? = null
 
-    var pageNumber: Int = 1
+//    var pageNumber: Int = 1
 
     private var isLoading: Boolean = false
     private var isLastPage: Boolean = false
@@ -52,7 +51,6 @@ class LikeActivity : BaseActivity() {
     companion object {
         var savedIngredients = ""
         var pageNumber: Int = 1
-
 
     }
 
@@ -67,7 +65,7 @@ class LikeActivity : BaseActivity() {
         likeVM = ViewModelProviders.of(this).get(LikeVM::class.java)
         sessionManager = SessionManager(this)
 
-        Global.likeSavedArraylist.clear()
+        Global.likedItemsSet.clear()
 
         //hitting api
         getLikedIngre(pageNumber)
@@ -76,8 +74,6 @@ class LikeActivity : BaseActivity() {
         getLikedResponseObserver()
         postSavedLikedResponseObserver()
         getSearchLikedResponseObserver()
-
-
 
 
         recyclerView = findViewById(R.id.rvLikeActivity) as RecyclerView
@@ -144,17 +140,13 @@ class LikeActivity : BaseActivity() {
 
                     Log.e("textWatcher", "entered else scope")
 
-                    /*  arrayList.clear()
-                      adapter?.notifyDataSetChanged()*/
-
-
-                    /* arrayList.clear()
-                     adapter = LikeAdapter(this@LikeActivity, arrayList)
-                     recyclerView!!.adapter = adapter*/
-
                     flagSearch = false
+
+                    adapter?.clearLikedList()
                     pageNumber = 1
-                    getLikedIngre(pageNumber)
+
+                    // hitting api when the text is cleared from search
+                    getLikedIngre(1)
 
                 }
             }
@@ -169,34 +161,20 @@ class LikeActivity : BaseActivity() {
 
         tvAdd.setOnClickListener()
         {
-            if (arrayList.size != null && arrayList.size > 0) {
-//                var selectedIngreId: String = ""
-                var arrayListTrue = ArrayList<String>()
-                for (items in arrayList) {
-                    if (items.checkForLike == true) {
-                        arrayListTrue.add(items.id.toString())
-                    }
-                }
+            savedIngredients = join1(",", Global.likedItemsSet)
+            Log.e("LikedCommaSepSearch", savedIngredients)
 
 
-                val hashSet = HashSet<String>()
-                hashSet.addAll(Global.likeSavedArraylist)
-                Global.likeSavedArraylist.clear()
-                Global.likeSavedArraylist.addAll(hashSet)
-                savedIngredients = join1(",", Global.likeSavedArraylist)
-                Log.e("LikedCommaSepSearch", savedIngredients)
-
-
-                     if (savedIngredients != null && savedIngredients != "null" && savedIngredients != "") {
-                         //hitiing save api
-                         likeVM?.doSaveLikedIngredients(
-                             sessionManager?.getValue(SessionManager.USER_ID).toString(),
-                             savedIngredients
-                         )
-                     } else {
-                         showSnackBar("Please select atleast one ingredient.")
-                     }
+            if (savedIngredients != null && savedIngredients != "null" && savedIngredients != "") {
+                //hitiing save api
+                likeVM?.doSaveLikedIngredients(
+                    sessionManager?.getValue(SessionManager.USER_ID).toString(),
+                    savedIngredients
+                )
+            } else {
+                showSnackBar("Please select atleast one ingredient.")
             }
+
         }
 
     }
@@ -204,7 +182,7 @@ class LikeActivity : BaseActivity() {
 
     private fun getLikedIngre(page: Int) {
 
-        Log.e("loadMoreItems", "entered getLikedIngre ")
+        Log.e("loadMoreItems", "entered getLikedIngre " + "current page no is:" + page)
 
 
         // hitting api
@@ -243,34 +221,27 @@ class LikeActivity : BaseActivity() {
 
                     var arrySize = arrayList.size
 
-//                    resultAction(response.data)
+/*IMPORTANT:
+* if page no is 1, we hit the resultAction mehtod indivisually coz it was not working, if only work for page no.1
+* else  is used for page that are not equal to 1, means above 1.
+* */
 
-
-                    // this does not make 2 copies of item in recyclerview...
-                    if (layoutManager.findLastCompletelyVisibleItemPosition() ==
-                        adapter?.getItemCount()?.minus(1)
-                    ) {
-                        // loading new items...
+                    if (pageNumber == 1) {
+                        adapter?.clearLikedList()
+                        Log.e("TestingLike", "entered in for 1st row")
                         resultAction(response.data)
+                    } else {
+                        // this does not make 2 copies of item in recyclerview...
+                        if (layoutManager.findLastCompletelyVisibleItemPosition() ==
+                            adapter?.getItemCount()?.minus(1)
+                        ) {
 
+                            Log.e("TestingLike", "entered in last row")
+
+                            // loading new items...
+                            resultAction(response.data)
+                        }
                     }
-
-                    /*     if (response.data != null) {
-
-                             arrayList = response.data
-
-                             adapter = LikeAdapter(this, arrayList)
-                             recyclerView!!.adapter = adapter
-
-                             *//*    Log.e("data to bind", "" + response.data.toString())
-                            if (response.data.size == 0) {
-                                isLastPage = true
-                            } else {
-                                *//**//* var pos:Int= adapter?.itemCount?.minus(2)!!
-                             recyclerView?.scrollToPosition(pos)*//**//*
-                            pageNumber = pageNumber + 1
-                        }*//*
-                    }*/
 
 
                 }
@@ -301,19 +272,8 @@ class LikeActivity : BaseActivity() {
 
                 Log.e("rspgetsearchLikedStat", response.status.toString())
 
-                /*   var arrySize = arrayList.size
-                   Log.e("searchSize", "" + arrySize)*/
-
                 if (response.status == 1) {
 
-
-                    /*  // this does not make 2 copies of item in recyclerview...
-                      if (layoutManager.findLastCompletelyVisibleItemPosition() ==
-                          adapter?.getItemCount()?.minus(1)
-                      ) {
-                          // loading new items...
-                          resultAction(response.data)
-                      }*/
 
                     if (response.data.size != 0) {
 
@@ -342,22 +302,20 @@ class LikeActivity : BaseActivity() {
 
 
     fun resultAction(data: ArrayList<Data_Liked>) {
-        Log.e("data came", "" + data.toString())
+        Log.e("dataCame", "" + data.toString())
 
         progressBar.setVisibility(View.INVISIBLE)
         isLoading = false
         if (data != null) {
             adapter?.addItems(data)
 
-            Log.e("data to bind", "" + data.toString())
+            Log.e("dataBind", "" + data.toString())
             if (data.size == 0) {
                 isLastPage = true
             } else {
-                /* var pos:Int= adapter?.itemCount?.minus(2)!!
-                 recyclerView?.scrollToPosition(pos)*/
+                Log.e("pgNumber_current", "" + pageNumber)
                 pageNumber = pageNumber + 1
 
-                Log.e("pgNumber", "" + pageNumber)
             }
         }
     }
@@ -389,13 +347,18 @@ class LikeActivity : BaseActivity() {
 
             } else {
 
-
                 showSnackBar("OOps! Error Occured.")
-
                 Log.e("rspsaveLikedError", "else error")
 
             }
         })
+    }
+
+
+    // re fining the page number to 1 because its static and should be started from 1 when user comes on screen
+    override fun onStop() {
+        super.onStop()
+        pageNumber = 1
     }
 
 

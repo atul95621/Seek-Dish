@@ -2,7 +2,6 @@ package com.dish.seekdish.ui.navDrawer.restaurants.adapter
 
 import android.content.Context
 import android.content.Intent
-import android.provider.ContactsContract
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -14,10 +13,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.dish.seekdish.R
 import com.dish.seekdish.custom.GlideApp
 import com.dish.seekdish.ui.home.HomeActivity
-import com.dish.seekdish.ui.navDrawer.dishDescription.DishDescriptionActivity
 import com.dish.seekdish.ui.navDrawer.restaurantDiscription.RestroDescrpActivity
 import com.dish.seekdish.ui.navDrawer.restaurants.dataClass.Data_Time_Restro
-import com.dish.seekdish.ui.navDrawer.restaurants.dataClass.TimeRestroDataClass
 import com.willy.ratingbar.ScaleRatingBar
 import java.util.ArrayList
 
@@ -62,13 +59,13 @@ class TimeRestroAdapter(
         holder.frameTasteDish.setOnClickListener()
         {
             val intent = Intent(homeActivity, RestroDescrpActivity::class.java)
+            intent.putExtra("RESTAURANT_ID",restroTimeModel.id.toString())
             homeActivity.startActivity(intent)
         }
     }
 
 
     override fun getItemCount(): Int {
-
         return arrayList.size
     }
 

@@ -50,12 +50,30 @@
     </LinearLayout>
 
 
-    <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rvTasteFrag"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:scrollbars="vertical"
-            tools:layout_editor_absoluteX="0dp"
-            tools:layout_editor_absoluteY="0dp"/>
+
+
+    <FrameLayout android:layout_width="match_parent" android:layout_height="match_parent">
+
+
+        <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rvFavList"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:scrollbars="vertical"
+                tools:layout_editor_absoluteX="0dp"
+                tools:layout_editor_absoluteY="0dp"/>
+        <TextView android:layout_width="match_parent"
+                  android:visibility="invisible"
+                  android:id="@+id/tvFavAlert"
+                  android:layout_gravity="center"
+                  android:gravity="center"
+                  android:fontFamily="@font/assistantregular"
+                  android:lineSpacingExtra="2dp"
+                  android:paddingStart="30dp"
+                  android:paddingEnd="30dp"
+                  android:layout_height="match_parent"
+                  android:text="@string/no_fav_list"/>
+    </FrameLayout>
+
 
 </LinearLayout>

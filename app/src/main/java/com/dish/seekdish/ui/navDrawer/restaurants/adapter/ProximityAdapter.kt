@@ -10,7 +10,6 @@ import android.widget.FrameLayout
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import com.bumptech.glide.Glide
 import com.dish.seekdish.R
 import com.dish.seekdish.custom.GlideApp
 import com.dish.seekdish.ui.home.HomeActivity
@@ -62,6 +61,7 @@ class ProximityAdapter(
         holder.frameTasteDish.setOnClickListener()
         {
             val intent = Intent(homeActivity, RestroDescrpActivity::class.java)
+            intent.putExtra("RESTAURANT_ID",proxiModel.id.toString())
             homeActivity.startActivity(intent)
         }
     }

@@ -9,17 +9,20 @@ import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.dish.seekdish.R
 import com.dish.seekdish.ui.navDrawer.activities.MyInformationActivity
 import com.dish.seekdish.ui.navDrawer.friendInfo.FriendInfoActivity
-import com.dish.seekdish.ui.navDrawer.settings.dataModel.SentRequestDataClass
+import com.dish.seekdish.ui.navDrawer.settings.activity.SentRequestActivity
+import com.dish.seekdish.ui.navDrawer.settings.dataModel.Data_Req
 import java.util.ArrayList
 
 class SentRequestAdapter(
-    arrayList: ArrayList<SentRequestDataClass>
+    arrayList: ArrayList<Data_Req>,
+    var sentRequestActivity: SentRequestActivity
 ) :
     RecyclerView.Adapter<SentRequestAdapter.RecyclerViewHolder>() {
-    internal var arrayList = ArrayList<SentRequestDataClass>()
+    internal var arrayList = ArrayList<Data_Req>()
     lateinit var context: Context
 
     init {
@@ -28,7 +31,8 @@ class SentRequestAdapter(
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerViewHolder {
-        val view = LayoutInflater.from(parent.context).inflate(R.layout.item_layout_sent_req, parent, false)
+        val view = LayoutInflater.from(parent.context)
+            .inflate(R.layout.item_layout_sent_req, parent, false)
         return RecyclerViewHolder(view)
     }
 
@@ -36,9 +40,10 @@ class SentRequestAdapter(
         val followingDataClass = arrayList[position]
 
         // getting all vales and storing in val...
-        var imgFriend: String = followingDataClass.friendImageURL.toString()
-//        Glide.with(this).load(imgFriend).apply(options).into(holder.imgFoodImage);
-        holder.tvFriendName.text = followingDataClass.friendName
+        var imageUrl: String = followingDataClass.user_image
+        Glide.with(sentRequestActivity).load(imageUrl)
+            .into(holder.imgFriend);//        Glide.with(this).load(imgFriend).apply(options).into(holder.imgFoodImage);
+        holder.tvFriendName.text = followingDataClass.username
         holder.imgFriend.setOnClickListener()
         {
             val intent = Intent(context, MyInformationActivity::class.java)

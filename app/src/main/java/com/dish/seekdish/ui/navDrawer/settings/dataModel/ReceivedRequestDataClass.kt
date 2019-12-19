@@ -1,7 +1,24 @@
 package com.dish.seekdish.ui.navDrawer.settings.dataModel
 
+
 data class ReceivedRequestDataClass(
-
-    var friendImageURL: String? = null, var friendName: String? = null
-
+    val `data`: ArrayList<Data_Req>,
+    val status: Int
 )
+
+data class Data_Req(
+    val phone: String,
+    val user_id: Int,
+    val user_image: String,
+    val username: String
+)
+
+data class CancelReModel(
+    val `data`: Cancel_Req,
+    val status: Int
+)
+
+data class Cancel_Req(
+    val message: String
+)
+

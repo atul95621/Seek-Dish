@@ -1,18 +1,22 @@
 package com.dish.seekdish.ui.navDrawer.dishDescription
 
 import android.app.ActionBar
+import android.app.Activity
 import android.app.Dialog
 import android.content.Context
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.viewpager.widget.ViewPager
 import com.dish.seekdish.ui.navDrawer.dishDescription.adapter.DishDescpAdapter
 import com.google.android.material.tabs.TabLayout
 import kotlinx.android.synthetic.main.activity_dish_description.*
 import android.content.Intent
+import android.graphics.Bitmap
+import android.graphics.BitmapFactory
 import android.graphics.Color
+import android.graphics.Shader
 import android.graphics.drawable.ColorDrawable
 import android.net.Uri
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -21,15 +25,40 @@ import android.widget.Button
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProviders
 import androidx.viewpager.widget.PagerAdapter
+import com.dish.seekdish.Constants
 import com.dish.seekdish.R
+import com.dish.seekdish.custom.GlideApp
 import com.dish.seekdish.custom.PagerContainer
+import com.dish.seekdish.ui.navDrawer.dishDescription.VM.DishDescriptionVM
+import com.dish.seekdish.ui.navDrawer.dishDescription.model.Ingredients
+import com.dish.seekdish.ui.navDrawer.dishDescription.model.Meals
 import com.dish.seekdish.ui.navDrawer.invitation.InvitationActivity
-import com.dish.seekdish.walkthrough.WalkThroughActivity
+import com.dish.seekdish.util.BaseActivity
+import com.dish.seekdish.util.SessionManager
+import com.facebook.CallbackManager
+import com.facebook.FacebookCallback
+import com.facebook.FacebookException
+import com.facebook.FacebookSdk
+import com.facebook.share.Sharer
+import com.facebook.share.model.ShareLinkContent
+import com.facebook.share.model.ShareLinkContent.*
+import com.facebook.share.widget.ShareDialog
+import com.facebook.share.widget.ShareDialog.canShow
+import com.twitter.sdk.android.core.*
+import com.twitter.sdk.android.core.identity.TwitterAuthClient
+import com.twitter.sdk.android.core.models.Tweet
 import de.hdodenhof.circleimageview.CircleImageView
+import io.reactivex.android.schedulers.AndroidSchedulers
+import java.io.IOException
+import java.io.Serializable
+import java.net.URL
+import kotlin.Result
 
 
-class DishDescriptionActivity : AppCompatActivity() {
+class DishDescriptionActivity : BaseActivity(), Serializable {
     lateinit var tabLayout: TabLayout
     internal lateinit var viewPager: ViewPager
     internal lateinit var adapter: DishDescpAdapter
@@ -39,27 +68,60 @@ class DishDescriptionActivity : AppCompatActivity() {
     internal lateinit var pager: ViewPager
     internal lateinit var adapterPager: PagerAdapter
 
+    var dishDescriptionVM: DishDescriptionVM? = null
+    var sessionManager: SessionManager? = null
 
-    internal  var mResources = intArrayOf(
-        R.drawable.ic_foodex,
-        R.drawable.ic_pasta,
-        R.drawable.ic_foodimg,
-        R.drawable.ic_foodex,
-        R.drawable.ic_pasta,
-        R.drawable.ic_foodimg
-    )
+    var meal_id: String? = null
+    var restro_id: String? = null
+    var latitude: String? = null
+    var longitude: String? = null
+    var dishInfoDetails: Meals? = null
+    var ingredientSearilize: Ingredients? = null
+    private var twitterAuthClient: TwitterAuthClient? = null
+
+
+//    val mResources: ArrayList<String> = arrayListOf<String>()
+
+    val mResources: HashSet<String> = HashSet<String>()
+
+    internal lateinit var callbackManager: CallbackManager
+
+    lateinit var shareDialog: ShareDialog
+    lateinit var actionDialog: Dialog
+    var imageUrl: String = ""
+//   lateinit var messageDialog :Dialog
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_dish_description)
 
-        //for swipe images on top
-        initializeviews()
+        Log.e("methodIn", "onCreate")
+        mResources.clear()
+
+        sessionManager = SessionManager(this)
+        dishDescriptionVM = ViewModelProviders.of(this).get(DishDescriptionVM::class.java)
+
+        getIntents()
+
+
+
+
+        if (meal_id != null && restro_id != null) {
+            getMealDetials(meal_id.toString(), restro_id.toString())
+
+        }
+
+        getDishDetailsObserver()
+        getAddTODOObserver()
+        getAddFavoriteObserver()
+        clickListner()
 
 
         // setting up tabLayout
         this.tabLayout = findViewById(R.id.tabLayoutDishActivity)
+        mContainer = findViewById(R.id.pager_container) as PagerContainer
+
 
         tabLayout.addTab(tabLayout.newTab().setText("Ingredients"))
         tabLayout.addTab(tabLayout.newTab().setText("Opinion"))
@@ -68,12 +130,8 @@ class DishDescriptionActivity : AppCompatActivity() {
 //        //change font
 //        changeTabsFont();
 
+
         viewPager = findViewById(R.id.viewPagerDishActivity) as ViewPager
-        adapter = DishDescpAdapter(this.supportFragmentManager, tabLayout.tabCount)
-
-
-        viewPager.adapter = adapter
-        viewPager.addOnPageChangeListener(TabLayout.TabLayoutOnPageChangeListener(tabLayout))
 
 
 //        tabLayout.setTabTextColors(
@@ -95,15 +153,23 @@ class DishDescriptionActivity : AppCompatActivity() {
             }
         })
 
+    }
+
+    private fun clickListner() {
+
+
         imgGoogleApp.setOnClickListener()
         {
-            val intent = Intent(
-                android.content.Intent.ACTION_VIEW,
-                Uri.parse(
-                    "http://maps.google.com/maps?saddr=" + "&daddr=" + 27.480253 + "," + 74.847381 + "(Event Location)"
+
+            if (latitude != null && longitude != null) {
+                val intent = Intent(
+                    android.content.Intent.ACTION_VIEW,
+                    Uri.parse(
+                        "http://maps.google.com/maps?saddr=" + "&daddr=" + latitude + "," + longitude + "(Event Location)"
+                    )
                 )
-            )
-            startActivity(intent)
+                startActivity(intent)
+            }
         }
 
         tvActions.setOnClickListener()
@@ -119,7 +185,12 @@ class DishDescriptionActivity : AppCompatActivity() {
 
         imgRatings.setOnClickListener()
         {
+
             val intent = Intent(this@DishDescriptionActivity, MealRatingActivity::class.java)
+            intent.putExtra("MEALID", meal_id)
+            intent.putExtra("RESTROID", restro_id)
+            intent.putExtra("IMAGE", imageUrl)
+
             startActivity(intent)
         }
 
@@ -130,39 +201,198 @@ class DishDescriptionActivity : AppCompatActivity() {
         }
     }
 
-    private fun onShare() {
-        val dialog = Dialog(this)
-        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
-        dialog.setCancelable(false)
-        dialog.setContentView(R.layout.dialog_share_dish)
+    private fun getIntents() {
+        meal_id = intent.getStringExtra("MEAL_ID")
+        restro_id = intent.getStringExtra("RESTAURANT_ID")
+        var refersh = intent.getStringExtra("REFRESH_ACTIVITY")
 
-        val tvShare = dialog.findViewById<TextView>(R.id.tvShare)
-        val btnCancel = dialog.findViewById<Button>(R.id.btnCancel)
-        val tvAddtodo = dialog.findViewById<TextView>(R.id.tvAddtodo)
-        val tvAddfav = dialog.findViewById<TextView>(R.id.tvAddfav)
-        val tvViewDetail = dialog.findViewById<TextView>(R.id.tvViewDetail)
-        val tvShowMap = dialog.findViewById<TextView>(R.id.tvShowMap)
+    }
+
+    fun getMealDetials(mealId: String, restroId: String) {
+        dishDescriptionVM?.doGetMealDetails(
+            sessionManager?.getValue(SessionManager.USER_ID).toString(),
+            mealId,
+            restroId,
+            Constants.Longitude,
+            Constants.Latitude
+        )
+    }
+
+    fun getDishDetailsObserver() {
+
+        //observe
+        dishDescriptionVM!!.isLoadingObservable().observeOn(AndroidSchedulers.mainThread()).subscribe {
+            setIsLoading(it)
+        }
+
+        dishDescriptionVM!!.getDishDetailLiveData.observe(this, Observer { response ->
+            if (response != null) {
+
+                Log.e("rspGetDishDetails", response.status.toString())
+
+                if (response.status == 1) {
+
+                    tvMealName.setText(response.data.meals.meal_name)
+                    tvRestaurantName.setText(response.data.meals.restro_name)
+                    ratingStarMeal.rating = response.data.meals.meal_avg_rating.toFloat()
+                    ratingEuroMeal.rating = response.data.meals.budget.toFloat()
+
+                    // feeding the image to the list
+                    var imageMeal = response.data.meals.meal_image
+                    imageUrl=imageMeal
+                    mResources.add(imageMeal)
+
+                    latitude = response.data.meals.latitude
+                    longitude = response.data.meals.longitude
+
+                    // passing the varibale to DishDeatailActivity with SEARIALIZABLE...
+                    dishInfoDetails = response.data.meals
+                    ingredientSearilize = response.data.Ingredients
+                    // setting up the model classs for dish onClick info...
+                    Log.e("ResourceSizePrev", "" + mResources.size)
+
+                    //for swipe images on top
+                    initializeviews()
+
+                    //++++++++++++++++++++++++ setting the adapter after the responses come in...
+                    adapter = DishDescpAdapter(this.supportFragmentManager, tabLayout.tabCount, response)
+                    viewPager.adapter = adapter
+                    viewPager.addOnPageChangeListener(TabLayout.TabLayoutOnPageChangeListener(tabLayout))
+                }
+
+            } else {
+
+
+                showSnackBar("OOps! Error Occured.")
+
+                Log.e("rspGetDishDetailsFail", "else error")
+
+            }
+        })
+    }
+
+
+    fun getAddTODOObserver() {
+
+        //observe
+        dishDescriptionVM!!.isLoadingObservable().observeOn(AndroidSchedulers.mainThread()).subscribe {
+            setIsLoading(it)
+        }
+
+        dishDescriptionVM!!.getAddTodoLiveData.observe(this, Observer { response ->
+            if (response != null) {
+
+                Log.e("rspGetaddtodoDetails", response.status.toString())
+
+                if (response.status == 1) {
+
+//                    onSendClick(response.data.message)
+                    actionDialog.dismiss()
+                    showSnackBar(response.data.message)
+
+                }
+
+            } else {
+
+
+                showSnackBar("OOps! Error Occured.")
+
+                Log.e("rspGetaddtodoFail", "else error")
+
+            }
+        })
+    }
+
+
+    fun getAddFavoriteObserver() {
+
+        //observe
+        dishDescriptionVM!!.isLoadingObservable().observeOn(AndroidSchedulers.mainThread()).subscribe {
+            setIsLoading(it)
+        }
+
+        dishDescriptionVM!!.getAddFavouriteLiveData.observe(this, Observer { response ->
+            if (response != null) {
+
+                Log.e("rspGetaddtodoDetails", response.status.toString())
+
+                if (response.status == 1) {
+
+//                    onSendClick(response.data.message)
+                    actionDialog.dismiss()
+                    showSnackBar(response.data.message)
+
+                }
+
+            } else {
+
+
+                showSnackBar("OOps! Error Occured.")
+
+                Log.e("rspGetaddtodoFail", "else error")
+
+            }
+        })
+    }
+
+    private fun onShare() {
+        actionDialog = Dialog(this)
+        actionDialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
+        actionDialog.setCancelable(false)
+        actionDialog.setContentView(R.layout.dialog_share_dish)
+
+        val tvShare = actionDialog.findViewById<TextView>(R.id.tvShare)
+        val btnCancel = actionDialog.findViewById<Button>(R.id.btnCancel)
+        val tvAddtodo = actionDialog.findViewById<TextView>(R.id.tvAddtodo)
+        val tvAddfav = actionDialog.findViewById<TextView>(R.id.tvAddfav)
+        val tvViewDetail = actionDialog.findViewById<TextView>(R.id.tvViewDetail)
+        val tvShowMap = actionDialog.findViewById<TextView>(R.id.tvShowMap)
 
         tvShowMap.setOnClickListener {
-            val intent = Intent(
-                Intent.ACTION_VIEW,
-                Uri.parse(
-                    "http://maps.google.com/maps?saddr=" + "&daddr=" + 27.480253 + "," + 74.847381 + "(Event Location)"
+            if (latitude != null && longitude != null) {
+
+                val intent = Intent(
+                    Intent.ACTION_VIEW,
+                    Uri.parse(
+                        "http://maps.google.com/maps?saddr=" + "&daddr=" + latitude + "," + longitude + "(Event Location)"
+                    )
                 )
-            )
-            startActivity(intent)
+                startActivity(intent)
+                actionDialog.dismiss()
+
+            }
         }
         // button_yes clk
         btnCancel.setOnClickListener {
-            dialog.dismiss()
+            actionDialog.dismiss()
         }
         tvShare.setOnClickListener()
         {
             onShareSocial()
-            dialog.dismiss()
+            actionDialog.dismiss()
         }
 
-        dialog.show()
+        tvAddfav.setOnClickListener()
+        {
+
+            dishDescriptionVM?.getAddFavouritestat(
+                sessionManager?.getValue(SessionManager.USER_ID).toString(),
+                meal_id.toString(),
+                restro_id.toString()
+            )
+        }
+
+
+        tvAddtodo.setOnClickListener()
+        {
+            dishDescriptionVM?.getAddTodostat(
+                sessionManager?.getValue(SessionManager.USER_ID).toString(),
+                meal_id.toString(),
+                restro_id.toString()
+            )
+        }
+
+        actionDialog.show()
 
     }
 
@@ -180,11 +410,13 @@ class DishDescriptionActivity : AppCompatActivity() {
 
         ic_facebk.setOnClickListener()
         {
+            sharePostOnFacebook()
             dialog.dismiss()
         }
 
         imgTwitter.setOnClickListener()
         {
+            shareProductOnTwitter()
             dialog.dismiss()
         }
 
@@ -194,7 +426,6 @@ class DishDescriptionActivity : AppCompatActivity() {
 
     private fun initializeviews() {
 
-        mContainer = findViewById(R.id.pager_container) as PagerContainer
         pager = mContainer.viewPager
         adapterPager = MyPageradapterPager(this)
         pager.adapter = adapterPager
@@ -216,7 +447,8 @@ class DishDescriptionActivity : AppCompatActivity() {
 
     private inner class MyPageradapterPager(internal var mContext: Context) : PagerAdapter() {
         override fun getCount(): Int {
-            return mResources.size        }
+            return mResources.size
+        }
 
         internal var mLayoutInflater: LayoutInflater
 
@@ -237,11 +469,27 @@ class DishDescriptionActivity : AppCompatActivity() {
             profile_image.setOnClickListener()
             {
                 val intent = Intent(this@DishDescriptionActivity, DishDetailActivity::class.java)
+                intent.putExtra("MEAL_SEARIALIZE", dishInfoDetails as Serializable)
+                intent.putExtra("INGREDIENT_SEARIALIZE", ingredientSearilize as Serializable)
                 startActivity(intent)
             }
 
-            imageView.setImageResource(mResources[position])
-            profile_image.setImageResource(mResources[position])
+
+            GlideApp.with(this@DishDescriptionActivity)
+                .load(mResources.elementAt(position))
+                .into(imageView)
+            GlideApp.with(this@DishDescriptionActivity)
+                .load(mResources.elementAt(position))
+                .into(profile_image)
+
+            Log.e("ResourceSize", "" + mResources.size)
+
+
+//            imageView.setImageBitmap(getBitmapFromUrl(mResources[position]))
+//            profile_image.setImageBitmap(getBitmapFromUrl(mResources[position]))
+
+            //            imageView.setImageResource(mResources[position].toInt())
+//            profile_image.setImageResource(mResources[position].toInt())
             container.addView(itemView)
 
             return itemView
@@ -250,6 +498,131 @@ class DishDescriptionActivity : AppCompatActivity() {
         override fun destroyItem(container: ViewGroup, position: Int, `object`: Any) {
             container.removeView(`object` as LinearLayout)
         }
+
+
     }
 
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+
+        if (requestCode == TwitterAuthConfig.DEFAULT_AUTH_REQUEST_CODE) {
+            if (twitterAuthClient != null) {
+                Log.e("TAG", "Twitter post Sharing called")
+                twitterAuthClient?.onActivityResult(requestCode, resultCode, data)
+            }
+        } else {
+            Log.e("TAG", "Facebook post Sharing called")
+            // Use Facebook callback manager here
+            callbackManager.onActivityResult(requestCode, resultCode, data)
+
+        }
+
+
+    }
+
+    private fun sharePostOnFacebook() {
+        // facebook login code
+        callbackManager = CallbackManager.Factory.create()
+        shareDialog = ShareDialog(this)
+        shareDialog.registerCallback(callbackManager, object : FacebookCallback<Sharer.Result> {
+            override fun onSuccess(result: Sharer.Result) {
+                Log.e("TAG", "Facebook Share Success")
+            }
+
+            override fun onCancel() {
+                Log.e("TAG", "Facebook Sharing Cancelled by User")
+            }
+
+            override fun onError(error: FacebookException) {
+                Log.e("TAG", "Facebook Share Success: Error: " + error.getLocalizedMessage())
+            }
+        })
+        if (canShow(ShareLinkContent::class.java)) {
+            val linkContent = ShareLinkContent.Builder()
+                .setQuote("Seekdish")
+                .setContentUrl(Uri.parse("https://www.youtube.com/watch?v=K5KAc5CoCuk"))
+                .build()
+            shareDialog.show(linkContent)
+        }
+    }
+
+    fun shareProductOnTwitter() {
+        val config = TwitterConfig.Builder(this)
+            .logger(DefaultLogger(Log.DEBUG))
+            .twitterAuthConfig(
+                TwitterAuthConfig(
+                    getResources().getString(R.string.CONSUMER_KEY),
+                    getResources().getString(R.string.CONSUMER_SECRET)
+                )
+            )
+            .debug(true)
+            .build()
+
+        Twitter.initialize(config)
+
+        Log.e("TwitterClient1", "" + twitterAuthClient.toString())
+        twitterAuthClient = TwitterAuthClient()
+        val twitterSession = TwitterCore.getInstance().getSessionManager().getActiveSession()
+        if (twitterSession == null) {
+            twitterAuthClient?.authorize(this, object : Callback<TwitterSession>() {
+                override fun success(result: com.twitter.sdk.android.core.Result<TwitterSession>?) {
+                    val twitterSession = result?.data
+                    shareOnTwitter()
+                }
+
+                override fun failure(e: TwitterException) {
+                    Log.e("TAG", "Twitter Error while authorize user " + e.message)
+                }
+            })
+        } else {
+            shareOnTwitter()
+        }
+    }
+
+    private fun shareOnTwitter() {
+        val statusesService = TwitterCore.getInstance().getApiClient().getStatusesService()
+        val tweetCall = statusesService.update("Seekdish:  ", null, false, null, null, null, false, false, null)
+        tweetCall.enqueue(object : Callback<Tweet>() {
+            override fun success(result: com.twitter.sdk.android.core.Result<Tweet>?) {
+                Log.e("TAG", "Twitter Share Success")
+//                logoutTwitter()            }
+            }
+
+            override fun failure(exception: TwitterException) {
+                Log.e("TAG", "Twitter Share Failed with Error: " + exception.getLocalizedMessage())
+            }
+        })
+    }
+
+
+/*    private fun onSendClick(message: String) {
+       messageDialog = Dialog(this)
+        messageDialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
+        messageDialog.setCancelable(false)
+        messageDialog.setContentView(R.layout.dialog_email_verify)
+
+        val textViewDescrp = messageDialog.findViewById<TextView>(R.id.textViewDescrp)
+        val btnAccept = messageDialog.findViewById<Button>(R.id.btnAccept)
+        textViewDescrp.setText(message)
+        // button_yes clk
+        btnAccept.setOnClickListener {
+            messageDialog.dismiss()
+        }
+
+        messageDialog.show()
+
+    }*/
+
+    override fun onNewIntent(intent: Intent?) {
+        super.onNewIntent(intent)
+        Log.e("methodIn", "onNewIntentCalled")
+
+        if (meal_id != null && restro_id != null) {
+            getMealDetials(meal_id.toString(), restro_id.toString())
+            Log.e("methodIn", "hit again")
+
+        }
+    }
 }
+
+

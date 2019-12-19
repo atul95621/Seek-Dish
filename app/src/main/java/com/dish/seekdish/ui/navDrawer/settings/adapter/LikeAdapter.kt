@@ -9,13 +9,8 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.dish.seekdish.R
 import com.dish.seekdish.ui.navDrawer.settings.activity.LikeActivity
-import com.dish.seekdish.ui.navDrawer.settings.dataModel.Data
 import com.dish.seekdish.ui.navDrawer.settings.dataModel.Data_Liked
-import kotlinx.android.synthetic.main.activity_checkin.*
-import java.util.stream.Collectors
 import kotlin.collections.ArrayList
-import android.text.method.TextKeyListener.clear
-import android.widget.CompoundButton
 import com.dish.seekdish.util.Global
 
 
@@ -47,7 +42,7 @@ class LikeAdapter(
         if (friendDataClass.liked == 1) {
             holder.checkBoxLiked.isChecked = true
 
-            Global.likeSavedArraylist.add(likedList[position].id.toString())
+            Global.likedItemsSet.add(likedList[position].id.toString())
 
 //            likedList.get(position).checkForLike = true
             if (friendDataClass.checkForLike == false) {
@@ -91,31 +86,25 @@ class LikeAdapter(
             if (holder.checkBoxLiked.isChecked == true) {
                 Log.e("checkbox", "turned true")
                 likedList.get(position).checkForLike = true
-                Log.e("statLike", " " + likedList.get(position).checkForLike + "psotion" + likedList.get(position).id)
+                Log.e("statLikeif", " " + likedList.get(position).checkForLike +"   "+ "position:  " + likedList.get(position).id+"  name:"+likedList.get(position).name)
                 holder.checkBoxLiked.isChecked = true
-                Global.likeSavedArraylist.add(likedList.get(position).id.toString())
+                Global.likedItemsSet.add(likedList.get(position).id.toString())
             } else {
                 Log.e("checkbox", "turned false")
                 likedList.get(position).checkForLike = false
+                Log.e("statLikeelse", " " + likedList.get(position).checkForLike+"   " + "position:  " + likedList.get(position).id+"  name:"+likedList.get(position).name)
                 holder.checkBoxLiked.isChecked = false
-                Log.e("statLike", " " + likedList.get(position).checkForLike) + position
-                var ingrId = likedList.get(position).id
+                var ingrId = likedList.get(position).id.toString()
 
-                for (i in 0 until Global.likeSavedArraylist.size) {
-                    if (i.equals(ingrId)) {
-                        Global.likeSavedArraylist.removeAt(i)
+                for (i in 0 until Global.likedItemsSet.size) {
+                    if (Global.likedItemsSet.contains(ingrId)) {
+                        Global.likedItemsSet.remove(ingrId)
                     }
                 }
             }
-            if (Global.likeSavedArraylist.size != 0) {
-                for (i in Global.likeSavedArraylist) {
 
-                    if(likedList.get(position).id.equals(i))
-                    Log.e("finalArray", "array values: $i")
-                    holder.checkBoxLiked.isChecked = true
-                    likedList.get(position).checkForLike = true
-                }
-            }
+               Log.e("itemsLiked","  :"+Global.likedItemsSet.toString())
+
         }
 
 
@@ -136,7 +125,7 @@ class LikeAdapter(
 
 
     // clearing the list for searched item
-    fun clearLikedList() {
+     fun clearLikedList() {
         likedList.clear()
         notifyDataSetChanged()
     }
@@ -158,7 +147,7 @@ class LikeAdapter(
         internal var tvFriendName: TextView
 
         init {
-            checkBoxLiked = view.findViewById(R.id.checkBoxLiked) as CheckBox
+            checkBoxLiked = view.findViewById(R.id.checkBoxLike) as CheckBox
             tvFriendName = view.findViewById(R.id.tvFriendName) as TextView
         }
     }

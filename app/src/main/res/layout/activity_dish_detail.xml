@@ -81,7 +81,9 @@
                                   android:layout_height="wrap_content"
                                   android:text="Restaurant"
                                   android:fontFamily="@font/assistantbold"/>
-                        <TextView android:layout_width="match_parent" android:layout_weight="1"
+                        <TextView android:layout_width="match_parent"
+                                  android:id="@+id/tvRestroName"
+                                  android:layout_weight="1"
                                   android:layout_height="wrap_content"
                                   android:textColor="@color/black"
 
@@ -98,7 +100,9 @@
                                   android:layout_height="wrap_content"
                                   android:text="Budget"
                                   android:fontFamily="@font/assistantbold"/>
-                        <TextView android:layout_width="match_parent" android:layout_weight="1"
+                        <TextView android:layout_width="match_parent"
+                                  android:id="@+id/tvBudget"
+                                  android:layout_weight="1"
                                   android:layout_height="wrap_content"
                                   android:textColor="@color/black"
                                   android:text="15-25"/>
@@ -117,10 +121,11 @@
                                   android:layout_height="wrap_content"
                                   android:text="Calories"
                                   android:fontFamily="@font/assistantbold"/>
-                        <TextView android:layout_width="match_parent" android:layout_weight="1"
+                        <TextView android:layout_width="match_parent"
+                                  android:id="@+id/tvCalories"
+                                  android:layout_weight="1"
                                   android:layout_height="wrap_content"
                                   android:textColor="@color/black"
-
                                   android:text="0"/>
                     </LinearLayout>
 
@@ -135,7 +140,9 @@
                                   android:layout_height="wrap_content"
                                   android:text="Number of person"
                                   android:fontFamily="@font/assistantbold"/>
-                        <TextView android:layout_width="match_parent" android:layout_weight="1"
+                        <TextView android:layout_width="match_parent"
+                                  android:id="@+id/tvPerson"
+                                  android:layout_weight="1"
                                   android:layout_height="wrap_content"
                                   android:textColor="@color/black"
                                   android:text="1 people"/>
@@ -154,7 +161,9 @@
                                   android:layout_height="wrap_content"
                                   android:text="Status"
                                   android:fontFamily="@font/assistantbold"/>
-                        <TextView android:layout_width="match_parent" android:layout_weight="1"
+                        <TextView android:layout_width="match_parent"
+                                  android:id="@+id/tvStatus"
+                                  android:layout_weight="1"
                                   android:layout_height="wrap_content"
                                   android:textColor="@color/black"
                                   android:text="ALacarte | House Speciality | Shef Recommemdation"/>
@@ -170,7 +179,9 @@
                                   android:layout_height="wrap_content"
                                   android:text="Speed of Service"
                                   android:fontFamily="@font/assistantbold"/>
-                        <TextView android:layout_width="match_parent" android:layout_weight="1"
+                        <TextView android:layout_width="match_parent"
+                                  android:id="@+id/tvSpeed"
+                                  android:layout_weight="1"
                                   android:layout_height="wrap_content"
                                   android:textColor="@color/black"
                                   android:text="Fast (less than 30 min)"/>
@@ -188,10 +199,92 @@
                                   android:layout_height="wrap_content"
                                   android:text="Prepration Time"
                                   android:fontFamily="@font/assistantbold"/>
-                        <TextView android:layout_width="match_parent" android:layout_weight="1"
+                        <TextView android:layout_width="match_parent"
+                                  android:id="@+id/tvPrepTime"
+                                  android:layout_weight="1"
                                   android:layout_height="wrap_content"
                                   android:textColor="@color/black"
                                   android:text="10 - 20 min"/>
+                    </LinearLayout>
+                    <!-- intolerance-->
+                    <LinearLayout
+                            android:layout_width="match_parent"
+                            android:padding="10dp"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:weightSum="2">
+                        <TextView android:layout_width="match_parent"
+                                  android:layout_weight="1"
+                                  android:textColor="@color/black"
+                                  android:layout_height="wrap_content"
+                                  android:text="Intolerance"
+                                  android:fontFamily="@font/assistantbold"/>
+                        <TextView android:layout_width="match_parent"
+                                  android:id="@+id/tvIntolrence" android:layout_weight="1"
+                                  android:layout_height="wrap_content"
+                                  android:textColor="@color/black"
+                                  android:text="Lactose"/>
+                    </LinearLayout>
+
+                    <!-- tag-->
+                    <LinearLayout
+                            android:background="@color/colorPrimary"
+                            android:layout_width="match_parent"
+                            android:padding="10dp" android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:weightSum="2">
+                        <TextView android:layout_width="match_parent"
+                                  android:layout_weight="1"
+                                  android:textColor="@color/black"
+                                  android:layout_height="wrap_content"
+                                  android:text="Tags"
+                                  android:fontFamily="@font/assistantbold"/>
+                        <TextView android:layout_width="match_parent"
+                                  android:id="@+id/tvTags" android:layout_weight="1"
+                                  android:layout_height="wrap_content"
+                                  android:textColor="@color/black"
+                                  android:text="Lactose"/>
+                    </LinearLayout>
+
+                    <!-- seasionality-->
+                    <LinearLayout
+                            android:layout_width="match_parent"
+                            android:padding="10dp" android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:weightSum="2">
+                        <TextView android:layout_width="match_parent"
+                                  android:layout_weight="1"
+                                  android:textColor="@color/black"
+                                  android:layout_height="wrap_content"
+                                  android:text="Seasonality"
+                                  android:fontFamily="@font/assistantbold"/>
+                        <TextView android:layout_width="match_parent"
+                                  android:id="@+id/tvSeasonlity"
+                                  android:layout_weight="1"
+                                  android:layout_height="wrap_content"
+                                  android:textColor="@color/black"
+                                  android:text="Lactose"/>
+                    </LinearLayout>
+
+                    <!-- type of dish-->
+                    <LinearLayout
+                            android:background="@color/colorPrimary"
+                            android:layout_width="match_parent"
+                            android:padding="10dp" android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:weightSum="2">
+                        <TextView android:layout_width="match_parent"
+                                  android:layout_weight="1"
+                                  android:textColor="@color/black"
+                                  android:layout_height="wrap_content"
+                                  android:text="Type of Dish"
+                                  android:fontFamily="@font/assistantbold"/>
+                        <TextView android:layout_width="match_parent"
+                                  android:id="@+id/tvTypeDish"
+                                  android:layout_weight="1"
+                                  android:layout_height="wrap_content"
+                                  android:textColor="@color/black"
+                                  android:text="Lactose"/>
                     </LinearLayout>
 
                 </LinearLayout>
@@ -211,6 +304,7 @@
                               android:layout_height="wrap_content"
                               android:textColor="@color/black"
                               android:textSize="20sp"
+                              android:id="@+id/tvDishName"
                               android:gravity="center"
                               android:layout_marginTop="15dp"
                               android:fontFamily="@font/assistantbold"
@@ -227,6 +321,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 app:srb_rating="4"
+                                android:id="@+id/starRating"
                                 android:layout_gravity="center"
                                 android:gravity="center"
                                 app:srb_starPadding="5dp"
@@ -246,6 +341,7 @@
                                 android:layout_height="wrap_content"
                                 app:srb_rating="2"
                                 android:layout_gravity="center"
+                                android:id="@+id/euroRating"
                                 android:gravity="center"
                                 app:srb_starPadding="5dp"
                                 app:srb_starWidth="20dp"

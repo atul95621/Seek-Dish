@@ -9,12 +9,13 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 
 import com.dish.seekdish.R
+import com.dish.seekdish.ui.navDrawer.restaurantDiscription.RestroDescpModel
 import com.dish.seekdish.ui.navDrawer.restaurantDiscription.RestroDescrpActivity
 
 import java.util.ArrayList
 
 
-class RestroSimilarFragment : Fragment() {
+class RestroSimilarFragment(var response: RestroDescpModel) : Fragment() {
     private var recyclerView: RecyclerView? = null
     private var adapter: RestroSimilarAdapter? = null
     internal lateinit var layoutManager: RecyclerView.LayoutManager
@@ -35,8 +36,13 @@ class RestroSimilarFragment : Fragment() {
         layoutManager = LinearLayoutManager(context)
         recyclerView!!.setLayoutManager(layoutManager)
 
-        for (i in 0..6) {
-            val restroSimilarDataClass = RestroSimilarDataClass("Biezer Pizza Test", "Avenue De Presendient Wilson 34500 Biezer");
+        for (i in 0 until response.data.restaurant.similar_restaurants.size) {
+
+            var title=response.data.restaurant.similar_restaurants[i].name
+            var address=response.data.restaurant.similar_restaurants[i].street
+            var image=response.data.restaurant.similar_restaurants[i].restaurant_image
+
+            val restroSimilarDataClass = RestroSimilarDataClass(title,address,image);
             arrayList.add(restroSimilarDataClass)
         }
 

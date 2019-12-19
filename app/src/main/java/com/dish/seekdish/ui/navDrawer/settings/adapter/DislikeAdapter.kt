@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.dish.seekdish.R
 import com.dish.seekdish.ui.navDrawer.settings.activity.DislikeActivity
 import com.dish.seekdish.ui.navDrawer.settings.dataModel.Data_Disliked
+import com.dish.seekdish.util.Global
 import java.util.ArrayList
 
 class DislikeAdapter(
@@ -52,6 +53,8 @@ class DislikeAdapter(
 
         if (friendDataClass.liked == 0) {
             holder.checkBoxLiked.isChecked = true
+
+            Global.dislikedItemsSet.add(disLikedList[position].id.toString())
 
 //            disLikedList.get(position).checkForLike = true
             if (friendDataClass.checkForDisLike == false) {
@@ -100,11 +103,23 @@ class DislikeAdapter(
                     " " + disLikedList.get(position).checkForDisLike + "psotion" + disLikedList.get(position).id
                 )
                 holder.checkBoxLiked.isChecked = true
+                Global.dislikedItemsSet.add(disLikedList.get(position).id.toString())
+
             } else {
                 Log.e("checkbox", "turned false")
                 disLikedList.get(position).checkForDisLike = false
                 holder.checkBoxLiked.isChecked = false
                 Log.e("statLike", " " + disLikedList.get(position).checkForDisLike) + position
+                var ingrId = disLikedList.get(position).id.toString()
+
+                for (i in 0 until Global.dislikedItemsSet.size) {
+                    if (Global.dislikedItemsSet.contains(ingrId)) {
+                        Global.dislikedItemsSet.remove(ingrId)
+                    }
+                }
+
+                Log.e("itemsDisliked","  :"+Global.dislikedItemsSet.toString())
+
             }
         }
     }
@@ -125,6 +140,12 @@ class DislikeAdapter(
         Log.e("size of likelist after", "" + disLikedList.size)
 
         dislikeActivity.runOnUiThread(Runnable { dislikeActivity.adapter?.notifyDataSetChanged() })
+    }
+
+    // clearing the list for searched item
+    fun clearLikedList() {
+        disLikedList.clear()
+        notifyDataSetChanged()
     }
 
 

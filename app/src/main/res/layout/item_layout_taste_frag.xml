@@ -111,8 +111,6 @@
                         app:srb_drawableEmpty="@drawable/ic_empty_euro"
                         app:srb_drawableFilled="@drawable/ic_filled_euro">
                 </com.willy.ratingbar.ScaleRatingBar>
-
-
             </LinearLayout>
 
 

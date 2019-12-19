@@ -77,6 +77,7 @@
                         app:civ_border_width="1dp"/>
                 <TextView android:layout_width="wrap_content"
                           android:text="Couscous"
+                          android:id="@+id/tvMealName"
                           android:textSize="16sp"
                           android:textColor="@color/black"
                           android:layout_gravity="center"
@@ -86,6 +87,7 @@
                           android:layout_gravity="center"
                           android:textColor="@color/black"
                           android:textSize="16sp"
+                          android:id="@+id/tvRestaurantName"
                           android:layout_marginTop="10dp"
                           android:text="Biezer Pizza Test"
                           android:layout_height="wrap_content"
@@ -100,7 +102,7 @@
 
                     <com.willy.ratingbar.ScaleRatingBar
                             xmlns:app="http://schemas.android.com/apk/res-auto"
-                            android:id="@+id/simpleRatingBar"
+                            android:id="@+id/ratingStarMeal"
                             android:layout_marginStart="5dp"
                             android:layout_width="wrap_content"
                             android:layout_height="match_parent"
@@ -119,7 +121,7 @@
                     </com.willy.ratingbar.ScaleRatingBar>
                     <com.willy.ratingbar.ScaleRatingBar
                             xmlns:app="http://schemas.android.com/apk/res-auto"
-                            android:id="@+id/euroSignRatingBar"
+                            android:id="@+id/ratingEuroMeal"
                             android:layout_marginStart="30dp"
                             android:layout_width="wrap_content"
                             android:layout_height="match_parent"

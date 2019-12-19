@@ -64,6 +64,8 @@ class TimeFragAdapter(
         holder.frameTimeDish.setOnClickListener()
         {
             val intent = Intent(context, DishDescriptionActivity::class.java)
+            intent.putExtra("MEAL_ID",timeFragDataClass.meal_id.toString())
+            intent.putExtra("RESTAURANT_ID",timeFragDataClass.restro_id.toString())
             context.startActivity(intent)
         }
     }

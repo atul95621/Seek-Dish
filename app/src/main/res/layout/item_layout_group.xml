@@ -15,6 +15,7 @@
             android:layout_marginBottom="5dp"
             android:id="@+id/heading"
             android:layout_width="wrap_content"
+            android:fontFamily="@font/assistantregular"
             android:layout_height="match_parent"
             android:gravity="center_vertical"
             android:textSize="18sp"

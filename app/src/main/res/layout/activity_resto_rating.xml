@@ -48,7 +48,9 @@
 
     <FrameLayout android:layout_width="match_parent"
                  android:layout_height="wrap_content">
-        <ImageView android:layout_width="match_parent" android:layout_height="match_parent"
+        <ImageView android:layout_width="match_parent"
+                   android:layout_height="match_parent"
+                   android:id="@+id/imgMealImage"
                    android:src="@drawable/ic_foodex"
                    android:scaleType="centerCrop"/>
         <View android:layout_width="match_parent"
@@ -69,11 +71,10 @@
 
                 <de.hdodenhof.circleimageview.CircleImageView
                         xmlns:app="http://schemas.android.com/apk/res-auto"
-                        android:id="@+id/profile_image"
+                        android:id="@+id/img_cir_meal_image"
                         android:layout_width="140dp"
                         android:layout_height="140dp"
                         android:layout_gravity="center"
-
                         android:layout_margin="20dp"
                         android:src="@drawable/ic_foodex"
                         app:civ_border_color="#ffffff"
@@ -92,7 +93,7 @@
                       android:textColor="@color/black"/>
             <com.willy.ratingbar.ScaleRatingBar
                     xmlns:app="http://schemas.android.com/apk/res-auto"
-                    android:id="@+id/simpleRatingBar"
+                    android:id="@+id/serviceRating"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     app:srb_rating="0"
@@ -122,6 +123,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     app:srb_rating="0"
+                    android:id="@+id/decorRating"
                     android:layout_gravity="center"
                     android:gravity="center"
                     app:srb_starPadding="10dp"
@@ -149,6 +151,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     app:srb_rating="0"
+                    android:id="@+id/cleanessRating"
                     android:layout_gravity="center"
                     android:gravity="center"
                     app:srb_starPadding="10dp"
@@ -177,6 +180,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     app:srb_rating="0"
+                    android:id="@+id/ambienceRating"
                     android:layout_gravity="center"
                     android:gravity="center"
                     app:srb_starPadding="10dp"

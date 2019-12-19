@@ -21,6 +21,7 @@
                 android:scaleType="fitXY"
                 android:src="@drawable/ic_white_shadow"/>
         <ImageView android:layout_width="30dp"
+                   android:id="@+id/imgDelete"
                    android:layout_height="30dp"
                    android:layout_gravity="end"
                    android:layout_marginTop="20dp"
@@ -30,9 +31,9 @@
 
         <LinearLayout android:layout_width="match_parent"
                       android:layout_height="50dp"
-                      android:layout_marginStart="10dp"
+                      android:layout_marginStart="7dp"
                       android:orientation="vertical"
-                      android:layout_marginEnd="10dp"
+                      android:layout_marginEnd="7dp"
                       android:layout_gravity="bottom">
             <TextView
                     android:id="@+id/tvDishName"
@@ -54,13 +55,13 @@
                         android:layout_gravity="center_vertical|start"
                         android:text="1.73 Km"/>
                 <View android:layout_width="2dp"
-                      android:layout_marginStart="10dp"
+                      android:layout_marginStart="8dp"
                       android:layout_marginTop="5dp"
                       android:layout_marginBottom="5dp" android:layout_height="match_parent"
                       android:background="@color/dark_gray"/>
                 <com.willy.ratingbar.ScaleRatingBar
                         xmlns:app="http://schemas.android.com/apk/res-auto"
-                        android:id="@+id/simpleRatingBar"
+                        android:id="@+id/starRating"
                         android:layout_marginStart="5dp"
                         android:layout_width="110dp"
                         android:layout_height="match_parent"
@@ -87,20 +88,19 @@
                         android:text="@string/_15"/>
 
                 <View android:layout_width="2dp"
-                      android:layout_marginStart="15dp"
+                      android:layout_marginStart="8dp"
                       android:layout_marginTop="5dp"
                       android:layout_marginBottom="5dp"
                       android:layout_height="match_parent"
                       android:background="@color/dark_gray"/>
                 <com.willy.ratingbar.ScaleRatingBar
                         xmlns:app="http://schemas.android.com/apk/res-auto"
-                        android:id="@+id/euroSignRatingBar"
+                        android:id="@+id/euroRate"
                         android:layout_marginStart="5dp"
                         android:layout_width="110dp"
                         android:layout_height="match_parent"
                         android:gravity="center"
                         app:srb_starPadding="3dp"
-                        app:srb_rating="2"
                         app:srb_starWidth="15dp"
                         app:srb_starHeight="15dp"
                         app:srb_stepSize="1"

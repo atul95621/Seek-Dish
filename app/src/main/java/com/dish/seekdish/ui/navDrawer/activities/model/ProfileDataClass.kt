@@ -27,6 +27,14 @@ data class Data(
     val twitter_id: String,
     val username: String,
     val weight: String,
-    val zip_code: String
+    val zip_code: String,
+    val new_info_data: NewInfoData
 )
-
+data class NewInfoData(
+    val checkin: Int,
+    val dislike: Int,
+    val followers: Int,
+    val friends: Int,
+    val like: Int,
+    val profile_percentage: String
+)

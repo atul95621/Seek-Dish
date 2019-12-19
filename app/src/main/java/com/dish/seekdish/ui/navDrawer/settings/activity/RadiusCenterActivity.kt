@@ -201,9 +201,8 @@ class RadiusCenterActivity : BaseActivity(), OnMapReadyCallback, GoogleMap.OnMyL
             mMap?.isMyLocationEnabled = true
 
             // disabled the location button
-            mMap?.getUiSettings()?.setMyLocationButtonEnabled(true);
+            mMap?.getUiSettings()?.setMyLocationButtonEnabled(false);
             mMap!!.setMyLocationEnabled(true);
-
 
             mMap!!.setOnMyLocationButtonClickListener(this);
             mMap!!.setOnMyLocationClickListener(this);

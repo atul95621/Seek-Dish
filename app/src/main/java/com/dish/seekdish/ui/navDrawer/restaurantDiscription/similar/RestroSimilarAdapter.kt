@@ -8,14 +8,16 @@ import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.dish.seekdish.R
 import com.dish.seekdish.ui.navDrawer.restaurantDiscription.RestroDescrpActivity
 import java.util.ArrayList
 
 
-
-
-class RestroSimilarAdapter(arrayList: ArrayList<RestroSimilarDataClass>, mcontext: RestroDescrpActivity) :
+class RestroSimilarAdapter(
+    arrayList: ArrayList<RestroSimilarDataClass>,
+    mcontext: RestroDescrpActivity
+) :
     RecyclerView.Adapter<RestroSimilarAdapter.RecyclerViewHolder>() {
     internal var arrayList = ArrayList<RestroSimilarDataClass>()
 
@@ -23,12 +25,13 @@ class RestroSimilarAdapter(arrayList: ArrayList<RestroSimilarDataClass>, mcontex
 
     init {
         this.arrayList = arrayList
-        this.mcontext=mcontext
+        this.mcontext = mcontext
     }
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerViewHolder {
-        val view = LayoutInflater.from(parent.context).inflate(R.layout.item_layout_restro_similar, parent, false)
+        val view = LayoutInflater.from(parent.context)
+            .inflate(R.layout.item_layout_restro_similar, parent, false)
         return RecyclerViewHolder(view)
     }
 
@@ -39,6 +42,9 @@ class RestroSimilarAdapter(arrayList: ArrayList<RestroSimilarDataClass>, mcontex
         // now setted to the textview
         holder.tvCheckinName.text = RestroSimilarDataClass.opinionTitle
         holder.tvItemAddress.text = RestroSimilarDataClass.tvItemAddress
+        var image = RestroSimilarDataClass.image
+        Glide.with(mcontext).load(image).placeholder(R.drawable.app_logo).into(holder.imgplace)
+
         holder.linRetroSimilar.setOnClickListener()
         {
             val intent = Intent(mcontext, RestroDescrpActivity::class.java)

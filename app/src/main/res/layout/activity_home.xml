@@ -33,6 +33,7 @@
     <LinearLayout android:layout_width="match_parent"
                   android:layout_height="fill_parent"
                   android:layout_gravity="end"
+                  android:id="@+id/right_drawer"
                   android:background="@drawable/ic_background"
                   android:orientation="vertical"
     >

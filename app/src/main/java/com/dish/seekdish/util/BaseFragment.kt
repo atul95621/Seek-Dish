@@ -26,13 +26,16 @@ import java.util.Calendar
 import android.graphics.drawable.BitmapDrawable
 import android.graphics.drawable.Drawable
 import com.dish.seekdish.R
+import com.google.android.gms.maps.model.BitmapDescriptor
+import com.google.android.gms.maps.model.BitmapDescriptorFactory
+import java.text.ParseException
 
 
 open class BaseFragment : Fragment() {
 
     //    var utilities: Utilities
     lateinit var sessionManager: SessionManager
-     var connectionDetector: ConnectivityManager? = null
+    var connectionDetector: ConnectivityManager? = null
     //    lateinit var activity: Activity
     lateinit var conxt: Context
     lateinit var progressDialogMvvm: Dialog
@@ -202,8 +205,8 @@ open class BaseFragment : Fragment() {
     }
 
 
-    fun drawableToBitmap(drawable: Drawable): Bitmap? {
-        var bitmap: Bitmap? = null
+    fun drawableToBitmap(drawable: Drawable): Bitmap {
+        var bitmap: Bitmap
 
         if (drawable is BitmapDrawable) {
             if (drawable.bitmap != null) {
@@ -222,5 +225,33 @@ open class BaseFragment : Fragment() {
         drawable.setBounds(0, 0, canvas.getWidth(), canvas.getHeight())
         drawable.draw(canvas)
         return bitmap
+    }
+
+     fun bitmapDescriptorFromVector(context: Context, vectorResId: Int): BitmapDescriptor? {
+        return ContextCompat.getDrawable(context, vectorResId)?.run {
+            setBounds(0, 0, intrinsicWidth, intrinsicHeight)
+            val bitmap = Bitmap.createBitmap(intrinsicWidth, intrinsicHeight, Bitmap.Config.ARGB_8888)
+            draw(Canvas(bitmap))
+            BitmapDescriptorFactory.fromBitmap(bitmap)
+        }
+    }
+
+    fun datePrase(date: String): String {
+        var newDate = ""
+        var oldFormat = "yyyy-MM-dd HH:mm:ss";
+        var newFormat = "dd-MM-yyyy";
+
+        var sdf1 = SimpleDateFormat(oldFormat);
+        var sdf2 = SimpleDateFormat(newFormat);
+
+
+        try {
+
+            newDate = sdf2.format(sdf1.parse(date))
+
+        } catch (e: ParseException) {
+            e.printStackTrace();
+        }
+        return newDate
     }
 }

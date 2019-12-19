@@ -32,7 +32,7 @@ class LoginActivity : BaseActivity(), ILoginView {
         //   context = this;
 
         //make preseneter
-        loginPresenter = LoginPresenter(this, this)
+        loginPresenter = LoginPresenter(this, this@LoginActivity)
         sessionManager = SessionManager(this)
 
 

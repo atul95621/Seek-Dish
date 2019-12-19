@@ -20,7 +20,6 @@
                 android:layout_gravity="center_horizontal"
                 android:gravity="center"
                 android:padding="10dp"
-                android:textStyle="bold"
                 android:text="Message"
                 android:fontFamily="@font/assistantbold"
                 android:textColor="@color/black"
@@ -34,6 +33,7 @@
                 android:layout_gravity="center_horizontal"
                 android:gravity="center"
                 android:padding="10dp"
+                android:fontFamily="@font/assistantregular"
                 android:text="messg"
                 android:textColor="@color/black"
                 android:textSize="16sp"/>
@@ -59,6 +59,7 @@
                     android:layout_width="match_parent"
                     android:background="@android:color/transparent"
                     android:textSize="18sp"
+                    android:fontFamily="@font/assistantbold"
                     android:textColor="@android:color/holo_blue_light"
                     android:text="Ok"
                     android:layout_height="match_parent"/>

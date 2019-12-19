@@ -9,18 +9,21 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.dish.seekdish.R
+import com.dish.seekdish.custom.GlideApp
 import com.dish.seekdish.ui.home.HomeActivity
 import com.dish.seekdish.ui.navDrawer.dishDescription.DishDescriptionActivity
-import com.dish.seekdish.ui.navDrawer.myFavourite.dataClass.ListFragDataClass
+import com.dish.seekdish.ui.navDrawer.myFavourite.fragment.ListFavouriteFragment
+import com.dish.seekdish.ui.navDrawer.toDo.list.Data_todo
 import com.willy.ratingbar.ScaleRatingBar
 import java.util.ArrayList
 
 class ListFragAdapter(
-    arrayList: ArrayList<ListFragDataClass>,
-    activity: HomeActivity
+    arrayList: ArrayList<Data_todo>,
+    activity: HomeActivity,
+   var listFavouriteFragment: ListFavouriteFragment
 ) :
     RecyclerView.Adapter<ListFragAdapter.RecyclerViewHolder>() {
-    internal var arrayList = ArrayList<ListFragDataClass>()
+    internal var arrayList = ArrayList<Data_todo>()
 
     var activity: HomeActivity
 
@@ -37,7 +40,7 @@ class ListFragAdapter(
 
     override fun onBindViewHolder(holder: RecyclerViewHolder, position: Int) {
         val listDataClass = arrayList[position]
-
+/*
         // getting all vales and storing in val...
         var imageUrl: String = listDataClass.foodImageUrl.toString()
 //        Glide.with(this).load(imageUrl).apply(options).into(holder.imgFoodImage);
@@ -52,9 +55,43 @@ class ListFragAdapter(
 
         holder.frameTasteDish.setOnClickListener()
         {
-            /*  val intent = Intent(activity, DishDescriptionActivity::class.java)
-              activity.startActivity(intent)*/
+            *//*  val intent = Intent(activity, DishDescriptionActivity::class.java)
+              activity.startActivity(intent)*//*
+        }*/
+
+        // getting all vales and storing in val...
+        var imageUrl: String = listDataClass.meal_image
+        GlideApp.with(activity)
+            .load(imageUrl)
+            .into(holder.imgFoodImage)
+        holder.tvDishName.text = listDataClass.name
+        var dist = listDataClass.distance
+        holder.tvDistance.text = String.format("%.2f", dist) + " Km"
+        var review: String = "(" + listDataClass.no_of_reviews + ")"
+        holder.tvStarReview.text = review
+        var startRating = listDataClass.meal_avg_rating.toFloat()
+        holder.starScaleRatingBar.rating = startRating
+        var euroScaleRatingBar = listDataClass.budget_rating.toFloat()
+        holder.euroScaleRatingBar.rating = euroScaleRatingBar
+
+
+        holder.frameTasteDish.setOnClickListener()
+        {
+            val intent = Intent(activity, DishDescriptionActivity::class.java)
+            intent.putExtra("MEAL_ID", listDataClass.meal_id.toString())
+            intent.putExtra("RESTAURANT_ID", listDataClass.restro_id.toString())
+            activity.startActivity(intent)
         }
+
+        holder.imgDelete.setOnClickListener()
+        {
+
+            var mealId = listDataClass.meal_id.toString()
+            var restroId = listDataClass.restro_id.toString()
+            listFavouriteFragment.deleteItemFromFavList(mealId, restroId, position)
+        }
+
+
     }
 
 
@@ -66,6 +103,7 @@ class ListFragAdapter(
 
     class RecyclerViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         internal var imgFoodImage: ImageView
+        internal var imgDelete: ImageView
         internal var tvStarReview: TextView
         internal var tvDistance: TextView
         internal var tvDishName: TextView
@@ -77,6 +115,7 @@ class ListFragAdapter(
             starScaleRatingBar = view.findViewById(R.id.simpleRatingBar) as ScaleRatingBar
             euroScaleRatingBar = view.findViewById(R.id.euroSignRatingBar) as ScaleRatingBar
             imgFoodImage = view.findViewById(R.id.imgFoodImage) as ImageView
+            imgDelete = view.findViewById(R.id.imgDelete) as ImageView
             tvDistance = view.findViewById(R.id.tvDistance) as TextView
             tvStarReview = view.findViewById(R.id.tvStarReview) as TextView
             tvDishName = view.findViewById(R.id.tvDishName) as TextView

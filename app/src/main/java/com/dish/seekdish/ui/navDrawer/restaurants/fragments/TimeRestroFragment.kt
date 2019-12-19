@@ -24,8 +24,9 @@ import com.dish.seekdish.ui.navDrawer.restaurants.dataClass.TimeRestroDataClass
 import com.dish.seekdish.ui.navDrawer.restaurants.viewModel.RestroTimeVM
 import com.dish.seekdish.util.SessionManager
 import io.reactivex.android.schedulers.AndroidSchedulers
-import kotlinx.android.synthetic.main.fragment_proximity.*
+import kotlinx.android.synthetic.main.fragment_time_restro.*
 import kotlinx.android.synthetic.main.fragment_time_restro.view.*
+import kotlinx.android.synthetic.main.fragment_time_restro.view.edtSearch
 import java.util.ArrayList
 
 
@@ -44,6 +45,7 @@ class TimeRestroFragment : BaseFragment() {
     var pageNumber: Int = 1
     var flagSearch: Boolean = false
 
+  var alertShown: Boolean = false
 
 
 
@@ -207,16 +209,20 @@ class TimeRestroFragment : BaseFragment() {
 
                     var arrySize = arrayList.size
 
-//                    resultAction(response.data)
+                    if (response.data.isEmpty() && alertShown== false) {
+                        tvItemsAlert.visibility = View.VISIBLE
+                    }
+                    else {
 
+                        // this does not make 2 copies of item in recyclerview...
+                        if (layoutManager.findLastCompletelyVisibleItemPosition() ==
+                            adapter?.getItemCount()?.minus(1)
+                        ) {
+                            // loading new items...
+                            resultAction(response.data)
+                            alertShown=true
 
-                    // this does not make 2 copies of item in recyclerview...
-                    if (layoutManager.findLastCompletelyVisibleItemPosition() ==
-                        adapter?.getItemCount()?.minus(1)
-                    ) {
-                        // loading new items...
-                        resultAction(response.data)
-
+                        }
                     }
                 }
 

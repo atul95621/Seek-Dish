@@ -8,10 +8,13 @@ import android.widget.FrameLayout
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.dish.seekdish.R
 import com.dish.seekdish.ui.navDrawer.dishDescription.DishDescriptionActivity
 import com.willy.ratingbar.ScaleRatingBar
 import java.util.ArrayList
+
+
 
 class SimilarAdapter(
     arrayList: ArrayList<SimilarDataClass>,
@@ -38,9 +41,10 @@ class SimilarAdapter(
 
         // getting all vales and storing in val...
         var imageUrl: String = tasteDataClass.foodImageUrl.toString()
-//        Glide.with(this).load(imageUrl).apply(options).into(holder.imgFoodImage);
+        Glide.with(activity).load(imageUrl).into(holder.imgFoodImage);
         holder.tvDishName.text = tasteDataClass.dishName
-        holder.tvDistance.text = tasteDataClass.distance
+        var dist = tasteDataClass.distance
+        holder.tvDistance.text =String.format("%.2f", dist) +" Km"
         var review: String = "(" + tasteDataClass.startReview + ")"
         holder.tvStarReview.text = review
         var startRating = tasteDataClass.startRating!!.toFloat()
@@ -51,6 +55,8 @@ class SimilarAdapter(
         holder.frameTasteDish.setOnClickListener()
         {
             val intent = Intent(activity, DishDescriptionActivity::class.java)
+            intent.putExtra("MEAL_ID",tasteDataClass.mealId)
+            intent.putExtra("RESTAURANT_ID",tasteDataClass.restroId)
             activity.startActivity(intent)
         }
     }

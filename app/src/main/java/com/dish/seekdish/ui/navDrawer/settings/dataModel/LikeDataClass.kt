@@ -22,7 +22,7 @@ data class Data_Disliked(
     val id: Int,
     val liked: Int,
     val name: String,
-    var checkForDisLike: Boolean= false
+    var checkForDisLike: Boolean = false
 )
 
 data class LikedIngredientsSaved(

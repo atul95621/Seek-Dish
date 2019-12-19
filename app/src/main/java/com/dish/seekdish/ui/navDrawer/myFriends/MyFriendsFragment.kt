@@ -13,7 +13,7 @@ import com.dish.seekdish.ui.navDrawer.myFriends.adapter.MyFriendsAdapter
 import com.google.android.material.tabs.TabLayout
 
 
-class MyFriendsFragment : Fragment() {
+class MyFriendsFragment : BaseFragment() {
     lateinit var tabLayout: TabLayout
     internal lateinit var viewPager: ViewPager
     internal lateinit var adapter: MyFriendsAdapter

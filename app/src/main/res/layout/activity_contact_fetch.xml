@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:tools="http://schemas.android.com/tools"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:orientation="vertical"
+>
+    <!--toolbar-->
+    <FrameLayout android:layout_width="match_parent"
+                 android:layout_height="48dp"
+                 android:gravity="center"
+                 android:background="@color/colorPrimary"
+                 android:orientation="horizontal">
+        <TextView android:layout_width="wrap_content"
+                  android:layout_height="wrap_content"
+                  android:layout_gravity="center"
+                  android:text="My Friends"
+                  android:textColor="@color/white"
+                  android:textSize="20sp"/>
+
+        <TextView
+                android:id="@+id/tvBack"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="start"
+                android:layout_marginStart="10dp"
+                android:layout_gravity="start|center_vertical"
+                android:text="Back"
+                android:textColor="@color/white"
+                android:textSize="16sp"/>
+    </FrameLayout>
+
+    <TextView android:layout_width="250dp"
+              android:layout_marginTop="20dp"
+              android:gravity="center"
+              android:layout_gravity="center"
+              android:fontFamily="@font/assistantregular"
+              android:textColor="@color/black"
+              android:layout_height="wrap_content"
+              android:text="Search friends, Contacts or relative who already use Seekdish"/>
+
+    <ImageView android:layout_width="50dp"
+               android:layout_gravity="center"
+               android:id="@+id/imgContactFetch"
+               android:layout_marginTop="10dp"
+               android:src="@drawable/ic_contact_fetch"
+               android:layout_height="50dp"/>
+    <ListView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/listView"
+            android:divider="@null"
+    />
+</LinearLayout>

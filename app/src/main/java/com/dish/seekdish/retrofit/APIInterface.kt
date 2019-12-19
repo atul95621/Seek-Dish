@@ -4,10 +4,15 @@ package com.dish.seekdish.retrofit
 import com.dish.seekdish.ui.home.dataModel.*
 import com.dish.seekdish.ui.login.LoginDataClass
 import com.dish.seekdish.ui.navDrawer.activities.model.ProfileDataClass
+import com.dish.seekdish.ui.navDrawer.dishDescription.model.AddTodoModel
+import com.dish.seekdish.ui.navDrawer.dishDescription.model.DishDescpModel
+import com.dish.seekdish.ui.navDrawer.restaurantDiscription.RestroDescpModel
 import com.dish.seekdish.ui.navDrawer.restaurants.dataClass.ProximityDataClass
 import com.dish.seekdish.ui.navDrawer.restaurants.dataClass.RestroMapModel
 import com.dish.seekdish.ui.navDrawer.restaurants.dataClass.TimeRestroDataClass
 import com.dish.seekdish.ui.navDrawer.settings.dataModel.*
+import com.dish.seekdish.ui.navDrawer.toDo.list.DeleteTodoList
+import com.dish.seekdish.ui.navDrawer.toDo.list.ListTodoDataClass
 import com.dish.seekdish.ui.signup.SignUpModel
 import com.google.gson.JsonElement
 import com.google.gson.JsonObject
@@ -246,6 +251,17 @@ internal interface APIInterface {
 
 
     @FormUrlEncoded
+    @POST("search_disliked_ingredients")
+    fun getSearchDisLikedIngredients(
+        @Field("user_id") userId: String,
+        @Field("page_no") pageNo: String,
+        @Field("per_page") perPage: String,
+        @Field("search_term") searchTerm: String
+
+    ): Call<DisLikeDataClass>
+
+
+    @FormUrlEncoded
     @POST("get_filters")
     fun getFilterData(
         @Field("user_id") userId: String,
@@ -267,7 +283,7 @@ internal interface APIInterface {
         @Field("page_no") page_no: String,
         @Field("per_page") per_page: String
 
-        ): Call<TasteFragDataClass>
+    ): Call<TasteFragDataClass>
 
 
     @FormUrlEncoded
@@ -284,7 +300,6 @@ internal interface APIInterface {
         @Field("per_page") per_page: String
 
     ): Call<TimeFragDataClass>
-
 
 
     @FormUrlEncoded
@@ -319,7 +334,6 @@ internal interface APIInterface {
     ): Call<ProximityDataClass>
 
 
-
     @FormUrlEncoded
     @POST("home_restaurants_time")
     fun getTimeRest(
@@ -351,4 +365,140 @@ internal interface APIInterface {
 
     ): Call<RestroMapModel>
 
+
+    @FormUrlEncoded
+    @POST("meal_detail")
+    fun getMealDetails(
+        @Field("user_id") userId: String,
+        @Field("meal_id") meal_id: String,
+        @Field("restaurant_id") restaurant_id: String,
+        @Field("longitude") longitude: String,
+        @Field("latitude") latitude: String
+    ): Call<DishDescpModel>
+
+
+    @FormUrlEncoded
+    @POST("add_todo_list")
+    fun addtoTodo(
+        @Field("user_id") userId: String,
+        @Field("meal_id") meal_id: String,
+        @Field("restaurant_id") restaurant_id: String
+
+    ): Call<AddTodoModel>
+
+
+    @FormUrlEncoded
+    @POST("add_favorite_list")
+    fun addFavorite(
+        @Field("user_id") userId: String,
+        @Field("meal_id") meal_id: String,
+        @Field("restaurant_id") restaurant_id: String
+
+    ): Call<AddTodoModel>
+
+
+    @FormUrlEncoded
+    @POST("todo_maps_list")
+    fun getTodoList(
+        @Field("user_id") userId: String
+    ): Call<ListTodoDataClass>
+
+    @FormUrlEncoded
+    @POST("delete_todo_list")
+    fun deleteTodo(
+        @Field("user_id") userId: String,
+        @Field("meal_id") meal_id: String,
+        @Field("restaurant_id") restaurant_id: String
+
+    ): Call<DeleteTodoList>
+
+
+    @FormUrlEncoded
+    @POST("favorite_maps_list")
+    fun getFavoriteList(
+        @Field("user_id") userId: String
+    ): Call<ListTodoDataClass>
+
+    @FormUrlEncoded
+    @POST("delete_favorite_list")
+    fun deleteFavorite(
+        @Field("user_id") userId: String,
+        @Field("meal_id") meal_id: String,
+        @Field("restaurant_id") restaurant_id: String
+
+    ): Call<DeleteTodoList>
+
+    @Multipart
+    @POST("post_comment")
+    fun doPostComment(
+        @Part("user_id") user_id: RequestBody,
+        @Part("meal_id") meal_id: RequestBody,
+        @Part("taste_rating") taste_rating: RequestBody,
+        @Part("presentation_rating") presentation_rating: RequestBody,
+        @Part("texture_rating") texture_rating: RequestBody,
+        @Part("odor_rating") odor_rating: RequestBody,
+        @Part("comment") comment: RequestBody,
+        @Part("anonymous") anonymous: RequestBody,
+        @Part("restaurant_id") restaurant_id: RequestBody,
+        @Part("service_rating") service_rating: RequestBody,
+        @Part("decore_rating") decore_rating: RequestBody,
+        @Part("cleanness_rating") cleanness_rating: RequestBody,
+        @Part("ambiance_rating") ambiance_rating: RequestBody,
+        @Part image1: MultipartBody.Part,
+        @Part image2: MultipartBody.Part
+    ): Call<AddTodoModel>
+
+
+    @FormUrlEncoded
+    @POST("logout")
+    fun logout(
+        @Field("user_id") userId: String
+    ): Call<AddTodoModel>
+
+    @FormUrlEncoded
+    @POST("send_friend_request")
+    fun sendFriendRequest(
+        @Field("sender_id") senderId: String,
+        @Field("receiver_id") receiverId: String
+    ): Call<AddTodoModel>
+
+    @FormUrlEncoded
+    @POST("restaurant_detail")
+    fun getRestroDetails(
+        @Field("user_id") userId: String,
+        @Field("restaurant_id") restaurant_id: String
+
+    ): Call<RestroDescpModel>
+
+    @FormUrlEncoded
+    @POST("all_received_friend_request")
+    fun recievedReq(
+        @Field("user_id") userId: String
+    ): Call<ReceivedRequestDataClass>
+
+
+    @FormUrlEncoded
+    @POST("cancel_friend_request_sent")
+    fun cancelReqSent(
+        @Field("sender_id") senderId: String,
+        @Field("receiver_id") receiverId: String
+    ): Call<CancelReModel>
+
+
+    @FormUrlEncoded
+    @POST("save_filters")
+    fun saveFilterData(
+        @Field("user_id") userId: String,
+        @Field("budget") latitude: String,
+        @Field("service_speed") serviceSpeed: String,
+        @Field("meal_type") mealType: String,
+        @Field("compatibility_intolerance") comIntol: String,
+        @Field("specialities") special: String,
+        @Field("ambiance") ambiance: String,
+        @Field("ambiance_complementary") amb_comp: String,
+        @Field("additional_services") addServi: String,
+        @Field("seasonality") season: String
+
+
+    ): Call<SaveFilterModel>
 }

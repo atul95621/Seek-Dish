@@ -45,6 +45,8 @@ class TimeFragment : BaseFragment() {
     var pageNumber: Int = 1
     var flagSearch: Boolean = false
 
+    var alertShown: Boolean = false
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
@@ -181,16 +183,19 @@ class TimeFragment : BaseFragment() {
 
                     var arrySize = arrayList.size
 
-//                    resultAction(response.data)
 
+                    if (response.data.isEmpty() && alertShown == false) {
+                        tvItemsAlert.visibility = View.VISIBLE
+                    } else {
 
-                    // this does not make 2 copies of item in recyclerview...
-                    if (layoutManager.findLastCompletelyVisibleItemPosition() ==
-                        adapter?.getItemCount()?.minus(1)
-                    ) {
-                        // loading new items...
-                        resultAction(response.data)
-
+                        // this does not make 2 copies of item in recyclerview...
+                        if (layoutManager.findLastCompletelyVisibleItemPosition() ==
+                            adapter?.getItemCount()?.minus(1)
+                        ) {
+                            // loading new items...
+                            resultAction(response.data)
+                            alertShown = true
+                        }
                     }
                 }
 

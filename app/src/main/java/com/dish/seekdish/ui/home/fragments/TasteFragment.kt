@@ -87,7 +87,9 @@ class TasteFragment : BaseFragment(), GoogleApiClient.ConnectionCallbacks,
     var pageNumber: Int = 1
     var flagSearch: Boolean = false
 
-    private var TAG="TasteFragment"
+    private var TAG = "TasteFragment"
+
+    var alertShown: Boolean = false
 
 
     // lateinit var context  : Context
@@ -327,7 +329,7 @@ class TasteFragment : BaseFragment(), GoogleApiClient.ConnectionCallbacks,
 
     override fun onConnected(p0: Bundle?) {
 
-        Log.e(TAG,"onConnected called")
+        Log.e(TAG, "onConnected called")
         tryLocation()
     }
 
@@ -600,7 +602,6 @@ class TasteFragment : BaseFragment(), GoogleApiClient.ConnectionCallbacks,
         tasteFragVM!!.getTasteLiveData.observe(this, Observer { response ->
             if (response != null) {
 
-
                 Log.e("rspgetLiked", response.toString())
 
                 Log.e("rspgetLikedStat", response.status.toString())
@@ -609,16 +610,20 @@ class TasteFragment : BaseFragment(), GoogleApiClient.ConnectionCallbacks,
 
                     var arrySize = arrayList.size
 
-//                    resultAction(response.data)
+                    if (response.data.isEmpty() && alertShown == false) {
+                        tvItemsAlert.visibility = View.VISIBLE
+                    } else {
 
+                        // this does not make 2 copies of item in recyclerview...
+                        if (layoutManager.findLastCompletelyVisibleItemPosition() ==
+                            adapter?.getItemCount()?.minus(1)
+                        ) {
+                            // loading new items...
+                            resultAction(response.data)
 
-                    // this does not make 2 copies of item in recyclerview...
-                    if (layoutManager.findLastCompletelyVisibleItemPosition() ==
-                        adapter?.getItemCount()?.minus(1)
-                    ) {
-                        // loading new items...
-                        resultAction(response.data)
+                            alertShown = true
 
+                        }
                     }
                 }
 
@@ -708,6 +713,13 @@ class TasteFragment : BaseFragment(), GoogleApiClient.ConnectionCallbacks,
             sessionManager.getValue(SessionManager.LONGITUDE),
             sessionManager.getValue(SessionManager.LATITUDE), radius
         )
+    }
+
+
+    override fun onDestroy() {
+        super.onDestroy()
+        if(mFusedLocationClient!=null)
+            mFusedLocationClient?.removeLocationUpdates(mLocationCallback)
     }
 
 }

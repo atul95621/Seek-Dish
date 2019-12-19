@@ -31,7 +31,7 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="_15">(15)</string>
-    <string name="opinion_1">Opinion(1)</string>
+    <string name="opinion_1">Opinions</string>
     <string name="check_connection">Please check Internet Connection.</string>
     <string name="error_occured">Error Occured! Try Later.</string>
 
@@ -46,6 +46,10 @@
     <!--google places api paid-->
     <string name="google_maps_api">AIzaSyBnyvVgmXQHim-47zELq4zBH2KwSAOciuk</string>
     <string name="setting_saved">Setting have been saved.</string>
+    <string name="no_meals_found">No meals found at your location. Change your location in Settings.</string>
+    <string name="no_restro_found">No restaurant found at your location. Change your location in Settings.</string>
+    <string name="no_todo_list">You have not added anything to Todo List for now.</string>
+    <string name="no_fav_list">You have not added anything to Favorite List for now.</string>
 
 
 </resources>

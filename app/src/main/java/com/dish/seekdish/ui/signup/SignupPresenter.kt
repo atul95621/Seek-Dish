@@ -1,6 +1,5 @@
 package com.dish.seekdish.ui.signup
 
-import android.content.Context
 import android.content.Intent
 import android.util.Log
 import android.widget.Toast
@@ -16,10 +15,9 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class SignupPresenter(private val iSignUpView: ISignUpView, val context: Context) {
+class SignupPresenter(private val iSignUpView: ISignUpView, val signupActivity: SignupActivity) {
 
     //activity
-    var signupActivity = SignupActivity()
     internal lateinit var apiInterface: APIInterface
 
 
@@ -38,9 +36,9 @@ class SignupPresenter(private val iSignUpView: ISignUpView, val context: Context
         part: MultipartBody.Part
     ) {
 
-        ProgressBarClass.progressBarCalling(context)
+        ProgressBarClass.progressBarCalling(signupActivity)
 
-        apiInterface = APIClient.getClient(context).create(APIInterface::class.java)
+        apiInterface = APIClient.getClient(signupActivity).create(APIInterface::class.java)
 
 
         val call = apiInterface.doSignUp(
@@ -87,11 +85,11 @@ class SignupPresenter(private val iSignUpView: ISignUpView, val context: Context
 
                 Toast.makeText(
                     FacebookSdk.getApplicationContext(),
-                    context.resources.getString(R.string.error_occured),
+                    signupActivity.resources.getString(R.string.error_occured),
                     Toast.LENGTH_LONG
                 ).show()
 
-//                signupActivity.utilities.showSnackBar(context.resources.getString(R.string.error_occured))
+                signupActivity.utilities.showSnackBar(signupActivity.resources.getString(R.string.error_occured))
 
                 call.cancel()
                 // canceling the progress bar
@@ -115,9 +113,9 @@ class SignupPresenter(private val iSignUpView: ISignUpView, val context: Context
         fcmToken: RequestBody
     ) {
 
-        ProgressBarClass.progressBarCalling(context)
+        ProgressBarClass.progressBarCalling(signupActivity)
 
-        apiInterface = APIClient.getClient(context).create(APIInterface::class.java)
+        apiInterface = APIClient.getClient(signupActivity).create(APIInterface::class.java)
 
 
         val call = apiInterface.doSignUpWithoutImage(
@@ -163,11 +161,11 @@ class SignupPresenter(private val iSignUpView: ISignUpView, val context: Context
 
                 Toast.makeText(
                     FacebookSdk.getApplicationContext(),
-                    context.resources.getString(R.string.error_occured),
+                    signupActivity.resources.getString(R.string.error_occured),
                     Toast.LENGTH_LONG
                 ).show()
 
-//                signupActivity.utilities.showSnackBar(context.resources.getString(R.string.error_occured))
+                signupActivity.utilities.showSnackBar(signupActivity.resources.getString(R.string.error_occured))
 
                 call.cancel()
                 // canceling the progress bar

@@ -23,7 +23,7 @@
                       android:layout_height="50dp">
             <CheckBox
                     android:checked="true"
-                    android:id="@+id/checkBoxLiked"
+                    android:id="@+id/checkBoxLike"
                     android:layout_width="50dp"
                     android:layout_height="50dp"
                     android:gravity="left"

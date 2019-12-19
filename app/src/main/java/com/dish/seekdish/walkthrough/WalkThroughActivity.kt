@@ -28,9 +28,10 @@ import com.twitter.sdk.android.core.TwitterAuthConfig
 import com.twitter.sdk.android.core.TwitterConfig
 import com.twitter.sdk.android.core.identity.TwitterAuthClient
 import android.R.attr.data
+import com.dish.seekdish.util.BaseActivity
 
 
-class WalkThroughActivity : AppCompatActivity() {
+class WalkThroughActivity : BaseActivity() {
 
     companion object {
         private const val MIN_SCALE = 0.65f

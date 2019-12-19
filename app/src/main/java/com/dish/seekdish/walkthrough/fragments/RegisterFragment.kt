@@ -56,7 +56,7 @@ class RegisterFragment : BaseFragment(), IRegisterFragView {
     // twitter
     private var client: TwitterAuthClient? = null
 
-    private lateinit var mcontext: WalkThroughActivity
+     lateinit var mcontext: WalkThroughActivity
 
     lateinit var registerFragPresenter: RegisterFragPresenter
 
@@ -171,10 +171,12 @@ class RegisterFragment : BaseFragment(), IRegisterFragView {
             }
 
             override fun onCancel() {
+                ProgressBarClass.dialog.dismiss()
                 showSnackBar(getResources().getString(R.string.error_occured));
             }
 
             override fun onError(exception: FacebookException) {
+                ProgressBarClass.dialog.dismiss()
                 showSnackBar(getResources().getString(R.string.error_occured));
             }
         })
@@ -200,8 +202,6 @@ class RegisterFragment : BaseFragment(), IRegisterFragView {
             callbackManager.onActivityResult(requestCode, resultCode, data)
 
         }
-
-
     }
 
     private fun setFacebookData(loginResult: LoginResult) {

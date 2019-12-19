@@ -65,14 +65,14 @@ class InvitationMapFragment : BaseFragment(), OnMapReadyCallback, GoogleMap.OnMy
             .title("Snowqualmie Falls")
             .snippet("Snoqualmie Falls is located 25 miles east of Seattle.")
             .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE));
-        var info = InfoWindowData(" ", "3", "4", "hOTEL tITLE");
+/*        var info = InfoWindowData(" ", "3", "4", "hOTEL tITLE");
 
 
         var customInfoWindow = CustomInfoWindowGoogleMap(conxt);
         mMap!!.setInfoWindowAdapter(customInfoWindow);
 
         var marker = mMap!!.addMarker(markerOptions);
-        marker.setTag(info);
+        marker.setTag(info);*/
 //        marker.showInfoWindow();
 
         mMap!!.moveCamera(CameraUpdateFactory.newLatLng(snowqualmie));

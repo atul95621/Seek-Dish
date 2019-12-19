@@ -24,6 +24,7 @@ class DisLikeVM : ViewModel() {
     //this is the data that we will fetch asynchronously
     var getDisLikedLiveData: MutableLiveData<DisLikeDataClass> = MutableLiveData<DisLikeDataClass>()
     var saveDisLikedLiveData: MutableLiveData<LikedIngredientsSaved> = MutableLiveData<LikedIngredientsSaved>()
+    var searchDislIngreLiveData: MutableLiveData<DisLikeDataClass> = MutableLiveData<DisLikeDataClass>()
 
 
     val isLoadingSubject = BehaviorSubject.create<Boolean>()
@@ -111,6 +112,46 @@ class DisLikeVM : ViewModel() {
             }
         })
     }
+
+    //to searched like ingredient
+    fun doGetSearchIngred(userId: String, searchedTerm: String) {
+
+        // making progress bar visible
+//        isLoadingSubject.onNext(true)
+
+        var api = APIClientMvvm.client.create(APIInterface::class.java)
+
+        val call = api.getSearchDisLikedIngredients(userId,"1","1000",searchedTerm)
+
+//        Log.e("pramsGetLiked"," "+userId+"    "+questionId)
+
+        call.enqueue(object : Callback<DisLikeDataClass> {
+            override fun onResponse(call: Call<DisLikeDataClass>, response: Response<DisLikeDataClass>) {
+
+                // making progress bar invisible
+//                isLoadingSubject.onNext(false)
+
+                //finally we are setting the list to our MutableLiveData
+                searchDislIngreLiveData.postValue(response.body())
+
+                searchDislIngreLiveData.value = response.body()
+                Log.e("respoGetssearchDislike", response.body().toString())
+
+            }
+
+            override fun onFailure(call: Call<DisLikeDataClass>, t: Throwable) {
+
+                // making progress bar invisible
+//                isLoadingSubject.onNext(false)
+                Log.e("respoGetsearchDisLiFail", "failure")
+
+                searchDislIngreLiveData.postValue(null)
+
+
+            }
+        })
+    }
+
 
 
     fun isLoadingObservable(): Observable<Boolean> {

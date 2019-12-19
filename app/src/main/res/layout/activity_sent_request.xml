@@ -18,9 +18,9 @@
         <TextView android:layout_width="wrap_content"
                   android:layout_height="wrap_content"
                   android:layout_gravity="center"
-                  android:text="Received Friend Request"
+                  android:text="Sent Friend Request"
                   android:textColor="@color/white"
-                  android:textSize="20sp"/>
+                  android:textSize="18sp"/>
 
         <TextView
                 android:id="@+id/tvBack"
@@ -75,12 +75,27 @@
     </LinearLayout>
 
 
-    <androidx.recyclerview.widget.RecyclerView
+
+
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rvSentRequest"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:scrollbars="vertical"
             tools:layout_editor_absoluteX="0dp"
             tools:layout_editor_absoluteY="0dp"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:id="@+id/tvAlert"
+            android:visibility="gone"
+            android:layout_gravity="center"
+            android:text="No Request Found"/>
+    </FrameLayout>
 
 </LinearLayout>

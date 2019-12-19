@@ -23,9 +23,11 @@ import com.dish.seekdish.R
 import com.google.android.material.snackbar.Snackbar
 import okhttp3.MediaType
 import okhttp3.RequestBody
-import java.io.File
-import java.io.FileInputStream
-import java.io.FileOutputStream
+import java.io.*
+import java.net.HttpURLConnection
+import java.net.URL
+import java.text.ParseException
+import java.text.SimpleDateFormat
 import java.util.regex.Matcher
 import java.util.regex.Pattern
 
@@ -37,7 +39,7 @@ open class BaseActivity : AppCompatActivity() {
     var imgLeft: ImageView? = null
     var imgRight: ImageView? = null
 
-     var activity: Activity?= null
+    var activity: Activity? = null
     lateinit var conxt: Context
 
 
@@ -245,5 +247,40 @@ open class BaseActivity : AppCompatActivity() {
         }
 
 
+    }
+
+    fun getBitmapFromUrl(src: String): Bitmap? {
+
+        try {
+            var url = URL(src)
+            var connection: HttpURLConnection = url.openConnection() as HttpURLConnection
+            connection.setDoInput(true);
+            connection.connect();
+            var input: InputStream = connection.getInputStream();
+            var myBitmap: Bitmap = BitmapFactory.decodeStream(input);
+            return myBitmap
+        } catch (e: IOException) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    fun datePrase(date: String): String {
+        var newDate = ""
+        var oldFormat = "yyyy-MM-dd HH:mm:ss";
+        var newFormat = "dd-MM-yyyy";
+
+        var sdf1 = SimpleDateFormat(oldFormat);
+        var sdf2 = SimpleDateFormat(newFormat);
+
+
+        try {
+
+            newDate = sdf2.format(sdf1.parse(date))
+
+        } catch (e: ParseException) {
+            e.printStackTrace();
+        }
+        return newDate
     }
 }

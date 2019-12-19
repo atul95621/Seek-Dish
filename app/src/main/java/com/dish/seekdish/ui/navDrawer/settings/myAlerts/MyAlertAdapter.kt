@@ -10,7 +10,6 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.dish.seekdish.R
 import com.dish.seekdish.ui.navDrawer.restaurantDiscription.RestroDescrpActivity
-import com.dish.seekdish.ui.navDrawer.restaurants.RestaurantsFragment
 import java.util.ArrayList
 
 class MyAlertAdapter(arrayList: ArrayList<MyAlertDataClass>, mcontext: MyAlertsActivity) :

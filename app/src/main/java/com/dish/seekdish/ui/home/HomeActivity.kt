@@ -31,19 +31,15 @@ import com.dish.seekdish.custom.GlideApp
 import com.dish.seekdish.ui.home.adapter.FilterAdapter
 import com.dish.seekdish.ui.home.dataModel.FilterDataModel
 import com.dish.seekdish.ui.home.viewModel.HomeActivityVM
+import com.dish.seekdish.ui.navDrawer.myFriends.contactFetch.ContactFetchActivity
 import com.dish.seekdish.ui.navDrawer.restaurantDiscription.details.ChildData
 import com.dish.seekdish.ui.navDrawer.restaurantDiscription.details.GroupData
-import com.dish.seekdish.ui.navDrawer.settings.dataModel.Data_Liked
-import com.dish.seekdish.ui.navDrawer.settings.viewModel.LikeVM
 import com.dish.seekdish.ui.navDrawer.toDo.TodoFragment
 import com.dish.seekdish.util.Global
 import com.dish.seekdish.util.SessionManager
 import com.dish.seekdish.walkthrough.WalkThroughActivity
-import com.facebook.FacebookSdk
 import com.twitter.sdk.android.core.*
-import com.twitter.sdk.android.core.identity.TwitterAuthClient
 import io.reactivex.android.schedulers.AndroidSchedulers
-import kotlinx.android.synthetic.main.activity_home.*
 import java.util.ArrayList
 import java.util.LinkedHashMap
 import android.text.TextUtils.join as join1
@@ -114,7 +110,11 @@ class HomeActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
         val drawerLayout: DrawerLayout = findViewById(R.id.drawer_layout)
         val navView: NavigationView = findViewById(R.id.nav_view)
         var toggle = ActionBarDrawerToggle(
-            this, drawerLayout, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close
+            this,
+            drawerLayout,
+            toolbar,
+            R.string.navigation_drawer_open,
+            R.string.navigation_drawer_close
         )
 
         drawerLayout.addDrawerListener(toggle)
@@ -130,6 +130,30 @@ class HomeActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
         imageViewNavDrawer = headerView.findViewById(R.id.imageViewNavDrawer) as CircleImageView
         tvName = headerView.findViewById(R.id.tvName) as TextView
 
+//        drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED,right_drawer);
+
+
+        //hitting api when drawer gets opened...
+        drawerLayout.addDrawerListener(object : DrawerLayout.DrawerListener {
+            override fun onDrawerStateChanged(p0: Int) {
+            }
+
+            override fun onDrawerSlide(p0: View, p1: Float) {
+
+            }
+
+            override fun onDrawerClosed(p0: View) {
+            }
+
+            override fun onDrawerOpened(p0: View) {
+                Log.e("drawerDirection", ":  " + drawerLayout.isDrawerOpen(GravityCompat.END))
+                if (drawerLayout.isDrawerOpen(GravityCompat.END) == true) {
+                    // hitiing apai if user slide the right drawer
+                    getFilterData()
+                }
+
+            }
+        })
         // setting user name and image in nav drawer
         setUserDetail()
 
@@ -154,6 +178,12 @@ class HomeActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
 
         // clickListener for darwer items
         imageViewNavDrawer.setOnClickListener()
+        {
+            val intent = Intent(this@HomeActivity, MyProfileActivity::class.java)
+            startActivity(intent)
+        }
+
+        tvName.setOnClickListener()
         {
             val intent = Intent(this@HomeActivity, MyProfileActivity::class.java)
             startActivity(intent)
@@ -184,9 +214,14 @@ class HomeActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
 
         //=========================== right filter
 
-
         // filter Observer
         getFilterObserver()
+
+        //logout observer
+        getLogoutObserver()
+
+        // filter save observer
+        saveFilterObserver()
 
         //get reference of the ExpandableListView
         simpleExpandableListView = findViewById(R.id.filterExpandableListView) as ExpandableListView
@@ -244,6 +279,19 @@ class HomeActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
                     "filterItems",
                     "" + "\nbudget   " + budgetItems + "\nservice  " + serviceSpeedItems + "\nmeal   " + mealItems + "\ncompat   " + compatIntolerItems + "\nrestro   " + restroSpecialItems + "\ncompAm  " + compAmbianceItems + "\naddtional   " + additonalItems + "\nseason   " + seasonlityItems
                 )
+
+                homeActivityVM?.doSaveFilterData(
+                    budgetItems,
+                    serviceSpeedItems,
+                    mealItems,
+                    compatIntolerItems,
+                    restroAmbianceItems,
+                    restroSpecialItems,
+                    compAmbianceItems,
+                    additonalItems,
+                    seasonlityItems,
+                    sessionManager?.getValue(SessionManager.USER_ID).toString()
+                )
             }
         }
 
@@ -266,6 +314,12 @@ class HomeActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
                }
            }*/
 
+        tvAdd.setOnClickListener()
+        {
+            val intent = Intent(this@HomeActivity, ContactFetchActivity::class.java)
+            startActivity(intent)
+        }
+
 
     }
 
@@ -278,7 +332,9 @@ class HomeActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
     }
 
     private fun setUserDetail() {
-        if (!sessionManager?.getValue(SessionManager.PHOTO_URL).equals(null) && !sessionManager?.getValue(SessionManager.PHOTO_URL).equals(
+        if (!sessionManager?.getValue(SessionManager.PHOTO_URL).equals(null) && !sessionManager?.getValue(
+                SessionManager.PHOTO_URL
+            ).equals(
                 "null"
             ) && !sessionManager?.getValue(SessionManager.PHOTO_URL).equals("") && !sessionManager?.getValue(
                 SessionManager.FIRST_NAME
@@ -290,6 +346,7 @@ class HomeActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
 
             GlideApp.with(this)
                 .load(sessionManager?.getValue(SessionManager.PHOTO_URL))
+                .placeholder(R.drawable.ic_user)
                 .into(imageViewNavDrawer)
 
 
@@ -298,6 +355,7 @@ class HomeActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
         } else {
             GlideApp.with(this)
                 .load(R.drawable.ic_user)
+                .placeholder(R.drawable.ic_user)
                 .into(imageViewNavDrawer)
             tvName.setText(sessionManager?.getValue(SessionManager.FIRST_NAME))
 
@@ -453,16 +511,10 @@ class HomeActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
                         .commit()
                 }
                 R.id.nav_logout -> {
-
-                    TwitterCore.getInstance().getSessionManager().clearActiveSession()
-                    Log.e("Twitter", "logout")
-
-                    //clearing the values of session
-                    sessionManager?.clearValues();
-
-                    val intent = Intent(this@HomeActivity, WalkThroughActivity::class.java)
-                    intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
-                    startActivity(intent)
+                    // hitting api
+                    homeActivityVM?.doLogout(
+                        sessionManager?.getValue(SessionManager.USER_ID).toString()
+                    )
                 }
             }
         }, 300)
@@ -568,6 +620,72 @@ class HomeActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
         })
     }
 
+    private fun getLogoutObserver() {
+        //observe
+        homeActivityVM!!.isLoadingObservable().observeOn(AndroidSchedulers.mainThread()).subscribe {
+            setIsLoading(it)
+        }
+
+        homeActivityVM!!.getLogoutLiveData.observe(this, Observer { response ->
+            if (response != null) {
+
+
+                Log.e("rspFilter", response.toString())
+
+                if (response.status == 1) {
+
+                    TwitterCore.getInstance().getSessionManager().clearActiveSession()
+                    Log.e("Twitter", "logout")
+
+                    //clearing the values of session
+                    sessionManager?.clearValues();
+
+                    val intent = Intent(this@HomeActivity, WalkThroughActivity::class.java)
+                    intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+                    startActivity(intent)
+                }
+
+            } else {
+
+
+                showSnackBar("OOps! Error Occured.")
+
+                Log.e("rspSnak", "else error")
+
+            }
+        })
+    }
+
+    private fun saveFilterObserver() {
+        //observe
+        homeActivityVM!!.isLoadingObservable().observeOn(AndroidSchedulers.mainThread()).subscribe {
+            setIsLoading(it)
+        }
+
+        homeActivityVM!!.saveFilterLiveData.observe(this, Observer { response ->
+            if (response != null) {
+
+
+                Log.e("rspFilter", response.toString())
+
+                if (response.status == 1) {
+
+                    val message = response.data.message
+                    showSnackBar(message)
+
+                }
+
+            } else {
+
+
+                showSnackBar("OOps! Error Occured.")
+
+                Log.e("rspSnak", "else error")
+
+            }
+        })
+    }
+
     private fun setUpTwitter() {
 
         val config = TwitterConfig.Builder(this)
@@ -596,43 +714,5 @@ class HomeActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
                 .load(photoUrl)
                 .into(imageViewNavDrawer)
         }
-
     }
-
-    /*      // load some initial data into out list
-      private fun loadData() {
-
-          addProduct("Budget", "Less than 5")
-          addProduct("Budget", "5 to 10")
-          addProduct("Budget", "10 to 15")
-          addProduct("Budget", "15 to 25")
-
-          addProduct("Service Speed", "Fast (less 30 min)")
-          addProduct("Service Speed", "Classic (less 1 hour")
-          addProduct("Service Speed", "Gastronomic (more 1 hour")
-
-          addProduct("Meal Type", "Main Dish")
-          addProduct("Meal Type", "Side dish")
-          addProduct("Meal Type", "Desert")
-          addProduct("Meal Type", "Chinesse")
-          addProduct("Meal Type", "Pizza")
-          addProduct("Meal Type", "Burger")
-          addProduct("Meal Type", "Pastry")
-          addProduct("Meal Type", "Ice cream")
-          addProduct("Meal Type", "Drink")
-          addProduct("Meal Type", "Confectionary")
-
-
-          addProduct("Compatibility Intolerance", "wwww.Seekdish.com")
-          addProduct("Restaurant Speciality", "wwww.Seekdish.com")
-          addProduct("Restaurant Ambience", "wwww.Seekdish.com")
-          addProduct("Complementary Ambience", "wwww.Seekdish.com")
-          addProduct("Additional Services", "wwww.Seekdish.com")
-          addProduct("Seasonality", "wwww.Seekdish.com")
-
-
-      }
-*/
-
-
 }

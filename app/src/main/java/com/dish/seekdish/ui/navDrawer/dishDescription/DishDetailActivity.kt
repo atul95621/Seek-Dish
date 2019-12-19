@@ -2,6 +2,7 @@ package com.dish.seekdish.ui.navDrawer.dishDescription
 
 import android.content.Context
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,8 +12,16 @@ import androidx.viewpager.widget.PagerAdapter
 import androidx.viewpager.widget.ViewPager
 import com.dish.seekdish.util.BaseActivity
 import com.dish.seekdish.R
+import com.dish.seekdish.custom.GlideApp
 import com.dish.seekdish.custom.PagerContainer
+import com.dish.seekdish.ui.navDrawer.dishDescription.model.Ingredients
+import com.dish.seekdish.ui.navDrawer.dishDescription.model.Meals
+import kotlinx.android.synthetic.main.activity_dish_detail.*
 import kotlinx.android.synthetic.main.activity_opinion_details.*
+import kotlinx.android.synthetic.main.activity_opinion_details.tvBack
+import java.util.HashSet
+import android.text.TextUtils.join as join1
+
 
 class DishDetailActivity : BaseActivity() {
 
@@ -22,29 +31,82 @@ class DishDetailActivity : BaseActivity() {
     internal lateinit var pager: ViewPager
     internal lateinit var adapterPager: PagerAdapter
 
+    var seasonStr: String = ""
+    var status: String = ""
+    var tagsStr: String = ""
+    var intolerStr: String = ""
+    var seasonArr = HashSet<String>()
+    var statusArr = HashSet<String>()
+    var intolerArr = HashSet<String>()
+    var tagsArr = HashSet<String>()
 
-    internal var mResources = intArrayOf(
-        R.drawable.ic_foodex,
-        R.drawable.ic_pasta,
-        R.drawable.ic_foodimg,
-        R.drawable.ic_foodex,
-        R.drawable.ic_pasta,
-        R.drawable.ic_foodimg
-    )
+
+    val mResources: ArrayList<String> = arrayListOf<String>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_dish_detail)
 
+        getBundleDataAndSet();
+
         //for swipe images on top
         initializeviews()
-
 
         tvBack.setOnClickListener()
         {
             finish()
         }
 
+    }
+
+    private fun getBundleDataAndSet() {
+        mResources.clear()
+
+        val dishMealModel = intent.getSerializableExtra("MEAL_SEARIALIZE") as Meals
+        val dishIngredientModel = intent.getSerializableExtra("INGREDIENT_SEARIALIZE") as Ingredients
+
+        Log.e("searilBudget", ":   " + dishMealModel.budget)
+
+        // feeding the image to the list
+        var imageMeal = dishMealModel.meal_image
+        mResources.add(imageMeal)
+
+        tvRestroName.setText(dishMealModel.restro_name)
+        tvBudget.setText(dishMealModel.budget)
+        tvCalories.setText(dishMealModel.calories.toString())
+        tvPerson.setText(dishMealModel.meal_people)
+        tvSpeed.setText(dishMealModel.preperation_time)
+        tvPrepTime.setText(dishMealModel.preperation_time)
+        tvTypeDish.setText(dishMealModel.meal_type)
+
+        for (item in dishMealModel.seasons) {
+            seasonArr.add(item)
+        }
+        seasonStr = join1(" | ", seasonArr)
+        Log.e("seasonArr", "" + seasonArr)
+        tvSeasonlity.setText(seasonStr)
+
+        for (items in dishMealModel.meal_status) {
+            statusArr.add(items)
+        }
+        status = join1(" | ", statusArr)
+        tvStatus.setText(status)
+
+        for (i in dishIngredientModel.intolerance_compatibilities) {
+            intolerArr.add(i)
+        }
+        intolerStr = join1(" | ", intolerArr)
+        tvIntolrence.setText(intolerStr)
+
+        for (j in dishIngredientModel.meal_tags) {
+            tagsArr.add(j)
+        }
+        tagsStr = join1(" | ", tagsArr)
+        tvIntolrence.setText(tagsStr)
+
+        tvDishName.setText(dishMealModel.meal_name)
+        starRating.rating = dishMealModel.meal_avg_rating.toFloat()
+        euroRating.rating = dishMealModel.budget.toFloat()
 
     }
 
@@ -92,8 +154,15 @@ class DishDetailActivity : BaseActivity() {
 //                startActivity(intent)
 //            }
 
-            imageView.setImageResource(mResources[position])
+
+            GlideApp.with(this@DishDetailActivity)
+                .load(mResources[position])
+                .into(imageView)
+
+
+//            imageView.setImageResource(mResources[position])
             container.addView(itemView)
+
 
             return itemView
         }

@@ -13,6 +13,7 @@
         android:layout_width="match_parent"
         android:text="child name"
         android:textSize="14sp"
+        android:fontFamily="@font/assistantregular"
         android:gravity="center_vertical"
         android:layout_height="35dp"
         android:layout_alignParentTop="true"

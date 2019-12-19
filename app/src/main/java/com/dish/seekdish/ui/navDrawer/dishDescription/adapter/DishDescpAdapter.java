@@ -4,15 +4,18 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentStatePagerAdapter;
 import com.dish.seekdish.ui.navDrawer.dishDescription.ingredient.IngredientFragment;
+import com.dish.seekdish.ui.navDrawer.dishDescription.model.DishDescpModel;
 import com.dish.seekdish.ui.navDrawer.dishDescription.opinion.OpinionFragment;
 import com.dish.seekdish.ui.navDrawer.dishDescription.similar.SimilarFragment;
 
 public class DishDescpAdapter extends FragmentStatePagerAdapter {
     private int mNumOfTabs;
+      public   DishDescpModel objDishModel;
 
-    public DishDescpAdapter(FragmentManager fm, int NumOfTabs) {
+    public DishDescpAdapter(FragmentManager fm, int NumOfTabs, DishDescpModel objDishModel) {
         super(fm);
         this.mNumOfTabs = NumOfTabs;
+        this.objDishModel=objDishModel;
     }
 
     @Override
@@ -20,14 +23,14 @@ public class DishDescpAdapter extends FragmentStatePagerAdapter {
 
         switch (position) {
             case 0:
-                IngredientFragment ingredientFragment = new IngredientFragment();
+                IngredientFragment ingredientFragment = new IngredientFragment(objDishModel);
                 return ingredientFragment;
             case 1:
-                OpinionFragment opinionFragment = new OpinionFragment();
+                OpinionFragment opinionFragment = new OpinionFragment(objDishModel);
                 return opinionFragment;
 
             case 2:
-                SimilarFragment similarFragment = new SimilarFragment();
+                SimilarFragment similarFragment = new SimilarFragment(objDishModel);
                 return similarFragment;
 
             default:

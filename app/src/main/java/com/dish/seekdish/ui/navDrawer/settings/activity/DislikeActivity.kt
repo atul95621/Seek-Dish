@@ -4,7 +4,9 @@ import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
+import android.text.Editable
 import android.text.TextUtils
+import android.text.TextWatcher
 import android.util.Log
 import android.view.View
 import androidx.lifecycle.Observer
@@ -18,11 +20,13 @@ import com.dish.seekdish.ui.navDrawer.settings.adapter.DislikeAdapter
 import com.dish.seekdish.ui.navDrawer.settings.dataModel.Data_Disliked
 import com.dish.seekdish.ui.navDrawer.settings.dataModel.Data_Liked
 import com.dish.seekdish.ui.navDrawer.settings.viewModel.DisLikeVM
+import com.dish.seekdish.util.Global
 import com.dish.seekdish.util.SessionManager
 import io.reactivex.android.schedulers.AndroidSchedulers
 import kotlinx.android.synthetic.main.activity_dislike.*
 import kotlinx.android.synthetic.main.activity_forgot.tvBack
 import java.util.ArrayList
+import android.text.TextUtils.join as join1
 
 class DislikeActivity : BaseActivity() {
 
@@ -36,10 +40,17 @@ class DislikeActivity : BaseActivity() {
 
     var disLikeVM: DisLikeVM? = null
 
-    var pageNumber: Int = 1
 
     private var isLoading: Boolean = false
     private var isLastPage: Boolean = false
+    var flagSearch: Boolean = false
+
+    //WILL BE SAVING THE SAVED INGREDIENTS IN ANDROID...
+    companion object {
+        var savedIngredients = ""
+        var pageNumber: Int = 1
+
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -51,13 +62,16 @@ class DislikeActivity : BaseActivity() {
         disLikeVM = ViewModelProviders.of(this).get(DisLikeVM::class.java)
         sessionManager = SessionManager(this)
 
+
+        Global.dislikedItemsSet.clear()
+
         //hitting api
-        getLikedIngre(pageNumber)
+        getDislikedIngre(pageNumber)
 
         //response observer
-        getLikedResponseObserver()
-        postSavedLikedResponseObserver()
-
+        getDisLikedResponseObserver()
+        postSavedDisLikedResponseObserver()
+        getSearchDisLikedResponseObserver()
 
 
         recyclerView = findViewById(R.id.rvDislikeActivity) as RecyclerView
@@ -86,7 +100,7 @@ class DislikeActivity : BaseActivity() {
                 if (!isLastPage) {
                     Handler().postDelayed({
                         //hitting api
-                        getLikedIngre(pageNumber)
+                        getDislikedIngre(pageNumber)
                     }, 200)
                 }
             }
@@ -102,33 +116,59 @@ class DislikeActivity : BaseActivity() {
 
         tvAdd.setOnClickListener()
         {
-            if (arrayList.size != null && arrayList.size > 0) {
-                var arrayListTrue = ArrayList<String>()
-                var selectedIngreId: String = ""
+            savedIngredients = join1(",", Global.dislikedItemsSet)
+            Log.e("DislikedCommaSepSearch", savedIngredients)
 
-                for (items in arrayList) {
-                    if (items.checkForDisLike == true) {
-                        arrayListTrue.add(items.id.toString())
-                    }
-                }
-                selectedIngreId = TextUtils.join(",", arrayListTrue)
-                Log.e("LikedCommaSepratedDis", selectedIngreId)
 
-                if (selectedIngreId != null && selectedIngreId != "null" && selectedIngreId != "") {
-                    //hitiing save api
-                    disLikeVM?.doSaveDisLikedIngredients(
-                        sessionManager?.getValue(SessionManager.USER_ID).toString(),
-                        selectedIngreId
-                    )
+            if (savedIngredients != null && savedIngredients != "null" && savedIngredients != "") {
+                //hitiing save api
+                disLikeVM?.doSaveDisLikedIngredients(
+                    sessionManager?.getValue(SessionManager.USER_ID).toString(),
+                    savedIngredients
+                )
+            } else {
+                showSnackBar("Please select atleast one ingredient.")
+            }
+
+        }
+
+
+        edtSearch.addTextChangedListener(object : TextWatcher {
+            override fun afterTextChanged(p0: Editable?) {
+
+                // search like ingredient
+                var serchedText = edtSearch.text.toString();
+
+                if (serchedText != null && serchedText != "null" && serchedText != "") {
+                    flagSearch = true
+                    Log.e("textWatcher", "entered if scope")
+                    getSearchedIngre(serchedText)
                 } else {
-                    showSnackBar("Please select atleast one ingredient.")
+
+                    Log.e("textWatcher", "entered else scope")
+
+                    flagSearch = false
+
+                    adapter?.clearLikedList()
+                    pageNumber = 1
+
+                    // hitting api when the text is cleared from search
+                    getDislikedIngre(1)
+
                 }
             }
-        }
+
+            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+            }
+
+            override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+            }
+        })
+
     }
 
 
-    private fun getLikedIngre(page: Int) {
+    private fun getDislikedIngre(page: Int) {
         // hitting api
         disLikeVM?.doGetDisLikedIngredients(
             sessionManager?.getValue(SessionManager.USER_ID).toString(),
@@ -136,8 +176,16 @@ class DislikeActivity : BaseActivity() {
         )
     }
 
+    private fun getSearchedIngre(serchedText: String) {
+        // hitting api
+        disLikeVM?.doGetSearchIngred(
+            sessionManager?.getValue(SessionManager.USER_ID).toString(), serchedText
+        )
+    }
 
-    private fun getLikedResponseObserver() {
+
+
+    private fun getDisLikedResponseObserver() {
         //observe
         disLikeVM!!.isLoadingObservable().observeOn(AndroidSchedulers.mainThread()).subscribe {
             setIsLoading(it)
@@ -155,15 +203,27 @@ class DislikeActivity : BaseActivity() {
 
                     var arrySize = arrayList.size
 
-                    // this does not make 2 copies of item in recyclerview...
-                    if (layoutManager.findLastCompletelyVisibleItemPosition() ==
-                        adapter?.getItemCount()?.minus(1)
-                    ) {
-                        // loading new items...
+                    /*IMPORTANT:
+       * if page no is 1, we hit the resultAction mehtod indivisually coz it was not working, if only work for page no.1
+       * else  is used for page that are not equal to 1, means above 1.
+       * */
+
+                    if (pageNumber == 1) {
+                        adapter?.clearLikedList()
+                        Log.e("TestingLike", "entered in for 1st row")
                         resultAction(response.data)
+                    } else {
+                        // this does not make 2 copies of item in recyclerview...
+                        if (layoutManager.findLastCompletelyVisibleItemPosition() ==
+                            adapter?.getItemCount()?.minus(1)
+                        ) {
 
+                            Log.e("TestingLike", "entered in last row")
+
+                            // loading new items...
+                            resultAction(response.data)
+                        }
                     }
-
 
                 }
 
@@ -200,7 +260,7 @@ class DislikeActivity : BaseActivity() {
 
 
     // post like save ingredients
-    private fun postSavedLikedResponseObserver() {
+    private fun postSavedDisLikedResponseObserver() {
         //observe
         disLikeVM!!.isLoadingObservable().observeOn(AndroidSchedulers.mainThread()).subscribe {
             setIsLoading(it)
@@ -233,5 +293,55 @@ class DislikeActivity : BaseActivity() {
             }
         })
     }
+
+
+    private fun getSearchDisLikedResponseObserver() {
+        //observe
+        disLikeVM!!.isLoadingObservable().observeOn(AndroidSchedulers.mainThread()).subscribe {
+            setIsLoading(it)
+        }
+
+        disLikeVM!!.searchDislIngreLiveData.observe(this, Observer { response ->
+            if (response != null) {
+
+
+                Log.e("rspgetsearchLiked", response.toString())
+
+                Log.e("rspgetsearchLikedStat", response.status.toString())
+
+                if (response.status == 1) {
+
+
+                    if (response.data.size != 0) {
+
+                        arrayList = response.data
+
+                        Log.e("search", "" + "   " + arrayList)
+
+                        adapter = DislikeAdapter(this, arrayList)
+                        recyclerView!!.adapter = adapter
+                        adapter!!.notifyDataSetChanged()
+                    }
+
+
+                }
+
+            } else {
+
+
+                showSnackBar("OOps! Error Occured.")
+
+                Log.e("rspsearchSnak", "else error")
+
+            }
+        })
+    }
+
+    // re fining the page number to 1 because its static and should be started from 1 when user comes on screen
+    override fun onStop() {
+        super.onStop()
+        pageNumber = 1
+    }
+
 
 }

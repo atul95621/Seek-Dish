@@ -7,13 +7,18 @@ import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.dish.seekdish.R
-import com.dish.seekdish.ui.navDrawer.settings.dataModel.ReceivedRequestDataClass
+import com.dish.seekdish.ui.navDrawer.settings.activity.ReceivedRequestActivity
+import com.dish.seekdish.ui.navDrawer.settings.dataModel.Data_Req
 import java.util.ArrayList
 
-class ReceivedRequestAdapter(arrayList: ArrayList<ReceivedRequestDataClass>) :
+class ReceivedRequestAdapter(
+    arrayList: ArrayList<Data_Req>,
+   var acitityReq: ReceivedRequestActivity
+) :
     RecyclerView.Adapter<ReceivedRequestAdapter.RecyclerViewHolder>() {
-    internal var arrayList = ArrayList<ReceivedRequestDataClass>()
+    internal var arrayList = ArrayList<Data_Req>()
 
     init {
         this.arrayList = arrayList
@@ -29,11 +34,18 @@ class ReceivedRequestAdapter(arrayList: ArrayList<ReceivedRequestDataClass>) :
         val followingDataClass = arrayList[position]
 
         // getting all vales and storing in val...
-        var imgFriend: String = followingDataClass.friendImageURL.toString()
-//        Glide.with(this).load(imgFriend).apply(options).into(holder.imgFoodImage);
-        holder.tvFriendName.text = followingDataClass.friendName
+        var imageUrl: String = followingDataClass.user_image
+        Glide.with(acitityReq).load(imageUrl).into(holder.imgFriend);
+        holder.tvFriendName.text = followingDataClass.username
+
+        holder.btnDecline.setOnClickListener()
+        {
+
+            acitityReq.apiHit(followingDataClass.user_id)
+        }
 
     }
+
 
 
     override fun getItemCount(): Int {

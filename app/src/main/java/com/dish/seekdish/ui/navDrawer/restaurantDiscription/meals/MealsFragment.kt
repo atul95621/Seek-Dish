@@ -9,10 +9,11 @@ import androidx.recyclerview.widget.RecyclerView
 import com.dish.seekdish.util.BaseFragment
 
 import com.dish.seekdish.R
+import com.dish.seekdish.ui.navDrawer.restaurantDiscription.RestroDescpModel
 import com.dish.seekdish.ui.navDrawer.restaurantDiscription.RestroDescrpActivity
 import java.util.ArrayList
 
-class MealsFragment : BaseFragment() {
+class MealsFragment( var response: RestroDescpModel) : BaseFragment() {
     private var recyclerView: RecyclerView? = null
     private var adapter: MealsAdapter? = null
     internal lateinit var layoutManager: RecyclerView.LayoutManager
@@ -37,8 +38,16 @@ class MealsFragment : BaseFragment() {
         layoutManager = LinearLayoutManager(activity)
         recyclerView!!.setLayoutManager(layoutManager)
 
-        for (i in 0..6) {
-            val MealsDataClass = MealsDataClass("Manager", "Brochette De Boeuf", "1.85 Km", "3", "14", "4");
+        for (i in 0 until  response.data.restaurant.meals.size) {
+
+            var image=response.data.restaurant.meals[i].meal_image
+            var dishName=response.data.restaurant.meals[i].meal_name
+            var distance=response.data.restaurant.meals[i].distance
+            var star=response.data.restaurant.meals[i].meal_avg_rating
+            var review=response.data.restaurant.meals[i].no_of_reviews
+            var euroRating=response.data.restaurant.meals[i].budget
+
+            val MealsDataClass = MealsDataClass(image, dishName, distance.toString(), star,review.toString(), euroRating.toString());
             arrayList.add(MealsDataClass)
         }
 

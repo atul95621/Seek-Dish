@@ -181,6 +181,7 @@
                       android:layout_weight="0.02"/>
                 <TextView android:layout_width="0dp"
                           android:gravity="center"
+                    android:id="@+id/tvProfilePercent"
                           android:textColor="@color/white"
                           android:text="85.19% of profile"
                           android:layout_height="match_parent"

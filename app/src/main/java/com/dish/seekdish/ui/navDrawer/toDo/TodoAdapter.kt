@@ -3,11 +3,15 @@ package com.dish.seekdish.ui.navDrawer.toDo
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentStatePagerAdapter
-import com.dish.seekdish.ui.home.fragments.HomeMapFragment
+import com.dish.seekdish.ui.navDrawer.toDo.list.ListTodoDataClass
 
 import com.dish.seekdish.ui.navDrawer.toDo.list.ListTodoFragment
+import com.dish.seekdish.ui.navDrawer.toDo.map.TodoMap
 
-class TodoAdapter(fm: FragmentManager, private val mNumOfTabs: Int) : FragmentStatePagerAdapter(fm) {
+class TodoAdapter(
+    fm: FragmentManager,
+    private val mNumOfTabs: Int
+) : FragmentStatePagerAdapter(fm) {
 
     override fun getItem(position: Int): Fragment? {
 
@@ -16,9 +20,8 @@ class TodoAdapter(fm: FragmentManager, private val mNumOfTabs: Int) : FragmentSt
                 return ListTodoFragment()
             }
             1 -> {
-                return HomeMapFragment()
+                return TodoMap()
             }
-
 
             else -> return null
         }

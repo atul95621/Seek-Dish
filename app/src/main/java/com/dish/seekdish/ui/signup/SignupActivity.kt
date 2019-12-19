@@ -59,7 +59,7 @@ class SignupActivity : BaseActivity(), ISignUpView {
         setContentView(R.layout.activity_signup)
 
         //make preseneter
-        signupPresenter = SignupPresenter(this, conxt)
+        signupPresenter = SignupPresenter(this, this@SignupActivity)
         sessionManager = SessionManager(this)
 
         //hide keyboard to open

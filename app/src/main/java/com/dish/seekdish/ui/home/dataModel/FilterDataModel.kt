@@ -61,3 +61,12 @@ data class IntoleranceCompatibility(
     val id: Int,
     val name: String
 )
+
+data class SaveFilterModel(
+    val `data`: Data_Save,
+    val status: Int
+)
+
+data class Data_Save(
+    val message: String
+)

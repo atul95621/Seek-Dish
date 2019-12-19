@@ -1,31 +1,41 @@
 package com.dish.seekdish.ui.navDrawer.toDo
 
-import android.content.Context
-import android.net.Uri
 import android.os.Bundle
-import androidx.fragment.app.Fragment
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProviders
 import androidx.viewpager.widget.ViewPager
 
 import com.dish.seekdish.R
-import com.dish.seekdish.ui.navDrawer.myFavourite.adapter.MyFavouriteFragAdapter
+import com.dish.seekdish.ui.navDrawer.toDo.VM.TodoVM
+import com.dish.seekdish.ui.navDrawer.toDo.list.ListTodoDataClass
+import com.dish.seekdish.util.BaseFragment
+import com.dish.seekdish.util.SessionManager
 import com.google.android.material.tabs.TabLayout
+import io.reactivex.android.schedulers.AndroidSchedulers
+import java.util.ArrayList
 
 
-class TodoFragment : Fragment() {
+class TodoFragment : BaseFragment() {
     lateinit var tabLayout: TabLayout
     internal lateinit var viewPager: ViewPager
     internal lateinit var adapter: TodoAdapter
+    internal var arrayList = ArrayList<ListTodoDataClass>()
+
+    var todoVM: TodoVM? = null
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        super.onCreateView(inflater, container, savedInstanceState)
         // Inflate the layout for this fragment
-        val view= inflater.inflate(R.layout.fragment_todo, container, false)
+        val view = inflater.inflate(R.layout.fragment_todo, container, false)
 
-
+        todoVM = ViewModelProviders.of(this).get(TodoVM::class.java)
 
         // setting up tabLayout
         this.tabLayout = view.findViewById(R.id.tabLayoutTodoFrag)
@@ -33,21 +43,10 @@ class TodoFragment : Fragment() {
         tabLayout.addTab(tabLayout.newTab().setText("List"))
         tabLayout.addTab(tabLayout.newTab().setText("Map"))
 
-//        //change font
-//        changeTabsFont();
-
         viewPager = view.findViewById(R.id.viewPagerTodoFrag) as ViewPager
         adapter = TodoAdapter(activity!!.supportFragmentManager, tabLayout.tabCount)
-
-
         viewPager.adapter = adapter
         viewPager.addOnPageChangeListener(TabLayout.TabLayoutOnPageChangeListener(tabLayout))
-
-
-//        tabLayout.setTabTextColors(
-//                ContextCompat.getColor(this, R.color.black),
-//                ContextCompat.getColor(this, R.color.black)
-
 
         tabLayout.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
             override fun onTabSelected(tab: TabLayout.Tab) {
@@ -67,6 +66,7 @@ class TodoFragment : Fragment() {
 
 
     }
+
 
 
 }

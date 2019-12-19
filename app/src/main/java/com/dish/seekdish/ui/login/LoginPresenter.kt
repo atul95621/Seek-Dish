@@ -1,6 +1,5 @@
 package com.dish.seekdish.ui.login
 
-import android.content.Context
 import android.content.Intent
 import android.util.Log
 import com.dish.seekdish.R
@@ -12,18 +11,17 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class LoginPresenter(private val iSignUpView: ILoginView, val context: Context) {
+class LoginPresenter(private val iSignUpView: ILoginView, val loginActivity: LoginActivity) {
 
     //activity
-    internal var loginActivity = LoginActivity()
     internal lateinit var apiInterface: APIInterface
 
 
     fun login(email: String, password: String) {
 
-        ProgressBarClass.progressBarCalling(context)
+        ProgressBarClass.progressBarCalling(loginActivity)
 
-        apiInterface = APIClient.getClient(context).create(APIInterface::class.java)
+        apiInterface = APIClient.getClient(loginActivity).create(APIInterface::class.java)
 
 
         val call = apiInterface.doLogIn(email, password)
@@ -52,7 +50,7 @@ class LoginPresenter(private val iSignUpView: ILoginView, val context: Context) 
 
 //                Log.e("responseFailure", " " + t.toString())
 
-                loginActivity.showSnackBar(context.getResources().getString(R.string.error_occured));
+                loginActivity.showSnackBar(loginActivity.getResources().getString(R.string.error_occured));
 
                 call.cancel()
                 // canceling the progress bar

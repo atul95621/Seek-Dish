@@ -13,6 +13,10 @@ class Constants {
         var device_token="token"
         var homePage="1"
 
+        var mealId="1"
+        var restaurant_id="3"
+        var radius="15"
+
 
     }
 }

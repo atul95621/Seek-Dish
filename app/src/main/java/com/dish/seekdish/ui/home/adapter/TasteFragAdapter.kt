@@ -64,6 +64,8 @@ class TasteFragAdapter(
         holder.frameTasteDish.setOnClickListener()
         {
             val intent = Intent(context, DishDescriptionActivity::class.java)
+            intent.putExtra("MEAL_ID",tasteDataClass.meal_id.toString())
+            intent.putExtra("RESTAURANT_ID",tasteDataClass.restro_id.toString())
             context.startActivity(intent)
         }
     }

@@ -1,7 +1,5 @@
 package com.dish.seekdish.ui.navDrawer.restaurantDiscription.details
 
-import android.content.Context
-import android.net.Uri
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -11,11 +9,12 @@ import android.widget.ExpandableListView
 import android.widget.Toast
 
 import com.dish.seekdish.R
+import com.dish.seekdish.ui.navDrawer.restaurantDiscription.RestroDescpModel
 import java.util.ArrayList
 import java.util.LinkedHashMap
 
 
-class RestroDetailsFragment : Fragment() {
+class RestroDetailsFragment(var response: RestroDescpModel) : Fragment() {
     private val team = LinkedHashMap<String, GroupData>()
     private val deptList = ArrayList<GroupData>()
 
@@ -27,12 +26,13 @@ class RestroDetailsFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        val view= inflater.inflate(R.layout.fragment_restro_details, container, false)
+        val view = inflater.inflate(R.layout.fragment_restro_details, container, false)
         // add data for displaying in expandable list view
         loadData()
 
         //get reference of the ExpandableListView
-        simpleExpandableListView = view.findViewById(R.id.simpleRestroDetailExpandableListView) as ExpandableListView
+        simpleExpandableListView =
+            view.findViewById(R.id.simpleRestroDetailExpandableListView) as ExpandableListView
         // create the adapter by passing your ArrayList data
         listAdapter = RestroDetailAdapter(context, deptList)
         // attach the adapter to the expandable list view
@@ -58,12 +58,12 @@ class RestroDetailsFragment : Fragment() {
         // setOnGroupClickListener listener for group heading click
         simpleExpandableListView!!.setOnGroupClickListener(ExpandableListView.OnGroupClickListener { parent, v, groupPosition, id ->
             //get the group header
-           /* val headerInfo = deptList[groupPosition]
-            //display it or do something with it
-            Toast.makeText(
-                context, " Team Name :: " + headerInfo.name,
-                Toast.LENGTH_LONG
-            ).show()*/
+            /* val headerInfo = deptList[groupPosition]
+             //display it or do something with it
+             Toast.makeText(
+                 context, " Team Name :: " + headerInfo.name,
+                 Toast.LENGTH_LONG
+             ).show()*/
 
             true
         })
@@ -75,9 +75,30 @@ class RestroDetailsFragment : Fragment() {
     // load some initial data into out list
     private fun loadData() {
 
-        addProduct("Email", "seekdish@gmail.com")
-        addProduct("Contact", "+918887775554")
-        addProduct("Website", "wwww.Seekdish.com")
+        var email = response.data.restaurant.restaurant_detail.detail[0].email
+        addProduct("Email", email)
+        var website = response.data.restaurant.restaurant_detail.detail[0].website
+        addProduct("Website", website)
+        var guets = response.data.restaurant.restaurant_detail.detail[0].guests
+        addProduct("Guests", guets)
+        var origin = response.data.restaurant.restaurant_detail.detail[0].origin
+        addProduct("Origin", origin)
+        var phone = response.data.restaurant.restaurant_detail.detail[0].phone
+        addProduct("Phone", phone)
+        var schedule = response.data.restaurant.restaurant_detail.detail[0].schedule
+        addProduct("Schedule", schedule)
+        for (items in response.data.restaurant.restaurant_detail.additional_services) {
+            addProduct("Additioanal Services", items)
+        }
+        for (items in response.data.restaurant.restaurant_detail.restaurant_ambiance) {
+            addProduct("Restaurant Ambiance", items)
+        }
+        for (items in response.data.restaurant.restaurant_detail.restaurant_ambiance_complementary) {
+            addProduct("Complementary", items)
+        }
+        for (items in response.data.restaurant.restaurant_detail.additional_services) {
+            addProduct("Services", items)
+        }
 
     }
 
