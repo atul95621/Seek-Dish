@@ -1,6 +1,5 @@
 package com.dish.seekdish.ui.navDrawer.checkin.adapter
 
-import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -8,13 +7,18 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.dish.seekdish.R
-import com.dish.seekdish.ui.navDrawer.checkin.data.CheckinDataClass
+import com.dish.seekdish.custom.GlideApp
+import com.dish.seekdish.ui.navDrawer.checkin.CheckinActivity
+import com.dish.seekdish.ui.navDrawer.checkin.data.Data_Checkin
 import java.util.ArrayList
 
 
-class CheckinAdapter(arrayList: ArrayList<CheckinDataClass>, var context: Context) :
+class CheckinAdapter(
+    arrayList: ArrayList<Data_Checkin>,
+    var context: CheckinActivity
+) :
     RecyclerView.Adapter<CheckinAdapter.RecyclerViewHolder>() {
-    internal var arrayList = ArrayList<CheckinDataClass>()
+    internal var arrayList = ArrayList<Data_Checkin>()
 
     init {
         this.arrayList = arrayList
@@ -27,19 +31,18 @@ class CheckinAdapter(arrayList: ArrayList<CheckinDataClass>, var context: Contex
     }
 
     override fun onBindViewHolder(holder: RecyclerViewHolder, position: Int) {
-        val checkinDataClass = arrayList[position]
+        val Data_Checkin = arrayList[position]
 
-        // getting all vales and storing in val...
-        // now setted to the textview
-        holder.tvCheckinName.text = checkinDataClass.checkinTitle
-        holder.tvCheckinDate.text = checkinDataClass.checkinDate
-//        holder.imgplace.text = checkinDataClass.imageUrl
-
+        holder.tvCheckinName.text = Data_Checkin.restro_name
+        holder.tvCheckinDate.text = context.datePrase(Data_Checkin.date)
+        GlideApp.with(context)
+            .load(Data_Checkin.user_image)
+            .placeholder(R.drawable.ic_applogo_small)
+            .into(holder.imgplace)
     }
 
 
     override fun getItemCount(): Int {
-
         return arrayList.size
     }
 

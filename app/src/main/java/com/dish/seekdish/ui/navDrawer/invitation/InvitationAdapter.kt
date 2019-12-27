@@ -22,11 +22,10 @@ class InvitationAdapter(fm: FragmentManager, private val mNumOfTabs: Int) : Frag
                 return InvitationMapFragment()
             }
 
-           /* 2 -> {
-//                return InvitationDeatilsFragment()
-                return RestroDetailsFragment()
+            2 -> {
+                return InvitationDeatilsFragment()
+//                return RestroDetailsFragment()
             }
-*/
             else -> return null
         }
     }

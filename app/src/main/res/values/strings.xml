@@ -50,6 +50,7 @@
     <string name="no_restro_found">No restaurant found at your location. Change your location in Settings.</string>
     <string name="no_todo_list">You have not added anything to Todo List for now.</string>
     <string name="no_fav_list">You have not added anything to Favorite List for now.</string>
+    <string name="no_one_found">No one found.</string>
 
 
 </resources>

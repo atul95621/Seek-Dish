@@ -8,19 +8,22 @@ import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.dish.seekdish.R
 import com.dish.seekdish.ui.home.HomeActivity
 import com.dish.seekdish.ui.navDrawer.friendInfo.FriendInfoActivity
-import com.dish.seekdish.ui.navDrawer.myFriends.dataModel.FriendFragDataClass
+import com.dish.seekdish.ui.navDrawer.myFriends.dataModel.Friend
+import com.dish.seekdish.ui.navDrawer.myFriends.fargment.FriendsFragment
 import java.util.ArrayList
 
 
 class FriendFragAdapter(
-    arrayList: ArrayList<FriendFragDataClass>,
-    activity: HomeActivity
+    arrayList: ArrayList<Friend>,
+    activity: HomeActivity,
+    var friendsFragment: FriendsFragment?
 ) :
     RecyclerView.Adapter<FriendFragAdapter.RecyclerViewHolder>() {
-    internal var arrayList = ArrayList<FriendFragDataClass>()
+    internal var arrayList = ArrayList<Friend>()
     var activity: HomeActivity
 
     init {
@@ -28,7 +31,6 @@ class FriendFragAdapter(
         this.activity=activity
 
     }
-
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.item_layout_following_frag, parent, false)
@@ -39,14 +41,22 @@ class FriendFragAdapter(
         val friendDataClass = arrayList[position]
 
         // getting all vales and storing in val...
-        var imgFriend: String = friendDataClass.friendImageURL.toString()
-//        Glide.with(this).load(imgFriend).apply(options).into(holder.imgFoodImage);
-        holder.tvFriendName.text = friendDataClass.friendName
+        var imgFriend: String = friendDataClass.user_image
+        Glide.with(activity).load(imgFriend).into(holder.imgFriend);
+        holder.tvFriendName.text = friendDataClass.username
 
         holder.imgFriend.setOnClickListener()
         {
             val intent = Intent(activity, FriendInfoActivity::class.java)
+            intent.putExtra("IMAGE", friendDataClass.user_image);
+            intent.putExtra("NAME", friendDataClass.username);
+            intent.putExtra("USER_ID", friendDataClass.user_id);
             activity.startActivity(intent)
+        }
+
+        holder.btnReplace.setOnClickListener()
+        {
+            friendsFragment?.removeFriend(friendDataClass.user_id)
         }
 
     }

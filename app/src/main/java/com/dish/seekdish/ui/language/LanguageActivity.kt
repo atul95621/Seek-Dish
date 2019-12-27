@@ -144,12 +144,12 @@ class LanguageActivity : BaseActivity(), ILanguageView {
             // TODO Auto-generated method stub
 //           val tvLanguage = view.findViewById<View>(R.id.tvLanguage) as TextView
 
-
+/*
             Toast.makeText(
                 FacebookSdk.getApplicationContext(),
                 "selected Item Name is " + listData[position].id + "     " + listData[position].name,
                 Toast.LENGTH_LONG
-            ).show()
+            ).show()*/
 
             languageId = listData[position].id
             languageName = listData[position].name

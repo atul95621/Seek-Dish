@@ -79,19 +79,21 @@ class OpinionAdapter(
             intent.putExtra("MEAL_IMAGE", opinionDetails[position].meal_image)
             intent.putExtra("COMMENT_USER_ID", opinionDetails[position].user_id)
 
-            var size_images_arr = opinionDetails[position].comment_images.size
-
+//            var size_images_arr = opinionDetails[position].comment_images.size
+/*
             if (size_images_arr == 1) {
                 var image1 = opinionDetails[position].comment_images[0].image1
                 intent.putExtra("COMMENT_IMAGE_1", image1.toString())
             } else if (size_images_arr == 2) {
-                var image1 = opinionDetails[position].comment_images[0].image1
-                intent.putExtra("COMMENT_IMAGE_1", image1.toString())
-                var image2 = opinionDetails[position].comment_images[0].image2
-                intent.putExtra("COMMENT_IMAGE_2", image2.toString())
+
             } else {
 
-            }
+            }*/
+
+            var image1 = opinionDetails[position].rating_image1
+            intent.putExtra("COMMENT_IMAGE_1", image1.toString())
+            var image2 = opinionDetails[position].rating_image2
+            intent.putExtra("COMMENT_IMAGE_2", image2.toString())
 
 
             mcontext.startActivity(intent)

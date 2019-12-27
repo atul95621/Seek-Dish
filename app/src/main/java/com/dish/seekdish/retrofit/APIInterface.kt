@@ -4,13 +4,16 @@ package com.dish.seekdish.retrofit
 import com.dish.seekdish.ui.home.dataModel.*
 import com.dish.seekdish.ui.login.LoginDataClass
 import com.dish.seekdish.ui.navDrawer.activities.model.ProfileDataClass
+import com.dish.seekdish.ui.navDrawer.checkin.data.CheckinModel
 import com.dish.seekdish.ui.navDrawer.dishDescription.model.AddTodoModel
 import com.dish.seekdish.ui.navDrawer.dishDescription.model.DishDescpModel
+import com.dish.seekdish.ui.navDrawer.myFriends.dataModel.FriendDataModel
 import com.dish.seekdish.ui.navDrawer.restaurantDiscription.RestroDescpModel
 import com.dish.seekdish.ui.navDrawer.restaurants.dataClass.ProximityDataClass
 import com.dish.seekdish.ui.navDrawer.restaurants.dataClass.RestroMapModel
 import com.dish.seekdish.ui.navDrawer.restaurants.dataClass.TimeRestroDataClass
 import com.dish.seekdish.ui.navDrawer.settings.dataModel.*
+import com.dish.seekdish.ui.navDrawer.settings.myAlerts.MyAlertDataClass
 import com.dish.seekdish.ui.navDrawer.toDo.list.DeleteTodoList
 import com.dish.seekdish.ui.navDrawer.toDo.list.ListTodoDataClass
 import com.dish.seekdish.ui.signup.SignUpModel
@@ -463,6 +466,13 @@ internal interface APIInterface {
     ): Call<AddTodoModel>
 
     @FormUrlEncoded
+    @POST("following_friend_request")
+    fun sendFollowingRequest(
+        @Field("sender_id") senderId: String,
+        @Field("receiver_id") receiverId: String
+    ): Call<AddTodoModel>
+
+    @FormUrlEncoded
     @POST("restaurant_detail")
     fun getRestroDetails(
         @Field("user_id") userId: String,
@@ -498,7 +508,59 @@ internal interface APIInterface {
         @Field("ambiance_complementary") amb_comp: String,
         @Field("additional_services") addServi: String,
         @Field("seasonality") season: String
-
-
     ): Call<SaveFilterModel>
+
+    @FormUrlEncoded
+    @POST("my_friends")
+    fun getFriendList(
+        @Field("user_id") userId: String
+    ): Call<FriendDataModel>
+
+    @FormUrlEncoded
+    @POST("delete_friend")
+    fun doDeleteFriend(
+        @Field("user_id") userId: String,
+        @Field("friend_id") friendId: String
+    ): Call<CancelReModel>
+
+    @FormUrlEncoded
+    @POST("cancel_following_request")
+    fun doDeleteFollower(
+        @Field("sender_id") userId: String,
+        @Field("receiver_id") friendId: String
+    ): Call<CancelReModel>
+
+    @FormUrlEncoded
+    @POST("accept_friend_request")
+    fun doAcceptReq(
+        @Field("sender_id") userId: String,
+        @Field("receiver_id") friendId: String
+    ): Call<CancelReModel>
+
+    @FormUrlEncoded
+    @POST("get_checkin_list")
+    fun getCheckinData(
+        @Field("user_id") userId: String
+    ): Call<CheckinModel>
+
+    @FormUrlEncoded
+    @POST("add_alert")
+    fun doAddAlert(
+        @Field("user_id") userId: String,
+        @Field("restaurant_id") restaurant_id: String
+    ): Call<CancelReModel>
+
+    @FormUrlEncoded
+    @POST("my_alert_list")
+    fun getAlertListData(
+        @Field("user_id") userId: String
+    ): Call<MyAlertDataClass>
+
+    @FormUrlEncoded
+    @POST("remove_alert")
+    fun getAlertDlete(
+        @Field("user_id") userId: String,
+        @Field("restaurant_id") restaurant_id: String
+
+    ): Call<CancelReModel>
 }

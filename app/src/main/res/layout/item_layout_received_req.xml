@@ -29,17 +29,20 @@
                   android:layout_gravity="center_vertical"
                   android:text="John Snow"
                   android:layout_height="wrap_content"/>
-        <Button android:layout_width="wrap_content"
-                android:layout_marginStart="5dp"
-                android:id="@+id/btnAccept"
-                android:layout_height="30dp"
-                android:text="Accept"
-                android:textAllCaps="false"
-                android:textSize="14sp"
-                android:layout_marginEnd="5dp"
-                android:layout_gravity="center_vertical|end"
-                android:textColor="@color/white"
-                android:background="@drawable/roundedge_btn_primary_fill"/>
+
+        <Button
+            android:id="@+id/btnAccept"
+            android:layout_width="wrap_content"
+            android:layout_height="30dp"
+            android:layout_gravity="center_vertical|end"
+            android:layout_marginStart="5dp"
+            android:layout_marginEnd="5dp"
+            android:background="@drawable/roundedge_btn_primary_fill"
+            android:text="Accept"
+            android:textAllCaps="false"
+            android:textColor="@color/white"
+            android:textSize="14sp" />
+
         <Button android:layout_width="wrap_content"
                 android:layout_marginStart="5dp"
                 android:id="@+id/btnDecline"

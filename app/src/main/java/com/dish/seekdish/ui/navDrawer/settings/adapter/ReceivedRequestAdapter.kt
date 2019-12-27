@@ -40,9 +40,13 @@ class ReceivedRequestAdapter(
 
         holder.btnDecline.setOnClickListener()
         {
-
             acitityReq.apiHit(followingDataClass.user_id)
         }
+        holder.btnAccept.setOnClickListener()
+        {
+            acitityReq.acceptReqApi(followingDataClass.user_id)
+        }
+
 
     }
 

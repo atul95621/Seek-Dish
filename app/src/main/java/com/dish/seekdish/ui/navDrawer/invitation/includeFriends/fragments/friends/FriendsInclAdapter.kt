@@ -8,7 +8,6 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.dish.seekdish.R
-import com.dish.seekdish.ui.home.HomeActivity
 import com.dish.seekdish.ui.navDrawer.friendInfo.FriendInfoActivity
 import com.dish.seekdish.ui.navDrawer.invitation.includeFriends.IncludeFriendsActivity
 import com.dish.seekdish.ui.navDrawer.myFriends.dataModel.FollowersFragDataClass

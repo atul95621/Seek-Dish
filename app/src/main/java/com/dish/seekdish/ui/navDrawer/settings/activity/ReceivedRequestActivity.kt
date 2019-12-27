@@ -42,10 +42,8 @@ class ReceivedRequestActivity : BaseActivity() {
 
         //check connection
         if (connectionDetector.isConnectingToInternet) {
-
             //hitting api
             reqApiHit()
-
         } else {
             showSnackBar(getString(R.string.check_connection))
         }
@@ -115,11 +113,67 @@ class ReceivedRequestActivity : BaseActivity() {
         })
     }
 
-    fun apiHit(userId: Int) {
+       fun apiHit(userId: Int) {
         cancelReqHit(userId)
     }
 
 
+    fun acceptReqApi(userId: Int) {
+        acceptFrndReqHit(userId)
+    }
+
+
+    fun acceptFrndReqHit(SenderuserId: Int) {
+
+        ProgressBarClass.progressBarCalling(this)
+
+        apiInterface = APIClient.getClient(this).create(APIInterface::class.java)
+
+
+        val call = apiInterface.doAcceptReq(
+            sessionManager?.getValue(SessionManager.USER_ID).toString(),
+            SenderuserId.toString()
+        )
+        call.enqueue(object : Callback<CancelReModel> {
+            override fun onResponse(
+                call: Call<CancelReModel>,
+                response: Response<CancelReModel>
+            ) {
+                // canceling the progress bar
+                ProgressBarClass.dialog.dismiss()
+
+
+                Log.e("respStr", " " + response.body().toString())
+
+                if (response.code().toString().equals("200")) {
+
+                    var model = response.body() as CancelReModel
+
+                    if (model.status == 1) {
+                        showSnackBar(model.data.message)
+                        reqApiHit()
+
+                    }
+
+                } else {
+                    showSnackBar(resources.getString(R.string.error_occured));
+
+                }
+
+
+            }
+
+            override fun onFailure(call: Call<CancelReModel>, t: Throwable) {
+
+                showSnackBar(resources.getString(R.string.error_occured));
+
+                call.cancel()
+                // canceling the progress bar
+                ProgressBarClass.dialog.dismiss()
+
+            }
+        })
+    }
     fun cancelReqHit(SenderuserId: Int) {
 
         ProgressBarClass.progressBarCalling(this)
@@ -148,6 +202,8 @@ class ReceivedRequestActivity : BaseActivity() {
 
                     if (model.status == 1) {
                         showSnackBar(model.data.message)
+                        reqApiHit()
+
                     }
 
                 } else {

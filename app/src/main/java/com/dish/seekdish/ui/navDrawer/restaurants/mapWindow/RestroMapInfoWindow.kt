@@ -33,10 +33,10 @@ class RestroMapInfoWindow(
 
         val infoWindowGoogleMap = marker.tag as InfoWindowModel
 
-        val imageId = context.getResources().getIdentifier(
-            infoWindowGoogleMap!!.imageUrl!!.toLowerCase(),
+      /*  val imageId = context.getResources().getIdentifier(
+            infoWindowGoogleMap.imageUrl!!.toLowerCase(),
             "drawable", context.getPackageName()
-        )
+        )*/
         //        imgUrl.setImageResource(imageId);
 //        imgInfoWindow.setImageResource(R.drawable.ic_foodex)
 

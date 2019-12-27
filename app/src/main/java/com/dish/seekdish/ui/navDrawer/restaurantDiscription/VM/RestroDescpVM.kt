@@ -6,6 +6,7 @@ import androidx.lifecycle.ViewModel
 import com.dish.seekdish.retrofit.APIClientMvvm
 import com.dish.seekdish.retrofit.APIInterface
 import com.dish.seekdish.ui.navDrawer.restaurantDiscription.RestroDescpModel
+import com.dish.seekdish.ui.navDrawer.settings.dataModel.CancelReModel
 import io.reactivex.Observable
 import io.reactivex.subjects.BehaviorSubject
 import retrofit2.Call
@@ -16,6 +17,7 @@ class RestroDescpVM : ViewModel() {
 
     //this is the data that we will fetch asynchronously
     var geRestroDetailLiveData: MutableLiveData<RestroDescpModel> = MutableLiveData<RestroDescpModel>()
+    var getAddAlertLiveData: MutableLiveData<CancelReModel> = MutableLiveData<CancelReModel>()
 
 
     val isLoadingSubject = BehaviorSubject.create<Boolean>()
@@ -60,6 +62,44 @@ class RestroDescpVM : ViewModel() {
         })
     }
 
+
+    fun addAlertApi(
+        userId: String,
+        restaurant_id: String
+    ) {
+
+        // making progress bar visible
+        isLoadingSubject.onNext(true)
+
+
+        var api = APIClientMvvm.client.create(APIInterface::class.java)
+
+        val call = api.doAddAlert(userId,restaurant_id)
+
+        call.enqueue(object : Callback<CancelReModel> {
+            override fun onResponse(call: Call<CancelReModel>, response: Response<CancelReModel>) {
+
+                // making progress bar invisible
+                isLoadingSubject.onNext(false)
+
+                //finally we are setting the list to our MutableLiveData
+                getAddAlertLiveData.postValue(response.body())
+
+                getAddAlertLiveData.value = response.body()
+                Log.e("respGetDetails", response.body().toString())
+
+            }
+
+            override fun onFailure(call: Call<CancelReModel>, t: Throwable) {
+
+                // making progress bar invisible
+                isLoadingSubject.onNext(false)
+                Log.e("respGetDetailsFail", "failure")
+
+                getAddAlertLiveData.postValue(null)
+            }
+        })
+    }
 
     fun isLoadingObservable(): Observable<Boolean> {
         return isLoadingSubject

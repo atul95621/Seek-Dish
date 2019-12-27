@@ -34,7 +34,7 @@ class OpinionDetailsActivity : BaseActivity() {
         getIntentData()
 
         getFriendReqObserver()
-
+        getFollowingReqObserver()
 
         tvBack.setOnClickListener()
         {
@@ -48,6 +48,14 @@ class OpinionDetailsActivity : BaseActivity() {
                 comment_userId.toString()
             )
         }
+
+        imgFollowing.setOnClickListener()
+        {
+            dishDescriptionVM?.doSendFollwoingRequest(
+                sessionManager?.getValue(SessionManager.USER_ID).toString(),
+                comment_userId.toString()
+            )
+        }
     }
 
     private fun getFriendReqObserver() {
@@ -57,6 +65,35 @@ class OpinionDetailsActivity : BaseActivity() {
         }
 
         dishDescriptionVM!!.getFriendReqLiveData.observe(this, Observer { response ->
+            if (response != null) {
+
+                Log.e("rspGetaddtodoDetails", response.status.toString())
+
+                if (response.status == 1) {
+
+                    showSnackBar(response.data.message)
+
+                }
+
+            } else {
+
+                showSnackBar("OOps! Error Occured.")
+
+                Log.e("rspGetaddtodoFail", "else error")
+
+            }
+        })
+
+
+    }
+
+    private fun getFollowingReqObserver() {
+        //observe
+        dishDescriptionVM!!.isLoadingObservable().observeOn(AndroidSchedulers.mainThread()).subscribe {
+            setIsLoading(it)
+        }
+
+        dishDescriptionVM!!.getFollowingReqLiveData.observe(this, Observer { response ->
             if (response != null) {
 
                 Log.e("rspGetaddtodoDetails", response.status.toString())

@@ -8,20 +8,23 @@ import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.dish.seekdish.R
 import com.dish.seekdish.ui.home.HomeActivity
 import com.dish.seekdish.ui.navDrawer.friendInfo.FriendInfoActivity
-import com.dish.seekdish.ui.navDrawer.myFriends.dataModel.FollowingFragDataClass
+import com.dish.seekdish.ui.navDrawer.myFriends.dataModel.Following
+import com.dish.seekdish.ui.navDrawer.myFriends.fargment.FollowingFragment
 import java.util.ArrayList
 
 
 
 class FollowingFragAdapter(
-    arrayList: ArrayList<FollowingFragDataClass>,
-    activity: HomeActivity
+    arrayList: ArrayList<Following>,
+    activity: HomeActivity,
+    var followingFragment: FollowingFragment
 ) :
     RecyclerView.Adapter<FollowingFragAdapter.RecyclerViewHolder>() {
-    internal var arrayList = ArrayList<FollowingFragDataClass>()
+    internal var arrayList = ArrayList<Following>()
     var activity: HomeActivity
 
 
@@ -41,9 +44,10 @@ class FollowingFragAdapter(
         val followingDataClass = arrayList[position]
 
         // getting all vales and storing in val...
-        var imgFriend: String = followingDataClass.friendImageURL.toString()
-//        Glide.with(this).load(imgFriend).apply(options).into(holder.imgFoodImage);
-        holder.tvFriendName.text = followingDataClass.friendName
+        var imgFriend: String = followingDataClass.user_image
+        Glide.with(activity).load(imgFriend).into(holder.imgFriend);
+        holder.tvFriendName.text = followingDataClass.username
+
 
         holder.imgFriend.setOnClickListener()
         {
@@ -51,7 +55,10 @@ class FollowingFragAdapter(
             activity.startActivity(intent)
         }
 
-
+        holder.btnReplace.setOnClickListener()
+        {
+            followingFragment?.removeFriend(followingDataClass.user_id)
+        }
     }
 
 

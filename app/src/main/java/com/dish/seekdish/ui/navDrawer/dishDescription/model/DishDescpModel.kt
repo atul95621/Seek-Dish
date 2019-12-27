@@ -69,7 +69,8 @@ data class UserMealComment(
     val budget: Int,
     val cleanness_rating: Int,
     val comment: String,
-    val comment_images: ArrayList<CommentImage>,
+    val rating_image1: String,
+    val rating_image2: String,
     val decore_rating: Int,
     val follower: Int,
     val friend: Int,
@@ -86,10 +87,6 @@ data class UserMealComment(
     val texture_rating: Int,
     val user_id: Int,
     val username: String
-)
-data class CommentImage(
-    val image1: String,
-    val image2: String
 )
 
 data class AddTodoModel(

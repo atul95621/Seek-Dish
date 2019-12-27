@@ -22,6 +22,7 @@ class DishDescriptionVM : ViewModel() {
     var getAddTodoLiveData: MutableLiveData<AddTodoModel> = MutableLiveData<AddTodoModel>()
     var getAddFavouriteLiveData: MutableLiveData<AddTodoModel> = MutableLiveData<AddTodoModel>()
     var getFriendReqLiveData: MutableLiveData<AddTodoModel> = MutableLiveData<AddTodoModel>()
+    var getFollowingReqLiveData: MutableLiveData<AddTodoModel> = MutableLiveData<AddTodoModel>()
 
 
     val isLoadingSubject = BehaviorSubject.create<Boolean>()
@@ -186,6 +187,45 @@ class DishDescriptionVM : ViewModel() {
                 Log.e("respGetDetailsFail", "failure")
 
                 getFriendReqLiveData.postValue(null)
+            }
+        })
+    }
+
+
+    fun doSendFollwoingRequest(
+        senderId: String,
+        receiverId: String
+    ) {
+
+        // making progress bar visible
+        isLoadingSubject.onNext(true)
+
+
+        var api = APIClientMvvm.client.create(APIInterface::class.java)
+
+        val call = api.sendFollowingRequest(senderId, receiverId)
+
+        call.enqueue(object : Callback<AddTodoModel> {
+            override fun onResponse(call: Call<AddTodoModel>, response: Response<AddTodoModel>) {
+
+                // making progress bar invisible
+                isLoadingSubject.onNext(false)
+
+                //finally we are setting the list to our MutableLiveData
+                getFollowingReqLiveData.postValue(response.body())
+
+                getFollowingReqLiveData.value = response.body()
+                Log.e("respGetDetails", response.body().toString())
+
+            }
+
+            override fun onFailure(call: Call<AddTodoModel>, t: Throwable) {
+
+                // making progress bar invisible
+                isLoadingSubject.onNext(false)
+                Log.e("respGetDetailsFail", "failure")
+
+                getFollowingReqLiveData.postValue(null)
             }
         })
     }

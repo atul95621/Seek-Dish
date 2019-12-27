@@ -44,23 +44,23 @@ class OpinionFragment(var objDishModel: DishDescpModel) : BaseFragment(), Serial
 
         var opinionDetails = objDishModel.data.user_meal_comments
 
-        var size = objDishModel.data.user_meal_comments.size
-        Log.e("sizeTry", "" + size)
+        var sizeComment = objDishModel.data.user_meal_comments.size
+        Log.e("sizeTry", "" + sizeComment)
 
 
-        if (size == null || size.equals("null") || size.equals("") || size == 0) {
+        if (sizeComment == null || sizeComment.equals("null") || sizeComment.equals("") || sizeComment == 0) {
 
             view.tvOpinionHeader.visibility = View.GONE
             view.tvOpinionAlert.visibility = View.VISIBLE
         } else {
-            view.tvOpinionHeader.setText("Opinions (" + size + ")")
+            view.tvOpinionHeader.setText("Opinions (" + sizeComment + ")")
 
             for (item in objDishModel.data.user_meal_comments) {
 
                 var newDate = datePrase(item.published_on)
                 var image: String = ""
                 if (objDishModel.data.user_meal_comments.size > 0) {
-                    image = item.comment_images[0].image1
+                    image = item.rating_image1
                 }
 
                 val OpinionDataClass = OpinionDataClass(item.username, newDate, image, item.comment, item.anonymous);
