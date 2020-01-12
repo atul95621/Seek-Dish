@@ -8,12 +8,14 @@
              android:orientation="vertical"
               tools:context=".ui.navDrawer.dishDescription.opinion.OpinionFragment">
     <TextView android:layout_width="match_parent"
+        android:id="@+id/tvAlert"
               android:layout_height="wrap_content"
               android:textSize="18sp"
               android:gravity="center"
               android:layout_gravity="center"
+        android:visibility="gone"
               android:padding="2dp"
-              android:text="No data found"/>
+              android:text="Nobody invited yet."/>
     <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rvInvitedFrag"
             android:layout_width="match_parent"
@@ -23,3 +25,5 @@
             tools:layout_editor_absoluteY="0dp"/>
 
 </FrameLayout>
+
+

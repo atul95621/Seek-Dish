@@ -68,10 +68,12 @@
                 android:tint="@color/dark_gray" />
 
             <EditText
+                android:id="@+id/edtEmail"
                 android:layout_width="match_parent"
                 android:layout_height="30dp"
                 android:layout_marginStart="20dp"
                 android:background="@drawable/rect_curve_gray_border"
+                android:fontFamily="@font/assistantregular"
                 android:hint="Enter email"
                 android:paddingStart="10dp" />
         </LinearLayout>
@@ -89,14 +91,14 @@
                 android:tint="@color/dark_gray" />
 
             <LinearLayout
-                android:layout_width="35dp"
-                android:layout_height="30dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_marginStart="20dp"
                 android:background="@drawable/rect_curve_gray_border"
-                android:padding="5dp">
+                >
 
                 <com.hbb20.CountryCodePicker
-                    android:id="@+id/ccp"
+                    android:id="@+id/ccpContact"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
@@ -104,7 +106,7 @@
                     app:ccpDialog_keyboardAutoPopup="false"
                     app:ccp_autoDetectCountry="true"
                     app:ccp_hintExampleNumber="true"
-                    app:ccp_showFlag="true"
+                    app:ccp_showFlag="false"
                     app:ccp_showFullName="false"
                     app:ccp_showNameCode="false"
                     app:ccp_showPhoneCode="true"
@@ -112,10 +114,13 @@
             </LinearLayout>
 
             <EditText
+                android:id="@+id/edtPhone"
+
                 android:layout_width="match_parent"
                 android:layout_height="30dp"
                 android:layout_marginStart="20dp"
                 android:background="@drawable/rect_curve_gray_border"
+                android:fontFamily="@font/assistantregular"
                 android:hint="Enter Phone"
                 android:paddingStart="10dp" />
         </LinearLayout>
@@ -133,10 +138,13 @@
                 android:tint="@color/dark_gray" />
 
             <EditText
+                android:id="@+id/edtSkype"
+
                 android:layout_width="match_parent"
                 android:layout_height="30dp"
                 android:layout_marginStart="20dp"
                 android:background="@drawable/rect_curve_gray_border"
+                android:fontFamily="@font/assistantregular"
                 android:hint="Enter Skype id"
                 android:paddingStart="10dp" />
         </LinearLayout>
@@ -155,10 +163,12 @@
                 android:tint="@color/dark_gray" />
 
             <EditText
+                android:id="@+id/edtFacebook"
                 android:layout_width="match_parent"
                 android:layout_height="30dp"
                 android:layout_marginStart="20dp"
                 android:background="@drawable/rect_curve_gray_border"
+                android:fontFamily="@font/assistantregular"
 
                 android:hint="Enter Facebook Profile"
                 android:paddingStart="10dp" />
@@ -178,11 +188,12 @@
                 android:tint="@color/dark_gray" />
 
             <EditText
+                android:id="@+id/edtTwitter"
                 android:layout_width="match_parent"
                 android:layout_height="30dp"
                 android:layout_marginStart="20dp"
-
                 android:background="@drawable/rect_curve_gray_border"
+                android:fontFamily="@font/assistantregular"
                 android:hint="Enter Twitter Profile"
                 android:paddingStart="10dp" />
         </LinearLayout>

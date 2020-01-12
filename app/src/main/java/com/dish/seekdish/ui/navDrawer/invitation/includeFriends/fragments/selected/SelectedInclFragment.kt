@@ -1,6 +1,7 @@
 package com.dish.seekdish.ui.navDrawer.invitation.includeFriends.fragments.selected
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -31,7 +32,7 @@ class SelectedInclFragment : BaseFragment() {
 
 
         context = activity as IncludeFriendsActivity
-
+Log.e("SelectedInclFragment","onCreateView")
         // hiding keyboard
         hideKeyBoard()
 
@@ -51,9 +52,30 @@ class SelectedInclFragment : BaseFragment() {
         adapter = SelectedInclAdapter(arrayList,context)
         recyclerView!!.setAdapter(adapter)
 
+        if (isAdded() && isVisible() && getUserVisibleHint()) {
+            // ... do your thing
+        }
 
         return view
     }
+
+    override fun onResume() {
+        super.onResume()
+        Log.e("SelectedInclFragment","onResume")
+
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        Log.e("SelectedInclFragment","onViewCreated")
+
+    }
+
+    override fun onViewStateRestored(savedInstanceState: Bundle?) {
+        super.onViewStateRestored(savedInstanceState)
+        Log.e("SelectedInclFragment","onViewStateRestored")
+    }
+
 
 
 }

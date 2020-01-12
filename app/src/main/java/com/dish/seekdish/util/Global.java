@@ -13,20 +13,21 @@ public class Global {
     public static final String CHANNEL_NAME = "SEEKDISH";
     public static final String CHANNEL_DESCRIPTION = "seekdish";
 
-    public static HashSet<String> likedItemsSet= new HashSet<>();
-    public static HashSet<String> dislikedItemsSet= new HashSet<>();
+    public static HashSet<String> likedItemsSet = new HashSet<>();
+    public static HashSet<String> dislikedItemsSet = new HashSet<>();
 
-    public static HashSet<String> budgetSet= new HashSet<String>();
-    public static HashSet<String> serviceSet= new HashSet<String>();
-    public static HashSet<String> mealSet= new HashSet<String>();
-    public static HashSet<String> compatIntSet= new HashSet<String>();
-    public static HashSet<String> restroSpeclSet= new HashSet<String>();
-    public static HashSet<String> restroAmbiSet= new HashSet<String>();
-    public static HashSet<String> compAmbianceSet= new HashSet<String>();
-    public static HashSet<String> additonalSet= new HashSet<String>();
-    public static HashSet<String> seasonlitySet= new HashSet<String>();
+    public static HashSet<String> budgetSet = new HashSet<String>();
+    public static HashSet<String> serviceSet = new HashSet<String>();
+    public static HashSet<String> mealSet = new HashSet<String>();
+    public static HashSet<String> compatIntSet = new HashSet<String>();
+    public static HashSet<String> restroSpeclSet = new HashSet<String>();
+    public static HashSet<String> restroAmbiSet = new HashSet<String>();
+    public static HashSet<String> compAmbianceSet = new HashSet<String>();
+    public static HashSet<String> additonalSet = new HashSet<String>();
+    public static HashSet<String> seasonlitySet = new HashSet<String>();
 
-
+    // for storing the friends ids...
+    public static HashSet<String> selectedFriends = new HashSet<String>();
 
 
 }

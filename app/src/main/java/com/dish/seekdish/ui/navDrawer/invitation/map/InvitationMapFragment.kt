@@ -2,6 +2,7 @@ package com.dish.seekdish.ui.navDrawer.invitation.map
 
 import android.Manifest
 import android.content.pm.PackageManager
+import android.graphics.Bitmap
 import android.graphics.Color
 import android.location.Location
 import android.os.Build
@@ -11,12 +12,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
+import androidx.core.content.res.ResourcesCompat
+import com.dish.seekdish.Constants
 import com.dish.seekdish.util.BaseFragment
 
 import com.dish.seekdish.R
-import com.dish.seekdish.ui.home.mapInfoWindow.CustomInfoWindowGoogleMap
-import com.dish.seekdish.ui.home.mapInfoWindow.InfoWindowData
 import com.dish.seekdish.ui.navDrawer.invitation.InvitationActivity
+import com.dish.seekdish.ui.navDrawer.settings.myAlerts.InvitationModel
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
@@ -24,7 +26,7 @@ import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.*
 
 
-class InvitationMapFragment : BaseFragment(), OnMapReadyCallback, GoogleMap.OnMyLocationButtonClickListener,
+class InvitationMapFragment(var invitationModel: InvitationModel) : BaseFragment(), OnMapReadyCallback, GoogleMap.OnMyLocationButtonClickListener,
     GoogleMap.OnMyLocationClickListener, GoogleMap.OnMarkerClickListener {
 
     lateinit var marker: Marker
@@ -33,6 +35,9 @@ class InvitationMapFragment : BaseFragment(), OnMapReadyCallback, GoogleMap.OnMy
     private var mMap: GoogleMap? = null
 
     val PERMISSION_REQUEST_LOCATION_CODE = 1
+    var lat:Double = 0.0
+    var long:Double = 0.0
+    var customSizeMarker: Bitmap? = null;
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -40,6 +45,9 @@ class InvitationMapFragment : BaseFragment(), OnMapReadyCallback, GoogleMap.OnMy
     ): View? {
         // Inflate the layout for this fragment
         val view = inflater.inflate(R.layout.fragment_invitation_map, container, false)
+
+        lat=invitationModel.data.map_tab.latitude.toDouble()
+        long=invitationModel.data.map_tab.longitude.toDouble()
 
         //main map fragment
         val mapFragment = childFragmentManager.findFragmentById(R.id.mapInvitation) as SupportMapFragment
@@ -52,30 +60,27 @@ class InvitationMapFragment : BaseFragment(), OnMapReadyCallback, GoogleMap.OnMy
         mMap = googleMap
 
         // Add a marker in Sydney, Australia, and move the camera.
-        val sydney = LatLng(-34.0, 151.0)
-        mMap!!.addMarker(MarkerOptions().position(sydney).title("Marker in Sydney"))
+        val sydney = LatLng(lat,long)
+//        mMap!!.addMarker(MarkerOptions().position(sydney).title("Marker in Sydney"))
         mMap!!.moveCamera(CameraUpdateFactory.newLatLng(sydney))
 
 
-        // adding custom info window
-        var snowqualmie = LatLng(47.5287132, -121.8253906);
+        // adding custom marker
 
+        var bitmapdraw = ResourcesCompat.getDrawable(getResources(), R.drawable.ic_marker, null);
+        val b = bitmapdraw?.let { drawableToBitmap(it) }
+        customSizeMarker = Bitmap.createScaledBitmap(b, 100, 100, false)
+
+
+        var cameraMove = LatLng(lat, long)
+//        mMap!!.moveCamera(CameraUpdateFactory.newLatLng(cameraMove))
+        mMap!!.animateCamera(CameraUpdateFactory.newLatLngZoom(cameraMove, 14F));
+        var locationPos = LatLng(lat, long);
         var markerOptions = MarkerOptions();
-        markerOptions.position(snowqualmie)
-            .title("Snowqualmie Falls")
-            .snippet("Snoqualmie Falls is located 25 miles east of Seattle.")
-            .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE));
-/*        var info = InfoWindowData(" ", "3", "4", "hOTEL tITLE");
+        markerOptions.position(locationPos)
+            .icon(BitmapDescriptorFactory.fromBitmap(customSizeMarker));
+                mMap!!.addMarker(markerOptions)
 
-
-        var customInfoWindow = CustomInfoWindowGoogleMap(conxt);
-        mMap!!.setInfoWindowAdapter(customInfoWindow);
-
-        var marker = mMap!!.addMarker(markerOptions);
-        marker.setTag(info);*/
-//        marker.showInfoWindow();
-
-        mMap!!.moveCamera(CameraUpdateFactory.newLatLng(snowqualmie));
 
 
         if (myContext?.let {

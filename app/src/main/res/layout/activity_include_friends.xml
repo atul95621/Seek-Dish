@@ -73,8 +73,6 @@
                 app:tabTextAppearance="@style/TabTextAppearance"
 
         />
-
-
     </LinearLayout>
 
     <androidx.viewpager.widget.ViewPager

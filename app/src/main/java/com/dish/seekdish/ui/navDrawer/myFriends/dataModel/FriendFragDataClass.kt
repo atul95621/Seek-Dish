@@ -27,7 +27,8 @@ data class Friend(
     val phone: String,
     val user_id: Int,
     val user_image: String,
-    val username: String
+    val username: String,
+    var friendSelected:Boolean= false
 )
 
 data class Following(

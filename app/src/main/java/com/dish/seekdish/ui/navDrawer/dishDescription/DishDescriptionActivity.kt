@@ -197,6 +197,7 @@ class DishDescriptionActivity : BaseActivity(), Serializable {
         imgInvitation.setOnClickListener()
         {
             val intent = Intent(this@DishDescriptionActivity, InvitationActivity::class.java)
+            intent.putExtra("RESTAURANT_ID",restro_id.toString())
             startActivity(intent)
         }
     }

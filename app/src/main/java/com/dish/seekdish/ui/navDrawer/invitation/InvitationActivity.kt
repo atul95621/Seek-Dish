@@ -15,8 +15,17 @@ import android.widget.Button
 import android.widget.TextView
 import com.dish.seekdish.util.BaseActivity
 import com.dish.seekdish.R
+import com.dish.seekdish.custom.GlideApp
+import com.dish.seekdish.custom.ProgressBarClass
+import com.dish.seekdish.retrofit.APIClient
+import com.dish.seekdish.retrofit.APIInterface
 import com.dish.seekdish.ui.navDrawer.invitation.includeFriends.IncludeFriendsActivity
+import com.dish.seekdish.ui.navDrawer.settings.myAlerts.InvitationModel
+import com.dish.seekdish.util.SessionManager
 import kotlinx.android.synthetic.main.activity_invitation.tvBack
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 import java.util.*
 
 
@@ -28,11 +37,17 @@ class InvitationActivity : BaseActivity() {
     internal lateinit var adapter: InvitationAdapter
     lateinit var date: Calendar
 
-
+    internal lateinit var apiInterface: APIInterface
+    var sessionManager: SessionManager? = null
+    var restro_id = ""
+    var validity=""
+    var allow=""
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_invitation)
 
+        getIntents()
+        currentDateTime()
         // setting up tabLayout
         this.tabLayout = findViewById(R.id.tabLayoutInvitationActivity)
 
@@ -44,11 +59,17 @@ class InvitationActivity : BaseActivity() {
 //        changeTabsFont();
 
         viewPager = findViewById(R.id.viewPagerInvitationActivity) as ViewPager
-        adapter = InvitationAdapter(this.supportFragmentManager, tabLayout.tabCount)
 
 
-        viewPager.adapter = adapter
-        viewPager.addOnPageChangeListener(TabLayout.TabLayoutOnPageChangeListener(tabLayout))
+
+        sessionManager = SessionManager(this)
+
+        if (connectionDetector.isConnectingToInternet) {
+            //hitting api
+            getInvitationApiHit()
+        } else {
+            showSnackBar(getString(R.string.check_connection))
+        }
 
 
 //        tabLayout.setTabTextColors(
@@ -70,8 +91,6 @@ class InvitationActivity : BaseActivity() {
             }
         })
 
-
-
         tvBack.setOnClickListener()
         {
             finish()
@@ -81,6 +100,9 @@ class InvitationActivity : BaseActivity() {
         tvSettings.setOnClickListener()
         {
             val intent = Intent(this@InvitationActivity, InvitationSettingsActivity::class.java)
+            intent.putExtra("VALIDITY",validity)
+            intent.putExtra("ALLOW_INVITATION",allow)
+
             startActivity(intent)
 
         }
@@ -102,14 +124,10 @@ class InvitationActivity : BaseActivity() {
             finish()
         }
 
-
-
         imgInvitaionSend.setOnClickListener()
         {
             onInvitationSendClick()
         }
-
-
     }
 
     private fun onInvitationSendClick() {
@@ -128,8 +146,6 @@ class InvitationActivity : BaseActivity() {
         btnAccept.setOnClickListener {
             dialog.dismiss()
         }
-
-
         dialog.show()
 
     }
@@ -138,29 +154,118 @@ class InvitationActivity : BaseActivity() {
     fun showDateTimePicker() {
         val currentDate = Calendar.getInstance()
         date = Calendar.getInstance()
-        DatePickerDialog(this, DatePickerDialog.OnDateSetListener { view, year, monthOfYear, dayOfMonth ->
-            date.set(year, monthOfYear, dayOfMonth)
-            TimePickerDialog(this, TimePickerDialog.OnTimeSetListener { view, hourOfDay, minute ->
-                date.set(Calendar.HOUR_OF_DAY, hourOfDay)
-                date.set(Calendar.MINUTE, minute)
-                Log.v("time", "The choosen one " + hourOfDay + minute)
+        var timedelected = ""
+        var dateSelected = ""
+        DatePickerDialog(
+            this,
+            DatePickerDialog.OnDateSetListener { view, year, monthOfYear, dayOfMonth ->
+                date.set(year, monthOfYear, dayOfMonth)
+                TimePickerDialog(
+                    this,
+                    TimePickerDialog.OnTimeSetListener { view, hourOfDay, minute ->
+                        date.set(Calendar.HOUR_OF_DAY, hourOfDay)
+                        date.set(Calendar.MINUTE, minute)
+                        timedelected = hourOfDay.toString() + ":" + minute
+                        tvTime.setText(timedelected)
+                        dateSelected = dayOfMonth.toString()+ "-" + monthOfYear.plus(1)+"-"+year.toString()
+                        tvDate.setText(dateSelected)
 
-                Log.v("Datetime", "The choosen one " + date.getTime())
-            }, currentDate.get(Calendar.HOUR_OF_DAY), currentDate.get(Calendar.MINUTE), true).show()
-        }, currentDate.get(Calendar.YEAR), currentDate.get(Calendar.MONTH), currentDate.get(Calendar.DATE)).show()
+                        Log.v("picktime", "The choosen one " + hourOfDay + minute)
+
+                        Log.v("pickdate", "The choosen one " + date.getTime())
+                    },
+                    currentDate.get(Calendar.HOUR_OF_DAY),
+                    currentDate.get(Calendar.MINUTE),
+                    true
+                ).show()
+            },
+            currentDate.get(Calendar.YEAR),
+            currentDate.get(Calendar.MONTH),
+            currentDate.get(Calendar.DATE)
+        ).show()
+
+
+    }
+
+    fun currentDateTime() {
+        val currentDate = Calendar.getInstance()
 
         var date: String =
-            currentDate.get(Calendar.DATE).toString() + "/" + currentDate.get(Calendar.MONTH) + "/" + currentDate.get(
+            currentDate.get(Calendar.DATE).toString() + "/" + currentDate.get(Calendar.MONTH).plus(1) + "/" + currentDate.get(
                 Calendar.YEAR
             )
-        var time: String = currentDate.get(Calendar.HOUR_OF_DAY).toString() + ":" + currentDate.get(Calendar.MINUTE)
+        var time: String =
+            currentDate.get(Calendar.HOUR_OF_DAY).toString() + ":" + currentDate.get(Calendar.MINUTE)
         Log.e("time", time)
         Log.e("date", date)
 
         tvDate.setText(date)
-        tvTime.setText(date)
-
+        tvTime.setText(time)
     }
 
+    fun getInvitationApiHit() {
+        ProgressBarClass.progressBarCalling(this)
+        apiInterface = APIClient.getClient(this).create(APIInterface::class.java)
+        val call =
+            apiInterface.getInvitation(
+                sessionManager?.getValue(SessionManager.USER_ID).toString(),
+                restro_id
+            )
+        call.enqueue(object : Callback<InvitationModel> {
+            override fun onResponse(
+                call: Call<InvitationModel>,
+                response: Response<InvitationModel>
+            ) {
+                // canceling the progress bar
+                ProgressBarClass.dialog.dismiss()
+                Log.e("respStr", " " + response.body().toString())
+                if (response.code().toString().equals("200")) {
+
+                    var modelObj = response.body() as InvitationModel
+
+                    if (modelObj.status == 0) {
+
+                        showSnackBar(resources.getString(R.string.error_occured));
+
+                    } else {
+                        var imageUrl: String = modelObj.data.restaurant_image
+                        GlideApp.with(conxt)
+                            .load(imageUrl)
+                            .into(imgInvited)
+                        tvRestroName.text = modelObj.data.name
+                        tvAddress.text = modelObj.data.street
+                        simpleRatingBar.rating = 4.0f
+                        validity=modelObj.data.setting_invitation.validity_of_invitation.toString()
+                        allow=modelObj.data.setting_invitation.allow_invitation.toString()
+
+                        adapter = InvitationAdapter(supportFragmentManager, tabLayout.tabCount,modelObj)
+                        viewPager.adapter = adapter
+                        viewPager.addOnPageChangeListener(
+                            TabLayout.TabLayoutOnPageChangeListener(
+                                tabLayout
+                            )
+                        )
+                        Log.e("heii", "enerd")
+                    }
+                } else {
+                    showSnackBar(resources.getString(R.string.error_occured));
+                }
+            }
+
+            override fun onFailure(call: Call<InvitationModel>, t: Throwable) {
+                showSnackBar(resources.getString(R.string.error_occured));
+
+                call.cancel()
+                // canceling the progress bar
+                ProgressBarClass.dialog.dismiss()
+
+            }
+        })
+    }
+
+
+    private fun getIntents() {
+        restro_id = intent.getStringExtra("RESTAURANT_ID")
+    }
 
 }

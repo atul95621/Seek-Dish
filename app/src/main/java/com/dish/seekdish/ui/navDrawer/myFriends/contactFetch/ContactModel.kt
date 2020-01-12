@@ -22,3 +22,17 @@ class ContactModel {
     }
 
 }
+
+data class ContactsDetailsModel(
+    val `data`: ArrayList<Data>,
+    val status: Int
+)
+
+data class Data(
+    val country: Int,
+    val email: String,
+    val id: Int,
+    val phone: String,
+    val user_image: String,
+    val username: String
+)

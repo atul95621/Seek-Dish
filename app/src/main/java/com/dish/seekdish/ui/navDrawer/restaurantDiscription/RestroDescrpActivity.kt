@@ -161,7 +161,6 @@ class RestroDescrpActivity : BaseActivity() {
             onShare()
         }
 
-
         tvBack.setOnClickListener()
         {
             finish()
@@ -176,6 +175,7 @@ class RestroDescrpActivity : BaseActivity() {
         imgInvitation.setOnClickListener()
         {
             val intent = Intent(this@RestroDescrpActivity, InvitationActivity::class.java)
+            intent.putExtra("RESTAURANT_ID",restro_id.toString())
             startActivity(intent)
         }
 
@@ -287,11 +287,8 @@ class RestroDescrpActivity : BaseActivity() {
         // clipping on the pager for its children.
         pager.clipChildren = false
 
-
         //setting dots with viewpager...
         springDotsIndicator.setViewPager(pager)
-
-
     }
 
 //Nothing special about this adapterPager, just throwing up colored views for demo

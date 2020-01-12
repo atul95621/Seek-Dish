@@ -6,19 +6,31 @@ import android.os.Build
 import android.provider.ContactsContract
 import android.os.Bundle
 import android.util.Log
+import android.view.View
 import android.widget.ListView
 import android.widget.Toast
 import androidx.core.content.ContextCompat
 import com.dish.seekdish.R
+import com.dish.seekdish.custom.ProgressBarClass
+import com.dish.seekdish.retrofit.APIClient
+import com.dish.seekdish.retrofit.APIInterface
+import com.dish.seekdish.ui.navDrawer.checkin.adapter.CheckinAdapter
 import com.dish.seekdish.util.BaseActivity
+import com.dish.seekdish.util.SessionManager
+import kotlinx.android.synthetic.main.activity_checkin.*
 import kotlinx.android.synthetic.main.activity_contact_fetch.*
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 class ContactFetchActivity : BaseActivity() {
 
     private var listView: ListView? = null
     private var contFetchAdapter: ContFetchAdapter? = null
-    private var contactModelArrayList= HashSet<ContactModel>()
+    private var contactModelArrayList = HashSet<ContactModel>()
     val PERMISSION_REQUEST_IMG_CODE = 1
+    var sessionManager: SessionManager? = null;
+    internal lateinit var apiInterface: APIInterface
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -27,12 +39,14 @@ class ContactFetchActivity : BaseActivity() {
 
         listView = findViewById(R.id.listView) as ListView
 
+        sessionManager = SessionManager(this)
 
         imgContactFetch.setOnClickListener()
         {
             if (checkImgPermissionIsEnabledOrNot()) {
                 contactModelArrayList.clear()
-                fetchContact()
+//                fetchContact()
+                allFriendsAPi()
             } else {
                 requestImagePermission()
             }
@@ -51,8 +65,10 @@ class ContactFetchActivity : BaseActivity() {
             ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME + " ASC"
         )
         while (phones!!.moveToNext()) {
-            val name = phones.getString(phones.getColumnIndex(ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME))
-            val phoneNumber = phones.getString(phones.getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER))
+            val name =
+                phones.getString(phones.getColumnIndex(ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME))
+            val phoneNumber =
+                phones.getString(phones.getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER))
 
             val contactModel = ContactModel()
             contactModel.setNames(name)
@@ -70,8 +86,10 @@ class ContactFetchActivity : BaseActivity() {
             ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME + " ASC"
         )
         while (emails!!.moveToNext()) {
-            val name = emails.getString(emails.getColumnIndex(ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME))
-            val phoneNumber = emails.getString(emails.getColumnIndex(ContactsContract.CommonDataKinds.Email.ADDRESS))
+            val name =
+                emails.getString(emails.getColumnIndex(ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME))
+            val phoneNumber =
+                emails.getString(emails.getColumnIndex(ContactsContract.CommonDataKinds.Email.ADDRESS))
 
             val contactModel = ContactModel()
             contactModel.setNames(name)
@@ -81,6 +99,19 @@ class ContactFetchActivity : BaseActivity() {
         }
         emails.close()
 
+        compareNumbers()
+
+    }
+
+    private fun compareNumbers() {
+        var modelObj : ContactsDetailsModel
+
+      /*  for(i in 0 until  contactModelArrayList.size)
+        {
+            if(modelObj.data[i].phone[
+                ])
+        }
+*/
         contFetchAdapter = ContFetchAdapter(this, contactModelArrayList!!)
         listView!!.adapter = contFetchAdapter
     }
@@ -109,7 +140,11 @@ class ContactFetchActivity : BaseActivity() {
         }
 
 
-        fun onRequestPermissionsResult(requestCode: Int, permissions: Array<String>, grantResults: IntArray) {
+        fun onRequestPermissionsResult(
+            requestCode: Int,
+            permissions: Array<String>,
+            grantResults: IntArray
+        ) {
             when (requestCode) {
 
 
@@ -131,5 +166,60 @@ class ContactFetchActivity : BaseActivity() {
 
             }
         }
+    }
+
+    fun allFriendsAPi() {
+
+        ProgressBarClass.progressBarCalling(this)
+
+        apiInterface = APIClient.getClient(this).create(APIInterface::class.java)
+
+
+        val call =
+            apiInterface.getAllUsersDetails(sessionManager?.getValue(SessionManager.USER_ID).toString())
+        call.enqueue(object : Callback<ContactsDetailsModel> {
+            override fun onResponse(
+                call: Call<ContactsDetailsModel>,
+                response: Response<ContactsDetailsModel>
+            ) {
+                // canceling the progress bar
+                ProgressBarClass.dialog.dismiss()
+
+                Log.e("respStr", " " + response.body().toString())
+
+                if (response.code().toString().equals("200")) {
+
+                    var modelObj = response.body() as ContactsDetailsModel
+                    if (modelObj.status == 1) {
+
+                        if (modelObj.data.size == 0) {
+                            tvAlertContact.visibility == View.VISIBLE
+                        } else {
+                            fetchContact()
+                        }
+
+                    }
+
+                } else {
+//                    iSignUpView.onSetLoggedin(false, response)
+                    showSnackBar(resources.getString(R.string.error_occured));
+
+                }
+
+
+            }
+
+            override fun onFailure(call: Call<ContactsDetailsModel>, t: Throwable) {
+
+//                Log.e("responseFailure", " " + t.toString())
+
+                showSnackBar(resources.getString(R.string.error_occured));
+
+                call.cancel()
+                // canceling the progress bar
+                ProgressBarClass.dialog.dismiss()
+
+            }
+        })
     }
 }

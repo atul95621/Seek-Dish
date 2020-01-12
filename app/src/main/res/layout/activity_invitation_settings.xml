@@ -1,120 +1,147 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:tools="http://schemas.android.com/tools"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:background="@color/white"
-        tools:context=".ui.navDrawer.invitation.settings.InvitationSettingsActivity">
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:orientation="vertical"
+    tools:context=".ui.navDrawer.invitation.settings.InvitationSettingsActivity">
     <!--toolbar-->
-    <FrameLayout android:layout_width="match_parent"
-                 android:layout_height="48dp"
-                 android:gravity="center"
-                 android:background="@color/colorPrimary"
-                 android:orientation="horizontal">
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:background="@color/colorPrimary"
+        android:gravity="center"
+        android:orientation="horizontal">
 
 
-        <TextView android:layout_width="wrap_content"
-                  android:layout_height="wrap_content"
-                  android:layout_gravity="center"
-                  android:text="Settings"
-                  android:textColor="@color/white"
-                  android:textSize="20sp"/>
         <TextView
-                android:id="@+id/tvBack"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="Settings"
+            android:textColor="@color/white"
+            android:textSize="20sp" />
+
+        <TextView
+            android:id="@+id/tvBack"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="start|center_vertical"
+            android:layout_marginStart="10dp"
+            android:gravity="start"
+            android:text="Back"
+            android:textColor="@color/white"
+            android:textSize="18sp" />
+    </FrameLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="20dp"
+            android:orientation="horizontal"
+            android:weightSum="2">
+
+            <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:gravity="start"
-                android:layout_marginStart="10dp"
-                android:layout_gravity="start|center_vertical"
-                android:text="Back"
-                android:textColor="@color/white"
-                android:textSize="18sp"/>
-    </FrameLayout>
-    <LinearLayout android:layout_width="match_parent"
-                  android:orientation="vertical"
-                  android:layout_height="wrap_content">
+                android:layout_weight="1"
+                android:text="Allow Invitations"
+                android:textColor="@color/black"
+                android:textSize="18sp" />
 
-
-        <LinearLayout android:layout_width="match_parent"
-                      android:weightSum="2"
-                      android:layout_marginStart="20dp"
-                      android:layout_marginEnd="20dp"
-                      android:layout_marginTop="10dp"
-                      android:layout_height="wrap_content"
-                      android:orientation="horizontal">
-            <TextView android:layout_width="wrap_content"
-                      android:textSize="18sp"
-                      android:textColor="@color/black"
-                      android:layout_weight="1"
-                      android:layout_height="wrap_content"
-                      android:text="Allow Invitations"/>
-            <Switch android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"/>
+            <Switch
+                android:id="@+id/switchAllow"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1" />
         </LinearLayout>
 
     </LinearLayout>
+
     <View
-            android:layout_marginTop="10dp" android:layout_width="match_parent" android:layout_height="1dp"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="20dp"
+        android:background="@color/dark_gray" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:orientation="vertical">
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
             android:layout_marginStart="20dp"
-            android:background="@color/dark_gray"
-            android:layout_marginEnd="20dp"/>
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="20dp"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:weightSum="2">
 
-    <LinearLayout android:layout_width="match_parent"
-                  android:orientation="vertical"
-                  android:layout_height="wrap_content">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_weight="1"
+                android:text="Validity of invitation"
+                android:textColor="@color/black"
+                android:textSize="18sp" />
 
-
-        <LinearLayout android:layout_width="match_parent"
-                      android:weightSum="2"
-                      android:layout_marginStart="20dp"
-                      android:layout_marginEnd="20dp"
-                      android:layout_marginTop="10dp"
-                      android:layout_height="wrap_content"
-                      android:orientation="horizontal">
-            <TextView android:layout_width="wrap_content"
-                      android:textSize="18sp"
-                      android:textColor="@color/black"
-                      android:layout_weight="1"
-                      android:layout_gravity="center_vertical"
-                      android:layout_height="wrap_content"
-                      android:text="Validity of invitation"/>
-            <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:gravity="end|center_vertical"
-                    xmlns:numberpicker="http://schemas.android.com/apk/res-auto"
-                    tools:context="com.travijuu.numberpicker.sample.MainActivity">
+            <LinearLayout xmlns:numberpicker="http://schemas.android.com/apk/res-auto"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="end|center_vertical"
+                android:orientation="vertical"
+                tools:context="com.travijuu.numberpicker.sample.MainActivity">
 
                 <com.travijuu.numberpicker.library.NumberPicker
-                        android:id="@+id/number_picker"
-                        android:layout_width="130dp"
-                        android:layout_height="40dp"
-                        numberpicker:min="0"
-                        numberpicker:max="10"
-                        numberpicker:value="-5"
-                        numberpicker:unit="1"
-                        numberpicker:focusable="false"
-                        numberpicker:custom_layout="@layout/number_picker_custom_layout" />
+                    android:id="@+id/number_picker"
+                    android:layout_width="130dp"
+                    android:layout_height="40dp"
+                    numberpicker:custom_layout="@layout/number_picker_custom_layout"
+                    numberpicker:focusable="false"
+                    numberpicker:max="10"
+                    numberpicker:min="0"
+                    numberpicker:unit="1"
+                    numberpicker:value="-5" />
 
             </LinearLayout>
-            <TextView android:layout_width="wrap_content"
-                      android:textSize="18sp"
-                      android:layout_gravity="center_vertical"
-                      android:textColor="@color/black"
-                      android:layout_weight="1"
-                      android:layout_height="wrap_content"
-                      android:text=" hour"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_weight="1"
+                android:gravity="center_vertical"
+                android:text=" hour"
+                android:textColor="@color/black"
+                android:textSize="18sp" />
         </LinearLayout>
 
     </LinearLayout>
+
     <View
-            android:layout_marginTop="10dp" android:layout_width="match_parent" android:layout_height="1dp"
-            android:layout_marginStart="20dp"
-            android:background="@color/dark_gray"
-            android:layout_marginEnd="20dp"/>
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="20dp"
+        android:background="@color/dark_gray" />
 </LinearLayout>

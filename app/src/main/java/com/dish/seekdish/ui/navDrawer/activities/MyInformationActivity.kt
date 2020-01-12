@@ -82,7 +82,13 @@ class MyInformationActivity : BaseActivity(), IMyInformationView {
 
         hideKeyBoard()
 
-        getProfileDetails()
+        if (connectionDetector.isConnectingToInternet) {
+
+            //calling api
+            getProfileDetails()
+        } else {
+            showSnackBar(resources.getString(R.string.check_connection))
+        }
 
         //populating the spinner
         setGenderSpinner()

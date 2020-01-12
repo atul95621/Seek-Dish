@@ -34,6 +34,7 @@
 
 
             <ImageView
+                android:id="@+id/imgInvited"
                     android:visibility="visible"
                     android:layout_width="match_parent"
                     android:src="@drawable/ic_foodex"
@@ -86,7 +87,8 @@
 
 
                 <TextView
-
+android:id="@+id/tvRestroName"
+                    android:fontFamily="@font/assistantregular"
                         android:layout_width="wrap_content"
                         android:text="Restaurant Name"
                         android:textSize="16sp"
@@ -98,6 +100,8 @@
                           android:layout_gravity="center"
                           android:textColor="@color/black"
                           android:textSize="16sp"
+                    android:id="@+id/tvAddress"
+                    android:fontFamily="@font/assistantregular"
                           android:layout_marginTop="10dp"
                           android:text="Biezer Pizza Test Address"
                           android:layout_height="wrap_content"

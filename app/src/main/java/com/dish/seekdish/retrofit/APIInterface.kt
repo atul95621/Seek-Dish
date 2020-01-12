@@ -3,16 +3,19 @@ package com.dish.seekdish.retrofit
 
 import com.dish.seekdish.ui.home.dataModel.*
 import com.dish.seekdish.ui.login.LoginDataClass
+import com.dish.seekdish.ui.navDrawer.activities.model.ContactModel
 import com.dish.seekdish.ui.navDrawer.activities.model.ProfileDataClass
 import com.dish.seekdish.ui.navDrawer.checkin.data.CheckinModel
 import com.dish.seekdish.ui.navDrawer.dishDescription.model.AddTodoModel
 import com.dish.seekdish.ui.navDrawer.dishDescription.model.DishDescpModel
+import com.dish.seekdish.ui.navDrawer.myFriends.contactFetch.ContactsDetailsModel
 import com.dish.seekdish.ui.navDrawer.myFriends.dataModel.FriendDataModel
 import com.dish.seekdish.ui.navDrawer.restaurantDiscription.RestroDescpModel
 import com.dish.seekdish.ui.navDrawer.restaurants.dataClass.ProximityDataClass
 import com.dish.seekdish.ui.navDrawer.restaurants.dataClass.RestroMapModel
 import com.dish.seekdish.ui.navDrawer.restaurants.dataClass.TimeRestroDataClass
 import com.dish.seekdish.ui.navDrawer.settings.dataModel.*
+import com.dish.seekdish.ui.navDrawer.settings.myAlerts.InvitationModel
 import com.dish.seekdish.ui.navDrawer.settings.myAlerts.MyAlertDataClass
 import com.dish.seekdish.ui.navDrawer.toDo.list.DeleteTodoList
 import com.dish.seekdish.ui.navDrawer.toDo.list.ListTodoDataClass
@@ -563,4 +566,38 @@ internal interface APIInterface {
         @Field("restaurant_id") restaurant_id: String
 
     ): Call<CancelReModel>
+
+    @FormUrlEncoded
+    @POST("get_contact_details")
+    fun getContactDeatails(
+        @Field("user_id") userId: String
+    ): Call<ContactModel>
+
+    @FormUrlEncoded
+    @POST("post_contact_details")
+    fun postContactDeatails(
+        @Field("user_id") userId: String,
+        @Field("email") email: String,
+        @Field("country_code") country: String,
+        @Field("phone") phone: String,
+        @Field("skype_id") skype: String,
+        @Field("facebook_id") facbook: String,
+        @Field("twitter_id") twitter: String
+    ): Call<CancelReModel>
+
+    @FormUrlEncoded
+    @POST("get_all_invitations")
+    fun getInvitation(
+        @Field("user_id") userId: String,
+        @Field("restro_id") restaurant_id: String
+
+    ): Call<InvitationModel>
+
+
+    @FormUrlEncoded
+    @POST("get_all_users_details")
+    fun getAllUsersDetails(
+        @Field("user_id") userId: String
+    ): Call<ContactsDetailsModel>
+
 }

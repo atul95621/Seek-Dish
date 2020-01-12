@@ -38,3 +38,18 @@ data class NewInfoData(
     val like: Int,
     val profile_percentage: String
 )
+
+
+data class ContactModel(
+    val `data`: List<Data_Contact>,
+    val status: Int
+)
+
+data class Data_Contact(
+    val country: Int,
+    val email: String,
+    val facebook_id: String,
+    val phone: String,
+    val skype_id: String,
+    val twitter_id: String
+)

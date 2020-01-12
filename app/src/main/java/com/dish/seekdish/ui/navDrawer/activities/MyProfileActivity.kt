@@ -36,8 +36,14 @@ class MyProfileActivity : BaseActivity() {
         initView()
         clickListners()
 
-        // api hit
-        reqApiHit()
+
+
+        if (connectionDetector.isConnectingToInternet) {
+            // api hit
+            reqApiHit()
+        } else {
+            showSnackBar(resources.getString(R.string.check_connection))
+        }
 
 
         if (!sessionManager?.getValue(SessionManager.PHOTO_URL).equals(null) && !sessionManager?.getValue(
@@ -81,12 +87,16 @@ class MyProfileActivity : BaseActivity() {
                     var modelObj = response.body() as ProfileDataClass
                     if (modelObj.status == 1) {
 
-                        tvFriends.text=modelObj.data.new_info_data.friends.toString() +" Friends"
-                        tvFollower.text=modelObj.data.new_info_data.followers.toString() +" Followers"
-                        tvLike.text=modelObj.data.new_info_data.like.toString() +" Likes"
-                        tvDislike.text=modelObj.data.new_info_data.dislike.toString()+" Dislikes"
-                        tvCheckin.text=modelObj.data.new_info_data.checkin.toString()+ " Check-In"
-                        tvProfilePercent.text=modelObj.data.new_info_data.profile_percentage.toString()  + " of Profile"
+                        tvFriends.text = modelObj.data.new_info_data.friends.toString() + " Friends"
+                        tvFollower.text =
+                            modelObj.data.new_info_data.followers.toString() + " Followers"
+                        tvLike.text = modelObj.data.new_info_data.like.toString() + " Likes"
+                        tvDislike.text =
+                            modelObj.data.new_info_data.dislike.toString() + " Dislikes"
+                        tvCheckin.text =
+                            modelObj.data.new_info_data.checkin.toString() + " Check-In"
+                        tvProfilePercent.text =
+                            modelObj.data.new_info_data.profile_percentage.toString() + " of Profile"
 
                     }
 
