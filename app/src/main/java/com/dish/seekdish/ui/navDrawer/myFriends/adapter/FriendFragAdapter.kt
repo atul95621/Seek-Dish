@@ -14,13 +14,15 @@ import com.dish.seekdish.ui.home.HomeActivity
 import com.dish.seekdish.ui.navDrawer.friendInfo.FriendInfoActivity
 import com.dish.seekdish.ui.navDrawer.myFriends.dataModel.Friend
 import com.dish.seekdish.ui.navDrawer.myFriends.fargment.FriendsFragment
+import com.dish.seekdish.util.SessionManager
 import java.util.ArrayList
 
 
 class FriendFragAdapter(
     arrayList: ArrayList<Friend>,
     activity: HomeActivity,
-    var friendsFragment: FriendsFragment?
+    var friendsFragment: FriendsFragment?,
+    var userIdFromOutside: String
 ) :
     RecyclerView.Adapter<FriendFragAdapter.RecyclerViewHolder>() {
     internal var arrayList = ArrayList<Friend>()
@@ -28,12 +30,13 @@ class FriendFragAdapter(
 
     init {
         this.arrayList = arrayList
-        this.activity=activity
+        this.activity = activity
 
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerViewHolder {
-        val view = LayoutInflater.from(parent.context).inflate(R.layout.item_layout_following_frag, parent, false)
+        val view = LayoutInflater.from(parent.context)
+            .inflate(R.layout.item_layout_following_frag, parent, false)
         return RecyclerViewHolder(view)
     }
 
@@ -57,6 +60,15 @@ class FriendFragAdapter(
         holder.btnReplace.setOnClickListener()
         {
             friendsFragment?.removeFriend(friendDataClass.user_id)
+        }
+
+        if (friendsFragment?.sessionManager?.getValue(SessionManager.USER_ID).equals(
+                userIdFromOutside
+            )
+        ) {
+            holder.btnReplace.visibility = View.VISIBLE
+        } else {
+            holder.btnReplace.visibility = View.GONE
         }
 
     }

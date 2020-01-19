@@ -29,6 +29,7 @@ import com.dish.seekdish.ui.navDrawer.dishDescription.MealRatingActivity
 import com.dish.seekdish.ui.navDrawer.invitation.InvitationActivity
 import com.dish.seekdish.ui.navDrawer.restaurantDiscription.VM.RestroDescpVM
 import com.dish.seekdish.ui.navDrawer.restaurantDiscription.adapter.RestroDescrpAdapter
+import com.dish.seekdish.ui.navDrawer.restaurantDiscription.checkInRestro.CheckinRestroActivity
 import com.dish.seekdish.util.BaseActivity
 import com.dish.seekdish.util.SessionManager
 import com.facebook.CallbackManager
@@ -65,7 +66,8 @@ class RestroDescrpActivity : BaseActivity() {
     var restro_id: String? = null
     var latitude: String? = null
     var longitude: String? = null
-
+    var facebookLink: String = ""
+    var twitterLink: String = ""
     private var twitterAuthClient: TwitterAuthClient? = null
 
     internal lateinit var callbackManager: CallbackManager
@@ -73,7 +75,6 @@ class RestroDescrpActivity : BaseActivity() {
     lateinit var shareDialog: ShareDialog
     lateinit var actionDialog: Dialog
     var imageUrl: String = ""
-
 
 
     /*  internal var mResources = intArrayOf(
@@ -168,14 +169,14 @@ class RestroDescrpActivity : BaseActivity() {
 
         imgRatings.setOnClickListener()
         {
-            val intent = Intent(this@RestroDescrpActivity, MealRatingActivity::class.java)
+            val intent = Intent(this@RestroDescrpActivity, CheckinRestroActivity::class.java)
             startActivity(intent)
         }
 
         imgInvitation.setOnClickListener()
         {
             val intent = Intent(this@RestroDescrpActivity, InvitationActivity::class.java)
-            intent.putExtra("RESTAURANT_ID",restro_id.toString())
+            intent.putExtra("RESTAURANT_ID", restro_id.toString())
             startActivity(intent)
         }
 
@@ -245,7 +246,7 @@ class RestroDescrpActivity : BaseActivity() {
     private fun onShareSocial() {
         val dialog = Dialog(this)
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
-        dialog.setCancelable(false)
+        dialog.setCancelable(true)
         dialog.setContentView(R.layout.dialog_social_share)
         dialog.window!!.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))   // making backgrnd color tarnsparent code begind progress circle bar
         dialog.window!!.setLayout(
@@ -258,13 +259,22 @@ class RestroDescrpActivity : BaseActivity() {
 
         ic_facebk.setOnClickListener()
         {
-            sharePostOnFacebook()
+            if (facebookLink.isEmpty()) {
+                sharePostOnFacebook()
+            } else {
+                showSnackBar("Oops! Link not available")
+            }
             dialog.dismiss()
         }
 
         imgTwitter.setOnClickListener()
         {
-            shareProductOnTwitter()
+
+            if (facebookLink.isEmpty()) {
+                shareProductOnTwitter()
+            } else {
+                showSnackBar("Oops! Link not available")
+            }
             dialog.dismiss()
         }
 
@@ -354,6 +364,8 @@ class RestroDescrpActivity : BaseActivity() {
                     latitude = response.data.restaurant.latitude
                     longitude = response.data.restaurant.longitude
                     ratingRestro.rating = response.data.restaurant.rating.toFloat()
+                    facebookLink = response.data.restaurant.facebook
+                    twitterLink = response.data.restaurant.twitter
 
                     //for swipe images on top
                     initializeviews()
@@ -401,7 +413,7 @@ class RestroDescrpActivity : BaseActivity() {
         if (ShareDialog.canShow(ShareLinkContent::class.java)) {
             val linkContent = ShareLinkContent.Builder()
                 .setQuote("Seekdish")
-                .setContentUrl(Uri.parse("https://www.youtube.com/watch?v=K5KAc5CoCuk"))
+                .setContentUrl(Uri.parse(facebookLink))
                 .build()
             shareDialog.show(linkContent)
         }

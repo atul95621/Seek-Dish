@@ -184,6 +184,8 @@ class RestoRatingActivity : BaseActivity() {
                     partImage1 = MultipartBody.Part.createFormData("image1", "", fileReqBody12)
                     partImage2 = MultipartBody.Part.createFormData("image2", "", fileReqBody21)
                 }
+
+                Log.e("prams rating","taste:$taste  presentation $presentation  textr $texture ordor$ordor ")
                 ratingCommentVM?.postCommentRating(
                     stringConvertToRequestBody(sessionManager?.getValue(SessionManager.USER_ID).toString()),
                     stringConvertToRequestBody(taste.toString()),

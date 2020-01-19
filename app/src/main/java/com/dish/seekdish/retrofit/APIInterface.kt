@@ -510,7 +510,8 @@ internal interface APIInterface {
         @Field("ambiance") ambiance: String,
         @Field("ambiance_complementary") amb_comp: String,
         @Field("additional_services") addServi: String,
-        @Field("seasonality") season: String
+        @Field("seasonality") season: String,
+        @Field("consider_my_profile") consider_my_profile: String
     ): Call<SaveFilterModel>
 
     @FormUrlEncoded
@@ -599,5 +600,26 @@ internal interface APIInterface {
     fun getAllUsersDetails(
         @Field("user_id") userId: String
     ): Call<ContactsDetailsModel>
+
+    @FormUrlEncoded
+    @POST("save_invitation_setting")
+    fun getInvitationSetting(
+        @Field("user_id") userId: String,
+        @Field("allow_invitation") restaurant: String,
+        @Field("validity_of_invitation") validity: String
+
+    ): Call<CancelReModel>
+
+    @FormUrlEncoded
+    @POST("post_invitation")
+    fun postInvitationApi(
+        @Field("sender_id") sender_id: String,
+        @Field("restro_id") restro_id: String,
+        @Field("receiver_id") receiver_id: String,
+        @Field("invitation_schedule_time") time: String,
+        @Field("invitation_schedule_date") date: String
+
+    ): Call<CancelReModel>
+
 
 }

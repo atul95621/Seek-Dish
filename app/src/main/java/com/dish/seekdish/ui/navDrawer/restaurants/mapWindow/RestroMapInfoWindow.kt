@@ -11,6 +11,7 @@ import com.dish.seekdish.R
 import com.dish.seekdish.custom.GlideApp
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.model.Marker
+import com.willy.ratingbar.ScaleRatingBar
 
 class RestroMapInfoWindow(
     val context: Context
@@ -26,24 +27,24 @@ class RestroMapInfoWindow(
 
 
 //        val star_rating=  view.findViewById<RatingBar>(R.id.infowindow_rating)
-        val euro_rating=  view.findViewById<RatingBar>(R.id.euro_rating)
+        val euro_rating = view.findViewById<RatingBar>(R.id.euro_rating)
         val tvRestro = view.findViewById<TextView>(R.id.tvRestro)
         val imgInfoWindow = view.findViewById<ImageView>(R.id.imgInfoWindow)
-
+//        val euroRatingBar = view.findViewById<ScaleRatingBar>(R.id.euroRatingBar)
 
         val infoWindowGoogleMap = marker.tag as InfoWindowModel
 
-      /*  val imageId = context.getResources().getIdentifier(
-            infoWindowGoogleMap.imageUrl!!.toLowerCase(),
-            "drawable", context.getPackageName()
-        )*/
+        /*  val imageId = context.getResources().getIdentifier(
+              infoWindowGoogleMap.imageUrl!!.toLowerCase(),
+              "drawable", context.getPackageName()
+          )*/
         //        imgUrl.setImageResource(imageId);
 //        imgInfoWindow.setImageResource(R.drawable.ic_foodex)
 
 
         Log.e(
             "rate",
-            "star:  " + infoWindowGoogleMap.starRating  + "\nimageurl :" + infoWindowGoogleMap.imageUrl + "\neuro :" + infoWindowGoogleMap.restroTitle
+            "star:  " + infoWindowGoogleMap.starRating + "\nimageurl :" + infoWindowGoogleMap.imageUrl + "\neuro :" + infoWindowGoogleMap.restroTitle
         )
         GlideApp.with(context)
             .load(infoWindowGoogleMap.imageUrl)
@@ -51,8 +52,8 @@ class RestroMapInfoWindow(
         tvRestro.setText(infoWindowGoogleMap.restroTitle)
 
 //        star_rating.rating= infoWindowGoogleMap.starRating!!.toFloat()
-        euro_rating.rating= infoWindowGoogleMap.starRating!!.toFloat()
-
+        euro_rating.rating = infoWindowGoogleMap.starRating!!.toFloat()
+//        euroRatingBar.rating=infoWindowGoogleMap.starRating!!.toFloat()
         return view
     }
 

@@ -10,10 +10,12 @@ import com.dish.seekdish.ui.navDrawer.myFriends.fargment.FriendsFragment;
 
 public class MyFriendsAdapter extends FragmentStatePagerAdapter {
     private int mNumOfTabs;
+    String userId;
 
-    public MyFriendsAdapter(FragmentManager fm, int NumOfTabs) {
+    public MyFriendsAdapter(FragmentManager fm, int NumOfTabs, String UserId) {
         super(fm);
         this.mNumOfTabs = NumOfTabs;
+        this.userId=UserId;
     }
 
     @Override
@@ -21,14 +23,14 @@ public class MyFriendsAdapter extends FragmentStatePagerAdapter {
 
         switch (position) {
             case 0:
-                FriendsFragment friendsFragment = new FriendsFragment();
+                FriendsFragment friendsFragment = new FriendsFragment(userId);
                 return friendsFragment;
             case 1:
-                FollowerFragment followerFragment = new FollowerFragment();
+                FollowerFragment followerFragment = new FollowerFragment(userId);
                 return followerFragment;
 
             case 2:
-                FollowingFragment followingFragment = new FollowingFragment();
+                FollowingFragment followingFragment = new FollowingFragment(userId);
                 return followingFragment;
 
             default:

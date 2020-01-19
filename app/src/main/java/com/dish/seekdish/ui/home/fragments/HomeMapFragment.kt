@@ -37,14 +37,10 @@ import java.util.HashMap
 class HomeMapFragment : BaseFragment(), OnMapReadyCallback, GoogleMap.OnMyLocationButtonClickListener,
     GoogleMap.OnMyLocationClickListener, GoogleMap.OnMarkerClickListener {
 
-
     lateinit var marker: Marker
     private lateinit var myContext: HomeActivity
-
     private var mMap: GoogleMap? = null
-
     val PERMISSION_REQUEST_LOCATION_CODE = 1
-
     var mapHomeVM: MapHomeVM? = null
     internal var arrayList = ArrayList<Data_Home_Map>()
     var bitmapdraw: BitmapDrawable? = null
@@ -135,9 +131,9 @@ class HomeMapFragment : BaseFragment(), OnMapReadyCallback, GoogleMap.OnMyLocati
         customSizeMarker = Bitmap.createScaledBitmap(b, 100, 100, false)
 
 
-        var cameraMove = LatLng(Constants.Latitude.toDouble(), Constants.Longitude.toDouble())
+      /*  var cameraMove = LatLng(Constants.Latitude.toDouble(), Constants.Longitude.toDouble())
 //        mMap!!.moveCamera(CameraUpdateFactory.newLatLng(cameraMove))
-        mMap!!.animateCamera(CameraUpdateFactory.newLatLngZoom(cameraMove, 14F));
+        mMap!!.animateCamera(CameraUpdateFactory.newLatLngZoom(cameraMove, 14F));*/
 
 
         if (ContextCompat.checkSelfPermission(
@@ -227,46 +223,61 @@ class HomeMapFragment : BaseFragment(), OnMapReadyCallback, GoogleMap.OnMyLocati
 
                     arrayList = response.data
 
+                    if (arrayList.size > 0 && arrayList.isNotEmpty()) {
+                        activity?.runOnUiThread(
+                            object : Runnable {
+                                override fun run() {
+                                    for (i in 0 until arrayList.size) {
+
+                                        var latititude = arrayList[i].latitude.toDouble()
+                                        var longitude = arrayList[i].longitude.toDouble()
+                                        var imageUrl = arrayList[i].meal_image
+                                        var starRate = arrayList[i].rating.toString()
+                                        var euroRate = arrayList[i].budget.toString()
+                                        var mealName = arrayList[i].name
 
 
-                    activity?.runOnUiThread(
-                        object : Runnable {
-                            override fun run() {
-                        for (i in 0 until arrayList.size) {
+                                        // adding custom info window
+                                        var locationPos = LatLng(latititude, longitude);
+                                        var markerOptions = MarkerOptions();
+                                        markerOptions.position(locationPos)
+                                            .title(arrayList[i].name)
+                                            .icon(
+                                                BitmapDescriptorFactory.fromBitmap(
+                                                    customSizeMarker
+                                                )
+                                            );   // custom size maekr is used here
 
-                            var latititude = arrayList[i].latitude.toDouble()
-                            var longitude = arrayList[i].longitude.toDouble()
-                            var imageUrl = arrayList[i].meal_image
-                            var starRate = arrayList[i].rating.toString()
-                            var euroRate = arrayList[i].budget.toString()
-                            var mealName = arrayList[i].name
-
-
-                            // adding custom info window
-                            var locationPos = LatLng(latititude, longitude);
-                            var markerOptions = MarkerOptions();
-                            markerOptions.position(locationPos)
-                                .title(arrayList[i].name)
-                                .icon(BitmapDescriptorFactory.fromBitmap(customSizeMarker));   // custom size maekr is used here
-
-                            var info = InfoWindowData(
-                                imageUrl,
-                                starRate,
-                                euroRate,
-                                mealName
-                            );
+                                        var info = InfoWindowData(
+                                            imageUrl,
+                                            starRate,
+                                            euroRate,
+                                            mealName
+                                        );
 
 
-                            var marker = mMap!!.addMarker(markerOptions);
-                            marker.setTag(info)
-                            marker.showInfoWindow()
+                                        var marker = mMap!!.addMarker(markerOptions);
+                                        marker.setTag(info)
+                                        marker.showInfoWindow()
 
-                            markerMapHash.put(marker, info)
-                        }
+                                        markerMapHash.put(marker, info)
+                                    }
 
+                                    var cameraMove = LatLng(
+                                        arrayList[0].latitude.toDouble(),
+                                        arrayList[0].longitude.toDouble()
+                                    )
+                                    mMap!!.animateCamera(
+                                        CameraUpdateFactory.newLatLngZoom(
+                                            cameraMove,
+                                            14F
+                                        )
+                                    );
+
+                                }
                             }
-                        }
-                    )
+                        )
+                    }
 
 
 

@@ -1,14 +1,10 @@
-package com.dish.seekdish.ui.navDrawer.checkin
+package com.dish.seekdish.ui.navDrawer.restaurantDiscription.checkInRestro
 
 import android.os.Bundle
 import android.util.Log
 import android.view.View
-
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-
-import java.util.ArrayList
-import com.dish.seekdish.util.BaseActivity
 import com.dish.seekdish.R
 import com.dish.seekdish.custom.ProgressBarClass
 import com.dish.seekdish.retrofit.APIClient
@@ -16,18 +12,19 @@ import com.dish.seekdish.retrofit.APIInterface
 import com.dish.seekdish.ui.navDrawer.checkin.adapter.CheckinAdapter
 import com.dish.seekdish.ui.navDrawer.checkin.data.CheckinModel
 import com.dish.seekdish.ui.navDrawer.checkin.data.Data_Checkin
+import com.dish.seekdish.util.BaseActivity
 import com.dish.seekdish.util.SessionManager
 import kotlinx.android.synthetic.main.activity_checkin.*
-import kotlinx.android.synthetic.main.activity_my_profile.tvBack
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
+import kotlinx.android.synthetic.main.activity_checkin_restro.*
+import kotlinx.android.synthetic.main.activity_checkin_restro.tvBack
 
+class CheckinRestroActivity : BaseActivity() {
 
-class CheckinActivity : BaseActivity() {
-    private var recyclerView: RecyclerView? = null
+    private var rvRegisteredMeal: RecyclerView? = null
+    private  var rvRegisteredCheckMeals:RecyclerView?=null
     private var adapter: CheckinAdapter? = null
     internal lateinit var layoutManager: RecyclerView.LayoutManager
+    internal lateinit var layoutManagerMeals: RecyclerView.LayoutManager
 
     internal var arrayList = ArrayList<Data_Checkin>()
 
@@ -37,15 +34,16 @@ class CheckinActivity : BaseActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_checkin)
+        setContentView(R.layout.activity_checkin_restro)
 
         sessionManager= SessionManager(this)
-        recyclerView = findViewById(R.id.recycler_view_checkin) as RecyclerView
-        recyclerView!!.setHasFixedSize(true)
-        layoutManager = LinearLayoutManager(this)
-        recyclerView!!.setLayoutManager(layoutManager)
+        rvRegisteredMeal = findViewById(R.id.rvRegistered) as RecyclerView
+        rvRegisteredCheckMeals = findViewById(R.id.rvMeals) as RecyclerView
 
-        checkinListApiHit()
+        initRecyclerView()
+
+
+//        checkinListApiHit()
 
         tvBack.setOnClickListener()
         {
@@ -53,7 +51,17 @@ class CheckinActivity : BaseActivity() {
         }
     }
 
-    fun checkinListApiHit() {
+    private fun initRecyclerView() {
+        rvRegisteredMeal!!.setHasFixedSize(true)
+        layoutManager = LinearLayoutManager(this)
+        rvRegisteredMeal!!.setLayoutManager(layoutManager)
+
+        rvRegisteredCheckMeals!!.setHasFixedSize(true)
+        layoutManagerMeals = LinearLayoutManager(this)
+        rvRegisteredCheckMeals!!.setLayoutManager(layoutManagerMeals)
+    }
+
+  /*  fun checkinListApiHit() {
 
         ProgressBarClass.progressBarCalling(this)
         apiInterface = APIClient.getClient(this).create(APIInterface::class.java)
@@ -103,10 +111,5 @@ class CheckinActivity : BaseActivity() {
 
             }
         })
-    }
-
-
+    }*/
 }
-
-
-

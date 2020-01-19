@@ -1,13 +1,16 @@
 package com.dish.seekdish.ui.navDrawer.invitation.includeFriends
 
-import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.viewpager.widget.ViewPager
-import com.dish.seekdish.R
-import com.dish.seekdish.ui.navDrawer.invitation.InvitationActivity
 import com.google.android.material.tabs.TabLayout
 import kotlinx.android.synthetic.main.activity_include_friends.*
+import com.facebook.login.LoginFragment
+import androidx.fragment.app.FragmentTransaction
+import com.dish.seekdish.R
+import com.dish.seekdish.ui.navDrawer.invitation.includeFriendDataModels.fragments.selected.SelectedInclFragment
+import com.dish.seekdish.ui.navDrawer.invitation.includeFriends.fragments.friends.FriendsInclFragment
+
 
 class IncludeFriendsActivity : AppCompatActivity() {
     lateinit var tabLayout: TabLayout
@@ -15,45 +18,63 @@ class IncludeFriendsActivity : AppCompatActivity() {
     internal lateinit var adapter: IncludeFriendsAdapter
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_include_friends)
+        setContentView(com.dish.seekdish.R.layout.activity_include_friends)
+
+        setFragment(1)
 
 
-        // setting up tabLayout
-        this.tabLayout = findViewById(R.id.tabLayoutIncludeFriendsFrag)
+        /*  // setting up tabLayout
+          this.tabLayout = findViewById(R.id.tabLayoutIncludeFriendsFrag)
 
-        tabLayout.addTab(tabLayout.newTab().setText("Friends"))
-        tabLayout.addTab(tabLayout.newTab().setText("Selected"))
+          tabLayout.addTab(tabLayout.newTab().setText("Friends"))
+          tabLayout.addTab(tabLayout.newTab().setText("Selected"))
 
-//        //change font
-//        changeTabsFont();
+  //        //change font
+  //        changeTabsFont();
 
-        viewPager = findViewById(R.id.viewPagerIncludeFriendsFrag) as ViewPager
-        adapter = IncludeFriendsAdapter(this!!.supportFragmentManager, tabLayout.tabCount)
-
-
-        viewPager.adapter = adapter
-        viewPager.addOnPageChangeListener(TabLayout.TabLayoutOnPageChangeListener(tabLayout))
+          viewPager = findViewById(R.id.viewPagerIncludeFriendsFrag) as ViewPager
+          adapter = IncludeFriendsAdapter(this!!.supportFragmentManager, tabLayout.tabCount)
 
 
-//        tabLayout.setTabTextColors(
-//                ContextCompat.getColor(this, R.color.black),
-//                ContextCompat.getColor(this, R.color.black)
+          viewPager.adapter = adapter
+          viewPager.addOnPageChangeListener(TabLayout.TabLayoutOnPageChangeListener(tabLayout))
 
 
-        tabLayout.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
-            override fun onTabSelected(tab: TabLayout.Tab) {
-                viewPager.currentItem = tab.position
-            }
+  //        tabLayout.setTabTextColors(
+  //                ContextCompat.getColor(this, R.color.black),
+  //                ContextCompat.getColor(this, R.color.black)
 
-            override fun onTabUnselected(tab: TabLayout.Tab) {
 
-            }
+          tabLayout.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
+              override fun onTabSelected(tab: TabLayout.Tab) {
+                  viewPager.currentItem = tab.position
+              }
 
-            override fun onTabReselected(tab: TabLayout.Tab) {
+              override fun onTabUnselected(tab: TabLayout.Tab) {
 
-            }
-        })
+              }
 
+              override fun onTabReselected(tab: TabLayout.Tab) {
+
+              }
+          })
+
+  */
+
+        tvFriends.setOnClickListener()
+        {
+            setFragment(1)
+            tvFriends.setBackgroundResource(R.drawable.tab_background_selected)
+            tvSelected.setBackgroundResource(R.drawable.tab_layout_background)
+
+        }
+        tvSelected.setOnClickListener()
+        {
+            setFragment(2)
+            tvSelected.setBackgroundResource(R.drawable.tab_background_selected)
+            tvFriends.setBackgroundResource(R.drawable.tab_layout_background)
+
+        }
 
         tvConfirm.setOnClickListener()
         {
@@ -62,5 +83,20 @@ class IncludeFriendsActivity : AppCompatActivity() {
             startActivity(intent)*/
             finish()
         }
+        tvBack.setOnClickListener()
+        {
+            finish()
+        }
+    }
+
+    fun setFragment(fargmentNo: Int) {
+        val transaction: FragmentTransaction
+        transaction = supportFragmentManager.beginTransaction()
+        if (fargmentNo == 1) {
+            transaction.replace(com.dish.seekdish.R.id.frameInvited, FriendsInclFragment())
+        } else {
+            transaction.replace(com.dish.seekdish.R.id.frameInvited, SelectedInclFragment())
+        }
+        transaction.commit()
     }
 }

@@ -22,12 +22,23 @@ import kotlinx.android.synthetic.main.activity_contact_fetch.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import androidx.core.os.HandlerCompat.postDelayed
+import androidx.core.app.ComponentActivity
+import androidx.core.app.ComponentActivity.ExtraData
+import androidx.core.content.ContextCompat.getSystemService
+import android.icu.lang.UCharacter.GraphemeClusterBreak.T
+import android.os.Handler
+
 
 class ContactFetchActivity : BaseActivity() {
 
     private var listView: ListView? = null
     private var contFetchAdapter: ContFetchAdapter? = null
-    private var contactModelArrayList = HashSet<ContactModel>()
+    private var contactModelArrayList = ArrayList<ContactModel>()
+    private var contactMatchedArr = ArrayList<ContactModel>()
+
+    private var arraylist = ArrayList<Data>()
+
     val PERMISSION_REQUEST_IMG_CODE = 1
     var sessionManager: SessionManager? = null;
     internal lateinit var apiInterface: APIInterface
@@ -35,9 +46,9 @@ class ContactFetchActivity : BaseActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_contact_fetch)
+        setContentView(com.dish.seekdish.R.layout.activity_contact_fetch)
 
-        listView = findViewById(R.id.listView) as ListView
+        listView = findViewById(com.dish.seekdish.R.id.listView) as ListView
 
         sessionManager = SessionManager(this)
 
@@ -50,10 +61,7 @@ class ContactFetchActivity : BaseActivity() {
             } else {
                 requestImagePermission()
             }
-
         }
-
-
     }
 
     fun fetchContact() {
@@ -72,46 +80,65 @@ class ContactFetchActivity : BaseActivity() {
 
             val contactModel = ContactModel()
             contactModel.setNames(name)
-            contactModel.setNumbers(phoneNumber)
+            contactModel.setNumbers(phoneNumber.replace("\\s".toRegex(), ""))
             contactModelArrayList!!.add(contactModel)
             Log.e("info>>", name + "  " + phoneNumber)
         }
         phones.close()
 
-        val emails = contentResolver.query(
-            ContactsContract.CommonDataKinds.Email.CONTENT_URI,
-            null,
-            null,
-            null,
-            ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME + " ASC"
-        )
-        while (emails!!.moveToNext()) {
-            val name =
-                emails.getString(emails.getColumnIndex(ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME))
-            val phoneNumber =
-                emails.getString(emails.getColumnIndex(ContactsContract.CommonDataKinds.Email.ADDRESS))
+        /*    val emails = contentResolver.query(
+                ContactsContract.CommonDataKinds.Email.CONTENT_URI,
+                null,
+                null,
+                null,
+                ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME + " ASC"
+            )
+            while (emails!!.moveToNext()) {
+                val name =
+                    emails.getString(emails.getColumnIndex(ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME))
+                val phoneNumber =
+                    emails.getString(emails.getColumnIndex(ContactsContract.CommonDataKinds.Email.ADDRESS))
 
-            val contactModel = ContactModel()
-            contactModel.setNames(name)
-            contactModel.setNumbers(phoneNumber)
-            contactModelArrayList!!.add(contactModel)
-            Log.e("info222222222>>   {$name}", name + "  " + phoneNumber)
-        }
-        emails.close()
+                val contactModel = ContactModel()
+                contactModel.setNames(name)
+                contactModel.setNumbers(phoneNumber)
+                contactModelArrayList!!.add(contactModel)
+                Log.e("info222222222>>   {$name}", name + "  " + phoneNumber)
+            }
+            emails.close()*/
 
-        compareNumbers()
+//        compareNumbers()
+        val ha = Handler()
+        ha.postDelayed(object : Runnable {
+
+            override fun run() {
+                //call function
+                compareNumbers()
+                ha.postDelayed(this, 3000)
+            }
+        }, 10000)
+//        contFetchAdapter = ContFetchAdapter(this, contactModelArrayList!!)
+//        listView!!.adapter = contFetchAdapter
 
     }
 
     private fun compareNumbers() {
-        var modelObj : ContactsDetailsModel
+        val contactModel = ContactModel()
 
-      /*  for(i in 0 until  contactModelArrayList.size)
-        {
-            if(modelObj.data[i].phone[
-                ])
+        for (i in 0 until arraylist.size) {
+            var searchString = arraylist[i].phone
+            for (j in 0 until contactModelArrayList.size) {
+                Log.e("resuktt run", "" + j)
+
+                if (contactModelArrayList[j].getNumbers().contains(searchString)) {
+                    Log.e("resuktt succ", "" + contactModelArrayList[j].number)
+                    contactMatchedArr.add(contactModelArrayList[j])
+                } else {
+                    Log.e("resuktt", "" + contactModelArrayList[j].number + " not founndd")
+                }
+            }
         }
-*/
+
         contFetchAdapter = ContFetchAdapter(this, contactModelArrayList!!)
         listView!!.adapter = contFetchAdapter
     }
@@ -195,6 +222,7 @@ class ContactFetchActivity : BaseActivity() {
                         if (modelObj.data.size == 0) {
                             tvAlertContact.visibility == View.VISIBLE
                         } else {
+                            arraylist = modelObj.data
                             fetchContact()
                         }
 
@@ -202,7 +230,7 @@ class ContactFetchActivity : BaseActivity() {
 
                 } else {
 //                    iSignUpView.onSetLoggedin(false, response)
-                    showSnackBar(resources.getString(R.string.error_occured));
+                    showSnackBar(resources.getString(com.dish.seekdish.R.string.error_occured));
 
                 }
 
@@ -213,7 +241,7 @@ class ContactFetchActivity : BaseActivity() {
 
 //                Log.e("responseFailure", " " + t.toString())
 
-                showSnackBar(resources.getString(R.string.error_occured));
+                showSnackBar(resources.getString(com.dish.seekdish.R.string.error_occured));
 
                 call.cancel()
                 // canceling the progress bar

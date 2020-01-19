@@ -12,6 +12,7 @@ import androidx.core.app.ComponentActivity.ExtraData
 import androidx.core.content.ContextCompat.getSystemService
 import android.icu.lang.UCharacter.GraphemeClusterBreak.T
 import com.dish.seekdish.custom.GlideApp
+import com.dish.seekdish.ui.home.HomeActivity
 import com.dish.seekdish.ui.navDrawer.checkin.data.Data_Checkin
 
 
@@ -23,8 +24,8 @@ class FriendInfoActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(com.dish.seekdish.R.layout.activity_friend_info)
 
-
         getIntents()
+
         tvCheckin.setOnClickListener {
             val intent = Intent(this@FriendInfoActivity, CheckinActivity::class.java)
             startActivity(intent)
@@ -33,6 +34,15 @@ class FriendInfoActivity : AppCompatActivity() {
         tvContact.setOnClickListener {
             val intent = Intent(this@FriendInfoActivity, ContactActivity::class.java)
             startActivity(intent)
+        }
+
+        tvFriend.setOnClickListener()
+        {
+            val intent = Intent(this@FriendInfoActivity, HomeActivity::class.java)
+            intent.putExtra("from", "FriendInfoActivity")
+            intent.putExtra("fromValue", user_id)
+            startActivity(intent)
+
         }
 
     }

@@ -9,6 +9,7 @@ import kotlinx.android.synthetic.main.activity_invitation.*
 import android.app.TimePickerDialog
 import android.app.DatePickerDialog
 import android.app.Dialog
+import android.text.TextUtils
 import android.util.Log
 import android.view.Window
 import android.widget.Button
@@ -20,7 +21,9 @@ import com.dish.seekdish.custom.ProgressBarClass
 import com.dish.seekdish.retrofit.APIClient
 import com.dish.seekdish.retrofit.APIInterface
 import com.dish.seekdish.ui.navDrawer.invitation.includeFriends.IncludeFriendsActivity
+import com.dish.seekdish.ui.navDrawer.settings.dataModel.CancelReModel
 import com.dish.seekdish.ui.navDrawer.settings.myAlerts.InvitationModel
+import com.dish.seekdish.util.Global
 import com.dish.seekdish.util.SessionManager
 import kotlinx.android.synthetic.main.activity_invitation.tvBack
 import retrofit2.Call
@@ -40,8 +43,10 @@ class InvitationActivity : BaseActivity() {
     internal lateinit var apiInterface: APIInterface
     var sessionManager: SessionManager? = null
     var restro_id = ""
-    var validity=""
-    var allow=""
+    var validity = ""
+    var allow = ""
+    var timedelected = ""
+    var dateSelected = ""
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_invitation)
@@ -71,7 +76,6 @@ class InvitationActivity : BaseActivity() {
             showSnackBar(getString(R.string.check_connection))
         }
 
-
 //        tabLayout.setTabTextColors(
 //                ContextCompat.getColor(this, R.color.black),
 //                ContextCompat.getColor(this, R.color.black)
@@ -100,8 +104,8 @@ class InvitationActivity : BaseActivity() {
         tvSettings.setOnClickListener()
         {
             val intent = Intent(this@InvitationActivity, InvitationSettingsActivity::class.java)
-            intent.putExtra("VALIDITY",validity)
-            intent.putExtra("ALLOW_INVITATION",allow)
+            intent.putExtra("VALIDITY", validity)
+            intent.putExtra("ALLOW_INVITATION", allow)
 
             startActivity(intent)
 
@@ -126,7 +130,13 @@ class InvitationActivity : BaseActivity() {
 
         imgInvitaionSend.setOnClickListener()
         {
-            onInvitationSendClick()
+            var recievers_id = TextUtils.join(",", Global.selectedFriends)
+
+            if (recievers_id != null && recievers_id != "null" && recievers_id != "") {
+                postInvitation(recievers_id)
+            } else {
+                showSnackBar("Please choose friends first.")
+            }
         }
     }
 
@@ -154,12 +164,12 @@ class InvitationActivity : BaseActivity() {
     fun showDateTimePicker() {
         val currentDate = Calendar.getInstance()
         date = Calendar.getInstance()
-        var timedelected = ""
-        var dateSelected = ""
+
         DatePickerDialog(
             this,
             DatePickerDialog.OnDateSetListener { view, year, monthOfYear, dayOfMonth ->
                 date.set(year, monthOfYear, dayOfMonth)
+//                date.getMinimum((System.currentTimeMillis() - 1000).toInt())
                 TimePickerDialog(
                     this,
                     TimePickerDialog.OnTimeSetListener { view, hourOfDay, minute ->
@@ -167,7 +177,8 @@ class InvitationActivity : BaseActivity() {
                         date.set(Calendar.MINUTE, minute)
                         timedelected = hourOfDay.toString() + ":" + minute
                         tvTime.setText(timedelected)
-                        dateSelected = dayOfMonth.toString()+ "-" + monthOfYear.plus(1)+"-"+year.toString()
+                        dateSelected =
+                            dayOfMonth.toString() + "-" + monthOfYear.plus(1) + "-" + year.toString()
                         tvDate.setText(dateSelected)
 
                         Log.v("picktime", "The choosen one " + hourOfDay + minute)
@@ -183,6 +194,8 @@ class InvitationActivity : BaseActivity() {
             currentDate.get(Calendar.MONTH),
             currentDate.get(Calendar.DATE)
         ).show()
+
+
 
 
     }
@@ -235,10 +248,12 @@ class InvitationActivity : BaseActivity() {
                         tvRestroName.text = modelObj.data.name
                         tvAddress.text = modelObj.data.street
                         simpleRatingBar.rating = 4.0f
-                        validity=modelObj.data.setting_invitation.validity_of_invitation.toString()
-                        allow=modelObj.data.setting_invitation.allow_invitation.toString()
+                        validity =
+                            modelObj.data.setting_invitation.validity_of_invitation.toString()
+                        allow = modelObj.data.setting_invitation.allow_invitation.toString()
 
-                        adapter = InvitationAdapter(supportFragmentManager, tabLayout.tabCount,modelObj)
+                        adapter =
+                            InvitationAdapter(supportFragmentManager, tabLayout.tabCount, modelObj)
                         viewPager.adapter = adapter
                         viewPager.addOnPageChangeListener(
                             TabLayout.TabLayoutOnPageChangeListener(
@@ -253,6 +268,53 @@ class InvitationActivity : BaseActivity() {
             }
 
             override fun onFailure(call: Call<InvitationModel>, t: Throwable) {
+                showSnackBar(resources.getString(R.string.error_occured));
+
+                call.cancel()
+                // canceling the progress bar
+                ProgressBarClass.dialog.dismiss()
+
+            }
+        })
+    }
+
+    fun postInvitation(recieversId: String) {
+
+        ProgressBarClass.progressBarCalling(this)
+        apiInterface = APIClient.getClient(this).create(APIInterface::class.java)
+        val call =
+            apiInterface.postInvitationApi(
+                sessionManager?.getValue(SessionManager.USER_ID).toString(),
+                restro_id,
+                recieversId,
+                timedelected,dateSelected
+            )
+        call.enqueue(object : Callback<CancelReModel> {
+            override fun onResponse(
+                call: Call<CancelReModel>,
+                response: Response<CancelReModel>
+            ) {
+                // canceling the progress bar
+                ProgressBarClass.dialog.dismiss()
+                Log.e("respStr", " " + response.body().toString())
+                if (response.code().toString().equals("200")) {
+
+                    var modelObj = response.body() as CancelReModel
+
+                    if (modelObj.status == 0) {
+
+                        showSnackBar(resources.getString(R.string.error_occured));
+
+                    } else {
+                        onInvitationSendClick()
+
+                    }
+                } else {
+                    showSnackBar(resources.getString(R.string.error_occured));
+                }
+            }
+
+            override fun onFailure(call: Call<CancelReModel>, t: Throwable) {
                 showSnackBar(resources.getString(R.string.error_occured));
 
                 call.cancel()

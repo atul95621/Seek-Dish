@@ -25,6 +25,8 @@ data class Meals(
     val meal_id: Int,
     val meal_image: String,
     val meal_name: String,
+    val facebook:String,
+    val twitter:String,
     val meal_people: String,
     val meal_status: List<String>,
     val meal_type: String,

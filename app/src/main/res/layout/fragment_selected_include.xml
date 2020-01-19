@@ -49,11 +49,13 @@
         </LinearLayout>
     </LinearLayout>
 
-    <FrameLayout android:layout_width="match_parent" android:layout_height="wrap_content">
+    <FrameLayout android:layout_width="match_parent" android:layout_height="match_parent">
 
         <TextView android:layout_width="match_parent"
+            android:id="@+id/tvAlertSlectd"
                   android:visibility="gone" android:layout_height="match_parent"
                   android:text="No Data Found"
+            android:fontFamily="@font/assistantregular"
                   android:layout_gravity="center"
                   android:gravity="center"/>
         <androidx.recyclerview.widget.RecyclerView

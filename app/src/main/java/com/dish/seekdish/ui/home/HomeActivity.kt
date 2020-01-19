@@ -40,6 +40,7 @@ import com.dish.seekdish.util.SessionManager
 import com.dish.seekdish.walkthrough.WalkThroughActivity
 import com.twitter.sdk.android.core.*
 import io.reactivex.android.schedulers.AndroidSchedulers
+import kotlinx.android.synthetic.main.activity_home.*
 import java.util.ArrayList
 import java.util.LinkedHashMap
 import android.text.TextUtils.join as join1
@@ -64,7 +65,6 @@ class HomeActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
 
     //___________________
 
-
     lateinit var tvTitle: TextView
     lateinit var tvAdd: TextView
     lateinit var imgHamburger: ImageView
@@ -84,9 +84,12 @@ class HomeActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
     var compAmbianceItems = ""
     var additonalItems = ""
     var seasonlityItems = ""
-
-
     var from: String? = null
+    var fromValue: String? = null
+    var drawerLayout: DrawerLayout? = null
+    private var doubleBackToExitPressedOnce = false
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_home)
@@ -107,7 +110,7 @@ class HomeActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
 
         val toolbar = findViewById(R.id.toolbar) as Toolbar
 
-        val drawerLayout: DrawerLayout = findViewById(R.id.drawer_layout)
+        drawerLayout = findViewById(R.id.drawer_layout)
         val navView: NavigationView = findViewById(R.id.nav_view)
         var toggle = ActionBarDrawerToggle(
             this,
@@ -117,7 +120,7 @@ class HomeActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
             R.string.navigation_drawer_close
         )
 
-        drawerLayout.addDrawerListener(toggle)
+        drawerLayout?.addDrawerListener(toggle)
         toggle.setHomeAsUpIndicator(R.drawable.ic_hamburger);
 
         toggle.syncState()
@@ -134,7 +137,7 @@ class HomeActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
 
 
         //hitting api when drawer gets opened...
-        drawerLayout.addDrawerListener(object : DrawerLayout.DrawerListener {
+        drawerLayout?.addDrawerListener(object : DrawerLayout.DrawerListener {
             override fun onDrawerStateChanged(p0: Int) {
             }
 
@@ -146,8 +149,8 @@ class HomeActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
             }
 
             override fun onDrawerOpened(p0: View) {
-                Log.e("drawerDirection", ":  " + drawerLayout.isDrawerOpen(GravityCompat.END))
-                if (drawerLayout.isDrawerOpen(GravityCompat.END) == true) {
+                Log.e("drawerDirection", ":  " + drawerLayout?.isDrawerOpen(GravityCompat.END))
+                if (drawerLayout?.isDrawerOpen(GravityCompat.END) == true) {
                     // hitiing apai if user slide the right drawer
                     getFilterData()
                 }
@@ -163,14 +166,25 @@ class HomeActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
 
 // callbacks from activities
         from = intent.getStringExtra("from")
+        fromValue = intent.getStringExtra("fromValue")
+
         if (from != null) {
             if (from.equals("MyProfileActivity")) {
                 tvTitle.setText("My Friends")
                 val fragmentManager = supportFragmentManager
                 fragmentManager.beginTransaction().replace(
                     R.id.content_frame,
-                    MyFriendsFragment()
+                    MyFriendsFragment(sessionManager?.getValue(SessionManager.USER_ID).toString())
                 ).commit()
+            } else if (from.equals("FriendInfoActivity")) {
+                if (!fromValue.isNullOrEmpty()) {
+                    tvTitle.setText("My Friends")
+                    val fragmentManager = supportFragmentManager
+                    fragmentManager.beginTransaction().replace(
+                        R.id.content_frame,
+                        MyFriendsFragment(fromValue.toString())
+                    ).commit()
+                }
             }
         }
 
@@ -191,23 +205,23 @@ class HomeActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
 
         // for left drawerr
         imgHamburger.setOnClickListener(View.OnClickListener {
-            if (drawerLayout.isDrawerOpen(GravityCompat.START)) {
-                drawerLayout.closeDrawer(GravityCompat.START)
+            if (drawerLayout?.isDrawerOpen(GravityCompat.START)!!) {
+                drawerLayout?.closeDrawer(GravityCompat.START)
             } else {
-                drawerLayout.openDrawer(GravityCompat.START)
+                drawerLayout?.openDrawer(GravityCompat.START)
             }
         })
 
         // for right drawer that is filter
 
         imgFilters.setOnClickListener(View.OnClickListener {
-            if (drawerLayout.isDrawerOpen(GravityCompat.END)) {
-                drawerLayout.closeDrawer(GravityCompat.END)
+            if (drawerLayout?.isDrawerOpen(GravityCompat.END)!!) {
+                drawerLayout?.closeDrawer(GravityCompat.END)
             } else {
                 Log.e("deptList size", " " + deptList.size)
 
                 getFilterData()
-                drawerLayout.openDrawer(GravityCompat.END)
+                drawerLayout?.openDrawer(GravityCompat.END)
             }
         })
 
@@ -279,7 +293,12 @@ class HomeActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
                     "filterItems",
                     "" + "\nbudget   " + budgetItems + "\nservice  " + serviceSpeedItems + "\nmeal   " + mealItems + "\ncompat   " + compatIntolerItems + "\nrestro   " + restroSpecialItems + "\ncompAm  " + compAmbianceItems + "\naddtional   " + additonalItems + "\nseason   " + seasonlityItems
                 )
-
+                var switchConsider = "0"
+                if (switch_consider_my_profile.isChecked) {
+                    switchConsider = "1"
+                } else {
+                    switchConsider = "0"
+                }
                 homeActivityVM?.doSaveFilterData(
                     budgetItems,
                     serviceSpeedItems,
@@ -290,7 +309,8 @@ class HomeActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
                     compAmbianceItems,
                     additonalItems,
                     seasonlityItems,
-                    sessionManager?.getValue(SessionManager.USER_ID).toString()
+                    sessionManager?.getValue(SessionManager.USER_ID).toString(),
+                    switchConsider
                 )
             }
         }
@@ -414,6 +434,18 @@ class HomeActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
         } else {
             super.onBackPressed()
         }
+        // alert for user when backispressed
+        /*   else {
+               if (doubleBackToExitPressedOnce) {
+                   super.onBackPressed()
+                   return
+               }
+
+               this.doubleBackToExitPressedOnce = true
+               Toast.makeText(this, "Please click BACK again to exit", Toast.LENGTH_SHORT).show()
+
+               Handler().postDelayed(Runnable { doubleBackToExitPressedOnce = false }, 2000)
+           }*/
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -470,7 +502,7 @@ class HomeActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
                     fragmentManager.beginTransaction()
                         .replace(
                             R.id.content_frame,
-                            MyFriendsFragment()
+                            MyFriendsFragment(sessionManager?.getValue(SessionManager.USER_ID).toString())
                         )
                         .commit()
                 }
@@ -569,6 +601,19 @@ class HomeActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
 
                     if (deptList.size == 0) {
 
+                        for (items in response.data.consider_my_profile) {
+                            if (items.filter == 1) {
+                                switch_consider_my_profile.isChecked = true
+
+                            } else {
+                                switch_consider_my_profile.isChecked = false
+                            }
+                        }
+
+                        for (items in response.data.budget) {
+                            Log.e("Budget", items.name)
+                            addProduct("Budget", items.name, items.id)
+                        }
 
                         for (items in response.data.budget) {
                             Log.e("Budget", items.name)
@@ -605,17 +650,11 @@ class HomeActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
                         // attach the adapter to the expandable list view
                         simpleExpandableListView!!.setAdapter(listAdapter)
                     }
-
-
                 }
 
             } else {
-
-
                 showSnackBar("OOps! Error Occured.")
-
                 Log.e("rspSnak", "else error")
-
             }
         })
     }
@@ -669,19 +708,14 @@ class HomeActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
                 Log.e("rspFilter", response.toString())
 
                 if (response.status == 1) {
+                    drawerLayout?.closeDrawer(GravityCompat.END)
 
                     val message = response.data.message
                     showSnackBar(message)
-
                 }
-
             } else {
-
-
                 showSnackBar("OOps! Error Occured.")
-
                 Log.e("rspSnak", "else error")
-
             }
         })
     }
@@ -707,12 +741,22 @@ class HomeActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
 
     override fun onResume() {
         super.onResume()
+
         var photoUrl = sessionManager?.getValue(SessionManager.PHOTO_URL);
+        var name = sessionManager?.getValue(SessionManager.FIRST_NAME);
+
         if (photoUrl != null && photoUrl != "null" && photoUrl != "") {
 
             GlideApp.with(this)
                 .load(photoUrl)
                 .into(imageViewNavDrawer)
+
+            tvName.setText(sessionManager?.getValue(SessionManager.FIRST_NAME))
         }
+        if (name != null && name != "null" && name != "") {
+            tvName.setText(sessionManager?.getValue(SessionManager.FIRST_NAME))
+        }
+
     }
+
 }

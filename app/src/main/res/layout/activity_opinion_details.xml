@@ -1,446 +1,540 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:tools="http://schemas.android.com/tools"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:background="@color/white"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:orientation="vertical"
 
-        tools:context=".ui.navDrawer.dishDescription.OpinionDetailsActivity">
+    tools:context=".ui.navDrawer.dishDescription.OpinionDetailsActivity">
     <!--toolbar-->
-    <FrameLayout android:layout_width="match_parent"
-                 android:layout_height="48dp"
-                 android:gravity="center"
-                 android:background="@color/colorPrimary"
-                 android:orientation="horizontal">
-        <TextView android:layout_width="wrap_content"
-                  android:layout_height="wrap_content"
-                  android:layout_gravity="center"
-                  android:text="Opinion"
-                  android:textColor="@color/white"
-                  android:textSize="20sp"/>
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:background="@color/colorPrimary"
+        android:gravity="center"
+        android:orientation="horizontal">
+
         <TextView
-                android:id="@+id/tvBack"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:gravity="start"
-                android:layout_marginStart="10dp"
-                android:layout_gravity="start|center_vertical"
-                android:text="Back"
-                android:textColor="@color/white"
-                android:textSize="18sp"/>
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:fontFamily="@font/assistantregular"
+            android:text="Opinion"
+            android:textColor="@color/white"
+            android:textSize="20sp" />
+
+        <TextView
+            android:id="@+id/tvBack"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="start|center_vertical"
+            android:layout_marginStart="10dp"
+            android:fontFamily="@font/assistantregular"
+            android:gravity="start"
+            android:text="Back"
+            android:textColor="@color/white"
+            android:textSize="18sp" />
     </FrameLayout>
 
-    <androidx.core.widget.NestedScrollView android:layout_width="match_parent"
-                                           android:layout_height="wrap_content">
-        <LinearLayout android:layout_width="match_parent"
-                      android:orientation="vertical"
-                      android:layout_height="wrap_content">
-            <LinearLayout android:layout_width="match_parent"
-                          android:layout_height="wrap_content">
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
 
-                <ImageView android:layout_width="match_parent"
-                           android:id="@+id/imgMealImage"
-                           android:layout_marginStart="50dp"
-                           android:layout_marginTop="20dp"
-                           android:layout_marginEnd="50dp"
-                           android:src="@drawable/ic_pasta"
-                           android:layout_height="200dp"
-                          />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <ImageView
+                    android:id="@+id/imgMealImage"
+                    android:layout_width="match_parent"
+                    android:layout_height="200dp"
+                    android:layout_marginStart="50dp"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginEnd="50dp"
+                    android:src="@drawable/ic_pasta" />
             </LinearLayout>
-            <ScrollView android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
-                <LinearLayout android:layout_width="match_parent"
-                              android:orientation="vertical"
-                              android:layout_height="wrap_content">
-                    <LinearLayout android:layout_width="match_parent"
-                                  android:layout_marginTop="10dp"
-                                  android:layout_gravity="end"
-                                  android:gravity="end"
-                                  android:layout_marginEnd="20dp"
-                                  android:layout_height="wrap_content">
-                        <ImageView android:layout_width="40dp"
-                                   android:id="@+id/imgFollowing"
-                                   android:src="@drawable/ic_follow"
-                                   android:layout_height="40dp"/>
-                        <ImageView android:layout_width="40dp"
-                                   android:id="@+id/imgFriendRequest"
-                                   android:layout_marginStart="15dp"
-                                   android:src="@drawable/ic_befriend"
-                                   android:layout_height="40dp"/>
+
+            <ScrollView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <LinearLayout
+                        android:id="@+id/linFollowOptions"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="end"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginEnd="20dp"
+                        android:gravity="end">
+
+                        <ImageView
+                            android:id="@+id/imgFollowing"
+                            android:layout_width="40dp"
+                            android:layout_height="40dp"
+                            android:src="@drawable/ic_follow" />
+
+                        <ImageView
+                            android:id="@+id/imgFriendRequest"
+                            android:layout_width="40dp"
+                            android:layout_height="40dp"
+                            android:layout_marginStart="15dp"
+                            android:src="@drawable/ic_befriend" />
                     </LinearLayout>
-                    <TextView android:layout_width="match_parent"
-                              android:layout_marginStart="20dp"
-                              android:textSize="18sp"
-                              android:id="@+id/tvDateName"
-                              android:textColor="@color/black" android:layout_height="wrap_content"
-                              android:text="12/07/2019 - Michel"/>
 
-                    <TextView android:layout_width="match_parent"
-                              android:layout_marginTop="10dp"
-                              android:textSize="18sp"
-                              android:id="@+id/tvComment"
-                              android:layout_marginStart="20dp"
-                              android:textColor="@color/black" android:layout_height="wrap_content"
-                              android:text="My opinion is pretty good."/>
+                    <TextView
+                        android:id="@+id/tvDateName"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="20dp"
+                        android:fontFamily="@font/assistantregular"
+                        android:text="12/07/2019 - Michel"
+                        android:textColor="@color/black"
+                        android:textSize="18sp" />
 
-                    <LinearLayout android:layout_width="match_parent"
-                                  android:orientation="vertical"
-                                  android:layout_marginTop="10dp" android:layout_height="wrap_content">
-                        <LinearLayout android:layout_width="match_parent"
-                                      android:layout_marginTop="20dp"
-                                      android:orientation="horizontal"
-                                      android:weightSum="2"
-                                      android:layout_height="wrap_content">
-                            <LinearLayout android:layout_width="0dp"
-                                          android:layout_weight="1"
-                                          android:layout_height="wrap_content"
-                                          android:orientation="vertical">
-                                <TextView android:layout_width="wrap_content"
-                                          android:layout_height="wrap_content"
-                                          android:text="Taste"
-                                          android:layout_gravity="center"
-                                          android:gravity="center"
-                                          android:textSize="18sp"
-                                          android:textColor="@color/black"/>
-                                <com.willy.ratingbar.ScaleRatingBar
-                                        xmlns:app="http://schemas.android.com/apk/res-auto"
-                                        android:id="@+id/ratingTaste"
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content"
-                                        app:srb_rating="0"
-                                        android:layout_gravity="center"
-                                        android:gravity="center"
-                                        app:srb_starPadding="5dp"
-                                        app:srb_starWidth="20dp"
-                                        app:srb_starHeight="20dp"
-                                        app:srb_stepSize="1"
-                                        app:srb_isIndicator="false"
-                                        app:srb_clickable="false"
-                                        app:srb_scrollable="false"
-                                        app:srb_clearRatingEnabled="false"
-                                        app:srb_drawableEmpty="@drawable/ic_empty_star"
-                                        app:srb_drawableFilled="@drawable/ic_filled_star"/>
-                            </LinearLayout>
+                    <TextView
+                        android:id="@+id/tvComment"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="20dp"
+                        android:layout_marginTop="10dp"
+                        android:fontFamily="@font/assistantregular"
+                        android:text="My opinion is pretty good."
+                        android:textColor="@color/black"
+                        android:textSize="18sp" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:orientation="vertical">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="20dp"
+                            android:orientation="horizontal"
+                            android:weightSum="2">
+
                             <LinearLayout
-                                    android:layout_width="0dp"
-                                    android:layout_weight="1" android:layout_height="wrap_content"
-                                    android:orientation="vertical">
-                                <TextView android:layout_width="wrap_content"
-                                          android:layout_height="wrap_content"
-                                          android:text="Service"
-                                          android:layout_gravity="center"
-                                          android:gravity="center"
-                                          android:textSize="18sp"
-                                          android:textColor="@color/black"/>
-                                <com.willy.ratingbar.ScaleRatingBar
-                                        xmlns:app="http://schemas.android.com/apk/res-auto"
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content"
-                                        app:srb_rating="0"
-                                        android:id="@+id/ratingService"
-                                        android:layout_gravity="center"
-                                        android:gravity="center"
-                                        app:srb_starPadding="5dp"
-                                        app:srb_starWidth="20dp"
-                                        app:srb_starHeight="20dp"
-                                        app:srb_stepSize="1"
-                                        app:srb_isIndicator="false"
-                                        app:srb_clickable="false"
-                                        app:srb_scrollable="false"
-                                        app:srb_clearRatingEnabled="false"
-                                        app:srb_drawableEmpty="@drawable/ic_empty_star"
-                                        app:srb_drawableFilled="@drawable/ic_filled_star"/>
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:orientation="vertical">
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_gravity="center"
+                                    android:fontFamily="@font/assistantregular"
+                                    android:gravity="center"
+                                    android:text="Taste"
+                                    android:textColor="@color/black"
+                                    android:textSize="18sp" />
+
+                                <com.willy.ratingbar.ScaleRatingBar xmlns:app="http://schemas.android.com/apk/res-auto"
+                                    android:id="@+id/ratingTaste"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_gravity="center"
+                                    android:gravity="center"
+                                    app:srb_clearRatingEnabled="false"
+                                    app:srb_clickable="false"
+                                    app:srb_drawableEmpty="@drawable/ic_empty_star"
+                                    app:srb_drawableFilled="@drawable/ic_filled_star"
+                                    app:srb_isIndicator="false"
+                                    app:srb_rating="0"
+                                    app:srb_scrollable="false"
+                                    app:srb_starHeight="20dp"
+                                    app:srb_starPadding="5dp"
+                                    app:srb_starWidth="20dp"
+                                    app:srb_stepSize="1" />
+                            </LinearLayout>
+
+                            <LinearLayout
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:orientation="vertical">
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_gravity="center"
+                                    android:fontFamily="@font/assistantregular"
+                                    android:gravity="center"
+                                    android:text="Service"
+                                    android:textColor="@color/black"
+                                    android:textSize="18sp" />
+
+                                <com.willy.ratingbar.ScaleRatingBar xmlns:app="http://schemas.android.com/apk/res-auto"
+                                    android:id="@+id/ratingService"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_gravity="center"
+                                    android:gravity="center"
+                                    app:srb_clearRatingEnabled="false"
+                                    app:srb_clickable="false"
+                                    app:srb_drawableEmpty="@drawable/ic_empty_star"
+                                    app:srb_drawableFilled="@drawable/ic_filled_star"
+                                    app:srb_isIndicator="false"
+                                    app:srb_rating="0"
+                                    app:srb_scrollable="false"
+                                    app:srb_starHeight="20dp"
+                                    app:srb_starPadding="5dp"
+                                    app:srb_starWidth="20dp"
+                                    app:srb_stepSize="1" />
                             </LinearLayout>
 
                         </LinearLayout>
-                        <LinearLayout android:layout_width="match_parent"
-                                      android:orientation="vertical"
-                                      android:layout_marginTop="10dp" android:layout_height="wrap_content">
-                            <LinearLayout android:layout_width="match_parent"
-                                          android:orientation="horizontal"
-                                          android:weightSum="2"
-                                          android:layout_height="wrap_content">
-                                <LinearLayout android:layout_width="0dp"
-                                              android:layout_weight="1"
-                                              android:layout_height="wrap_content"
-                                              android:orientation="vertical">
-                                    <TextView android:layout_width="wrap_content"
-                                              android:layout_height="wrap_content"
-                                              android:text="Presentation"
-                                              android:layout_gravity="center"
-                                              android:gravity="center"
-                                              android:textSize="18sp"
-                                              android:textColor="@color/black"/>
-                                    <com.willy.ratingbar.ScaleRatingBar
-                                            xmlns:app="http://schemas.android.com/apk/res-auto"
-                                            android:layout_width="wrap_content"
-                                            android:layout_height="wrap_content"
-                                            app:srb_rating="0"
-                                            android:id="@+id/ratingPresentation"
-                                            android:layout_gravity="center"
-                                            android:gravity="center"
-                                            app:srb_starPadding="5dp"
-                                            app:srb_starWidth="20dp"
-                                            app:srb_starHeight="20dp"
-                                            app:srb_stepSize="1"
-                                            app:srb_isIndicator="false"
-                                            app:srb_clickable="false"
-                                            app:srb_scrollable="false"
-                                            app:srb_clearRatingEnabled="false"
-                                            app:srb_drawableEmpty="@drawable/ic_empty_star"
-                                            app:srb_drawableFilled="@drawable/ic_filled_star"/>
-                                </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="10dp"
+                            android:orientation="vertical">
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:orientation="horizontal"
+                                android:weightSum="2">
+
                                 <LinearLayout
+                                    android:layout_width="0dp"
+                                    android:layout_height="wrap_content"
+                                    android:layout_weight="1"
+                                    android:orientation="vertical">
+
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_gravity="center"
+                                        android:fontFamily="@font/assistantregular"
+                                        android:gravity="center"
+                                        android:text="Presentation"
+                                        android:textColor="@color/black"
+                                        android:textSize="18sp" />
+
+                                    <com.willy.ratingbar.ScaleRatingBar xmlns:app="http://schemas.android.com/apk/res-auto"
+                                        android:id="@+id/ratingPresentation"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_gravity="center"
+                                        android:gravity="center"
+                                        app:srb_clearRatingEnabled="false"
+                                        app:srb_clickable="false"
+                                        app:srb_drawableEmpty="@drawable/ic_empty_star"
+                                        app:srb_drawableFilled="@drawable/ic_filled_star"
+                                        app:srb_isIndicator="false"
+                                        app:srb_rating="0"
+                                        app:srb_scrollable="false"
+                                        app:srb_starHeight="20dp"
+                                        app:srb_starPadding="5dp"
+                                        app:srb_starWidth="20dp"
+                                        app:srb_stepSize="1" />
+                                </LinearLayout>
+
+                                <LinearLayout
+                                    android:layout_width="0dp"
+                                    android:layout_height="wrap_content"
+                                    android:layout_weight="1"
+                                    android:orientation="vertical">
+
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_gravity="center"
+                                        android:fontFamily="@font/assistantregular"
+                                        android:gravity="center"
+                                        android:text="Decor"
+                                        android:textColor="@color/black"
+                                        android:textSize="18sp" />
+
+                                    <com.willy.ratingbar.ScaleRatingBar xmlns:app="http://schemas.android.com/apk/res-auto"
+                                        android:id="@+id/ratingDecor"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_gravity="center"
+                                        android:gravity="center"
+                                        app:srb_clearRatingEnabled="false"
+                                        app:srb_clickable="false"
+                                        app:srb_drawableEmpty="@drawable/ic_empty_star"
+                                        app:srb_drawableFilled="@drawable/ic_filled_star"
+                                        app:srb_isIndicator="false"
+                                        app:srb_rating="0"
+                                        app:srb_scrollable="false"
+                                        app:srb_starHeight="20dp"
+                                        app:srb_starPadding="5dp"
+                                        app:srb_starWidth="20dp"
+                                        app:srb_stepSize="1" />
+                                </LinearLayout>
+
+                            </LinearLayout>
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="10dp"
+                                android:orientation="vertical">
+
+                                <LinearLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:orientation="horizontal"
+                                    android:weightSum="2">
+
+                                    <LinearLayout
                                         android:layout_width="0dp"
-                                        android:layout_weight="1" android:layout_height="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_weight="1"
                                         android:orientation="vertical">
-                                    <TextView android:layout_width="wrap_content"
-                                              android:layout_height="wrap_content"
-                                              android:text="Decor"
-                                              android:layout_gravity="center"
-                                              android:gravity="center"
-                                              android:textSize="18sp"
-                                              android:textColor="@color/black"/>
-                                    <com.willy.ratingbar.ScaleRatingBar
-                                            xmlns:app="http://schemas.android.com/apk/res-auto"
+
+                                        <TextView
                                             android:layout_width="wrap_content"
                                             android:layout_height="wrap_content"
-                                            app:srb_rating="0"
-                                            android:id="@+id/ratingDecor"
+                                            android:layout_gravity="center"
+                                            android:fontFamily="@font/assistantregular"
+                                            android:gravity="center"
+                                            android:text="Texture"
+                                            android:textColor="@color/black"
+                                            android:textSize="18sp" />
+
+                                        <com.willy.ratingbar.ScaleRatingBar xmlns:app="http://schemas.android.com/apk/res-auto"
+                                            android:id="@+id/ratingTexture"
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
                                             android:layout_gravity="center"
                                             android:gravity="center"
+                                            app:srb_clearRatingEnabled="false"
+                                            app:srb_clickable="false"
+                                            app:srb_drawableEmpty="@drawable/ic_empty_star"
+                                            app:srb_drawableFilled="@drawable/ic_filled_star"
+                                            app:srb_isIndicator="false"
+                                            app:srb_rating="0"
+                                            app:srb_scrollable="false"
+                                            app:srb_starHeight="20dp"
                                             app:srb_starPadding="5dp"
                                             app:srb_starWidth="20dp"
-                                            app:srb_starHeight="20dp"
-                                            app:srb_stepSize="1"
-                                            app:srb_isIndicator="false"
-                                            app:srb_clickable="false"
-                                            app:srb_scrollable="false"
-                                            app:srb_clearRatingEnabled="false"
-                                            app:srb_drawableEmpty="@drawable/ic_empty_star"
-                                            app:srb_drawableFilled="@drawable/ic_filled_star"/>
-                                </LinearLayout>
-
-                            </LinearLayout>
-                            <LinearLayout android:layout_width="match_parent"
-                                          android:orientation="vertical"
-                                          android:layout_marginTop="10dp" android:layout_height="wrap_content">
-                                <LinearLayout android:layout_width="match_parent"
-                                              android:orientation="horizontal"
-                                              android:weightSum="2"
-                                              android:layout_height="wrap_content">
-                                    <LinearLayout android:layout_width="0dp"
-                                                  android:layout_weight="1"
-                                                  android:layout_height="wrap_content"
-                                                  android:orientation="vertical">
-                                        <TextView android:layout_width="wrap_content"
-                                                  android:layout_height="wrap_content"
-                                                  android:text="Texture"
-                                                  android:layout_gravity="center"
-                                                  android:gravity="center"
-                                                  android:textSize="18sp"
-                                                  android:textColor="@color/black"/>
-                                        <com.willy.ratingbar.ScaleRatingBar
-                                                xmlns:app="http://schemas.android.com/apk/res-auto"
-                                                android:layout_width="wrap_content"
-                                                android:layout_height="wrap_content"
-                                                app:srb_rating="0"
-                                                android:id="@+id/ratingTexture"
-                                                android:layout_gravity="center"
-                                                android:gravity="center"
-                                                app:srb_starPadding="5dp"
-                                                app:srb_starWidth="20dp"
-                                                app:srb_starHeight="20dp"
-                                                app:srb_stepSize="1"
-                                                app:srb_isIndicator="false"
-                                                app:srb_clickable="false"
-                                                app:srb_scrollable="false"
-                                                app:srb_clearRatingEnabled="false"
-                                                app:srb_drawableEmpty="@drawable/ic_empty_star"
-                                                app:srb_drawableFilled="@drawable/ic_filled_star"/>
+                                            app:srb_stepSize="1" />
                                     </LinearLayout>
+
                                     <LinearLayout
-                                            android:layout_width="0dp"
-                                            android:layout_weight="1" android:layout_height="wrap_content"
-                                            android:orientation="vertical">
-                                        <TextView android:layout_width="wrap_content"
-                                                  android:layout_height="wrap_content"
-                                                  android:text="Cleaniness"
-                                                  android:layout_gravity="center"
-                                                  android:gravity="center"
-                                                  android:textSize="18sp"
-                                                  android:textColor="@color/black"/>
-                                        <com.willy.ratingbar.ScaleRatingBar
-                                                xmlns:app="http://schemas.android.com/apk/res-auto"
-                                                android:layout_width="wrap_content"
-                                                android:layout_height="wrap_content"
-                                                app:srb_rating="0"
-                                                android:id="@+id/ratingCleaniness"
-                                                android:layout_gravity="center"
-                                                android:gravity="center"
-                                                app:srb_starPadding="5dp"
-                                                app:srb_starWidth="20dp"
-                                                app:srb_starHeight="20dp"
-                                                app:srb_stepSize="1"
-                                                app:srb_isIndicator="false"
-                                                app:srb_clickable="false"
-                                                app:srb_scrollable="false"
-                                                app:srb_clearRatingEnabled="false"
-                                                app:srb_drawableEmpty="@drawable/ic_empty_star"
-                                                app:srb_drawableFilled="@drawable/ic_filled_star"/>
+                                        android:layout_width="0dp"
+                                        android:layout_height="wrap_content"
+                                        android:layout_weight="1"
+                                        android:orientation="vertical">
+
+                                        <TextView
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:layout_gravity="center"
+                                            android:fontFamily="@font/assistantregular"
+                                            android:gravity="center"
+                                            android:text="Cleaniness"
+                                            android:textColor="@color/black"
+                                            android:textSize="18sp" />
+
+                                        <com.willy.ratingbar.ScaleRatingBar xmlns:app="http://schemas.android.com/apk/res-auto"
+                                            android:id="@+id/ratingCleaniness"
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:layout_gravity="center"
+                                            android:gravity="center"
+                                            app:srb_clearRatingEnabled="false"
+                                            app:srb_clickable="false"
+                                            app:srb_drawableEmpty="@drawable/ic_empty_star"
+                                            app:srb_drawableFilled="@drawable/ic_filled_star"
+                                            app:srb_isIndicator="false"
+                                            app:srb_rating="0"
+                                            app:srb_scrollable="false"
+                                            app:srb_starHeight="20dp"
+                                            app:srb_starPadding="5dp"
+                                            app:srb_starWidth="20dp"
+                                            app:srb_stepSize="1" />
                                     </LinearLayout>
 
                                 </LinearLayout>
-                                <LinearLayout android:layout_width="match_parent"
-                                              android:orientation="vertical"
-                                              android:layout_marginTop="10dp" android:layout_height="wrap_content">
-                                    <LinearLayout android:layout_width="match_parent"
-                                                  android:orientation="horizontal"
-                                                  android:weightSum="2"
-                                                  android:layout_marginBottom="10dp"
 
-                                                  android:layout_height="wrap_content">
-                                        <LinearLayout android:layout_width="0dp"
-                                                      android:layout_weight="1"
-                                                      android:layout_height="wrap_content"
-                                                      android:orientation="vertical">
-                                            <TextView android:layout_width="wrap_content"
-                                                      android:layout_height="wrap_content"
-                                                      android:text="Odor"
-                                                      android:layout_gravity="center"
-                                                      android:gravity="center"
-                                                      android:textSize="18sp"
-                                                      android:textColor="@color/black"/>
-                                            <com.willy.ratingbar.ScaleRatingBar
-                                                    xmlns:app="http://schemas.android.com/apk/res-auto"
-                                                    android:layout_width="wrap_content"
-                                                    android:layout_height="wrap_content"
-                                                    app:srb_rating="0"
-                                                    android:layout_gravity="center"
-                                                    android:gravity="center"
-                                                    android:id="@+id/ratingOdor"
-                                                    app:srb_starPadding="5dp"
-                                                    app:srb_starWidth="20dp"
-                                                    app:srb_starHeight="20dp"
-                                                    app:srb_stepSize="1"
-                                                    app:srb_isIndicator="false"
-                                                    app:srb_clickable="false"
-                                                    app:srb_scrollable="false"
-                                                    app:srb_clearRatingEnabled="false"
-                                                    app:srb_drawableEmpty="@drawable/ic_empty_star"
-                                                    app:srb_drawableFilled="@drawable/ic_filled_star"/>
-                                        </LinearLayout>
+                                <LinearLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="10dp"
+                                    android:orientation="vertical">
+
+                                    <LinearLayout
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:layout_marginBottom="10dp"
+                                        android:orientation="horizontal"
+
+                                        android:weightSum="2">
+
                                         <LinearLayout
-                                                android:layout_width="0dp"
-                                                android:layout_weight="1" android:layout_height="wrap_content"
-                                                android:orientation="vertical">
-                                            <TextView android:layout_width="wrap_content"
-                                                      android:layout_height="wrap_content"
-                                                      android:text="Ambience"
-                                                      android:layout_gravity="center"
-                                                      android:gravity="center"
-                                                      android:textSize="18sp"
-                                                      android:textColor="@color/black"/>
-                                            <com.willy.ratingbar.ScaleRatingBar
-                                                    xmlns:app="http://schemas.android.com/apk/res-auto"
-                                                    android:layout_width="wrap_content"
-                                                    android:layout_height="wrap_content"
-                                                    app:srb_rating="0"
-                                                    android:id="@+id/ratingAmbience"
-                                                    android:layout_gravity="center"
-                                                    android:gravity="center"
-                                                    app:srb_starPadding="5dp"
-                                                    app:srb_starWidth="20dp"
-                                                    app:srb_starHeight="20dp"
-                                                    app:srb_stepSize="1"
-                                                    app:srb_isIndicator="false"
-                                                    app:srb_clickable="false"
-                                                    app:srb_scrollable="false"
-                                                    app:srb_clearRatingEnabled="false"
-                                                    app:srb_drawableEmpty="@drawable/ic_empty_star"
-                                                    app:srb_drawableFilled="@drawable/ic_filled_star"/>
+                                            android:layout_width="0dp"
+                                            android:layout_height="wrap_content"
+                                            android:layout_weight="1"
+                                            android:orientation="vertical">
+
+                                            <TextView
+                                                android:layout_width="wrap_content"
+                                                android:layout_height="wrap_content"
+                                                android:layout_gravity="center"
+                                                android:fontFamily="@font/assistantregular"
+                                                android:gravity="center"
+                                                android:text="Odor"
+                                                android:textColor="@color/black"
+                                                android:textSize="18sp" />
+
+                                            <com.willy.ratingbar.ScaleRatingBar xmlns:app="http://schemas.android.com/apk/res-auto"
+                                                android:id="@+id/ratingOdor"
+                                                android:layout_width="wrap_content"
+                                                android:layout_height="wrap_content"
+                                                android:layout_gravity="center"
+                                                android:gravity="center"
+                                                app:srb_clearRatingEnabled="false"
+                                                app:srb_clickable="false"
+                                                app:srb_drawableEmpty="@drawable/ic_empty_star"
+                                                app:srb_drawableFilled="@drawable/ic_filled_star"
+                                                app:srb_isIndicator="false"
+                                                app:srb_rating="0"
+                                                app:srb_scrollable="false"
+                                                app:srb_starHeight="20dp"
+                                                app:srb_starPadding="5dp"
+                                                app:srb_starWidth="20dp"
+                                                app:srb_stepSize="1" />
+                                        </LinearLayout>
+
+                                        <LinearLayout
+                                            android:layout_width="0dp"
+                                            android:layout_height="wrap_content"
+                                            android:layout_weight="1"
+                                            android:orientation="vertical">
+
+                                            <TextView
+                                                android:layout_width="wrap_content"
+                                                android:layout_height="wrap_content"
+                                                android:layout_gravity="center"
+                                                android:fontFamily="@font/assistantregular"
+                                                android:gravity="center"
+                                                android:text="Ambience"
+                                                android:textColor="@color/black"
+                                                android:textSize="18sp" />
+
+                                            <com.willy.ratingbar.ScaleRatingBar xmlns:app="http://schemas.android.com/apk/res-auto"
+                                                android:id="@+id/ratingAmbience"
+                                                android:layout_width="wrap_content"
+                                                android:layout_height="wrap_content"
+                                                android:layout_gravity="center"
+                                                android:gravity="center"
+                                                app:srb_clearRatingEnabled="false"
+                                                app:srb_clickable="false"
+                                                app:srb_drawableEmpty="@drawable/ic_empty_star"
+                                                app:srb_drawableFilled="@drawable/ic_filled_star"
+                                                app:srb_isIndicator="false"
+                                                app:srb_rating="0"
+                                                app:srb_scrollable="false"
+                                                app:srb_starHeight="20dp"
+                                                app:srb_starPadding="5dp"
+                                                app:srb_starWidth="20dp"
+                                                app:srb_stepSize="1" />
                                         </LinearLayout>
                                     </LinearLayout>
                                 </LinearLayout>
                             </LinearLayout>
 
-                            <ImageView android:layout_width="150dp"
-                                       android:id="@+id/imgCommentImage"
-                                       android:layout_marginTop="20dp"
-                                       android:layout_height="150dp"
-                                       android:layout_gravity="center"
-                                       android:src="@drawable/ic_pasta"/>
-                            <ImageView android:layout_width="150dp"
-                                       android:id="@+id/imgCommentImageTwo"
-                                       android:layout_marginTop="10dp"
-                                       android:layout_height="150dp"
-                                       android:layout_gravity="center"
-                                       android:src="@drawable/ic_foodimg"/>
+                            <ImageView
+                                android:id="@+id/imgCommentImage"
+                                android:layout_width="150dp"
+                                android:layout_height="150dp"
+                                android:layout_gravity="center"
+                                android:layout_marginTop="20dp"
+                                android:src="@drawable/ic_pasta" />
+
+                            <ImageView
+                                android:id="@+id/imgCommentImageTwo"
+                                android:layout_width="150dp"
+                                android:layout_height="150dp"
+                                android:layout_gravity="center"
+                                android:layout_marginTop="10dp"
+                                android:src="@drawable/ic_foodimg" />
                         </LinearLayout>
                     </LinearLayout>
                 </LinearLayout>
             </ScrollView>
 
-            <LinearLayout android:layout_width="match_parent"
-                          android:layout_height="wrap_content"
-                          android:orientation="vertical"
-                          android:gravity="center">
-                <TextView android:layout_width="match_parent"
-                          android:layout_height="wrap_content"
-                          android:textColor="@color/black"
-                          android:textSize="20sp"
-                          android:id="@+id/tvMealName"
-                          android:gravity="center"
-                          android:layout_marginTop="15dp"
-                          android:fontFamily="@font/assistantbold"
-                          android:text="Ravouli Au Boeuf"
-                />
-                <LinearLayout android:layout_width="match_parent"
-                              android:layout_height="wrap_content"
-                              android:layout_gravity="center"
-                              android:gravity="center"
-                              android:layout_marginBottom="10dp"
-                              android:orientation="horizontal">
-                    <com.willy.ratingbar.ScaleRatingBar
-                            xmlns:app="http://schemas.android.com/apk/res-auto"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            app:srb_rating="0"
-                            android:id="@+id/ratingStar"
-                            android:layout_gravity="center"
-                            android:gravity="center"
-                            app:srb_starPadding="5dp"
-                            app:srb_starWidth="20dp"
-                            app:srb_starHeight="20dp"
-                            app:srb_stepSize="1"
-                            app:srb_isIndicator="false"
-                            app:srb_clickable="false"
-                            app:srb_scrollable="false"
-                            app:srb_clearRatingEnabled="false"
-                            app:srb_drawableEmpty="@drawable/ic_empty_star"
-                            app:srb_drawableFilled="@drawable/ic_filled_star"/>
-                    <com.willy.ratingbar.ScaleRatingBar
-                            xmlns:app="http://schemas.android.com/apk/res-auto"
-                            android:layout_width="wrap_content"
-                            android:layout_marginStart="20dp"
-                            android:layout_height="wrap_content"
-                            app:srb_rating="0"
-                            android:id="@+id/ratingEuro"
-                            android:layout_gravity="center"
-                            android:gravity="center"
-                            app:srb_starPadding="5dp"
-                            app:srb_starWidth="20dp"
-                            app:srb_starHeight="20dp"
-                            app:srb_stepSize="1"
-                            app:srb_isIndicator="false"
-                            app:srb_clickable="false"
-                            app:srb_scrollable="false"
-                            app:srb_clearRatingEnabled="false"
-                            app:srb_drawableEmpty="@drawable/ic_empty_euro"
-                            app:srb_drawableFilled="@drawable/ic_filled_euro"/>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/tvMealName"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="15dp"
+                    android:fontFamily="@font/assistantbold"
+                    android:gravity="center"
+                    android:text="Ravouli Au Boeuf"
+                    android:textColor="@color/black"
+                    android:textSize="20sp" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginBottom="10dp"
+                    android:gravity="center"
+                    android:orientation="horizontal">
+
+                    <com.willy.ratingbar.ScaleRatingBar xmlns:app="http://schemas.android.com/apk/res-auto"
+                        android:id="@+id/ratingStar"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:gravity="center"
+                        app:srb_clearRatingEnabled="false"
+                        app:srb_clickable="false"
+                        app:srb_drawableEmpty="@drawable/ic_empty_star"
+                        app:srb_drawableFilled="@drawable/ic_filled_star"
+                        app:srb_isIndicator="false"
+                        app:srb_rating="0"
+                        app:srb_scrollable="false"
+                        app:srb_starHeight="20dp"
+                        app:srb_starPadding="5dp"
+                        app:srb_starWidth="20dp"
+                        app:srb_stepSize="1" />
+
+                    <com.willy.ratingbar.ScaleRatingBar xmlns:app="http://schemas.android.com/apk/res-auto"
+                        android:id="@+id/ratingEuro"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginStart="20dp"
+                        android:gravity="center"
+                        app:srb_clearRatingEnabled="false"
+                        app:srb_clickable="false"
+                        app:srb_drawableEmpty="@drawable/ic_empty_euro"
+                        app:srb_drawableFilled="@drawable/ic_filled_euro"
+                        app:srb_isIndicator="false"
+                        app:srb_rating="0"
+                        app:srb_scrollable="false"
+                        app:srb_starHeight="20dp"
+                        app:srb_starPadding="5dp"
+                        app:srb_starWidth="20dp"
+                        app:srb_stepSize="1" />
 
                 </LinearLayout>
 

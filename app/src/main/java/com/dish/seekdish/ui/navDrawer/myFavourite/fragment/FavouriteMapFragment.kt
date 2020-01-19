@@ -96,10 +96,10 @@ class FavouriteMapFragment : BaseFragment(), OnMapReadyCallback, GoogleMap.OnMyL
             Log.e("rate", "info window clicked")
         }
 
-
+/*
         var cameraMove = LatLng(Constants.Latitude.toDouble(), Constants.Longitude.toDouble())
 //        mMap!!.moveCamera(CameraUpdateFactory.newLatLng(cameraMove))
-        mMap!!.animateCamera(CameraUpdateFactory.newLatLngZoom(cameraMove, 14F));
+        mMap!!.animateCamera(CameraUpdateFactory.newLatLngZoom(cameraMove, 14F));*/
 
 
         if (ContextCompat.checkSelfPermission(
@@ -182,46 +182,63 @@ class FavouriteMapFragment : BaseFragment(), OnMapReadyCallback, GoogleMap.OnMyL
 
                     arrayList = response.data
 
+                    if (arrayList.size > 0 && arrayList.isNotEmpty()) {
+                        activity?.runOnUiThread(
+                            object : Runnable {
+                                override fun run() {
 
-                    activity?.runOnUiThread(
-                        object : Runnable {
-                            override fun run() {
+                                    for (i in 0 until arrayList.size) {
 
-                                for (i in 0 until arrayList.size) {
-
-                                    var latititude = arrayList[i].latitude.toDouble()
-                                    var longitude = arrayList[i].longitude.toDouble()
-                                    var imageUrl = arrayList[i].meal_image
-                                    var starRate = arrayList[i].meal_avg_rating.toString()
-                                    var euroRate = arrayList[i].budget_rating.toString()
-                                    var mealName = arrayList[i].name
-
-
-                                    // adding custom info window
-                                    var locationPos = LatLng(latititude, longitude);
-                                    var markerOptions = MarkerOptions();
-                                    markerOptions.position(locationPos)
-                                        .title(arrayList[i].name)
-                                        .icon(bitmapDescriptorFromVector(myContext, R.drawable.ic_markersvg))
+                                        var latititude = arrayList[i].latitude.toDouble()
+                                        var longitude = arrayList[i].longitude.toDouble()
+                                        var imageUrl = arrayList[i].meal_image
+                                        var starRate = arrayList[i].meal_avg_rating.toString()
+                                        var euroRate = arrayList[i].budget_rating.toString()
+                                        var mealName = arrayList[i].name
 
 
-                                    var info = InfoWindowData(
-                                        imageUrl,
-                                        starRate,
-                                        euroRate,
-                                        mealName
+                                        // adding custom info window
+                                        var locationPos = LatLng(latititude, longitude);
+                                        var markerOptions = MarkerOptions();
+                                        markerOptions.position(locationPos)
+                                            .title(arrayList[i].name)
+                                            .icon(
+                                                bitmapDescriptorFromVector(
+                                                    myContext,
+                                                    R.drawable.ic_markersvg
+                                                )
+                                            )
+
+
+                                        var info = InfoWindowData(
+                                            imageUrl,
+                                            starRate,
+                                            euroRate,
+                                            mealName
+                                        );
+
+
+                                        var marker = mMap!!.addMarker(markerOptions);
+                                        marker.setTag(info)
+                                        marker.showInfoWindow()
+
+                                        markerMapHash.put(marker, info)
+                                    }
+
+                                    var cameraMove = LatLng(
+                                        arrayList[0].latitude.toDouble(),
+                                        arrayList[0].longitude.toDouble()
+                                    )
+                                    mMap!!.animateCamera(
+                                        CameraUpdateFactory.newLatLngZoom(
+                                            cameraMove,
+                                            14F
+                                        )
                                     );
-
-
-                                    var marker = mMap!!.addMarker(markerOptions);
-                                    marker.setTag(info)
-                                    marker.showInfoWindow()
-
-                                    markerMapHash.put(marker, info)
                                 }
                             }
-                        }
-                    )
+                        )
+                    }
                 }
 
             } else {

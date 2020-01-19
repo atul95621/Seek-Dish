@@ -74,6 +74,8 @@ class LanguageActivity : BaseActivity(), ILanguageView {
                     sessionManager?.setValues(SessionManager.LANGUAGE_ID, languageId.toString())
                     sessionManager?.setValues(SessionManager.LANGUAGE_NAME, languageName.toString())
                     sessionManager?.setValues(SessionManager.IS_LANGUAGE_SELECTED, "1")
+                    sessionManager?.savesSessionLang(conxt,SessionManager.LANGUAGE_HOME_ACTIVITY,languageId.toString())
+
                     Log.e("selectLang", sessionManager?.getValue(SessionManager.IS_LANGUAGE_SELECTED))
                     val intent = Intent(this@LanguageActivity, WalkThroughActivity::class.java)
                     intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
@@ -153,8 +155,6 @@ class LanguageActivity : BaseActivity(), ILanguageView {
 
             languageId = listData[position].id
             languageName = listData[position].name
-
-
             tvLanguageSelect.setText(languageName)
 
             dialog?.dismiss()

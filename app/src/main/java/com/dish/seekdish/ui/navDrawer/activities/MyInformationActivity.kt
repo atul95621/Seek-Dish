@@ -249,16 +249,6 @@ class MyInformationActivity : BaseActivity(), IMyInformationView {
 
                     Log.e("respUpdatePart", "" + part)
 
-                    Log.e(
-                        "updateInfoSent",
-                        " " + edtName.text.toString() + edtLastName.text.toString() + edtUsername.text.toString() +
-                                edtAddressLineOne.text.toString() + edtAddressLinetwo.text.toString() + spinnerGender.selectedItem.toString()
-                                + edtBio.text.toString() + " citiid  " + cityId.toString() + "country id  " + countryId.toString() + "      " + edtZipcode.text.toString() +
-                                edtBodyFat.text.toString() + edtWeight.text.toString() + edtHeight.text.toString() + sessionManager!!.getValue(
-                            SessionManager.USER_ID
-                        ) + part.toString()
-                    )
-
                     //calling api
                     myInfoPresenter.updateInfo(
                         stringConvertToRequestBody(edtName.text.toString()),

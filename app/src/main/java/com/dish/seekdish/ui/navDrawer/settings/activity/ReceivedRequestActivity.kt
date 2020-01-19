@@ -10,6 +10,7 @@ import com.dish.seekdish.R
 import com.dish.seekdish.custom.ProgressBarClass
 import com.dish.seekdish.retrofit.APIClient
 import com.dish.seekdish.retrofit.APIInterface
+import com.dish.seekdish.ui.navDrawer.myFriends.adapter.FriendFragAdapter
 
 import com.dish.seekdish.ui.navDrawer.settings.adapter.ReceivedRequestAdapter
 import com.dish.seekdish.ui.navDrawer.settings.dataModel.CancelReModel
@@ -76,7 +77,7 @@ class ReceivedRequestActivity : BaseActivity() {
                 // canceling the progress bar
                 ProgressBarClass.dialog.dismiss()
 
-
+                arrayList.clear()
                 Log.e("respStr", " " + response.body().toString())
 
                 if (response.code().toString().equals("200")) {
@@ -85,8 +86,11 @@ class ReceivedRequestActivity : BaseActivity() {
 
                     if (modelObj.data.size == 0) {
                         tvAlert.visibility = View.VISIBLE
+                        recyclerView?.visibility = View.VISIBLE
                     } else {
-                        setRecyclerView(modelObj.data)
+                        arrayList = modelObj.data
+                        adapter = ReceivedRequestAdapter(arrayList, this@ReceivedRequestActivity)
+                        recyclerView!!.setAdapter(adapter)
                     }
 //                    iSignUpView.onSetLoggedin(true, response)
 
@@ -113,7 +117,7 @@ class ReceivedRequestActivity : BaseActivity() {
         })
     }
 
-       fun apiHit(userId: Int) {
+    fun apiHit(userId: Int) {
         cancelReqHit(userId)
     }
 
@@ -131,8 +135,7 @@ class ReceivedRequestActivity : BaseActivity() {
 
 
         val call = apiInterface.doAcceptReq(
-            sessionManager?.getValue(SessionManager.USER_ID).toString(),
-            SenderuserId.toString()
+            sessionManager?.getValue(SessionManager.USER_ID).toString(), SenderuserId.toString()
         )
         call.enqueue(object : Callback<CancelReModel> {
             override fun onResponse(
@@ -145,19 +148,16 @@ class ReceivedRequestActivity : BaseActivity() {
 
                 Log.e("respStr", " " + response.body().toString())
 
+                var model = response.body() as CancelReModel
                 if (response.code().toString().equals("200")) {
-
-                    var model = response.body() as CancelReModel
-
                     if (model.status == 1) {
                         showSnackBar(model.data.message)
                         reqApiHit()
-
+                    } else {
+                        showSnackBar(model.data.message)
                     }
-
                 } else {
                     showSnackBar(resources.getString(R.string.error_occured));
-
                 }
 
 
@@ -174,6 +174,7 @@ class ReceivedRequestActivity : BaseActivity() {
             }
         })
     }
+
     fun cancelReqHit(SenderuserId: Int) {
 
         ProgressBarClass.progressBarCalling(this)
@@ -203,40 +204,29 @@ class ReceivedRequestActivity : BaseActivity() {
                     if (model.status == 1) {
                         showSnackBar(model.data.message)
                         reqApiHit()
-
+                    } else {
+                        showSnackBar(model.data.message)
                     }
-
                 } else {
                     showSnackBar(resources.getString(R.string.error_occured));
-
                 }
-
-
             }
 
             override fun onFailure(call: Call<CancelReModel>, t: Throwable) {
-
                 showSnackBar(resources.getString(R.string.error_occured));
-
                 call.cancel()
                 // canceling the progress bar
                 ProgressBarClass.dialog.dismiss()
-
             }
         })
     }
 
     private fun clickListners() {
-
         tvBack.setOnClickListener()
         {
             finish()
         }
     }
 
-    fun setRecyclerView(data: ArrayList<Data_Req>) {
-        arrayList = data
-        adapter = ReceivedRequestAdapter(arrayList, this)
-        recyclerView!!.setAdapter(adapter)
-    }
+
 }

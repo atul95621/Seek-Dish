@@ -22,6 +22,8 @@ data class Restaurant(
     val longitude: String,
     val meals: List<Meal>,
     val name: String,
+    val facebook:String,
+    val twitter:String,
     val no_of_reviews: Int,
     val rating: String,
     val restaurant_detail: RestaurantDetail,

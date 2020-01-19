@@ -7,28 +7,32 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.dish.seekdish.R
 import com.dish.seekdish.ui.navDrawer.friendInfo.FriendInfoActivity
 import com.dish.seekdish.ui.navDrawer.invitation.includeFriends.IncludeFriendsActivity
+import com.dish.seekdish.ui.navDrawer.myFriends.dataModel.Friend
+import com.dish.seekdish.util.Global
 import java.util.ArrayList
 
 class SelectedInclAdapter(
-    arrayList: ArrayList<SelectedInclDataClass>,
+    arrayList: ArrayList<Friend>,
     activity: IncludeFriendsActivity
 ) :
     RecyclerView.Adapter<SelectedInclAdapter.RecyclerViewHolder>() {
-    internal var arrayList = ArrayList<SelectedInclDataClass>()
+    internal var arrayList = ArrayList<Friend>()
 
     var activity: IncludeFriendsActivity
 
     init {
         this.arrayList = arrayList
-        this.activity=activity
+        this.activity = activity
     }
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerViewHolder {
-        val view = LayoutInflater.from(parent.context).inflate(R.layout.item_layout_include_selected_frag, parent, false)
+        val view = LayoutInflater.from(parent.context)
+            .inflate(R.layout.item_layout_include_selected_frag, parent, false)
         return RecyclerViewHolder(view)
     }
 
@@ -36,15 +40,16 @@ class SelectedInclAdapter(
         val friendDataClass = arrayList[position]
 
         // getting all vales and storing in val...
-        var imgFriend: String = friendDataClass.friendImageURL.toString()
-//        Glide.with(this).load(imgFriend).apply(options).into(holder.imgFoodImage);
-        holder.tvFriendName.text = friendDataClass.friendName
-
-        holder.imgFriend.setOnClickListener()
-        {
-            val intent = Intent(activity, FriendInfoActivity::class.java)
-            activity.startActivity(intent)
+        if (Global.selectedFriends.contains(friendDataClass.user_id.toString())) {
+            var imgFriend: String = friendDataClass.user_image
+            Glide.with(activity).load(imgFriend).into(holder.imgFriend);
+            holder.tvFriendName.text = friendDataClass.username
         }
+        /* holder.imgFriend.setOnClickListener()
+         {
+             val intent = Intent(activity, FriendInfoActivity::class.java)
+             activity.startActivity(intent)
+         }*/
 
     }
 

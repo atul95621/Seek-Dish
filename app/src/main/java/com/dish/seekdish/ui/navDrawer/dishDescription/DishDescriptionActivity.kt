@@ -78,7 +78,8 @@ class DishDescriptionActivity : BaseActivity(), Serializable {
     var dishInfoDetails: Meals? = null
     var ingredientSearilize: Ingredients? = null
     private var twitterAuthClient: TwitterAuthClient? = null
-
+    var facebookLink: String = ""
+    var twitterLink: String = ""
 
 //    val mResources: ArrayList<String> = arrayListOf<String>()
 
@@ -197,7 +198,7 @@ class DishDescriptionActivity : BaseActivity(), Serializable {
         imgInvitation.setOnClickListener()
         {
             val intent = Intent(this@DishDescriptionActivity, InvitationActivity::class.java)
-            intent.putExtra("RESTAURANT_ID",restro_id.toString())
+            intent.putExtra("RESTAURANT_ID", restro_id.toString())
             startActivity(intent)
         }
     }
@@ -222,9 +223,10 @@ class DishDescriptionActivity : BaseActivity(), Serializable {
     fun getDishDetailsObserver() {
 
         //observe
-        dishDescriptionVM!!.isLoadingObservable().observeOn(AndroidSchedulers.mainThread()).subscribe {
-            setIsLoading(it)
-        }
+        dishDescriptionVM!!.isLoadingObservable().observeOn(AndroidSchedulers.mainThread())
+            .subscribe {
+                setIsLoading(it)
+            }
 
         dishDescriptionVM!!.getDishDetailLiveData.observe(this, Observer { response ->
             if (response != null) {
@@ -240,7 +242,7 @@ class DishDescriptionActivity : BaseActivity(), Serializable {
 
                     // feeding the image to the list
                     var imageMeal = response.data.meals.meal_image
-                    imageUrl=imageMeal
+                    imageUrl = imageMeal
                     mResources.add(imageMeal)
 
                     latitude = response.data.meals.latitude
@@ -251,14 +253,22 @@ class DishDescriptionActivity : BaseActivity(), Serializable {
                     ingredientSearilize = response.data.Ingredients
                     // setting up the model classs for dish onClick info...
                     Log.e("ResourceSizePrev", "" + mResources.size)
+                    facebookLink = response.data.meals.facebook
+                    twitterLink = response.data.meals.twitter
+
 
                     //for swipe images on top
                     initializeviews()
 
                     //++++++++++++++++++++++++ setting the adapter after the responses come in...
-                    adapter = DishDescpAdapter(this.supportFragmentManager, tabLayout.tabCount, response)
+                    adapter =
+                        DishDescpAdapter(this.supportFragmentManager, tabLayout.tabCount, response)
                     viewPager.adapter = adapter
-                    viewPager.addOnPageChangeListener(TabLayout.TabLayoutOnPageChangeListener(tabLayout))
+                    viewPager.addOnPageChangeListener(
+                        TabLayout.TabLayoutOnPageChangeListener(
+                            tabLayout
+                        )
+                    )
                 }
 
             } else {
@@ -276,9 +286,10 @@ class DishDescriptionActivity : BaseActivity(), Serializable {
     fun getAddTODOObserver() {
 
         //observe
-        dishDescriptionVM!!.isLoadingObservable().observeOn(AndroidSchedulers.mainThread()).subscribe {
-            setIsLoading(it)
-        }
+        dishDescriptionVM!!.isLoadingObservable().observeOn(AndroidSchedulers.mainThread())
+            .subscribe {
+                setIsLoading(it)
+            }
 
         dishDescriptionVM!!.getAddTodoLiveData.observe(this, Observer { response ->
             if (response != null) {
@@ -308,9 +319,10 @@ class DishDescriptionActivity : BaseActivity(), Serializable {
     fun getAddFavoriteObserver() {
 
         //observe
-        dishDescriptionVM!!.isLoadingObservable().observeOn(AndroidSchedulers.mainThread()).subscribe {
-            setIsLoading(it)
-        }
+        dishDescriptionVM!!.isLoadingObservable().observeOn(AndroidSchedulers.mainThread())
+            .subscribe {
+                setIsLoading(it)
+            }
 
         dishDescriptionVM!!.getAddFavouriteLiveData.observe(this, Observer { response ->
             if (response != null) {
@@ -339,7 +351,7 @@ class DishDescriptionActivity : BaseActivity(), Serializable {
     private fun onShare() {
         actionDialog = Dialog(this)
         actionDialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
-        actionDialog.setCancelable(false)
+        actionDialog.setCancelable(true)
         actionDialog.setContentView(R.layout.dialog_share_dish)
 
         val tvShare = actionDialog.findViewById<TextView>(R.id.tvShare)
@@ -404,20 +416,32 @@ class DishDescriptionActivity : BaseActivity(), Serializable {
         dialog.setCancelable(false)
         dialog.setContentView(R.layout.dialog_social_share)
         dialog.window!!.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))   // making backgrnd color tarnsparent code begind progress circle bar
-        dialog.window!!.setLayout(ActionBar.LayoutParams.MATCH_PARENT, ActionBar.LayoutParams.MATCH_PARENT)
+        dialog.window!!.setLayout(
+            ActionBar.LayoutParams.MATCH_PARENT,
+            ActionBar.LayoutParams.MATCH_PARENT
+        )
 
         val ic_facebk = dialog.findViewById<ImageView>(R.id.ic_facebk)
         val imgTwitter = dialog.findViewById<ImageView>(R.id.imgTwitter)
 
         ic_facebk.setOnClickListener()
         {
-            sharePostOnFacebook()
+            if (facebookLink.isEmpty()) {
+                sharePostOnFacebook()
+            } else {
+                showSnackBar("Oops! Link not available")
+            }
             dialog.dismiss()
         }
 
         imgTwitter.setOnClickListener()
         {
-            shareProductOnTwitter()
+
+            if (facebookLink.isEmpty()) {
+                shareProductOnTwitter()
+            } else {
+                showSnackBar("Oops! Link not available")
+            }
             dialog.dismiss()
         }
 
@@ -454,7 +478,8 @@ class DishDescriptionActivity : BaseActivity(), Serializable {
         internal var mLayoutInflater: LayoutInflater
 
         init {
-            mLayoutInflater = mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
+            mLayoutInflater =
+                mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
         }
 
         override fun isViewFromObject(view: View, `object`: Any): Boolean {
@@ -541,7 +566,7 @@ class DishDescriptionActivity : BaseActivity(), Serializable {
         if (canShow(ShareLinkContent::class.java)) {
             val linkContent = ShareLinkContent.Builder()
                 .setQuote("Seekdish")
-                .setContentUrl(Uri.parse("https://www.youtube.com/watch?v=K5KAc5CoCuk"))
+                .setContentUrl(Uri.parse(facebookLink))
                 .build()
             shareDialog.show(linkContent)
         }
@@ -582,7 +607,8 @@ class DishDescriptionActivity : BaseActivity(), Serializable {
 
     private fun shareOnTwitter() {
         val statusesService = TwitterCore.getInstance().getApiClient().getStatusesService()
-        val tweetCall = statusesService.update("Seekdish:  ", null, false, null, null, null, false, false, null)
+        val tweetCall =
+            statusesService.update("Seekdish:  ", null, false, null, null, null, false, false, null)
         tweetCall.enqueue(object : Callback<Tweet>() {
             override fun success(result: com.twitter.sdk.android.core.Result<Tweet>?) {
                 Log.e("TAG", "Twitter Share Success")

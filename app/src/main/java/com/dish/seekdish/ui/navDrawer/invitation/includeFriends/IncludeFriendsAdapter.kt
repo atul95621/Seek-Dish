@@ -3,8 +3,8 @@ package com.dish.seekdish.ui.navDrawer.invitation.includeFriends
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentStatePagerAdapter
+import com.dish.seekdish.ui.navDrawer.invitation.includeFriendDataModels.fragments.selected.SelectedInclFragment
 import com.dish.seekdish.ui.navDrawer.invitation.includeFriends.fragments.friends.FriendsInclFragment
-import com.dish.seekdish.ui.navDrawer.invitation.includeFriends.fragments.selected.SelectedInclFragment
 
 class IncludeFriendsAdapter(fm: FragmentManager, private val mNumOfTabs: Int) : FragmentStatePagerAdapter(fm) {
 
@@ -17,8 +17,6 @@ class IncludeFriendsAdapter(fm: FragmentManager, private val mNumOfTabs: Int) : 
             1 -> {
                 return SelectedInclFragment()
             }
-
-
             else -> return null
         }
     }

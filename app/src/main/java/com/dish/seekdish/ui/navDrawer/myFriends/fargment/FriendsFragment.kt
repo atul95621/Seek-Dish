@@ -16,13 +16,12 @@ import com.dish.seekdish.ui.home.HomeActivity
 import com.dish.seekdish.ui.navDrawer.myFriends.VM.FriendVM
 import com.dish.seekdish.ui.navDrawer.myFriends.adapter.FriendFragAdapter
 import com.dish.seekdish.ui.navDrawer.myFriends.dataModel.Friend
-import com.dish.seekdish.util.SessionManager
 import io.reactivex.android.schedulers.AndroidSchedulers
 import kotlinx.android.synthetic.main.fragment_list.*
 import java.util.ArrayList
 
 
-class FriendsFragment : BaseFragment() {
+class FriendsFragment(var  userId: String) : BaseFragment() {
     private var recyclerView: RecyclerView? = null
     private var adapter: FriendFragAdapter? = null
     internal lateinit var layoutManager: RecyclerView.LayoutManager
@@ -30,7 +29,6 @@ class FriendsFragment : BaseFragment() {
 
     lateinit var homeActivity: HomeActivity
     var friendVM: FriendVM? = null
-
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -60,13 +58,13 @@ class FriendsFragment : BaseFragment() {
     }
 
     private fun hitApi() {
-        friendVM?.doGetFriends(sessionManager.getValue(SessionManager.USER_ID))
+        friendVM?.doGetFriends(userId)
     }
 
 
     fun removeFriend(toBeRemovedUserId: Int) {
         friendVM?.doRemoveFriend(
-            sessionManager.getValue(SessionManager.USER_ID),
+            userId,
             toBeRemovedUserId.toString()
         )
     }
@@ -94,7 +92,7 @@ class FriendsFragment : BaseFragment() {
                         tvFavAlert.visibility = View.VISIBLE
 
                     } else {
-                        adapter = FriendFragAdapter(arrayList, homeActivity, this)
+                        adapter = FriendFragAdapter(arrayList, homeActivity, this,userId)
                         recyclerView!!.setAdapter(adapter)
                     }
                 }

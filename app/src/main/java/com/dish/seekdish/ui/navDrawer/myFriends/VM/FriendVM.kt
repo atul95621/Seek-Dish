@@ -5,6 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.dish.seekdish.retrofit.APIClientMvvm
 import com.dish.seekdish.retrofit.APIInterface
+import com.dish.seekdish.ui.navDrawer.dishDescription.model.AddTodoModel
 import com.dish.seekdish.ui.navDrawer.myFriends.dataModel.FriendDataModel
 import com.dish.seekdish.ui.navDrawer.settings.dataModel.CancelReModel
 import io.reactivex.Observable
@@ -19,6 +20,8 @@ class FriendVM : ViewModel() {
     var getFriendLiveData: MutableLiveData<FriendDataModel> = MutableLiveData<FriendDataModel>()
     var getRemoveFrndLiveData: MutableLiveData<CancelReModel> = MutableLiveData<CancelReModel>()
     var getRemoveFollwLiveData: MutableLiveData<CancelReModel> = MutableLiveData<CancelReModel>()
+    var getFollowingReqLiveData: MutableLiveData<AddTodoModel> = MutableLiveData<AddTodoModel>()
+    var getFriendReqLiveData: MutableLiveData<AddTodoModel> = MutableLiveData<AddTodoModel>()
 
 
     val isLoadingSubject = BehaviorSubject.create<Boolean>()
@@ -133,6 +136,83 @@ class FriendVM : ViewModel() {
             }
         })
     }
+
+    fun doSendFollwoingRequest(
+        senderId: String,
+        receiverId: String
+    ) {
+
+        // making progress bar visible
+        isLoadingSubject.onNext(true)
+
+
+        var api = APIClientMvvm.client.create(APIInterface::class.java)
+
+        val call = api.sendFollowingRequest(senderId, receiverId)
+
+        call.enqueue(object : Callback<AddTodoModel> {
+            override fun onResponse(call: Call<AddTodoModel>, response: Response<AddTodoModel>) {
+
+                // making progress bar invisible
+                isLoadingSubject.onNext(false)
+
+                //finally we are setting the list to our MutableLiveData
+                getFollowingReqLiveData.postValue(response.body())
+
+                getFollowingReqLiveData.value = response.body()
+                Log.e("respGetDetails", response.body().toString())
+
+            }
+
+            override fun onFailure(call: Call<AddTodoModel>, t: Throwable) {
+
+                // making progress bar invisible
+                isLoadingSubject.onNext(false)
+                Log.e("respGetDetailsFail", "failure")
+
+                getFollowingReqLiveData.postValue(null)
+            }
+        })
+    }
+
+    fun doSendFriendRequest(
+        senderId: String,
+        receiverId: String
+    ) {
+
+        // making progress bar visible
+        isLoadingSubject.onNext(true)
+
+
+        var api = APIClientMvvm.client.create(APIInterface::class.java)
+
+        val call = api.sendFriendRequest(senderId, receiverId)
+
+        call.enqueue(object : Callback<AddTodoModel> {
+            override fun onResponse(call: Call<AddTodoModel>, response: Response<AddTodoModel>) {
+
+                // making progress bar invisible
+                isLoadingSubject.onNext(false)
+
+                //finally we are setting the list to our MutableLiveData
+                getFriendReqLiveData.postValue(response.body())
+
+                getFriendReqLiveData.value = response.body()
+                Log.e("respGetDetails", response.body().toString())
+
+            }
+
+            override fun onFailure(call: Call<AddTodoModel>, t: Throwable) {
+
+                // making progress bar invisible
+                isLoadingSubject.onNext(false)
+                Log.e("respGetDetailsFail", "failure")
+
+                getFriendReqLiveData.postValue(null)
+            }
+        })
+    }
+
     fun isLoadingObservable(): Observable<Boolean> {
 
         return isLoadingSubject

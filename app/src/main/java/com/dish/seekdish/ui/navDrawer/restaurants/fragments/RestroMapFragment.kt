@@ -143,9 +143,9 @@ GoogleMap.OnMyLocationClickListener, GoogleMap.OnMarkerClickListener  {
         customSizeMarker = Bitmap.createScaledBitmap(b, 100, 100, false)
 
 
-        var cameraMove = LatLng(Constants.Latitude.toDouble(), Constants.Longitude.toDouble())
-//        mMap!!.moveCamera(CameraUpdateFactory.newLatLng(cameraMove))
-        mMap!!.animateCamera(CameraUpdateFactory.newLatLngZoom(cameraMove, 14F));
+//        var cameraMove = LatLng(Constants.Latitude.toDouble(), Constants.Longitude.toDouble())
+////        mMap!!.moveCamera(CameraUpdateFactory.newLatLng(cameraMove))
+//        mMap!!.animateCamera(CameraUpdateFactory.newLatLngZoom(cameraMove, 14F));
 
 
         if (ContextCompat.checkSelfPermission(
@@ -220,8 +220,6 @@ GoogleMap.OnMyLocationClickListener, GoogleMap.OnMarkerClickListener  {
 
 
     fun getMapRespObserver() {
-
-
         //observe
         restroMapVM!!.isLoadingObservable().observeOn(AndroidSchedulers.mainThread()).subscribe {
             setIsLoading(it)
@@ -229,50 +227,50 @@ GoogleMap.OnMyLocationClickListener, GoogleMap.OnMarkerClickListener  {
 
         restroMapVM!!.getMapData.observe(this, Observer { response ->
             if (response != null) {
-
-
                 Log.e("rspgemap", response.toString())
-
                 Log.e("rspgetmaptat", response.status.toString())
 
                 if (response.status == 1) {
 
                     arrayList = response.data
+                    if (arrayList.size > 0 && arrayList.isNotEmpty()) {
+
+                        for (i in 0 until arrayList.size) {
+
+                            var latititude = arrayList[i].latitude.toDouble()
+                            var longitude = arrayList[i].longitude.toDouble()
+                            var imageUrl = arrayList[i].restaurant_image
+                            var starRate = arrayList[i].rating.toString()
+                            var mealName = arrayList[i].name
 
 
+                            // adding custom info window
+                            var locationPos = LatLng(latititude, longitude);
+                            var markerOptions = MarkerOptions();
+                            markerOptions.position(locationPos)
+                                .title(arrayList[i].name)
+                                .icon(BitmapDescriptorFactory.fromBitmap(customSizeMarker));   // custom size maekr is used here
 
+                            var info = InfoWindowModel(
+                                imageUrl,
+                                starRate,
+                                mealName
+                            );
 
-                    for (i in 0 until arrayList.size) {
+                            var marker = mMap!!.addMarker(markerOptions);
+                            marker.setTag(info)
+                            marker.showInfoWindow()
 
-                        var latititude = arrayList[i].latitude.toDouble()
-                        var longitude = arrayList[i].longitude.toDouble()
-                        var imageUrl = arrayList[i].restaurant_image
-                        var starRate = arrayList[i].rating.toString()
-                        var mealName = arrayList[i].name
+                            markerMapHash.put(marker, info)
+                        }
 
+                        var cameraMove = LatLng(
+                            arrayList[0].latitude.toDouble(),
+                            arrayList[0].longitude.toDouble()
+                        )
+                        mMap!!.animateCamera(CameraUpdateFactory.newLatLngZoom(cameraMove, 14F));
 
-                        // adding custom info window
-                        var locationPos = LatLng(latititude, longitude);
-                        var markerOptions = MarkerOptions();
-                        markerOptions.position(locationPos)
-                            .title(arrayList[i].name)
-                            .icon(BitmapDescriptorFactory.fromBitmap(customSizeMarker));   // custom size maekr is used here
-
-                        var info = InfoWindowModel(
-                            imageUrl,
-                            starRate,
-                            mealName
-                        );
-
-
-                        var marker = mMap!!.addMarker(markerOptions);
-                        marker.setTag(info)
-                        marker.showInfoWindow()
-
-                        markerMapHash.put(marker, info)
-                    }
-
-                    /*   // try to touch View of UI thread
+                        /*   // try to touch View of UI thread
                        activity?.runOnUiThread(java.lang.Runnable {
                            // adding custom info window
                            var locationPos = LatLng(43.3367589, 3.224927999999977);
@@ -290,11 +288,12 @@ GoogleMap.OnMyLocationClickListener, GoogleMap.OnMarkerClickListener  {
 
                        })*/
 
-                    /*    for(key in markerMapHash.keys){
+                        /*    for(key in markerMapHash.keys){
                             Log.e("Element:   ","Element at key $key : ${markerMapHash[key]}")
                         }
     */
 
+                    }
                 }
 
             } else {

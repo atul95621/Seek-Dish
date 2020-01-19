@@ -1,10 +1,10 @@
 package com.dish.seekdish.ui.navDrawer.myFriends
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.Fragment
 import androidx.viewpager.widget.ViewPager
 import com.dish.seekdish.util.BaseFragment
 
@@ -13,7 +13,7 @@ import com.dish.seekdish.ui.navDrawer.myFriends.adapter.MyFriendsAdapter
 import com.google.android.material.tabs.TabLayout
 
 
-class MyFriendsFragment : BaseFragment() {
+class MyFriendsFragment(var userId: String) : BaseFragment() {
     lateinit var tabLayout: TabLayout
     internal lateinit var viewPager: ViewPager
     internal lateinit var adapter: MyFriendsAdapter
@@ -24,6 +24,8 @@ class MyFriendsFragment : BaseFragment() {
     ): View? {
         // Inflate the layout for this fragment
         val view = inflater.inflate(R.layout.fragment_my_friends, container, false)
+
+//        Log.e("uerssss","::"+userId)
 
 
         // setting up tabLayout
@@ -37,8 +39,7 @@ class MyFriendsFragment : BaseFragment() {
 //        changeTabsFont();
 
         viewPager = view.findViewById(R.id.pager) as ViewPager
-        adapter = MyFriendsAdapter(activity!!.supportFragmentManager, tabLayout.tabCount
-        )
+        adapter = MyFriendsAdapter(activity!!.supportFragmentManager, tabLayout.tabCount,userId)
 
 
         viewPager.adapter = adapter

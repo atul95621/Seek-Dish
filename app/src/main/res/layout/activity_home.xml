@@ -49,6 +49,7 @@
                       android:text="Do not consider my profile"
                       android:textColor="@color/white"/>
             <Switch
+                android:id="@+id/switch_consider_my_profile"
                     android:layout_marginStart="5dp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"/>

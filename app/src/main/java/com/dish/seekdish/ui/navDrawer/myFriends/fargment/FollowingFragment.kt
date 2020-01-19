@@ -22,7 +22,7 @@ import kotlinx.android.synthetic.main.fragment_list.*
 import java.util.ArrayList
 
 
-class FollowingFragment : BaseFragment() {
+class FollowingFragment(var userId: String) : BaseFragment() {
 
     private var recyclerView: RecyclerView? = null
     private var adapter: FollowingFragAdapter? = null
@@ -57,6 +57,8 @@ class FollowingFragment : BaseFragment() {
         hitApi()
         getFavListObserver()
         getDeleteFollwerObserver()
+        getFriendReqObserver()
+        getFollowingReqObserver()
 
 
         return view
@@ -64,19 +66,18 @@ class FollowingFragment : BaseFragment() {
 
 
     private fun hitApi() {
-        friendVM?.doGetFriends(sessionManager.getValue(SessionManager.USER_ID))
+        friendVM?.doGetFriends(userId)
     }
 
     fun removeFriend(toBeRemovedUserId: Int) {
         friendVM?.doRemoveFollowing(
-            sessionManager.getValue(SessionManager.USER_ID),
+            userId,
             toBeRemovedUserId.toString()
         )
     }
 
 
     fun getFavListObserver() {
-
         //observe
         friendVM!!.isLoadingObservable().observeOn(AndroidSchedulers.mainThread()).subscribe {
             setIsLoading(it)
@@ -87,24 +88,18 @@ class FollowingFragment : BaseFragment() {
                 Log.e("rspFavList", response.toString())
                 if (response.status == 1) {
                     arrayList = response.data.followings
-
                     if (arrayList.isEmpty()) {
                         recyclerView?.visibility = View.INVISIBLE
                         tvFavAlert.visibility = View.VISIBLE
 
                     } else {
-                        adapter = FollowingFragAdapter(arrayList, homeActivity, this)
+                        adapter = FollowingFragAdapter(arrayList, homeActivity, this, userId)
                         recyclerView!!.setAdapter(adapter)
                     }
                 }
-
             } else {
-
-
                 showSnackBar("OOps! Error Occured.")
-
                 Log.e("rspSnak", "else error")
-
             }
         })
     }
@@ -124,12 +119,77 @@ class FollowingFragment : BaseFragment() {
                     hitApi()
                     showSnackBar(response.data.message)
                 }
+                else {
+                    showSnackBar(response.data.message)
+                }
 
             } else {
                 showSnackBar("OOps! Error Occured.")
                 Log.e("rspSnak", "else error")
             }
         })
+    }
+
+    private fun getFriendReqObserver() {
+        //observe
+        friendVM!!.isLoadingObservable().observeOn(AndroidSchedulers.mainThread())
+            .subscribe {
+                setIsLoading(it)
+            }
+
+        friendVM!!.getFriendReqLiveData.observe(this, Observer { response ->
+            if (response != null) {
+
+                Log.e("rspGetaddtodoDetails", response.status.toString())
+
+                if (response.status == 1) {
+                    showSnackBar(response.data.message)
+                } else {
+                    showSnackBar(response.data.message)
+                }
+            } else {
+                showSnackBar("OOps! Error Occured.")
+                Log.e("rspGetaddtodoFail", "else error")
+            }
+        })
+    }
+
+    private fun getFollowingReqObserver() {
+        //observe
+        friendVM!!.isLoadingObservable().observeOn(AndroidSchedulers.mainThread())
+            .subscribe {
+                setIsLoading(it)
+            }
+
+        friendVM!!.getFollowingReqLiveData.observe(this, Observer { response ->
+            if (response != null) {
+
+                Log.e("rspGetaddtodoDetails", response.status.toString())
+
+                if (response.status == 1) {
+                    showSnackBar(response.data.message)
+                } else {
+                    showSnackBar(response.data.message)
+                }
+            } else {
+                showSnackBar("OOps! Error Occured.")
+                Log.e("rspGetaddtodoFail", "else error")
+            }
+        })
+    }
+
+    fun followFriend(userIdToFollow: Int) {
+        friendVM?.doSendFollwoingRequest(
+            sessionManager?.getValue(SessionManager.USER_ID).toString(),
+            userIdToFollow.toString()
+        )
+    }
+
+    fun addFriend(userIdToAddFriend: Int) {
+        friendVM?.doSendFriendRequest(
+            sessionManager?.getValue(SessionManager.USER_ID).toString(),
+            userIdToAddFriend.toString()
+        )
     }
 
 

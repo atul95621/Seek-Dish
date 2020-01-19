@@ -57,9 +57,7 @@ class FriendsInclFragment : BaseFragment() {
     }
 
     private fun hitApi() {
-//        friendVM?.doGetFriends(sessionManager.getValue(SessionManager.USER_ID))
-        friendVM?.doGetFriends("129")
-
+        friendVM?.doGetFriends(sessionManager.getValue(SessionManager.USER_ID))
     }
 
     fun getFavListObserver() {

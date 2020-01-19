@@ -77,7 +77,7 @@ class OpinionAdapter(
             intent.putExtra("USERNAME", opinionDetails[position].username)
             intent.putExtra("COMMENT", opinionDetails[position].comment)
             intent.putExtra("MEAL_IMAGE", opinionDetails[position].meal_image)
-            intent.putExtra("COMMENT_USER_ID", opinionDetails[position].user_id)
+            intent.putExtra("COMMENT_USER_ID", opinionDetails[position].user_id.toString())
 
 //            var size_images_arr = opinionDetails[position].comment_images.size
 /*

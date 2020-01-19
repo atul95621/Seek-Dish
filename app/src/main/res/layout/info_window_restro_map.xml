@@ -43,6 +43,7 @@
 
 
         <RatingBar
+            android:visibility="visible"
                 android:id="@+id/euro_rating"
                 android:layout_gravity="center"
                 android:layout_width="wrap_content"
@@ -56,6 +57,26 @@
                 android:scaleY=".7"
                 style="@style/EuroRatingBar"
         />
+      <!--  <com.willy.ratingbar.ScaleRatingBar
+            android:visibility="visible"
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            android:layout_weight="1"
+            android:id="@+id/euroRatingBar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:gravity="center"
+            app:srb_starPadding="3dp"
+            app:srb_starWidth="15dp"
+            app:srb_starHeight="15dp"
+            app:srb_stepSize="1"
+            app:srb_isIndicator="false"
+            app:srb_clickable="false"
+            app:srb_scrollable="false"
+            app:srb_clearRatingEnabled="false"
+            app:srb_drawableEmpty="@drawable/ic_empty_euro"
+            app:srb_drawableFilled="@drawable/ic_filled_euro"/>
+-->
         <TextView android:layout_width="wrap_content"
                   android:layout_height="match_parent"
                   android:layout_weight="1"

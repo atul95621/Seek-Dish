@@ -21,13 +21,12 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 import kotlinx.android.synthetic.main.fragment_list.*
 import java.util.ArrayList
 
-class FollowerFragment : BaseFragment() {
+class FollowerFragment(var userId: String) : BaseFragment() {
 
     private var recyclerView: RecyclerView? = null
     private var adapter: FollowersFragAdapter? = null
     internal lateinit var layoutManager: RecyclerView.LayoutManager
     internal var arrayList = ArrayList<Follower>()
-    private lateinit var context: HomeActivity
     var friendVM: FriendVM? = null
     lateinit var homeActivity: HomeActivity
 
@@ -59,7 +58,7 @@ class FollowerFragment : BaseFragment() {
     }
 
     private fun hitApi() {
-        friendVM?.doGetFriends(sessionManager.getValue(SessionManager.USER_ID))
+        friendVM?.doGetFriends(userId)
     }
 
     fun getFavListObserver() {
@@ -81,7 +80,7 @@ class FollowerFragment : BaseFragment() {
                         tvFavAlert.visibility = View.VISIBLE
 
                     } else {
-                        adapter = FollowersFragAdapter(arrayList,context,this)
+                        adapter = FollowersFragAdapter(arrayList,homeActivity,this)
                         recyclerView!!.setAdapter(adapter)
                     }
                 }

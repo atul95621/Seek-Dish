@@ -20,7 +20,7 @@ import kotlinx.android.synthetic.main.activity_opinion_details.tvBack
 
 class OpinionDetailsActivity : BaseActivity() {
 
-    var comment_userId: String? = null
+    var comment_userId = ""
     var dishDescriptionVM: DishDescriptionVM? = null
     var sessionManager: SessionManager? = null
 
@@ -35,6 +35,7 @@ class OpinionDetailsActivity : BaseActivity() {
 
         getFriendReqObserver()
         getFollowingReqObserver()
+
 
         tvBack.setOnClickListener()
         {
@@ -60,9 +61,10 @@ class OpinionDetailsActivity : BaseActivity() {
 
     private fun getFriendReqObserver() {
         //observe
-        dishDescriptionVM!!.isLoadingObservable().observeOn(AndroidSchedulers.mainThread()).subscribe {
-            setIsLoading(it)
-        }
+        dishDescriptionVM!!.isLoadingObservable().observeOn(AndroidSchedulers.mainThread())
+            .subscribe {
+                setIsLoading(it)
+            }
 
         dishDescriptionVM!!.getFriendReqLiveData.observe(this, Observer { response ->
             if (response != null) {
@@ -70,28 +72,21 @@ class OpinionDetailsActivity : BaseActivity() {
                 Log.e("rspGetaddtodoDetails", response.status.toString())
 
                 if (response.status == 1) {
-
                     showSnackBar(response.data.message)
-
                 }
-
             } else {
-
                 showSnackBar("OOps! Error Occured.")
-
                 Log.e("rspGetaddtodoFail", "else error")
-
             }
         })
-
-
     }
 
     private fun getFollowingReqObserver() {
         //observe
-        dishDescriptionVM!!.isLoadingObservable().observeOn(AndroidSchedulers.mainThread()).subscribe {
-            setIsLoading(it)
-        }
+        dishDescriptionVM!!.isLoadingObservable().observeOn(AndroidSchedulers.mainThread())
+            .subscribe {
+                setIsLoading(it)
+            }
 
         dishDescriptionVM!!.getFollowingReqLiveData.observe(this, Observer { response ->
             if (response != null) {
@@ -99,21 +94,13 @@ class OpinionDetailsActivity : BaseActivity() {
                 Log.e("rspGetaddtodoDetails", response.status.toString())
 
                 if (response.status == 1) {
-
                     showSnackBar(response.data.message)
-
                 }
-
             } else {
-
                 showSnackBar("OOps! Error Occured.")
-
                 Log.e("rspGetaddtodoFail", "else error")
-
             }
         })
-
-
     }
 
     private fun getIntentData() {
@@ -167,5 +154,12 @@ class OpinionDetailsActivity : BaseActivity() {
         } else {
             imgCommentImageTwo.visibility = View.GONE
         }
+
+        if (sessionManager?.getValue(SessionManager.USER_ID).equals(comment_userId)) {
+            linFollowOptions.visibility = View.GONE
+        } else {
+            linFollowOptions.visibility = View.VISIBLE
+        }
+
     }
 }

@@ -6,9 +6,13 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.BaseAdapter
 import android.widget.TextView
+import android.widget.Toast
 import com.dish.seekdish.R
 
-class ContFetchAdapter(private val context: Context, private val contactModelArrayList: HashSet<ContactModel>) : BaseAdapter() {
+class ContFetchAdapter(
+    private val context: Context,
+    private val contactModelArrayList: ArrayList<ContactModel>
+) : BaseAdapter() {
 
     override fun getViewTypeCount(): Int {
         return count
@@ -38,11 +42,13 @@ class ContFetchAdapter(private val context: Context, private val contactModelArr
         if (convertView == null) {
             holder = ViewHolder()
             val inflater = context
-                    .getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
+                .getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
             convertView = inflater.inflate(R.layout.list_contact_item, null, true)
 
             holder.tvname = convertView!!.findViewById(R.id.name) as TextView
             holder.tvnumber = convertView.findViewById(R.id.number) as TextView
+
+
 
             convertView.tag = holder
         } else {
@@ -52,6 +58,15 @@ class ContFetchAdapter(private val context: Context, private val contactModelArr
 
         holder.tvname!!.setText(contactModelArrayList.elementAt(position).getNames())
         holder.tvnumber!!.setText(contactModelArrayList.elementAt(position).getNumbers())
+
+        holder.tvname!!.setOnClickListener()
+        {
+            Toast.makeText(
+                context,
+                contactModelArrayList.elementAt(position).getNumbers(),
+                Toast.LENGTH_SHORT
+            ).show()
+        }
 
         return convertView
     }

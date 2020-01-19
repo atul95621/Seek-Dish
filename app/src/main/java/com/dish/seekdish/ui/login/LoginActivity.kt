@@ -97,7 +97,10 @@ class LoginActivity : BaseActivity(), ILoginView {
             sessionManager?.setValues(SessionManager.EMAIL, loginmodel.data.email)
             sessionManager?.setValues(SessionManager.PHONE, loginmodel.data.phone)
             sessionManager?.setValues(SessionManager.USER_ID, loginmodel.data.id.toString())
-            sessionManager?.setValues(SessionManager.COUNTRY_CODE, loginmodel.data.country_code.toString())
+            sessionManager?.setValues(
+                SessionManager.COUNTRY_CODE,
+                loginmodel.data.country_code.toString()
+            )
             sessionManager?.setValues(SessionManager.PHOTO_URL, loginmodel.data.photo)
             sessionManager?.setValues(SessionManager.FCM_TOKEN, loginmodel.data.fcm_token)
             sessionManager?.setValues(SessionManager.GENDER, loginmodel.data.gender)
@@ -105,6 +108,11 @@ class LoginActivity : BaseActivity(), ILoginView {
 
             if (checkboxRememberMe.isChecked) {
                 sessionManager?.setValues(SessionManager.LOGGEDIN, "1")
+            }
+
+            if (sessionManager?.getValue(SessionManager.LANGUAGE_ID).isNullOrEmpty()) {
+                var lang = sessionManager?.getLangValue(SessionManager.LANGUAGE_HOME_ACTIVITY)
+                sessionManager?.setValues(SessionManager.LANGUAGE_ID, lang)
             }
 
 

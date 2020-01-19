@@ -11,18 +11,21 @@ public class SessionManager {
     public static final String FCM_TOKEN = "fcm_token";
     static SharedPreferences sharedPreferences;
     SharedPreferences.Editor editor;
+    static SharedPreferences sharedPreferencesLang;
+    SharedPreferences.Editor editorLang;
 
-    public static final String LANGUAGE_NAME= "LANGUAGE_NAME";
+
+    public static final String LANGUAGE_NAME = "LANGUAGE_NAME";
     public static final String IS_LANGUAGE_SELECTED = "IS_LANGUAGE_SELECTED";
     public static final String WALKTHROUGH = "walkthrough";
     public static final String LOGGEDIN = "loggedin";
-    public static final String LATITUDE="lattitude";
-    public static final String LONGITUDE="longitude";
-    public static final String CURRENT_LATITUDE="current_lattitude";
-    public static final String CURRENT_LONGITUDE="current_longitude";
-    public static final String LATITUDE_SELECTED="lattitude_selected";
-    public static final String LONGITUDE_SELECTED="longitude_selected";
-    public static final String PLACE_SELECTED="place_selected";
+    public static final String LATITUDE = "lattitude";
+    public static final String LONGITUDE = "longitude";
+    public static final String CURRENT_LATITUDE = "current_lattitude";
+    public static final String CURRENT_LONGITUDE = "current_longitude";
+    public static final String LATITUDE_SELECTED = "lattitude_selected";
+    public static final String LONGITUDE_SELECTED = "longitude_selected";
+    public static final String PLACE_SELECTED = "place_selected";
 
     public static final String LOCATION_STATUS = "location";
     public static final String USERNAME = "name";
@@ -37,13 +40,14 @@ public class SessionManager {
     public static final String BIO = "bio";
     public static final String LANGUAGE_ID = "languageId";
     public static final String RADIUS = "radius";
-
+    public static final String LANGUAGE_HOME_ACTIVITY = "lang_home";
 
 
     public SessionManager(Context context) {
         sharedPreferences = context.getSharedPreferences("seekdish_app", context.MODE_PRIVATE);
         editor = sharedPreferences.edit();
     }
+
 
     public void setValues(String key, String value) {
         editor.putString(key, value);
@@ -65,5 +69,20 @@ public class SessionManager {
         editor.remove(key);
         editor.apply();
     }
+
+    // for saving the language activity lang
+    public void savesSessionLang(Context context, String key, String value) {
+        sharedPreferencesLang = context.getSharedPreferences("seekdish_app_Lang", context.MODE_PRIVATE);
+        editorLang = sharedPreferencesLang.edit();
+        editorLang.putString(key, value);
+        editorLang.commit();
+    }
+
+    public String getLangValue(String key) {
+        String st_value = sharedPreferencesLang.getString(key, "");
+        return st_value;
+    }
+
+
 
 }

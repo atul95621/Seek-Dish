@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.ImageView
+import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
@@ -14,14 +15,15 @@ import com.dish.seekdish.ui.home.HomeActivity
 import com.dish.seekdish.ui.navDrawer.friendInfo.FriendInfoActivity
 import com.dish.seekdish.ui.navDrawer.myFriends.dataModel.Following
 import com.dish.seekdish.ui.navDrawer.myFriends.fargment.FollowingFragment
+import com.dish.seekdish.util.SessionManager
 import java.util.ArrayList
-
 
 
 class FollowingFragAdapter(
     arrayList: ArrayList<Following>,
     activity: HomeActivity,
-    var followingFragment: FollowingFragment
+    var followingFragment: FollowingFragment,
+    var userIdFrom: String
 ) :
     RecyclerView.Adapter<FollowingFragAdapter.RecyclerViewHolder>() {
     internal var arrayList = ArrayList<Following>()
@@ -30,13 +32,14 @@ class FollowingFragAdapter(
 
     init {
         this.arrayList = arrayList
-        this.activity=activity
+        this.activity = activity
 
     }
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerViewHolder {
-        val view = LayoutInflater.from(parent.context).inflate(R.layout.item_layout_following_frag, parent, false)
+        val view = LayoutInflater.from(parent.context)
+            .inflate(R.layout.item_layout_following_frag, parent, false)
         return RecyclerViewHolder(view)
     }
 
@@ -52,6 +55,9 @@ class FollowingFragAdapter(
         holder.imgFriend.setOnClickListener()
         {
             val intent = Intent(activity, FriendInfoActivity::class.java)
+            intent.putExtra("IMAGE", followingDataClass.user_image);
+            intent.putExtra("NAME", followingDataClass.username);
+            intent.putExtra("USER_ID", followingDataClass.user_id);
             activity.startActivity(intent)
         }
 
@@ -59,6 +65,25 @@ class FollowingFragAdapter(
         {
             followingFragment?.removeFriend(followingDataClass.user_id)
         }
+
+        holder.btnFollow.setOnClickListener()
+        {
+            followingFragment.followFriend(followingDataClass.user_id)
+        }
+        holder.btnAddFriend.setOnClickListener()
+        {
+            followingFragment.addFriend(followingDataClass.user_id)
+
+        }
+
+        if (!followingFragment.sessionManager.getValue(SessionManager.USER_ID).equals(userIdFrom)) {
+            holder.btnReplace.visibility = View.GONE
+            holder.linFollowAdd.visibility = View.VISIBLE
+        }
+        else {
+            holder.btnReplace.visibility = View.VISIBLE
+        }
+
     }
 
 
@@ -72,11 +97,17 @@ class FollowingFragAdapter(
         internal var imgFriend: ImageView
         internal var tvFriendName: TextView
         internal var btnReplace: Button
+        var linFollowAdd: LinearLayout
+        internal var btnFollow: Button
+        internal var btnAddFriend: Button
 
         init {
+            btnAddFriend = view.findViewById(R.id.btnAddFriend) as Button
             btnReplace = view.findViewById(R.id.btnReplace) as Button
+            btnFollow = view.findViewById(R.id.btnFollow) as Button
             imgFriend = view.findViewById(R.id.imgFriend) as ImageView
             tvFriendName = view.findViewById(R.id.tvFriendName) as TextView
+            linFollowAdd = view.findViewById(R.id.linFollowAdd) as LinearLayout
         }
     }
 

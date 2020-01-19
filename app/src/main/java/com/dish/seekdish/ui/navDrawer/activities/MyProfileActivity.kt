@@ -97,6 +97,9 @@ class MyProfileActivity : BaseActivity() {
                             modelObj.data.new_info_data.checkin.toString() + " Check-In"
                         tvProfilePercent.text =
                             modelObj.data.new_info_data.profile_percentage.toString() + " of Profile"
+                        tvName.text=modelObj.data.first_name
+                        tvBio.text=modelObj.data.bio
+
 
                     }
 

@@ -62,8 +62,8 @@ class FriendsInclAdapter(
                 var ingrId = friendDataClass.user_id.toString()
 
                 for (i in 0 until Global.selectedFriends.size) {
-                    if (Global.likedItemsSet.contains(ingrId)) {
-                        Global.likedItemsSet.remove(ingrId)
+                    if (Global.selectedFriends.contains(ingrId)) {
+                        Global.selectedFriends.remove(ingrId)
                     }
                 }
             }

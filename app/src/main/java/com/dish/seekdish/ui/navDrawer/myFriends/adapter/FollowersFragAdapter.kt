@@ -49,6 +49,9 @@ class FollowersFragAdapter(
         holder.imgFriend.setOnClickListener()
         {
             val intent = Intent(activity, FriendInfoActivity::class.java)
+            intent.putExtra("IMAGE", friendDataClass.user_image);
+            intent.putExtra("NAME", friendDataClass.username);
+            intent.putExtra("USER_ID", friendDataClass.user_id);
             activity.startActivity(intent)
         }
 

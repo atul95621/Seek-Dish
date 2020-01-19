@@ -78,7 +78,8 @@ class HomeActivityVM : ViewModel() {
         compAmbianceItems: String,
         additonalItems: String,
         seasonlityItems: String,
-        userId: String
+        userId: String,
+        consider_my_profile:String
     ) {
 
         // making progress bar visible
@@ -97,7 +98,8 @@ class HomeActivityVM : ViewModel() {
             restroAmbianceItems,
             compAmbianceItems,
             additonalItems,
-            seasonlityItems
+            seasonlityItems,
+            consider_my_profile
         )
 
 //        Log.e("pramsGetLiked"," "+userId+"    "+questionId)

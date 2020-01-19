@@ -14,7 +14,12 @@ data class Data(
     val meal_types: List<MealType>,
     val seasons: List<Season>,
     val service_speed: List<ServiceSpeed>,
-    val speciality: List<Speciality>
+    val speciality: List<Speciality>,
+    val consider_my_profile: List<ConsiderMyProfile>
+    )
+
+data class ConsiderMyProfile(
+    val filter: Int
 )
 
 data class Speciality(
