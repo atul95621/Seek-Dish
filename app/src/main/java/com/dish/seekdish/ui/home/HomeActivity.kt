@@ -186,6 +186,18 @@ class HomeActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
                     ).commit()
                 }
             }
+            else if (from.equals("SettingsFragment")) {
+                if (!fromValue.isNullOrEmpty()) {
+                    tvTitle.setText("My Friends")
+                    tvAdd.visibility=View.VISIBLE
+                    imgFilters.visibility = (View.INVISIBLE)
+                    val fragmentManager = supportFragmentManager
+                    fragmentManager.beginTransaction().replace(
+                        R.id.content_frame,
+                        MyFriendsFragment(fromValue.toString())
+                    ).commit()
+                }
+            }
         }
 
         //============================
@@ -334,21 +346,29 @@ class HomeActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
                }
            }*/
 
-        tvAdd.setOnClickListener()
+        /*tvAdd.setOnClickListener()
         {
             val intent = Intent(this@HomeActivity, ContactFetchActivity::class.java)
             startActivity(intent)
-        }
+        }*/
 
 
     }
 
     private fun getFilterData() {
         // hitting api
-        homeActivityVM?.doGetFilterData(
-            sessionManager?.getValue(SessionManager.USER_ID).toString(),
-            sessionManager?.getValue(SessionManager.LANGUAGE_ID).toString()
-        )
+
+        if (sessionManager?.getValue(SessionManager.LANGUAGE_ID).toString().isNullOrEmpty()) {
+            homeActivityVM?.doGetFilterData(
+                sessionManager?.getValue(SessionManager.USER_ID).toString(),
+                sessionManager?.getValue(SessionManager.LANGUAGE_HOME_ACTIVITY).toString()
+            )
+        } else {
+            homeActivityVM?.doGetFilterData(
+                sessionManager?.getValue(SessionManager.USER_ID).toString(),
+                sessionManager?.getValue(SessionManager.LANGUAGE_ID).toString()
+            )
+        }
     }
 
     private fun setUserDetail() {
@@ -494,6 +514,7 @@ class HomeActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
                         .commit()
                 }
                 R.id.nav_my_friends -> {
+                    tvAdd.setText("Save")
                     tvAdd.visibility = (View.VISIBLE)
                     tvTitle.setText("My Friends")
                     imgFilters.visibility = (View.INVISIBLE)

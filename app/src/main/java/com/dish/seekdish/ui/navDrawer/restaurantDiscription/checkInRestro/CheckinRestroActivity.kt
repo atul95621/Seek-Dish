@@ -22,7 +22,9 @@ class CheckinRestroActivity : BaseActivity() {
 
     private var rvRegisteredMeal: RecyclerView? = null
     private  var rvRegisteredCheckMeals:RecyclerView?=null
-    private var adapter: CheckinAdapter? = null
+    private var regisMealAdapter: CheckinAdapter? = null
+    private var mealAdapter: CheckinMealAdapter? = null
+
     internal lateinit var layoutManager: RecyclerView.LayoutManager
     internal lateinit var layoutManagerMeals: RecyclerView.LayoutManager
 

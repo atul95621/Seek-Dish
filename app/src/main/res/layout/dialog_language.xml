@@ -4,6 +4,7 @@
               android:layout_height="fill_parent"
               android:orientation="vertical">
     <TextView android:layout_width="match_parent"
+        android:id="@+id/tvTittleLang"
               android:layout_height="wrap_content"
               android:text="Select Language"
               android:textColor="@color/colorPrimary"

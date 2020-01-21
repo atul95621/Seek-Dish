@@ -6,112 +6,123 @@
     android:layout_height="match_parent"
     android:background="@color/white"
     android:orientation="vertical">
-    <!--toolbar-->
-    <FrameLayout
+
+    <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
-        android:layout_height="48dp"
-        android:background="@color/colorPrimary"
-        android:gravity="center"
-        android:orientation="horizontal">
+        android:layout_height="wrap_content">
 
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:text="My Check-in List"
-            android:textColor="@color/white"
-            android:textSize="20sp" />
-
-        <TextView
-            android:id="@+id/tvBack"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="start|center_vertical"
-            android:layout_marginStart="10dp"
-            android:gravity="start"
-            android:text="Back"
-            android:textColor="@color/white"
-            android:textSize="18sp" />
-    </FrameLayout>
-
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:padding="10dp">
-
-        <TextView
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="10dp"
-            android:fontFamily="@font/assistantbold"
-            android:text="Registered Meals"
-            android:textColor="@color/black"
-            android:textSize="16sp" />
+            android:orientation="vertical">
+            <!--toolbar-->
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:background="@color/colorPrimary"
+                android:gravity="center"
+                android:orientation="horizontal">
 
-        <FrameLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
 
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/rvRegistered"
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:text="My Check-in List"
+                    android:textColor="@color/white"
+                    android:textSize="20sp" />
+
+                <TextView
+                    android:id="@+id/tvBack"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="start|center_vertical"
+                    android:layout_marginStart="10dp"
+                    android:gravity="start"
+                    android:text="Back"
+                    android:textColor="@color/white"
+                    android:textSize="18sp" />
+            </FrameLayout>
+
+
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:scrollbars="vertical"
-                tools:layout_editor_absoluteX="0dp"
-                tools:layout_editor_absoluteY="0dp" />
+                android:orientation="vertical"
+                android:padding="10dp">
 
-            <TextView
-                android:id="@+id/tvRegisAlert"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:fontFamily="@font/assistantregular"
-                android:gravity="center"
-                android:text="Not found"
-                android:textColor="@color/black"
-                android:textSize="16sp"
-                android:visibility="gone" />
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="10dp"
+                    android:fontFamily="@font/assistantbold"
+                    android:text="Registered Meals"
+                    android:textColor="@color/black"
+                    android:textSize="16sp" />
 
-        </FrameLayout>
-        <TextView
-            android:layout_marginTop="50dp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="10dp"
-            android:fontFamily="@font/assistantbold"
-            android:text="Meals"
-            android:textColor="@color/black"
-            android:textSize="16sp" />
+                <FrameLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
 
-        <FrameLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/rvRegistered"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:scrollbars="vertical"
+                        tools:layout_editor_absoluteX="0dp"
+                        tools:layout_editor_absoluteY="0dp" />
 
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/rvMeals"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:scrollbars="vertical"
-                tools:layout_editor_absoluteX="0dp"
-                tools:layout_editor_absoluteY="0dp" />
+                    <TextView
+                        android:id="@+id/tvRegisAlert"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:fontFamily="@font/assistantregular"
+                        android:gravity="center"
+                        android:text="Not found"
+                        android:textColor="@color/black"
+                        android:textSize="16sp"
+                        android:visibility="gone" />
 
-            <TextView
-                android:id="@+id/tvCheckinMeal"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:fontFamily="@font/assistantregular"
-                android:gravity="center"
-                android:text="Not Found"
-                android:textColor="@color/black"
-                android:textSize="16sp"
-                android:visibility="gone" />
+                </FrameLayout>
 
-        </FrameLayout>
-    </LinearLayout>
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="50dp"
+                    android:layout_marginBottom="10dp"
+                    android:fontFamily="@font/assistantbold"
+                    android:text="Meals"
+                    android:textColor="@color/black"
+                    android:textSize="16sp" />
 
+                <FrameLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
 
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/rvMeals"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:scrollbars="vertical"
+                        tools:layout_editor_absoluteX="0dp"
+                        tools:layout_editor_absoluteY="0dp" />
+
+                    <TextView
+                        android:id="@+id/tvCheckinMeal"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:fontFamily="@font/assistantregular"
+                        android:gravity="center"
+                        android:text="Not Found"
+                        android:textColor="@color/black"
+                        android:textSize="16sp"
+                        android:visibility="gone" />
+
+                </FrameLayout>
+            </LinearLayout>
+
+        </LinearLayout>
+    </androidx.core.widget.NestedScrollView>
 </LinearLayout>

@@ -67,7 +67,7 @@ class MyInformationActivity : BaseActivity(), IMyInformationView {
     var weight = ""
     var height = ""
     var bodyFat = ""
-    var gender=""
+    var gender = ""
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -103,7 +103,10 @@ class MyInformationActivity : BaseActivity(), IMyInformationView {
             if (countryId.equals("") || countryId.equals(null)) {
                 showSnackBar("Please select the country first.")
             } else {
-                myInfoPresenter.getCitiesData(sessionManager!!.getValue(SessionManager.USER_ID), countryId)
+                myInfoPresenter.getCitiesData(
+                    sessionManager!!.getValue(SessionManager.USER_ID),
+                    countryId
+                )
 
             }
         }
@@ -286,9 +289,12 @@ class MyInformationActivity : BaseActivity(), IMyInformationView {
     //images
     private fun checkImgPermissionIsEnabledOrNot(): Boolean {
 
-        val FirstPermissionResult = ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE)
-        val SecondPermissionResult = ContextCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE)
-        val ThirdPermissionResult = ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA)
+        val FirstPermissionResult =
+            ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE)
+        val SecondPermissionResult =
+            ContextCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE)
+        val ThirdPermissionResult =
+            ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA)
 
         return FirstPermissionResult == PackageManager.PERMISSION_GRANTED &&
                 SecondPermissionResult == PackageManager.PERMISSION_GRANTED &&
@@ -334,7 +340,8 @@ class MyInformationActivity : BaseActivity(), IMyInformationView {
 
                             when (orientation) {
 
-                                ExifInterface.ORIENTATION_ROTATE_90 -> bitmap = TransformationUtils.rotateImage(bm, 90)
+                                ExifInterface.ORIENTATION_ROTATE_90 -> bitmap =
+                                    TransformationUtils.rotateImage(bm, 90)
 
                                 ExifInterface.ORIENTATION_ROTATE_180 -> bitmap =
                                     TransformationUtils.rotateImage(bm, 180)
@@ -420,7 +427,11 @@ class MyInformationActivity : BaseActivity(), IMyInformationView {
 
     }
 
-    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<String>, grantResults: IntArray) {
+    override fun onRequestPermissionsResult(
+        requestCode: Int,
+        permissions: Array<String>,
+        grantResults: IntArray
+    ) {
         when (requestCode) {
 
 
@@ -454,7 +465,8 @@ class MyInformationActivity : BaseActivity(), IMyInformationView {
 
 
         // Creating adapter for spinner
-        val languageSelectAdapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, genderArr)
+        val languageSelectAdapter =
+            ArrayAdapter(this, android.R.layout.simple_spinner_item, genderArr)
 
         // Drop down layout style - list view with radio button
         languageSelectAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
@@ -464,7 +476,10 @@ class MyInformationActivity : BaseActivity(), IMyInformationView {
 
     }
 
-    fun showDialog(listData: ArrayList<LangData>) {
+    fun showDialogList(
+        listData: ArrayList<LangData>,
+        title: String
+    ) {
 
         val dialog = Dialog(this);
 
@@ -475,19 +490,15 @@ class MyInformationActivity : BaseActivity(), IMyInformationView {
         val clad: CustomListAdapterDialog = CustomListAdapterDialog(this, listData);
 
         val list = view.findViewById<View>(R.id.custom_list) as ListView
+        val tvTittleLang = view.findViewById<View>(R.id.tvTittleLang) as TextView
 
+        tvTittleLang.setText(title)
 
         list.setAdapter(clad);
 
         list.setOnItemClickListener(AdapterView.OnItemClickListener { adapter, view, position, arg ->
             // TODO Auto-generated method stub
 //            val tvLanguage = view.findViewById<View>(R.id.tvLanguage) as TextView
-
-            Toast.makeText(
-                FacebookSdk.getApplicationContext(),
-                "selected Item Name is " + listData[position].id + "     " + listData[position].name,
-                Toast.LENGTH_LONG
-            ).show()
 
             countryId = listData[position].id.toString()
             var countryName = listData[position].name
@@ -508,7 +519,10 @@ class MyInformationActivity : BaseActivity(), IMyInformationView {
     }
 
 
-    fun showCitiesDialog(listData: ArrayList<LangData>) {
+    fun showCitiesDialog(
+        listData: ArrayList<LangData>,
+        title: String
+    ) {
 
         val dialog = Dialog(this);
 
@@ -519,19 +533,14 @@ class MyInformationActivity : BaseActivity(), IMyInformationView {
         val clad: CustomListAdapterDialog = CustomListAdapterDialog(this, listData);
 
         val list = view.findViewById<View>(R.id.custom_list) as ListView
-
+        val tvTittleLang = view.findViewById<View>(R.id.tvTittleLang) as TextView
+        tvTittleLang.setText(title)
 
         list.setAdapter(clad);
 
         list.setOnItemClickListener(AdapterView.OnItemClickListener { adapter, view, position, arg ->
             // TODO Auto-generated method stub
 //            val tvLanguage = view.findViewById<View>(R.id.tvLanguage) as TextView
-
-            Toast.makeText(
-                FacebookSdk.getApplicationContext(),
-                "selected Item Name is " + listData[position].id + "     " + listData[position].name,
-                Toast.LENGTH_LONG
-            ).show()
 
             cityId = listData[position].id.toString()
             val cityName = listData[position].name
@@ -559,7 +568,10 @@ class MyInformationActivity : BaseActivity(), IMyInformationView {
                 Log.e("respUpdateName", profileDataClass.data.first_name)
 
                 sessionManager?.setValues(SessionManager.USERNAME, profileDataClass.data.username)
-                sessionManager?.setValues(SessionManager.FIRST_NAME, profileDataClass.data.first_name)
+                sessionManager?.setValues(
+                    SessionManager.FIRST_NAME,
+                    profileDataClass.data.first_name
+                )
                 sessionManager?.setValues(SessionManager.LAST_NAME, profileDataClass.data.last_name)
 //                sessionManager?.setValues(SessionManager.PHONE, profileDataClass.data.phone)
                 sessionManager?.setValues(SessionManager.PHOTO_URL, profileDataClass.data.photo)
@@ -593,8 +605,7 @@ class MyInformationActivity : BaseActivity(), IMyInformationView {
             val languageData = response.body() as LanguageData
 
             if (languageData.status == 1)
-
-                showDialog(languageData.data)
+                showDialogList(languageData.data, "Select Country")
 
         } else {
             showSnackBar(this.getResources().getString(R.string.error_occured));
@@ -608,7 +619,7 @@ class MyInformationActivity : BaseActivity(), IMyInformationView {
 
             if (languageData.status == 1)
 
-                showCitiesDialog(languageData.data)
+                showCitiesDialog(languageData.data,"Select City")
 
         } else {
             showSnackBar(this.getResources().getString(R.string.error_occured));

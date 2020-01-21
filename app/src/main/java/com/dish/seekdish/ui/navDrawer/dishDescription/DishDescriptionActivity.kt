@@ -36,6 +36,7 @@ import com.dish.seekdish.ui.navDrawer.dishDescription.VM.DishDescriptionVM
 import com.dish.seekdish.ui.navDrawer.dishDescription.model.Ingredients
 import com.dish.seekdish.ui.navDrawer.dishDescription.model.Meals
 import com.dish.seekdish.ui.navDrawer.invitation.InvitationActivity
+import com.dish.seekdish.ui.navDrawer.restaurantDiscription.RestroDescrpActivity
 import com.dish.seekdish.util.BaseActivity
 import com.dish.seekdish.util.SessionManager
 import com.facebook.CallbackManager
@@ -393,6 +394,14 @@ class DishDescriptionActivity : BaseActivity(), Serializable {
                 meal_id.toString(),
                 restro_id.toString()
             )
+        }
+
+        tvViewDetail.setOnClickListener()
+        {
+            val intent = Intent(this, RestroDescrpActivity::class.java)
+            intent.putExtra("RESTAURANT_ID", restro_id.toString())
+            startActivity(intent)
+            actionDialog.dismiss()
         }
 
 

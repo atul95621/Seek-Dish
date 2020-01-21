@@ -122,6 +122,17 @@ class SettingsFragment : BaseFragment(), ISettingView {
 
         }
 
+
+
+        view.tvAddFriends.setOnClickListener()
+        {
+            val intent = Intent(context, HomeActivity::class.java)
+            intent.putExtra("from", "SettingsFragment")
+            intent.putExtra("fromValue", sessionManager.getValue(SessionManager.USER_ID.toString()))
+            startActivity(intent)
+
+        }
+
         numberPicker!!.setMax(25)
         numberPicker!!.setMin(1)
         numberPicker!!.setUnit(1)

@@ -1,5 +1,6 @@
 package com.dish.seekdish.ui.navDrawer.myFriends
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -9,7 +10,9 @@ import androidx.viewpager.widget.ViewPager
 import com.dish.seekdish.util.BaseFragment
 
 import com.dish.seekdish.R
+import com.dish.seekdish.ui.home.HomeActivity
 import com.dish.seekdish.ui.navDrawer.myFriends.adapter.MyFriendsAdapter
+import com.dish.seekdish.ui.navDrawer.myFriends.contactFetch.ContactFetchActivity
 import com.google.android.material.tabs.TabLayout
 
 
@@ -17,6 +20,7 @@ class MyFriendsFragment(var userId: String) : BaseFragment() {
     lateinit var tabLayout: TabLayout
     internal lateinit var viewPager: ViewPager
     internal lateinit var adapter: MyFriendsAdapter
+    private lateinit var homeActivity: HomeActivity
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -27,6 +31,7 @@ class MyFriendsFragment(var userId: String) : BaseFragment() {
 
 //        Log.e("uerssss","::"+userId)
 
+        homeActivity = activity as HomeActivity
 
         // setting up tabLayout
         this.tabLayout = view.findViewById(R.id.tabLayout)
@@ -64,6 +69,12 @@ class MyFriendsFragment(var userId: String) : BaseFragment() {
 
             }
         })
+
+        homeActivity.tvAdd.setOnClickListener()
+        {
+            val intent = Intent(context, ContactFetchActivity::class.java)
+            startActivity(intent)
+        }
 
 
         return view

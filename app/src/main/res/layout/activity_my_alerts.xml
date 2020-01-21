@@ -19,16 +19,17 @@
                   android:text="My Alert"
                   android:textColor="@color/white"
                   android:textSize="20sp"/>
+
         <TextView
-                android:id="@+id/tvBack"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="10dp"
-                android:gravity="start"
-                android:layout_gravity="start|center_vertical"
-                android:text="Next"
-                android:textColor="@color/white"
-                android:textSize="18sp"/>
+            android:id="@+id/tvBack"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="start|center_vertical"
+            android:layout_marginStart="10dp"
+            android:gravity="start"
+            android:text="Back"
+            android:textColor="@color/white"
+            android:textSize="18sp" />
     </FrameLayout>
     <LinearLayout android:layout_width="match_parent"
                   android:layout_height="wrap_content"
