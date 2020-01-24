@@ -1,15 +1,12 @@
 package com.dish.seekdish.ui.navDrawer.restaurants.fragments
 
 import android.Manifest
-import android.content.Context
 import android.content.pm.PackageManager
 import android.graphics.Bitmap
 import android.graphics.drawable.BitmapDrawable
-import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -17,13 +14,10 @@ import androidx.core.content.ContextCompat
 import androidx.core.content.res.ResourcesCompat
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
-import com.dish.seekdish.Constants
 
 import com.dish.seekdish.R
 import com.dish.seekdish.ui.home.HomeActivity
 import com.dish.seekdish.ui.home.dataModel.Location
-import com.dish.seekdish.ui.home.mapInfoWindow.InfoWindowData
-import com.dish.seekdish.ui.home.viewModel.MapHomeVM
 import com.dish.seekdish.ui.navDrawer.restaurants.dataClass.Data_Restro_Map
 import com.dish.seekdish.ui.navDrawer.restaurants.mapWindow.InfoWindowModel
 import com.dish.seekdish.ui.navDrawer.restaurants.mapWindow.RestroMapInfoWindow
@@ -242,6 +236,7 @@ GoogleMap.OnMyLocationClickListener, GoogleMap.OnMarkerClickListener  {
                             var imageUrl = arrayList[i].restaurant_image
                             var starRate = arrayList[i].rating.toString()
                             var mealName = arrayList[i].name
+                            var address = arrayList[i].street
 
 
                             // adding custom info window
@@ -249,12 +244,18 @@ GoogleMap.OnMyLocationClickListener, GoogleMap.OnMarkerClickListener  {
                             var markerOptions = MarkerOptions();
                             markerOptions.position(locationPos)
                                 .title(arrayList[i].name)
-                                .icon(BitmapDescriptorFactory.fromBitmap(customSizeMarker));   // custom size maekr is used here
+                                .icon(
+                                    bitmapDescriptorFromVector(
+                                        myContext,
+                                        R.drawable.ic_markersvg
+                                    )
+                                )  // custom size maekr is used here
 
                             var info = InfoWindowModel(
                                 imageUrl,
                                 starRate,
-                                mealName
+                                mealName,
+                                address
                             );
 
                             var marker = mMap!!.addMarker(markerOptions);

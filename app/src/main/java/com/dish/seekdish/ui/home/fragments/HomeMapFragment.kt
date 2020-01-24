@@ -243,10 +243,11 @@ class HomeMapFragment : BaseFragment(), OnMapReadyCallback, GoogleMap.OnMyLocati
                                         markerOptions.position(locationPos)
                                             .title(arrayList[i].name)
                                             .icon(
-                                                BitmapDescriptorFactory.fromBitmap(
-                                                    customSizeMarker
+                                                bitmapDescriptorFromVector(
+                                                    myContext,
+                                                    R.drawable.ic_markersvg
                                                 )
-                                            );   // custom size maekr is used here
+                                            )
 
                                         var info = InfoWindowData(
                                             imageUrl,

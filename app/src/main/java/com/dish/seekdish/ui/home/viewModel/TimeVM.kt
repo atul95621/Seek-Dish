@@ -48,7 +48,7 @@ class TimeVM : ViewModel() {
             Constants.device_token,
             Constants.deviceType,
             pageNumber,
-            Constants.noOfItems
+            Constants.noOfMeals
         )
 
         Log.e(

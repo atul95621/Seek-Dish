@@ -10,6 +10,7 @@ class Constants {
         // extra prams
         var type = "type"
         var noOfItems="1000"
+        var noOfMeals="30"
         var device_token="token"
         var homePage="1"
 

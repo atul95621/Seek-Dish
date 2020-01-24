@@ -16,5 +16,6 @@ data class Data_Restro_Map(
     val name: String,
     val no_of_reviews: Int,
     val rating: String,
-    val restaurant_image: String
+    val restaurant_image: String,
+    val street:String
 )

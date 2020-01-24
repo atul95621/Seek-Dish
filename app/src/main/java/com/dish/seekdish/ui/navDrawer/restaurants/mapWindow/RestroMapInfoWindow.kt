@@ -31,6 +31,8 @@ class RestroMapInfoWindow(
         val tvRestro = view.findViewById<TextView>(R.id.tvRestro)
         val imgInfoWindow = view.findViewById<ImageView>(R.id.imgInfoWindow)
 //        val euroRatingBar = view.findViewById<ScaleRatingBar>(R.id.euroRatingBar)
+        val tvAddress = view.findViewById<TextView>(R.id.tvAddress)
+
 
         val infoWindowGoogleMap = marker.tag as InfoWindowModel
 
@@ -53,6 +55,7 @@ class RestroMapInfoWindow(
 
 //        star_rating.rating= infoWindowGoogleMap.starRating!!.toFloat()
         euro_rating.rating = infoWindowGoogleMap.starRating!!.toFloat()
+        tvAddress.text= infoWindowGoogleMap.address.toString()
 //        euroRatingBar.rating=infoWindowGoogleMap.starRating!!.toFloat()
         return view
     }

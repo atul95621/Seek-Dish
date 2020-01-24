@@ -81,6 +81,7 @@
                   android:layout_height="match_parent"
                   android:layout_weight="1"
                   android:textSize="12sp"
+            android:id="@+id/tvAddress"
                   android:layout_gravity="center"
                   android:gravity="center"
                   android:fontFamily="@font/assistantregular"

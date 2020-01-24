@@ -55,13 +55,20 @@
                 android:textSize="14sp" />
         </LinearLayout>
 
-        <ImageView
-            android:id="@+id/imgDelete"
-            android:layout_width="25dp"
-            android:layout_height="25dp"
-            android:layout_gravity="center_vertical"
-            android:src="@drawable/ic_delete" />
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:gravity="end"
+            android:paddingEnd="10dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical|end"
+            android:layout_weight="2">
 
+            <ImageView
+                android:id="@+id/imgDelete"
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:src="@drawable/ic_delete" />
+        </LinearLayout>
     </LinearLayout>
 
     <View
