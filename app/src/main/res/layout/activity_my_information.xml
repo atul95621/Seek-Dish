@@ -195,8 +195,8 @@
                 <View android:layout_width="0dp"
                       android:layout_height="match_parent"
                       android:layout_weight="0.02"/>
-                <TextView
-                        android:id="@+id/tvCity"
+                <EditText
+                        android:id="@+id/edtCity"
                         android:layout_width="0dp"
                         android:inputType="text"
                         android:textColor="@color/black"
@@ -228,7 +228,7 @@
                 <View android:layout_width="0dp"
                       android:layout_height="match_parent"
                       android:layout_weight="0.02"/>
-                <EditText
+                <!--<EditText
                         android:id="@+id/edtBodyFat"
                         android:layout_width="0dp"
                           android:inputType="numberDecimal"
@@ -237,7 +237,16 @@
                           android:hint="Body Fat"
                         android:textColor="@color/black"
                         android:background="@color/edt_light_gray"
-                          android:layout_weight="0.99"/>
+                          android:layout_weight="0.99"/>-->
+                <Spinner
+                    android:id="@+id/spinnerBodyFat"
+                    android:layout_width="0dp"
+                    android:inputType="text"
+                    android:layout_height="match_parent"
+                    android:hint="Gender"
+                    android:textColor="@color/black"
+                    android:paddingStart="8dp" android:background="@color/edt_light_gray"
+                    android:layout_weight=".99"/>
             </LinearLayout>
 
             <!--weight and fat-->
@@ -252,7 +261,7 @@
                         android:layout_width="0dp"
                         android:inputType="numberDecimal"
                         android:layout_height="match_parent"
-                        android:hint="Weight"
+                        android:hint="Weight (Kg)"
                         android:textColor="@color/black"
                         android:paddingStart="8dp"
                         android:background="@color/edt_light_gray"
@@ -266,7 +275,7 @@
                           android:inputType="numberDecimal"
                           android:paddingStart="8dp"
                           android:layout_height="match_parent"
-                          android:hint="Height"
+                          android:hint="Height (cm)"
                         android:textColor="@color/black"
                         android:background="@color/edt_light_gray"
                           android:layout_weight="0.99"/>

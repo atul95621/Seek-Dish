@@ -514,7 +514,7 @@ class HomeActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
                         .commit()
                 }
                 R.id.nav_my_friends -> {
-                    tvAdd.setText("Save")
+                    tvAdd.setText("Add")
                     tvAdd.visibility = (View.VISIBLE)
                     tvTitle.setText("My Friends")
                     imgFilters.visibility = (View.INVISIBLE)

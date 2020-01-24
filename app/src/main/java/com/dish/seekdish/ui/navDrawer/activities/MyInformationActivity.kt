@@ -25,6 +25,7 @@ import com.dish.seekdish.ui.navDrawer.activities.presenter.MyInfoPresenter
 import com.dish.seekdish.ui.navDrawer.activities.view.IMyInformationView
 import com.dish.seekdish.ui.navDrawer.settings.dataModel.LangData
 import com.dish.seekdish.ui.navDrawer.settings.dataModel.LanguageData
+import com.dish.seekdish.util.BaseFragment.Companion.rotateImage
 import com.dish.seekdish.util.SessionManager
 import com.facebook.FacebookSdk
 import com.myhexaville.smartimagepicker.ImagePicker
@@ -55,6 +56,8 @@ class MyInformationActivity : BaseActivity(), IMyInformationView {
     internal var imagePick = false
     internal var bitmap: Bitmap? = null
     internal var genderArr = ArrayList<String>()
+    internal var bodyFatArr = ArrayList<String>()
+
     // path for multipart image upload
     var path: String = ""
     var countryId = ""
@@ -92,24 +95,25 @@ class MyInformationActivity : BaseActivity(), IMyInformationView {
 
         //populating the spinner
         setGenderSpinner()
+        setBodyList()
 
         tvCountry.setOnClickListener()
         {
             myInfoPresenter.getCountriesData(sessionManager!!.getValue(SessionManager.USER_ID))
         }
 
-        tvCity.setOnClickListener()
+      /*  tvCity.setOnClickListener()
         {
-            if (countryId.equals("") || countryId.equals(null)) {
+           *//* if (countryId.equals("") || countryId.equals(null)) {
                 showSnackBar("Please select the country first.")
             } else {
                 myInfoPresenter.getCitiesData(
                     sessionManager!!.getValue(SessionManager.USER_ID),
                     countryId
                 )
+            }*//*
 
-            }
-        }
+        }*/
 
 
         tvBack.setOnClickListener()
@@ -156,10 +160,10 @@ class MyInformationActivity : BaseActivity(), IMyInformationView {
                 zipCode = edtZipcode.text.toString()
             }
 
-            if (TextUtils.isEmpty(edtBodyFat!!.text.toString().trim { it <= ' ' })) {
+            if (spinnerBodyFat!!.selectedItem == "Select Bodyfat") {
                 bodyFat = ""
             } else {
-                bodyFat = edtBodyFat.text.toString()
+                bodyFat = spinnerBodyFat.selectedItem.toString()
             }
 
             if (TextUtils.isEmpty(edtHeight!!.text.toString().trim { it <= ' ' })) {
@@ -172,7 +176,7 @@ class MyInformationActivity : BaseActivity(), IMyInformationView {
             } else {
                 weight = edtWeight.text.toString()
             }
-            if (spinnerGender!!.selectedItem === "Select Gender") {
+            if (spinnerGender!!.selectedItem == "Select Gender") {
                 gender = ""
             } else {
                 gender = spinnerGender.selectedItem.toString()
@@ -262,9 +266,9 @@ class MyInformationActivity : BaseActivity(), IMyInformationView {
                         stringConvertToRequestBody(spinnerGender.selectedItem.toString()),
                         stringConvertToRequestBody(edtBio.text.toString()),
                         stringConvertToRequestBody(countryId),
-                        stringConvertToRequestBody(cityId),
+                        stringConvertToRequestBody(edtCity.text.toString()),
                         stringConvertToRequestBody(edtZipcode.text.toString()),
-                        stringConvertToRequestBody(edtBodyFat.text.toString()),
+                        stringConvertToRequestBody(spinnerBodyFat.selectedItem.toString()),
                         stringConvertToRequestBody(edtWeight.text.toString()),
                         stringConvertToRequestBody(edtHeight.text.toString()),
                         stringConvertToRequestBody(sessionManager!!.getValue(SessionManager.USER_ID)),
@@ -318,7 +322,11 @@ class MyInformationActivity : BaseActivity(), IMyInformationView {
                     //Log.e("uri imagePckr fetch", String.valueOf(imageUri));
 
                     path = this@MyInformationActivity.getPath(imageUri).toString()
+//                    path = imagePicker?.imageFile?.absoluteFile.toString()
+
                     Log.e("path", path)
+
+
 
                     //get image path from uri
 //                    val path = getPath(imageUri)
@@ -341,13 +349,13 @@ class MyInformationActivity : BaseActivity(), IMyInformationView {
                             when (orientation) {
 
                                 ExifInterface.ORIENTATION_ROTATE_90 -> bitmap =
-                                    TransformationUtils.rotateImage(bm, 90)
+                                    rotateImage(bm, 90F)
 
                                 ExifInterface.ORIENTATION_ROTATE_180 -> bitmap =
-                                    TransformationUtils.rotateImage(bm, 180)
+                                    rotateImage(bm, 180F)
 
                                 ExifInterface.ORIENTATION_ROTATE_270 -> bitmap =
-                                    TransformationUtils.rotateImage(bm, 270)
+                                   rotateImage(bm, 270F)
 
                                 ExifInterface.ORIENTATION_NORMAL -> bitmap = bm
                                 else -> bitmap = bm
@@ -380,6 +388,10 @@ class MyInformationActivity : BaseActivity(), IMyInformationView {
                         )
 
                         path = imagePicker?.imageFile?.absoluteFile.toString()
+
+/*
+                        path = imagePicker?.imageFile?.absoluteFile.toString()
+*/
 //                        path = getImageUri(this@AnswerActivity, bitmap).toString()
                         Log.e("path by camera", path)
 
@@ -476,6 +488,31 @@ class MyInformationActivity : BaseActivity(), IMyInformationView {
 
     }
 
+    private fun setBodyList() {
+        //        ___________________________________________________________BUSINESS TYPE SPINNER
+        //clear list
+        bodyFatArr.clear()
+
+        //add states to list
+        bodyFatArr.add("Select Bodyfat")
+        bodyFatArr.add("Slim")
+        bodyFatArr.add("Medium")
+        bodyFatArr.add("Fat")
+
+
+
+        // Creating adapter for spinner
+        val bodyFatAdapter =
+            ArrayAdapter(this, android.R.layout.simple_spinner_item, bodyFatArr)
+
+        // Drop down layout style - list view with radio button
+        bodyFatAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+
+        // attaching data adapter to spinner
+        spinnerBodyFat!!.adapter = bodyFatAdapter
+
+    }
+
     fun showDialogList(
         listData: ArrayList<LangData>,
         title: String
@@ -505,8 +542,8 @@ class MyInformationActivity : BaseActivity(), IMyInformationView {
 
             tvCountry.setText(countryName)
             // making it null if user change the country again...
-            cityId = ""
-            tvCity.setText("")
+            /*cityId = ""
+            tvCity.setText("")*/
 
             dialog.dismiss()
         }
@@ -519,7 +556,7 @@ class MyInformationActivity : BaseActivity(), IMyInformationView {
     }
 
 
-    fun showCitiesDialog(
+  /*  fun showCitiesDialog(
         listData: ArrayList<LangData>,
         title: String
     ) {
@@ -545,7 +582,7 @@ class MyInformationActivity : BaseActivity(), IMyInformationView {
             cityId = listData[position].id.toString()
             val cityName = listData[position].name
 
-            tvCity.setText(cityName)
+//            tvCity.setText(cityName)
 
             dialog.dismiss()
         }
@@ -555,7 +592,7 @@ class MyInformationActivity : BaseActivity(), IMyInformationView {
 
         dialog.show();
 
-    }
+    }*/
 
     override fun onSetDataChanged(result: Boolean, response: Response<ProfileDataClass>) {
 
@@ -617,13 +654,13 @@ class MyInformationActivity : BaseActivity(), IMyInformationView {
         if (result == true) {
             val languageData = response.body() as LanguageData
 
-            if (languageData.status == 1)
+            if (languageData.status == 1) {
 
-                showCitiesDialog(languageData.data,"Select City")
+//                showCitiesDialog(languageData.data,"Select City")
 
-        } else {
-            showSnackBar(this.getResources().getString(R.string.error_occured));
-
+            } else {
+                showSnackBar(this.getResources().getString(R.string.error_occured));
+            }
         }
     }
 
@@ -639,20 +676,33 @@ class MyInformationActivity : BaseActivity(), IMyInformationView {
                 edtAddressLineOne.setText(profileDataClass.data.address_line1)
                 edtAddressLinetwo.setText(profileDataClass.data.address_line2)
                 tvCountry.setText(profileDataClass.data.country)
-                tvCity.setText(profileDataClass.data.city)
+                edtCity.setText(profileDataClass.data.city)
                 edtZipcode.setText(profileDataClass.data.zip_code.toString())
-                edtBodyFat.setText(profileDataClass.data.body_fat)
                 edtWeight.setText(profileDataClass.data.weight)
                 edtHeight.setText(profileDataClass.data.height)
                 edtBio.setText(profileDataClass.data.bio)
                 var genderValue: String = profileDataClass.data.gender
+                var bodyFatVal: String = profileDataClass.data.body_fat
 
                 if (genderValue.equals("M")) {
                     spinnerGender.setSelection(1)
                 }
                 if (genderValue.equals("F")) {
                     spinnerGender.setSelection(2)
-                } else
+                }
+                if(bodyFatVal.equals("Slim"))
+                {
+                    spinnerGender.setSelection(1)
+                }
+                if(bodyFatVal.equals("Medium"))
+                {
+                    spinnerGender.setSelection(2)
+                }
+                if(bodyFatVal.equals("Fat"))
+                {
+                    spinnerGender.setSelection(3)
+                }
+                else
 
                     if (profileDataClass.data.photo != null && profileDataClass.data.photo != "null" && profileDataClass.data.photo != "") {
                         GlideApp.with(this)

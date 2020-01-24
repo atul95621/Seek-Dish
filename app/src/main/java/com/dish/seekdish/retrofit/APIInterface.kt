@@ -121,6 +121,8 @@ internal interface APIInterface {
         @Field("c_password") confirmPassword: String
     ): Call<JsonObject>
 
+
+
     @FormUrlEncoded
     @POST("location_cords")
     fun getLocation(
@@ -489,6 +491,12 @@ internal interface APIInterface {
         @Field("user_id") userId: String
     ): Call<ReceivedRequestDataClass>
 
+
+    @FormUrlEncoded
+    @POST("all_sent_friend_request")
+    fun sentReqList(
+        @Field("user_id") userId: String
+    ): Call<ReceivedRequestDataClass>
 
     @FormUrlEncoded
     @POST("cancel_friend_request_sent")

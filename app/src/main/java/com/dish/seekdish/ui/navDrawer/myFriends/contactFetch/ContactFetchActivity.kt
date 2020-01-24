@@ -114,9 +114,9 @@ class ContactFetchActivity : BaseActivity() {
             override fun run() {
                 //call function
                 compareNumbers()
-                ha.postDelayed(this, 3000)
+                ha.postDelayed(this, 500)
             }
-        }, 10000)
+        }, 500)
 //        contFetchAdapter = ContFetchAdapter(this, contactModelArrayList!!)
 //        listView!!.adapter = contFetchAdapter
 

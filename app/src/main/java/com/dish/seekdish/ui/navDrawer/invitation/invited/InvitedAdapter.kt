@@ -47,11 +47,11 @@ class InvitedAdapter(
             .load(imageUrl)
             .into(holder.imgplace)
 
-        holder.linOpinion.setOnClickListener()
+      /*  holder.linOpinion.setOnClickListener()
         {
             val intent = Intent(mcontext, OpinionDetailsActivity::class.java)
             mcontext.startActivity(intent)
-        }
+        }*/
     }
 
 

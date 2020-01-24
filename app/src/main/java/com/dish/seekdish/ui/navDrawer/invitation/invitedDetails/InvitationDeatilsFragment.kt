@@ -54,10 +54,10 @@ class InvitationDeatilsFragment(var invitationModel: InvitationModel) : Fragment
             //get the child info
             val detailInfo = headerInfo.playerName[childPosition]
             //display it or do something with it
-            Toast.makeText(
+           /* Toast.makeText(
                 context, " Team And Player :: " + headerInfo.name
                         + "/" + detailInfo.name, Toast.LENGTH_LONG
-            ).show()
+            ).show()*/
             false
         })
         // setOnGroupClickListener listener for group heading click

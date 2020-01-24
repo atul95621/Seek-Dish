@@ -3,18 +3,28 @@ package com.dish.seekdish.ui.navDrawer.activities
 import android.os.Bundle
 import com.dish.seekdish.R
 import com.dish.seekdish.custom.ProgressBarClass
+import com.dish.seekdish.retrofit.APIInterface
 import com.dish.seekdish.util.BaseActivity
+import com.dish.seekdish.util.SessionManager
+import com.google.gson.JsonObject
 import kotlinx.android.synthetic.main.activity_change_password.*
 import kotlinx.android.synthetic.main.activity_change_password.edtConfirmPassword
 import kotlinx.android.synthetic.main.activity_change_password.edtNewPassword
 import kotlinx.android.synthetic.main.activity_my_profile.tvBack
 import kotlinx.android.synthetic.main.activity_my_profile.tvContact
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 class ChangePasswordActivity : BaseActivity() {
-
+    var sessionManager: SessionManager? = null;
+    internal lateinit var apiInterface: APIInterface
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_change_password)
+
+        sessionManager = SessionManager(this)
+
         tvBack.setOnClickListener()
         {
             finish()
@@ -34,17 +44,17 @@ class ChangePasswordActivity : BaseActivity() {
             } else {
                 ProgressBarClass.progressBarCalling(this)
 
-//                changePass(edtOneTimePassword.text.toString().trim(),edtNewPassword.text.toString().trim(),edtConfirmPassword.text.toString().trim())
+//                changePass(edtOldPassword.text.toString().trim(),edtNewPassword.text.toString().trim(),edtConfirmPassword.text.toString().trim())
 
             }
 
         }
     }
 
-    /* fun changePass() {
+ /*    fun changePass(old: String, new: String, confrmNew: String) {
 
 
-         val call = apiInterface.changePassword(sessionManager.getValue(SessionManager.EMAIL))
+         val call = apiInterface.changePassword(sessionManager?.getValue(SessionManager.USER_ID),old,new)
          call.enqueue(object : Callback<JsonObject> {
              override fun onResponse(call: Call<JsonObject>, response: Response<JsonObject>) {
 

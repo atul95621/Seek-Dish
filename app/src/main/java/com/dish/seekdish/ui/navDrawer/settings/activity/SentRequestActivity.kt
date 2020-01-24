@@ -86,7 +86,7 @@ class SentRequestActivity : BaseActivity() {
         apiInterface = APIClient.getClient(this).create(APIInterface::class.java)
 
 
-        val call = apiInterface.recievedReq(sessionManager?.getValue(SessionManager.USER_ID).toString())
+        val call = apiInterface.sentReqList(sessionManager?.getValue(SessionManager.USER_ID).toString())
         call.enqueue(object : Callback<ReceivedRequestDataClass> {
             override fun onResponse(
                 call: Call<ReceivedRequestDataClass>,
