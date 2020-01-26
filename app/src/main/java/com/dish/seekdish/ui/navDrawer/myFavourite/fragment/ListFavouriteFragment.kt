@@ -1,6 +1,8 @@
 package com.dish.seekdish.ui.navDrawer.myFavourite.fragment
 
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -19,6 +21,7 @@ import com.dish.seekdish.ui.navDrawer.toDo.list.Data_todo
 import com.dish.seekdish.util.SessionManager
 import io.reactivex.android.schedulers.AndroidSchedulers
 import kotlinx.android.synthetic.main.fragment_list.*
+import kotlinx.android.synthetic.main.fragment_list.view.*
 
 
 import java.util.ArrayList
@@ -61,6 +64,8 @@ class ListFavouriteFragment : BaseFragment() {
 
         getDeleteObserver()
         getFavListObserver()
+
+        searchTextListner(view)
 
 
 //        enableSwipeToDeleteAndUndo()
@@ -153,6 +158,46 @@ class ListFavouriteFragment : BaseFragment() {
         favoriteVM?.deleteFavList(
             sessionManager.getValue(SessionManager.USER_ID).toString(), mealId, restroId
         )
+    }
+
+    private fun searchTextListner(view: View) {
+        view.edtSearchFavMeal.addTextChangedListener(object : TextWatcher {
+            override fun onTextChanged(
+                s: CharSequence,
+                start: Int,
+                before: Int,
+                count: Int
+            ) { // TODO Auto-generated method stub
+            }
+
+            override fun beforeTextChanged(
+                s: CharSequence,
+                start: Int,
+                count: Int,
+                after: Int
+            ) { // TODO Auto-generated method stub
+            }
+
+            override fun afterTextChanged(s: Editable) { // filter your list from your input
+
+                if (view.edtSearchFavMeal.text.isNullOrEmpty() == false) {
+                    filter(s.toString())
+                } else {
+                    getFavList()
+                }
+            }
+        })
+    }
+
+    fun filter(text: String?) {
+        val filteredItems = java.util.ArrayList<Data_todo>()
+        for (d in arrayList) {
+            if (d.name.contains(text.toString(), ignoreCase = true)) {
+                filteredItems.add(d)
+            }
+        }
+        //update recyclerview
+        adapter?.updateList(filteredItems)
     }
 
     /* private fun enableSwipeToDeleteAndUndo() {

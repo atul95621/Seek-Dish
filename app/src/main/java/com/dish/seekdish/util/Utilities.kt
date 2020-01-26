@@ -33,7 +33,7 @@ public class Utilities(val cntxt: Context, val actvty: Activity) {
     fun initProgressDialog(context: Context): Dialog {
         var progressDialog = Dialog(context);
         progressDialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-        progressDialog.getWindow().setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT));
+        progressDialog.getWindow()?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT));
         progressDialog.setContentView(R.layout.parent_progressbar);
         progressDialog.setCancelable(false);
         progressDialog.setCanceledOnTouchOutside(false)

@@ -213,10 +213,11 @@ open class BaseActivity : AppCompatActivity() {
             val outPutFile = File.createTempFile("abc", "image")
             val outputStream = FileOutputStream(outPutFile)
             // y.......
-            selectedBitmap!!.compress(Bitmap.CompressFormat.JPEG, 95, outputStream)
+            selectedBitmap!!.compress(Bitmap.CompressFormat.JPEG, 70, outputStream)
 
             return outPutFile
         } catch (e: Exception) {
+            Log.e("compress_exception","${e.message}")
             return null
         }
 
@@ -245,8 +246,6 @@ open class BaseActivity : AppCompatActivity() {
             // false
             Log.e("change in dataVal bool", value.toString())
         }
-
-
     }
 
     fun getBitmapFromUrl(src: String): Bitmap? {

@@ -93,5 +93,11 @@ class FriendFragAdapter(
     }
 
 
+    fun updateList(list: ArrayList<Friend>) {
+        arrayList = list
+        notifyDataSetChanged()
+    }
+
+
 }
 

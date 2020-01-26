@@ -76,6 +76,10 @@ class SentRequestAdapter(
             tvFriendName = view.findViewById(R.id.tvFriendName) as TextView
         }
     }
+    fun updateList(list: ArrayList<Data_Req>) {
+        arrayList = list
+        notifyDataSetChanged()
+    }
 
 
 }

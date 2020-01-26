@@ -1,6 +1,8 @@
 package com.dish.seekdish.ui.navDrawer.myFriends.fargment
 
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -18,6 +20,7 @@ import com.dish.seekdish.ui.navDrawer.myFriends.adapter.FollowersFragAdapter
 import com.dish.seekdish.ui.navDrawer.myFriends.dataModel.Follower
 import com.dish.seekdish.util.SessionManager
 import io.reactivex.android.schedulers.AndroidSchedulers
+import kotlinx.android.synthetic.main.fragment_follower.view.*
 import kotlinx.android.synthetic.main.fragment_list.*
 import java.util.ArrayList
 
@@ -52,6 +55,8 @@ class FollowerFragment(var userId: String) : BaseFragment() {
         arrayList.clear()
         hitApi()
         getFavListObserver()
+
+        searchTextListner(view)
 
         return view
 
@@ -89,8 +94,45 @@ class FollowerFragment(var userId: String) : BaseFragment() {
                 Log.e("rspSnak", "else error")
             }
         })
+    }  private fun searchTextListner(view: View) {
+        view.edtSearchFollower.addTextChangedListener(object : TextWatcher {
+            override fun onTextChanged(
+                s: CharSequence,
+                start: Int,
+                before: Int,
+                count: Int
+            ) { // TODO Auto-generated method stub
+            }
+
+            override fun beforeTextChanged(
+                s: CharSequence,
+                start: Int,
+                count: Int,
+                after: Int
+            ) { // TODO Auto-generated method stub
+            }
+
+            override fun afterTextChanged(s: Editable) { // filter your list from your input
+
+                if (view.edtSearchFollower.text.isNullOrEmpty() == false) {
+                    filter(s.toString())
+                } else {
+                    hitApi()
+                }
+            }
+        })
     }
 
+    fun filter(text: String?) {
+        val filteredItems = java.util.ArrayList<Follower>()
+        for (d in arrayList) {
+            if (d.username.contains(text.toString(), ignoreCase = true)) {
+                filteredItems.add(d)
+            }
+        }
+        //update recyclerview
+        adapter?.updateList(filteredItems)
+    }
 
 
 }

@@ -13,17 +13,17 @@ class TodoAdapter(
     private val mNumOfTabs: Int
 ) : FragmentStatePagerAdapter(fm) {
 
-    override fun getItem(position: Int): Fragment? {
+    override fun getItem(position: Int): Fragment {
 
         when (position) {
             0 -> {
                 return ListTodoFragment()
             }
-            1 -> {
+           /* 1 -> {
                 return TodoMap()
-            }
+            }*/
 
-            else -> return null
+            else -> return TodoMap()
         }
     }
 

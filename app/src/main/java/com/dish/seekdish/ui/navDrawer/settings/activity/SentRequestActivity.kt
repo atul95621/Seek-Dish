@@ -1,6 +1,8 @@
 package com.dish.seekdish.ui.navDrawer.settings.activity
 
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import android.util.Log
 import android.view.View
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -14,7 +16,9 @@ import com.dish.seekdish.ui.navDrawer.settings.adapter.SentRequestAdapter
 import com.dish.seekdish.ui.navDrawer.settings.dataModel.Data_Req
 import com.dish.seekdish.ui.navDrawer.settings.dataModel.ReceivedRequestDataClass
 import com.dish.seekdish.util.SessionManager
+import kotlinx.android.synthetic.main.activity_received_request.*
 import kotlinx.android.synthetic.main.activity_sent_request.*
+import kotlinx.android.synthetic.main.activity_sent_request.tvAlert
 import kotlinx.android.synthetic.main.activity_sent_request.tvBack
 import retrofit2.Call
 import retrofit2.Callback
@@ -43,6 +47,8 @@ class SentRequestActivity : BaseActivity() {
         hideKeyBoard()
 
         clickListners()
+
+        searchTextListner()
 
         recyclerView = findViewById(R.id.rvSentRequest) as RecyclerView
         recyclerView!!.setHasFixedSize(true)
@@ -105,6 +111,7 @@ class SentRequestActivity : BaseActivity() {
                     if (modelObj.data.size == 0) {
                         tvAlert.visibility = View.VISIBLE
                     } else {
+                        arrayList=modelObj.data
                         setRecyclerView(modelObj.data)
                     }
 //                    iSignUpView.onSetLoggedin(true, response)
@@ -137,5 +144,45 @@ class SentRequestActivity : BaseActivity() {
         arrayList = data
         adapter = SentRequestAdapter(arrayList,this)
         recyclerView!!.setAdapter(adapter)
+    }
+
+    private fun searchTextListner() {
+        edtSearchSent.addTextChangedListener(object : TextWatcher {
+            override fun onTextChanged(
+                s: CharSequence,
+                start: Int,
+                before: Int,
+                count: Int
+            ) { // TODO Auto-generated method stub
+            }
+
+            override fun beforeTextChanged(
+                s: CharSequence,
+                start: Int,
+                count: Int,
+                after: Int
+            ) { // TODO Auto-generated method stub
+            }
+
+            override fun afterTextChanged(s: Editable) { // filter your list from your input
+
+                if (edtSearchSent.text.isNullOrEmpty() == false) {
+                    filter(s.toString())
+                } else {
+                    reqApiHit()
+                }
+            }
+        })
+    }
+
+    fun filter(text: String?) {
+        val filteredItems = ArrayList<Data_Req>()
+        for (d in arrayList) {
+            if (d.username.contains(text.toString(), ignoreCase = true)) {
+                filteredItems.add(d)
+            }
+        }
+        //update recyclerview
+        adapter?.updateList(filteredItems)
     }
 }

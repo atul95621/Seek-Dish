@@ -110,6 +110,10 @@ class FollowingFragAdapter(
             linFollowAdd = view.findViewById(R.id.linFollowAdd) as LinearLayout
         }
     }
+    fun updateList(list: ArrayList<Following>) {
+        arrayList = list
+        notifyDataSetChanged()
+    }
 
 
 }

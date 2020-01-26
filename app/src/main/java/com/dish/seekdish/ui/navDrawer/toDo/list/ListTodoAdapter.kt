@@ -13,6 +13,7 @@ import com.dish.seekdish.R
 import com.dish.seekdish.custom.GlideApp
 import com.dish.seekdish.ui.home.HomeActivity
 import com.dish.seekdish.ui.navDrawer.dishDescription.DishDescriptionActivity
+import com.dish.seekdish.ui.navDrawer.settings.dataModel.Data_Req
 import com.dish.seekdish.ui.navDrawer.toDo.VM.TodoVM
 import com.willy.ratingbar.ScaleRatingBar
 import java.util.ArrayList
@@ -113,6 +114,10 @@ class ListTodoAdapter(
 //        notifyDataSetChanged()
     }
 
+    fun updateList(list: ArrayList<Data_todo>) {
+        arrayList = list
+        notifyDataSetChanged()
+    }
 
 
 }

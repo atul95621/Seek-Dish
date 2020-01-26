@@ -74,6 +74,11 @@ class ReceivedRequestAdapter(
         }
     }
 
+    fun updateList(list: ArrayList<Data_Req>) {
+        arrayList = list
+        notifyDataSetChanged()
+    }
+
 
 }
 

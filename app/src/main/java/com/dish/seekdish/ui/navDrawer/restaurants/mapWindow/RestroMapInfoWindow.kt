@@ -50,6 +50,7 @@ class RestroMapInfoWindow(
         )
         GlideApp.with(context)
             .load(infoWindowGoogleMap.imageUrl)
+            .placeholder(R.drawable.app_logo)
             .into(imgInfoWindow)
         tvRestro.setText(infoWindowGoogleMap.restroTitle)
 

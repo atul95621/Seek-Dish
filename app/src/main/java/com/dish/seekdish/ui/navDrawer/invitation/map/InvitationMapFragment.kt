@@ -69,7 +69,7 @@ class InvitationMapFragment(var invitationModel: InvitationModel) : BaseFragment
 
         var bitmapdraw = ResourcesCompat.getDrawable(getResources(), R.drawable.ic_marker, null);
         val b = bitmapdraw?.let { drawableToBitmap(it) }
-        customSizeMarker = Bitmap.createScaledBitmap(b, 100, 100, false)
+        customSizeMarker = b?.let { Bitmap.createScaledBitmap(it, 100, 100, false) }
 
 
         var cameraMove = LatLng(lat, long)

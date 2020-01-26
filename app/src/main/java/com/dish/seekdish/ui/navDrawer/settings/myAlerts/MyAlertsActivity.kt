@@ -1,23 +1,27 @@
 package com.dish.seekdish.ui.navDrawer.settings.myAlerts
 
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import android.util.Log
 import android.view.View
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.dish.seekdish.util.BaseActivity
 import com.dish.seekdish.R
 import com.dish.seekdish.custom.ProgressBarClass
 import com.dish.seekdish.retrofit.APIClient
 import com.dish.seekdish.retrofit.APIInterface
 import com.dish.seekdish.ui.navDrawer.settings.dataModel.CancelReModel
+import com.dish.seekdish.util.BaseActivity
 import com.dish.seekdish.util.SessionManager
+import com.google.android.gms.common.data.DataHolder
 import kotlinx.android.synthetic.main.activity_my_alerts.*
-import kotlinx.android.synthetic.main.activity_my_alerts.tvBack
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
-import java.util.ArrayList
+import java.util.*
+import kotlin.collections.ArrayList
+
 
 class MyAlertsActivity : BaseActivity() {
     private var recyclerView: RecyclerView? = null
@@ -49,6 +53,11 @@ class MyAlertsActivity : BaseActivity() {
         {
             finish()
         }
+
+        // searching the list
+        searchTextListner()
+
+
     }
 
     fun deleteAlert(restroid: Int) {
@@ -79,6 +88,7 @@ class MyAlertsActivity : BaseActivity() {
                     showSnackBar(resources.getString(R.string.error_occured));
                 }
             }
+
             override fun onFailure(call: Call<CancelReModel>, t: Throwable) {
                 showSnackBar(resources.getString(R.string.error_occured));
 
@@ -109,8 +119,9 @@ class MyAlertsActivity : BaseActivity() {
 
                     if (modelObj.data.size == 0) {
                         tvAlert.visibility = View.VISIBLE
-                        recyclerView?.visibility=View.INVISIBLE
+                        recyclerView?.visibility = View.INVISIBLE
                     } else {
+                        arrayList=modelObj.data
                         adapter = MyAlertAdapter(modelObj.data, this@MyAlertsActivity)
                         recyclerView!!.setAdapter(adapter)
                     }
@@ -129,5 +140,47 @@ class MyAlertsActivity : BaseActivity() {
             }
         })
     }
+
+    private fun searchTextListner() {
+        edtSearchAlert.addTextChangedListener(object : TextWatcher {
+            override fun onTextChanged(
+                s: CharSequence,
+                start: Int,
+                before: Int,
+                count: Int
+            ) { // TODO Auto-generated method stub
+            }
+
+            override fun beforeTextChanged(
+                s: CharSequence,
+                start: Int,
+                count: Int,
+                after: Int
+            ) { // TODO Auto-generated method stub
+            }
+
+            override fun afterTextChanged(s: Editable) { // filter your list from your input
+
+                if (edtSearchAlert.text.isNullOrEmpty() == false) {
+                    filter(s.toString())
+                } else {
+                    alertApiHit()
+                }
+            }
+        })
+    }
+
+    fun filter(text: String?) {
+        val filteredItems = ArrayList<Data_Alert>()
+        for (d in arrayList) { //or use .equal(text) with you want equal match
+//use .toLowerCase() for better matches
+            if (d.name.contains(text.toString(), ignoreCase = true)) {
+                filteredItems.add(d)
+            }
+        }
+        //update recyclerview
+        adapter?.updateList(filteredItems)
+    }
+
 
 }

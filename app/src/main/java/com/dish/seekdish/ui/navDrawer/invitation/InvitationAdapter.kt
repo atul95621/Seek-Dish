@@ -13,9 +13,9 @@ class InvitationAdapter(
     fm: FragmentManager,
     private val mNumOfTabs: Int,
    var invitationModel: InvitationModel
-) : FragmentStatePagerAdapter(fm) {
+) : FragmentStatePagerAdapter(fm, BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT) {
 
-    override fun getItem(position: Int): Fragment? {
+    override fun getItem(position: Int): Fragment {
 
         when (position) {
             0 -> {
@@ -25,11 +25,11 @@ class InvitationAdapter(
                 return InvitationMapFragment(invitationModel)
             }
 
-            2 -> {
+           /* 2 -> {
                 return InvitationDeatilsFragment(invitationModel)
 //                return RestroDetailsFragment()
-            }
-            else -> return null
+            }*/
+            else -> return InvitationDeatilsFragment(invitationModel)
         }
     }
 

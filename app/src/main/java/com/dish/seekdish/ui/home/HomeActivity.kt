@@ -770,6 +770,7 @@ class HomeActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
 
             GlideApp.with(this)
                 .load(photoUrl)
+                .placeholder(R.drawable.ic_user)
                 .into(imageViewNavDrawer)
 
             tvName.setText(sessionManager?.getValue(SessionManager.FIRST_NAME))

@@ -393,6 +393,7 @@ class SettingsFragment : BaseFragment(), ISettingView {
 
                 sessionManager.setValues(SessionManager.LANGUAGE_ID, languageId.toString())
             sessionManager.setValues(SessionManager.LANGUAGE_NAME, languageName.toString())
+            sessionManager.setValues(SessionManager.LANGUAGE_HOME_ACTIVITY, languageId.toString())
 
             tvLanguage.setText(languageName)
 

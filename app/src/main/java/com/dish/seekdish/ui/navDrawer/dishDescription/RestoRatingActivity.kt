@@ -122,6 +122,7 @@ class RestoRatingActivity : BaseActivity() {
         imgOne = dialog.findViewById<ImageView>(R.id.imgOne)
         imgTwo = dialog.findViewById<ImageView>(R.id.imgTwo)
 
+
         tvConfirm.setOnClickListener {
             val intent = Intent(this@RestoRatingActivity, DishDescriptionActivity::class.java)
             intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
@@ -149,6 +150,17 @@ class RestoRatingActivity : BaseActivity() {
 
         }
 
+        dialog.setOnDismissListener()
+        {
+            pathImage1 = ""
+            pathImage2 = ""
+            count = 0
+            flag = false
+            imgOne= null
+            imgTwo=null
+        }
+
+
         tvConfirm.setOnClickListener()
         {
             if (edtComment.text.isEmpty()) {
@@ -161,8 +173,8 @@ class RestoRatingActivity : BaseActivity() {
                     isAnnony = 0.toString()
                 }
 
-                var partImage1: MultipartBody.Part
-                var partImage2: MultipartBody.Part
+                var partImage1: MultipartBody.Part? = null
+                var partImage2: MultipartBody.Part? = null
 
 
 
@@ -174,35 +186,100 @@ class RestoRatingActivity : BaseActivity() {
                     // making path for image
                     val file1 = File(pathImage1)
                     val file2 = File(pathImage2)
-                    val fileReqBody1 = RequestBody.create(MediaType.parse("image/*"), file1)
-                    val fileReqBody2 = RequestBody.create(MediaType.parse("image/*"), file2)
-                    partImage1 = MultipartBody.Part.createFormData("image1", file1.getName(), fileReqBody1)
-                    partImage2 = MultipartBody.Part.createFormData("image2", file2.getName(), fileReqBody2)
+                    var finalFile1 = compressFile(file1)
+                    var finalFile2 = compressFile(file2)
+
+                    if (finalFile1 != null && finalFile2 != null) {
+                        val fileReqBody1 =
+                            RequestBody.create(MediaType.parse("image/*"), finalFile1)
+                        val fileReqBody2 =
+                            RequestBody.create(MediaType.parse("image/*"), finalFile2)
+                        partImage1 =
+                            MultipartBody.Part.createFormData(
+                                "image1",
+                                finalFile1.getName(),
+                                fileReqBody1
+                            )
+                        partImage2 =
+                            MultipartBody.Part.createFormData(
+                                "image2",
+                                finalFile2.getName(),
+                                fileReqBody2
+                            )
+                    } else {
+                        var fileReqBody12 = RequestBody.create(MediaType.parse("image/*"), "")
+                        var fileReqBody21 = RequestBody.create(MediaType.parse("image/*"), "")
+                        partImage1 = MultipartBody.Part.createFormData("image1", "", fileReqBody12)
+                        partImage2 = MultipartBody.Part.createFormData("image2", "", fileReqBody21)
+                    }
+
                 } else {
-                    var fileReqBody12 = RequestBody.create(MediaType.parse("image/*"), "")
-                    var fileReqBody21 = RequestBody.create(MediaType.parse("image/*"), "")
-                    partImage1 = MultipartBody.Part.createFormData("image1", "", fileReqBody12)
-                    partImage2 = MultipartBody.Part.createFormData("image2", "", fileReqBody21)
+                    if (pathImage1.isEmpty() == false && pathImage2.isEmpty() == true) {
+                        // making path for image
+                        val file1 = File(pathImage1)
+                        var finalFile1 = compressFile(file1)
+
+//                        val file2 = File(pathImage2)
+                        var fileReqBody12 =
+                            RequestBody.create(MediaType.parse("image/*"), finalFile1)
+                        var fileReqBody21 = RequestBody.create(MediaType.parse("image/*"), "")
+                        partImage1 = MultipartBody.Part.createFormData(
+                            "image1",
+                            finalFile1?.getName(),
+                            fileReqBody12
+                        )
+                        partImage2 = MultipartBody.Part.createFormData("image2", "", fileReqBody21)
+                    } else if (pathImage1.isEmpty() == true && pathImage2.isEmpty() == false) {
+                        // making path for image
+//                        val file1 = File(pathImage1)
+                        val file2 = File(pathImage2)
+                        var finalFile2 = compressFile(file2)
+
+                        var fileReqBody12 = RequestBody.create(MediaType.parse("image/*"), "")
+                        var fileReqBody21 =
+                            RequestBody.create(MediaType.parse("image/*"), finalFile2)
+                        partImage1 = MultipartBody.Part.createFormData("image1", "", fileReqBody12)
+                        partImage2 = MultipartBody.Part.createFormData(
+                            "image2",
+                            finalFile2?.getName(),
+                            fileReqBody21
+                        )
+                    } else if (pathImage1.isEmpty() == true && pathImage2.isEmpty() == true) {
+                        /*// making path for image
+                        val file1 = File(pathImage1)
+                        val file2 = File(pathImage2)*/
+                        var fileReqBody12 = RequestBody.create(MediaType.parse("image/*"), "")
+                        var fileReqBody21 = RequestBody.create(MediaType.parse("image/*"), "")
+                        partImage1 = MultipartBody.Part.createFormData("image1", "", fileReqBody12)
+                        partImage2 = MultipartBody.Part.createFormData("image2", "", fileReqBody21)
+                    }
+
+
                 }
 
-                Log.e("prams rating","taste:$taste  presentation $presentation  textr $texture ordor$ordor ")
-                ratingCommentVM?.postCommentRating(
-                    stringConvertToRequestBody(sessionManager?.getValue(SessionManager.USER_ID).toString()),
-                    stringConvertToRequestBody(taste.toString()),
-                    stringConvertToRequestBody(presentation.toString()),
-                    stringConvertToRequestBody(texture.toString()),
-                    stringConvertToRequestBody(ordor.toString()),
-                    stringConvertToRequestBody(serviceRating.rating.toString()),
-                    stringConvertToRequestBody(decorRating.rating.toString()),
-                    stringConvertToRequestBody(cleanessRating.rating.toString()),
-                    stringConvertToRequestBody(ambienceRating.rating.toString()),
-                    stringConvertToRequestBody(edtComment.text.toString()),
-                    stringConvertToRequestBody(isAnnony.toString()),
-                    partImage1,
-                    partImage2,
-                    stringConvertToRequestBody(mealId.toString()),
-                    stringConvertToRequestBody(restauId.toString())
+                Log.e(
+                    "prams rating",
+                    "taste:$taste  presentation $presentation  textr $texture ordor$ordor "
                 )
+                if (partImage1 != null && partImage2 != null) {
+                    ratingCommentVM?.postCommentRating(
+                        stringConvertToRequestBody(sessionManager?.getValue(SessionManager.USER_ID).toString()),
+                        stringConvertToRequestBody(taste.toString()),
+                        stringConvertToRequestBody(presentation.toString()),
+                        stringConvertToRequestBody(texture.toString()),
+                        stringConvertToRequestBody(ordor.toString()),
+                        stringConvertToRequestBody(serviceRating.rating.toString()),
+                        stringConvertToRequestBody(decorRating.rating.toString()),
+                        stringConvertToRequestBody(cleanessRating.rating.toString()),
+                        stringConvertToRequestBody(ambienceRating.rating.toString()),
+                        stringConvertToRequestBody(edtComment.text.toString()),
+                        stringConvertToRequestBody(isAnnony.toString()),
+                        partImage1,
+                        partImage2,
+                        stringConvertToRequestBody(mealId.toString()),
+                        stringConvertToRequestBody(restauId.toString())
+                    )
+                }
             }
 
         }
@@ -215,9 +292,10 @@ class RestoRatingActivity : BaseActivity() {
     fun getCommentPostedObserver() {
 
         //observe
-        ratingCommentVM!!.isLoadingObservable().observeOn(AndroidSchedulers.mainThread()).subscribe {
-            setIsLoading(it)
-        }
+        ratingCommentVM!!.isLoadingObservable().observeOn(AndroidSchedulers.mainThread())
+            .subscribe {
+                setIsLoading(it)
+            }
 
         ratingCommentVM!!.getRatingLiveData.observe(this, Observer { response ->
             if (response != null) {
@@ -258,9 +336,12 @@ class RestoRatingActivity : BaseActivity() {
     //images
     private fun checkImgPermissionIsEnabledOrNot(): Boolean {
 
-        val FirstPermissionResult = ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE)
-        val SecondPermissionResult = ContextCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE)
-        val ThirdPermissionResult = ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA)
+        val FirstPermissionResult =
+            ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE)
+        val SecondPermissionResult =
+            ContextCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE)
+        val ThirdPermissionResult =
+            ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA)
 
         return FirstPermissionResult == PackageManager.PERMISSION_GRANTED &&
                 SecondPermissionResult == PackageManager.PERMISSION_GRANTED &&
@@ -305,7 +386,8 @@ class RestoRatingActivity : BaseActivity() {
 
                             when (orientation) {
 
-                                ExifInterface.ORIENTATION_ROTATE_90 -> bitmap = TransformationUtils.rotateImage(bm, 90)
+                                ExifInterface.ORIENTATION_ROTATE_90 -> bitmap =
+                                    TransformationUtils.rotateImage(bm, 90)
 
                                 ExifInterface.ORIENTATION_ROTATE_180 -> bitmap =
                                     TransformationUtils.rotateImage(bm, 180)
@@ -433,7 +515,11 @@ class RestoRatingActivity : BaseActivity() {
 
     }
 
-    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<String>, grantResults: IntArray) {
+    override fun onRequestPermissionsResult(
+        requestCode: Int,
+        permissions: Array<String>,
+        grantResults: IntArray
+    ) {
         when (requestCode) {
 
 

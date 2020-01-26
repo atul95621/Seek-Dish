@@ -187,7 +187,7 @@ class RegisterFragment : BaseFragment(), IRegisterFragView {
     }
 
 
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent) {
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
 
         // make instance for twitter in ACTIVITY onActivityResult

@@ -76,7 +76,7 @@ class RatingCommentVM : ViewModel() {
                 getRatingLiveData.postValue(response.body())
 
                 getRatingLiveData.value = response.body()
-                Log.e("rspAddtodo", response.body().toString())
+                Log.e("rsppostcomment", response.body().toString())
 
             }
 
@@ -84,7 +84,7 @@ class RatingCommentVM : ViewModel() {
 
                 // making progress bar invisible
                 isLoadingSubject.onNext(false)
-                Log.e("rspAddtodoFail", "failure" + t.message + "    " + t.printStackTrace())
+                Log.e("rsppostcomment", "failure" + t.message + "    " + t.printStackTrace())
 
                 getRatingLiveData.postValue(null)
             }

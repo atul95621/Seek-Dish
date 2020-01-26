@@ -13,6 +13,7 @@ import com.dish.seekdish.custom.GlideApp
 import com.dish.seekdish.ui.home.HomeActivity
 import com.dish.seekdish.ui.navDrawer.dishDescription.DishDescriptionActivity
 import com.dish.seekdish.ui.navDrawer.myFavourite.fragment.ListFavouriteFragment
+import com.dish.seekdish.ui.navDrawer.settings.dataModel.Data_Req
 import com.dish.seekdish.ui.navDrawer.toDo.list.Data_todo
 import com.willy.ratingbar.ScaleRatingBar
 import java.util.ArrayList
@@ -123,21 +124,26 @@ class ListFragAdapter(
 
         }
     }
-
-
- /*   fun removeItem(position: Int) {
-        arrayList.removeAt(position)
-        notifyItemRemoved(position)
+    fun updateList(list: ArrayList<Data_todo>) {
+        arrayList = list
+        notifyDataSetChanged()
     }
 
-//    public void restoreItem(String item, int position) {
-//        data.add(position, item);
-//        notifyItemInserted(position);
-//    }
 
-    fun getData(): ArrayList<ListFragDataClass> {
-        return arrayList
-    }
-*/
+
+    /*   fun removeItem(position: Int) {
+           arrayList.removeAt(position)
+           notifyItemRemoved(position)
+       }
+
+   //    public void restoreItem(String item, int position) {
+   //        data.add(position, item);
+   //        notifyItemInserted(position);
+   //    }
+
+       fun getData(): ArrayList<ListFragDataClass> {
+           return arrayList
+       }
+   */
 
 }

@@ -110,7 +110,14 @@ class DishDescriptionActivity : BaseActivity(), Serializable {
 
 
         if (meal_id != null && restro_id != null) {
-            getMealDetials(meal_id.toString(), restro_id.toString())
+
+            //check connection
+            if (connectionDetector.isConnectingToInternet) {
+                //hitting api
+                getMealDetials(meal_id.toString(), restro_id.toString())
+            } else {
+                showSnackBar(getString(R.string.check_connection))
+            }
 
         }
 
@@ -382,36 +389,58 @@ class DishDescriptionActivity : BaseActivity(), Serializable {
         }
         tvShare.setOnClickListener()
         {
-            onShareSocial()
-            actionDialog.dismiss()
+            //check connection
+            if (connectionDetector.isConnectingToInternet) {
+                //hitting api
+                onShareSocial()
+                actionDialog.dismiss()
+            } else {
+                showSnackBar(getString(R.string.check_connection))
+            }
+
         }
 
         tvAddfav.setOnClickListener()
         {
 
-            dishDescriptionVM?.getAddFavouritestat(
-                sessionManager?.getValue(SessionManager.USER_ID).toString(),
-                meal_id.toString(),
-                restro_id.toString()
-            )
+            if (connectionDetector.isConnectingToInternet) {
+                dishDescriptionVM?.getAddFavouritestat(
+                    sessionManager?.getValue(SessionManager.USER_ID).toString(),
+                    meal_id.toString(),
+                    restro_id.toString()
+                )
+            } else {
+                showSnackBar(getString(R.string.check_connection))
+            }
+
         }
 
         tvViewDetail.setOnClickListener()
         {
-            val intent = Intent(this, RestroDescrpActivity::class.java)
-            intent.putExtra("RESTAURANT_ID", restro_id.toString())
-            startActivity(intent)
-            actionDialog.dismiss()
+            if (connectionDetector.isConnectingToInternet) {
+                val intent = Intent(this, RestroDescrpActivity::class.java)
+                intent.putExtra("RESTAURANT_ID", restro_id.toString())
+                startActivity(intent)
+                actionDialog.dismiss()
+            } else {
+                showSnackBar(getString(R.string.check_connection))
+            }
+
         }
 
 
         tvAddtodo.setOnClickListener()
         {
-            dishDescriptionVM?.getAddTodostat(
-                sessionManager?.getValue(SessionManager.USER_ID).toString(),
-                meal_id.toString(),
-                restro_id.toString()
-            )
+            if (connectionDetector.isConnectingToInternet) {
+                dishDescriptionVM?.getAddTodostat(
+                    sessionManager?.getValue(SessionManager.USER_ID).toString(),
+                    meal_id.toString(),
+                    restro_id.toString()
+                )
+            } else {
+                showSnackBar(getString(R.string.check_connection))
+            }
+
         }
 
         actionDialog.show()

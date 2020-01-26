@@ -128,7 +128,7 @@ class HomeMapFragment : BaseFragment(), OnMapReadyCallback, GoogleMap.OnMyLocati
 
         var bitmapdraw = ResourcesCompat.getDrawable(getResources(), R.drawable.ic_marker, null);
         val b = bitmapdraw?.let { drawableToBitmap(it) }
-        customSizeMarker = Bitmap.createScaledBitmap(b, 100, 100, false)
+        customSizeMarker = Bitmap.createScaledBitmap(b!!, 100, 100, false)
 
 
       /*  var cameraMove = LatLng(Constants.Latitude.toDouble(), Constants.Longitude.toDouble())

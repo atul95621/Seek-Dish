@@ -75,4 +75,10 @@ class FollowersFragAdapter(
     }
 
 
+    fun updateList(list: ArrayList<Follower>) {
+        arrayList = list
+        notifyDataSetChanged()
+    }
+
+
 }

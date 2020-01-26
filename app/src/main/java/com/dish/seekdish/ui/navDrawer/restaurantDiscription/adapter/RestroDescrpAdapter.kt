@@ -13,9 +13,9 @@ class RestroDescrpAdapter(
     fm: FragmentManager,
     private val mNumOfTabs: Int,
     var response: RestroDescpModel
-) : FragmentStatePagerAdapter(fm) {
+) : FragmentStatePagerAdapter(fm, BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT) {
 
-    override fun getItem(position: Int): Fragment? {
+    override fun getItem(position: Int): Fragment {
 
         when (position) {
             0 -> {
@@ -25,12 +25,13 @@ class RestroDescrpAdapter(
                 return RestroSimilarFragment(response)
             }
 
-            2 -> {
+           /* 2 -> {
                 return RestroDetailsFragment(response)
-            }
+            }*/
 
-            else -> return null
+            else -> return RestroDetailsFragment(response)
         }
+
     }
 
     override fun getCount(): Int {

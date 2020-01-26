@@ -1,6 +1,8 @@
 package com.dish.seekdish.ui.navDrawer.myFriends.fargment
 
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -18,6 +20,7 @@ import com.dish.seekdish.ui.navDrawer.myFriends.adapter.FollowingFragAdapter
 import com.dish.seekdish.ui.navDrawer.myFriends.dataModel.Following
 import com.dish.seekdish.util.SessionManager
 import io.reactivex.android.schedulers.AndroidSchedulers
+import kotlinx.android.synthetic.main.fragment_following.view.*
 import kotlinx.android.synthetic.main.fragment_list.*
 import java.util.ArrayList
 
@@ -59,6 +62,8 @@ class FollowingFragment(var userId: String) : BaseFragment() {
         getDeleteFollwerObserver()
         getFriendReqObserver()
         getFollowingReqObserver()
+
+        searchTextListner(view)
 
 
         return view
@@ -190,6 +195,46 @@ class FollowingFragment(var userId: String) : BaseFragment() {
             sessionManager?.getValue(SessionManager.USER_ID).toString(),
             userIdToAddFriend.toString()
         )
+    }
+
+    private fun searchTextListner(view: View) {
+        view.edtSearchFollowing.addTextChangedListener(object : TextWatcher {
+            override fun onTextChanged(
+                s: CharSequence,
+                start: Int,
+                before: Int,
+                count: Int
+            ) { // TODO Auto-generated method stub
+            }
+
+            override fun beforeTextChanged(
+                s: CharSequence,
+                start: Int,
+                count: Int,
+                after: Int
+            ) { // TODO Auto-generated method stub
+            }
+
+            override fun afterTextChanged(s: Editable) { // filter your list from your input
+
+                if (view.edtSearchFollowing.text.isNullOrEmpty() == false) {
+                    filter(s.toString())
+                } else {
+                    hitApi()
+                }
+            }
+        })
+    }
+
+    fun filter(text: String?) {
+        val filteredItems = java.util.ArrayList<Following>()
+        for (d in arrayList) {
+            if (d.username.contains(text.toString(), ignoreCase = true)) {
+                filteredItems.add(d)
+            }
+        }
+        //update recyclerview
+        adapter?.updateList(filteredItems)
     }
 
 
