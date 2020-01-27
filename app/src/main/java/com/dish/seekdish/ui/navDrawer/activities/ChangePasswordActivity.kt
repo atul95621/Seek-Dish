@@ -4,6 +4,7 @@ import android.os.Bundle
 import com.dish.seekdish.R
 import com.dish.seekdish.custom.ProgressBarClass
 import com.dish.seekdish.retrofit.APIInterface
+import com.dish.seekdish.ui.navDrawer.settings.dataModel.CancelReModel
 import com.dish.seekdish.util.BaseActivity
 import com.dish.seekdish.util.SessionManager
 import com.google.gson.JsonObject
@@ -44,55 +45,55 @@ class ChangePasswordActivity : BaseActivity() {
             } else {
                 ProgressBarClass.progressBarCalling(this)
 
-//                changePass(edtOldPassword.text.toString().trim(),edtNewPassword.text.toString().trim(),edtConfirmPassword.text.toString().trim())
+                changePass(
+                    edtOldPassword.text.toString().trim(),
+                    edtNewPassword.text.toString().trim(),
+                    edtConfirmPassword.text.toString().trim()
+                )
 
             }
 
         }
     }
 
- /*    fun changePass(old: String, new: String, confrmNew: String) {
+    fun changePass(old: String, new: String, confrmNew: String) {
 
 
-         val call = apiInterface.changePassword(sessionManager?.getValue(SessionManager.USER_ID),old,new)
-         call.enqueue(object : Callback<JsonObject> {
-             override fun onResponse(call: Call<JsonObject>, response: Response<JsonObject>) {
+        val call =
+            apiInterface.changePassword(
+                sessionManager?.getValue(SessionManager.USER_ID).toString(),
+                old,
+                new
+            )
+        call.enqueue(object : Callback<CancelReModel> {
+            override fun onResponse(call: Call<CancelReModel>, response: Response<CancelReModel>) {
 
-                 ProgressBarClass.dialog.dismiss()
+                ProgressBarClass.dialog.dismiss()
 
-                 if (response.code().toString().equals("200")) {
+                if (response.code().toString().equals("200")) {
 
-                     val jsonObject: JsonObject = response.body()!!
+                    var modelObj = response.body() as CancelReModel
 
- //                    Log.e("responseforgot", " " + response.body().toString())
-                     if (response.code() == 200) {
-                         val status: String = jsonObject.get("status").toString()
- //                        Log.e("responseStatus", " " + status)
+                    if (modelObj.status == 1) {
+                        showSnackBar(modelObj.data.message)
+                    }
 
-                         if (status.equals("1")) {
-                             val jsonDataObj: JsonObject = jsonObject.getAsJsonObject("data");
-                             val message: String = jsonDataObj.get("message").toString()
-
-
-                         }
-                     }
-
-                 } else {
-                     showSnackBar(getResources().getString(R.string.error_occured));
-                 }
+                } else {
+                    showSnackBar(getResources().getString(R.string.error_occured));
+                }
 
 
-             }
+            }
 
-             override fun onFailure(call: Call<JsonObject>, t: Throwable) {
+            override fun onFailure(call: Call<CancelReModel>, t: Throwable) {
 
-                 showSnackBar(getResources().getString(R.string.error_occured));
+                showSnackBar(getResources().getString(R.string.error_occured));
 
-                 call.cancel()
+                call.cancel()
 
-                 ProgressBarClass.dialog.dismiss()
+                ProgressBarClass.dialog.dismiss()
 
-             }
-         })
-     }*/
+            }
+        })
+    }
 }

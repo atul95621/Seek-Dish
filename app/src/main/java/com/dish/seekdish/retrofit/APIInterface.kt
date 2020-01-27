@@ -11,6 +11,7 @@ import com.dish.seekdish.ui.navDrawer.dishDescription.model.DishDescpModel
 import com.dish.seekdish.ui.navDrawer.myFriends.contactFetch.ContactsDetailsModel
 import com.dish.seekdish.ui.navDrawer.myFriends.dataModel.FriendDataModel
 import com.dish.seekdish.ui.navDrawer.restaurantDiscription.RestroDescpModel
+import com.dish.seekdish.ui.navDrawer.restaurantDiscription.checkInRestro.CheckinRestroModel
 import com.dish.seekdish.ui.navDrawer.restaurants.dataClass.ProximityDataClass
 import com.dish.seekdish.ui.navDrawer.restaurants.dataClass.RestroMapModel
 import com.dish.seekdish.ui.navDrawer.restaurants.dataClass.TimeRestroDataClass
@@ -208,6 +209,14 @@ internal interface APIInterface {
         @Part("user_id") user_id: RequestBody,
         @Part file: MultipartBody.Part
     ): Call<ProfileDataClass>
+
+    @POST("change_password")
+    fun changePassword(
+        @Field("user") userId: String,
+        @Field("old_password") oldPass: String,
+        @Field("new_password") newPass: String
+
+    ): Call<CancelReModel>
 
 
     @FormUrlEncoded
@@ -554,6 +563,13 @@ internal interface APIInterface {
     fun getCheckinData(
         @Field("user_id") userId: String
     ): Call<CheckinModel>
+
+    @FormUrlEncoded
+    @POST("checkin_restro")
+    fun getCheckinRestro(
+        @Field("user_id") userId: String,
+        @Field("restro_id") restro_id: String
+    ): Call<CheckinRestroModel>
 
     @FormUrlEncoded
     @POST("add_alert")

@@ -170,6 +170,7 @@ class RestroDescrpActivity : BaseActivity() {
         imgRatings.setOnClickListener()
         {
             val intent = Intent(this@RestroDescrpActivity, CheckinRestroActivity::class.java)
+            intent.putExtra("RESTAURANT_ID", restro_id.toString())
             startActivity(intent)
         }
 

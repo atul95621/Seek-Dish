@@ -2,6 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
+    android:id="@+id/linLayoutMeal"
     android:layout_height="wrap_content"
     android:layout_margin="5dp"
     android:background="@android:color/white"
@@ -37,10 +38,10 @@
             <TextView
                 android:id="@+id/tvCheckinName"
                 android:layout_width="match_parent"
-                android:layout_gravity="center_vertical"
                 android:layout_height="match_parent"
+                android:layout_gravity="center_vertical"
+                android:fontFamily="@font/assistantregular"
                 android:gravity="center_vertical"
-                android:fontFamily="@font/assistantbold"
                 android:text="Checkin Title"
                 android:textColor="@color/black"
                 android:textSize="16sp" />

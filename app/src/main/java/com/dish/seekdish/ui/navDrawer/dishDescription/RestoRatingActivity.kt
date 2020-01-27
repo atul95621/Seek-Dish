@@ -22,6 +22,7 @@ import com.dish.seekdish.util.BaseActivity
 import com.dish.seekdish.R
 import com.dish.seekdish.custom.GlideApp
 import com.dish.seekdish.ui.navDrawer.dishDescription.VM.RatingCommentVM
+import com.dish.seekdish.ui.navDrawer.restaurantDiscription.checkInRestro.CheckinRestroActivity
 import com.dish.seekdish.util.SessionManager
 import com.myhexaville.smartimagepicker.ImagePicker
 import com.myhexaville.smartimagepicker.OnImagePickedListener
@@ -61,6 +62,7 @@ class RestoRatingActivity : BaseActivity() {
     var isAnnony: String = ""
     var mealId: String = ""
     var restauId: String = ""
+    var fromScreen=""
 
     var ratingCommentVM: RatingCommentVM? = null
 
@@ -98,6 +100,9 @@ class RestoRatingActivity : BaseActivity() {
         restauId = intent.getStringExtra("RESTAURANT_ID")
         var bitM = intent.getStringExtra("IMAGE_Bitmap")
 
+        fromScreen = intent.getStringExtra("FROM_SCREEN")
+
+
         GlideApp.with(this)
             .load(bitM)
             .into(img_cir_meal_image)
@@ -124,9 +129,17 @@ class RestoRatingActivity : BaseActivity() {
 
 
         tvConfirm.setOnClickListener {
-            val intent = Intent(this@RestoRatingActivity, DishDescriptionActivity::class.java)
-            intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
-            startActivity(intent)
+
+         /*   if(fromScreen.equals("Dish_Description_Activity")) {
+                val intent = Intent(this@RestoRatingActivity, DishDescriptionActivity::class.java)
+                intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+                startActivity(intent)
+            }
+            else if(fromScreen.equals("CheckinRestroActivity")) {
+                val intent = Intent(this@RestoRatingActivity, DishDescriptionActivity::class.java)
+                intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+                startActivity(intent)
+            }*/
         }
 
         tvBack.setOnClickListener {
@@ -310,16 +323,28 @@ class RestoRatingActivity : BaseActivity() {
 
                     // flow drive after 2 seconds...
                     Handler().postDelayed({
-                        val intent = Intent(this, DishDescriptionActivity::class.java)
-                        intent.putExtra("MEAL_ID", mealId)
-                        intent.putExtra("RESTAURANT_ID", restauId)
-                        intent.putExtra("REFRESH_ACTIVITY", 1)
+                        if(fromScreen.equals("Dish_Description_Activity")) {
 
-                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
-                        intent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP)
-                        startActivity(intent)
-                        finish()
-                    }, 200)
+                            val intent = Intent(this, DishDescriptionActivity::class.java)
+                            intent.putExtra("MEAL_ID", mealId)
+                            intent.putExtra("RESTAURANT_ID", restauId)
+                            intent.putExtra("REFRESH_ACTIVITY", 1)
+                            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
+                            intent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP)
+                            startActivity(intent)
+                            finish()
+                        }
+                        else if(fromScreen.equals("CheckinRestroActivity")) {
+                            val intent = Intent(this@RestoRatingActivity, CheckinRestroActivity::class.java)
+                            intent.putExtra("RESTAURANT_ID", restauId)
+                            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
+                            intent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP)
+                            intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION)
+                            startActivity(intent)
+                            finish()
+                        }
+                    }, 800)
+
                 }
 
             } else {

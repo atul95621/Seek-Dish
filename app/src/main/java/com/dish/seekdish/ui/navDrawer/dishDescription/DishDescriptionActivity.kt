@@ -199,6 +199,7 @@ class DishDescriptionActivity : BaseActivity(), Serializable {
             intent.putExtra("MEALID", meal_id)
             intent.putExtra("RESTROID", restro_id)
             intent.putExtra("IMAGE", imageUrl)
+            intent.putExtra("FROM_SCREEN", "Dish_Description_Activity")
 
             startActivity(intent)
         }

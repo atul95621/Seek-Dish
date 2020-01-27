@@ -43,6 +43,46 @@
                     android:textColor="@color/white"
                     android:textSize="18sp" />
             </FrameLayout>
+        <LinearLayout android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/gray"
+            android:paddingTop="5dp"
+            android:paddingBottom="5dp">
+            <LinearLayout
+                android:id="@+id/frameSearch"
+                android:layout_marginStart="20dp"
+                android:layout_marginEnd="20dp"
+                android:orientation="horizontal"
+                android:background="@drawable/roundedge_white_filled"
+                android:layout_width="match_parent"
+                android:layout_height="35dp">
+
+                <ImageView
+                    android:src="@drawable/search"
+                    android:padding="3dp"
+                    android:paddingStart="10dp"
+                    android:tint="@color/dark_gray"
+                    android:layout_gravity="center|start"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    tools:ignore="ContentDescription,RtlHardcoded"/>
+                <EditText
+                    android:id="@+id/edtSearchMeal"
+                    android:layout_width="match_parent"
+                    android:layout_height="35dp"
+                    android:paddingStart="10dp"
+                    android:cursorVisible="false"
+                    android:paddingEnd="40dp"
+                    android:gravity="start|center_vertical"
+                    android:hint="Search Meal"
+                    android:fontFamily="@font/assistantregular"
+                    android:background="@android:color/transparent"
+                    android:layout_gravity="center"
+                    android:textSize="18sp"
+                    tools:ignore="Autofill,LabelFor,RtlHardcoded,TextFields"/>
+
+            </LinearLayout>
+        </LinearLayout>
 
 
             <LinearLayout
@@ -58,7 +98,7 @@
                     android:fontFamily="@font/assistantbold"
                     android:text="Registered Meals"
                     android:textColor="@color/black"
-                    android:textSize="16sp" />
+                    android:textSize="18sp" />
 
                 <FrameLayout
                     android:layout_width="match_parent"
@@ -83,7 +123,6 @@
                         android:textColor="@color/black"
                         android:textSize="16sp"
                         android:visibility="gone" />
-
                 </FrameLayout>
 
                 <TextView
@@ -94,7 +133,7 @@
                     android:fontFamily="@font/assistantbold"
                     android:text="Meals"
                     android:textColor="@color/black"
-                    android:textSize="16sp" />
+                    android:textSize="18sp" />
 
                 <FrameLayout
                     android:layout_width="match_parent"

@@ -16,6 +16,7 @@ class MealRatingActivity : BaseActivity() {
 
     var mealId: String = ""
     var restId: String = ""
+    var fromScreen=""
     var imageUrl:String?= null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -41,6 +42,7 @@ class MealRatingActivity : BaseActivity() {
             intent.putExtra("MEAL_ID", mealId)
             intent.putExtra("RESTAURANT_ID", restId)
             intent.putExtra("IMAGE_Bitmap", imageUrl)
+            intent.putExtra("FROM_SCREEN", fromScreen)
 
             startActivity(intent)
         }
@@ -51,6 +53,7 @@ class MealRatingActivity : BaseActivity() {
         mealId = intent.getStringExtra("MEALID")
         restId = intent.getStringExtra("RESTROID")
          imageUrl = intent.getStringExtra("IMAGE")
+        fromScreen = intent.getStringExtra("FROM_SCREEN")
 
 
         GlideApp.with(this)
