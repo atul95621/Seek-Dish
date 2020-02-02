@@ -376,7 +376,7 @@ class RestroDescrpActivity : BaseActivity() {
                         startActivity(
                             Intent(
                                 Intent.ACTION_VIEW,
-                                Uri.parse("https://www.google.com/#q=" + tvRestroName.getText())
+                                Uri.parse("https://www.google.com/#q=" + tvRestroName.getText() + response.data.restaurant.city)
                             )
                         );
                     }

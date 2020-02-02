@@ -269,6 +269,16 @@ class DishDescriptionActivity : BaseActivity(), Serializable {
                     //for swipe images on top
                     initializeviews()
 
+                    tvRestaurantName.setOnClickListener()
+                    {
+                        startActivity(
+                            Intent(
+                                Intent.ACTION_VIEW,
+                                Uri.parse("https://www.google.com/#q=" + tvRestaurantName.getText())
+                            )
+                        );
+                    }
+
                     //++++++++++++++++++++++++ setting the adapter after the responses come in...
                     adapter =
                         DishDescpAdapter(this.supportFragmentManager, tabLayout.tabCount, response)
