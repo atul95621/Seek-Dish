@@ -183,6 +183,8 @@ class ListFavouriteFragment : BaseFragment() {
                 if (view.edtSearchFavMeal.text.isNullOrEmpty() == false) {
                     filter(s.toString())
                 } else {
+                    rvFavList.visibility=View.VISIBLE
+                    tvFavAlert.visibility=View.GONE
                     getFavList()
                 }
             }
@@ -195,6 +197,17 @@ class ListFavouriteFragment : BaseFragment() {
             if (d.name.contains(text.toString(), ignoreCase = true)) {
                 filteredItems.add(d)
             }
+        }
+        if(filteredItems.size==0)
+        {
+            rvFavList.visibility=View.GONE
+            tvFavAlert.visibility=View.VISIBLE
+            tvFavAlert.text=getResources().getString(R.string.no_todo)
+        }
+        else
+        {
+            rvFavList.visibility=View.VISIBLE
+            tvFavAlert.visibility=View.GONE
         }
         //update recyclerview
         adapter?.updateList(filteredItems)

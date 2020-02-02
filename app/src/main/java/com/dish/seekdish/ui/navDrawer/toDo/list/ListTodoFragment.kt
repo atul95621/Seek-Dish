@@ -180,6 +180,8 @@ class ListTodoFragment() : BaseFragment() {
                 if (view.edtSearchMealTodo.text.isNullOrEmpty() == false) {
                     filter(s.toString())
                 } else {
+                    rvListTodoFrag.visibility=View.VISIBLE
+                    tvTodoAlert.visibility=View.GONE
                     getTodoList()
                 }
             }
@@ -192,6 +194,17 @@ class ListTodoFragment() : BaseFragment() {
             if (d.name.contains(text.toString(), ignoreCase = true)) {
                 filteredItems.add(d)
             }
+        }
+        if(filteredItems.size==0)
+        {
+            rvListTodoFrag.visibility=View.GONE
+            tvTodoAlert.visibility=View.VISIBLE
+            tvTodoAlert.text=getResources().getString(R.string.no_todo)
+        }
+        else
+        {
+            rvListTodoFrag.visibility=View.VISIBLE
+            tvTodoAlert.visibility=View.GONE
         }
         //update recyclerview
         adapter?.updateList(filteredItems)

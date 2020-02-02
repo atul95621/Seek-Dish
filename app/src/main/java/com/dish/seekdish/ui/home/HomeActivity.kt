@@ -38,6 +38,7 @@ import com.dish.seekdish.ui.navDrawer.toDo.TodoFragment
 import com.dish.seekdish.util.Global
 import com.dish.seekdish.util.SessionManager
 import com.dish.seekdish.walkthrough.WalkThroughActivity
+import com.facebook.login.LoginManager
 import com.twitter.sdk.android.core.*
 import io.reactivex.android.schedulers.AndroidSchedulers
 import kotlinx.android.synthetic.main.activity_home.*
@@ -694,8 +695,14 @@ class HomeActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
 
                 if (response.status == 1) {
 
-                    TwitterCore.getInstance().getSessionManager().clearActiveSession()
                     Log.e("Twitter", "logout")
+                    TwitterCore.getInstance().getSessionManager().clearActiveSession()
+
+                    if(LoginManager.getInstance()!=null) {
+                        Log.e("facebook", "logout")
+                        LoginManager.getInstance().logOut();
+                    }
+
 
                     //clearing the values of session
                     sessionManager?.clearValues();

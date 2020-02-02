@@ -33,7 +33,7 @@
                     android:layout_height="30dp"
                     tools:ignore="ContentDescription,RtlHardcoded"/>
             <EditText
-                    android:id="@+id/edtSearch"
+                    android:id="@+id/edtSearchTaste"
                     android:layout_width="match_parent"
                     android:layout_height="35dp"
                     android:paddingStart="10dp"

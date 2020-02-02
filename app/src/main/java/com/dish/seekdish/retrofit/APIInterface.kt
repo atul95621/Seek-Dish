@@ -302,6 +302,20 @@ internal interface APIInterface {
 
     ): Call<TasteFragDataClass>
 
+    @FormUrlEncoded
+    @POST("home_meals_search")
+    fun getTasteSearch(
+        @Field("user_id") userId: String,
+        @Field("latitude") latitude: String,
+        @Field("longitude") longitude: String,
+        @Field("type") type: String,
+        @Field("radius") radius: String,
+        @Field("device_type") device_type: String,
+        @Field("page_no") page_no: String,
+        @Field("per_page") per_page: String,
+        @Field("search_text") search_text: String
+        ): Call<TasteFragDataClass>
+
 
     @FormUrlEncoded
     @POST("home_meals_time")
@@ -316,6 +330,20 @@ internal interface APIInterface {
         @Field("page_no") page_no: String,
         @Field("per_page") per_page: String
 
+    ): Call<TimeFragDataClass>
+
+    @FormUrlEncoded
+    @POST("home_meals_search")
+    fun getTimeSearch(
+        @Field("user_id") userId: String,
+        @Field("latitude") latitude: String,
+        @Field("longitude") longitude: String,
+        @Field("type") type: String,
+        @Field("radius") radius: String,
+        @Field("device_type") device_type: String,
+        @Field("page_no") page_no: String,
+        @Field("per_page") per_page: String,
+        @Field("search_text") search_text: String
     ): Call<TimeFragDataClass>
 
 
@@ -349,6 +377,33 @@ internal interface APIInterface {
         @Field("per_page") per_page: String
 
     ): Call<ProximityDataClass>
+
+    @FormUrlEncoded
+    @POST("home_restaurants_search")
+    fun getRestaurantSearch(
+        @Field("user_id") userId: String,
+        @Field("latitude") latitude: String,
+        @Field("longitude") longitude: String,
+        @Field("type") type: String,
+        @Field("radius") radius: String,
+        @Field("page_no") page_no: String,
+        @Field("per_page") per_page: String,
+        @Field("search_text") search_text: String
+    ): Call<ProximityDataClass>
+
+
+    @FormUrlEncoded
+    @POST("home_restaurants_search")
+    fun getTimeRestSearch(
+        @Field("user_id") userId: String,
+        @Field("latitude") latitude: String,
+        @Field("longitude") longitude: String,
+        @Field("type") type: String,
+        @Field("radius") radius: String,
+        @Field("page_no") page_no: String,
+        @Field("per_page") per_page: String,
+        @Field("search_text") search_text: String
+    ): Call<TimeRestroDataClass>
 
 
     @FormUrlEncoded

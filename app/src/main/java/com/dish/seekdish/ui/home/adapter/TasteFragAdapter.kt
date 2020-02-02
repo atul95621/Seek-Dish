@@ -39,7 +39,8 @@ class TasteFragAdapter(
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerViewHolder {
-        val view = LayoutInflater.from(parent.context).inflate(R.layout.item_layout_taste_frag, parent, false)
+        val view = LayoutInflater.from(parent.context)
+            .inflate(R.layout.item_layout_taste_frag, parent, false)
         return RecyclerViewHolder(view)
     }
 
@@ -52,8 +53,8 @@ class TasteFragAdapter(
             .load(imageUrl)
             .into(holder.imgFoodImage)
         holder.tvDishName.text = tasteDataClass.name
-       var dist= tasteDataClass.distance
-        holder.tvDistance.text =String.format("%.2f", dist) +" Km"
+        var dist = tasteDataClass.distance
+        holder.tvDistance.text = String.format("%.2f", dist) + " Km"
         var review: String = "(" + tasteDataClass.no_of_reviews + ")"
         holder.tvStarReview.text = review
         var startRating = tasteDataClass.rating!!.toFloat()
@@ -64,8 +65,8 @@ class TasteFragAdapter(
         holder.frameTasteDish.setOnClickListener()
         {
             val intent = Intent(context, DishDescriptionActivity::class.java)
-            intent.putExtra("MEAL_ID",tasteDataClass.meal_id.toString())
-            intent.putExtra("RESTAURANT_ID",tasteDataClass.restro_id.toString())
+            intent.putExtra("MEAL_ID", tasteDataClass.meal_id.toString())
+            intent.putExtra("RESTAURANT_ID", tasteDataClass.restro_id.toString())
             context.startActivity(intent)
         }
     }
@@ -99,15 +100,16 @@ class TasteFragAdapter(
     }
 
     fun addItems(dataItems: ArrayList<Data_Taste>) {
-
         Log.e("size of likelist before", "" + arrayList.size)
-
-
         arrayList.addAll(dataItems)
-
         Log.e("size of likelist after", "" + arrayList.size)
-
         homeActivity.runOnUiThread(Runnable { notifyDataSetChanged() })
+    }
+
+    fun updateList(list: ArrayList<Data_Taste>) {
+        arrayList.clear()
+        arrayList = list
+        notifyDataSetChanged()
     }
 
 

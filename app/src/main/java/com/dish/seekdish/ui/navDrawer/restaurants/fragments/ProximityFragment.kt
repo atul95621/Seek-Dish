@@ -23,7 +23,7 @@ import com.dish.seekdish.ui.navDrawer.restaurants.viewModel.ProximityVM
 import com.dish.seekdish.util.SessionManager
 import io.reactivex.android.schedulers.AndroidSchedulers
 import kotlinx.android.synthetic.main.fragment_proximity.*
-import kotlinx.android.synthetic.main.fragment_proximity.view.edtSearch
+import kotlinx.android.synthetic.main.fragment_proximity.view.*
 import java.util.ArrayList
 
 
@@ -42,6 +42,7 @@ class ProximityFragment : BaseFragment() {
     var flagSearch: Boolean = false
 
     var alertShown: Boolean = false
+    internal var searchArrayList = ArrayList<Data_Proximity>()
 
 
     override fun onCreateView(
@@ -71,20 +72,16 @@ class ProximityFragment : BaseFragment() {
             showSnackBar(getString(R.string.check_connection))
         }
 
+        searchTextListner(view)
+
         //observer
         getProxiRestroRespeObserver()
-
+        getSearchObserver()
 
         recyclerView = view.findViewById(R.id.rvProximityFrag) as RecyclerView
         recyclerView!!.setHasFixedSize(true)
         layoutManager = LinearLayoutManager(activity)
         recyclerView!!.setLayoutManager(layoutManager)
-
-        // these adapter is allocated memory and set on beacuse as so that focus of recyler does not go on top again
-        adapter = ProximityAdapter(conxt, arrayList, homeActivity)
-        recyclerView!!.adapter = adapter
-
-
         recyclerView!!.addOnScrollListener(object : PaginationScrollListener(layoutManager) {
             override fun isLastPage(): Boolean {
                 return isLastPage
@@ -118,52 +115,6 @@ class ProximityFragment : BaseFragment() {
                 }
             }
         })
-
-        view.edtSearch.addTextChangedListener(object : TextWatcher {
-            override fun afterTextChanged(p0: Editable?) {
-
-                // search like ingredient
-                var serchedText = edtSearch.text.toString();
-
-                if (serchedText != null && serchedText != "null" && serchedText != "") {
-                    flagSearch = true
-                    Log.e("textWatcher", "entered if scope")
-//                    getSearchedIngre(serchedText)
-                } else {
-
-                    Log.e("textWatcher", "entered else scope")
-
-                    flagSearch = false
-                    pageNumber = 1
-                    getProxiRestro(pageNumber)
-
-                }
-            }
-
-            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
-            }
-
-            override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
-            }
-        })
-
-/*        homeActivity = activity as HomeActivity
-
-        // hiding keyboard
-        hideKeyBoard()
-
-        recyclerView = view.findViewById(R.id.rvProximityFrag) as RecyclerView
-        recyclerView!!.setHasFixedSize(true)
-        layoutManager = LinearLayoutManager(activity)
-        recyclerView!!.setLayoutManager(layoutManager)
-
-        for (i in 0..6) {
-            val tasteData = ProximityDataClass("Manager", "Brochette De Boeuf", "Bizers,3400, Occtine BOJUAN", "3", "14", "4");
-            arrayList.add(tasteData)
-        }
-
-        adapter = ProximityAdapter(arrayList,homeActivity)
-        recyclerView!!.setAdapter(adapter)*/
 
         return view
     }
@@ -199,16 +150,7 @@ class ProximityFragment : BaseFragment() {
 
         proximityVM!!.getProxiRestroLiveData.observe(this, Observer { response ->
             if (response != null) {
-
-
-                Log.e("rspgetLiked", response.toString())
-
-                Log.e("rspgetLikedStat", response.status.toString())
-
                 if (response.status == 1) {
-
-                    var arrySize = arrayList.size
-
                     if (response.data.isEmpty() && alertShown == false) {
                         tvItemsAlert.visibility = View.VISIBLE
                     } else {
@@ -219,18 +161,15 @@ class ProximityFragment : BaseFragment() {
                             // loading new items...
                             resultAction(response.data)
                             alertShown = true
-
+                        }
+                        if (pageNumber == 1) {
+                            adapter = ProximityAdapter(conxt, arrayList, homeActivity)
+                            recyclerView!!.adapter = adapter
                         }
                     }
                 }
-
             } else {
-
-
                 showSnackBar("OOps! Error Occured.")
-
-                Log.e("rspSnak", "else error")
-
             }
         })
     }
@@ -255,6 +194,90 @@ class ProximityFragment : BaseFragment() {
                 Log.e("pgNumber", "" + pageNumber)
             }
         }
+    }
+
+
+    fun getSearchObserver() {
+        //observe
+        proximityVM!!.isLoadingObservable().observeOn(AndroidSchedulers.mainThread()).subscribe {
+            setIsLoading(it)
+        }
+
+        proximityVM!!.getProxiSearchData.observe(this, Observer { response ->
+            if (response != null) {
+                if (response.status == 1) {
+//                    var arrySize = arrayList.size
+                    if (response.data.isEmpty()) {
+                        tvItemsAlert.visibility = View.VISIBLE
+                        tvItemsAlert.text =
+                            homeActivity.getResources().getString(R.string.no_rest_found)
+                        rvProximityFrag.visibility = View.GONE
+                    } else {
+                        tvItemsAlert.visibility = View.GONE
+                        rvProximityFrag.visibility = View.VISIBLE
+                        searchArrayList = response.data
+                        //setting adapter again
+                        adapter = ProximityAdapter(conxt, searchArrayList, homeActivity)
+                        recyclerView!!.adapter = adapter
+                    }
+                }
+            } else {
+                showSnackBar("OOps! Error Occured.")
+            }
+        })
+    }
+
+
+    private fun searchTextListner(view: View) {
+        view.edtSearchRestro.addTextChangedListener(object : TextWatcher {
+            override fun onTextChanged(
+                s: CharSequence,
+                start: Int,
+                before: Int,
+                count: Int
+            ) { // TODO Auto-generated method stub
+            }
+
+            override fun beforeTextChanged(
+                s: CharSequence,
+                start: Int,
+                count: Int,
+                after: Int
+            ) { // TODO Auto-generated method stub
+            }
+
+            override fun afterTextChanged(s: Editable) { // filter your list from your input
+
+                if (view.edtSearchRestro.text.isNullOrEmpty() == false) {
+                    flagSearch = true
+                    getSearchedText()
+                } else {
+                    flagSearch = false
+                    pageNumber = 1
+                    //hitting api
+                    getProxiRestro(pageNumber)
+                }
+            }
+        })
+    }
+
+    private fun getSearchedText() {
+        var radius: String = sessionManager.getValue(SessionManager.RADIUS)
+        if (radius.isNullOrEmpty() == false) {
+            radius = sessionManager.getValue(SessionManager.RADIUS)
+        } else {
+            radius = "15"
+        }
+
+        // hitting api
+        proximityVM?.getHomeMealSearched(
+            sessionManager.getValue(SessionManager.USER_ID).toString(),
+            "1",
+            sessionManager.getValue(SessionManager.LONGITUDE),
+            sessionManager.getValue(SessionManager.LATITUDE),
+            radius,
+            edtSearchRestro.text.toString()
+        )
     }
 
 

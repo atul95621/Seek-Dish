@@ -712,6 +712,7 @@ class MyInformationActivity : BaseActivity(), IMyInformationView {
                     } else {
                         GlideApp.with(this)
                             .load(R.drawable.ic_user)
+                            .placeholder(R.drawable.ic_user)
                             .into(imgProfile)
                     }
 

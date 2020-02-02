@@ -1,5 +1,13 @@
 package com.dish.seekdish.util;
 
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
+import android.util.Base64;
+import android.util.Log;
+
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
+import java.security.Signature;
 import java.util.ArrayList;
 import java.util.HashSet;
 
@@ -28,6 +36,5 @@ public class Global {
 
     // for storing the friends ids...
     public static HashSet<String> selectedFriends = new HashSet<String>();
-
 
 }

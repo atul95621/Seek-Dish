@@ -20,8 +20,8 @@ import com.dish.seekdish.ui.navDrawer.myFriends.adapter.FollowingFragAdapter
 import com.dish.seekdish.ui.navDrawer.myFriends.dataModel.Following
 import com.dish.seekdish.util.SessionManager
 import io.reactivex.android.schedulers.AndroidSchedulers
+import kotlinx.android.synthetic.main.fragment_following.*
 import kotlinx.android.synthetic.main.fragment_following.view.*
-import kotlinx.android.synthetic.main.fragment_list.*
 import java.util.ArrayList
 
 
@@ -220,6 +220,8 @@ class FollowingFragment(var userId: String) : BaseFragment() {
                 if (view.edtSearchFollowing.text.isNullOrEmpty() == false) {
                     filter(s.toString())
                 } else {
+                    rvFollowingFrag.visibility=View.VISIBLE
+                    tvFavAlert.visibility=View.GONE
                     hitApi()
                 }
             }
@@ -232,6 +234,14 @@ class FollowingFragment(var userId: String) : BaseFragment() {
             if (d.username.contains(text.toString(), ignoreCase = true)) {
                 filteredItems.add(d)
             }
+        }
+        if (filteredItems.size == 0) {
+            rvFollowingFrag.visibility = View.GONE
+            tvFavAlert.visibility = View.VISIBLE
+            tvFavAlert.text = getResources().getString(R.string.no_todo)
+        } else {
+            rvFollowingFrag.visibility = View.VISIBLE
+            tvFavAlert.visibility = View.GONE
         }
         //update recyclerview
         adapter?.updateList(filteredItems)

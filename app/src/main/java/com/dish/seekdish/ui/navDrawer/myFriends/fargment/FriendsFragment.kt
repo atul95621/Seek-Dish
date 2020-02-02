@@ -19,8 +19,8 @@ import com.dish.seekdish.ui.navDrawer.myFriends.VM.FriendVM
 import com.dish.seekdish.ui.navDrawer.myFriends.adapter.FriendFragAdapter
 import com.dish.seekdish.ui.navDrawer.myFriends.dataModel.Friend
 import io.reactivex.android.schedulers.AndroidSchedulers
+import kotlinx.android.synthetic.main.fragment_friends.*
 import kotlinx.android.synthetic.main.fragment_friends.view.*
-import kotlinx.android.synthetic.main.fragment_list.*
 import java.util.ArrayList
 
 
@@ -161,6 +161,8 @@ class FriendsFragment(var  userId: String) : BaseFragment() {
                 if (view.edtSearchFriends.text.isNullOrEmpty() == false) {
                     filter(s.toString())
                 } else {
+                    rvMyFriendsFrag.visibility=View.VISIBLE
+                    tvFavAlert.visibility=View.GONE
                     hitApi()
                 }
             }
@@ -172,6 +174,17 @@ class FriendsFragment(var  userId: String) : BaseFragment() {
         for (d in arrayList) {
             if (d.username.contains(text.toString(), ignoreCase = true)) {
                 filteredItems.add(d)
+            }
+            if(filteredItems.size==0)
+            {
+                rvMyFriendsFrag.visibility=View.GONE
+                tvFavAlert.visibility=View.VISIBLE
+                tvFavAlert.text=getResources().getString(R.string.no_todo)
+            }
+            else
+            {
+                rvMyFriendsFrag.visibility=View.VISIBLE
+                tvFavAlert.visibility=View.GONE
             }
         }
         //update recyclerview

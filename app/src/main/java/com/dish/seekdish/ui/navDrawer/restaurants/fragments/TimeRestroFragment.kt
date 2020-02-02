@@ -17,6 +17,7 @@ import com.dish.seekdish.util.BaseFragment
 import com.dish.seekdish.R
 import com.dish.seekdish.custom.PaginationScrollListener
 import com.dish.seekdish.ui.home.HomeActivity
+import com.dish.seekdish.ui.home.dataModel.Data_time
 import com.dish.seekdish.ui.navDrawer.restaurants.adapter.RestaurantAdapter
 import com.dish.seekdish.ui.navDrawer.restaurants.adapter.TimeRestroAdapter
 import com.dish.seekdish.ui.navDrawer.restaurants.dataClass.Data_Time_Restro
@@ -26,7 +27,6 @@ import com.dish.seekdish.util.SessionManager
 import io.reactivex.android.schedulers.AndroidSchedulers
 import kotlinx.android.synthetic.main.fragment_time_restro.*
 import kotlinx.android.synthetic.main.fragment_time_restro.view.*
-import kotlinx.android.synthetic.main.fragment_time_restro.view.edtSearch
 import java.util.ArrayList
 
 
@@ -45,8 +45,8 @@ class TimeRestroFragment : BaseFragment() {
     var pageNumber: Int = 1
     var flagSearch: Boolean = false
 
-  var alertShown: Boolean = false
-
+    var alertShown: Boolean = false
+    internal var searchArrayList = ArrayList<Data_Time_Restro>()
 
 
     override fun onCreateView(
@@ -74,10 +74,12 @@ class TimeRestroFragment : BaseFragment() {
         } else {
             showSnackBar(getString(R.string.check_connection))
         }
+        searchTextListner(view)
+
 
         //observer
         getTimeRestroRespeObserver()
-
+        getSearchObserver()
 
         recyclerView = view.findViewById(R.id.rvtimeRestroFrag) as RecyclerView
         recyclerView!!.setHasFixedSize(true)
@@ -85,9 +87,9 @@ class TimeRestroFragment : BaseFragment() {
         recyclerView!!.setLayoutManager(layoutManager)
 
         // these adapter is allocated memory and set on beacuse as so that focus of recyler does not go on top again
-        adapter = TimeRestroAdapter(conxt, arrayList, homeActivity)
-        recyclerView!!.adapter = adapter
-
+        /*  adapter = TimeRestroAdapter(conxt, arrayList, homeActivity)
+          recyclerView!!.adapter = adapter
+  */
 
         recyclerView!!.addOnScrollListener(object : PaginationScrollListener(layoutManager) {
             override fun isLastPage(): Boolean {
@@ -123,48 +125,10 @@ class TimeRestroFragment : BaseFragment() {
             }
         })
 
-        view.edtSearch.addTextChangedListener(object : TextWatcher {
-            override fun afterTextChanged(p0: Editable?) {
-
-                // search like ingredient
-                var serchedText = edtSearch.text.toString();
-
-                if (serchedText != null && serchedText != "null" && serchedText != "") {
-                    flagSearch = true
-                    Log.e("textWatcher", "entered if scope")
-//                    getSearchedIngre(serchedText)
-                } else {
-
-                    Log.e("textWatcher", "entered else scope")
-
-                    flagSearch = false
-                    pageNumber = 1
-                    getTimeRestro(pageNumber)
-
-                }
-            }
-
-            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
-            }
-
-            override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
-            }
-        })
-
         recyclerView = view.findViewById(R.id.rvtimeRestroFrag) as RecyclerView
         recyclerView!!.setHasFixedSize(true)
         layoutManager = LinearLayoutManager(activity)
         recyclerView!!.setLayoutManager(layoutManager)
-
-    /*    for (i in 0..6) {
-            val tasteData =
-                TimeRestroDataClass("Manager", "Brochette De Boeuf", "Bizers,3400, Occtine BOJUAN", "3", "14", "4");
-            arrayList.add(tasteData)
-        }
-
-        adapter = TimeRestroAdapter(arrayList, homeActivity)
-        recyclerView!!.setAdapter(adapter)*/
-
 
         return view
     }
@@ -209,10 +173,9 @@ class TimeRestroFragment : BaseFragment() {
 
                     var arrySize = arrayList.size
 
-                    if (response.data.isEmpty() && alertShown== false) {
+                    if (response.data.isEmpty() && alertShown == false) {
                         tvItemsAlert.visibility = View.VISIBLE
-                    }
-                    else {
+                    } else {
 
                         // this does not make 2 copies of item in recyclerview...
                         if (layoutManager.findLastCompletelyVisibleItemPosition() ==
@@ -220,7 +183,11 @@ class TimeRestroFragment : BaseFragment() {
                         ) {
                             // loading new items...
                             resultAction(response.data)
-                            alertShown=true
+                            alertShown = true
+                        }
+                        if (pageNumber == 1) {
+                            adapter = TimeRestroAdapter(conxt, arrayList, homeActivity)
+                            recyclerView!!.adapter = adapter
 
                         }
                     }
@@ -259,6 +226,89 @@ class TimeRestroFragment : BaseFragment() {
         }
     }
 
+
+    fun getSearchObserver() {
+        //observe
+        restroTimeVM!!.isLoadingObservable().observeOn(AndroidSchedulers.mainThread()).subscribe {
+            setIsLoading(it)
+        }
+
+        restroTimeVM!!.searchTimeRestro.observe(this, Observer { response ->
+            if (response != null) {
+                if (response.status == 1) {
+//                    var arrySize = arrayList.size
+                    if (response.data.isEmpty()) {
+                        tvItemsAlert.visibility = View.VISIBLE
+                        tvItemsAlert.text =
+                            homeActivity.getResources().getString(R.string.no_rest_found)
+                        rvtimeRestroFrag.visibility = View.GONE
+                    } else {
+                        tvItemsAlert.visibility = View.GONE
+                        rvtimeRestroFrag.visibility = View.VISIBLE
+                        searchArrayList = response.data
+                        //setting adapter again
+                        adapter = TimeRestroAdapter(conxt, searchArrayList, homeActivity)
+                        recyclerView!!.adapter = adapter
+                    }
+                }
+            } else {
+                showSnackBar("OOps! Error Occured.")
+            }
+        })
+    }
+
+
+    private fun searchTextListner(view: View) {
+        view.edtSearchTime.addTextChangedListener(object : TextWatcher {
+            override fun onTextChanged(
+                s: CharSequence,
+                start: Int,
+                before: Int,
+                count: Int
+            ) { // TODO Auto-generated method stub
+            }
+
+            override fun beforeTextChanged(
+                s: CharSequence,
+                start: Int,
+                count: Int,
+                after: Int
+            ) { // TODO Auto-generated method stub
+            }
+
+            override fun afterTextChanged(s: Editable) { // filter your list from your input
+
+                if (view.edtSearchTime.text.isNullOrEmpty() == false) {
+                    flagSearch = true
+                    getSearchedText()
+                } else {
+                    flagSearch = false
+                    pageNumber = 1
+                    //hitting api
+                    getTimeRestro(pageNumber)
+                }
+            }
+        })
+    }
+
+    private fun getSearchedText() {
+        var radius: String = sessionManager.getValue(SessionManager.RADIUS)
+        if (radius.isNullOrEmpty() == false) {
+            radius = sessionManager.getValue(SessionManager.RADIUS)
+        } else {
+            radius = "15"
+        }
+
+        // hitting api
+        restroTimeVM?.getHomeMealSearched(
+            sessionManager.getValue(SessionManager.USER_ID).toString(),
+            "1",
+            sessionManager.getValue(SessionManager.LONGITUDE),
+            sessionManager.getValue(SessionManager.LATITUDE),
+            radius,
+            edtSearchTime.text.toString()
+        )
+    }
 
 
 }

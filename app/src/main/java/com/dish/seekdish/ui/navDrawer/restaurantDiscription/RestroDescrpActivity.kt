@@ -360,7 +360,7 @@ class RestroDescrpActivity : BaseActivity() {
 
 
                     tvRestroName.setText(response.data.restaurant.name)
-                    tvRestroAddress.setText(response.data.restaurant.street)
+                    tvRestroAddress.setText(response.data.restaurant.street + ", " + response.data.restaurant.city + ", " + response.data.restaurant.country)
                     tvRestroReview.setText("(" + response.data.restaurant.no_of_reviews + ")")
                     latitude = response.data.restaurant.latitude
                     longitude = response.data.restaurant.longitude
@@ -370,6 +370,16 @@ class RestroDescrpActivity : BaseActivity() {
 
                     //for swipe images on top
                     initializeviews()
+
+                    tvRestroName.setOnClickListener()
+                    {
+                        startActivity(
+                            Intent(
+                                Intent.ACTION_VIEW,
+                                Uri.parse("https://www.google.com/#q=" + tvRestroName.getText())
+                            )
+                        );
+                    }
 
 
                     //++++++++++++++++++++++++ setting the adapter after the responses come in...

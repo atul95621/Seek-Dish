@@ -46,6 +46,7 @@ class TimeFragment : BaseFragment() {
     var flagSearch: Boolean = false
 
     var alertShown: Boolean = false
+    internal var searchArrayList = ArrayList<Data_time>()
 
 
     override fun onCreateView(
@@ -73,8 +74,11 @@ class TimeFragment : BaseFragment() {
             showSnackBar(getString(R.string.check_connection))
         }
 
+        searchTextListner(view)
+
         //observer
         getTimeResponseObserver()
+        getSearchObserver()
 
         recyclerView = view.findViewById(R.id.rvTimeFrag) as RecyclerView
         recyclerView!!.setHasFixedSize(true)
@@ -91,8 +95,8 @@ class TimeFragment : BaseFragment() {
 
 
         // these adapter is allocated memory and set on beacuse as so that focus of recyler does not go on top again
-        adapter = TimeFragAdapter(conxt, arrayList, homeActivity)
-        recyclerView!!.adapter = adapter
+       /* adapter = TimeFragAdapter(conxt, arrayList, homeActivity)
+        recyclerView!!.adapter = adapter*/
 
 
         recyclerView!!.addOnScrollListener(object : PaginationScrollListener(layoutManager) {
@@ -129,7 +133,7 @@ class TimeFragment : BaseFragment() {
             }
         })
 
-        view.edtSearch.addTextChangedListener(object : TextWatcher {
+   /*     view.edtSearch.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(p0: Editable?) {
 
                 // search like ingredient
@@ -155,7 +159,7 @@ class TimeFragment : BaseFragment() {
 
             override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
             }
-        })
+        })*/
 
 
         return view
@@ -180,10 +184,6 @@ class TimeFragment : BaseFragment() {
                 Log.e("rspgetLikedStat", response.status.toString())
 
                 if (response.status == 1) {
-
-                    var arrySize = arrayList.size
-
-
                     if (response.data.isEmpty() && alertShown == false) {
                         tvItemsAlert.visibility = View.VISIBLE
                     } else {
@@ -196,16 +196,17 @@ class TimeFragment : BaseFragment() {
                             resultAction(response.data)
                             alertShown = true
                         }
+
+                        if(pageNumber==1)
+                        {
+                            adapter = TimeFragAdapter(conxt, arrayList, homeActivity)
+                            recyclerView!!.adapter = adapter
+                        }
                     }
                 }
 
             } else {
-
-
                 showSnackBar("OOps! Error Occured.")
-
-                Log.e("rspSnak", "else error")
-
             }
         })
     }
@@ -250,5 +251,87 @@ class TimeFragment : BaseFragment() {
             sessionManager.getValue(SessionManager.LONGITUDE),
             sessionManager.getValue(SessionManager.LATITUDE), radius
         )
+    }
+
+    fun getSearchObserver() {
+        //observe
+        timeVM!!.isLoadingObservable().observeOn(AndroidSchedulers.mainThread()).subscribe {
+            setIsLoading(it)
+        }
+
+        timeVM!!.timeSearchData.observe(this, Observer { response ->
+            if (response != null) {
+                if (response.status == 1) {
+//                    var arrySize = arrayList.size
+                    if (response.data.isEmpty()) {
+                        tvItemsAlert.visibility = View.VISIBLE
+                        tvItemsAlert.text=homeActivity.getResources().getString(R.string.no_meal_found)
+                        rvTimeFrag.visibility = View.GONE
+                    } else {
+                        tvItemsAlert.visibility = View.GONE
+                        rvTimeFrag.visibility = View.VISIBLE
+                        searchArrayList=response.data
+                        //setting adapter again
+                        adapter = TimeFragAdapter(conxt, searchArrayList, homeActivity)
+                        recyclerView!!.adapter = adapter
+                    }
+                }
+            } else {
+                showSnackBar("OOps! Error Occured.")
+            }
+        })
+    }
+
+
+    private fun searchTextListner(view: View) {
+        view.edtSearchTime.addTextChangedListener(object : TextWatcher {
+            override fun onTextChanged(
+                s: CharSequence,
+                start: Int,
+                before: Int,
+                count: Int
+            ) { // TODO Auto-generated method stub
+            }
+
+            override fun beforeTextChanged(
+                s: CharSequence,
+                start: Int,
+                count: Int,
+                after: Int
+            ) { // TODO Auto-generated method stub
+            }
+
+            override fun afterTextChanged(s: Editable) { // filter your list from your input
+
+                if (view.edtSearchTime.text.isNullOrEmpty() == false) {
+                    flagSearch = true
+                    getSearchedText()
+                } else {
+                    flagSearch = false
+                    pageNumber = 1
+                    //hitting api
+                    getTimeMeals(pageNumber)
+                }
+            }
+        })
+    }
+
+    private fun getSearchedText() {
+//        Log.e("loadMoreItems", "entered getLikedIngre ")
+        var radius: String = sessionManager.getValue(SessionManager.RADIUS)
+        if (radius.isNullOrEmpty()== false) {
+            radius = sessionManager.getValue(SessionManager.RADIUS)
+        } else {
+            radius = "15"
+        }
+
+        // hitting api
+        timeVM?.getHomeMealSearched(
+            sessionManager.getValue(SessionManager.USER_ID).toString(),
+            "1",
+            sessionManager.getValue(SessionManager.LONGITUDE),
+            sessionManager.getValue(SessionManager.LATITUDE),
+            radius,
+            edtSearchTime.text.toString())
     }
 }

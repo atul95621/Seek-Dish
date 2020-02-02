@@ -18,6 +18,7 @@ class RestroTimeVM :ViewModel(){
 
     //this is the data that we will fetch asynchronously
     var getTimeRestroLiveData: MutableLiveData<TimeRestroDataClass> = MutableLiveData<TimeRestroDataClass>()
+    var searchTimeRestro: MutableLiveData<TimeRestroDataClass> = MutableLiveData<TimeRestroDataClass>()
 
 
     val isLoadingSubject = BehaviorSubject.create<Boolean>()
@@ -49,21 +50,13 @@ class RestroTimeVM :ViewModel(){
             pageNumber,
             Constants.noOfMeals
         )
-
-        Log.e(
-            "pramsGetTimeRestro",
-            " " + userId + "    " + pageNumber + "lati   " + latitude + "    longi   " + longitude + "     radius   " + radius
-        )
-
         call.enqueue(object : Callback<TimeRestroDataClass> {
             override fun onResponse(call: Call<TimeRestroDataClass>, response: Response<TimeRestroDataClass>) {
 
                 // making progress bar invisible
                 isLoadingSubject.onNext(false)
-
                 //finally we are setting the list to our MutableLiveData
                 getTimeRestroLiveData.postValue(response.body())
-
                 getTimeRestroLiveData.value = response.body()
                 Log.e("respoGetTimeRestro", response.body().toString())
 
@@ -74,10 +67,48 @@ class RestroTimeVM :ViewModel(){
                 // making progress bar invisible
                 isLoadingSubject.onNext(false)
                 Log.e("respoGetTimeRestFail", "failure")
-
                 getTimeRestroLiveData.postValue(null)
+            }
+        })
+    }
 
+    fun getHomeMealSearched(
+        userId: String,
+        pageNumber: String,
+        longitude: String,
+        latitude: String,
+        radius: String,
+        search_text:String
+    ) {
+        // making progress bar visible
+//        isLoadingSubject.onNext(true)
+        var api = APIClientMvvm.client.create(APIInterface::class.java)
+        val call = api.getTimeRestSearch(
+            userId,
+            Constants.Latitude,
+            Constants.Longitude,
+            "2",// 2 is for time restro search
+            radius,
+            pageNumber,
+            Constants.noOfMeals,
+            search_text
+        )
+        call.enqueue(object : Callback<TimeRestroDataClass> {
+            override fun onResponse(call: Call<TimeRestroDataClass>, response: Response<TimeRestroDataClass>) {
 
+                // making progress bar invisible
+//                isLoadingSubject.onNext(false)
+                //finally we are setting the list to our MutableLiveData
+                searchTimeRestro.postValue(response.body())
+                searchTimeRestro.value = response.body()
+                Log.e("rspSearch", response.body().toString())
+            }
+
+            override fun onFailure(call: Call<TimeRestroDataClass>, t: Throwable) {
+                // making progress bar invisible
+//                isLoadingSubject.onNext(false)
+                Log.e("rspSearch fail", "failure")
+                searchTimeRestro.postValue(null)
             }
         })
     }

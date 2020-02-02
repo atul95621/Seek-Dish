@@ -18,6 +18,7 @@ class ProximityVM :ViewModel(){
 
     //this is the data that we will fetch asynchronously
     var getProxiRestroLiveData: MutableLiveData<ProximityDataClass> = MutableLiveData<ProximityDataClass>()
+    var getProxiSearchData: MutableLiveData<ProximityDataClass> = MutableLiveData<ProximityDataClass>()
 
 
     val isLoadingSubject = BehaviorSubject.create<Boolean>()
@@ -81,6 +82,48 @@ class ProximityVM :ViewModel(){
             }
         })
     }
+
+    fun getHomeMealSearched(
+        userId: String,
+        pageNumber: String,
+        longitude: String,
+        latitude: String,
+        radius: String,
+        search_text:String
+    ) {
+        // making progress bar visible
+//        isLoadingSubject.onNext(true)
+        var api = APIClientMvvm.client.create(APIInterface::class.java)
+        val call = api.getRestaurantSearch(
+            userId,
+            Constants.Latitude,
+            Constants.Longitude,
+            "1",// 1 is for proximity restro search
+            radius,
+            pageNumber,
+            Constants.noOfMeals,
+            search_text
+        )
+        call.enqueue(object : Callback<ProximityDataClass> {
+            override fun onResponse(call: Call<ProximityDataClass>, response: Response<ProximityDataClass>) {
+
+                // making progress bar invisible
+//                isLoadingSubject.onNext(false)
+                //finally we are setting the list to our MutableLiveData
+                getProxiSearchData.postValue(response.body())
+                getProxiSearchData.value = response.body()
+                Log.e("rspSearch", response.body().toString())
+            }
+
+            override fun onFailure(call: Call<ProximityDataClass>, t: Throwable) {
+                // making progress bar invisible
+//                isLoadingSubject.onNext(false)
+                Log.e("rspSearch fail", "failure")
+                getProxiSearchData.postValue(null)
+            }
+        })
+    }
+
 
 
     fun isLoadingObservable(): Observable<Boolean> {

@@ -34,7 +34,7 @@ import com.dish.seekdish.ui.home.HomeActivity
 import com.dish.seekdish.ui.home.adapter.TasteFragAdapter
 import com.dish.seekdish.ui.home.dataModel.Data_Taste
 import com.dish.seekdish.ui.home.viewModel.TasteFragVM
-import com.dish.seekdish.ui.home.view.ITasteView
+import com.dish.seekdish.ui.navDrawer.toDo.list.Data_todo
 import com.dish.seekdish.util.SessionManager
 import com.google.android.gms.common.ConnectionResult
 import com.google.android.gms.common.api.GoogleApiClient
@@ -42,8 +42,7 @@ import com.google.android.gms.common.api.GoogleApiClient
 import com.google.android.gms.location.*
 import io.reactivex.android.schedulers.AndroidSchedulers
 import kotlinx.android.synthetic.main.fragment_taste.*
-import kotlinx.android.synthetic.main.fragment_taste.view.edtSearch
-import retrofit2.Response
+import kotlinx.android.synthetic.main.fragment_taste.view.*
 import java.util.ArrayList
 
 
@@ -80,6 +79,7 @@ class TasteFragment : BaseFragment(), GoogleApiClient.ConnectionCallbacks,
 
     private lateinit var homeActivity: HomeActivity
     internal var arrayList = ArrayList<Data_Taste>()
+    internal var searchArrayList = ArrayList<Data_Taste>()
 
 
     private var isLoading: Boolean = false
@@ -96,7 +96,11 @@ class TasteFragment : BaseFragment(), GoogleApiClient.ConnectionCallbacks,
 //     var sessionManager: SessionManager? = null;
 
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
         super.onCreateView(inflater, container, savedInstanceState)
         val view = inflater.inflate(R.layout.fragment_taste, container, false)
 
@@ -118,9 +122,12 @@ class TasteFragment : BaseFragment(), GoogleApiClient.ConnectionCallbacks,
             showSnackBar(getString(R.string.check_connection))
         }
 
+        searchTextListner(view)
+
         //observer
         getTasteResponseObserver()
         getLiveLocationObserver()
+        getSearchObserver()
 
         //location
         startLocationUpdates()
@@ -131,9 +138,9 @@ class TasteFragment : BaseFragment(), GoogleApiClient.ConnectionCallbacks,
         recyclerView!!.setLayoutManager(layoutManager)
 
         // these adapter is allocated memory and set on beacuse as so that focus of recyler does not go on top again
-        adapter = TasteFragAdapter(conxt, arrayList, homeActivity)
+        /*adapter = TasteFragAdapter(conxt, arrayList, homeActivity)
         recyclerView!!.adapter = adapter
-
+*/
 
         recyclerView!!.addOnScrollListener(object : PaginationScrollListener(layoutManager) {
             override fun isLastPage(): Boolean {
@@ -169,33 +176,33 @@ class TasteFragment : BaseFragment(), GoogleApiClient.ConnectionCallbacks,
             }
         })
 
-        view.edtSearch.addTextChangedListener(object : TextWatcher {
-            override fun afterTextChanged(p0: Editable?) {
+        /*     view.edtSearch.addTextChangedListener(object : TextWatcher {
+                 override fun afterTextChanged(p0: Editable?) {
 
-                // search like ingredient
-                var serchedText = edtSearch.text.toString();
+                     // search like ingredient
+                     var serchedText = edtSearch.text.toString();
 
-                if (serchedText != null && serchedText != "null" && serchedText != "") {
-                    flagSearch = true
-                    Log.e("textWatcher", "entered if scope")
-//                    getSearchedIngre(serchedText)
-                } else {
+                     if (serchedText != null && serchedText != "null" && serchedText != "") {
+                         flagSearch = true
+                         Log.e("textWatcher", "entered if scope")
+     //                    getSearchedIngre(serchedText)
+                     } else {
 
-                    Log.e("textWatcher", "entered else scope")
+                         Log.e("textWatcher", "entered else scope")
 
-                    flagSearch = false
-                    pageNumber = 1
-                    getTasteMeals(pageNumber)
+                         flagSearch = false
+                         pageNumber = 1
+                         getTasteMeals(pageNumber)
 
-                }
-            }
+                     }
+                 }
 
-            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
-            }
+                 override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+                 }
 
-            override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
-            }
-        })
+                 override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+                 }
+             })*/
 
         /* for (i in 0..6) {
              val tasteData = TasteFragDataClass("Manager", "Brochette De Boeuf", "1.85 Km", "3", "14", "4");
@@ -346,7 +353,10 @@ class TasteFragment : BaseFragment(), GoogleApiClient.ConnectionCallbacks,
         if (connectionResult.hasResolution()) {
             try {
                 // Start an Activity that tries to resolve the error
-                connectionResult.startResolutionForResult(homeActivity, CONNECTION_FAILURE_RESOLUTION_REQUEST)
+                connectionResult.startResolutionForResult(
+                    homeActivity,
+                    CONNECTION_FAILURE_RESOLUTION_REQUEST
+                )
                 /*
                  * Thrown if Google Play services canceled the original
                  * PendingIntent
@@ -399,12 +409,12 @@ class TasteFragment : BaseFragment(), GoogleApiClient.ConnectionCallbacks,
                         sessionManager.getValue(SessionManager.LATITUDE_SELECTED)
                     )
 
-                    Log.e(
+                    /*Log.e(
                         "selectCordTaste",
                         " " + "longi: " + sessionManager.getValue(SessionManager.LONGITUDE_SELECTED) + "lati:" + sessionManager.getValue(
                             SessionManager.LATITUDE_SELECTED
                         )
-                    )
+                    )*/
                 }
             } else {
                 showSnackBar(getString(R.string.check_connection))
@@ -449,8 +459,13 @@ class TasteFragment : BaseFragment(), GoogleApiClient.ConnectionCallbacks,
                                 .setMessage("Some of the functionalities may not work with location being disabled")
                                 .setPositiveButton("Enable from Settings") { dialog, which ->
                                     // User pressed YES button. Write Logic Here
-                                    val intent = Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS)
-                                    val uri = Uri.fromParts("package", homeActivity.getPackageName(), null)
+                                    val intent =
+                                        Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS)
+                                    val uri = Uri.fromParts(
+                                        "package",
+                                        homeActivity.getPackageName(),
+                                        null
+                                    )
                                     intent.data = uri
                                     startActivityForResult(intent, PERMISSION_REQUEST_CODE)
 
@@ -460,7 +475,6 @@ class TasteFragment : BaseFragment(), GoogleApiClient.ConnectionCallbacks,
                                 }
                                 .setNegativeButton("Discard") { dialog, which ->
                                     // User pressed YES button. Write Logic Here
-
                                     //----------------IMPORTANT--------------
                                     showDialog = false
                                     dialog.dismiss()
@@ -468,22 +482,14 @@ class TasteFragment : BaseFragment(), GoogleApiClient.ConnectionCallbacks,
                                 .show()
                         }
                     } else {
-
                         requestPermission()
                     }
-
-
                 } else {
-
                     getLocation()
-
                 }
             } else {
-
                 getLocation()
             }
-
-
         } catch (e: Exception) {
             e.printStackTrace()
         }
@@ -503,7 +509,11 @@ class TasteFragment : BaseFragment(), GoogleApiClient.ConnectionCallbacks,
 
     private fun requestPermission() {
         ActivityCompat.requestPermissions(
-            homeActivity, arrayOf(Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION),
+            homeActivity,
+            arrayOf(
+                Manifest.permission.ACCESS_FINE_LOCATION,
+                Manifest.permission.ACCESS_COARSE_LOCATION
+            ),
             PERMISSION_REQUEST_CODE
         )
         // }
@@ -591,9 +601,7 @@ class TasteFragment : BaseFragment(), GoogleApiClient.ConnectionCallbacks,
 
 
     fun getTasteResponseObserver() {
-
-        Log.e("loadMoreItems", "entered getLikedResponseObserver ")
-
+//        Log.e("loadMoreItems", "entered getLikedResponseObserver ")
         //observe
         tasteFragVM!!.isLoadingObservable().observeOn(AndroidSchedulers.mainThread()).subscribe {
             setIsLoading(it)
@@ -601,18 +609,16 @@ class TasteFragment : BaseFragment(), GoogleApiClient.ConnectionCallbacks,
 
         tasteFragVM!!.getTasteLiveData.observe(this, Observer { response ->
             if (response != null) {
-
                 Log.e("rspgetLiked", response.toString())
-
                 Log.e("rspgetLikedStat", response.status.toString())
-
                 if (response.status == 1) {
-
                     var arrySize = arrayList.size
-
                     if (response.data.isEmpty() && alertShown == false) {
                         tvItemsAlert.visibility = View.VISIBLE
                     } else {
+
+                        tvItemsAlert.visibility = View.GONE
+                        rvTasteFrag.visibility = View.VISIBLE
 
                         // this does not make 2 copies of item in recyclerview...
                         if (layoutManager.findLastCompletelyVisibleItemPosition() ==
@@ -620,28 +626,24 @@ class TasteFragment : BaseFragment(), GoogleApiClient.ConnectionCallbacks,
                         ) {
                             // loading new items...
                             resultAction(response.data)
-
                             alertShown = true
-
                         }
+                        if(pageNumber==1) {
+                            adapter = TasteFragAdapter(conxt, arrayList, homeActivity)
+                            recyclerView!!.adapter = adapter
+                        }
+
                     }
                 }
-
             } else {
-
-
                 showSnackBar("OOps! Error Occured.")
-
                 Log.e("rspSnak", "else error")
-
             }
         })
     }
 
 
     fun getLiveLocationObserver() {
-
-
         /*    //observe
             tasteFragVM!!.isLoadingObservable().observeOn(AndroidSchedulers.mainThread()).subscribe {
                 setIsLoading(it)
@@ -658,18 +660,14 @@ class TasteFragment : BaseFragment(), GoogleApiClient.ConnectionCallbacks,
                     sessionManager.setValues(SessionManager.LONGITUDE, response.data.longitude)
 
                     Log.e("sessionlat", " " + sessionManager.getValue(SessionManager.LATITUDE))
-                    Log.e("sessionlongitude", " " + sessionManager.getValue(SessionManager.LONGITUDE))
-
-
+                    Log.e(
+                        "sessionlongitude",
+                        " " + sessionManager.getValue(SessionManager.LONGITUDE)
+                    )
                 }
-
             } else {
-
-
                 showSnackBar("OOps! Error Occured.")
-
                 Log.e("rspSnak", "else error")
-
             }
         })
     }
@@ -715,11 +713,95 @@ class TasteFragment : BaseFragment(), GoogleApiClient.ConnectionCallbacks,
         )
     }
 
+    private fun getSearchedText() {
+//        Log.e("loadMoreItems", "entered getLikedIngre ")
+        var radius: String = sessionManager.getValue(SessionManager.RADIUS)
+        if (radius.isNullOrEmpty()== false) {
+            radius = sessionManager.getValue(SessionManager.RADIUS)
+        } else {
+            radius = "15"
+        }
+
+        // hitting api
+        tasteFragVM?.getHomeMealSearched(
+            sessionManager.getValue(SessionManager.USER_ID).toString(),
+            "1",
+            sessionManager.getValue(SessionManager.LONGITUDE),
+            sessionManager.getValue(SessionManager.LATITUDE),
+            radius,
+            edtSearchTaste.text.toString())
+    }
+
 
     override fun onDestroy() {
         super.onDestroy()
-        if(mFusedLocationClient!=null)
+        if (mFusedLocationClient != null)
             mFusedLocationClient?.removeLocationUpdates(mLocationCallback)
     }
+
+    fun getSearchObserver() {
+        //observe
+        tasteFragVM!!.isLoadingObservable().observeOn(AndroidSchedulers.mainThread()).subscribe {
+            setIsLoading(it)
+        }
+
+        tasteFragVM!!.tasteSearchData.observe(this, Observer { response ->
+            if (response != null) {
+                if (response.status == 1) {
+//                    var arrySize = arrayList.size
+                    if (response.data.isEmpty()) {
+                        tvItemsAlert.visibility = View.VISIBLE
+                        tvItemsAlert.text=homeActivity.getResources().getString(R.string.no_meal_found)
+
+                        rvTasteFrag.visibility = View.GONE
+                    } else {
+                        tvItemsAlert.visibility = View.GONE
+                        rvTasteFrag.visibility = View.VISIBLE
+                        searchArrayList=response.data
+                        //setting adapter again
+                        adapter = TasteFragAdapter(conxt, searchArrayList, homeActivity)
+                        recyclerView!!.adapter = adapter
+                    }
+                }
+            } else {
+                showSnackBar("OOps! Error Occured.")
+            }
+        })
+    }
+
+
+    private fun searchTextListner(view: View) {
+        view.edtSearchTaste.addTextChangedListener(object : TextWatcher {
+            override fun onTextChanged(
+                s: CharSequence,
+                start: Int,
+                before: Int,
+                count: Int
+            ) { // TODO Auto-generated method stub
+            }
+
+            override fun beforeTextChanged(
+                s: CharSequence,
+                start: Int,
+                count: Int,
+                after: Int
+            ) { // TODO Auto-generated method stub
+            }
+
+            override fun afterTextChanged(s: Editable) { // filter your list from your input
+
+                if (view.edtSearchTaste.text.isNullOrEmpty() == false) {
+                    flagSearch = true
+                    getSearchedText()
+                } else {
+                    flagSearch = false
+                    pageNumber = 1
+                    //hitting api
+                    getTasteMeals(pageNumber)
+                }
+            }
+        })
+    }
+
 
 }

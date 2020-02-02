@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Seekdish</string>
+    <string name="app_name">SeekDish</string>
 
     <!--walkthrough and register screen-->
     <string name="perfect_register">Perfect! Register</string>
@@ -12,13 +12,13 @@
     <string name="walk_sub1">How it works?</string>
 
     <string name="walk_sub_part2">The user will indicate to the application dishes or ingredients that he likes or does
-        not like. Seekdish\'s taste analytics engine will use this data to offer compatible dishes in restaurant around
+        not like. SeekDish\'s taste analytics engine will use this data to offer compatible dishes in restaurant around
         of the user.
     </string>
-    <string name="walk_third">But you can also ask Seekdish and recommend dishes you have never tasted. Here again the
-        community of lovers of these dishes in Seekdish will take you to the restaurant with the best ratings.
+    <string name="walk_third">But you can also ask SeekDish and recommend dishes you have never tasted. Here again the
+        community of lovers of these dishes in SeekDish will take you to the restaurant with the best ratings.
     </string>
-    <string name="walk_sub_23">The more user search for and rate dishes,the more Seekdish can recommend dishes that have
+    <string name="walk_sub_23">The more user search for and rate dishes,the more SeekDish can recommend dishes that have
         appeared to other users with similar tastes.
     </string>
 
@@ -51,6 +51,11 @@
     <string name="no_todo_list">You have not added anything to Todo List for now.</string>
     <string name="no_fav_list">You have not added anything to Favorite List for now.</string>
     <string name="no_one_found">No one found.</string>
+    <string name="no_meal_found">No meal available of this kind.</string>
+    <string name="no_rest_found">No restaurant available of this kind.</string>
+    <string name="no_todo">No item found.</string>
+
+
 
 
 </resources>

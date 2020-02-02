@@ -35,7 +35,7 @@ import com.twitter.sdk.android.core.identity.TwitterAuthClient
 import com.twitter.sdk.android.core.models.User
 import kotlinx.android.synthetic.main.fragment_register.view.*
 import org.json.JSONException
-import java.util.*
+import android.util.Base64
 import com.twitter.sdk.android.core.Twitter
 import com.twitter.sdk.android.core.TwitterConfig
 import com.twitter.sdk.android.core.TwitterAuthConfig
@@ -43,6 +43,9 @@ import kotlinx.android.synthetic.main.fragment_register.*
 import retrofit2.Response
 import retrofit2.Response.success
 import java.net.CookieManager
+import java.security.MessageDigest
+import java.security.NoSuchAlgorithmException
+import java.util.*
 import kotlin.Result.Companion.failure
 
 
@@ -56,7 +59,7 @@ class RegisterFragment : BaseFragment(), IRegisterFragView {
     // twitter
     private var client: TwitterAuthClient? = null
 
-     lateinit var mcontext: WalkThroughActivity
+    lateinit var mcontext: WalkThroughActivity
 
     lateinit var registerFragPresenter: RegisterFragPresenter
 
@@ -70,6 +73,7 @@ class RegisterFragment : BaseFragment(), IRegisterFragView {
         setUpTwitter()
         setUpFacebook()
 
+//        printHashKey()
 
         val view: View = inflater.inflate(R.layout.fragment_register, container, false)
 
@@ -164,22 +168,28 @@ class RegisterFragment : BaseFragment(), IRegisterFragView {
         callbackManager = CallbackManager.Factory.create()
 
         // Callback registration
-        LoginManager.getInstance().registerCallback(callbackManager, object : FacebookCallback<LoginResult> {
-            override fun onSuccess(loginResult: LoginResult) {
-                //method to fetch user FACEBOOK  all inforamtion
-                setFacebookData(loginResult)
-            }
+        LoginManager.getInstance()
+            .registerCallback(callbackManager, object : FacebookCallback<LoginResult> {
+                override fun onSuccess(loginResult: LoginResult) {
+                    //method to fetch user FACEBOOK  all inforamtion
+                    setFacebookData(loginResult)
+                }
 
-            override fun onCancel() {
-                ProgressBarClass.dialog.dismiss()
-                showSnackBar(getResources().getString(R.string.error_occured));
-            }
+                override fun onCancel() {
+                    ProgressBarClass.dialog.dismiss()
+                    showSnackBar(getResources().getString(R.string.error_occured));
+                }
 
-            override fun onError(exception: FacebookException) {
-                ProgressBarClass.dialog.dismiss()
-                showSnackBar(getResources().getString(R.string.error_occured));
-            }
-        })
+                override fun onError(exception: FacebookException) {
+                    ProgressBarClass.dialog.dismiss()
+                    showSnackBar(exception.message.toString());
+                    if (exception is FacebookAuthorizationException) {
+                        if (AccessToken.getCurrentAccessToken() != null) {
+                            LoginManager.getInstance().logOut()
+                        }
+                    }
+                }
+            })
 
 
         val accessToken = AccessToken.getCurrentAccessToken()
@@ -217,7 +227,8 @@ class RegisterFragment : BaseFragment(), IRegisterFragView {
                 val lastName = mProfile?.lastName
                 val facebookUserId = mProfile?.id.toString()
 
-                val imageUrl = "https://graph.facebook.com/" + facebookUserId + "/picture?type=large"
+                val imageUrl =
+                    "https://graph.facebook.com/" + facebookUserId + "/picture?type=large"
 
                 val profileImage = mProfile?.getProfilePictureUri(250, 250).toString()
                 Log.e("LoginFacebook", "Email" + email)
@@ -242,9 +253,7 @@ class RegisterFragment : BaseFragment(), IRegisterFragView {
             } catch (e: JSONException) {
                 e.printStackTrace()
                 ProgressBarClass.dialog.dismiss()
-                this.showSnackBar(getResources().getString(R.string.error_occured));
-
-
+                this.showSnackBar(e.message.toString());
             }
         }
         val parameters = Bundle()
@@ -256,9 +265,19 @@ class RegisterFragment : BaseFragment(), IRegisterFragView {
     private fun checkImgPermissionIsEnabledOrNot(): Boolean {
 
         val FirstPermissionResult =
-            context?.let { ContextCompat.checkSelfPermission(it, Manifest.permission.ACCESS_COARSE_LOCATION) }
+            context?.let {
+                ContextCompat.checkSelfPermission(
+                    it,
+                    Manifest.permission.ACCESS_COARSE_LOCATION
+                )
+            }
         val SecondPermissionResult =
-            context?.let { ContextCompat.checkSelfPermission(it, Manifest.permission.ACCESS_FINE_LOCATION) }
+            context?.let {
+                ContextCompat.checkSelfPermission(
+                    it,
+                    Manifest.permission.ACCESS_FINE_LOCATION
+                )
+            }
 
         return FirstPermissionResult == PackageManager.PERMISSION_GRANTED &&
                 SecondPermissionResult == PackageManager.PERMISSION_GRANTED
@@ -494,6 +513,21 @@ class RegisterFragment : BaseFragment(), IRegisterFragView {
             false
         }
     }
+
+/*    fun  printHashKey() {
+        try {
+            val info = conxt.packageManager.getPackageInfo("com.dish.seekdish", PackageManager.GET_SIGNATURES)
+            for (signature in info.signatures) {
+                val md = MessageDigest.getInstance("SHA")
+                md.update(signature.toByteArray())
+                Log.e("KeyHash:", Base64.encodeToString(md.digest(), Base64.DEFAULT))
+            }
+        } catch (e: PackageManager.NameNotFoundException) {
+            e.printStackTrace()
+        } catch (e: NoSuchAlgorithmException) {
+            e.printStackTrace()
+        }
+    }*/
 
 }
 
