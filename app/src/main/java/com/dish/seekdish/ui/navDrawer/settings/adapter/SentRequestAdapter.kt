@@ -56,6 +56,11 @@ class SentRequestAdapter(
             context.startActivity(intent)
         }
 
+        holder.btnCancel.setOnClickListener()
+        {
+            sentRequestActivity.cancelReqHit(followingDataClass.user_id)
+        }
+
     }
 
 

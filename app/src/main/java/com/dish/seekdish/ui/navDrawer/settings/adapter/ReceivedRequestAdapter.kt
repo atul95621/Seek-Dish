@@ -42,6 +42,7 @@ class ReceivedRequestAdapter(
         {
             acitityReq.apiHit(followingDataClass.user_id)
         }
+
         holder.btnAccept.setOnClickListener()
         {
             acitityReq.acceptReqApi(followingDataClass.user_id)

@@ -4,14 +4,15 @@ import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.BaseAdapter
-import android.widget.TextView
-import android.widget.Toast
+import android.widget.*
 import com.dish.seekdish.R
+import com.dish.seekdish.custom.GlideApp
+import de.hdodenhof.circleimageview.CircleImageView
 
 class ContFetchAdapter(
     private val context: Context,
-    private val contactModelArrayList: ArrayList<ContactModel>
+    private val contactModelArrayList: HashSet<Data>,
+    var contactFetchActivity: ContactFetchActivity
 ) : BaseAdapter() {
 
     override fun getViewTypeCount(): Int {
@@ -47,7 +48,11 @@ class ContFetchAdapter(
 
             holder.tvname = convertView!!.findViewById(R.id.name) as TextView
             holder.tvnumber = convertView.findViewById(R.id.number) as TextView
+            holder.linContactLayout =
+                convertView.findViewById(R.id.linContactLayout) as LinearLayout
 
+            holder.imgContactImage =
+                convertView.findViewById(R.id.imgContactImage) as CircleImageView
 
 
             convertView.tag = holder
@@ -56,16 +61,20 @@ class ContFetchAdapter(
             holder = convertView.tag as ViewHolder
         }
 
-        holder.tvname!!.setText(contactModelArrayList.elementAt(position).getNames())
-        holder.tvnumber!!.setText(contactModelArrayList.elementAt(position).getNumbers())
+        holder.tvname!!.setText(contactModelArrayList.elementAt(position).username)
+        holder.tvnumber!!.setText(contactModelArrayList.elementAt(position).phone)
+        var imageUrl = contactModelArrayList.elementAt(position).user_image
+        var userIdToSend = contactModelArrayList.elementAt(position).id
 
-        holder.tvname!!.setOnClickListener()
+        if (imageUrl.isNullOrEmpty() == false) {
+            GlideApp.with(context)
+                .load(imageUrl)
+                .placeholder(R.drawable.ic_user)
+                .into(holder.imgContactImage!!)
+        }
+        holder.linContactLayout?.setOnClickListener()
         {
-            Toast.makeText(
-                context,
-                contactModelArrayList.elementAt(position).getNumbers(),
-                Toast.LENGTH_SHORT
-            ).show()
+            contactFetchActivity.sendFriendRequest(userIdToSend)
         }
 
         return convertView
@@ -75,6 +84,8 @@ class ContFetchAdapter(
 
         var tvname: TextView? = null
         var tvnumber: TextView? = null
+        var imgContactImage: ImageView? = null
+        var linContactLayout: LinearLayout? = null
 
     }
 }

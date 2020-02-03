@@ -14,28 +14,21 @@ import com.dish.seekdish.R
 import com.dish.seekdish.custom.ProgressBarClass
 import com.dish.seekdish.retrofit.APIClient
 import com.dish.seekdish.retrofit.APIInterface
-import com.dish.seekdish.ui.navDrawer.checkin.adapter.CheckinAdapter
+import com.dish.seekdish.ui.navDrawer.dishDescription.model.AddTodoModel
 import com.dish.seekdish.util.BaseActivity
 import com.dish.seekdish.util.SessionManager
-import kotlinx.android.synthetic.main.activity_checkin.*
 import kotlinx.android.synthetic.main.activity_contact_fetch.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
-import androidx.core.os.HandlerCompat.postDelayed
-import androidx.core.app.ComponentActivity
-import androidx.core.app.ComponentActivity.ExtraData
-import androidx.core.content.ContextCompat.getSystemService
-import android.icu.lang.UCharacter.GraphemeClusterBreak.T
-import android.os.Handler
 
 
 class ContactFetchActivity : BaseActivity() {
 
     private var listView: ListView? = null
     private var contFetchAdapter: ContFetchAdapter? = null
-    private var contactModelArrayList = ArrayList<ContactModel>()
-    private var contactMatchedArr = ArrayList<ContactModel>()
+    private var mobileHashset = HashSet<String>()
+    private var contactMatchedArr = HashSet<Data>()
 
     private var arraylist = ArrayList<Data>()
 
@@ -49,22 +42,27 @@ class ContactFetchActivity : BaseActivity() {
         setContentView(com.dish.seekdish.R.layout.activity_contact_fetch)
 
         listView = findViewById(com.dish.seekdish.R.id.listView) as ListView
-
         sessionManager = SessionManager(this)
 
         imgContactFetch.setOnClickListener()
         {
             if (checkImgPermissionIsEnabledOrNot()) {
-                contactModelArrayList.clear()
+                mobileHashset.clear()
 //                fetchContact()
                 allFriendsAPi()
             } else {
                 requestImagePermission()
             }
         }
+        tvBack.setOnClickListener()
+        {
+            finish()
+        }
     }
 
     fun fetchContact() {
+        mobileHashset.clear()
+
         val phones = contentResolver.query(
             ContactsContract.CommonDataKinds.Phone.CONTENT_URI,
             null,
@@ -73,18 +71,16 @@ class ContactFetchActivity : BaseActivity() {
             ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME + " ASC"
         )
         while (phones!!.moveToNext()) {
-            val name =
-                phones.getString(phones.getColumnIndex(ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME))
+            /*val name =
+                phones.getString(phones.getColumnIndex(ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME))*/
             val phoneNumber =
                 phones.getString(phones.getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER))
+            mobileHashset.add(phoneNumber)
 
-            val contactModel = ContactModel()
-            contactModel.setNames(name)
-            contactModel.setNumbers(phoneNumber.replace("\\s".toRegex(), ""))
-            contactModelArrayList!!.add(contactModel)
-            Log.e("info>>", name + "  " + phoneNumber)
+
         }
         phones.close()
+        compareNumbers()
 
         /*    val emails = contentResolver.query(
                 ContactsContract.CommonDataKinds.Email.CONTENT_URI,
@@ -107,19 +103,6 @@ class ContactFetchActivity : BaseActivity() {
             }
             emails.close()*/
 
-//        compareNumbers()
-        val ha = Handler()
-        ha.postDelayed(object : Runnable {
-
-            override fun run() {
-                //call function
-                compareNumbers()
-                ha.postDelayed(this, 500)
-            }
-        }, 500)
-//        contFetchAdapter = ContFetchAdapter(this, contactModelArrayList!!)
-//        listView!!.adapter = contFetchAdapter
-
     }
 
     private fun compareNumbers() {
@@ -127,20 +110,28 @@ class ContactFetchActivity : BaseActivity() {
 
         for (i in 0 until arraylist.size) {
             var searchString = arraylist[i].phone
-            for (j in 0 until contactModelArrayList.size) {
+            for (j in 0 until mobileHashset.size) {
                 Log.e("resuktt run", "" + j)
 
-                if (contactModelArrayList[j].getNumbers().contains(searchString)) {
-                    Log.e("resuktt succ", "" + contactModelArrayList[j].number)
-                    contactMatchedArr.add(contactModelArrayList[j])
+                if (mobileHashset.contains(searchString)) {
+                    Log.e("resuktt succ", "" + mobileHashset.elementAt(j))
+                    contactMatchedArr.add(arraylist[i])
+//                    contactMatchedArr.add(mobileHashset.elementAt(j))
+
+                    break
                 } else {
-                    Log.e("resuktt", "" + contactModelArrayList[j].number + " not founndd")
+                    Log.e("resuktt", "" + mobileHashset.elementAt(j) + " not founndd")
                 }
             }
         }
 
-        contFetchAdapter = ContFetchAdapter(this, contactModelArrayList!!)
+        contFetchAdapter = ContFetchAdapter(this, contactMatchedArr, this)
         listView!!.adapter = contFetchAdapter
+
+        // dismissing the progress when the contacts are compared...
+        ProgressBarClass.dialog.dismiss()
+        imgContactFetch.visibility = View.GONE
+
     }
 
     private fun checkImgPermissionIsEnabledOrNot(): Boolean {
@@ -210,7 +201,7 @@ class ContactFetchActivity : BaseActivity() {
                 response: Response<ContactsDetailsModel>
             ) {
                 // canceling the progress bar
-                ProgressBarClass.dialog.dismiss()
+//                ProgressBarClass.dialog.dismiss()
 
                 Log.e("respStr", " " + response.body().toString())
 
@@ -250,4 +241,45 @@ class ContactFetchActivity : BaseActivity() {
             }
         })
     }
+
+    fun sendFriendRequest(userIdToSend: Int) {
+
+        ProgressBarClass.progressBarCalling(this)
+        apiInterface = APIClient.getClient(this).create(APIInterface::class.java)
+        val call =
+            apiInterface.sendFriendRequest(
+                sessionManager?.getValue(SessionManager.USER_ID).toString(),
+                userIdToSend.toString()
+            )
+//        val call = apiInterface.getContactDeatails("129")
+        call.enqueue(object : Callback<AddTodoModel> {
+            override fun onResponse(
+                call: Call<AddTodoModel>,
+                response: Response<AddTodoModel>
+            ) {
+                // canceling the progress bar
+                ProgressBarClass.dialog.dismiss()
+                Log.e("respStr", " " + response.body().toString())
+                if (response.code().toString().equals("200")) {
+
+                    var modelObj = response.body() as AddTodoModel
+                    if (modelObj.status == 1) {
+                        showSnackBar(modelObj.data.message)
+                    }
+                } else {
+                    showSnackBar(resources.getString(R.string.error_occured));
+                }
+            }
+
+            override fun onFailure(call: Call<AddTodoModel>, t: Throwable) {
+                Log.e("responseFailure", " " + t.message)
+                showSnackBar(resources.getString(R.string.error_occured));
+                call.cancel()
+                // canceling the progress bar
+                ProgressBarClass.dialog.dismiss()
+
+            }
+        })
+    }
+
 }

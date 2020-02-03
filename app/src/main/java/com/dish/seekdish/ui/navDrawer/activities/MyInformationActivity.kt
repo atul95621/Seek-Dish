@@ -102,9 +102,9 @@ class MyInformationActivity : BaseActivity(), IMyInformationView {
             myInfoPresenter.getCountriesData(sessionManager!!.getValue(SessionManager.USER_ID))
         }
 
-      /*  tvCity.setOnClickListener()
-        {
-           *//* if (countryId.equals("") || countryId.equals(null)) {
+        /*  tvCity.setOnClickListener()
+          {
+             *//* if (countryId.equals("") || countryId.equals(null)) {
                 showSnackBar("Please select the country first.")
             } else {
                 myInfoPresenter.getCitiesData(
@@ -319,17 +319,11 @@ class MyInformationActivity : BaseActivity(), IMyInformationView {
 
 
                     //on image picked
-                    //Log.e("uri imagePckr fetch", String.valueOf(imageUri));
-
-                    path = this@MyInformationActivity.getPath(imageUri).toString()
-//                    path = imagePicker?.imageFile?.absoluteFile.toString()
-
-                    Log.e("path", path)
-
-
 
                     //get image path from uri
 //                    val path = getPath(imageUri)
+                    path = getRealPathFromURI(imageUri).toString()
+                    Log.e("path", path)
                     // Bitmap bmp = uriToBitmap(imageUri);
 
                     if (path != null && path != "" && path != "null") {
@@ -349,13 +343,13 @@ class MyInformationActivity : BaseActivity(), IMyInformationView {
                             when (orientation) {
 
                                 ExifInterface.ORIENTATION_ROTATE_90 -> bitmap =
-                                    rotateImage(bm, 90F)
+                                    TransformationUtils.rotateImage(bm, 90)
 
                                 ExifInterface.ORIENTATION_ROTATE_180 -> bitmap =
-                                    rotateImage(bm, 180F)
+                                    TransformationUtils.rotateImage(bm, 180)
 
                                 ExifInterface.ORIENTATION_ROTATE_270 -> bitmap =
-                                   rotateImage(bm, 270F)
+                                    TransformationUtils.rotateImage(bm, 270)
 
                                 ExifInterface.ORIENTATION_NORMAL -> bitmap = bm
                                 else -> bitmap = bm
@@ -387,17 +381,21 @@ class MyInformationActivity : BaseActivity(), IMyInformationView {
                             options
                         )
 
-                        path = imagePicker?.imageFile?.absoluteFile.toString()
+                        Log.e("camera bitmap", bitmap.toString())
+                        Log.e("tryFile", "" + imagePicker?.imageFile?.absoluteFile)
 
-/*
+
                         path = imagePicker?.imageFile?.absoluteFile.toString()
-*/
 //                        path = getImageUri(this@AnswerActivity, bitmap).toString()
                         Log.e("path by camera", path)
 
                         if (path != null && path != "" && path != "null") {
+                            // api hitting to upload the image
                             imgProfile.setImageBitmap(bitmap)
+
                         }
+
+
                     }
 
 
@@ -434,7 +432,6 @@ class MyInformationActivity : BaseActivity(), IMyInformationView {
             //Log.e("uri image", "" + resultCode);
             if (imagePicker != null)
                 imagePicker?.handleActivityResult(resultCode, requestCode, result)
-
         }
 
     }
@@ -463,7 +460,6 @@ class MyInformationActivity : BaseActivity(), IMyInformationView {
                 imagePicker?.handlePermission(requestCode, grantResults)
         }
     }
-
 
     private fun setGenderSpinner() {
         //        ___________________________________________________________BUSINESS TYPE SPINNER
@@ -498,7 +494,6 @@ class MyInformationActivity : BaseActivity(), IMyInformationView {
         bodyFatArr.add("Slim")
         bodyFatArr.add("Medium")
         bodyFatArr.add("Fat")
-
 
 
         // Creating adapter for spinner
@@ -556,43 +551,43 @@ class MyInformationActivity : BaseActivity(), IMyInformationView {
     }
 
 
-  /*  fun showCitiesDialog(
-        listData: ArrayList<LangData>,
-        title: String
-    ) {
+    /*  fun showCitiesDialog(
+          listData: ArrayList<LangData>,
+          title: String
+      ) {
 
-        val dialog = Dialog(this);
+          val dialog = Dialog(this);
 
-        val view: View = getLayoutInflater().inflate(R.layout.dialog_language, null);
+          val view: View = getLayoutInflater().inflate(R.layout.dialog_language, null);
 
 
-        // Change MyActivity.this and myListOfItems to your own values
-        val clad: CustomListAdapterDialog = CustomListAdapterDialog(this, listData);
+          // Change MyActivity.this and myListOfItems to your own values
+          val clad: CustomListAdapterDialog = CustomListAdapterDialog(this, listData);
 
-        val list = view.findViewById<View>(R.id.custom_list) as ListView
-        val tvTittleLang = view.findViewById<View>(R.id.tvTittleLang) as TextView
-        tvTittleLang.setText(title)
+          val list = view.findViewById<View>(R.id.custom_list) as ListView
+          val tvTittleLang = view.findViewById<View>(R.id.tvTittleLang) as TextView
+          tvTittleLang.setText(title)
 
-        list.setAdapter(clad);
+          list.setAdapter(clad);
 
-        list.setOnItemClickListener(AdapterView.OnItemClickListener { adapter, view, position, arg ->
-            // TODO Auto-generated method stub
-//            val tvLanguage = view.findViewById<View>(R.id.tvLanguage) as TextView
+          list.setOnItemClickListener(AdapterView.OnItemClickListener { adapter, view, position, arg ->
+              // TODO Auto-generated method stub
+  //            val tvLanguage = view.findViewById<View>(R.id.tvLanguage) as TextView
 
-            cityId = listData[position].id.toString()
-            val cityName = listData[position].name
+              cityId = listData[position].id.toString()
+              val cityName = listData[position].name
 
-//            tvCity.setText(cityName)
+  //            tvCity.setText(cityName)
 
-            dialog.dismiss()
-        }
-        )
+              dialog.dismiss()
+          }
+          )
 
-        dialog.setContentView(view);
+          dialog.setContentView(view);
 
-        dialog.show();
+          dialog.show();
 
-    }*/
+      }*/
 
     override fun onSetDataChanged(result: Boolean, response: Response<ProfileDataClass>) {
 
@@ -615,6 +610,7 @@ class MyInformationActivity : BaseActivity(), IMyInformationView {
 //            sessionManager?.setValues(SessionManager.FCM_TOKEN, signUpModel.data.fcm_token)
                 sessionManager?.setValues(SessionManager.GENDER, profileDataClass.data.gender)
                 sessionManager?.setValues(SessionManager.BIO, profileDataClass.data.bio)
+                sessionManager?.setValues(SessionManager.PHOTO_URL, profileDataClass.data.photo)
 
                 countryId = profileDataClass.data.country_id.toString()
                 cityId = profileDataClass.data.city_id
@@ -690,31 +686,26 @@ class MyInformationActivity : BaseActivity(), IMyInformationView {
                 if (genderValue.equals("F")) {
                     spinnerGender.setSelection(2)
                 }
-                if(bodyFatVal.equals("Slim"))
-                {
+                if (bodyFatVal.equals("Slim")) {
                     spinnerGender.setSelection(1)
                 }
-                if(bodyFatVal.equals("Medium"))
-                {
+                if (bodyFatVal.equals("Medium")) {
                     spinnerGender.setSelection(2)
                 }
-                if(bodyFatVal.equals("Fat"))
-                {
+                if (bodyFatVal.equals("Fat")) {
                     spinnerGender.setSelection(3)
                 }
-                else
-
-                    if (profileDataClass.data.photo != null && profileDataClass.data.photo != "null" && profileDataClass.data.photo != "") {
+                    if (profileDataClass.data.photo.isNullOrEmpty() == false) {
                         GlideApp.with(this)
                             .load(profileDataClass.data.photo)
                             .placeholder(R.drawable.ic_user)
                             .into(imgProfile)
-                    } else {
+                    }/* else {
                         GlideApp.with(this)
                             .load(R.drawable.ic_user)
                             .placeholder(R.drawable.ic_user)
                             .into(imgProfile)
-                    }
+                    }*/
 
                 countryId = profileDataClass.data.country_id
                 cityId = profileDataClass.data.city_id

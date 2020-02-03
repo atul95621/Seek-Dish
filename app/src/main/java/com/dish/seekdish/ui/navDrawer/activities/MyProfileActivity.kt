@@ -33,32 +33,8 @@ class MyProfileActivity : BaseActivity() {
         setContentView(R.layout.activity_my_profile)
 
 
-        initView()
         clickListners()
 
-
-
-        if (connectionDetector.isConnectingToInternet) {
-            // api hit
-            reqApiHit()
-        } else {
-            showSnackBar(resources.getString(R.string.check_connection))
-        }
-
-
-        if (!sessionManager?.getValue(SessionManager.PHOTO_URL).equals(null) && !sessionManager?.getValue(
-                SessionManager.PHOTO_URL
-            ).equals(
-                "null"
-            ) && !sessionManager?.getValue(SessionManager.PHOTO_URL).equals("") && !sessionManager?.getValue(
-                SessionManager.FIRST_NAME
-            ).equals("")
-        ) {
-            GlideApp.with(this)
-                .load(sessionManager?.getValue(SessionManager.PHOTO_URL))
-                .placeholder(R.drawable.ic_user)
-                .into(profile_image)
-        }
 
     }
 
@@ -97,8 +73,8 @@ class MyProfileActivity : BaseActivity() {
                             modelObj.data.new_info_data.checkin.toString() + " Check-In"
                         tvProfilePercent.text =
                             modelObj.data.new_info_data.profile_percentage.toString() + " of Profile"
-                        tvName.text=modelObj.data.first_name
-                        tvBio.text=modelObj.data.bio
+                        tvName.text = modelObj.data.first_name
+                        tvBio.text = modelObj.data.bio
 
 
                     }
@@ -124,6 +100,36 @@ class MyProfileActivity : BaseActivity() {
 
             }
         })
+    }
+
+    override fun onResume() {
+        super.onResume()
+
+
+        initView()
+
+        if (connectionDetector.isConnectingToInternet) {
+            // api hit
+            reqApiHit()
+        } else {
+            showSnackBar(resources.getString(R.string.check_connection))
+        }
+
+
+        if (!sessionManager?.getValue(SessionManager.PHOTO_URL).equals(null) && !sessionManager?.getValue(
+                SessionManager.PHOTO_URL
+            ).equals(
+                "null"
+            ) && !sessionManager?.getValue(SessionManager.PHOTO_URL).equals("") && !sessionManager?.getValue(
+                SessionManager.FIRST_NAME
+            ).equals("")
+        ) {
+            GlideApp.with(this)
+                .load(sessionManager?.getValue(SessionManager.PHOTO_URL))
+                .placeholder(R.drawable.ic_user)
+                .into(profile_image)
+        }
+
     }
 
     private fun initView() {

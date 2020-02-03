@@ -283,7 +283,7 @@ class SignupActivity : BaseActivity(), ISignUpView {
 
                     //get image path from uri
 //                    val path = getPath(imageUri)
-                    path = this@SignupActivity.getPath(imageUri).toString()
+                    path = this@SignupActivity.getRealPathFromURI(imageUri).toString()
                     Log.e("path", path)
                     // Bitmap bmp = uriToBitmap(imageUri);
 
@@ -392,7 +392,6 @@ class SignupActivity : BaseActivity(), ISignUpView {
             //Log.e("uri image", "" + resultCode);
             if (imagePicker != null)
                 imagePicker?.handleActivityResult(resultCode, requestCode, result)
-
         }
 
     }

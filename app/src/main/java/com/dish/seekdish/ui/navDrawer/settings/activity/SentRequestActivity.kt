@@ -13,6 +13,7 @@ import com.dish.seekdish.custom.ProgressBarClass
 import com.dish.seekdish.retrofit.APIClient
 import com.dish.seekdish.retrofit.APIInterface
 import com.dish.seekdish.ui.navDrawer.settings.adapter.SentRequestAdapter
+import com.dish.seekdish.ui.navDrawer.settings.dataModel.CancelReModel
 import com.dish.seekdish.ui.navDrawer.settings.dataModel.Data_Req
 import com.dish.seekdish.ui.navDrawer.settings.dataModel.ReceivedRequestDataClass
 import com.dish.seekdish.util.SessionManager
@@ -135,6 +136,48 @@ class SentRequestActivity : BaseActivity() {
                 // canceling the progress bar
                 ProgressBarClass.dialog.dismiss()
 
+            }
+        })
+    }
+
+    fun cancelReqHit(SenderuserId: Int) {
+
+        ProgressBarClass.progressBarCalling(this)
+
+        apiInterface = APIClient.getClient(this).create(APIInterface::class.java)
+
+
+        val call = apiInterface.cancelReqSent(
+            sessionManager?.getValue(SessionManager.USER_ID).toString(),
+            SenderuserId.toString()
+        )
+        call.enqueue(object : Callback<CancelReModel> {
+            override fun onResponse(
+                call: Call<CancelReModel>,
+                response: Response<CancelReModel>
+            ) {
+                // canceling the progress bar
+                ProgressBarClass.dialog.dismiss()
+                if (response.code().toString().equals("200")) {
+
+                    var model = response.body() as CancelReModel
+
+                    if (model.status == 1) {
+                        showSnackBar(model.data.message)
+                        reqApiHit()
+                    } else {
+                        showSnackBar(model.data.message)
+                    }
+                } else {
+                    showSnackBar(resources.getString(R.string.error_occured));
+                }
+            }
+
+            override fun onFailure(call: Call<CancelReModel>, t: Throwable) {
+                showSnackBar(resources.getString(R.string.error_occured));
+                call.cancel()
+                // canceling the progress bar
+                ProgressBarClass.dialog.dismiss()
             }
         })
     }

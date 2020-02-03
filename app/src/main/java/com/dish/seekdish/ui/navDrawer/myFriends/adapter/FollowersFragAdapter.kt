@@ -42,7 +42,7 @@ class FollowersFragAdapter(
 
         // getting all vales and storing in val...
         var imgFriend: String = friendDataClass.user_image
-        Glide.with(activity).load(imgFriend).into(holder.imgFriend);
+        Glide.with(activity).load(imgFriend).placeholder(R.drawable.ic_user).into(holder.imgFriend);
         holder.tvFriendName.text = friendDataClass.username
 
 

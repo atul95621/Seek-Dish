@@ -264,6 +264,23 @@ open class BaseActivity : AppCompatActivity() {
         }
     }
 
+    fun getRealPathFromURI(contentURI:Uri):String {
+        val result:String
+        val cursor = getContentResolver().query(contentURI, null, null, null, null)
+        if (cursor == null)
+        { // Source is Dropbox or other similar local file path
+            result = contentURI.getPath().toString()
+        }
+        else
+        {
+            cursor.moveToFirst()
+            val idx = cursor.getColumnIndex(MediaStore.Images.ImageColumns.DATA)
+            result = cursor.getString(idx)
+            cursor.close()
+        }
+        return result
+    }
+
     fun datePrase(date: String): String {
         var newDate = ""
         var oldFormat = "yyyy-MM-dd HH:mm:ss";

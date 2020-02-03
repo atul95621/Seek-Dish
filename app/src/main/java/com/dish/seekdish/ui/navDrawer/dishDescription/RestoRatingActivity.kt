@@ -392,7 +392,7 @@ class RestoRatingActivity : BaseActivity() {
                     //get image path from uri
 //                     path = getPath(imageUri)
                     // Bitmap bmp = uriToBitmap(imageUri);
-                    path = this@RestoRatingActivity.getPath(imageUri).toString()
+                    path = this@RestoRatingActivity.getRealPathFromURI(imageUri).toString()
                     Log.e("path", path)
 
                     if (path != null && path != "" && path != "null") {
