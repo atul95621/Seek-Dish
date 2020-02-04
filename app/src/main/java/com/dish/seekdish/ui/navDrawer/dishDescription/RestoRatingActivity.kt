@@ -105,10 +105,12 @@ class RestoRatingActivity : BaseActivity() {
 
         GlideApp.with(this)
             .load(bitM)
+            .placeholder(R.drawable.app_logo)
             .into(img_cir_meal_image)
 
         GlideApp.with(this)
             .load(bitM)
+            .placeholder(R.drawable.app_logo)
             .into(imgMealImage)
     }
 
@@ -390,7 +392,7 @@ class RestoRatingActivity : BaseActivity() {
                     //Log.e("uri imagePckr fetch", String.valueOf(imageUri));
 
                     //get image path from uri
-//                     path = getPath(imageUri)
+//                     path = getPath(imageUri).toString()
                     // Bitmap bmp = uriToBitmap(imageUri);
                     path = this@RestoRatingActivity.getRealPathFromURI(imageUri).toString()
                     Log.e("path", path)

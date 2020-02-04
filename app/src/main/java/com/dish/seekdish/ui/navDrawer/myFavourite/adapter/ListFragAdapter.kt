@@ -64,6 +64,7 @@ class ListFragAdapter(
         var imageUrl: String = listDataClass.meal_image
         GlideApp.with(activity)
             .load(imageUrl)
+            .placeholder(R.drawable.app_logo)
             .into(holder.imgFoodImage)
         holder.tvDishName.text = listDataClass.name
         var dist = listDataClass.distance

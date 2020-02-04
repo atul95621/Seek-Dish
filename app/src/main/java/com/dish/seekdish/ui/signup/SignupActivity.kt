@@ -257,9 +257,12 @@ class SignupActivity : BaseActivity(), ISignUpView {
     //images
     private fun checkImgPermissionIsEnabledOrNot(): Boolean {
 
-        val FirstPermissionResult = ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE)
-        val SecondPermissionResult = ContextCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE)
-        val ThirdPermissionResult = ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA)
+        val FirstPermissionResult =
+            ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE)
+        val SecondPermissionResult =
+            ContextCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE)
+        val ThirdPermissionResult =
+            ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA)
 
         return FirstPermissionResult == PackageManager.PERMISSION_GRANTED &&
                 SecondPermissionResult == PackageManager.PERMISSION_GRANTED &&
@@ -303,7 +306,8 @@ class SignupActivity : BaseActivity(), ISignUpView {
 
                             when (orientation) {
 
-                                ExifInterface.ORIENTATION_ROTATE_90 -> bitmap = TransformationUtils.rotateImage(bm, 90)
+                                ExifInterface.ORIENTATION_ROTATE_90 -> bitmap =
+                                    TransformationUtils.rotateImage(bm, 90)
 
                                 ExifInterface.ORIENTATION_ROTATE_180 -> bitmap =
                                     TransformationUtils.rotateImage(bm, 180)
@@ -396,7 +400,11 @@ class SignupActivity : BaseActivity(), ISignUpView {
 
     }
 
-    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<String>, grantResults: IntArray) {
+    override fun onRequestPermissionsResult(
+        requestCode: Int,
+        permissions: Array<String>,
+        grantResults: IntArray
+    ) {
         when (requestCode) {
 
 
@@ -448,7 +456,8 @@ class SignupActivity : BaseActivity(), ISignUpView {
 
 
         // Creating adapter for spinner
-        val languageSelectAdapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, genderArr)
+        val languageSelectAdapter =
+            ArrayAdapter(this, android.R.layout.simple_spinner_item, genderArr)
 
         // Drop down layout style - list view with radio button
         languageSelectAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
@@ -463,36 +472,32 @@ class SignupActivity : BaseActivity(), ISignUpView {
 
         if (result == true) {
 
-
-            /*      Log.e("responseSignupCode", response.code().toString() + "")
-                  Log.e("responseSignupStatus", " " + response.body()?.status)
-                  Log.e("responseSignupString", " " + response.body().toString())
-                  Log.e("responseSignuperror", " " + response.errorBody().toString())*/
-
-
-            // saving that user is already logged in
-            sessionManager?.setValues(SessionManager.LOGGEDIN, "1")
-
             val signUpModel = response.body() as SignUpModel
+            if (signUpModel.status == 1) {
+                // saving that user is already logged in
+                sessionManager?.setValues(SessionManager.LOGGEDIN, "1")
 
-
-            sessionManager.setValues(SessionManager.USERNAME, signUpModel.data.username)
-            sessionManager.setValues(SessionManager.FIRST_NAME, signUpModel.data.first_name)
-            sessionManager.setValues(SessionManager.LAST_NAME, signUpModel.data.last_name)
-            sessionManager.setValues(SessionManager.EMAIL, signUpModel.data.email)
-            sessionManager.setValues(SessionManager.PHONE, signUpModel.data.phone)
-            sessionManager.setValues(SessionManager.USER_ID, signUpModel.data.id.toString())
-            sessionManager.setValues(SessionManager.COUNTRY_CODE, signUpModel.data.country.toString())
-            sessionManager.setValues(SessionManager.PHOTO_URL, signUpModel.data.photo)
+                sessionManager.setValues(SessionManager.USERNAME, signUpModel.data.username)
+                sessionManager.setValues(SessionManager.FIRST_NAME, signUpModel.data.first_name)
+                sessionManager.setValues(SessionManager.LAST_NAME, signUpModel.data.last_name)
+                sessionManager.setValues(SessionManager.EMAIL, signUpModel.data.email)
+                sessionManager.setValues(SessionManager.PHONE, signUpModel.data.phone)
+                sessionManager.setValues(SessionManager.USER_ID, signUpModel.data.id.toString())
+                sessionManager.setValues(
+                    SessionManager.COUNTRY_CODE,
+                    signUpModel.data.country.toString()
+                )
+                sessionManager.setValues(SessionManager.PHOTO_URL, signUpModel.data.photo)
 //            sessionManager?.setValues(SessionManager.FCM_TOKEN, signUpModel.data.fcm_token)
-            sessionManager.setValues(SessionManager.GENDER, signUpModel.data.gender)
-            sessionManager.setValues(SessionManager.BIO, signUpModel.data.bio)
+                sessionManager.setValues(SessionManager.GENDER, signUpModel.data.gender)
+                sessionManager.setValues(SessionManager.BIO, signUpModel.data.bio)
 
-
-            val intent = Intent(this@SignupActivity, HomeActivity::class.java)
-            intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
-            startActivity(intent)
-
+                val intent = Intent(this@SignupActivity, HomeActivity::class.java)
+                intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+                startActivity(intent)
+            } else {
+                showSnackBar(signUpModel.data.message)
+            }
 
         } else {
 

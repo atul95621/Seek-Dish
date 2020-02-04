@@ -41,7 +41,7 @@ class SimilarAdapter(
 
         // getting all vales and storing in val...
         var imageUrl: String = tasteDataClass.foodImageUrl.toString()
-        Glide.with(activity).load(imageUrl).into(holder.imgFoodImage);
+        Glide.with(activity).load(imageUrl).placeholder(R.drawable.app_logo).into(holder.imgFoodImage);
         holder.tvDishName.text = tasteDataClass.dishName
         var dist = tasteDataClass.distance
         holder.tvDistance.text =String.format("%.2f", dist) +" Km"

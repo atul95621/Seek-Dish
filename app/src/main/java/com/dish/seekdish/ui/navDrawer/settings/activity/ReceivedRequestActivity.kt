@@ -12,14 +12,12 @@ import com.dish.seekdish.R
 import com.dish.seekdish.custom.ProgressBarClass
 import com.dish.seekdish.retrofit.APIClient
 import com.dish.seekdish.retrofit.APIInterface
-import com.dish.seekdish.ui.navDrawer.myFriends.adapter.FriendFragAdapter
 
 import com.dish.seekdish.ui.navDrawer.settings.adapter.ReceivedRequestAdapter
 import com.dish.seekdish.ui.navDrawer.settings.dataModel.CancelReModel
 import com.dish.seekdish.ui.navDrawer.settings.dataModel.Data_Req
 import com.dish.seekdish.ui.navDrawer.settings.dataModel.ReceivedRequestDataClass
 import com.dish.seekdish.util.SessionManager
-import kotlinx.android.synthetic.main.activity_my_alerts.*
 import kotlinx.android.synthetic.main.activity_received_request.*
 import kotlinx.android.synthetic.main.activity_received_request.tvAlert
 import kotlinx.android.synthetic.main.activity_received_request.tvBack
@@ -69,10 +67,7 @@ class ReceivedRequestActivity : BaseActivity() {
     fun reqApiHit() {
 
         ProgressBarClass.progressBarCalling(this)
-
         apiInterface = APIClient.getClient(this).create(APIInterface::class.java)
-
-
         val call =
             apiInterface.recievedReq(sessionManager?.getValue(SessionManager.USER_ID).toString())
         call.enqueue(object : Callback<ReceivedRequestDataClass> {
@@ -115,7 +110,7 @@ class ReceivedRequestActivity : BaseActivity() {
     }
 
     fun apiHit(userId: Int) {
-        cancelReqHit(userId)
+        declineReqHit(userId)
     }
 
 
@@ -163,13 +158,13 @@ class ReceivedRequestActivity : BaseActivity() {
         })
     }
 
-    fun cancelReqHit(SenderuserId: Int) {
+    fun declineReqHit(SenderuserId: Int) {
 
         ProgressBarClass.progressBarCalling(this)
         apiInterface = APIClient.getClient(this).create(APIInterface::class.java)
-        val call = apiInterface.cancelReqSent(
-            sessionManager?.getValue(SessionManager.USER_ID).toString(),
-            SenderuserId.toString()
+        val call = apiInterface.declineFrndReqSent(
+            SenderuserId.toString(),
+            sessionManager?.getValue(SessionManager.USER_ID).toString()
         )
         call.enqueue(object : Callback<CancelReModel> {
             override fun onResponse(

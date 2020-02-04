@@ -41,7 +41,7 @@ class SentRequestAdapter(
 
         // getting all vales and storing in val...
         var imageUrl: String = followingDataClass.user_image
-        Glide.with(sentRequestActivity).load(imageUrl)
+        Glide.with(sentRequestActivity).load(imageUrl).placeholder(R.drawable.ic_user)
             .into(holder.imgFriend);//        Glide.with(this).load(imgFriend).apply(options).into(holder.imgFoodImage);
         holder.tvFriendName.text = followingDataClass.username
         holder.imgFriend.setOnClickListener()
@@ -81,6 +81,7 @@ class SentRequestAdapter(
             tvFriendName = view.findViewById(R.id.tvFriendName) as TextView
         }
     }
+
     fun updateList(list: ArrayList<Data_Req>) {
         arrayList = list
         notifyDataSetChanged()

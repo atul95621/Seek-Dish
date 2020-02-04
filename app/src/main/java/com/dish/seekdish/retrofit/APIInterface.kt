@@ -569,6 +569,12 @@ internal interface APIInterface {
         @Field("receiver_id") receiverId: String
     ): Call<CancelReModel>
 
+    @FormUrlEncoded
+    @POST("decline_friend_request")
+    fun declineFrndReqSent(
+        @Field("sender_id") senderId: String,
+        @Field("receiver_id") receiverId: String
+    ): Call<CancelReModel>
 
     @FormUrlEncoded
     @POST("save_filters")

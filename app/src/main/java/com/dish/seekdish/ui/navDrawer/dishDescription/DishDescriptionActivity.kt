@@ -552,9 +552,11 @@ class DishDescriptionActivity : BaseActivity(), Serializable {
 
             GlideApp.with(this@DishDescriptionActivity)
                 .load(mResources.elementAt(position))
+                .placeholder(R.drawable.app_logo)
                 .into(imageView)
             GlideApp.with(this@DishDescriptionActivity)
                 .load(mResources.elementAt(position))
+                .placeholder(R.drawable.app_logo)
                 .into(profile_image)
 
             Log.e("ResourceSize", "" + mResources.size)

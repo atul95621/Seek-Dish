@@ -157,6 +157,7 @@ class DishDetailActivity : BaseActivity() {
 
             GlideApp.with(this@DishDetailActivity)
                 .load(mResources[position])
+                .placeholder(R.drawable.app_logo)
                 .into(imageView)
 
 

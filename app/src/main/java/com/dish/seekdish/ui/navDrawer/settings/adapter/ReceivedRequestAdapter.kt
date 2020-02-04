@@ -35,7 +35,7 @@ class ReceivedRequestAdapter(
 
         // getting all vales and storing in val...
         var imageUrl: String = followingDataClass.user_image
-        Glide.with(acitityReq).load(imageUrl).into(holder.imgFriend);
+        Glide.with(acitityReq).load(imageUrl).placeholder(R.drawable.ic_user).into(holder.imgFriend);
         holder.tvFriendName.text = followingDataClass.username
 
         holder.btnDecline.setOnClickListener()

@@ -244,6 +244,7 @@ class InvitationActivity : BaseActivity() {
                         var imageUrl: String = modelObj.data.restaurant_image
                         GlideApp.with(conxt)
                             .load(imageUrl)
+                            .placeholder(R.drawable.app_logo)
                             .into(imgInvited)
                         tvRestroName.text = modelObj.data.name
                         tvAddress.text = modelObj.data.street

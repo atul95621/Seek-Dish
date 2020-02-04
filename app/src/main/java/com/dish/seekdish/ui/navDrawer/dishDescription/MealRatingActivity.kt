@@ -58,10 +58,12 @@ class MealRatingActivity : BaseActivity() {
 
         GlideApp.with(this)
             .load(imageUrl)
+            .placeholder(R.drawable.app_logo)
             .into(img_meal_full)
 
         GlideApp.with(this)
             .load(imageUrl)
+            .placeholder(R.drawable.app_logo)
             .into(img_meal_cir)
 
     }

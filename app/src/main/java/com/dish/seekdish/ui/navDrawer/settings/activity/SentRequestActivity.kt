@@ -140,7 +140,7 @@ class SentRequestActivity : BaseActivity() {
         })
     }
 
-    fun cancelReqHit(SenderuserId: Int) {
+    fun cancelReqHit(reciever: Int) {
 
         ProgressBarClass.progressBarCalling(this)
 
@@ -149,7 +149,7 @@ class SentRequestActivity : BaseActivity() {
 
         val call = apiInterface.cancelReqSent(
             sessionManager?.getValue(SessionManager.USER_ID).toString(),
-            SenderuserId.toString()
+            reciever.toString()
         )
         call.enqueue(object : Callback<CancelReModel> {
             override fun onResponse(
