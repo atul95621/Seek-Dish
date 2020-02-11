@@ -10,6 +10,7 @@ import com.dish.seekdish.ui.navDrawer.dishDescription.model.AddTodoModel
 import com.dish.seekdish.ui.navDrawer.dishDescription.model.DishDescpModel
 import com.dish.seekdish.ui.navDrawer.myFriends.contactFetch.ContactsDetailsModel
 import com.dish.seekdish.ui.navDrawer.myFriends.dataModel.FriendDataModel
+import com.dish.seekdish.ui.navDrawer.notifications.NotifyModel
 import com.dish.seekdish.ui.navDrawer.restaurantDiscription.RestroDescpModel
 import com.dish.seekdish.ui.navDrawer.restaurantDiscription.checkInRestro.CheckinRestroModel
 import com.dish.seekdish.ui.navDrawer.restaurants.dataClass.ProximityDataClass
@@ -705,6 +706,12 @@ internal interface APIInterface {
         @Field("invitation_schedule_date") date: String
 
     ): Call<CancelReModel>
+
+    @FormUrlEncoded
+    @POST("get_all_notifications")
+    fun getNotificationList(
+        @Field("user_id") user_id: String
+    ): Call<NotifyModel>
 
 
 }

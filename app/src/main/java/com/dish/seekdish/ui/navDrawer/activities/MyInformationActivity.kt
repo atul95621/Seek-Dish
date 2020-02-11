@@ -265,8 +265,8 @@ class MyInformationActivity : BaseActivity(), IMyInformationView {
                         stringConvertToRequestBody(edtAddressLinetwo.text.toString()),
                         stringConvertToRequestBody(spinnerGender.selectedItem.toString()),
                         stringConvertToRequestBody(edtBio.text.toString()),
-                        stringConvertToRequestBody(countryId),
                         stringConvertToRequestBody(edtCity.text.toString()),
+                        stringConvertToRequestBody(countryId),
                         stringConvertToRequestBody(edtZipcode.text.toString()),
                         stringConvertToRequestBody(spinnerBodyFat.selectedItem.toString()),
                         stringConvertToRequestBody(edtWeight.text.toString()),
@@ -613,7 +613,7 @@ class MyInformationActivity : BaseActivity(), IMyInformationView {
                 sessionManager?.setValues(SessionManager.PHOTO_URL, profileDataClass.data.photo)
 
                 countryId = profileDataClass.data.country_id.toString()
-                cityId = profileDataClass.data.city_id
+//                cityId = profileDataClass.data.city_id
 
 /*                     if (profileDataClass.data.photo != null && profileDataClass.data.photo != "") {
                          GlideApp.with(this)
@@ -708,7 +708,7 @@ class MyInformationActivity : BaseActivity(), IMyInformationView {
                     }*/
 
                 countryId = profileDataClass.data.country_id
-                cityId = profileDataClass.data.city_id
+//                cityId = profileDataClass.data.city_id
 
                 Log.e("checkforId", " " + "COUNTRYiD: " + countryId + "   CitiId:  " + cityId)
 

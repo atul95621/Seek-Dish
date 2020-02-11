@@ -32,6 +32,7 @@ import com.dish.seekdish.ui.home.adapter.FilterAdapter
 import com.dish.seekdish.ui.home.dataModel.FilterDataModel
 import com.dish.seekdish.ui.home.viewModel.HomeActivityVM
 import com.dish.seekdish.ui.navDrawer.myFriends.contactFetch.ContactFetchActivity
+import com.dish.seekdish.ui.navDrawer.notifications.NotificationFarg
 import com.dish.seekdish.ui.navDrawer.restaurantDiscription.details.ChildData
 import com.dish.seekdish.ui.navDrawer.restaurantDiscription.details.GroupData
 import com.dish.seekdish.ui.navDrawer.toDo.TodoFragment
@@ -548,7 +549,13 @@ class HomeActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
                         .commit()
                 }
                 R.id.nav_notifications -> {
-
+                    tvAdd.visibility = (View.INVISIBLE)
+                    imgFilters.visibility = (View.INVISIBLE)
+                    tvTitle.setText("Notifications")
+                    val fragmentManager = supportFragmentManager
+                    fragmentManager.beginTransaction()
+                        .replace(R.id.content_frame, NotificationFarg())
+                        .commit()
 
                 }
                 R.id.nav_settings -> {
