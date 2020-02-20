@@ -72,6 +72,8 @@
                     android:cursorVisible="false"
                     android:paddingStart="10dp"
                     android:paddingEnd="40dp"
+                android:inputType="text"
+                android:maxLines="1"
                     android:gravity="start|center_vertical"
                     android:hint="Search Friends"
                     android:fontFamily="@font/assistantregular"

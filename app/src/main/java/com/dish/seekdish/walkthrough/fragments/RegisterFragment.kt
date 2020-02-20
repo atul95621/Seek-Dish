@@ -1,7 +1,6 @@
 package com.dish.seekdish.walkthrough.fragments
 
 import android.Manifest
-import android.app.Activity
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Build
@@ -11,8 +10,6 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.webkit.CookieSyncManager
-import android.widget.Toast
 import androidx.core.content.ContextCompat
 import com.dish.seekdish.R
 import com.dish.seekdish.custom.ProgressBarClass
@@ -35,18 +32,11 @@ import com.twitter.sdk.android.core.identity.TwitterAuthClient
 import com.twitter.sdk.android.core.models.User
 import kotlinx.android.synthetic.main.fragment_register.view.*
 import org.json.JSONException
-import android.util.Base64
 import com.twitter.sdk.android.core.Twitter
 import com.twitter.sdk.android.core.TwitterConfig
 import com.twitter.sdk.android.core.TwitterAuthConfig
-import kotlinx.android.synthetic.main.fragment_register.*
 import retrofit2.Response
-import retrofit2.Response.success
-import java.net.CookieManager
-import java.security.MessageDigest
-import java.security.NoSuchAlgorithmException
 import java.util.*
-import kotlin.Result.Companion.failure
 
 
 class RegisterFragment : BaseFragment(), IRegisterFragView {
@@ -62,7 +52,7 @@ class RegisterFragment : BaseFragment(), IRegisterFragView {
     lateinit var mcontext: WalkThroughActivity
 
     lateinit var registerFragPresenter: RegisterFragPresenter
-
+var langId=""
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -87,7 +77,10 @@ class RegisterFragment : BaseFragment(), IRegisterFragView {
         //getting FCM
         firebaseToken()
 
-
+        if (sessionManager.getValue(SessionManager.LANGUAGE_ID).isNullOrEmpty()) {
+            langId = sessionManager.getLangValue(SessionManager.LANGUAGE_HOME_ACTIVITY)
+            sessionManager.setValues(SessionManager.LANGUAGE_ID, langId)
+        }
 
         if (sessionManager.getValue(SessionManager.LOGGEDIN).equals("1")) {
             val intent = Intent(activity, HomeActivity::class.java)
@@ -244,7 +237,8 @@ class RegisterFragment : BaseFragment(), IRegisterFragView {
                     lastName.toString(),
                     imageUrl,
                     sessionManager.getValue(SessionManager.FCM_TOKEN),
-                    facebookUserId
+                    facebookUserId,
+                    langId
                 )
 
 //                ProgressBarClass.dialog.dismiss()
@@ -385,7 +379,8 @@ class RegisterFragment : BaseFragment(), IRegisterFragView {
                         user.name,
                         imageProfileUrl,
                         sessionManager.getValue(SessionManager.FCM_TOKEN),
-                        user.id.toString()
+                        user.id.toString(),
+                        langId
                     )
 
                 }

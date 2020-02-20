@@ -46,8 +46,11 @@ class MealsFragment( var response: RestroDescpModel) : BaseFragment() {
             var star=response.data.restaurant.meals[i].meal_avg_rating
             var review=response.data.restaurant.meals[i].no_of_reviews
             var euroRating=response.data.restaurant.meals[i].budget
+            var mealId=response.data.restaurant.meals[i].meal_id
+            var restroId=response.data.restaurant.meals[i].restro_id
 
-            val MealsDataClass = MealsDataClass(image, dishName, distance.toString(), star,review.toString(), euroRating.toString());
+
+            val MealsDataClass = MealsDataClass(image, dishName, distance.toString(), star,review.toString(), euroRating.toString(),mealId.toString(),restroId.toString());
             arrayList.add(MealsDataClass)
         }
 

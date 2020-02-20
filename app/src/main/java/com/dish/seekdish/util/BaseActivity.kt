@@ -318,4 +318,22 @@ open class BaseActivity : AppCompatActivity() {
         }
         return newDate
     }
+    fun timePrase(date: String): String {
+        var newDate = ""
+        var oldFormat = "yyyy-MM-dd HH:mm:ss";
+        var newFormat = "HH:mm";
+
+        var sdf1 = SimpleDateFormat(oldFormat);
+        var sdf2 = SimpleDateFormat(newFormat);
+
+
+        try {
+
+            newDate = sdf2.format(sdf1.parse(date))
+
+        } catch (e: ParseException) {
+            e.printStackTrace();
+        }
+        return newDate
+    }
 }

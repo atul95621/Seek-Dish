@@ -37,6 +37,8 @@
                     android:layout_height="35dp"
                     android:cursorVisible="false"
                     android:paddingStart="10dp"
+                android:inputType="text"
+                android:maxLines="1"
                     android:paddingEnd="40dp"
                     android:gravity="start|center_vertical"
                     android:hint="Search Friends"

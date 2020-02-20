@@ -68,11 +68,14 @@ class NotificationFarg : BaseFragment() {
     fun hitApi() {
         ProgressBarClass.progressBarCalling(homeActivity)
         apiInterface = APIClient.getClient(homeActivity).create(APIInterface::class.java)
-        val call =
+       /* val call =
             apiInterface.getNotificationList(
                 sessionManager.getValue(SessionManager.USER_ID)
+            )*/
+        val call =
+            apiInterface.getNotificationList(
+                "210"
             )
-
         call.enqueue(object : Callback<NotifyModel> {
             override fun onResponse(
                 call: Call<NotifyModel>,

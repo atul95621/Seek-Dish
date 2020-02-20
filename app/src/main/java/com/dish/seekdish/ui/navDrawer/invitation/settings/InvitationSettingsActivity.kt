@@ -52,7 +52,7 @@ class InvitationSettingsActivity : BaseActivity() {
             switchAllow.isEnabled = false
         }
 
-        numberPicker?.setMax(72)
+        numberPicker?.setMax(23)
         numberPicker?.setMin(1)
         numberPicker?.setUnit(1)
         numberPicker?.setValue(2)

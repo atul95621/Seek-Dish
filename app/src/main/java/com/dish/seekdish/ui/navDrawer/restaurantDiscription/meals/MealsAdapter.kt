@@ -58,6 +58,8 @@ class MealsAdapter(
         {
 
             val intent = Intent(activity, DishDescriptionActivity::class.java)
+            intent.putExtra("MEAL_ID",tasteDataClass.mealId.toString())
+            intent.putExtra("RESTAURANT_ID",tasteDataClass.restroId.toString())
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK)
             activity.startActivity(intent)
         }

@@ -556,7 +556,6 @@ class HomeActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
                     fragmentManager.beginTransaction()
                         .replace(R.id.content_frame, NotificationFarg())
                         .commit()
-
                 }
                 R.id.nav_settings -> {
 
@@ -637,11 +636,6 @@ class HomeActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
                             } else {
                                 switch_consider_my_profile.isChecked = false
                             }
-                        }
-
-                        for (items in response.data.budget) {
-                            Log.e("Budget", items.name)
-                            addProduct("Budget", items.name, items.id)
                         }
 
                         for (items in response.data.budget) {

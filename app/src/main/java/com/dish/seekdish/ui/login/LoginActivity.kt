@@ -1,14 +1,11 @@
 package com.dish.seekdish.ui.login
 
-import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.text.TextUtils
-import android.util.Log
 import com.dish.seekdish.util.BaseActivity
 import com.dish.seekdish.R
 import com.dish.seekdish.ui.ForgotActivity
-import com.dish.seekdish.ui.SplashActivity
 import com.dish.seekdish.ui.home.HomeActivity
 import com.dish.seekdish.util.SessionManager
 import kotlinx.android.synthetic.main.activity_login.*
@@ -51,7 +48,7 @@ class LoginActivity : BaseActivity(), ILoginView {
                 if (connectionDetector.isConnectingToInternet) {
 
                     //calling api
-                    loginPresenter.login(edtEmail.text.toString(), edtPassword.text.toString())
+                    loginPresenter.login(edtEmail.text.toString(), edtPassword.text.toString(),sessionManager?.getValue(SessionManager.LANGUAGE_ID).toString())
                 } else {
                     showSnackBar(resources.getString(R.string.check_connection))
                 }
@@ -108,11 +105,6 @@ class LoginActivity : BaseActivity(), ILoginView {
 
             if (checkboxRememberMe.isChecked) {
                 sessionManager?.setValues(SessionManager.LOGGEDIN, "1")
-            }
-
-            if (sessionManager?.getValue(SessionManager.LANGUAGE_ID).isNullOrEmpty()) {
-                var lang = sessionManager?.getLangValue(SessionManager.LANGUAGE_HOME_ACTIVITY)
-                sessionManager?.setValues(SessionManager.LANGUAGE_ID, lang)
             }
 
 

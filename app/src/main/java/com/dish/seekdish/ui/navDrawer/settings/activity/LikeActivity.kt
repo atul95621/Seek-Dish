@@ -164,16 +164,16 @@ class LikeActivity : BaseActivity() {
             savedIngredients = join1(",", Global.likedItemsSet)
             Log.e("LikedCommaSepSearch", savedIngredients)
 
+            //hitiing save api
+            likeVM?.doSaveLikedIngredients(
+                sessionManager?.getValue(SessionManager.USER_ID).toString(),
+                savedIngredients
+            )
+         /*   if (savedIngredients != null && savedIngredients != "null" && savedIngredients != "") {
 
-            if (savedIngredients != null && savedIngredients != "null" && savedIngredients != "") {
-                //hitiing save api
-                likeVM?.doSaveLikedIngredients(
-                    sessionManager?.getValue(SessionManager.USER_ID).toString(),
-                    savedIngredients
-                )
             } else {
                 showSnackBar("Please select atleast one ingredient.")
-            }
+            }*/
 
         }
 
@@ -343,6 +343,10 @@ class LikeActivity : BaseActivity() {
                         setResult(Activity.RESULT_CANCELED, returnIntent)
                         finish()
                     }, 1000)
+                }
+                else
+                {
+                    showSnackBar(response.data.message)
                 }
 
             } else {

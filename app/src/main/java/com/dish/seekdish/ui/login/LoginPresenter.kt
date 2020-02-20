@@ -1,12 +1,10 @@
 package com.dish.seekdish.ui.login
 
-import android.content.Intent
 import android.util.Log
 import com.dish.seekdish.R
 import com.dish.seekdish.custom.ProgressBarClass
 import com.dish.seekdish.retrofit.APIClient
 import com.dish.seekdish.retrofit.APIInterface
-import com.dish.seekdish.ui.home.HomeActivity
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -17,14 +15,14 @@ class LoginPresenter(private val iSignUpView: ILoginView, val loginActivity: Log
     internal lateinit var apiInterface: APIInterface
 
 
-    fun login(email: String, password: String) {
+    fun login(email: String, password: String, languageId: String) {
 
         ProgressBarClass.progressBarCalling(loginActivity)
 
         apiInterface = APIClient.getClient(loginActivity).create(APIInterface::class.java)
 
 
-        val call = apiInterface.doLogIn(email, password)
+        val call = apiInterface.doLogIn(email, password,languageId)
         call.enqueue(object : Callback<LoginDataClass> {
             override fun onResponse(call: Call<LoginDataClass>, response: Response<LoginDataClass>) {
 

@@ -1,13 +1,11 @@
 package com.dish.seekdish.ui.signup
 
-import android.content.Intent
 import android.util.Log
 import android.widget.Toast
 import com.dish.seekdish.R
 import com.dish.seekdish.custom.ProgressBarClass
 import com.dish.seekdish.retrofit.APIClient
 import com.dish.seekdish.retrofit.APIInterface
-import com.dish.seekdish.ui.home.HomeActivity
 import com.facebook.FacebookSdk
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
@@ -33,7 +31,8 @@ class SignupPresenter(private val iSignUpView: ISignUpView, val signupActivity: 
         bio: RequestBody,
         countryCode: RequestBody,
         fcmToken: RequestBody,
-        part: MultipartBody.Part
+        part: MultipartBody.Part,
+        langId: RequestBody
     ) {
 
         ProgressBarClass.progressBarCalling(signupActivity)
@@ -53,7 +52,8 @@ class SignupPresenter(private val iSignUpView: ISignUpView, val signupActivity: 
             bio,
             countryCode,
             fcmToken,
-            part
+            part,
+            langId
         )
         call.enqueue(object : Callback<SignUpModel> {
             override fun onResponse(call: Call<SignUpModel>, response: Response<SignUpModel>) {
@@ -110,7 +110,8 @@ class SignupPresenter(private val iSignUpView: ISignUpView, val signupActivity: 
         gender: RequestBody,
         bio: RequestBody,
         countryCode: RequestBody,
-        fcmToken: RequestBody
+        fcmToken: RequestBody,
+        langId: RequestBody
     ) {
 
         ProgressBarClass.progressBarCalling(signupActivity)
@@ -129,7 +130,8 @@ class SignupPresenter(private val iSignUpView: ISignUpView, val signupActivity: 
             gender,
             bio,
             countryCode,
-            fcmToken
+            fcmToken,
+            langId
         )
         call.enqueue(object : Callback<SignUpModel> {
             override fun onResponse(call: Call<SignUpModel>, response: Response<SignUpModel>) {

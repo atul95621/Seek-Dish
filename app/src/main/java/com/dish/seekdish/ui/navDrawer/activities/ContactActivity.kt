@@ -12,7 +12,6 @@ import com.dish.seekdish.ui.navDrawer.settings.dataModel.CancelReModel
 import com.dish.seekdish.util.SessionManager
 import kotlinx.android.synthetic.main.activity_contact.*
 import kotlinx.android.synthetic.main.activity_contact.tvBack
-import kotlinx.android.synthetic.main.activity_my_profile.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -21,6 +20,7 @@ import retrofit2.Response
 class ContactActivity : BaseActivity() {
     var sessionManager: SessionManager? = null;
     internal lateinit var apiInterface: APIInterface
+    var user_id=""
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_contact)
@@ -32,7 +32,11 @@ class ContactActivity : BaseActivity() {
 
         if (connectionDetector.isConnectingToInternet) {
             // api hit
-            reqApiHit()
+            user_id = intent.getStringExtra("USER_ID").toString()
+
+            if (user_id.isNullOrEmpty() == false) {
+                reqApiHit(user_id)
+            }
         } else {
             showSnackBar(resources.getString(R.string.check_connection))
         }
@@ -100,11 +104,11 @@ class ContactActivity : BaseActivity() {
     }
 
 
-    fun reqApiHit() {
+    fun reqApiHit(userId: String) {
         ProgressBarClass.progressBarCalling(this)
         apiInterface = APIClient.getClient(this).create(APIInterface::class.java)
         val call =
-            apiInterface.getContactDeatails(sessionManager?.getValue(SessionManager.USER_ID).toString())
+            apiInterface.getContactDeatails(userId)
 //        val call = apiInterface.getContactDeatails("129")
         call.enqueue(object : Callback<ContactModel> {
             override fun onResponse(

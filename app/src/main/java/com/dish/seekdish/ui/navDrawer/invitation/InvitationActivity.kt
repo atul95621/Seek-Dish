@@ -11,6 +11,7 @@ import android.app.DatePickerDialog
 import android.app.Dialog
 import android.text.TextUtils
 import android.util.Log
+import android.view.View
 import android.view.Window
 import android.widget.Button
 import android.widget.TextView
@@ -43,8 +44,11 @@ class InvitationActivity : BaseActivity() {
     internal lateinit var apiInterface: APIInterface
     var sessionManager: SessionManager? = null
     var restro_id = ""
+    var from = ""
+    var userWhoSent = ""
     var validity = ""
     var allow = ""
+    var timeDate = ""
     var timedelected = ""
     var dateSelected = ""
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -52,7 +56,6 @@ class InvitationActivity : BaseActivity() {
         setContentView(R.layout.activity_invitation)
 
         getIntents()
-        currentDateTime()
         // setting up tabLayout
         this.tabLayout = findViewById(R.id.tabLayoutInvitationActivity)
 
@@ -70,8 +73,29 @@ class InvitationActivity : BaseActivity() {
         sessionManager = SessionManager(this)
 
         if (connectionDetector.isConnectingToInternet) {
-            //hitting api
-            getInvitationApiHit()
+            if (from.equals("NotificationAdapter")) {
+                //hitting api
+                linOptionNotifi.visibility = View.VISIBLE
+                linBottomOption.visibility = View.GONE
+
+                var time = timePrase(timeDate)
+                var date = datePrase(timeDate)
+
+                tvDate.setText(date)
+                tvTime.setText(time)
+
+                tvDate.isEnabled=false
+                tvTime.isEnabled=false
+
+                getInvitationApiHit()
+            } else {
+                currentDateTime()
+
+                linOptionNotifi.visibility = View.GONE
+                linBottomOption.visibility = View.VISIBLE
+                //hitting api
+                getInvitationApiHit()
+            }
         } else {
             showSnackBar(getString(R.string.check_connection))
         }
@@ -100,6 +124,15 @@ class InvitationActivity : BaseActivity() {
             finish()
         }
 
+        imgDecline.setOnClickListener()
+        {
+            acceptOrDeclineInvitation("0")
+        }
+        imgAccept.setOnClickListener()
+        {
+            acceptOrDeclineInvitation("1")
+
+        }
 
         tvSettings.setOnClickListener()
         {
@@ -140,7 +173,7 @@ class InvitationActivity : BaseActivity() {
         }
     }
 
-    private fun onInvitationSendClick() {
+    private fun onInvitationSendClick(message: String) {
         val dialog = Dialog(this)
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
         dialog.setCancelable(false)
@@ -148,10 +181,9 @@ class InvitationActivity : BaseActivity() {
         val textViewTitle = dialog.findViewById<TextView>(R.id.textViewTitle)
         val textViewDescrp = dialog.findViewById<TextView>(R.id.textViewDescrp)
         val btnAccept = dialog.findViewById<Button>(R.id.btnAccept)
-
-
-        textViewTitle.setText("Invitation Sent")
-        textViewDescrp.setText("Your invitation sent successfully.")
+        Global.selectedFriends.clear()
+        textViewTitle.setText("Invitation Status")
+        textViewDescrp.setText(message)
         // button_yes clk
         btnAccept.setOnClickListener {
             dialog.dismiss()
@@ -194,8 +226,6 @@ class InvitationActivity : BaseActivity() {
             currentDate.get(Calendar.MONTH),
             currentDate.get(Calendar.DATE)
         ).show()
-
-
 
 
     }
@@ -280,7 +310,6 @@ class InvitationActivity : BaseActivity() {
     }
 
     fun postInvitation(recieversId: String) {
-
         ProgressBarClass.progressBarCalling(this)
         apiInterface = APIClient.getClient(this).create(APIInterface::class.java)
         val call =
@@ -288,7 +317,7 @@ class InvitationActivity : BaseActivity() {
                 sessionManager?.getValue(SessionManager.USER_ID).toString(),
                 restro_id,
                 recieversId,
-                timedelected,dateSelected
+                timedelected, dateSelected
             )
         call.enqueue(object : Callback<CancelReModel> {
             override fun onResponse(
@@ -301,14 +330,10 @@ class InvitationActivity : BaseActivity() {
                 if (response.code().toString().equals("200")) {
 
                     var modelObj = response.body() as CancelReModel
-
-                    if (modelObj.status == 0) {
-
-                        showSnackBar(resources.getString(R.string.error_occured));
-
+                    if (modelObj.status == 1) {
+                        onInvitationSendClick("Your invitation sent successfully.")
                     } else {
-                        onInvitationSendClick()
-
+                        showSnackBar(modelObj.data.message);
                     }
                 } else {
                     showSnackBar(resources.getString(R.string.error_occured));
@@ -317,18 +342,61 @@ class InvitationActivity : BaseActivity() {
 
             override fun onFailure(call: Call<CancelReModel>, t: Throwable) {
                 showSnackBar(resources.getString(R.string.error_occured));
-
                 call.cancel()
                 // canceling the progress bar
                 ProgressBarClass.dialog.dismiss()
-
             }
         })
     }
 
+    fun acceptOrDeclineInvitation(status: String) {
+        ProgressBarClass.progressBarCalling(this)
+        apiInterface = APIClient.getClient(this).create(APIInterface::class.java)
+        val call =
+            apiInterface.acceptDeclineInviApi(
+                userWhoSent,
+                restro_id,
+                sessionManager?.getValue(SessionManager.USER_ID).toString(),
+                status
+            )
+
+        call.enqueue(object : Callback<CancelReModel> {
+            override fun onResponse(
+                call: Call<CancelReModel>,
+                response: Response<CancelReModel>
+            ) {
+                // canceling the progress bar
+                ProgressBarClass.dialog.dismiss()
+                Log.e("respStrIniv", " " + response.body().toString())
+                if (response.code().toString().equals("200")) {
+
+                    var modelObj = response.body() as CancelReModel
+                    if (modelObj.status == 1) {
+                        onInvitationSendClick(modelObj.data.message)
+                        linBottomOption.visibility = View.VISIBLE
+                        linOptionNotifi.visibility = View.GONE
+                    } else {
+                        showSnackBar(modelObj.data.message);
+                    }
+                } else {
+                    showSnackBar(resources.getString(R.string.error_occured));
+                }
+            }
+
+            override fun onFailure(call: Call<CancelReModel>, t: Throwable) {
+                showSnackBar(resources.getString(R.string.error_occured));
+                call.cancel()
+                // canceling the progress bar
+                ProgressBarClass.dialog.dismiss()
+            }
+        })
+    }
 
     private fun getIntents() {
         restro_id = intent.getStringExtra("RESTAURANT_ID")
+        from = intent.getStringExtra("FROM")
+        userWhoSent = intent.getStringExtra("USER_WHO_SENT_ID")
+        timeDate = intent.getStringExtra("TIME")
     }
 
 }

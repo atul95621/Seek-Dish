@@ -12,14 +12,12 @@ import android.os.Bundle
 import android.text.TextUtils
 import android.util.Log
 import android.widget.ArrayAdapter
-import android.widget.Toast
 import androidx.core.content.ContextCompat
 import com.bumptech.glide.load.resource.bitmap.TransformationUtils
 import com.dish.seekdish.util.BaseActivity
 import com.dish.seekdish.R
 import com.dish.seekdish.ui.WebViewActivity
 import com.dish.seekdish.ui.home.HomeActivity
-import com.dish.seekdish.ui.login.LoginDataClass
 import com.dish.seekdish.util.SessionManager
 import com.myhexaville.smartimagepicker.ImagePicker
 import com.myhexaville.smartimagepicker.OnImagePickedListener
@@ -48,7 +46,7 @@ class SignupActivity : BaseActivity(), ISignUpView {
     // optional values...
     var bio = ""
     var gender = ""
-
+var langId=""
     // path for multipart image upload
     var path: String = ""
     var emailPattern = "[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+"
@@ -67,6 +65,8 @@ class SignupActivity : BaseActivity(), ISignUpView {
 
         //populating the spinner
         setGenderSpinner()
+
+        langId=sessionManager.getValue(SessionManager.LANGUAGE_ID).toString()
 
 
 // lisners::::
@@ -214,7 +214,8 @@ class SignupActivity : BaseActivity(), ISignUpView {
                             stringConvertToRequestBody(gender),
                             stringConvertToRequestBody(bio),
                             stringConvertToRequestBody(ccp.getSelectedCountryCode()),
-                            stringConvertToRequestBody(sessionManager!!.getValue(SessionManager.FCM_TOKEN))
+                            stringConvertToRequestBody(sessionManager!!.getValue(SessionManager.FCM_TOKEN)),
+                            stringConvertToRequestBody(langId)
                         )
 
                         // for null image pram...
@@ -240,7 +241,8 @@ class SignupActivity : BaseActivity(), ISignUpView {
                             stringConvertToRequestBody(edtBio.text.toString()),
                             stringConvertToRequestBody(ccp.getSelectedCountryCode()),
                             stringConvertToRequestBody(sessionManager!!.getValue(SessionManager.FCM_TOKEN)),
-                            part
+                            part,
+                            stringConvertToRequestBody(langId)
                         )
                     }
                 } else {

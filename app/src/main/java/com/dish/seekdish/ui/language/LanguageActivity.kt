@@ -47,16 +47,14 @@ class LanguageActivity : BaseActivity(), ILanguageView {
         languagePresenter = LanguagePresenter(this, this@LanguageActivity)
         dialog = Dialog(this)
 
-        Log.e("selectLangBefore", sessionManager?.getValue(SessionManager.IS_LANGUAGE_SELECTED))
-        if (sessionManager?.getValue(SessionManager.IS_LANGUAGE_SELECTED).equals("1") && sessionManager?.getValue(
-                SessionManager.LOGGEDIN
-            ).equals("1")
+        var isLanguageSelected = sessionManager?.getLangValue(SessionManager.IS_LANGUAGE_SELECTED)
+        var isLoggedIn = sessionManager?.getValue(SessionManager.LOGGEDIN)
+        if (isLanguageSelected.equals("1") && isLoggedIn.equals("1")
         ) {
             val intent = Intent(activity, HomeActivity::class.java)
             intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
             startActivity(intent)
-        } else if (sessionManager?.getValue(SessionManager.IS_LANGUAGE_SELECTED).equals("1")
-        ) {
+        } else if (isLanguageSelected.equals("1") && !isLoggedIn.equals("1")) {
             val intent = Intent(activity, WalkThroughActivity::class.java)
             intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
             startActivity(intent)
@@ -73,10 +71,12 @@ class LanguageActivity : BaseActivity(), ILanguageView {
                 else {
                     sessionManager?.setValues(SessionManager.LANGUAGE_ID, languageId.toString())
                     sessionManager?.setValues(SessionManager.LANGUAGE_NAME, languageName.toString())
-                    sessionManager?.setValues(SessionManager.IS_LANGUAGE_SELECTED, "1")
-                    sessionManager?.savesSessionLang(conxt,SessionManager.LANGUAGE_HOME_ACTIVITY,languageId.toString())
+                    sessionManager?.savesSessionLang(SessionManager.IS_LANGUAGE_SELECTED, "1")
+                    sessionManager?.savesSessionLang(
+                        SessionManager.LANGUAGE_HOME_ACTIVITY,
+                        languageId.toString()
+                    )
 
-                    Log.e("selectLang", sessionManager?.getValue(SessionManager.IS_LANGUAGE_SELECTED))
                     val intent = Intent(this@LanguageActivity, WalkThroughActivity::class.java)
                     intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
                     startActivity(intent)

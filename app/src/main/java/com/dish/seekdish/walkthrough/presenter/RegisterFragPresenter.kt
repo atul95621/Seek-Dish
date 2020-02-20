@@ -1,20 +1,13 @@
 package com.dish.seekdish.walkthrough.presenter
 
-import android.content.Context
-import android.content.Intent
 import android.util.Log
 import com.dish.seekdish.R
 import com.dish.seekdish.custom.ProgressBarClass
 import com.dish.seekdish.retrofit.APIClient
 import com.dish.seekdish.retrofit.APIInterface
-import com.dish.seekdish.ui.home.HomeActivity
-import com.dish.seekdish.ui.signup.ISignUpView
 import com.dish.seekdish.ui.signup.SignUpModel
-import com.dish.seekdish.ui.signup.SignupActivity
 import com.dish.seekdish.walkthrough.WalkThroughActivity
 import com.dish.seekdish.walkthrough.view.IRegisterFragView
-import okhttp3.MultipartBody
-import okhttp3.RequestBody
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -25,13 +18,14 @@ class RegisterFragPresenter(private val iRegisterFragView: IRegisterFragView, va
 
 // facebook api
     fun facebookSigin(
-        email: String,
-        firstname: String,
-        lastName: String,
-        photoUrl: String,
-        fcmToken: String,
-        facebookUserId: String
-    ) {
+    email: String,
+    firstname: String,
+    lastName: String,
+    photoUrl: String,
+    fcmToken: String,
+    facebookUserId: String,
+    langId: String
+) {
 
 
         apiInterface = APIClient.getClient(context).create(APIInterface::class.java)
@@ -43,7 +37,8 @@ class RegisterFragPresenter(private val iRegisterFragView: IRegisterFragView, va
             lastName,
             photoUrl,
             fcmToken,
-            facebookUserId
+            facebookUserId,
+            langId
         )
         call.enqueue(object : Callback<SignUpModel> {
             override fun onResponse(call: Call<SignUpModel>, response: Response<SignUpModel>) {
@@ -95,7 +90,8 @@ class RegisterFragPresenter(private val iRegisterFragView: IRegisterFragView, va
         firstname: String,
         photoUrl: String,
         fcmToken: String,
-        twitter_id: String
+        twitter_id: String,
+        langId: String
     ) {
 
 
@@ -109,7 +105,8 @@ class RegisterFragPresenter(private val iRegisterFragView: IRegisterFragView, va
             firstname,
             photoUrl,
             fcmToken,
-            twitter_id
+            twitter_id,
+            langId
         )
         call.enqueue(object : Callback<SignUpModel> {
             override fun onResponse(call: Call<SignUpModel>, response: Response<SignUpModel>) {

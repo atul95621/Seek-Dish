@@ -6,7 +6,6 @@ import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
-import android.media.ExifInterface
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
@@ -15,6 +14,7 @@ import android.util.Log
 import android.view.View
 import android.widget.*
 import androidx.core.content.ContextCompat
+import androidx.exifinterface.media.ExifInterface
 import com.bumptech.glide.load.resource.bitmap.TransformationUtils
 import com.dish.seekdish.util.BaseActivity
 import com.dish.seekdish.R
@@ -124,14 +124,10 @@ class MyInformationActivity : BaseActivity(), IMyInformationView {
         imgProfile.setOnClickListener()
         {
             if (checkImgPermissionIsEnabledOrNot()) {
-
                 chooseImage()
-
             } else {
-
                 requestImagePermission()
             }
-
         }
 
 
@@ -335,6 +331,7 @@ class MyInformationActivity : BaseActivity(), IMyInformationView {
 
                             //rotate bitmap to portrait if bitmap is orientated landscape
                             val ei = ExifInterface(path)
+
                             val orientation = ei.getAttributeInt(
                                 ExifInterface.TAG_ORIENTATION,
                                 ExifInterface.ORIENTATION_UNDEFINED

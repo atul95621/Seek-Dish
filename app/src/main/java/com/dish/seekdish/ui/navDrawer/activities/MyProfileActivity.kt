@@ -159,12 +159,14 @@ class MyProfileActivity : BaseActivity() {
         tvContact.setOnClickListener()
         {
             val intent = Intent(this@MyProfileActivity, ContactActivity::class.java)
+            intent.putExtra("USER_ID", sessionManager?.getValue(SessionManager.USER_ID).toString());
             startActivity(intent)
         }
 
         tvCheckin.setOnClickListener()
         {
             val intent = Intent(this@MyProfileActivity, CheckinActivity::class.java)
+            intent.putExtra("USER_ID",sessionManager?.getValue(SessionManager.USER_ID).toString());
             startActivity(intent)
         }
 

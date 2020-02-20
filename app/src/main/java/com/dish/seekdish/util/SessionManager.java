@@ -46,6 +46,9 @@ public class SessionManager {
     public SessionManager(Context context) {
         sharedPreferences = context.getSharedPreferences("seekdish_app", context.MODE_PRIVATE);
         editor = sharedPreferences.edit();
+// for lang
+        sharedPreferencesLang = context.getSharedPreferences("seekdish_app_Lang", context.MODE_PRIVATE);
+        editorLang = sharedPreferencesLang.edit();
     }
 
 
@@ -71,16 +74,16 @@ public class SessionManager {
     }
 
     // for saving the language activity lang
-    public void savesSessionLang(Context context, String key, String value) {
-        sharedPreferencesLang = context.getSharedPreferences("seekdish_app_Lang", context.MODE_PRIVATE);
-        editorLang = sharedPreferencesLang.edit();
+    public void savesSessionLang( String key, String value) {
+       /* sharedPreferencesLang = context.getSharedPreferences("seekdish_app_Lang", context.MODE_PRIVATE);
+        editorLang = sharedPreferencesLang.edit();*/
         editorLang.putString(key, value);
         editorLang.commit();
     }
 
     public String getLangValue(String key) {
-        String st_value = sharedPreferencesLang.getString(key, "");
-        return st_value;
+        String st_valuess = sharedPreferencesLang.getString(key, "");
+        return st_valuess;
     }
 
 

@@ -121,8 +121,7 @@ class RadiusCenterActivity : BaseActivity(), OnMapReadyCallback, GoogleMap.OnMyL
 
         linCurrentLocation.setOnClickListener()
         {
-
-            linAddress.visibility = View.INVISIBLE
+            linAddress.visibility = View.GONE
 
             var lati: Double = sessionManager!!.getValue(SessionManager.CURRENT_LATITUDE).toDouble()
             var longi: Double = sessionManager!!.getValue(SessionManager.CURRENT_LONGITUDE).toDouble()
@@ -147,7 +146,7 @@ class RadiusCenterActivity : BaseActivity(), OnMapReadyCallback, GoogleMap.OnMyL
         linAddress.setOnClickListener()
         {
 
-            linCurrentLocation.visibility = View.INVISIBLE
+//            linCurrentLocation.visibility = View.INVISIBLE
 
             // Set the fields to specify which types of place data to return.
             val fields = Arrays.asList(Place.Field.ID, Place.Field.NAME, Place.Field.LAT_LNG)
@@ -275,6 +274,8 @@ class RadiusCenterActivity : BaseActivity(), OnMapReadyCallback, GoogleMap.OnMyL
                         sessionManager.setValues(SessionManager.LATITUDE_SELECTED, latLngOfPlace.latitude.toString());
                         sessionManager.setValues(SessionManager.LONGITUDE_SELECTED, latLngOfPlace.longitude.toString());
                     sessionManager.setValues(SessionManager.PLACE_SELECTED,place.name );*/
+
+                    linCurrentLocation.visibility = View.GONE
 
                     selectedAddress = place.name
                     selectedLat = latLngOfPlace.latitude.toString()

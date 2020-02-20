@@ -53,7 +53,8 @@ internal interface APIInterface {
         @Part("bio") bio: RequestBody,
         @Part("country") country_code: RequestBody,
         @Part("fcm_token") fcm_token: RequestBody,
-        @Part file: MultipartBody.Part
+        @Part file: MultipartBody.Part,
+        @Part("language_id")language_id:RequestBody
     ): Call<SignUpModel>
 
 
@@ -71,7 +72,8 @@ internal interface APIInterface {
         @Part("gender") gender: RequestBody,
         @Part("bio") bio: RequestBody,
         @Part("country") country_code: RequestBody,
-        @Part("fcm_token") fcm_token: RequestBody
+        @Part("fcm_token") fcm_token: RequestBody,
+        @Part("language_id")language_id:RequestBody
     ): Call<SignUpModel>
 
 
@@ -83,8 +85,8 @@ internal interface APIInterface {
         @Field("last_name") last_name: String,
         @Field("photo") photoUrl: String,
         @Field("fcm_token") fcm_token: String,
-        @Field("provider_id") facebook_id: String
-
+        @Field("provider_id") facebook_id: String,
+        @Field("language_id")language_id:String
     ): Call<SignUpModel>
 
 
@@ -95,15 +97,16 @@ internal interface APIInterface {
         @Field("first_name") first_name: String,
         @Field("photo") photoUrl: String,
         @Field("fcm_token") fcm_token: String,
-        @Field("provider_id") twitter_id: String
-
+        @Field("provider_id") twitter_id: String,
+        @Field("language_id")language_id:String
     ): Call<SignUpModel>
 
     @FormUrlEncoded
     @POST("login")
     fun doLogIn(
         @Field("email") email: String,
-        @Field("password") password: String
+        @Field("password") password: String,
+        @Field("language_id")language_id:String
     ): Call<LoginDataClass>
 
 
@@ -713,5 +716,14 @@ internal interface APIInterface {
         @Field("user_id") user_id: String
     ): Call<NotifyModel>
 
+
+    @FormUrlEncoded
+    @POST("accept_decline_invitation")
+    fun acceptDeclineInviApi(
+        @Field("sender_id") sender_id: String,
+        @Field("restro_id") restro_id: String,
+        @Field("receiver_id") receiver_id: String,
+        @Field("invitation_status") invitation_status: String
+        ): Call<CancelReModel>
 
 }

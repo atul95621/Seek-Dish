@@ -19,7 +19,7 @@ import com.dish.seekdish.ui.navDrawer.checkin.data.Data_Checkin
 class FriendInfoActivity : AppCompatActivity() {
     var image = ""
     var name = ""
-    var user_id=""
+    var user_id = ""
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(com.dish.seekdish.R.layout.activity_friend_info)
@@ -28,11 +28,13 @@ class FriendInfoActivity : AppCompatActivity() {
 
         tvCheckin.setOnClickListener {
             val intent = Intent(this@FriendInfoActivity, CheckinActivity::class.java)
+            intent.putExtra("USER_ID", user_id.toString());
             startActivity(intent)
         }
 
         tvContact.setOnClickListener {
             val intent = Intent(this@FriendInfoActivity, ContactActivity::class.java)
+            intent.putExtra("USER_ID", user_id.toString());
             startActivity(intent)
         }
 
@@ -50,7 +52,7 @@ class FriendInfoActivity : AppCompatActivity() {
     private fun getIntents() {
         image = intent.getStringExtra("IMAGE")
         name = intent.getStringExtra("NAME")
-        user_id = intent.getIntExtra("USER_ID",0).toString()
+        user_id = intent.getIntExtra("USER_ID", 0).toString()
 
         setViews()
     }

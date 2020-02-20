@@ -12,5 +12,8 @@ data class Data_Notify(
     val notification_message: String,
     val notification_type: String,
     val restaurant_id: String,
+    val invitation_status:String,
+    val follower_name:String,
+    val username:String,
     val user_id: Int
 )

@@ -33,19 +33,23 @@ class CheckinActivity : BaseActivity() {
 
     var sessionManager: SessionManager? = null;
     internal lateinit var apiInterface: APIInterface
-
+    var user_id = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_checkin)
 
-        sessionManager= SessionManager(this)
+        sessionManager = SessionManager(this)
         recyclerView = findViewById(R.id.recycler_view_checkin) as RecyclerView
         recyclerView!!.setHasFixedSize(true)
         layoutManager = LinearLayoutManager(this)
         recyclerView!!.setLayoutManager(layoutManager)
 
-        checkinListApiHit()
+        user_id = intent.getStringExtra("USER_ID").toString()
+
+        if (user_id.isNullOrEmpty() == false) {
+            checkinListApiHit(user_id)
+        }
 
         tvBack.setOnClickListener()
         {
@@ -53,13 +57,13 @@ class CheckinActivity : BaseActivity() {
         }
     }
 
-    fun checkinListApiHit() {
+    fun checkinListApiHit(userId: String) {
 
         ProgressBarClass.progressBarCalling(this)
         apiInterface = APIClient.getClient(this).create(APIInterface::class.java)
 
         val call =
-            apiInterface.getCheckinData(sessionManager?.getValue(SessionManager.USER_ID).toString())
+            apiInterface.getCheckinData(userId)
         call.enqueue(object : Callback<CheckinModel> {
             override fun onResponse(
                 call: Call<CheckinModel>,

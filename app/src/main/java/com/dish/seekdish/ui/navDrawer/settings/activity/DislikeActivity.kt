@@ -119,16 +119,16 @@ class DislikeActivity : BaseActivity() {
             savedIngredients = join1(",", Global.dislikedItemsSet)
             Log.e("DislikedCommaSepSearch", savedIngredients)
 
+            //hitiing save api
+            disLikeVM?.doSaveDisLikedIngredients(
+                sessionManager?.getValue(SessionManager.USER_ID).toString(),
+                savedIngredients
+            )
+            /*  if (savedIngredients != null && savedIngredients != "null" && savedIngredients != "") {
 
-            if (savedIngredients != null && savedIngredients != "null" && savedIngredients != "") {
-                //hitiing save api
-                disLikeVM?.doSaveDisLikedIngredients(
-                    sessionManager?.getValue(SessionManager.USER_ID).toString(),
-                    savedIngredients
-                )
-            } else {
-                showSnackBar("Please select atleast one ingredient.")
-            }
+              } else {
+                  showSnackBar("Please select atleast one ingredient.")
+              }*/
 
         }
 
@@ -182,7 +182,6 @@ class DislikeActivity : BaseActivity() {
             sessionManager?.getValue(SessionManager.USER_ID).toString(), serchedText
         )
     }
-
 
 
     private fun getDisLikedResponseObserver() {
@@ -282,12 +281,15 @@ class DislikeActivity : BaseActivity() {
                         finish()
                     }, 1000)
                 }
+                else
+                {
+                    showSnackBar(response.data.message)
+                }
 
             } else {
 
 
                 showSnackBar("OOps! Error Occured.")
-
                 Log.e("rspsaveLikedError", "else error")
 
             }
