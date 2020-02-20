@@ -179,13 +179,13 @@ class MyInformationActivity : BaseActivity(), IMyInformationView {
             }
 
             if (TextUtils.isEmpty(edtName!!.text.toString().trim { it <= ' ' })) {
-                showSnackBar("Enter First Name")
+                showSnackBar(getString(R.string.fill_first))
                 edtName!!.requestFocus()
             } else if (TextUtils.isEmpty(edtLastName!!.text.toString().trim { it <= ' ' })) {
-                showSnackBar("Enter Last Name")
+                showSnackBar(getString(R.string.fill_last))
                 edtLastName!!.requestFocus()
             } else if (TextUtils.isEmpty(edtUsername!!.text.toString().trim { it <= ' ' })) {
-                showSnackBar("Enter User Name")
+                showSnackBar(getString(R.string.enter_user))
                 edtUsername!!.requestFocus()
             }
             /*else if (spinnerGender!!.selectedItem === "Select Gender") {

@@ -19,7 +19,7 @@
         <TextView android:layout_width="wrap_content"
                   android:layout_height="wrap_content"
                   android:layout_gravity="center"
-                  android:text="Details"
+                  android:text="@string/details"
                   android:textColor="@color/white"
                   android:textSize="20sp"/>
         <TextView
@@ -29,7 +29,7 @@
                 android:gravity="start"
                 android:layout_marginStart="10dp"
                 android:layout_gravity="start|center_vertical"
-                android:text="Back"
+                android:text="@string/back"
                 android:textColor="@color/white"
                 android:textSize="18sp"/>
     </FrameLayout>
@@ -79,15 +79,14 @@
                                   android:layout_weight="1"
                                   android:textColor="@color/black"
                                   android:layout_height="wrap_content"
-                                  android:text="Restaurant"
+                                  android:text="@string/restaurant"
                                   android:fontFamily="@font/assistantbold"/>
                         <TextView android:layout_width="match_parent"
                                   android:id="@+id/tvRestroName"
                                   android:layout_weight="1"
                                   android:layout_height="wrap_content"
                                   android:textColor="@color/black"
-
-                                  android:text="Chej JEAN CLAUDE 45"/>
+                                  android:text=""/>
                     </LinearLayout>
                     <!--budget-->
                     <LinearLayout android:layout_width="match_parent"
@@ -98,14 +97,14 @@
                                   android:layout_weight="1"
                                   android:textColor="@color/black"
                                   android:layout_height="wrap_content"
-                                  android:text="Budget"
+                                  android:text="@string/budget"
                                   android:fontFamily="@font/assistantbold"/>
                         <TextView android:layout_width="match_parent"
                                   android:id="@+id/tvBudget"
                                   android:layout_weight="1"
                                   android:layout_height="wrap_content"
                                   android:textColor="@color/black"
-                                  android:text="15-25"/>
+                                  android:text=""/>
                     </LinearLayout>
 
                     <!--calories-->
@@ -119,14 +118,14 @@
                                   android:layout_weight="1"
                                   android:textColor="@color/black"
                                   android:layout_height="wrap_content"
-                                  android:text="Calories"
+                                  android:text="@string/calories"
                                   android:fontFamily="@font/assistantbold"/>
                         <TextView android:layout_width="match_parent"
                                   android:id="@+id/tvCalories"
                                   android:layout_weight="1"
                                   android:layout_height="wrap_content"
                                   android:textColor="@color/black"
-                                  android:text="0"/>
+                                  android:text=""/>
                     </LinearLayout>
 
                     <!--no of person-->
@@ -138,14 +137,14 @@
                                   android:layout_weight="1"
                                   android:textColor="@color/black"
                                   android:layout_height="wrap_content"
-                                  android:text="Number of person"
+                                  android:text="@string/number_of_person"
                                   android:fontFamily="@font/assistantbold"/>
                         <TextView android:layout_width="match_parent"
                                   android:id="@+id/tvPerson"
                                   android:layout_weight="1"
                                   android:layout_height="wrap_content"
                                   android:textColor="@color/black"
-                                  android:text="1 people"/>
+                                  android:text=""/>
                     </LinearLayout>
 
                     <!--status-->
@@ -159,14 +158,13 @@
                                   android:layout_weight="1"
                                   android:textColor="@color/black"
                                   android:layout_height="wrap_content"
-                                  android:text="Status"
+                                  android:text="@string/status"
                                   android:fontFamily="@font/assistantbold"/>
                         <TextView android:layout_width="match_parent"
                                   android:id="@+id/tvStatus"
                                   android:layout_weight="1"
                                   android:layout_height="wrap_content"
-                                  android:textColor="@color/black"
-                                  android:text="ALacarte | House Speciality | Shef Recommemdation"/>
+                                  android:textColor="@color/black"/>
                     </LinearLayout>
                     <!--speed of serive-->
                     <LinearLayout android:layout_width="match_parent"
@@ -177,15 +175,14 @@
                                   android:layout_weight="1"
                                   android:textColor="@color/black"
                                   android:layout_height="wrap_content"
-                                  android:text="Speed of Service"
+                                  android:text="@string/speed_of_service"
                                   android:fontFamily="@font/assistantbold"/>
                         <TextView android:layout_width="match_parent"
                                   android:id="@+id/tvSpeed"
                                   android:layout_weight="1"
                                   android:layout_height="wrap_content"
                                   android:textColor="@color/black"
-                                  android:text="Fast (less than 30 min)"/>
-                    </LinearLayout>
+/>                    </LinearLayout>
                     <!--prepration time-->
                     <LinearLayout
                             android:background="@color/colorPrimary"
@@ -197,14 +194,14 @@
                                   android:layout_weight="1"
                                   android:textColor="@color/black"
                                   android:layout_height="wrap_content"
-                                  android:text="Prepration Time"
+                                  android:text="@string/prepration_time"
                                   android:fontFamily="@font/assistantbold"/>
                         <TextView android:layout_width="match_parent"
                                   android:id="@+id/tvPrepTime"
                                   android:layout_weight="1"
                                   android:layout_height="wrap_content"
                                   android:textColor="@color/black"
-                                  android:text="10 - 20 min"/>
+                                  android:text=""/>
                     </LinearLayout>
                     <!-- intolerance-->
                     <LinearLayout
@@ -217,13 +214,13 @@
                                   android:layout_weight="1"
                                   android:textColor="@color/black"
                                   android:layout_height="wrap_content"
-                                  android:text="Intolerance"
+                                  android:text="@string/intolerance"
                                   android:fontFamily="@font/assistantbold"/>
                         <TextView android:layout_width="match_parent"
                                   android:id="@+id/tvIntolrence" android:layout_weight="1"
                                   android:layout_height="wrap_content"
                                   android:textColor="@color/black"
-                                  android:text="Lactose"/>
+                                  android:text=""/>
                     </LinearLayout>
 
                     <!-- tag-->
@@ -237,13 +234,13 @@
                                   android:layout_weight="1"
                                   android:textColor="@color/black"
                                   android:layout_height="wrap_content"
-                                  android:text="Tags"
+                                  android:text="@string/tags"
                                   android:fontFamily="@font/assistantbold"/>
                         <TextView android:layout_width="match_parent"
                                   android:id="@+id/tvTags" android:layout_weight="1"
                                   android:layout_height="wrap_content"
                                   android:textColor="@color/black"
-                                  android:text="Lactose"/>
+                                  android:text=""/>
                     </LinearLayout>
 
                     <!-- seasionality-->
@@ -256,14 +253,14 @@
                                   android:layout_weight="1"
                                   android:textColor="@color/black"
                                   android:layout_height="wrap_content"
-                                  android:text="Seasonality"
+                                  android:text="@string/seasonality"
                                   android:fontFamily="@font/assistantbold"/>
                         <TextView android:layout_width="match_parent"
                                   android:id="@+id/tvSeasonlity"
                                   android:layout_weight="1"
                                   android:layout_height="wrap_content"
                                   android:textColor="@color/black"
-                                  android:text="Lactose"/>
+                                  android:text=""/>
                     </LinearLayout>
 
                     <!-- type of dish-->
@@ -277,14 +274,14 @@
                                   android:layout_weight="1"
                                   android:textColor="@color/black"
                                   android:layout_height="wrap_content"
-                                  android:text="Type of Dish"
+                                  android:text="@string/type_of_dish"
                                   android:fontFamily="@font/assistantbold"/>
                         <TextView android:layout_width="match_parent"
                                   android:id="@+id/tvTypeDish"
                                   android:layout_weight="1"
                                   android:layout_height="wrap_content"
                                   android:textColor="@color/black"
-                                  android:text="Lactose"/>
+                                  android:text=""/>
                     </LinearLayout>
 
                 </LinearLayout>
@@ -308,7 +305,7 @@
                               android:gravity="center"
                               android:layout_marginTop="15dp"
                               android:fontFamily="@font/assistantbold"
-                              android:text="Ravouli Au Boeuf"
+                              android:text=""
                     />
                     <LinearLayout android:layout_width="match_parent"
                                   android:layout_height="wrap_content"

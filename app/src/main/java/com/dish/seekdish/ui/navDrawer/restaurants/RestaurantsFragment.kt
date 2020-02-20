@@ -28,9 +28,9 @@ class RestaurantsFragment : Fragment() {
 
         this.tabLayout = view.findViewById(R.id.tabLayoutRestroFrag)
 
-        tabLayout.addTab(tabLayout.newTab().setText("Proximity"))
-        tabLayout.addTab(tabLayout.newTab().setText("Time"))
-        tabLayout.addTab(tabLayout.newTab().setText("Map"))
+        tabLayout.addTab(tabLayout.newTab().setText(getString(R.string.proximity)))
+        tabLayout.addTab(tabLayout.newTab().setText(getString(R.string.time)))
+        tabLayout.addTab(tabLayout.newTab().setText(getString(R.string.map)))
 
 //        //change font
 //        changeTabsFont();

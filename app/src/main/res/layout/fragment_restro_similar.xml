@@ -12,7 +12,7 @@
               android:background="@color/light_gray"
               android:textSize="18sp"
               android:padding="2dp"
-              android:text="Proximity"/>
+              android:text="@string/proximity"/>
 
 
 

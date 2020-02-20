@@ -36,12 +36,12 @@ class LoginActivity : BaseActivity(), ILoginView {
         tvValidate.setOnClickListener()
         {
             if (TextUtils.isEmpty(edtEmail!!.text.toString().trim { it <= ' ' })) {
-                showSnackBar("Enter Email")
+                showSnackBar(getString(R.string.enter_email))
                 edtEmail!!.requestFocus()
             } else if (emailValidator(edtEmail.text.toString()) == false) {
-                showSnackBar("Enter valid Email Id")
+                showSnackBar(getString(R.string.valid_email))
             } else if (TextUtils.isEmpty(edtPassword!!.text.toString().trim { it <= ' ' })) {
-                showSnackBar("Enter Password")
+                showSnackBar(getString(R.string.enter_passss))
                 edtPassword!!.requestFocus()
             } else {
 

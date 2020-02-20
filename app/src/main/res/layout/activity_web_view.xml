@@ -30,7 +30,7 @@
                 android:gravity="start"
                 android:layout_marginStart="10dp"
                 android:layout_gravity="start|center_vertical"
-                android:text="Back"
+                android:text="@string/back"
                 android:textColor="@color/white"
                 android:textSize="18sp"/>
     </FrameLayout>

@@ -43,7 +43,7 @@
                 android:cursorVisible="false"
                 android:fontFamily="@font/assistantregular"
                 android:gravity="start|center_vertical"
-                android:hint="Search a meal"
+                android:hint="@string/search_meal"
                 android:inputType="text"
                 android:maxLines="1"
                 android:paddingStart="10dp"

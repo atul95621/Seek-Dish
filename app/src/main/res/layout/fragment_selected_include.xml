@@ -41,7 +41,7 @@
                 android:inputType="text"
                 android:maxLines="1"
                 android:gravity="start|center_vertical"
-                    android:hint="Search Friends"
+                    android:hint="@string/search_friends"
                     android:fontFamily="@font/assistantregular"
                     android:background="@android:color/transparent"
                     android:layout_gravity="center"

@@ -7,7 +7,6 @@
         android:layout_height="match_parent"
         android:orientation="vertical"
         android:background="@color/white"
-
         tools:context=".ui.navDrawer.dishDescription.MealRatingActivity">
 
     <!--toolbar-->
@@ -24,13 +23,13 @@
                 android:layout_marginEnd="10dp"
                 android:gravity="end"
                 android:layout_gravity="end|center_vertical"
-                android:text="Next"
+                android:text="@string/next"
                 android:textColor="@color/white"
                 android:textSize="18sp"/>
         <TextView android:layout_width="wrap_content"
                   android:layout_height="wrap_content"
                   android:layout_gravity="center"
-                  android:text="Meal Rating"
+                  android:text="@string/meal_rating"
                   android:textColor="@color/white"
                   android:textSize="20sp"/>
         <TextView
@@ -40,7 +39,7 @@
                 android:gravity="start"
                 android:layout_marginStart="10dp"
                 android:layout_gravity="start|center_vertical"
-                android:text="Back"
+                android:text="@string/back"
                 android:textColor="@color/white"
                 android:textSize="18sp"/>
     </FrameLayout>
@@ -84,7 +83,7 @@
 
                 <TextView android:layout_width="wrap_content"
                           android:layout_height="wrap_content"
-                          android:text="Taste"
+                          android:text="@string/taste"
                           android:layout_gravity="center"
                           android:gravity="center"
                           android:textSize="18sp"
@@ -110,7 +109,7 @@
 
                 <TextView android:layout_width="wrap_content"
                           android:layout_height="wrap_content"
-                          android:text="Presentation"
+                          android:text="@string/presentation"
                           android:layout_gravity="center"
                           android:gravity="center"
                           android:layout_marginTop="10dp"
@@ -137,7 +136,7 @@
 
                 <TextView android:layout_width="wrap_content"
                           android:layout_height="wrap_content"
-                          android:text="Texture"
+                          android:text="@string/texture"
                           android:layout_gravity="center"
                           android:gravity="center"
                           android:textSize="18sp"
@@ -165,7 +164,7 @@
 
                 <TextView android:layout_width="wrap_content"
                           android:layout_height="wrap_content"
-                          android:text="Odor"
+                          android:text="@string/odor"
                           android:layout_gravity="center"
                           android:gravity="center"
                           android:textSize="18sp"

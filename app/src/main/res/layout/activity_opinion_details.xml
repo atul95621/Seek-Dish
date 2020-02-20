@@ -21,7 +21,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:fontFamily="@font/assistantregular"
-            android:text="Opinion"
+            android:text="@string/opinion"
             android:textColor="@color/white"
             android:textSize="20sp" />
 
@@ -33,7 +33,7 @@
             android:layout_marginStart="10dp"
             android:fontFamily="@font/assistantregular"
             android:gravity="start"
-            android:text="Back"
+            android:text="@string/back"
             android:textColor="@color/white"
             android:textSize="18sp" />
     </FrameLayout>
@@ -98,7 +98,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="20dp"
                         android:fontFamily="@font/assistantregular"
-                        android:text="12/07/2019 - Michel"
+                        android:text=""
                         android:textColor="@color/black"
                         android:textSize="18sp" />
 
@@ -109,7 +109,7 @@
                         android:layout_marginStart="20dp"
                         android:layout_marginTop="10dp"
                         android:fontFamily="@font/assistantregular"
-                        android:text="My opinion is pretty good."
+                        android:text=""
                         android:textColor="@color/black"
                         android:textSize="18sp" />
 
@@ -138,7 +138,7 @@
                                     android:layout_gravity="center"
                                     android:fontFamily="@font/assistantregular"
                                     android:gravity="center"
-                                    android:text="Taste"
+                                    android:text="@string/taste"
                                     android:textColor="@color/black"
                                     android:textSize="18sp" />
 
@@ -173,7 +173,7 @@
                                     android:layout_gravity="center"
                                     android:fontFamily="@font/assistantregular"
                                     android:gravity="center"
-                                    android:text="Service"
+                                    android:text="@string/service"
                                     android:textColor="@color/black"
                                     android:textSize="18sp" />
 
@@ -222,7 +222,7 @@
                                         android:layout_gravity="center"
                                         android:fontFamily="@font/assistantregular"
                                         android:gravity="center"
-                                        android:text="Presentation"
+                                        android:text="@string/presentation"
                                         android:textColor="@color/black"
                                         android:textSize="18sp" />
 
@@ -257,7 +257,7 @@
                                         android:layout_gravity="center"
                                         android:fontFamily="@font/assistantregular"
                                         android:gravity="center"
-                                        android:text="Decor"
+                                        android:text="@string/decor"
                                         android:textColor="@color/black"
                                         android:textSize="18sp" />
 
@@ -306,7 +306,7 @@
                                             android:layout_gravity="center"
                                             android:fontFamily="@font/assistantregular"
                                             android:gravity="center"
-                                            android:text="Texture"
+                                            android:text="@string/texture"
                                             android:textColor="@color/black"
                                             android:textSize="18sp" />
 
@@ -341,7 +341,7 @@
                                             android:layout_gravity="center"
                                             android:fontFamily="@font/assistantregular"
                                             android:gravity="center"
-                                            android:text="Cleaniness"
+                                            android:text="@string/cleaniness"
                                             android:textColor="@color/black"
                                             android:textSize="18sp" />
 
@@ -392,7 +392,7 @@
                                                 android:layout_gravity="center"
                                                 android:fontFamily="@font/assistantregular"
                                                 android:gravity="center"
-                                                android:text="Odor"
+                                                android:text="@string/odor"
                                                 android:textColor="@color/black"
                                                 android:textSize="18sp" />
 
@@ -427,7 +427,7 @@
                                                 android:layout_gravity="center"
                                                 android:fontFamily="@font/assistantregular"
                                                 android:gravity="center"
-                                                android:text="Ambience"
+                                                android:text="@string/ambience"
                                                 android:textColor="@color/black"
                                                 android:textSize="18sp" />
 
@@ -486,7 +486,7 @@
                     android:layout_marginTop="15dp"
                     android:fontFamily="@font/assistantbold"
                     android:gravity="center"
-                    android:text="Ravouli Au Boeuf"
+                    android:text=""
                     android:textColor="@color/black"
                     android:textSize="20sp" />
 

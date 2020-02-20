@@ -17,7 +17,7 @@
         <TextView android:layout_width="wrap_content"
                   android:layout_height="wrap_content"
                   android:layout_gravity="center"
-                  android:text="My Check-in List"
+                  android:text="@string/my_check_in_list"
                   android:textColor="@color/white"
                   android:textSize="20sp"/>
         <TextView
@@ -27,7 +27,7 @@
                 android:gravity="start"
                 android:layout_marginStart="10dp"
                 android:layout_gravity="start|center_vertical"
-                android:text="Back"
+                android:text="@string/back"
                 android:textColor="@color/white"
                 android:textSize="18sp"/>
     </FrameLayout>
@@ -55,7 +55,7 @@
             android:gravity="center"
             android:layout_gravity="center"
             android:textSize="16sp"
-            android:text="No Checkin Yet."
+            android:text="@string/no_checkin_yet"
             />
 
     </FrameLayout>

@@ -24,13 +24,13 @@
                 android:layout_marginEnd="10dp"
                 android:gravity="end"
                 android:layout_gravity="end|center_vertical"
-                android:text="Next"
+                android:text="@string/next"
                 android:textColor="@color/white"
                 android:textSize="18sp"/>
         <TextView android:layout_width="wrap_content"
                   android:layout_height="wrap_content"
                   android:layout_gravity="center"
-                  android:text="Restaurant Rating"
+                  android:text="@string/restaurant_rating"
                   android:textColor="@color/white"
                   android:textSize="20sp"/>
         <TextView
@@ -40,7 +40,7 @@
                 android:gravity="start"
                 android:layout_marginStart="10dp"
                 android:layout_gravity="start|center_vertical"
-                android:text="Back"
+                android:text="@string/back"
                 android:textColor="@color/white"
                 android:textSize="18sp"/>
     </FrameLayout>
@@ -86,7 +86,7 @@
                           android:layout_height="0dp">
             <TextView android:layout_width="wrap_content"
                       android:layout_height="wrap_content"
-                      android:text="Service"
+                      android:text="@string/service"
                       android:layout_gravity="center"
                       android:gravity="center"
                       android:textSize="18sp"
@@ -112,7 +112,7 @@
 
             <TextView android:layout_width="wrap_content"
                       android:layout_height="wrap_content"
-                      android:text="Decor"
+                      android:text="@string/decor"
                       android:layout_marginTop="10dp"
                       android:layout_gravity="center"
                       android:gravity="center"
@@ -139,7 +139,7 @@
 
             <TextView android:layout_width="wrap_content"
                       android:layout_height="wrap_content"
-                      android:text="Cleaness"
+                      android:text="@string/cleaniness"
                       android:layout_gravity="center"
                       android:gravity="center"
                       android:layout_marginTop="10dp"
@@ -167,7 +167,7 @@
 
             <TextView android:layout_width="wrap_content"
                       android:layout_height="wrap_content"
-                      android:text="Ambience"
+                      android:text="@string/ambience"
                       android:layout_marginTop="10dp"
 
                       android:layout_gravity="center"

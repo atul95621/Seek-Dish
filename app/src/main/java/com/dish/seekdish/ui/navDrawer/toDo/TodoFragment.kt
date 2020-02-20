@@ -40,8 +40,8 @@ class TodoFragment : BaseFragment() {
         // setting up tabLayout
         this.tabLayout = view.findViewById(R.id.tabLayoutTodoFrag)
 
-        tabLayout.addTab(tabLayout.newTab().setText("List"))
-        tabLayout.addTab(tabLayout.newTab().setText("Map"))
+        tabLayout.addTab(tabLayout.newTab().setText(getString(R.string.lists)))
+        tabLayout.addTab(tabLayout.newTab().setText(getString(R.string.map)))
 
         viewPager = view.findViewById(R.id.viewPagerTodoFrag) as ViewPager
         adapter = TodoAdapter(activity!!.supportFragmentManager, tabLayout.tabCount)

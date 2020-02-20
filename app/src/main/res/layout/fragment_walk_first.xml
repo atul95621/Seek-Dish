@@ -8,7 +8,8 @@
  >
 
 
-    <LinearLayout android:layout_width="match_parent" android:layout_height="0dp"
+    <LinearLayout android:layout_width="match_parent"
+        android:layout_height="0dp"
                   android:layout_weight="4"
                   android:orientation="vertical">
     <TextView
@@ -32,7 +33,7 @@
                android:layout_marginStart="20dp"
                android:layout_marginTop="40dp"
                android:gravity="center"
-               android:text="Presentation"
+               android:text="@string/presentation"
                android:textColor="@android:color/white"
                android:textSize="15sp" />
     <TextView
@@ -89,7 +90,7 @@
         android:textAllCaps="false"
         android:letterSpacing=".1"
         android:background="@drawable/white_border"
-        android:text="Perfect! Register"
+        android:text="@string/perfect_register"
         android:textColor="@android:color/white"
         android:textSize="18sp"
         />

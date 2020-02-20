@@ -20,7 +20,7 @@
                 android:layout_gravity="center_horizontal"
                 android:gravity="center"
                 android:padding="10dp"
-                android:text="Message"
+                android:text="@string/message"
                 android:fontFamily="@font/assistantbold"
                 android:textColor="@color/black"
                 android:textSize="18sp"/>
@@ -34,7 +34,7 @@
                 android:gravity="center"
                 android:padding="10dp"
                 android:fontFamily="@font/assistantregular"
-                android:text="messg"
+                android:text=""
                 android:textColor="@color/black"
                 android:textSize="16sp"/>
 
@@ -61,7 +61,7 @@
                     android:textSize="18sp"
                     android:fontFamily="@font/assistantbold"
                     android:textColor="@android:color/holo_blue_light"
-                    android:text="Ok"
+                    android:text="@string/ok"
                     android:layout_height="match_parent"/>
 
         </LinearLayout>

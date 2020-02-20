@@ -24,7 +24,7 @@
                 android:layout_marginEnd="10dp"
                 android:gravity="end"
                 android:layout_gravity="end|center_vertical"
-                android:text="Next"
+                android:text="@string/next"
                 android:textColor="@color/white"
                 android:textSize="18sp"/>
         <TextView
@@ -34,7 +34,7 @@
                 android:gravity="start"
                 android:layout_marginStart="10dp"
                 android:layout_gravity="start|center_vertical"
-                android:text="Back"
+                android:text="@string/back"
                 android:textColor="@color/white"
                 android:textSize="18sp"/>
     </FrameLayout>
@@ -71,7 +71,7 @@
                         android:id="@+id/edtFirstName" android:layout_width="0dp"
                         android:inputType="text"
                         android:layout_height="match_parent"
-                        android:hint="First Name"
+                        android:hint="@string/first_name"
                         android:paddingStart="8dp" android:background="@color/edt_light_gray"
                         android:layout_weight=".99"/>
                 <View android:layout_width="0dp"
@@ -83,7 +83,7 @@
                           android:inputType="text"
                           android:paddingStart="8dp"
                           android:layout_height="match_parent"
-                          android:hint="Last Name"
+                          android:hint="@string/last_name"
                           android:background="@color/edt_light_gray"
                           android:layout_weight="0.99"/>
             </LinearLayout>
@@ -101,7 +101,7 @@
                         android:layout_width="0dp"
                           android:inputType="text"
                           android:layout_height="match_parent"
-                          android:hint="Email"
+                          android:hint="@string/email"
                           android:paddingStart="8dp" android:background="@color/edt_light_gray"
                           android:layout_weight="2"/>
 
@@ -137,7 +137,7 @@
                           android:paddingStart="8dp"
                           android:maxLength="10"
                           android:layout_height="match_parent"
-                          android:hint="Phone Number"
+                          android:hint="@string/phone_number"
                           android:background="@color/edt_light_gray"
                           android:layout_weight="1.4"/>
             </LinearLayout>
@@ -155,7 +155,7 @@
                         android:layout_width="0dp"
                           android:inputType="textPassword"
                           android:layout_height="match_parent"
-                          android:hint="Password"
+                          android:hint="@string/password"
                           android:paddingStart="8dp" android:background="@color/edt_light_gray"
                           android:layout_weight=".99"/>
                 <View android:layout_width="0dp"
@@ -167,7 +167,7 @@
                           android:inputType="textPassword"
                           android:paddingStart="8dp"
                           android:layout_height="match_parent"
-                          android:hint="Confirm"
+                          android:hint="@string/confirm"
                           android:background="@color/edt_light_gray"
                           android:layout_weight="0.99"/>
             </LinearLayout>
@@ -185,7 +185,7 @@
                         android:layout_width="0dp"
                           android:inputType="text"
                           android:layout_height="match_parent"
-                          android:hint="Username"
+                          android:hint="@string/username"
                           android:paddingStart="8dp" android:background="@color/edt_light_gray"
                           android:layout_weight="2"/>
 
@@ -221,7 +221,7 @@
                         android:layout_width="0dp"
                           android:inputType="text"
                           android:layout_height="match_parent"
-                          android:hint="Bio (Optional)"
+                          android:hint="@string/bio_optional"
                           android:paddingStart="8dp" android:background="@color/edt_light_gray"
                           android:layout_weight="2"/>
 
@@ -238,7 +238,7 @@
                           android:gravity="center"
                           android:layout_gravity="center"
                           android:layout_height="wrap_content"
-                          android:text="By signing to the Seekdish, I accept the"/>
+                          android:text="@string/by_signing_to_the_seekdish_i_accept_the"/>
                 <LinearLayout android:layout_width="match_parent"
                               android:layout_height="wrap_content"
                               android:layout_gravity="center"
@@ -253,14 +253,14 @@
                             android:layout_gravity="center"
                             android:textColor="@color/black"
                             android:layout_height="wrap_content"
-                            android:text="Terms of Use"/>
+                            android:text="@string/terms_of_use"/>
                     <TextView
                             android:textSize="16sp"
                             android:layout_width="wrap_content"
                             android:gravity="center"
                             android:layout_gravity="center"
                             android:layout_height="wrap_content"
-                            android:text=" and "/>
+                            android:text="@string/and"/>
                     <TextView
                             android:textSize="16sp"
 
@@ -270,7 +270,7 @@
                             android:layout_gravity="center"
                             android:textColor="@color/black"
                             android:layout_height="wrap_content"
-                            android:text="Privacy Policy"/>
+                            android:text="@string/privacy_policy"/>
                 </LinearLayout>
 
             </LinearLayout>

@@ -28,7 +28,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:text="My Check-in List"
+                    android:text="@string/my_check_in_list"
                     android:textColor="@color/white"
                     android:textSize="20sp" />
 
@@ -39,7 +39,7 @@
                     android:layout_gravity="start|center_vertical"
                     android:layout_marginStart="10dp"
                     android:gravity="start"
-                    android:text="Back"
+                    android:text="@string/back"
                     android:textColor="@color/white"
                     android:textSize="18sp" />
             </FrameLayout>
@@ -76,7 +76,7 @@
                     android:inputType="text"
                     android:maxLines="1"
                     android:gravity="start|center_vertical"
-                    android:hint="Search Meal"
+                    android:hint="@string/search_meal"
                     android:fontFamily="@font/assistantregular"
                     android:background="@android:color/transparent"
                     android:layout_gravity="center"
@@ -98,7 +98,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="10dp"
                     android:fontFamily="@font/assistantbold"
-                    android:text="Registered Meals"
+                    android:text="@string/registered_meals"
                     android:textColor="@color/black"
                     android:textSize="18sp" />
 
@@ -133,7 +133,7 @@
                     android:layout_marginTop="50dp"
                     android:layout_marginBottom="10dp"
                     android:fontFamily="@font/assistantbold"
-                    android:text="Meals"
+                    android:text="@string/meals"
                     android:textColor="@color/black"
                     android:textSize="18sp" />
 
@@ -156,7 +156,7 @@
                         android:layout_gravity="center"
                         android:fontFamily="@font/assistantregular"
                         android:gravity="center"
-                        android:text="Not Found"
+                        android:text="@string/not_found"
                         android:textColor="@color/black"
                         android:textSize="16sp"
                         android:visibility="gone" />

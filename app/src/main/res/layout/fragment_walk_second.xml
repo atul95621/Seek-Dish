@@ -33,7 +33,7 @@
                 android:layout_marginStart="20dp"
                 android:layout_marginTop="40dp"
                 android:gravity="center"
-                android:text="After having eaten, the user will be able to also note his dish as well as the restaturant according to four criteria"
+                android:text="@string/after_having_eaten_the_user_will_be_able_to_also_note_his_dish_as_well_as_the_restaturant_according_to_four_criteria"
                 android:textColor="@android:color/white"
                 android:textSize="15sp"/>
         <TextView
@@ -43,7 +43,7 @@
                 android:layout_marginEnd="20dp"
                 android:layout_marginStart="20dp"
                 android:gravity="center"
-                android:text="Taste" android:textColor="@android:color/white"
+                android:text="@string/taste" android:textColor="@android:color/white"
                 android:textSize="15sp"/>
         <TextView
                 android:layout_width="match_parent"
@@ -52,7 +52,7 @@
                 android:layout_marginEnd="20dp"
                 android:layout_marginStart="20dp"
                 android:gravity="center"
-                android:text="Presentation" android:textColor="@android:color/white"
+                android:text="@string/presentation" android:textColor="@android:color/white"
                 android:textSize="15sp"/>
 
         <TextView
@@ -62,7 +62,7 @@
                 android:layout_marginEnd="20dp"
                 android:layout_marginStart="20dp"
                 android:gravity="center"
-                android:text="Texture" android:textColor="@android:color/white"
+                android:text="@string/texture" android:textColor="@android:color/white"
                 android:textSize="15sp"/>
         <TextView
                 android:layout_width="match_parent"
@@ -71,7 +71,7 @@
                 android:layout_marginEnd="20dp"
                 android:layout_marginStart="20dp"
                 android:gravity="center"
-                android:text="Color" android:textColor="@android:color/white"
+                android:text="@string/color" android:textColor="@android:color/white"
                 android:textSize="15sp"/>
 
 
@@ -101,7 +101,7 @@
                 android:textAllCaps="false"
                 android:letterSpacing=".1"
                 android:background="@drawable/white_border"
-                android:text="Perfect! Register"
+                android:text="@string/perfect_register"
                 android:textColor="@android:color/white"
                 android:textSize="18sp"
         />

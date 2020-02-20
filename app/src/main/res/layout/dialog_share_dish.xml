@@ -21,7 +21,7 @@
                 android:gravity="center"
                 android:padding="10dp"
                 android:fontFamily="@font/assistantregular"
-                android:text="Share"
+                android:text="@string/share"
                 android:textColor="@color/black"
                 android:textSize="16sp"/>
         <View android:layout_width="match_parent" android:layout_height="1dp"
@@ -36,7 +36,7 @@
                 android:padding="10dp"
                 android:fontFamily="@font/assistantregular"
 
-                android:text="Add to my list 'to do'"
+                android:text="@string/add_to_my_list_to_do"
                 android:textColor="@color/black"
                 android:textSize="16sp"/>
         <View android:layout_width="match_parent" android:layout_height="1dp"
@@ -51,7 +51,7 @@
                 android:padding="10dp"
                 android:fontFamily="@font/assistantregular"
 
-                android:text="Add to my list 'favourite'"
+                android:text="@string/add_to_my_list_favourite"
                 android:textColor="@color/black"
                 android:textSize="16sp"/>
         <View android:layout_width="match_parent" android:layout_height="1dp"
@@ -66,7 +66,7 @@
                 android:fontFamily="@font/assistantregular"
 
                 android:padding="10dp"
-                android:text="View Detailed Restaurants"
+                android:text="@string/view_detailed_restaurants"
                 android:textColor="@color/black"
                 android:textSize="16sp"/>
         <View android:layout_width="match_parent" android:layout_height="1dp"
@@ -81,7 +81,7 @@
                 android:fontFamily="@font/assistantregular"
 
                 android:padding="10dp"
-                android:text="Show on Map"
+                android:text="@string/show_on_map"
                 android:textColor="@color/black"
                 android:textSize="16sp"/>
         <View android:layout_width="match_parent" android:layout_height="1dp"
@@ -104,7 +104,7 @@
                     android:fontFamily="@font/assistantregular"
 
                     android:textColor="@android:color/holo_blue_light"
-                    android:text="Cancel"
+                    android:text="@string/cancel"
                     android:layout_height="match_parent"/>
 
         </LinearLayout>

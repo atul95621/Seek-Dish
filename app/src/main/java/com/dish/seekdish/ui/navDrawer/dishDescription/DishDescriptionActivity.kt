@@ -132,9 +132,9 @@ class DishDescriptionActivity : BaseActivity(), Serializable {
         mContainer = findViewById(R.id.pager_container) as PagerContainer
 
 
-        tabLayout.addTab(tabLayout.newTab().setText("Ingredients"))
-        tabLayout.addTab(tabLayout.newTab().setText("Opinion"))
-        tabLayout.addTab(tabLayout.newTab().setText("Similar"))
+        tabLayout.addTab(tabLayout.newTab().setText(getString(R.string.ingre)))
+        tabLayout.addTab(tabLayout.newTab().setText(getString(R.string.opini)))
+        tabLayout.addTab(tabLayout.newTab().setText(getString(R.string.simi)))
 
 //        //change font
 //        changeTabsFont();

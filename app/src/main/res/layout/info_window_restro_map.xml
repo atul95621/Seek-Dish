@@ -38,7 +38,7 @@
                 android:textColor="@color/black"
                 android:fontFamily="@font/assistantbold"
                 android:layout_height="match_parent"
-                android:text="Tarte de Aux Abrecot"
+                android:text=""
         />
 
 
@@ -85,7 +85,7 @@
                   android:layout_gravity="center"
                   android:gravity="center"
                   android:fontFamily="@font/assistantregular"
-                  android:text="Address of the restaurant"
+                  android:text=""
         >
         </TextView>
 

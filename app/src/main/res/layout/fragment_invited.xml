@@ -15,7 +15,7 @@
               android:layout_gravity="center"
         android:visibility="gone"
               android:padding="2dp"
-              android:text="Nobody invited yet."/>
+              android:text="@string/nobody_invited_yet"/>
     <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rvInvitedFrag"
             android:layout_width="match_parent"

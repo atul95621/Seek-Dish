@@ -94,7 +94,7 @@
                         android:textAllCaps="false"
                         android:letterSpacing=".2"
                         android:background="@drawable/white_border"
-                        android:text="Perfect! Register"
+                        android:text="@string/perfect_register"
                         android:textColor="@color/white"
                         android:textSize="18sp"
                 />

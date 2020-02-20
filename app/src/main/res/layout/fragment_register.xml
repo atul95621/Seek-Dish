@@ -21,7 +21,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:gravity="center"
-            android:text="Seekdish"
+            android:text="@string/app_name"
             android:textColor="@android:color/white"
             android:textSize="50sp"/>
 
@@ -48,7 +48,7 @@
                     android:layout_height="wrap_content"
                     android:textAllCaps="false"
                     android:textSize="18sp"
-                    android:text="Connect with "
+                    android:text="@string/connect_with"
                     android:fontFamily="@font/assistantbold"
                     android:textColor="@android:color/white"/>
             <TextView
@@ -57,7 +57,7 @@
                     android:layout_height="wrap_content"
                     android:textAllCaps="false"
                     android:textSize="18sp"
-                    android:text="Facebook"
+                    android:text="@string/facebook"
                     android:fontFamily="@font/assistantregular"
                     android:textColor="@android:color/white"/>
         </LinearLayout>
@@ -78,7 +78,7 @@
                     android:layout_height="wrap_content"
                     android:textAllCaps="false"
                     android:textSize="18sp"
-                    android:text="Connect with "
+                    android:text="@string/connect_with"
                     android:fontFamily="@font/assistantbold"
 
                     android:textColor="@android:color/white"/>
@@ -88,7 +88,7 @@
                     android:layout_height="wrap_content"
                     android:textAllCaps="false"
                     android:textSize="18sp"
-                    android:text="Twitter"
+                    android:text="@string/twitter"
                     android:fontFamily="@font/assistantregular"
                     android:textColor="@android:color/white"/>
         </LinearLayout>
@@ -109,7 +109,7 @@
                     android:layout_height="wrap_content"
                     android:textAllCaps="false"
                     android:textSize="18sp"
-                    android:text="Connect with "
+                    android:text="@string/connect_with"
                     android:fontFamily="@font/assistantbold"
 
                     android:textColor="@android:color/white"/>
@@ -119,7 +119,7 @@
                     android:layout_height="wrap_content"
                     android:textAllCaps="false"
                     android:textSize="18sp"
-                    android:text="Email"
+                    android:text="@string/email"
                     android:fontFamily="@font/assistantregular"
                     android:textColor="@android:color/white"/>
         </LinearLayout>
@@ -134,7 +134,7 @@
                 android:textColor="@android:color/white"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Already have an account? Sign in"/>
+                android:text="@string/already_have_an_account_sign_in"/>
 
         <TextView
                 android:visibility="gone"
@@ -146,7 +146,7 @@
                 android:textColor="@android:color/white"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="logout twitter"/>
+                android:text=""/>
     </LinearLayout>
 
 </LinearLayout>

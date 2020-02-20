@@ -59,9 +59,9 @@ class InvitationActivity : BaseActivity() {
         // setting up tabLayout
         this.tabLayout = findViewById(R.id.tabLayoutInvitationActivity)
 
-        tabLayout.addTab(tabLayout.newTab().setText("Invited"))
-        tabLayout.addTab(tabLayout.newTab().setText("Map"))
-        tabLayout.addTab(tabLayout.newTab().setText("Details"))
+        tabLayout.addTab(tabLayout.newTab().setText(getString(R.string.invited)))
+        tabLayout.addTab(tabLayout.newTab().setText(getString(R.string.map)))
+        tabLayout.addTab(tabLayout.newTab().setText(getString(R.string.details)))
 
 //        //change font
 //        changeTabsFont();

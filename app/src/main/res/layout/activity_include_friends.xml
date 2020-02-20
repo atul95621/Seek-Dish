@@ -23,7 +23,7 @@
             android:layout_gravity="end|center_vertical"
             android:layout_marginEnd="10dp"
             android:gravity="end"
-            android:text="Confirm"
+            android:text="@string/confirm"
             android:textColor="@color/white"
             android:textSize="16sp" />
 
@@ -31,7 +31,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:text="Include Friends"
+            android:text="@string/include_friends"
             android:textColor="@color/white"
             android:textSize="18sp" />
 
@@ -42,7 +42,7 @@
             android:layout_gravity="start|center_vertical"
             android:layout_marginStart="10dp"
             android:gravity="start"
-            android:text="Back"
+            android:text="@string/back"
             android:textColor="@color/white"
             android:textSize="16sp" />
     </FrameLayout>
@@ -62,7 +62,7 @@
             android:background="@drawable/tab_background_selected"
             android:fontFamily="@font/assistantregular"
             android:gravity="center"
-            android:text="Friends"
+            android:text="@string/friends"
             android:textColor="@color/white"
             android:textSize="18sp" />
 
@@ -73,7 +73,7 @@
             android:layout_weight="1"
             android:fontFamily="@font/assistantregular"
             android:gravity="center"
-            android:text="Selected"
+            android:text="@string/selected"
             android:textColor="@color/white"
             android:textSize="18sp" />
     </LinearLayout>

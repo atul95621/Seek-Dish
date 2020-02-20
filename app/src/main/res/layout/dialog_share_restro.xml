@@ -21,7 +21,7 @@
                 android:padding="10dp"
                 android:fontFamily="@font/assistantregular"
 
-                android:text="Add Alert"
+                android:text="@string/add_alert"
                 android:textColor="@color/black"
                 android:textSize="16sp"/>
 
@@ -36,7 +36,7 @@
                 android:gravity="center"
                 android:padding="10dp"
                 android:fontFamily="@font/assistantregular"
-                android:text="Share"
+                android:text="@string/share"
                 android:textColor="@color/black"
                 android:textSize="16sp"/>
         <View android:layout_width="match_parent" android:layout_height="1dp"
@@ -55,7 +55,7 @@
                 android:fontFamily="@font/assistantregular"
 
                 android:padding="10dp"
-                android:text="Show on Map"
+                android:text="@string/show_on_map"
                 android:textColor="@color/black"
                 android:textSize="16sp"/>
         <View android:layout_width="match_parent" android:layout_height="1dp"
@@ -78,7 +78,7 @@
                     android:fontFamily="@font/assistantregular"
 
                     android:textColor="@android:color/holo_blue_light"
-                    android:text="Cancel"
+                    android:text="@string/cancel"
                     android:layout_height="match_parent"/>
 
         </LinearLayout>

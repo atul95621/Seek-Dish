@@ -13,7 +13,7 @@
               android:background="@color/light_gray"
               android:textSize="18sp"
               android:padding="2dp"
-              android:text="Cold Entrance"/>
+              android:text="@string/cold_entrance"/>
     <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rvMealsFrag"
             android:layout_width="match_parent"

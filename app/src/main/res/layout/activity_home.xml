@@ -48,7 +48,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
-                android:text="Do not consider my profile"
+                android:text="@string/do_not_consider_my_profile"
                 android:textColor="@color/white"
                 android:textSize="18sp" />
 
@@ -71,7 +71,7 @@
             android:layout_marginBottom="30dp"
             android:background="@drawable/roundedge_btn_primary_fill"
             android:gravity="center"
-            android:text="Save"
+            android:text="@string/save"
             android:textColor="@color/white" />
 
         <ExpandableListView

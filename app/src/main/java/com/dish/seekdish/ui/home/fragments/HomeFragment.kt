@@ -29,9 +29,9 @@ class HomeFragment : Fragment() {
         // setting up tabLayout
         this.tabLayout = view.findViewById(R.id.tabLayoutHomeFrag)
 
-        tabLayout.addTab(tabLayout.newTab().setText("Taste"))
-        tabLayout.addTab(tabLayout.newTab().setText("Time"))
-        tabLayout.addTab(tabLayout.newTab().setText("Map"))
+        tabLayout.addTab(tabLayout.newTab().setText(getString(R.string.taste)))
+        tabLayout.addTab(tabLayout.newTab().setText(getString(R.string.time)))
+        tabLayout.addTab(tabLayout.newTab().setText(getString(R.string.map)))
 
 //        //change font
 //        changeTabsFont();

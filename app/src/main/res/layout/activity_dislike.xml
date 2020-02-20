@@ -21,14 +21,14 @@
                 android:gravity="start"
                 android:layout_marginStart="10dp"
                 android:layout_gravity="start|center_vertical"
-                android:text="Back"
+                android:text="@string/back"
                 android:textColor="@color/white"
                 android:textSize="18sp"/>
 
         <TextView android:layout_width="wrap_content"
                   android:layout_height="wrap_content"
                   android:layout_gravity="center"
-                  android:text="I Dislike"
+                  android:text="@string/i_dislike"
                   android:textColor="@color/white"
                   android:textSize="20sp"/>
         <TextView
@@ -38,7 +38,7 @@
                 android:layout_marginEnd="10dp"
                 android:gravity="end"
                 android:layout_gravity="end|center_vertical"
-                android:text="Add"
+                android:text="@string/add"
                 android:textColor="@color/white"
                 android:textSize="18sp"/>
     </FrameLayout>
@@ -75,7 +75,7 @@
                 android:inputType="text"
                 android:maxLines="1"
                     android:gravity="start|center_vertical"
-                    android:hint="Search Friends"
+                    android:hint="@string/search_friends"
                     android:fontFamily="@font/assistantregular"
                     android:background="@android:color/transparent"
                     android:layout_gravity="center"

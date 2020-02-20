@@ -36,9 +36,9 @@ class MyFriendsFragment(var userId: String) : BaseFragment() {
         // setting up tabLayout
         this.tabLayout = view.findViewById(R.id.tabLayout)
 
-        tabLayout.addTab(tabLayout.newTab().setText("Friends"))
-        tabLayout.addTab(tabLayout.newTab().setText("Followers"))
-        tabLayout.addTab(tabLayout.newTab().setText("Following"))
+        tabLayout.addTab(tabLayout.newTab().setText(getString(R.string.friendsss)))
+        tabLayout.addTab(tabLayout.newTab().setText(getString(R.string.followers)))
+        tabLayout.addTab(tabLayout.newTab().setText(getString(R.string.following)))
 
 //        //change font
 //        changeTabsFont();

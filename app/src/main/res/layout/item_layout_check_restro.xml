@@ -42,7 +42,7 @@
                 android:layout_gravity="center_vertical"
                 android:fontFamily="@font/assistantregular"
                 android:gravity="center_vertical"
-                android:text="Checkin Title"
+                android:text=""
                 android:textColor="@color/black"
                 android:textSize="16sp" />
 

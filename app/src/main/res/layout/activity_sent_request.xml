@@ -20,7 +20,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:text="Sent Friend Request"
+            android:text="@string/sent_friend_request"
             android:textColor="@color/white"
             android:textSize="18sp" />
 
@@ -31,7 +31,7 @@
             android:layout_gravity="start|center_vertical"
             android:layout_marginStart="10dp"
             android:gravity="start"
-            android:text="Back"
+            android:text="@string/back"
             android:textColor="@color/white"
             android:textSize="18sp" />
     </FrameLayout>
@@ -71,7 +71,7 @@
                 android:cursorVisible="false"
                 android:fontFamily="@font/assistantregular"
                 android:gravity="start|center_vertical"
-                android:hint="Search Friends"
+                android:hint="@string/search_friends"
                 android:inputType="text"
                 android:maxLines="1"
                 android:paddingStart="10dp"
@@ -101,7 +101,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:gravity="center"
-            android:text="No Request Found"
+            android:text="@string/no_request_found"
             android:visibility="gone" />
     </FrameLayout>
 

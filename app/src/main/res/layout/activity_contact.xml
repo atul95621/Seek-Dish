@@ -20,7 +20,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:text="Contact Details"
+            android:text="@string/contact_details"
             android:textColor="@color/white"
             android:textSize="20sp" />
 
@@ -31,7 +31,7 @@
             android:layout_gravity="end|center_vertical"
             android:layout_marginEnd="10dp"
             android:gravity="end"
-            android:text="Save"
+            android:text="@string/save"
             android:textColor="@color/white"
             android:textSize="18sp" />
 
@@ -42,7 +42,7 @@
             android:layout_gravity="start|center_vertical"
             android:layout_marginStart="10dp"
             android:gravity="start"
-            android:text="Back"
+            android:text="@string/back"
             android:textColor="@color/white"
             android:textSize="18sp" />
     </FrameLayout>
@@ -74,7 +74,7 @@
                 android:layout_marginStart="20dp"
                 android:background="@drawable/rect_curve_gray_border"
                 android:fontFamily="@font/assistantregular"
-                android:hint="Enter email"
+                android:hint="@string/enter_email"
                 android:paddingStart="10dp" />
         </LinearLayout>
 
@@ -121,7 +121,7 @@
                 android:layout_marginStart="20dp"
                 android:background="@drawable/rect_curve_gray_border"
                 android:fontFamily="@font/assistantregular"
-                android:hint="Enter Phone"
+                android:hint="@string/enter_phone"
                 android:paddingStart="10dp" />
         </LinearLayout>
 
@@ -145,7 +145,7 @@
                 android:layout_marginStart="20dp"
                 android:background="@drawable/rect_curve_gray_border"
                 android:fontFamily="@font/assistantregular"
-                android:hint="Enter Skype id"
+                android:hint="@string/enter_skype_id"
                 android:paddingStart="10dp" />
         </LinearLayout>
 
@@ -170,7 +170,7 @@
                 android:background="@drawable/rect_curve_gray_border"
                 android:fontFamily="@font/assistantregular"
 
-                android:hint="Enter Facebook Profile"
+                android:hint="@string/enter_facebook_profile"
                 android:paddingStart="10dp" />
         </LinearLayout>
 
@@ -194,7 +194,7 @@
                 android:layout_marginStart="20dp"
                 android:background="@drawable/rect_curve_gray_border"
                 android:fontFamily="@font/assistantregular"
-                android:hint="Enter Twitter Profile"
+                android:hint="@string/enter_twitter_profile"
                 android:paddingStart="10dp" />
         </LinearLayout>
 

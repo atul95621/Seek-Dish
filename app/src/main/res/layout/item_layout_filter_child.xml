@@ -39,7 +39,7 @@
                 android:textColor="@color/white"
                 android:layout_width="match_parent"
                 android:layout_weight="1"
-                android:text="child name"
+                android:text=""
                 android:fontFamily="@font/assistantregular"
                 android:textSize="14sp"
                 android:gravity="center_vertical"

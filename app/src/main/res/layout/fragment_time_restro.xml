@@ -41,7 +41,7 @@
                 android:cursorVisible="false"
                     android:paddingEnd="40dp"
                     android:gravity="start|center_vertical"
-                    android:hint="Search restaurant"
+                    android:hint="@string/search_restaurant"
                     android:fontFamily="@font/assistantregular"
                     android:background="@android:color/transparent"
                     android:layout_gravity="center"

@@ -65,7 +65,7 @@
 
 
                 <TextView android:layout_width="wrap_content"
-                    android:text="Couscous"
+                    android:text=""
                     android:id="@+id/tvRestroName"
                     android:textSize="16sp"
                     android:textColor="@color/black"
@@ -78,7 +78,7 @@
                     android:textSize="16sp"
                     android:id="@+id/tvRestroAddress"
                     android:layout_marginTop="10dp"
-                    android:text="Biezer Pizza Test"
+                    android:text=""
                     android:layout_height="wrap_content"
                     />
 
@@ -126,7 +126,7 @@
                 android:gravity="end|top"
                 android:layout_marginTop="8dp"
                 android:layout_gravity="end|top"
-                android:text="Actions"
+                android:text="@string/actions"
                 android:textColor="@color/black"
                 android:textSize="16sp"/>
 
@@ -138,7 +138,7 @@
                 android:layout_marginTop="8dp"
                 android:layout_marginStart="10dp"
                 android:layout_gravity="start|top"
-                android:text="Back"
+                android:text="@string/back"
                 android:textColor="@color/black"
                 android:textSize="16sp"/>
 

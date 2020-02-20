@@ -27,7 +27,7 @@
                   android:layout_marginStart="10dp"
                   android:fontFamily="@font/assistantbold"
                   android:layout_gravity="center_vertical"
-                  android:text="Coactre Chansophea"
+                  android:text=""
                   android:layout_height="wrap_content"/>
 
 

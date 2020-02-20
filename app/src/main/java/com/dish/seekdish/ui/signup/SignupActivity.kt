@@ -126,30 +126,30 @@ var langId=""
             }
 
             if (TextUtils.isEmpty(edtFirstName!!.text.toString().trim { it <= ' ' })) {
-                showSnackBar("Enter First Name")
+                showSnackBar(getString(R.string.fill_first))
                 edtFirstName!!.requestFocus()
             } else if (TextUtils.isEmpty(edtLastName!!.text.toString().trim { it <= ' ' })) {
-                showSnackBar("Enter Last Name")
+                showSnackBar(getString(R.string.fill_last))
                 edtLastName!!.requestFocus()
             } else if (TextUtils.isEmpty(edtEmail!!.text.toString().trim { it <= ' ' })) {
-                showSnackBar("Enter Email")
+                showSnackBar(getString(R.string.enter_email))
                 edtEmail!!.requestFocus()
             } else if (emailValidator(edtEmail.text.toString()) == false) {
-                showSnackBar("Enter valid Email Id")
+                showSnackBar(getString(R.string.valid_email))
             } else if (TextUtils.isEmpty(edtPhone!!.text.toString().trim { it <= ' ' })) {
-                showSnackBar("Enter Phone Number")
+                showSnackBar(getString(R.string.enter_phone))
                 edtPhone!!.requestFocus()
             } else if (TextUtils.isEmpty(edtPassword!!.text.toString().trim { it <= ' ' })) {
-                showSnackBar("Enter Password")
+                showSnackBar(getString(R.string.enter_passss))
                 edtPassword!!.requestFocus()
             } else if (TextUtils.isEmpty(edtConfirmPasword!!.text.toString().trim { it <= ' ' })) {
-                showSnackBar("Enter Confirm Password")
+                showSnackBar(getString(R.string.enter_cnfrm))
                 edtConfirmPasword!!.requestFocus()
             } else if (edtPassword.text.toString().compareTo(edtConfirmPasword.text.toString()) != 0) {
-                showSnackBar("Password and Confirm Password doesn't match.")
+                showSnackBar(getString(R.string.pass_not_match))
                 edtConfirmPasword!!.requestFocus()
             } else if (TextUtils.isEmpty(edtUsername!!.text.toString().trim { it <= ' ' })) {
-                showSnackBar("Enter Username")
+                showSnackBar(getString(R.string.enter_user))
                 edtUsername!!.requestFocus()
             } /*else if (path.equals("") || path.equals(null)) {
                 showSnackBar("Please select an image.")

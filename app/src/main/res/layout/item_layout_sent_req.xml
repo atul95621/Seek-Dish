@@ -34,7 +34,7 @@
                 android:layout_marginStart="5dp"
                 android:id="@+id/btnCancel"
                 android:layout_height="30dp"
-                android:text="Cancel"
+                android:text="@string/cancel"
                 android:textAllCaps="false"
                 android:textSize="14sp"
                 android:layout_marginEnd="20dp"

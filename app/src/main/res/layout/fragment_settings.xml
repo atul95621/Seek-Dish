@@ -10,7 +10,7 @@
                   android:orientation="vertical"
                   tools:context=".ui.navDrawer.settings.SettingsFragment">
         <TextView android:layout_width="match_parent"
-                  android:text="General"
+                  android:text="@string/general"
                   android:textColor="@color/dark_gray"
                   android:layout_gravity="center_vertical"
                   android:gravity="center_vertical"
@@ -37,7 +37,7 @@
                     android:textSize="16sp"
                     android:fontFamily="@font/assistantbold"
                     android:gravity="center_vertical"
-                    android:text="Geolocation"
+                    android:text="@string/geolocation"
                     android:layout_height="match_parent"
             />
 
@@ -63,7 +63,7 @@
                     android:fontFamily="@font/assistantbold"
 
                     android:gravity="center_vertical"
-                    android:text="Push Notification"
+                    android:text="@string/push_notification"
                     android:layout_height="match_parent"
             />
 
@@ -89,7 +89,7 @@
                     android:gravity="center_vertical"
                     android:fontFamily="@font/assistantbold"
 
-                    android:text="Private"
+                    android:text="@string/private_m"
                     android:layout_height="match_parent"
             />
 
@@ -114,7 +114,7 @@
                     android:textSize="16sp"
                     android:fontFamily="@font/assistantbold"
                     android:gravity="center_vertical"
-                    android:text="Search Radius"
+                    android:text="@string/search_radius"
                     android:layout_height="match_parent"
             />
             <LinearLayout
@@ -142,7 +142,7 @@
                       android:layout_gravity="end|center_vertical"
                       android:textColor="@color/gray"
                       android:layout_height="match_parent"
-                      android:text="Km"
+                      android:text="@string/km"
                       android:layout_marginEnd="20dp"
                       android:gravity="end|center_vertical"/>
 
@@ -165,7 +165,7 @@
                     android:layout_weight="1"
                     android:fontFamily="@font/assistantbold"
                     android:gravity="center_vertical"
-                    android:text="Radius Center"
+                    android:text="@string/radius_center"
                     android:layout_height="match_parent"
             />
 
@@ -199,7 +199,7 @@
                     android:layout_weight="1"
                     android:fontFamily="@font/assistantbold"
                     android:gravity="center_vertical"
-                    android:text="Language"
+                    android:text="@string/language"
                     android:layout_height="match_parent"
             />
 
@@ -230,7 +230,7 @@
               android:layout_marginEnd="10dp"/>
 
         <TextView android:layout_width="match_parent"
-                  android:text="Profile"
+                  android:text="@string/profile"
                   android:textColor="@color/dark_gray"
                   android:layout_gravity="center_vertical"
                   android:gravity="center_vertical"
@@ -242,7 +242,7 @@
         <TextView
                 android:id="@+id/tvUpdateProfile"
                 android:layout_width="match_parent"
-                android:text="Update My Profile"
+                android:text="@string/update_my_profile"
                 android:textColor="@color/dark_gray"
                 android:layout_gravity="center_vertical"
                 android:gravity="center_vertical"
@@ -259,7 +259,7 @@
         <TextView
             android:id="@+id/tvAddFriends"
             android:layout_width="match_parent"
-                  android:text="Add Friends"
+                  android:text="@string/add_friends"
                   android:textColor="@color/dark_gray"
                   android:layout_gravity="center_vertical"
                   android:gravity="center_vertical"
@@ -283,14 +283,14 @@
                     android:layout_width="match_parent"
                     android:textSize="16sp"
                     android:gravity="center_vertical"
-                    android:text="I Like"
+                    android:text="@string/i_like"
                     android:fontFamily="@font/assistantbold"
                     android:layout_height="match_parent"
             />
 
             <TextView android:layout_width="match_parent"
                       android:paddingEnd="20dp"
-                      android:text="21 I Like"
+                      android:text=""
                       android:id="@+id/tvLikeCount"
                       android:textColor="@color/gray"
                       android:layout_height="match_parent"
@@ -311,7 +311,7 @@
                     android:layout_width="match_parent"
                     android:textSize="16sp"
                     android:gravity="center_vertical"
-                    android:text="I Dislike"
+                    android:text="@string/i_dislike"
                     android:fontFamily="@font/assistantbold"
 
                     android:layout_height="match_parent"
@@ -319,7 +319,7 @@
 
             <TextView android:layout_width="match_parent"
                       android:paddingEnd="20dp"
-                      android:text="5 I Dislike"
+                      android:text=""
                       android:id="@+id/tvDisLikeCount"
 
                       android:textColor="@color/gray"
@@ -332,7 +332,7 @@
               android:layout_marginEnd="10dp"/>
 
         <TextView android:layout_width="match_parent"
-                  android:text="Alert"
+                  android:text="@string/alert"
                   android:textColor="@color/dark_gray"
                   android:layout_gravity="center_vertical"
                   android:gravity="center_vertical"
@@ -346,7 +346,7 @@
 
                 android:id="@+id/tvAlert"
                 android:layout_width="match_parent"
-                android:text="Managing Alerts"
+                android:text="@string/managing_alerts"
                 android:textColor="@color/dark_gray"
                 android:layout_gravity="center_vertical"
                 android:gravity="center_vertical"
@@ -363,7 +363,7 @@
 
                 android:id="@+id/tvRecievedReq"
                 android:layout_width="match_parent"
-                android:text="Received Friend Request"
+                android:text="@string/received_friend_request"
                 android:textColor="@color/dark_gray"
                 android:layout_gravity="center_vertical"
                 android:gravity="center_vertical"
@@ -380,7 +380,7 @@
                 android:fontFamily="@font/assistantbold"
 
                 android:layout_width="match_parent"
-                android:text="Sent Friends Request"
+                android:text="@string/sent_friend_request"
                 android:textColor="@color/dark_gray"
                 android:layout_gravity="center_vertical"
                 android:gravity="center_vertical"

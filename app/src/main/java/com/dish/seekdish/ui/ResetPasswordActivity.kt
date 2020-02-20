@@ -32,15 +32,15 @@ class ResetPasswordActivity : BaseActivity() {
         tvContact.setOnClickListener()
         {
             if (edtEmail.text.toString().trim().isEmpty()) {
-                showSnackBar("Please fill email.")
+                showSnackBar(getString(R.string.please_fill_email))
             } else if (edtRandomPassword.text.toString().trim().isEmpty()) {
-                showSnackBar("Please fill random password provided on email.")
+                showSnackBar(getString(R.string.fill_email))
             } else if (edtNewPassword.text.toString().trim().isEmpty()) {
-                showSnackBar("Please fill new password")
+                showSnackBar(getString(R.string.fill_new_pass))
             } else if (edtConfirmPassword.text.toString().trim().isEmpty()) {
-                showSnackBar("Please fill confirm password")
+                showSnackBar(getString(R.string.fill_confirm_pass))
             } else if (edtNewPassword.text.toString().compareTo(edtConfirmPassword.text.toString()) != 0) {
-                showSnackBar("Password and Confirm Password doesn't match.")
+                showSnackBar(getString(R.string.pass_not_match))
                 edtConfirmPassword!!.requestFocus()
             } else {
                 ProgressBarClass.progressBarCalling(this)

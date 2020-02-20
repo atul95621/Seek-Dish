@@ -41,7 +41,7 @@
                     android:paddingEnd="40dp"
                 android:maxLines="1"
                 android:gravity="start|center_vertical"
-                    android:hint="Search a meal"
+                    android:hint="@string/search_meal"
                     android:fontFamily="@font/assistantregular"
                     android:background="@android:color/transparent"
                     android:layout_gravity="center"

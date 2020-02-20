@@ -112,9 +112,9 @@ class RestroDescrpActivity : BaseActivity() {
         // setting up tabLayout
         this.tabLayout = findViewById(R.id.tabLayoutRestroActivity)
 
-        tabLayout.addTab(tabLayout.newTab().setText("Meals"))
-        tabLayout.addTab(tabLayout.newTab().setText("Similar"))
-        tabLayout.addTab(tabLayout.newTab().setText("Details"))
+        tabLayout.addTab(tabLayout.newTab().setText(getString(R.string.meals)))
+        tabLayout.addTab(tabLayout.newTab().setText(getString(R.string.similar)))
+        tabLayout.addTab(tabLayout.newTab().setText(getString(R.string.details)))
 
 //        //change font
 //        changeTabsFont();

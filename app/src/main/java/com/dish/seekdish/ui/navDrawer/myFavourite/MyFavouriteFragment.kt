@@ -29,8 +29,8 @@ class MyFavouriteFragment : Fragment() {
         // setting up tabLayout
         this.tabLayout = view.findViewById(R.id.tabLayoutFavouriteFrag)
 
-        tabLayout.addTab(tabLayout.newTab().setText("List"))
-        tabLayout.addTab(tabLayout.newTab().setText("Map"))
+        tabLayout.addTab(tabLayout.newTab().setText(getString(R.string.lists)))
+        tabLayout.addTab(tabLayout.newTab().setText(getString(R.string.map)))
 
 //        //change font
 //        changeTabsFont();

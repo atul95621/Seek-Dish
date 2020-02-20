@@ -23,13 +23,13 @@
                 android:layout_marginEnd="10dp"
                 android:gravity="end"
                 android:layout_gravity="end|center_vertical"
-                android:text="Validate"
+                android:text="@string/validate"
                 android:textColor="@color/white"
                 android:textSize="18sp"/>
         <TextView android:layout_width="wrap_content"
                   android:layout_height="wrap_content"
                   android:layout_gravity="center"
-                  android:text="Login"
+                  android:text="@string/login"
                   android:textColor="@color/white"
                   android:textSize="20sp"/>
         <TextView
@@ -39,7 +39,7 @@
                 android:gravity="start"
                 android:layout_marginStart="10dp"
                 android:layout_gravity="start|center_vertical"
-                android:text="Back"
+                android:text="@string/back"
                 android:textColor="@color/white"
                 android:textSize="18sp"/>
     </FrameLayout>
@@ -56,7 +56,7 @@
                 android:layout_width="match_parent"
                   android:inputType="textEmailAddress"
                   android:layout_height="48dp"
-                  android:hint="Email"
+                  android:hint="@string/email"
                   android:paddingStart="8dp" android:background="@color/edt_light_gray"
         />
         <EditText
@@ -65,7 +65,7 @@
                   android:layout_marginTop="4dp"
                   android:inputType="textPassword"
                   android:layout_height="48dp"
-                  android:hint="Password"
+                  android:hint="@string/password"
                   android:paddingStart="8dp" android:background="@color/edt_light_gray"
         />
         <CheckBox
@@ -75,12 +75,12 @@
                 android:checked="true"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:text="Remember Me"/>
+                android:text="@string/remember_me"/>
         <TextView
                 android:id="@+id/tvForgot" android:layout_width="wrap_content"
                   android:layout_marginTop="15dp"
                   android:layout_gravity="center" android:layout_height="wrap_content"
-                  android:text="Forgot your password?"/>
+                  android:text="@string/forgot_your_password"/>
     </LinearLayout>
 
 </LinearLayout>

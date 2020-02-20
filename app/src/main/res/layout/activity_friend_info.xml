@@ -20,7 +20,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:text="Info"
+            android:text="@string/info"
             android:textColor="@color/white"
             android:textSize="20sp" />
 
@@ -31,7 +31,7 @@
             android:layout_gravity="start|center_vertical"
             android:layout_marginStart="10dp"
             android:gravity="start"
-            android:text="Back"
+            android:text="@string/back"
             android:textColor="@color/white"
             android:textSize="18sp" />
     </FrameLayout>
@@ -50,7 +50,8 @@
             android:orientation="vertical"
             android:paddingTop="30dp">
 
-            <de.hdodenhof.circleimageview.CircleImageView xmlns:app="http://schemas.android.com/apk/res-auto"
+            <de.hdodenhof.circleimageview.CircleImageView
+                xmlns:app="http://schemas.android.com/apk/res-auto"
                 android:id="@+id/imgProfileImage"
                 android:layout_width="130dp"
                 android:layout_height="130dp"
@@ -67,7 +68,7 @@
                 android:gravity="center"
                 android:paddingStart="8dp"
                 android:fontFamily="@font/assistantbold"
-                android:text="Cocatre Chansophea"
+                android:text=""
                 android:textSize="18sp" />
 
 
@@ -94,7 +95,7 @@
                     android:layout_weight=".99"
                     android:background="@color/colorPrimary"
                     android:gravity="center"
-                    android:hint="Friends"
+                    android:text="@string/friends"
                     android:inputType="text"
                     android:paddingStart="8dp"
                     android:textColor="@color/white"
@@ -109,12 +110,11 @@
                     android:id="@+id/tvCheckin"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
-
                     android:layout_gravity="center"
                     android:layout_weight="0.99"
                     android:background="@color/colorPrimary"
                     android:gravity="center"
-                    android:hint="1 Check-in"
+                    android:text="@string/check_in"
                     android:inputType="text"
                     android:paddingStart="8dp"
                     android:textColor="@color/white"
@@ -129,9 +129,8 @@
                 android:layout_marginTop="4dp"
                 android:background="@color/colorPrimaryDark"
                 android:gravity="center"
-                android:text="Contact"
+                android:text="@string/contact"
                 android:textColor="@color/white"
-
                 android:textSize="18sp" />
         </LinearLayout>
 
