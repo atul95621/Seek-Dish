@@ -107,39 +107,38 @@ class IngredientFragment(var objDishModel: DishDescpModel) : BaseFragment() {
 
 
         for (items in main_ingre) {
-            addProduct("Main Ingredients", items)
-        }
-        for (items in element_ao) {
-            addProduct("Element AO", items.toString())
-        }
-        for (items in intolerance) {
-            addProduct("Intolernace Compatibilities", items.toString())
-        }
-        for (items in fat_appellation) {
-            addProduct("Fat Appellation", items.toString())
+            addProduct(getString(R.string.main_ingre), items)
         }
         for (items in second_ingre) {
-            addProduct("Secondary Ingredients", items.toString())
+            addProduct(getString(R.string.secondary_ingre), items.toString())
         }
-        for (items in fats) {
-            addProduct("Fats", items.toString())
-        }
-        for (items in alcohol) {
-            addProduct("Alcohol", items.toString())
+        for (items in element_ao) {
+            addProduct(getString(R.string.element_Ao), items.toString())
         }
         for (items in type_cooking) {
-            addProduct("Type of Cooking", items.toString())
+            addProduct(getString(R.string.type_of), items.toString())
         }
-        for (items in tags) {
-            addProduct("Meal Tags", items.toString())
+        for (items in fats) {
+            addProduct(getString(R.string.fats), items.toString())
         }
-        for (items in rest_tags) {
-            addProduct("Restaurant Tags", items.toString())
+        for (items in fat_appellation) {
+            addProduct(getString(R.string.fat_app), items.toString())
+        }
+        for (items in alcohol) {
+            addProduct(getString(R.string.alcohol), items.toString())
         }
         for (items in seasoning) {
-            addProduct("Seasoning", items.toString())
+            addProduct(getString(R.string.season), items.toString())
         }
-
+        for (items in intolerance) {
+            addProduct(getString(R.string.intol_capa), items.toString())
+        }
+        for (items in tags) {
+            addProduct(getString(R.string.meal), items.toString())
+        }
+        for (items in rest_tags) {
+            addProduct(getString(R.string.restro_tags), items.toString())
+        }
 
     }
 

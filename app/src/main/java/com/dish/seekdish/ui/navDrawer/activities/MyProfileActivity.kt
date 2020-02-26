@@ -63,16 +63,17 @@ class MyProfileActivity : BaseActivity() {
                     var modelObj = response.body() as ProfileDataClass
                     if (modelObj.status == 1) {
 
-                        tvFriends.text = modelObj.data.new_info_data.friends.toString() + " Friends"
+                        tvFriends.text = modelObj.data.new_info_data.friends.toString() +" "+ getString(
+                                                    R.string.friends)
                         tvFollower.text =
-                            modelObj.data.new_info_data.followers.toString() + " Followers"
-                        tvLike.text = modelObj.data.new_info_data.like.toString() + " Likes"
+                            modelObj.data.new_info_data.followers.toString()+" " + getString(R.string.followers)
+                        tvLike.text = modelObj.data.new_info_data.like.toString()+" " + getString(R.string.likesss)
                         tvDislike.text =
-                            modelObj.data.new_info_data.dislike.toString() + " Dislikes"
+                            modelObj.data.new_info_data.dislike.toString()+" " + getString(R.string.dislikess)
                         tvCheckin.text =
-                            modelObj.data.new_info_data.checkin.toString() + " Check-In"
+                            modelObj.data.new_info_data.checkin.toString()+" " + getString(R.string.checkinns)
                         tvProfilePercent.text =
-                            modelObj.data.new_info_data.profile_percentage.toString() + " of Profile"
+                            modelObj.data.new_info_data.profile_percentage.toString()+" " + getString(R.string.of_profile)
                         tvName.text = modelObj.data.first_name
                         tvBio.text = modelObj.data.bio
 

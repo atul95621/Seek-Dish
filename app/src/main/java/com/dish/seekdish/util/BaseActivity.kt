@@ -3,11 +3,15 @@ package com.dish.seekdish.util
 import android.app.Activity
 import android.app.Dialog
 import android.content.Context
+import android.content.res.Configuration
+import android.content.res.Resources
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
+import android.graphics.Matrix
 import android.net.Uri
 import android.os.Bundle
 import android.provider.MediaStore
+import android.util.DisplayMetrics
 import android.util.Log
 
 import android.view.WindowManager
@@ -17,6 +21,7 @@ import android.widget.TextView
 import android.widget.Toolbar
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
+import androidx.exifinterface.media.ExifInterface
 
 import com.bumptech.glide.Glide
 import com.dish.seekdish.R
@@ -28,6 +33,7 @@ import java.net.HttpURLConnection
 import java.net.URL
 import java.text.ParseException
 import java.text.SimpleDateFormat
+import java.util.*
 import java.util.regex.Matcher
 import java.util.regex.Pattern
 
@@ -79,6 +85,15 @@ open class BaseActivity : AppCompatActivity() {
         super.setContentView(layoutResID)
     }
 
+    // chnaging language of the application...
+    fun setLocale(lang: String?) {
+        val myLocale = Locale(lang)
+        val res: Resources = resources
+        val dm: DisplayMetrics = res.getDisplayMetrics()
+        val conf: Configuration = res.getConfiguration()
+        conf.locale = myLocale
+        res.updateConfiguration(conf, dm)
+    }
 
     fun glideMemoryCacheClear() {
 
@@ -336,4 +351,35 @@ open class BaseActivity : AppCompatActivity() {
         }
         return newDate
     }
+
+
+    /*fun modifyOrientation(bitmap: Bitmap, image_absolute_path: String): Bitmap {
+        val ei = ExifInterface(image_absolute_path)
+        val orientation = ei.getAttributeInt(ExifInterface.TAG_ORIENTATION, ExifInterface.ORIENTATION_NORMAL)
+        return when (orientation) {
+            ExifInterface.ORIENTATION_ROTATE_90 -> rotateImage(bitmap, 90f)
+            ExifInterface.ORIENTATION_ROTATE_180 -> rotateImage(bitmap, 180f)
+            ExifInterface.ORIENTATION_ROTATE_270 -> rotateImage(bitmap, 270f)
+            ExifInterface.ORIENTATION_FLIP_HORIZONTAL -> flipImage(bitmap, true, false)
+            ExifInterface.ORIENTATION_FLIP_VERTICAL -> flipImage(bitmap, false, true)
+            else -> bitmap
+        }
+    }
+
+    private fun rotateImage(bitmap: Bitmap, degrees: Float): Bitmap {
+        val matrix = Matrix()
+        matrix.postRotate(degrees)
+        return Bitmap.createBitmap(bitmap, 0, 0, bitmap.width, bitmap.height, matrix, true)
+    }
+
+    private fun flipImage(bitmap: Bitmap, horizontal: Boolean, vertical: Boolean): Bitmap {
+        val matrix = Matrix()
+        matrix.preScale((if (horizontal) -1 else 1).toFloat(), (if (vertical) -1 else 1).toFloat())
+        return Bitmap.createBitmap(bitmap, 0, 0, bitmap.width, bitmap.height, matrix, true)
+    }
+    fun getImageUri(inContext:Context, inImage:Bitmap):Uri {
+        val bytes = ByteArrayOutputStream()
+        val path = MediaStore.Images.Media.insertImage(inContext.getContentResolver(), inImage, "Title", null)
+        return Uri.parse(path)
+    }*/
 }

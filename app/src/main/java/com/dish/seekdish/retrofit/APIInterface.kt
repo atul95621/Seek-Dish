@@ -240,8 +240,6 @@ internal interface APIInterface {
         @Field("page_no") pageNo: String,
         @Field("per_page") perPage: String,
         @Field("search_term") searchTerm: String
-
-
     ): Call<LikeDataClass>
 
     @FormUrlEncoded

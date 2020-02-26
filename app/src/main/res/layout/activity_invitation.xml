@@ -264,7 +264,7 @@
                     </LinearLayout>
                 </LinearLayout>
 
-<!--                notification layout -->
+<!--                notification decline acept layout -->
                 <LinearLayout
                     android:visibility="gone"
                     android:id="@+id/linOptionNotifi"

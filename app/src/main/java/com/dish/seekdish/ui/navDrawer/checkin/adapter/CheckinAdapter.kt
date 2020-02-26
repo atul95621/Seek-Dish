@@ -1,5 +1,6 @@
 package com.dish.seekdish.ui.navDrawer.checkin.adapter
 
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -10,6 +11,7 @@ import com.dish.seekdish.R
 import com.dish.seekdish.custom.GlideApp
 import com.dish.seekdish.ui.navDrawer.checkin.CheckinActivity
 import com.dish.seekdish.ui.navDrawer.checkin.data.Data_Checkin
+import com.dish.seekdish.ui.navDrawer.dishDescription.DishDescriptionActivity
 import java.util.ArrayList
 
 
@@ -39,6 +41,14 @@ class CheckinAdapter(
             .load(Data_Checkin.user_image)
             .placeholder(R.drawable.ic_applogo_small)
             .into(holder.imgplace)
+
+        holder.imgplace.setOnClickListener()
+        {
+            val intent = Intent(context, DishDescriptionActivity::class.java)
+            intent.putExtra("MEAL_ID", Data_Checkin.meal.toString())
+            intent.putExtra("RESTAURANT_ID", Data_Checkin.restro_id.toString())
+            context.startActivity(intent)
+        }
     }
 
 

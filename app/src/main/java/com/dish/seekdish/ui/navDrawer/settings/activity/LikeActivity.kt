@@ -285,8 +285,6 @@ class LikeActivity : BaseActivity() {
                         recyclerView!!.adapter = adapter
                         adapter!!.notifyDataSetChanged()
                     }
-
-
                 }
 
             } else {

@@ -12,5 +12,6 @@ data class Data_Checkin(
     val date: String,
     val restro_id: Int,
     val restro_name: String,
-    val user_image: String
+    val user_image: String,
+    val meal:Int
 )

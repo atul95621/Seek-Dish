@@ -170,7 +170,6 @@ class RadiusCenterActivity : BaseActivity(), OnMapReadyCallback, GoogleMap.OnMyL
                 ""
             )
         ) {
-
             // Add a marker in PARIS, FRANCE, and move the camera.
             var lati = sessionManager?.getValue(SessionManager.LATITUDE)?.toDouble()
             var long = sessionManager?.getValue(SessionManager.LONGITUDE)?.toDouble()

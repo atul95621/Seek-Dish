@@ -60,19 +60,20 @@ class NotificationAdapter(
                 intent.putExtra("RESTAURANT_ID", notifyModel.restaurant_id.toString())
                 activity.startActivity(intent)
             } else if (noti_type.equals("decline_invitation")) {
-                val intent = Intent(activity, InvitationActivity::class.java)
-                intent.putExtra("RESTAURANT_ID", notifyModel.restaurant_id.toString())
-                intent.putExtra("FROM", "")
-                intent.putExtra("USER_WHO_SENT_ID", "");
-                intent.putExtra("TIME", "");
-                activity.startActivity(intent)
+                    val intent = Intent(activity, InvitationActivity::class.java)
+                    intent.putExtra("RESTAURANT_ID", notifyModel.restaurant_id.toString())
+                    intent.putExtra("FROM", "")
+                    intent.putExtra("USER_WHO_SENT_ID", "");
+                    intent.putExtra("TIME", "");
+                    activity.startActivity(intent)
+
             } else if (noti_type.equals("accept_invitation")) {
-                val intent = Intent(activity, InvitationActivity::class.java)
-                intent.putExtra("RESTAURANT_ID", notifyModel.restaurant_id.toString())
-                intent.putExtra("FROM", "")
-                intent.putExtra("USER_WHO_SENT_ID", "");
-                intent.putExtra("TIME", "");
-                activity.startActivity(intent)
+                    val intent = Intent(activity, InvitationActivity::class.java)
+                    intent.putExtra("RESTAURANT_ID", notifyModel.restaurant_id.toString())
+                    intent.putExtra("FROM", "")
+                    intent.putExtra("USER_WHO_SENT_ID", "");
+                    intent.putExtra("TIME", "");
+                    activity.startActivity(intent)
             } else if (noti_type.equals("send_friend_request")) {
 // no action
                 val intent = Intent(activity, ReceivedRequestActivity::class.java)
@@ -86,16 +87,17 @@ class NotificationAdapter(
             } else if (noti_type.equals("decline_friend_request")) {
 // no action
             } else if (noti_type.equals("post_invitation")) {
-//                if (notifyModel.invitation_status.equals("pending")) {
+                if (notifyModel.invitation_status.equals("pending")) {
                     val intent = Intent(activity, InvitationActivity::class.java)
                     intent.putExtra("RESTAURANT_ID", notifyModel.restaurant_id.toString())
                     intent.putExtra("FROM", "NotificationAdapter")
                     intent.putExtra("USER_WHO_SENT_ID", notifyModel.user_id.toString());
+//                    intent.putExtra("INVITATION_STATUS", notifyModel.invitation_status.toString());
                     intent.putExtra("TIME", notifyModel.date_and_time);
                     activity.startActivity(intent)
-//                } else {
-//                    Toast.makeText(activity, "Action already taken", Toast.LENGTH_SHORT).show()
-//                }
+                } else {
+                    activity.showSnackBar(activity.resources.getString(R.string.details) + " : " + notifyModel.invitation_status)
+                }
             } else if (noti_type.equals("following_friend_request")) {
                 val intent = Intent(activity, FriendInfoActivity::class.java)
                 intent.putExtra("IMAGE", notifyModel.image);

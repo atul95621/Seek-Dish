@@ -23,6 +23,7 @@ import androidx.viewpager.widget.PagerAdapter
 import androidx.viewpager.widget.ViewPager
 import com.dish.seekdish.Constants
 import com.dish.seekdish.R
+import com.dish.seekdish.custom.GlideApp
 import com.dish.seekdish.custom.PagerContainer
 import com.dish.seekdish.custom.ProgressBarClass.dialog
 import com.dish.seekdish.ui.navDrawer.dishDescription.MealRatingActivity
@@ -46,6 +47,7 @@ import de.hdodenhof.circleimageview.CircleImageView
 import io.reactivex.android.schedulers.AndroidSchedulers
 import kotlinx.android.synthetic.main.activity_restro_description.*
 import kotlinx.android.synthetic.main.activity_restro_description.tvBack
+import kotlinx.android.synthetic.main.pager_item.*
 import java.util.ArrayList
 
 class RestroDescrpActivity : BaseActivity() {
@@ -59,7 +61,7 @@ class RestroDescrpActivity : BaseActivity() {
     internal lateinit var pager: ViewPager
     internal lateinit var adapterPager: PagerAdapter
 
-    val mResources: ArrayList<String> = arrayListOf<String>()
+    val mResources: HashSet<String> = HashSet<String>()
 
     var restroDescpVM: RestroDescpVM? = null
     var sessionManager: SessionManager? = null
@@ -178,6 +180,7 @@ class RestroDescrpActivity : BaseActivity() {
         {
             val intent = Intent(this@RestroDescrpActivity, InvitationActivity::class.java)
             intent.putExtra("RESTAURANT_ID", restro_id.toString())
+            intent.putExtra("FROM", "RestroDescrpActivity")
             startActivity(intent)
         }
 
@@ -323,6 +326,19 @@ class RestroDescrpActivity : BaseActivity() {
         override fun instantiateItem(container: ViewGroup, position: Int): Any {
             val itemView = mLayoutInflater.inflate(R.layout.pager_item, container, false)
 
+            val imageView = itemView.findViewById(R.id.imageView) as ImageView
+            val profile_image = itemView.findViewById(R.id.profile_image) as CircleImageView
+
+            GlideApp.with(this@RestroDescrpActivity)
+                .load(mResources.elementAt(position))
+                .placeholder(R.drawable.app_logo)
+                .into(imageView)
+            GlideApp.with(this@RestroDescrpActivity)
+                .load(mResources.elementAt(position))
+                .placeholder(R.drawable.app_logo)
+                .into(profile_image)
+
+
             /*val imageView = itemView.findViewById(R.id.imageView) as ImageView
             val profile_image = itemView.findViewById(R.id.profile_image) as CircleImageView*/
 
@@ -358,9 +374,8 @@ class RestroDescrpActivity : BaseActivity() {
 
                     Log.e("restro_image", "" + imageMeal)
 
-
                     tvRestroName.setText(response.data.restaurant.name)
-                    tvRestroAddress.setText(response.data.restaurant.street + ", " + response.data.restaurant.city + ", " + response.data.restaurant.country)
+                    tvRestroAddress.setText(response.data.restaurant.street + ", " + response.data.restaurant.zipcode)
                     tvRestroReview.setText("(" + response.data.restaurant.no_of_reviews + ")")
                     latitude = response.data.restaurant.latitude
                     longitude = response.data.restaurant.longitude

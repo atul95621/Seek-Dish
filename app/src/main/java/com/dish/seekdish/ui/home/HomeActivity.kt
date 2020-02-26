@@ -187,11 +187,10 @@ class HomeActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
                         MyFriendsFragment(fromValue.toString())
                     ).commit()
                 }
-            }
-            else if (from.equals("SettingsFragment")) {
+            } else if (from.equals("SettingsFragment")) {
                 if (!fromValue.isNullOrEmpty()) {
                     tvTitle.setText("My Friends")
-                    tvAdd.visibility=View.VISIBLE
+                    tvAdd.visibility = View.VISIBLE
                     imgFilters.visibility = (View.INVISIBLE)
                     val fragmentManager = supportFragmentManager
                     fragmentManager.beginTransaction().replace(
@@ -234,7 +233,7 @@ class HomeActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
             } else {
                 Log.e("deptList size", " " + deptList.size)
 
-                getFilterData()
+//                getFilterData()
                 drawerLayout?.openDrawer(GravityCompat.END)
             }
         })
@@ -637,36 +636,34 @@ class HomeActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
                                 switch_consider_my_profile.isChecked = false
                             }
                         }
-
+                        for (items in response.data.additional_services) {
+                            addProduct(getString(R.string.addtional_service), items.name, items.id)
+                        }
                         for (items in response.data.budget) {
                             Log.e("Budget", items.name)
-                            addProduct("Budget", items.name, items.id)
-                        }
-                        for (items in response.data.service_speed) {
-                            addProduct("Service Speed", items.name, items.id)
-                        }
-                        for (items in response.data.meal_types) {
-                            addProduct("Meal type", items.name, items.id)
+                            addProduct(getString(R.string.budget), items.name, items.id)
                         }
                         for (items in response.data.intolerance_compatibilities) {
-                            addProduct("Compatibility intolerance", items.name, items.id)
-                        }
-                        for (items in response.data.speciality) {
-                            addProduct("Restaurant speciality", items.name, items.id)
-                        }
-                        for (items in response.data.ambiance) {
-                            addProduct("Restaurant ambiance", items.name, items.id)
+                            addProduct(getString(R.string.comp_intolr), items.name, items.id)
                         }
                         for (items in response.data.ambiance_complementary) {
-                            addProduct("Complementary ambiance", items.name, items.id)
+                            addProduct(getString(R.string.comp_ambiance), items.name, items.id)
                         }
-                        for (items in response.data.additional_services) {
-                            addProduct("Additional Services", items.name, items.id)
+                        for (items in response.data.meal_types) {
+                            addProduct(getString(R.string.meal_type), items.name, items.id)
+                        }
+                        for (items in response.data.ambiance) {
+                            addProduct(getString(R.string.restro_ambiance), items.name, items.id)
+                        }
+                        for (items in response.data.speciality) {
+                            addProduct(getString(R.string.restro_speacial), items.name, items.id)
                         }
                         for (items in response.data.seasons) {
-                            addProduct("Seasonality", items.name, items.id)
+                            addProduct(getString(R.string.seasonali), items.name, items.id)
                         }
-
+                        for (items in response.data.service_speed) {
+                            addProduct(getString(R.string.service_sped), items.name, items.id)
+                        }
 
                         // create the adapter by passing your ArrayList data
                         listAdapter = FilterAdapter(this, deptList)
@@ -676,7 +673,7 @@ class HomeActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
                 }
 
             } else {
-                showSnackBar("OOps! Error Occured.")
+                showSnackBar(resources.getString(R.string.error_occured))
                 Log.e("rspSnak", "else error")
             }
         })
@@ -699,7 +696,7 @@ class HomeActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
                     Log.e("Twitter", "logout")
                     TwitterCore.getInstance().getSessionManager().clearActiveSession()
 
-                    if(LoginManager.getInstance()!=null) {
+                    if (LoginManager.getInstance() != null) {
                         Log.e("facebook", "logout")
                         LoginManager.getInstance().logOut();
                     }

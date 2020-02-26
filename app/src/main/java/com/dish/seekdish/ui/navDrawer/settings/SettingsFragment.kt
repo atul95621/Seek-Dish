@@ -1,36 +1,37 @@
 package com.dish.seekdish.ui.navDrawer.settings
 
+import android.app.Activity
 import android.app.Dialog
 import android.content.Intent
+import android.content.res.Configuration
+import android.content.res.Resources
 import android.os.Bundle
+import android.util.DisplayMetrics
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.dish.seekdish.util.BaseFragment
+import android.widget.AdapterView
+import android.widget.ListView
+import android.widget.Toast
 import com.dish.seekdish.R
+import com.dish.seekdish.custom.CustomListAdapterDialog
 import com.dish.seekdish.ui.home.HomeActivity
 import com.dish.seekdish.ui.navDrawer.activities.MyInformationActivity
 import com.dish.seekdish.ui.navDrawer.settings.activity.*
-
+import com.dish.seekdish.ui.navDrawer.settings.dataModel.*
 import com.dish.seekdish.ui.navDrawer.settings.myAlerts.MyAlertsActivity
 import com.dish.seekdish.ui.navDrawer.settings.presenter.SettingFragPresenter
 import com.dish.seekdish.ui.navDrawer.settings.view.ISettingView
+import com.dish.seekdish.util.BaseFragment
 import com.dish.seekdish.util.SessionManager
-
+import com.facebook.FacebookSdk.getApplicationContext
+import com.travijuu.numberpicker.library.NumberPicker
 import kotlinx.android.synthetic.main.fragment_settings.*
 import kotlinx.android.synthetic.main.fragment_settings.view.*
-
-import com.travijuu.numberpicker.library.NumberPicker
 import retrofit2.Response
+import java.util.*
 import kotlin.collections.ArrayList
-import android.widget.Toast
-import com.facebook.FacebookSdk.getApplicationContext
-import android.widget.AdapterView
-import android.widget.ListView
-import com.dish.seekdish.custom.CustomListAdapterDialog
-import com.dish.seekdish.ui.navDrawer.settings.dataModel.*
-import android.app.Activity
 
 
 class SettingsFragment : BaseFragment(), ISettingView {
@@ -47,6 +48,7 @@ class SettingsFragment : BaseFragment(), ISettingView {
 
     var languageId: Int = 0
     var languageName: String = ""
+    var languageCode:String=""
     var dialog: Dialog? = null
 
 
@@ -181,7 +183,7 @@ class SettingsFragment : BaseFragment(), ISettingView {
     }
 
     private fun setAddressRadiusdLang(view: View) {
-        var language: String = sessionManager.getValue(SessionManager.LANGUAGE_NAME)
+        var language: String = sessionManager.getLangValue(SessionManager.LANGUAGE_NAME)
         var radiusCenter: String = sessionManager.getValue(SessionManager.PLACE_SELECTED)
 
         if (language != null && language != "null" && language != "") {
@@ -241,15 +243,9 @@ class SettingsFragment : BaseFragment(), ISettingView {
             // TODO Auto-generated method stub
 //           val tvLanguage = view.findViewById<View>(R.id.tvLanguage) as TextView
 
-
-            Toast.makeText(
-                getApplicationContext(),
-                "selected Item Name is " + listData[position].id + "     " + listData[position].name,
-                Toast.LENGTH_LONG
-            ).show()
-
             languageId = listData[position].id
             languageName = listData[position].name
+            languageCode = listData[position].prefix
 
 
             setLanguage()
@@ -392,17 +388,22 @@ class SettingsFragment : BaseFragment(), ISettingView {
             if (saveLangData.status == 1)
 
                 sessionManager.setValues(SessionManager.LANGUAGE_ID, languageId.toString())
-            sessionManager.setValues(SessionManager.LANGUAGE_NAME, languageName.toString())
+            sessionManager.savesSessionLang(SessionManager.LANGUAGE_NAME, languageName.toString())
             sessionManager.setValues(SessionManager.LANGUAGE_HOME_ACTIVITY, languageId.toString())
 
+            sessionManager.savesSessionLang(SessionManager.LANGUAGE_CODE, languageCode.toString())
+
             tvLanguage.setText(languageName)
+
+            // setting laguage and chnaging
+            setLocaleForHome(languageCode)
 
             dialog?.dismiss()
 
             showSnackBar(saveLangData.data.message);
 
         } else {
-            showSnackBar(homeActivity.getResources().getString(R.string.error_occured));
+            showSnackBar(homeActivity.resources.getString(R.string.error_occured));
 
         }
     }
@@ -420,6 +421,19 @@ class SettingsFragment : BaseFragment(), ISettingView {
             }
         }
 
+    }
+
+    // chnaging language of the application...
+    fun setLocaleForHome(lang: String?) {
+        val myLocale = Locale(lang)
+        val res: Resources = resources
+        val dm: DisplayMetrics = res.getDisplayMetrics()
+        val conf: Configuration = res.getConfiguration()
+        conf.locale = myLocale
+        res.updateConfiguration(conf, dm)
+        val refresh = Intent(homeActivity, HomeActivity::class.java)
+        homeActivity.finish()
+        startActivity(refresh)
     }
 
 

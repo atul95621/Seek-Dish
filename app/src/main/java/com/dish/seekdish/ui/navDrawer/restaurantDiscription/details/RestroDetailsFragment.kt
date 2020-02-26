@@ -76,28 +76,30 @@ class RestroDetailsFragment(var response: RestroDescpModel) : Fragment() {
     private fun loadData() {
 
         var email = response.data.restaurant.restaurant_detail.detail[0].email
-        addProduct("Email", email)
+        addProduct(getString(R.string.email), email)
         var website = response.data.restaurant.restaurant_detail.detail[0].website
-        addProduct("Website", website)
+        addProduct(getString(R.string.website), website)
+        var serviceSpeed = response.data.restaurant.service_speed
+        addProduct(getString(R.string.service_sped), serviceSpeed.toString())
         var guets = response.data.restaurant.restaurant_detail.detail[0].guests
-        addProduct("Guests", guets)
+        addProduct(getString(R.string.guest), guets)
         var origin = response.data.restaurant.restaurant_detail.detail[0].origin
-        addProduct("Origin", origin)
+        addProduct(getString(R.string.origin), origin)
         var phone = response.data.restaurant.restaurant_detail.detail[0].phone
-        addProduct("Phone", phone)
+        addProduct(getString(R.string.phone), phone)
         var schedule = response.data.restaurant.restaurant_detail.detail[0].schedule
-        addProduct("Schedule", schedule)
+        addProduct(getString(R.string.schedule), schedule)
         for (items in response.data.restaurant.restaurant_detail.additional_services) {
-            addProduct("Additioanal Services", items)
+            addProduct(getString(R.string.additional_Service), items)
         }
         for (items in response.data.restaurant.restaurant_detail.restaurant_ambiance) {
-            addProduct("Restaurant Ambiance", items)
+            addProduct(getString(R.string.restro_amb), items)
         }
         for (items in response.data.restaurant.restaurant_detail.restaurant_ambiance_complementary) {
-            addProduct("Complementary", items)
+            addProduct(getString(R.string.comple), items)
         }
         for (items in response.data.restaurant.restaurant_detail.additional_services) {
-            addProduct("Services", items)
+            addProduct(getString(R.string.servic), items)
         }
 
     }

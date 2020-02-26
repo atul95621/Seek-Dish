@@ -41,6 +41,8 @@ public class SessionManager {
     public static final String LANGUAGE_ID = "languageId";
     public static final String RADIUS = "radius";
     public static final String LANGUAGE_HOME_ACTIVITY = "lang_home";
+    public static final String LANGUAGE_CODE = "languageCode";
+
 
 
     public SessionManager(Context context) {

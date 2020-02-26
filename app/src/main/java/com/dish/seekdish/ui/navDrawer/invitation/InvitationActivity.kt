@@ -51,6 +51,7 @@ class InvitationActivity : BaseActivity() {
     var timeDate = ""
     var timedelected = ""
     var dateSelected = ""
+    var invitation_status=""
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_invitation)
@@ -74,6 +75,11 @@ class InvitationActivity : BaseActivity() {
 
         if (connectionDetector.isConnectingToInternet) {
             if (from.equals("NotificationAdapter")) {
+
+                userWhoSent = intent.getStringExtra("USER_WHO_SENT_ID")
+                timeDate = intent.getStringExtra("TIME")
+//                invitation_status = intent.getStringExtra("TIME")
+
                 //hitting api
                 linOptionNotifi.visibility = View.VISIBLE
                 linBottomOption.visibility = View.GONE
@@ -395,8 +401,7 @@ class InvitationActivity : BaseActivity() {
     private fun getIntents() {
         restro_id = intent.getStringExtra("RESTAURANT_ID")
         from = intent.getStringExtra("FROM")
-        userWhoSent = intent.getStringExtra("USER_WHO_SENT_ID")
-        timeDate = intent.getStringExtra("TIME")
+
     }
 
 }

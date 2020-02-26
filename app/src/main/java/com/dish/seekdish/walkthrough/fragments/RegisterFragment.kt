@@ -52,7 +52,7 @@ class RegisterFragment : BaseFragment(), IRegisterFragView {
     lateinit var mcontext: WalkThroughActivity
 
     lateinit var registerFragPresenter: RegisterFragPresenter
-var langId=""
+    var langId = ""
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -78,6 +78,13 @@ var langId=""
         firebaseToken()
 
         if (sessionManager.getValue(SessionManager.LANGUAGE_ID).isNullOrEmpty()) {
+            var langCode = sessionManager.getLangValue(SessionManager.LANGUAGE_CODE)
+
+            if (langCode.isNullOrBlank() == false) {
+                setLocale(langCode)
+            } else {
+                setLocale("en")
+            }
             langId = sessionManager.getLangValue(SessionManager.LANGUAGE_HOME_ACTIVITY)
             sessionManager.setValues(SessionManager.LANGUAGE_ID, langId)
         }

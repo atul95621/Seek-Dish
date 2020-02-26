@@ -3,6 +3,8 @@ package com.dish.seekdish.util
 import android.app.Activity
 import android.app.Dialog
 import android.content.Context
+import android.content.res.Configuration
+import android.content.res.Resources
 import android.database.Cursor
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
@@ -21,14 +23,14 @@ import com.google.android.material.snackbar.Snackbar
 
 import java.io.ByteArrayOutputStream
 import java.text.SimpleDateFormat
-import java.util.ArrayList
-import java.util.Calendar
 import android.graphics.drawable.BitmapDrawable
 import android.graphics.drawable.Drawable
+import android.util.DisplayMetrics
 import com.dish.seekdish.R
 import com.google.android.gms.maps.model.BitmapDescriptor
 import com.google.android.gms.maps.model.BitmapDescriptorFactory
 import java.text.ParseException
+import java.util.*
 
 
 open class BaseFragment : Fragment() {
@@ -69,6 +71,14 @@ open class BaseFragment : Fragment() {
         );
     }
 
+    fun setLocale(lang: String?) {
+        val myLocale = Locale(lang)
+        val res: Resources = resources
+        val dm: DisplayMetrics = res.getDisplayMetrics()
+        val conf: Configuration = res.getConfiguration()
+        conf.locale = myLocale
+        res.updateConfiguration(conf, dm)
+    }
 
     fun getAllShownImagesPath(activity: Activity): ArrayList<String> {
         val uri: Uri

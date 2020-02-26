@@ -53,7 +53,7 @@ class OpinionFragment(var objDishModel: DishDescpModel) : BaseFragment(), Serial
             view.tvOpinionHeader.visibility = View.GONE
             view.tvOpinionAlert.visibility = View.VISIBLE
         } else {
-            view.tvOpinionHeader.setText("Opinions (" + sizeComment + ")")
+            view.tvOpinionHeader.setText(resources.getString(R.string.opinion)+ "("+ sizeComment + ")")
 
             for (item in objDishModel.data.user_meal_comments) {
 

@@ -208,6 +208,8 @@ class DishDescriptionActivity : BaseActivity(), Serializable {
         {
             val intent = Intent(this@DishDescriptionActivity, InvitationActivity::class.java)
             intent.putExtra("RESTAURANT_ID", restro_id.toString())
+            intent.putExtra("FROM", "DishDescriptionActivity")
+
             startActivity(intent)
         }
     }
