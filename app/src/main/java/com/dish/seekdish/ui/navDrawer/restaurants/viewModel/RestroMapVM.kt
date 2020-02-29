@@ -38,8 +38,7 @@ class RestroMapVM : ViewModel() {
 
         val call = api.getRestroMapData(
             userId,
-            Constants.Latitude,
-            Constants.Longitude,
+           latitude,longitude,
             Constants.type,
             radius,
             Constants.device_token,

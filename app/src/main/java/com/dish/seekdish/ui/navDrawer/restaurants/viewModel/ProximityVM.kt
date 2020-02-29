@@ -41,8 +41,7 @@ class ProximityVM :ViewModel(){
 
         val call = api.getProxiRest(
             userId,
-            Constants.Latitude,
-            Constants.Longitude,
+           latitude,longitude,
             Constants.type,
             radius,
             Constants.device_token,
@@ -96,8 +95,7 @@ class ProximityVM :ViewModel(){
         var api = APIClientMvvm.client.create(APIInterface::class.java)
         val call = api.getRestaurantSearch(
             userId,
-            Constants.Latitude,
-            Constants.Longitude,
+            latitude,longitude,
             "1",// 1 is for proximity restro search
             radius,
             pageNumber,

@@ -38,8 +38,8 @@ class MapHomeVM : ViewModel() {
 
         val call = api.getHomeMapData(
             userId,
-            Constants.Latitude,
-            Constants.Longitude,
+            latitude,
+            longitude,
             Constants.type,
             radius,
             Constants.device_token,

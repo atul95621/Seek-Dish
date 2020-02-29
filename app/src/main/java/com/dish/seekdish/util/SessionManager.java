@@ -19,10 +19,17 @@ public class SessionManager {
     public static final String IS_LANGUAGE_SELECTED = "IS_LANGUAGE_SELECTED";
     public static final String WALKTHROUGH = "walkthrough";
     public static final String LOGGEDIN = "loggedin";
+
+    // STORING THE MAIN COORDINATES=================
     public static final String LATITUDE = "lattitude";
     public static final String LONGITUDE = "longitude";
+    // STORING THE MAIN COORDINATES=================
+
+    // STORING THE CURRENT COORDINATES+++++++++++++++++++++++++++
     public static final String CURRENT_LATITUDE = "current_lattitude";
     public static final String CURRENT_LONGITUDE = "current_longitude";
+    // STORING THE CURRENT COORDINATES+++++++++++++++++++++++++++
+
     public static final String LATITUDE_SELECTED = "lattitude_selected";
     public static final String LONGITUDE_SELECTED = "longitude_selected";
     public static final String PLACE_SELECTED = "place_selected";
@@ -42,7 +49,6 @@ public class SessionManager {
     public static final String RADIUS = "radius";
     public static final String LANGUAGE_HOME_ACTIVITY = "lang_home";
     public static final String LANGUAGE_CODE = "languageCode";
-
 
 
     public SessionManager(Context context) {
@@ -76,7 +82,7 @@ public class SessionManager {
     }
 
     // for saving the language activity lang
-    public void savesSessionLang( String key, String value) {
+    public void savesSessionLang(String key, String value) {
        /* sharedPreferencesLang = context.getSharedPreferences("seekdish_app_Lang", context.MODE_PRIVATE);
         editorLang = sharedPreferencesLang.edit();*/
         editorLang.putString(key, value);
@@ -87,7 +93,6 @@ public class SessionManager {
         String st_valuess = sharedPreferencesLang.getString(key, "");
         return st_valuess;
     }
-
 
 
 }

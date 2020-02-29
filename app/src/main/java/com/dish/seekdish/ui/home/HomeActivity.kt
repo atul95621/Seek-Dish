@@ -299,9 +299,9 @@ class HomeActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
             seasonlityItems = join1(",", Global.seasonlitySet)
 
 
-            if (budgetItems == "" && serviceSpeedItems == "" && mealItems == "" && compatIntolerItems == "" && restroSpecialItems == "" && compAmbianceItems == "" && additonalItems == "" && seasonlityItems == "") {
+         /*   if (budgetItems == "" && serviceSpeedItems == "" && mealItems == "" && compatIntolerItems == "" && restroSpecialItems == "" && compAmbianceItems == "" && additonalItems == "" && seasonlityItems == "") {
                 Toast.makeText(this, "Please select filter items first", Toast.LENGTH_LONG).show()
-            } else {
+            } else {*/
                 Log.e(
                     "filterItems",
                     "" + "\nbudget   " + budgetItems + "\nservice  " + serviceSpeedItems + "\nmeal   " + mealItems + "\ncompat   " + compatIntolerItems + "\nrestro   " + restroSpecialItems + "\ncompAm  " + compAmbianceItems + "\naddtional   " + additonalItems + "\nseason   " + seasonlityItems
@@ -326,7 +326,7 @@ class HomeActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
                     switchConsider
                 )
             }
-        }
+//        }
 
         /*   //drawer set up
            rightToggle = ActionBarDrawerToggle(
@@ -785,5 +785,4 @@ class HomeActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
         }
 
     }
-
 }

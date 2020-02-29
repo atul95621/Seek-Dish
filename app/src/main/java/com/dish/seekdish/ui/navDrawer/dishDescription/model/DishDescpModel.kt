@@ -21,6 +21,8 @@ data class Meals(
     val distance: Double,
     val latitude: String,
     val longitude: String,
+    val city:String,
+    val zipcode:Int,
     val meal_avg_rating: String,
     val meal_id: Int,
     val meal_image: String,

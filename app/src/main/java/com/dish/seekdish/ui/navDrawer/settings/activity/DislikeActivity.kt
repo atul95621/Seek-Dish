@@ -106,13 +106,15 @@ class DislikeActivity : BaseActivity() {
             }
         })
 
-
-
         tvBack.setOnClickListener()
         {
             finish()
         }
 
+        edtSearch.setOnClickListener()
+        {
+            edtSearch.isCursorVisible=true
+        }
 
         tvAdd.setOnClickListener()
         {

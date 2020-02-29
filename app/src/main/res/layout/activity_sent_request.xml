@@ -68,7 +68,7 @@
                 android:layout_height="35dp"
                 android:layout_gravity="center"
                 android:background="@android:color/transparent"
-                android:cursorVisible="false"
+                android:cursorVisible="true"
                 android:fontFamily="@font/assistantregular"
                 android:gravity="start|center_vertical"
                 android:hint="@string/search_friends"

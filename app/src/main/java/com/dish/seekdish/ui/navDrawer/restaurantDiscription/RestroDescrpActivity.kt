@@ -226,7 +226,7 @@ class RestroDescrpActivity : BaseActivity() {
             val intent = Intent(
                 Intent.ACTION_VIEW,
                 Uri.parse(
-                    "http://maps.google.com/maps?saddr=" + "&daddr=" + Constants.Latitude + "," + Constants.Longitude + "(Event Location)"
+                    "http://maps.google.com/maps?saddr=" + "&daddr=" + latitude + "," + longitude + "(Event Location)"
                 )
             )
             startActivity(intent)
@@ -375,7 +375,7 @@ class RestroDescrpActivity : BaseActivity() {
                     Log.e("restro_image", "" + imageMeal)
 
                     tvRestroName.setText(response.data.restaurant.name)
-                    tvRestroAddress.setText(response.data.restaurant.street + ", " + response.data.restaurant.zipcode)
+                    tvRestroAddress.setText(response.data.restaurant.street + ", " +response.data.restaurant.city+", "+ response.data.restaurant.zipcode)
                     tvRestroReview.setText("(" + response.data.restaurant.no_of_reviews + ")")
                     latitude = response.data.restaurant.latitude
                     longitude = response.data.restaurant.longitude

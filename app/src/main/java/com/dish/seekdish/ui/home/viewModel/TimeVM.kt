@@ -41,8 +41,8 @@ class TimeVM : ViewModel() {
 
         val call = api.getTimeMeal(
             userId,
-            Constants.Latitude,
-            Constants.Longitude,
+           latitude,
+            longitude,
             Constants.type,
             radius,
             Constants.device_token,
@@ -96,8 +96,8 @@ class TimeVM : ViewModel() {
         var api = APIClientMvvm.client.create(APIInterface::class.java)
         val call = api.getTimeSearch(
             userId,
-            Constants.Latitude,
-            Constants.Longitude,
+            latitude,
+            longitude,
             "2",// 2 is for time meal search
             radius,
             Constants.deviceType,

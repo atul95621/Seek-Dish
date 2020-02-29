@@ -203,6 +203,12 @@ class ReceivedRequestActivity : BaseActivity() {
     }
 
     private fun searchTextListner() {
+
+        edtSearchFriends.setOnClickListener()
+        {
+            edtSearchFriends.isCursorVisible=true
+        }
+
         edtSearchFriends.addTextChangedListener(object : TextWatcher {
             override fun onTextChanged(
                 s: CharSequence,

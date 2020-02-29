@@ -41,8 +41,7 @@ class RestroTimeVM :ViewModel(){
 
         val call = api.getTimeRest(
             userId,
-            Constants.Latitude,
-            Constants.Longitude,
+            latitude,longitude,
             Constants.type,
             radius,
             Constants.device_token,
@@ -85,8 +84,7 @@ class RestroTimeVM :ViewModel(){
         var api = APIClientMvvm.client.create(APIInterface::class.java)
         val call = api.getTimeRestSearch(
             userId,
-            Constants.Latitude,
-            Constants.Longitude,
+            latitude, longitude,
             "2",// 2 is for time restro search
             radius,
             pageNumber,

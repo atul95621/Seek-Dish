@@ -69,7 +69,7 @@
                     android:id="@+id/edtSearch"
                     android:layout_width="match_parent"
                     android:layout_height="35dp"
-                    android:cursorVisible="false"
+                android:cursorVisible="true"
                     android:paddingStart="10dp"
                     android:paddingEnd="40dp"
                 android:inputType="text"

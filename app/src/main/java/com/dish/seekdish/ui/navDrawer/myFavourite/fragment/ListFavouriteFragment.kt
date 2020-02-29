@@ -161,6 +161,12 @@ class ListFavouriteFragment : BaseFragment() {
     }
 
     private fun searchTextListner(view: View) {
+
+        view.edtSearchFavMeal.setOnClickListener()
+        {
+            view.edtSearchFavMeal.isCursorVisible=true
+        }
+
         view.edtSearchFavMeal.addTextChangedListener(object : TextWatcher {
             override fun onTextChanged(
                 s: CharSequence,

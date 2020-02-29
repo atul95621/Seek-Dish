@@ -198,6 +198,11 @@ class FollowingFragment(var userId: String) : BaseFragment() {
     }
 
     private fun searchTextListner(view: View) {
+
+        view.edtSearchFollowing.setOnClickListener()
+        {
+            view.edtSearchFollowing.isCursorVisible=true
+        }
         view.edtSearchFollowing.addTextChangedListener(object : TextWatcher {
             override fun onTextChanged(
                 s: CharSequence,

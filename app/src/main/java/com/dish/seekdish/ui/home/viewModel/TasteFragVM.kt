@@ -38,8 +38,8 @@ class TasteFragVM : ViewModel() {
         var api = APIClientMvvm.client.create(APIInterface::class.java)
         val call = api.getTasteMealData(
             userId,
-            Constants.Latitude,
-            Constants.Longitude,
+            latitude,
+            longitude,
             "1",
             radius,
             Constants.device_token,
@@ -128,8 +128,8 @@ class TasteFragVM : ViewModel() {
         var api = APIClientMvvm.client.create(APIInterface::class.java)
         val call = api.getTasteSearch(
             userId,
-            Constants.Latitude,
-            Constants.Longitude,
+           latitude,
+           longitude,
             "1",  // 1 is for taste meal search
             radius,
             Constants.deviceType,

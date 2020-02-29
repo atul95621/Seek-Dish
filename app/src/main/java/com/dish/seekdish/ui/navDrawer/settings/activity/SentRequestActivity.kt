@@ -190,6 +190,11 @@ class SentRequestActivity : BaseActivity() {
     }
 
     private fun searchTextListner() {
+
+        edtSearchSent.setOnClickListener()
+        {
+            edtSearchSent.isCursorVisible=true
+        }
         edtSearchSent.addTextChangedListener(object : TextWatcher {
             override fun onTextChanged(
                 s: CharSequence,

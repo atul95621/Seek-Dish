@@ -125,6 +125,10 @@ class LikeActivity : BaseActivity() {
         {
             finish()
         }
+        edtSearch.setOnClickListener()
+        {
+            edtSearch.isCursorVisible=true
+        }
 
         edtSearch.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(p0: Editable?) {

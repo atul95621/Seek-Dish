@@ -77,18 +77,21 @@ class RadiusCenterActivity : BaseActivity(), OnMapReadyCallback, GoogleMap.OnMyL
         {
             if (!selectedAddress.equals("") && !selectedLat.equals("") && !selectedLong.equals("")) {
 
-                sessionManager?.setValues(SessionManager.LATITUDE_SELECTED, selectedLat);
-                sessionManager?.setValues(SessionManager.LONGITUDE_SELECTED, selectedLong);
+                /*sessionManager?.setValues(SessionManager.LATITUDE_SELECTED, selectedLat);
+                sessionManager?.setValues(SessionManager.LONGITUDE_SELECTED, selectedLong);*/
+
+                sessionManager?.setValues(SessionManager.LATITUDE, selectedLat);
+                sessionManager?.setValues(SessionManager.LONGITUDE, selectedLong)
                 sessionManager?.setValues(SessionManager.PLACE_SELECTED, selectedAddress)
+                Log.e("addressSELECTED", "$selectedLat ,  $selectedLong " + selectedAddress)
 
-                Log.e("addressSELECTED", " " + selectedAddress)
-
+              /*
                 Log.e(
                     "selectCordRadius",
                     " " + "longi: " + sessionManager?.getValue(SessionManager.LONGITUDE_SELECTED) + "lati:" + sessionManager?.getValue(
                         SessionManager.LATITUDE_SELECTED
                     )
-                )
+                )*/
 
                 val returnIntent = Intent()
                 setResult(Activity.RESULT_CANCELED, returnIntent)
@@ -125,6 +128,10 @@ class RadiusCenterActivity : BaseActivity(), OnMapReadyCallback, GoogleMap.OnMyL
 
             var lati: Double = sessionManager!!.getValue(SessionManager.CURRENT_LATITUDE).toDouble()
             var longi: Double = sessionManager!!.getValue(SessionManager.CURRENT_LONGITUDE).toDouble()
+
+            // saing the current cordinate to main session shared prefrences
+            sessionManager?.setValues(SessionManager.LATITUDE,lati.toString())
+            sessionManager?.setValues(SessionManager.LONGITUDE,longi.toString())
 
             addresses = geocoder.getFromLocation(
                 lati,

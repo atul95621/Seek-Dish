@@ -181,6 +181,8 @@ class DishDescriptionActivity : BaseActivity(), Serializable {
             }
         }
 
+
+
         tvActions.setOnClickListener()
         {
             onShare()
@@ -212,9 +214,29 @@ class DishDescriptionActivity : BaseActivity(), Serializable {
 
             startActivity(intent)
         }
+        tvRestaurantName.setOnClickListener()
+        {
+            if (connectionDetector.isConnectingToInternet) {
+                val intent = Intent(this, RestroDescrpActivity::class.java)
+                intent.putExtra("RESTAURANT_ID", restro_id.toString())
+                startActivity(intent)
+            } else {
+                showSnackBar(getString(R.string.check_connection))
+            }
+        }
+        tvMealName.setOnClickListener()
+        {
+            if (connectionDetector.isConnectingToInternet) {
+                val intent = Intent(this, RestroDescrpActivity::class.java)
+                intent.putExtra("RESTAURANT_ID", restro_id.toString())
+                startActivity(intent)
+            } else {
+                showSnackBar(getString(R.string.check_connection))
+            }
+        }
     }
 
-    private fun getIntents() {
+    public fun getIntents() {
         meal_id = intent.getStringExtra("MEAL_ID")
         restro_id = intent.getStringExtra("RESTAURANT_ID")
         var refersh = intent.getStringExtra("REFRESH_ACTIVITY")
@@ -226,8 +248,8 @@ class DishDescriptionActivity : BaseActivity(), Serializable {
             sessionManager?.getValue(SessionManager.USER_ID).toString(),
             mealId,
             restroId,
-            Constants.Longitude,
-            Constants.Latitude
+            sessionManager?.getValue(SessionManager.LONGITUDE).toString(),
+            sessionManager?.getValue(SessionManager.LATITUDE).toString()
         )
     }
 
@@ -247,7 +269,7 @@ class DishDescriptionActivity : BaseActivity(), Serializable {
                 if (response.status == 1) {
 
                     tvMealName.setText(response.data.meals.meal_name)
-                    tvRestaurantName.setText(response.data.meals.restro_name)
+                    tvRestaurantName.setText(response.data.meals.restro_name + ", " + response.data.meals.city + ", " + response.data.meals.zipcode)
                     ratingStarMeal.rating = response.data.meals.meal_avg_rating.toFloat()
                     ratingEuroMeal.rating = response.data.meals.budget.toFloat()
 
@@ -271,7 +293,7 @@ class DishDescriptionActivity : BaseActivity(), Serializable {
                     //for swipe images on top
                     initializeviews()
 
-                    tvRestaurantName.setOnClickListener()
+                /*    tvRestaurantName.setOnClickListener()
                     {
                         startActivity(
                             Intent(
@@ -279,7 +301,7 @@ class DishDescriptionActivity : BaseActivity(), Serializable {
                                 Uri.parse("https://www.google.com/#q=" + tvRestaurantName.getText())
                             )
                         );
-                    }
+                    }*/
 
                     //++++++++++++++++++++++++ setting the adapter after the responses come in...
                     adapter =
@@ -359,10 +381,7 @@ class DishDescriptionActivity : BaseActivity(), Serializable {
                 }
 
             } else {
-
-
                 showSnackBar("OOps! Error Occured.")
-
                 Log.e("rspGetaddtodoFail", "else error")
 
             }
@@ -438,6 +457,7 @@ class DishDescriptionActivity : BaseActivity(), Serializable {
             } else {
                 showSnackBar(getString(R.string.check_connection))
             }
+
 
         }
 

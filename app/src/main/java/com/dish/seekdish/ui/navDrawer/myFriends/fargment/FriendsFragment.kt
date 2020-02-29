@@ -139,6 +139,11 @@ class FriendsFragment(var  userId: String) : BaseFragment() {
 
 
     private fun searchTextListner(view: View) {
+
+        view.edtSearchFriends.setOnClickListener()
+        {
+            view.edtSearchFriends.isCursorVisible=true
+        }
         view.edtSearchFriends.addTextChangedListener(object : TextWatcher {
             override fun onTextChanged(
                 s: CharSequence,

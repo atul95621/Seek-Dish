@@ -158,6 +158,11 @@ class ListTodoFragment() : BaseFragment() {
     }
 
     private fun searchTextListner(view: View) {
+
+        view.edtSearchMealTodo.setOnClickListener()
+        {
+            view.edtSearchMealTodo.isCursorVisible=true
+        }
         view.edtSearchMealTodo.addTextChangedListener(object : TextWatcher {
             override fun onTextChanged(
                 s: CharSequence,

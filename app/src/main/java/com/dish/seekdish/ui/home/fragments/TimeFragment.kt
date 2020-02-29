@@ -284,6 +284,11 @@ class TimeFragment : BaseFragment() {
 
 
     private fun searchTextListner(view: View) {
+
+        view.edtSearchTime.setOnClickListener()
+        {
+            view.edtSearchTime.isCursorVisible=true
+        }
         view.edtSearchTime.addTextChangedListener(object : TextWatcher {
             override fun onTextChanged(
                 s: CharSequence,

@@ -229,6 +229,12 @@ class ProximityFragment : BaseFragment() {
 
 
     private fun searchTextListner(view: View) {
+
+        view.edtSearchRestro.setOnClickListener()
+        {
+            view.edtSearchRestro.isCursorVisible=true
+        }
+
         view.edtSearchRestro.addTextChangedListener(object : TextWatcher {
             override fun onTextChanged(
                 s: CharSequence,

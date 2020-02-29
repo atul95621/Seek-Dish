@@ -1,13 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:orientation="vertical"
     android:layout_height="match_parent"
-    android:weightSum="10"
     android:background="@color/white"
+    android:orientation="vertical"
+    android:weightSum="10"
 
     tools:context=".ui.navDrawer.restaurantDiscription.RestroDescrpActivity">
 
@@ -21,16 +20,16 @@
 
     <!--upperpart-->
     <LinearLayout
-        android:layout_weight="5"
-        android:weightSum="5"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:orientation="vertical">
+        android:layout_weight="5"
+        android:orientation="vertical"
+        android:weightSum="5">
         <!--toolbar-->
         <FrameLayout
-            android:layout_weight="5"
             android:layout_width="match_parent"
             android:layout_height="0dp"
+            android:layout_weight="5"
             android:orientation="horizontal">
 
             <com.dish.seekdish.custom.PagerContainer
@@ -43,114 +42,125 @@
                     android:layout_height="match_parent" />
 
             </com.dish.seekdish.custom.PagerContainer>
+
             <ImageView
-                android:visibility="gone"
                 android:layout_width="match_parent"
-                android:src="@drawable/ic_foodex"
+                android:layout_height="match_parent"
                 android:scaleType="centerCrop"
-                android:layout_height="match_parent"/>
+                android:src="@drawable/ic_foodex"
+                android:visibility="gone" />
+
             <View
-                android:visibility="gone"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:alpha=".3"
-                android:background="@color/white"/>
+                android:background="@color/white"
+                android:visibility="gone" />
 
             <LinearLayout
                 android:layout_width="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_gravity="bottom"
                 android:layout_marginBottom="15dp"
-                android:layout_height="wrap_content"
                 android:orientation="vertical">
 
 
-                <TextView android:layout_width="wrap_content"
-                    android:text=""
+                <TextView
                     android:id="@+id/tvRestroName"
-                    android:textSize="16sp"
-                    android:textColor="@color/black"
-                    android:layout_gravity="center"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    />
-                <TextView android:layout_width="wrap_content"
                     android:layout_gravity="center"
-                    android:textColor="@color/black"
-                    android:textSize="16sp"
-                    android:id="@+id/tvRestroAddress"
-                    android:layout_marginTop="10dp"
                     android:text=""
-                    android:layout_height="wrap_content"
-                    />
+                    android:textColor="@color/black"
+                    android:textSize="16sp" />
 
-                <LinearLayout android:layout_width="match_parent"
-                    android:orientation="horizontal"
-                    android:layout_marginTop="5dp"
+                <TextView
+                    android:id="@+id/tvRestroAddress"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="10dp"
+                    android:gravity="center"
+                    android:maxLines="2"
+                    android:paddingStart="10dp"
+                    android:paddingEnd="10dp"
+                    android:text=""
+                    android:textColor="@color/black"
+                    android:textSize="16sp" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
                     android:layout_height="30dp"
                     android:layout_gravity="center"
-                    android:gravity="center">
+                    android:layout_marginTop="5dp"
+                    android:gravity="center"
+                    android:orientation="horizontal">
 
-                    <com.willy.ratingbar.ScaleRatingBar
-                        xmlns:app="http://schemas.android.com/apk/res-auto"
+                    <com.willy.ratingbar.ScaleRatingBar xmlns:app="http://schemas.android.com/apk/res-auto"
                         android:id="@+id/ratingRestro"
-                        android:layout_marginStart="5dp"
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
-                        app:srb_rating="2"
+                        android:layout_marginStart="5dp"
                         android:gravity="center"
+                        app:srb_clearRatingEnabled="false"
+                        app:srb_clickable="false"
+                        app:srb_drawableEmpty="@drawable/ic_empty_star"
+                        app:srb_drawableFilled="@drawable/ic_filled_star"
+                        app:srb_isIndicator="false"
+                        app:srb_rating="2"
+                        app:srb_scrollable="false"
+                        app:srb_starHeight="20dp"
                         app:srb_starPadding="3dp"
                         app:srb_starWidth="20dp"
-                        app:srb_starHeight="20dp"
-                        app:srb_stepSize="1"
-                        app:srb_isIndicator="false"
-                        app:srb_clickable="false"
-                        app:srb_scrollable="false"
-                        app:srb_clearRatingEnabled="false"
-                        app:srb_drawableEmpty="@drawable/ic_empty_star"
-                        app:srb_drawableFilled="@drawable/ic_filled_star">
-                    </com.willy.ratingbar.ScaleRatingBar>
+                        app:srb_stepSize="1"></com.willy.ratingbar.ScaleRatingBar>
 
-                    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
-                        android:text="@string/_15"
+                    <TextView
                         android:id="@+id/tvRestroReview"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
                         android:layout_marginStart="10dp"
-                        android:textColor="@color/red_google"/>
+                        android:text="@string/_15"
+                        android:textColor="@color/red_google" />
 
                 </LinearLayout>
 
             </LinearLayout>
+
             <TextView
                 android:id="@+id/tvActions"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_gravity="end|top"
+                android:layout_marginTop="8dp"
                 android:layout_marginEnd="10dp"
                 android:gravity="end|top"
-                android:layout_marginTop="8dp"
-                android:layout_gravity="end|top"
                 android:text="@string/actions"
                 android:textColor="@color/black"
-                android:textSize="16sp"/>
+                android:textSize="16sp" />
 
             <TextView
                 android:id="@+id/tvBack"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:gravity="start"
-                android:layout_marginTop="8dp"
-                android:layout_marginStart="10dp"
                 android:layout_gravity="start|top"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="8dp"
+                android:gravity="start"
                 android:text="@string/back"
                 android:textColor="@color/black"
-                android:textSize="16sp"/>
+                android:textSize="16sp" />
 
 
             <!--//space for the dots-->
 
-            <LinearLayout android:layout_width="match_parent"
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="30dp"
                 android:layout_marginTop="10dp"
                 android:layout_marginBottom="15dp"
                 android:gravity="center"
                 android:orientation="horizontal">
+
                 <com.tbuonomo.viewpagerdotsindicator.SpringDotsIndicator
                     android:id="@+id/springDotsIndicator"
                     android:layout_width="wrap_content"
@@ -161,8 +171,7 @@
                     app:dotsSize="10dp"
                     app:dotsSpacing="4dp"
                     app:dotsStrokeWidth="1dp"
-                    app:stiffness="300"
-                    />
+                    app:stiffness="300" />
             </LinearLayout>
         </FrameLayout>
 
@@ -170,13 +179,16 @@
 
     <!--tablayout-->
     <LinearLayout
-        android:orientation="vertical"
-        android:layout_weight="4.7"
         android:layout_width="match_parent"
-        android:layout_height="0dp">
-        <LinearLayout android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="4.7"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical">
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -195,11 +207,11 @@
                     android:id="@+id/tabLayoutRestroActivity"
                     android:layout_width="wrap_content"
                     android:layout_height="36dp"
-                    app:tabMinWidth="100dp"
                     android:background="@drawable/tab_layout_background"
                     app:tabBackground="@drawable/tab_layout_selector"
                     app:tabGravity="center"
                     app:tabIndicatorHeight="0dp"
+                    app:tabMinWidth="100dp"
                     app:tabMode="fixed"
                     app:tabRippleColor="@null"
                     app:tabSelectedTextColor="@color/white"
@@ -211,8 +223,7 @@
             <androidx.viewpager.widget.ViewPager
                 android:id="@+id/viewPagerRestroActivity"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                />
+                android:layout_height="match_parent" />
 
 
         </LinearLayout>
@@ -221,39 +232,40 @@
 
     <!--three options-->
     <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
         android:layout_marginStart="30dp"
         android:layout_marginEnd="30dp"
-        android:layout_weight=".3"
-        android:weightSum="3"
-        android:layout_width="match_parent"
         android:layout_marginBottom="5dp"
-        android:layout_gravity="center"
+        android:layout_weight=".3"
         android:background="@android:color/transparent"
         android:gravity="center"
-        android:layout_height="wrap_content">
-        <ImageView
-            android:layout_weight="1"
-            android:id="@+id/imgGoogleApp"
-            android:layout_width="0dp" android:layout_height="55dp"
-            android:src="@drawable/ic_direction_button"
-            />
-        <ImageView
-            android:layout_weight="1"
+        android:weightSum="3">
 
-            android:id="@+id/imgRatings"
+        <ImageView
+            android:id="@+id/imgGoogleApp"
             android:layout_width="0dp"
-            android:layout_marginStart="30dp"
             android:layout_height="55dp"
-            android:src="@drawable/ic_checkin_button"
-            />
+            android:layout_weight="1"
+            android:src="@drawable/ic_direction_button" />
+
+        <ImageView
+            android:id="@+id/imgRatings"
+
+            android:layout_width="0dp"
+            android:layout_height="55dp"
+            android:layout_marginStart="30dp"
+            android:layout_weight="1"
+            android:src="@drawable/ic_checkin_button" />
+
         <ImageView
             android:id="@+id/imgInvitation"
-            android:layout_weight="1"
             android:layout_width="0dp"
-            android:layout_marginStart="30dp"
             android:layout_height="55dp"
-            android:src="@drawable/ic_invitation_button"
-            />
+            android:layout_marginStart="30dp"
+            android:layout_weight="1"
+            android:src="@drawable/ic_invitation_button" />
 
     </LinearLayout>
     <!--</LinearLayout>-->
