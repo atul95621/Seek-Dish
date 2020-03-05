@@ -171,8 +171,6 @@ class RadiusCenterActivity : BaseActivity(), OnMapReadyCallback, GoogleMap.OnMyL
     override fun onMapReady(googleMap: GoogleMap) {
         mMap = googleMap
 
-
-
         if (!sessionManager?.getValue(SessionManager.LATITUDE).equals("") && !sessionManager?.getValue(SessionManager.LONGITUDE).equals(
                 ""
             )

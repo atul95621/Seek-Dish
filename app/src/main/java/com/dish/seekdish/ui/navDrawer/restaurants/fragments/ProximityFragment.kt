@@ -58,6 +58,10 @@ class ProximityFragment : BaseFragment() {
         homeActivity = activity as HomeActivity
         proximityVM = ViewModelProviders.of(this).get(ProximityVM::class.java)
 
+
+        // setting to refresh the layout
+        sessionManager.setValues(SessionManager.CURRENT_SCREEN,"RestaurantFragment")
+
         // hiding keyboard
         hideKeyBoard()
 

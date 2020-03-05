@@ -23,6 +23,7 @@ data class Meals(
     val longitude: String,
     val city:String,
     val zipcode:Int,
+    val street:String,
     val meal_avg_rating: String,
     val meal_id: Int,
     val meal_image: String,

@@ -7,9 +7,7 @@
     <string name="app_name">SeekDish</string>
     <string name="discover">Descobrir</string>
     <string name="rate">Taxa</string>
-    <string name="walk_descrp_1">
-Seekdisk é um aplicativo gratuito no smartphone que permite ao usuário encontrar         os pratos oferecidos pelos restaurantes refinados. Correspondendo mais ao seu gosto.
-</string>
+    <string name="walk_descrp_1">Seekdish é um aplicativo gratuito no smartphone que permite ao usuário encontrar os pratos oferecidos pelos restaurantes refinados. Correspondendo mais ao seu gosto.</string>
     <string name="walk_sub1">Como funciona?</string>
     <string name="walk_sub_part2">
 O usuário indicará para o aplicativo pratos ou ingredientes que ele gosta ou faz         não parece. O mecanismo de análise de sabor do SeekDish usará esses dados para oferecer pratos compatíveis em restaurantes próximos         do usuário.

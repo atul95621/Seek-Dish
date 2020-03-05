@@ -7,9 +7,7 @@
     <string name="app_name">シークディッシュ</string>
     <string name="discover">発見する</string>
     <string name="rate">割合</string>
-    <string name="walk_descrp_1">
-Seekdiskは、ユーザーが検索できるようにするスマートフォン上の無料のアプリケーションです         改装されたレストランが提供する料理。彼らの好みに最も対応しています。
-</string>
+    <string name="walk_descrp_1">Seekdishは、ユーザーが検索できるようにするスマートフォン上の無料のアプリケーションです 改装されたレストランが提供する料理。彼らの好みに最も対応しています。</string>
     <string name="walk_sub1">使い方？</string>
     <string name="walk_sub_part2">
 ユーザーは、自分が好きまたはする料理や食材をアプリケーションに示します。         好きじゃない。 SeekDish \の味分析エンジンはこのデータを使用して、周辺のレストランで互換性のある料理を提供します         ユーザーの。

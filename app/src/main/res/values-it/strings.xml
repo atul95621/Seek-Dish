@@ -7,9 +7,7 @@
     <string name="app_name">SeekDish</string>
     <string name="discover">Scoprire</string>
     <string name="rate">Vota</string>
-    <string name="walk_descrp_1">
-Seekdisk è un\'applicazione gratuita su smartphone che consente all\'utente di trovare         i piatti offerti dai ristoranti di riferimento. Corrisponde maggiormente ai loro gusti.
-</string>
+    <string name="walk_descrp_1">Seekdish è un\'applicazione gratuita su smartphone che consente all\'utente di trovare i piatti offerti dai ristoranti di riferimento. Corrisponde maggiormente ai loro gusti.</string>
     <string name="walk_sub1">Come funziona?</string>
     <string name="walk_sub_part2">
 L\'utente indicherà i piatti o gli ingredienti dell\'applicazione che gli piacciono o fanno         non come. Il motore di analisi del gusto di SeekDish utilizzerà questi dati per offrire piatti compatibili nei ristoranti nei dintorni         dell\'utente.

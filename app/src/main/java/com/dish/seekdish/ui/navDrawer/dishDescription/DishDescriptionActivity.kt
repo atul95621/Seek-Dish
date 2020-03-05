@@ -269,7 +269,7 @@ class DishDescriptionActivity : BaseActivity(), Serializable {
                 if (response.status == 1) {
 
                     tvMealName.setText(response.data.meals.meal_name)
-                    tvRestaurantName.setText(response.data.meals.restro_name + ", " + response.data.meals.city + ", " + response.data.meals.zipcode)
+                    tvRestaurantName.setText(response.data.meals.restro_name + ", "+response.data.meals.street + ", " + response.data.meals.city + ", " + response.data.meals.zipcode)
                     ratingStarMeal.rating = response.data.meals.meal_avg_rating.toFloat()
                     ratingEuroMeal.rating = response.data.meals.budget.toFloat()
 

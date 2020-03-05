@@ -151,31 +151,23 @@ open class BaseActivity : AppCompatActivity() {
         val options = BitmapFactory.Options()
         options.inJustDecodeBounds = true
         BitmapFactory.decodeFile(path, options)
-
         // Calculate inSampleSize
         // Raw height and width of image
         val height = options.outHeight
         val width = options.outWidth
         options.inPreferredConfig = Bitmap.Config.RGB_565
         var inSampleSize = 1
-
-        if (height > reqHeight) {
+        if(height > reqHeight) {
             inSampleSize = Math.round(height.toFloat() / reqHeight.toFloat())
         }
-
         val expectedWidth = width / inSampleSize
-
         if (expectedWidth > reqWidth) {
             //if(Math.round((float)width / (float)reqWidth) > inSampleSize) // If bigger SampSize..
             inSampleSize = Math.round(width.toFloat() / reqWidth.toFloat())
         }
-
-
         options.inSampleSize = inSampleSize
-
         // Decode bitmap with inSampleSize set
         options.inJustDecodeBounds = false
-
         return BitmapFactory.decodeFile(path, options)
     }
 
@@ -264,7 +256,6 @@ open class BaseActivity : AppCompatActivity() {
     }
 
     fun getBitmapFromUrl(src: String): Bitmap? {
-
         try {
             var url = URL(src)
             var connection: HttpURLConnection = url.openConnection() as HttpURLConnection
@@ -377,9 +368,48 @@ open class BaseActivity : AppCompatActivity() {
         matrix.preScale((if (horizontal) -1 else 1).toFloat(), (if (vertical) -1 else 1).toFloat())
         return Bitmap.createBitmap(bitmap, 0, 0, bitmap.width, bitmap.height, matrix, true)
     }
+   */
+
     fun getImageUri(inContext:Context, inImage:Bitmap):Uri {
         val bytes = ByteArrayOutputStream()
         val path = MediaStore.Images.Media.insertImage(inContext.getContentResolver(), inImage, "Title", null)
         return Uri.parse(path)
-    }*/
+    }
+     fun saveBitmap(bitmap:Bitmap, path:String): File? {
+        var file: File? = null
+        if (bitmap != null)
+        {
+            file = File(path)
+            try
+            {
+                var outputStream: FileOutputStream? = null
+                try
+                {
+                    outputStream = FileOutputStream(path) //here is set your file path where you want to save or also here you can set file object directly
+                    bitmap.compress(Bitmap.CompressFormat.PNG, 70, outputStream) // bitmap is your Bitmap instance, if you want to compress it you can compress reduce percentage
+                    // PNG is a lossless format, the compression factor (100) is ignored
+                }
+                catch (e:Exception) {
+                    e.printStackTrace()
+                }
+                finally
+                {
+                    try
+                    {
+                        if (outputStream != null)
+                        {
+                            outputStream.close()
+                        }
+                    }
+                    catch (e:IOException) {
+                        e.printStackTrace()
+                    }
+                }
+            }
+            catch (e:Exception) {
+                e.printStackTrace()
+            }
+        }
+        return file
+    }
 }

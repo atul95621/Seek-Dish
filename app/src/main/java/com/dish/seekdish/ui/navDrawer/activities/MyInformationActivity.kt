@@ -31,11 +31,6 @@ import com.facebook.FacebookSdk
 import com.myhexaville.smartimagepicker.ImagePicker
 import com.myhexaville.smartimagepicker.OnImagePickedListener
 import kotlinx.android.synthetic.main.activity_my_information.*
-import kotlinx.android.synthetic.main.activity_my_information.edtBio
-import kotlinx.android.synthetic.main.activity_my_information.edtLastName
-import kotlinx.android.synthetic.main.activity_my_information.edtUsername
-import kotlinx.android.synthetic.main.activity_my_information.spinnerGender
-import kotlinx.android.synthetic.main.activity_my_information.tvBack
 import okhttp3.MediaType
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
@@ -226,7 +221,8 @@ class MyInformationActivity : BaseActivity(), IMyInformationView {
                     Log.e("respfile", "" + file)
 
                     // compressing size of the image uploading
-                    var finalFile = compressFile(file)
+//                    var finalFile = compressFile(file)
+                    var finalFile= bitmap?.let { saveBitmap(it,path) }
                     if (finalFile != null) {
                         var sizeAfter = finalFile.length().div(1024)
                         var sizeBefore = file.length().div(1024)
@@ -299,108 +295,71 @@ class MyInformationActivity : BaseActivity(), IMyInformationView {
         return FirstPermissionResult == PackageManager.PERMISSION_GRANTED &&
                 SecondPermissionResult == PackageManager.PERMISSION_GRANTED &&
                 ThirdPermissionResult == PackageManager.PERMISSION_GRANTED
-
-
     }
 
-    fun chooseImage() {
-        imagePicker = ImagePicker(this /*activity non null*/, null,
-            object : OnImagePickedListener {
-                override fun onImagePicked(imageUri: Uri) {
 
-                    Log.e("case b", "onactvty")
-
-                    //set flag to true
-                    imagePick = true
-
-
-                    //on image picked
-
-                    //get image path from uri
+  fun chooseImage() {
+      imagePicker = ImagePicker(this /*activity non null*/, null,
+          object : OnImagePickedListener {
+              override fun onImagePicked(imageUri: Uri) {
+                  //set flag to true
+                  imagePick = true
+                  //get image path from uri
 //                    val path = getPath(imageUri)
-                    path = getRealPathFromURI(imageUri).toString()
-                    Log.e("path", path)
-                    // Bitmap bmp = uriToBitmap(imageUri);
+                  path = getRealPathFromURI(imageUri).toString()
+                  Log.e("path", path)
+//                     Bitmap bmp = uriToBitmap(imageUri);
+                  if (path.isNullOrEmpty()==false) {
+                      //get bitmap from file path
+                      val bm = decodeSampledBitmapFromFile(path, 300, 300)
+                      try {
+                          //rotate bitmap to portrait if bitmap is orientated landscape
+                          val ei = ExifInterface(path)
+                          val orientation = ei.getAttributeInt(
+                              ExifInterface.TAG_ORIENTATION,
+                              ExifInterface.ORIENTATION_UNDEFINED
+                          )
+                          when (orientation) {
 
-                    if (path != null && path != "" && path != "null") {
+                              ExifInterface.ORIENTATION_ROTATE_90 -> bitmap =
+                                  TransformationUtils.rotateImage(bm, 90)
 
-                        //get bitmap from file path
-                        val bm = decodeSampledBitmapFromFile(path, 300, 300)
+                              ExifInterface.ORIENTATION_ROTATE_180 -> bitmap =
+                                  TransformationUtils.rotateImage(bm, 180)
 
-                        try {
+                              ExifInterface.ORIENTATION_ROTATE_270 -> bitmap =
+                                  TransformationUtils.rotateImage(bm, 270)
 
-                            //rotate bitmap to portrait if bitmap is orientated landscape
-                            val ei = ExifInterface(path)
+                              ExifInterface.ORIENTATION_NORMAL -> bitmap = bm
+                              else -> bitmap = bm
+                          }
+                          // API TO BE STRIKE HERE FOR SUBMIT
+                          // profileFragmentPresenter.uploadProfilePic(rotatedBitmap);
+                          imgProfile.setImageBitmap(bitmap)
+                      } catch (e: IOException) {
+                          e.printStackTrace()
+                      }
+                  } else {
+                      val options = BitmapFactory.Options()
+                      // downsizing image as it throws OutOfMemory Exception for larger
+                      // images
+                      options.inSampleSize = 8
+                      bitmap = BitmapFactory.decodeFile(
+                          imageUri.path,
+                          options
+                      )
 
-                            val orientation = ei.getAttributeInt(
-                                ExifInterface.TAG_ORIENTATION,
-                                ExifInterface.ORIENTATION_UNDEFINED
-                            )
-
-                            when (orientation) {
-
-                                ExifInterface.ORIENTATION_ROTATE_90 -> bitmap =
-                                    TransformationUtils.rotateImage(bm, 90)
-
-                                ExifInterface.ORIENTATION_ROTATE_180 -> bitmap =
-                                    TransformationUtils.rotateImage(bm, 180)
-
-                                ExifInterface.ORIENTATION_ROTATE_270 -> bitmap =
-                                    TransformationUtils.rotateImage(bm, 270)
-
-                                ExifInterface.ORIENTATION_NORMAL -> bitmap = bm
-                                else -> bitmap = bm
-                            }
-
-
-// API TO BE STRIKE HERE FOR SUBMIT
-                            //                            profileFragmentPresenter.uploadProfilePic(rotatedBitmap);
-                            imgProfile.setImageBitmap(bitmap)
-
-
-                            //Log.e("updateProfile", String.valueOf(rotatedBitmap));
-
-
-                        } catch (e: IOException) {
-                            e.printStackTrace()
-                        }
-
-                    } else {
-
-                        val options = BitmapFactory.Options()
-
-                        // downsizing image as it throws OutOfMemory Exception for larger
-                        // images
-                        options.inSampleSize = 8
-
-                        bitmap = BitmapFactory.decodeFile(
-                            imageUri.path,
-                            options
-                        )
-
-                        Log.e("camera bitmap", bitmap.toString())
-                        Log.e("tryFile", "" + imagePicker?.imageFile?.absoluteFile)
-
-
-                        path = imagePicker?.imageFile?.absoluteFile.toString()
+                      path = imagePicker?.imageFile?.absoluteFile.toString()
 //                        path = getImageUri(this@AnswerActivity, bitmap).toString()
-                        Log.e("path by camera", path)
-
-                        if (path != null && path != "" && path != "null") {
-                            // api hitting to upload the image
-                            imgProfile.setImageBitmap(bitmap)
-
-                        }
-
-
-                    }
-
-
-                }
-            })
-
-        imagePicker?.choosePicture(true)
-    }
+                      if (path != null && path != "" && path != "null") {
+                          // api hitting to upload the image
+                          imgProfile.setImageBitmap(bitmap)
+                      }
+                  }
+              }
+          })
+      imagePicker?.choosePicture(true)
+  }
 
     //images
     private fun requestImagePermission() {
@@ -684,13 +643,13 @@ class MyInformationActivity : BaseActivity(), IMyInformationView {
                     spinnerGender.setSelection(2)
                 }
                 if (bodyFatVal.equals("Slim")) {
-                    spinnerGender.setSelection(1)
+                    spinnerBodyFat.setSelection(1)
                 }
                 if (bodyFatVal.equals("Medium")) {
-                    spinnerGender.setSelection(2)
+                    spinnerBodyFat.setSelection(2)
                 }
                 if (bodyFatVal.equals("Fat")) {
-                    spinnerGender.setSelection(3)
+                    spinnerBodyFat.setSelection(3)
                 }
                     if (profileDataClass.data.photo.isNullOrEmpty() == false) {
                         GlideApp.with(this)

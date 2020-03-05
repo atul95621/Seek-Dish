@@ -7,9 +7,7 @@
     <string name="app_name">SeekDish</string>
     <string name="discover">גלה</string>
     <string name="rate">ציון</string>
-    <string name="walk_descrp_1">
-Seekdisk היא אפליקציה חינמית בסמארטפון המאפשרת למשתמש למצוא אותה         המנות המוצעות על ידי המסעדות המחודשות. הכי מתאים לטעמם.
-</string>
+    <string name="walk_descrp_1">Seekdish היא אפליקציה חינמית בסמארטפון המאפשרת למשתמש למצוא אותה המנות המוצעות על ידי המסעדות המחודשות. הכי מתאים לטעמם.</string>
     <string name="walk_sub1">איך זה עובד?</string>
     <string name="walk_sub_part2">
 המשתמש יציין בפני היישום כלים או רכיבים שהוא אוהב או עושה         לא כמו. מנוע ניתוח הטעם של SeekDish ישתמש בנתונים אלה בכדי להציע מנות תואמות במסעדה בסביבה         של המשתמש.

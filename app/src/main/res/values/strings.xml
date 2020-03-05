@@ -3,9 +3,7 @@
     <!--walkthrough and register screen-->
     <string name="discover">Discover</string>
     <string name="rate">Rate</string>
-    <string name="walk_descrp_1">Seekdisk is a free application on smartphone that allows its user to find
-        the dishes offered by the reffernced restaurants. Corresponding most to their tastes.
-    </string>
+    <string name="walk_descrp_1">Seekdish is a free application on smartphone that allows its user to find the dishes offered by the reffernced restaurants. Corresponding most to their tastes.</string>
     <string name="walk_sub1">How it works?</string>
     <string name="walk_sub_part2">The user will indicate to the application dishes or ingredients that he likes or does
         not like. SeekDish\'s taste analytics engine will use this data to offer compatible dishes in restaurant around

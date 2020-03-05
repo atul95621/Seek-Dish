@@ -7,9 +7,7 @@
     <string name="app_name">Tìm kiếm</string>
     <string name="discover">Khám phá</string>
     <string name="rate">Tỷ lệ</string>
-    <string name="walk_descrp_1">
-Seekdisk là một ứng dụng miễn phí trên điện thoại thông minh cho phép người dùng tìm thấy         các món ăn được cung cấp bởi các nhà hàng giới thiệu. Tương ứng nhất với thị hiếu của họ.
-</string>
+    <string name="walk_descrp_1">Seekdish là một ứng dụng miễn phí trên điện thoại thông minh cho phép người dùng tìm thấy các món ăn được cung cấp bởi các nhà hàng giới thiệu. Tương ứng nhất với thị hiếu của họ.</string>
     <string name="walk_sub1">Làm thế nào nó hoạt động?</string>
     <string name="walk_sub_part2">
 Người dùng sẽ chỉ ra cho các món ăn ứng dụng hoặc các thành phần mà anh ta thích hoặc làm         không thích. Công cụ phân tích hương vị của SeekDish sẽ sử dụng dữ liệu này để cung cấp các món ăn tương thích trong nhà hàng xung quanh         của người dùng.

@@ -7,9 +7,7 @@
     <string name="app_name">SeekDish</string>
     <string name="discover">اكتشف</string>
     <string name="rate">معدل</string>
-    <string name="walk_descrp_1">
-Seekdisk هو تطبيق مجاني على الهاتف الذكي يسمح لمستخدمه بالعثور عليه         الأطباق التي تقدمها المطاعم reffernced. المقابلة لمعظم الأذواق.
-</string>
+    <string name="walk_descrp_1">Seekdish هو تطبيق مجاني على الهاتف الذكي يسمح لمستخدمه بالعثور عليه الأطباق التي تقدمها المطاعم reffernced. المقابلة لمعظم الأذواق.</string>
     <string name="walk_sub1">كيف تعمل؟</string>
     <string name="walk_sub_part2">
 سيشير المستخدم إلى أطباق التطبيق أو المكونات التي يحبها أو يحبها         لا يشبه. سيستخدم محرك تحليلات ذوق SeekDish هذه البيانات لتقديم أطباق متوافقة في مطعم حوله         المستخدم.

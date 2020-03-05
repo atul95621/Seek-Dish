@@ -166,7 +166,8 @@ var langId=""
                     Log.e("respfile", "" + file)
 
                     // compressing size of the image uploading
-                    var finalFile = compressFile(file)
+//                    var finalFile = compressFile(file)
+                    var finalFile= bitmap?.let { saveBitmap(it,path) }
                     if (finalFile != null) {
                         var sizeAfter = finalFile.length().div(1024)
                         var sizeBefore = file.length().div(1024)
@@ -272,9 +273,70 @@ var langId=""
 
 
     }
-
     fun chooseImage() {
         imagePicker = ImagePicker(this /*activity non null*/, null,
+            object : OnImagePickedListener {
+                override fun onImagePicked(imageUri: Uri) {
+                    //set flag to true
+                    imagePick = true
+                    //get image path from uri
+//                    val path = getPath(imageUri)
+                    path = getRealPathFromURI(imageUri).toString()
+                    Log.e("path", path)
+//                     Bitmap bmp = uriToBitmap(imageUri);
+                    if (path.isNullOrEmpty()==false) {
+                        //get bitmap from file path
+                        val bm = decodeSampledBitmapFromFile(path, 300, 300)
+                        try {
+                            //rotate bitmap to portrait if bitmap is orientated landscape
+                            val ei = ExifInterface(path)
+                            val orientation = ei.getAttributeInt(
+                                ExifInterface.TAG_ORIENTATION,
+                                ExifInterface.ORIENTATION_UNDEFINED
+                            )
+                            when (orientation) {
+
+                                ExifInterface.ORIENTATION_ROTATE_90 -> bitmap =
+                                    TransformationUtils.rotateImage(bm, 90)
+
+                                ExifInterface.ORIENTATION_ROTATE_180 -> bitmap =
+                                    TransformationUtils.rotateImage(bm, 180)
+
+                                ExifInterface.ORIENTATION_ROTATE_270 -> bitmap =
+                                    TransformationUtils.rotateImage(bm, 270)
+
+                                ExifInterface.ORIENTATION_NORMAL -> bitmap = bm
+                                else -> bitmap = bm
+                            }
+                            // API TO BE STRIKE HERE FOR SUBMIT
+                            // profileFragmentPresenter.uploadProfilePic(rotatedBitmap);
+                            profile_image.setImageBitmap(bitmap)
+                        } catch (e: IOException) {
+                            e.printStackTrace()
+                        }
+                    } else {
+                        val options = BitmapFactory.Options()
+                        // downsizing image as it throws OutOfMemory Exception for larger
+                        // images
+                        options.inSampleSize = 8
+                        bitmap = BitmapFactory.decodeFile(
+                            imageUri.path,
+                            options
+                        )
+
+                        path = imagePicker?.imageFile?.absoluteFile.toString()
+//                        path = getImageUri(this@AnswerActivity, bitmap).toString()
+                        if (path != null && path != "" && path != "null") {
+                            // api hitting to upload the image
+                            profile_image.setImageBitmap(bitmap)
+                        }
+                    }
+                }
+            })
+        imagePicker?.choosePicture(true)
+    }
+    /*fun chooseImage() {
+        imagePicker = ImagePicker(this *//*activity non null*//*, null,
             object : OnImagePickedListener {
                 override fun onImagePicked(imageUri: Uri) {
 
@@ -369,7 +431,7 @@ var langId=""
             })
 
         imagePicker?.choosePicture(true)
-    }
+    }*/
 
     //images
     private fun requestImagePermission() {

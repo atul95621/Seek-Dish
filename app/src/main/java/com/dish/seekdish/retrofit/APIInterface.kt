@@ -88,8 +88,7 @@ internal interface APIInterface {
         @Field("provider_id") facebook_id: String,
         @Field("language_id")language_id:String
     ): Call<SignUpModel>
-
-
+    
     @FormUrlEncoded
     @POST("twitter_login")
     fun doTwitterSignup(

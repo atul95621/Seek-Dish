@@ -1,5 +1,10 @@
 package com.dish.seekdish
 
+import androidx.fragment.app.Fragment
+import com.dish.seekdish.ui.home.fragments.HomeFragment
+import com.dish.seekdish.ui.navDrawer.restaurants.RestaurantsFragment
+import com.dish.seekdish.ui.navDrawer.restaurants.fragments.ProximityFragment
+
 class Constants {
     companion object {
         // taste api constants
@@ -9,16 +14,26 @@ class Constants {
 
         // extra prams
         var type = "type"
-        var noOfItems="1000"
-        var noOfMeals="30"
-        var device_token="token"
-        var homePage="1"
+        var noOfItems = "1000"
+        var noOfMeals = "30"
+        var device_token = "token"
+        var homePage = "1"
 
-        var name ="Sunny"
-        var mealId="1"
-        var restaurant_id="3"
-        var radius="15"
+        var name = "Sunny"
+        var mealId = "1"
+        var restaurant_id = "3"
+        var radius = "15"
 
+        fun refreshFragment(frag: String): Fragment {
+            when (frag) {
+                "HomeFragment" -> return HomeFragment()
+                "RestaurantFragment" -> return RestaurantsFragment()
+                else -> {
+                    // Note the block
+                    return HomeFragment()
+                }
+            }
+        }
 
     }
 }

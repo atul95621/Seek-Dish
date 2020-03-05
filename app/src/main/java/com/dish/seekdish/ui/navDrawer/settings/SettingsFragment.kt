@@ -435,6 +435,4 @@ class SettingsFragment : BaseFragment(), ISettingView {
         homeActivity.finish()
         startActivity(refresh)
     }
-
-
 }

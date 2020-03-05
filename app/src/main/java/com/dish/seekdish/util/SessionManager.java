@@ -50,6 +50,9 @@ public class SessionManager {
     public static final String LANGUAGE_HOME_ACTIVITY = "lang_home";
     public static final String LANGUAGE_CODE = "languageCode";
 
+    // to keep the track of current screen to refresh after saving the filters
+    public static final String CURRENT_SCREEN = "current_screen";
+
 
     public SessionManager(Context context) {
         sharedPreferences = context.getSharedPreferences("seekdish_app", context.MODE_PRIVATE);

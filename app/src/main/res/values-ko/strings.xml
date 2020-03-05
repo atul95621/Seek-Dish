@@ -7,9 +7,7 @@
     <string name="app_name">찾기</string>
     <string name="discover">발견하다</string>
     <string name="rate">율</string>
-    <string name="walk_descrp_1">
-Seekdisk는 스마트 폰에서 사용자가 찾을 수있는 무료 응용 프로그램입니다         유명한 레스토랑에서 제공하는 요리. 그들의 취향에 가장 해당합니다.
-</string>
+    <string name="walk_descrp_1">Seekdish 스마트 폰에서 사용자가 찾을 수있는 무료 응용 프로그램입니다 유명한 레스토랑에서 제공하는 요리. 그들의 취향에 가장 해당합니다.</string>
     <string name="walk_sub1">어떻게 작동합니까?</string>
     <string name="walk_sub_part2">
 사용자는 자신이 좋아하거나하는 요리 또는 재료를 응용 프로그램에 표시합니다         좋아하지 않는. SeekDish의 맛 분석 엔진은이 데이터를 사용하여 주변 식당에서 호환되는 요리를 제공합니다.         사용자의.

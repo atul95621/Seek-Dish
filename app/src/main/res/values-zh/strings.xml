@@ -7,9 +7,7 @@
     <string name="app_name">搜寻菜</string>
     <string name="discover">发现</string>
     <string name="rate">率</string>
-    <string name="walk_descrp_1">
-Seekdisk是智能手机上的免费应用程序，允许其用户查找         著名餐厅提供的菜肴。最符合他们的口味。
-</string>
+    <string name="walk_descrp_1">Seekdish是智能手机上的免费应用程序，允许其用户查找 著名餐厅提供的菜肴。最符合他们的口味。</string>
     <string name="walk_sub1">怎么运行的？</string>
     <string name="walk_sub_part2">
 用户将向应用程序指示他喜欢或喜欢的菜肴或配料         不喜欢。 SeekDish的口味分析引擎将使用此数据在附近的餐厅中提供兼容的菜肴         用户。

@@ -109,6 +109,10 @@ class TasteFragment : BaseFragment(), GoogleApiClient.ConnectionCallbacks,
         homeActivity = activity as HomeActivity
         tasteFragVM = ViewModelProviders.of(this).get(TasteFragVM::class.java)
 
+        // setting to refresh the layout
+       sessionManager.setValues(SessionManager.CURRENT_SCREEN,"HomeFragment")
+
+
         // hiding keyboard
         hideKeyBoard()
 

@@ -25,13 +25,14 @@ import de.hdodenhof.circleimageview.CircleImageView
 
 import android.view.View
 import android.widget.*
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
+import com.dish.seekdish.Constants
 import com.dish.seekdish.custom.GlideApp
 import com.dish.seekdish.ui.home.adapter.FilterAdapter
 import com.dish.seekdish.ui.home.dataModel.FilterDataModel
 import com.dish.seekdish.ui.home.viewModel.HomeActivityVM
-import com.dish.seekdish.ui.navDrawer.myFriends.contactFetch.ContactFetchActivity
 import com.dish.seekdish.ui.navDrawer.notifications.NotificationFarg
 import com.dish.seekdish.ui.navDrawer.restaurantDiscription.details.ChildData
 import com.dish.seekdish.ui.navDrawer.restaurantDiscription.details.GroupData
@@ -299,33 +300,33 @@ class HomeActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
             seasonlityItems = join1(",", Global.seasonlitySet)
 
 
-         /*   if (budgetItems == "" && serviceSpeedItems == "" && mealItems == "" && compatIntolerItems == "" && restroSpecialItems == "" && compAmbianceItems == "" && additonalItems == "" && seasonlityItems == "") {
-                Toast.makeText(this, "Please select filter items first", Toast.LENGTH_LONG).show()
-            } else {*/
-                Log.e(
-                    "filterItems",
-                    "" + "\nbudget   " + budgetItems + "\nservice  " + serviceSpeedItems + "\nmeal   " + mealItems + "\ncompat   " + compatIntolerItems + "\nrestro   " + restroSpecialItems + "\ncompAm  " + compAmbianceItems + "\naddtional   " + additonalItems + "\nseason   " + seasonlityItems
-                )
-                var switchConsider = "0"
-                if (switch_consider_my_profile.isChecked) {
-                    switchConsider = "1"
-                } else {
-                    switchConsider = "0"
-                }
-                homeActivityVM?.doSaveFilterData(
-                    budgetItems,
-                    serviceSpeedItems,
-                    mealItems,
-                    compatIntolerItems,
-                    restroAmbianceItems,
-                    restroSpecialItems,
-                    compAmbianceItems,
-                    additonalItems,
-                    seasonlityItems,
-                    sessionManager?.getValue(SessionManager.USER_ID).toString(),
-                    switchConsider
-                )
+            /*   if (budgetItems == "" && serviceSpeedItems == "" && mealItems == "" && compatIntolerItems == "" && restroSpecialItems == "" && compAmbianceItems == "" && additonalItems == "" && seasonlityItems == "") {
+                   Toast.makeText(this, "Please select filter items first", Toast.LENGTH_LONG).show()
+               } else {*/
+            Log.e(
+                "filterItems",
+                "" + "\nbudget   " + budgetItems + "\nservice  " + serviceSpeedItems + "\nmeal   " + mealItems + "\ncompat   " + compatIntolerItems + "\nrestro   " + restroSpecialItems + "\ncompAm  " + compAmbianceItems + "\naddtional   " + additonalItems + "\nseason   " + seasonlityItems
+            )
+            var switchConsider = "0"
+            if (switch_consider_my_profile.isChecked) {
+                switchConsider = "1"
+            } else {
+                switchConsider = "0"
             }
+            homeActivityVM?.doSaveFilterData(
+                budgetItems,
+                serviceSpeedItems,
+                mealItems,
+                compatIntolerItems,
+                restroAmbianceItems,
+                restroSpecialItems,
+                compAmbianceItems,
+                additonalItems,
+                seasonlityItems,
+                sessionManager?.getValue(SessionManager.USER_ID).toString(),
+                switchConsider
+            )
+        }
 //        }
 
         /*   //drawer set up
@@ -738,6 +739,11 @@ class HomeActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
 
                     val message = response.data.message
                     showSnackBar(message)
+
+                    val finalFrag =
+                        Constants.refreshFragment(sessionManager?.getValue(SessionManager.CURRENT_SCREEN).toString())
+
+                    reOpenFrag(finalFrag)
                 }
             } else {
                 showSnackBar("OOps! Error Occured.")
@@ -783,6 +789,14 @@ class HomeActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
         if (name != null && name != "null" && name != "") {
             tvName.setText(sessionManager?.getValue(SessionManager.FIRST_NAME))
         }
+    }
 
+
+    fun reOpenFrag(finalFrag: Fragment)
+    {
+        val fragmentManager = supportFragmentManager
+        fragmentManager.beginTransaction()
+            .replace(R.id.content_frame, finalFrag)
+            .commit()
     }
 }
