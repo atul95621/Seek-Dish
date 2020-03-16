@@ -89,8 +89,8 @@ dependencies {
 
 
     // firebase notification
-    implementation 'com.google.firebase:firebase-messaging:19.0.1'
-    implementation 'com.google.firebase:firebase-core:17.0.1'
+    implementation 'com.google.firebase:firebase-messaging:20.1.2'
+    implementation 'com.google.firebase:firebase-core:17.2.3'
 
     //facebook dependency
     implementation 'com.facebook.android:facebook-login:4.42.0'

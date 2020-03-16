@@ -104,7 +104,11 @@ open class BaseActivity : AppCompatActivity() {
 
 
     fun showSnackBar(text: String) {
-        val snackbar = Snackbar.make(activity!!.findViewById(android.R.id.content), text, Snackbar.LENGTH_SHORT)
+        val snackbar = Snackbar.make(
+            activity!!.findViewById(android.R.id.content),
+            text,
+            Snackbar.LENGTH_SHORT
+        )
         snackbar.view.setBackgroundColor(ContextCompat.getColor(activity!!, R.color.colorPrimary))
         snackbar.show()
     }
@@ -123,12 +127,12 @@ open class BaseActivity : AppCompatActivity() {
         );
     }
 
-    fun showSnackbar(editText: EditText, message: String) {
+    /* fun showSnackbar(editText: EditText, message: String) {
 
-        val snackbar = Snackbar
-            .make(editText, message, Snackbar.LENGTH_LONG)
-        snackbar.show()
-    }
+         val snackbar = Snackbar
+             .make(editText, message, Snackbar.LENGTH_LONG)
+         snackbar.show()
+     }*/
 
     companion object {
 
@@ -157,7 +161,7 @@ open class BaseActivity : AppCompatActivity() {
         val width = options.outWidth
         options.inPreferredConfig = Bitmap.Config.RGB_565
         var inSampleSize = 1
-        if(height > reqHeight) {
+        if (height > reqHeight) {
             inSampleSize = Math.round(height.toFloat() / reqHeight.toFloat())
         }
         val expectedWidth = width / inSampleSize
@@ -224,7 +228,7 @@ open class BaseActivity : AppCompatActivity() {
 
             return outPutFile
         } catch (e: Exception) {
-            Log.e("compress_exception","${e.message}")
+            Log.e("compress_exception", "${e.message}")
             return null
         }
 
@@ -270,16 +274,17 @@ open class BaseActivity : AppCompatActivity() {
         }
     }
 
-    fun getRealPathFromURI(contentURI:Uri):String {
-        val result:String
+    fun getRealPathFromURI(contentURI: Uri): String {
+        val result: String
         val cursor = getContentResolver().query(contentURI, null, null, null, null)
-        if (cursor == null)
-        { // Source is Dropbox or other similar local file path
+        if (cursor == null) { // Source is Dropbox or other similar local file path
             result = contentURI.getPath().toString()
-        }
-        else
-        {
-            cursor.moveToFirst()
+        } else {
+            try {
+                cursor.moveToFirst()
+            } catch (e: Exception) {
+                showSnackBar("Can't pick data")
+            }
             val idx = cursor.getColumnIndex(MediaStore.Images.ImageColumns.DATA)
             result = cursor.getString(idx)
             cursor.close()
@@ -324,6 +329,7 @@ open class BaseActivity : AppCompatActivity() {
         }
         return newDate
     }
+
     fun timePrase(date: String): String {
         var newDate = ""
         var oldFormat = "yyyy-MM-dd HH:mm:ss";
@@ -370,43 +376,44 @@ open class BaseActivity : AppCompatActivity() {
     }
    */
 
-    fun getImageUri(inContext:Context, inImage:Bitmap):Uri {
+    fun getImageUri(inContext: Context, inImage: Bitmap): Uri {
         val bytes = ByteArrayOutputStream()
-        val path = MediaStore.Images.Media.insertImage(inContext.getContentResolver(), inImage, "Title", null)
+        val path = MediaStore.Images.Media.insertImage(
+            inContext.getContentResolver(),
+            inImage,
+            "Title",
+            null
+        )
         return Uri.parse(path)
     }
-     fun saveBitmap(bitmap:Bitmap, path:String): File? {
+
+    fun saveBitmap(bitmap: Bitmap, path: String): File? {
         var file: File? = null
-        if (bitmap != null)
-        {
+        if (bitmap != null) {
             file = File(path)
-            try
-            {
+            try {
                 var outputStream: FileOutputStream? = null
-                try
-                {
-                    outputStream = FileOutputStream(path) //here is set your file path where you want to save or also here you can set file object directly
-                    bitmap.compress(Bitmap.CompressFormat.PNG, 70, outputStream) // bitmap is your Bitmap instance, if you want to compress it you can compress reduce percentage
+                try {
+                    outputStream =
+                        FileOutputStream(path) //here is set your file path where you want to save or also here you can set file object directly
+                    bitmap.compress(
+                        Bitmap.CompressFormat.PNG,
+                        70,
+                        outputStream
+                    ) // bitmap is your Bitmap instance, if you want to compress it you can compress reduce percentage
                     // PNG is a lossless format, the compression factor (100) is ignored
-                }
-                catch (e:Exception) {
+                } catch (e: Exception) {
                     e.printStackTrace()
-                }
-                finally
-                {
-                    try
-                    {
-                        if (outputStream != null)
-                        {
+                } finally {
+                    try {
+                        if (outputStream != null) {
                             outputStream.close()
                         }
-                    }
-                    catch (e:IOException) {
+                    } catch (e: IOException) {
                         e.printStackTrace()
                     }
                 }
-            }
-            catch (e:Exception) {
+            } catch (e: Exception) {
                 e.printStackTrace()
             }
         }

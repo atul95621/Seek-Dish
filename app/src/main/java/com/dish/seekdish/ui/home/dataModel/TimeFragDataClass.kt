@@ -4,7 +4,8 @@ package com.dish.seekdish.ui.home.dataModel
 
 data class TimeFragDataClass(
     val `data`: ArrayList<Data_time>,
-    val status: Int
+    val status: Int,
+    val message: String
 )
 
 data class Data_time(

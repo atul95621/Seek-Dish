@@ -43,6 +43,9 @@ class RestoRatingActivity : BaseActivity() {
     internal lateinit var imagePicker: ImagePicker
     internal var imagePick = false
     internal var bitmap: Bitmap? = null
+    internal var bitmap1: Bitmap? = null
+    internal var bitmap2: Bitmap? = null
+
     var flag: Boolean = false
     var count: Int = 0
     var sessionManager: SessionManager? = null
@@ -199,10 +202,12 @@ class RestoRatingActivity : BaseActivity() {
 
                 if (pathImage1 != null && pathImage1 != "null" && pathImage1 != "" && pathImage2 != null && pathImage2 != "null" && pathImage2 != "") {
                     // making path for image
-                    val file1 = File(pathImage1)
-                    val file2 = File(pathImage2)
+                    /*  val file1 = File(pathImage1)
+                     val file2 = File(pathImage2)
                     var finalFile1 = compressFile(file1)
-                    var finalFile2 = compressFile(file2)
+                     var finalFile2 = compressFile(file2)*/
+                    var finalFile1= bitmap1?.let { saveBitmap(it,pathImage1) }
+                    var finalFile2= bitmap2?.let { saveBitmap(it,pathImage2) }
 
                     if (finalFile1 != null && finalFile2 != null) {
                         val fileReqBody1 =
@@ -231,8 +236,9 @@ class RestoRatingActivity : BaseActivity() {
                 } else {
                     if (pathImage1.isEmpty() == false && pathImage2.isEmpty() == true) {
                         // making path for image
-                        val file1 = File(pathImage1)
-                        var finalFile1 = compressFile(file1)
+                        /*val file1 = File(pathImage1)
+                        var finalFile1 = compressFile(file1)*/
+                        var finalFile1= bitmap1?.let { saveBitmap(it,pathImage1) }
 
 //                        val file2 = File(pathImage2)
                         var fileReqBody12 =
@@ -247,8 +253,9 @@ class RestoRatingActivity : BaseActivity() {
                     } else if (pathImage1.isEmpty() == true && pathImage2.isEmpty() == false) {
                         // making path for image
 //                        val file1 = File(pathImage1)
-                        val file2 = File(pathImage2)
-                        var finalFile2 = compressFile(file2)
+                        /*val file2 = File(pathImage2)
+                        var finalFile2 = compressFile(file2)*/
+                        var finalFile2= bitmap2?.let { saveBitmap(it,pathImage2) }
 
                         var fileReqBody12 = RequestBody.create(MediaType.parse("image/*"), "")
                         var fileReqBody21 =
@@ -321,7 +328,7 @@ class RestoRatingActivity : BaseActivity() {
                 if (response.status == 1) {
 
                     dialog.dismiss()
-                    showSnackBar(response.data.message)
+                    showSnackBar(response.message)
 
                     // flow drive after 2 seconds...
                     Handler().postDelayed({
@@ -348,11 +355,15 @@ class RestoRatingActivity : BaseActivity() {
                     }, 800)
 
                 }
+                else
+                {
+                    showSnackBar(response.message)
+                }
 
             } else {
 
 
-                showSnackBar("OOps! Error Occured.")
+                showSnackBar(resources.getString(R.string.error_occured)  +"  $response")
 
                 Log.e("rspSnak", "else error")
 
@@ -394,7 +405,13 @@ class RestoRatingActivity : BaseActivity() {
                     //get image path from uri
 //                     path = getPath(imageUri).toString()
                     // Bitmap bmp = uriToBitmap(imageUri);
-                    path = this@RestoRatingActivity.getRealPathFromURI(imageUri).toString()
+                    try {
+                        path = this@RestoRatingActivity.getRealPathFromURI(imageUri).toString()
+                    }
+                    catch (e:Exception)
+                    {
+                        showSnackBar("Can't pick data")
+                    }
                     Log.e("path", path)
 
                     if (path != null && path != "" && path != "null") {
@@ -436,6 +453,8 @@ class RestoRatingActivity : BaseActivity() {
 
                             if (flag == false && count == 0 && pathImage1 == "") {
                                 pathImage1 = path
+                                bitmap1 = bitmap
+
                                 Log.e("bitmap1", bitmap.toString())
 
                                 imgOne?.setImageBitmap(bitmap)
@@ -443,6 +462,8 @@ class RestoRatingActivity : BaseActivity() {
                                 count++
                             } else if (flag == true && count < 2 && pathImage2 == "") {
                                 pathImage2 = path
+                                bitmap2 = bitmap
+
                                 Log.e("bitmap2", bitmap.toString())
                                 imgTwo?.setImageBitmap(bitmap)
                                 flag = true;
@@ -477,6 +498,8 @@ class RestoRatingActivity : BaseActivity() {
 
                         if (flag == false && count == 0 && pathImage1 == "") {
                             pathImage1 = path
+                            bitmap1 = bitmap
+
                             Log.e("bitmap1", bitmap.toString())
 
                             imgOne?.setImageBitmap(bitmap)
@@ -484,6 +507,8 @@ class RestoRatingActivity : BaseActivity() {
                             count++
                         } else if (flag == true && count < 2 && pathImage2 == "") {
                             pathImage2 = path
+                            bitmap2 = bitmap
+
                             Log.e("bitmap2", bitmap.toString())
                             imgTwo?.setImageBitmap(bitmap)
                             flag = true;
@@ -509,6 +534,7 @@ class RestoRatingActivity : BaseActivity() {
 
         imagePicker.choosePicture(true)
     }
+
 
     //images
     private fun requestImagePermission() {

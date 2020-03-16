@@ -1,5 +1,6 @@
 package com.dish.seekdish.walkthrough.fragments
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -9,6 +10,7 @@ import android.widget.Button
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import com.dish.seekdish.R
+import com.dish.seekdish.ui.signup.SignupActivity
 import com.dish.seekdish.util.UiHelper
 
 import kotlinx.android.synthetic.main.fragment_walk_third.view.*
@@ -26,11 +28,12 @@ class IntroThirdFragment : Fragment() {
         view.findViewById<TextView>(R.id.moneyRecordSubTitleTextView)
         view.findViewById<Button>(R.id.btn_register)
 
-
-        view.moneyRecordTextView.setOnClickListener()
+        view.btn_register.setOnClickListener()
         {
-            Log.e("status", "thrird one preessed")
+            val intent = Intent(activity, SignupActivity::class.java)
+            startActivity(intent)
         }
+
         return view
     }
 }

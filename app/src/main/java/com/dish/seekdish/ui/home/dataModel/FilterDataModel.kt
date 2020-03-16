@@ -2,7 +2,8 @@ package com.dish.seekdish.ui.home.dataModel
 
 data class FilterDataModel(
     val `data`: Data,
-    val status: Int
+    val status: Int,
+    val message: String
 )
 
 data class Data(
@@ -69,7 +70,8 @@ data class IntoleranceCompatibility(
 
 data class SaveFilterModel(
     val `data`: Data_Save,
-    val status: Int
+    val status: Int,
+    val message: String
 )
 
 data class Data_Save(

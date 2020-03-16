@@ -3,7 +3,8 @@ package com.dish.seekdish.ui.navDrawer.settings.dataModel
 
 data class ReceivedRequestDataClass(
     val `data`: ArrayList<Data_Req>,
-    val status: Int
+    val status: Int,
+    val message: String
 )
 
 data class Data_Req(
@@ -14,8 +15,9 @@ data class Data_Req(
 )
 
 data class CancelReModel(
-    val `data`: Cancel_Req,
-    val status: Int
+//    val `data`: Cancel_Req,
+    val status: Int,
+    val message: String
 )
 
 data class Cancel_Req(

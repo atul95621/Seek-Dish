@@ -2,7 +2,8 @@ package com.dish.seekdish.ui.navDrawer.notifications
 
 data class NotifyModel(
     val `data`: ArrayList<Data_Notify>,
-    val status: Int
+    val status: Int,
+    val message: String
 )
 
 data class Data_Notify(

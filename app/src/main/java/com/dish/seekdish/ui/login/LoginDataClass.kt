@@ -2,7 +2,8 @@ package com.dish.seekdish.ui.login
 
 data class LoginDataClass(
     val `data`: Data,
-    val status: Int
+    val status: Int,
+    val message:String
 )
 
 data class Data(

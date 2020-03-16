@@ -249,12 +249,13 @@ class LikeActivity : BaseActivity() {
 
 
                 }
+                else
+                {
+                    showSnackBar(response.message)
+                }
 
             } else {
-
-
-                showSnackBar("OOps! Error Occured.")
-
+                showSnackBar(resources.getString(R.string.error_occured) + "    ${response}");
                 Log.e("rspSnak", "else error")
 
             }
@@ -293,9 +294,7 @@ class LikeActivity : BaseActivity() {
 
             } else {
 
-
-                showSnackBar("OOps! Error Occured.")
-
+                showSnackBar(resources.getString(R.string.error_occured) + "    ${response}");
                 Log.e("rspsearchSnak", "else error")
 
             }
@@ -332,13 +331,11 @@ class LikeActivity : BaseActivity() {
 
         likeVM!!.saveLikedLiveData.observe(this, Observer { response ->
             if (response != null) {
-
                 Log.e("rspsaveLiked", response.toString())
-
                 Log.e("rspsaveLikedStat", response.status.toString())
 
                 if (response.status == 1) {
-                    showSnackBar(response.data.message)
+                    showSnackBar(response.message)
 
                     Handler().postDelayed({
                         val returnIntent = Intent()
@@ -348,12 +345,11 @@ class LikeActivity : BaseActivity() {
                 }
                 else
                 {
-                    showSnackBar(response.data.message)
+                    showSnackBar(response.message)
                 }
-
             } else {
 
-                showSnackBar("OOps! Error Occured.")
+                showSnackBar(resources.getString(R.string.error_occured) + "    ${response}");
                 Log.e("rspsaveLikedError", "else error")
 
             }

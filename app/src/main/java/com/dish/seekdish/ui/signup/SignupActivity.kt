@@ -5,11 +5,14 @@ import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
+import android.graphics.Color
 import android.media.ExifInterface
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
+import android.text.Editable
 import android.text.TextUtils
+import android.text.TextWatcher
 import android.util.Log
 import android.widget.ArrayAdapter
 import androidx.core.content.ContextCompat
@@ -23,6 +26,7 @@ import com.myhexaville.smartimagepicker.ImagePicker
 import com.myhexaville.smartimagepicker.OnImagePickedListener
 import kotlinx.android.synthetic.main.activity_signup.*
 import kotlinx.android.synthetic.main.activity_signup.tvNext
+import kotlinx.android.synthetic.main.spinner_item.*
 import okhttp3.MediaType
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
@@ -46,7 +50,8 @@ class SignupActivity : BaseActivity(), ISignUpView {
     // optional values...
     var bio = ""
     var gender = ""
-var langId=""
+    var langId=""
+
     // path for multipart image upload
     var path: String = ""
     var emailPattern = "[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+"
@@ -65,7 +70,6 @@ var langId=""
 
         //populating the spinner
         setGenderSpinner()
-
         langId=sessionManager.getValue(SessionManager.LANGUAGE_ID).toString()
 
 
@@ -91,6 +95,7 @@ var langId=""
             intent.putExtra("from", "SignupPolicy")
             startActivity(intent)
         }
+
 
         tvBack.setOnClickListener()
         {
@@ -119,7 +124,7 @@ var langId=""
                 bio = edtBio.text.toString()
             }
 
-            if (spinnerGender!!.selectedItem === "Select Gender (Optional)") {
+            if (spinnerGender!!.selectedItem == "Select Gender (Optional)") {
                 gender = ""
             } else {
                 gender = spinnerGender.selectedItem.toString()
@@ -151,7 +156,8 @@ var langId=""
             } else if (TextUtils.isEmpty(edtUsername!!.text.toString().trim { it <= ' ' })) {
                 showSnackBar(getString(R.string.enter_user))
                 edtUsername!!.requestFocus()
-            } /*else if (path.equals("") || path.equals(null)) {
+            }
+            /*else if (path.equals("") || path.equals(null)) {
                 showSnackBar("Please select an image.")
             } */ else {
 
@@ -183,22 +189,22 @@ var langId=""
                     // Create MultipartBody.Part using file request-body,file name and part name
                     //photo is the KEY that is to be sent over server
                     part = MultipartBody.Part.createFormData("photo", file.getName(), fileReqBody)
-
-
-
+/*
                     Log.e(
-                        "para", "" + edtEmail.text.toString() + "   " +
-                                edtPassword.text.toString() + "   " +
-                                edtConfirmPasword.text.toString() + "   " +
-                                edtFirstName.text.toString() + "   " +
-                                edtLastName.text.toString() + "   " +
-                                edtPhone.text.toString() + "   " +
-                                edtUsername.text.toString() + "   " +
-                                gender + "   " +
-                                bio + "   " +
-                                ccp.getSelectedCountryCode() + "   " +
-                                sessionManager.getValue(SessionManager.FCM_TOKEN)
-                    )
+                        "para", "email:" + edtEmail.text.toString() + "   pass:" +
+                                edtPassword.text.toString() + "   confirmpasss:" +
+                                edtConfirmPasword.text.toString() + "  firstname: " +
+                                edtFirstName.text.toString() + "  lastname: " +
+                                edtLastName.text.toString() + "   phone:" +
+                                edtPhone.text.toString() + "  username :" +
+                                edtUsername.text.toString() + "   gender:" +
+                                gender + "   bio:" +
+                                bio + "   countrycode:" +
+                                ccp.getSelectedCountryCode() + "   fcm:" +
+                                sessionManager.getValue(SessionManager.FCM_TOKEN)+"   langid:"+langId
+                    )*/
+
+
                     if (path.equals("") || path == null || path == "") {
                         Log.e("respUpdatePath", "" + path)
                         Log.e("respUpd", "" + path + "without image")
@@ -238,7 +244,7 @@ var langId=""
                             stringConvertToRequestBody(edtLastName.text.toString()),
                             stringConvertToRequestBody(edtPhone.text.toString()),
                             stringConvertToRequestBody(edtUsername.text.toString()),
-                            stringConvertToRequestBody(spinnerGender.selectedItem.toString()),
+                            stringConvertToRequestBody(gender),
                             stringConvertToRequestBody(edtBio.text.toString()),
                             stringConvertToRequestBody(ccp.getSelectedCountryCode()),
                             stringConvertToRequestBody(sessionManager!!.getValue(SessionManager.FCM_TOKEN)),
@@ -521,19 +527,16 @@ var langId=""
 
         // Creating adapter for spinner
         val languageSelectAdapter =
-            ArrayAdapter(this, android.R.layout.simple_spinner_item, genderArr)
+            ArrayAdapter(this,R.layout.spinner_item, genderArr)
 
         // Drop down layout style - list view with radio button
         languageSelectAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-
         // attaching data adapter to spinner
         spinnerGender!!.adapter = languageSelectAdapter
-
     }
 
+
     override fun onSetSignedUp(result: Boolean, response: Response<SignUpModel>) {
-
-
         if (result == true) {
 
             val signUpModel = response.body() as SignUpModel
@@ -560,12 +563,10 @@ var langId=""
                 intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
                 startActivity(intent)
             } else {
-                showSnackBar(signUpModel.data.message)
+                showSnackBar(signUpModel.message)
             }
-
         } else {
-
-            showSnackBar(this@SignupActivity.getResources().getString(R.string.error_occured));
+            showSnackBar(this@SignupActivity.getResources().getString(R.string.error_occured)+"  ${response.code()}");
         }
     }
 }

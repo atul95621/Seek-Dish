@@ -76,21 +76,24 @@ class MyAlertsActivity : BaseActivity() {
                 // canceling the progress bar
                 ProgressBarClass.dialog.dismiss()
                 Log.e("respStr", " " + response.body().toString())
+                var modelObj = response.body() as CancelReModel
+
                 if (response.code().toString().equals("200")) {
-
-                    var modelObj = response.body() as CancelReModel
-
                     if (modelObj.status == 1) {
-                        showSnackBar(modelObj.data.message)
+                        showSnackBar(modelObj.message)
                         alertApiHit()
                     }
+                    else
+                    {
+                        showSnackBar(modelObj.message)
+                    }
                 } else {
-                    showSnackBar(resources.getString(R.string.error_occured));
+                    showSnackBar(resources.getString(R.string.error_occured)+"  ${response.code()}");
                 }
             }
 
             override fun onFailure(call: Call<CancelReModel>, t: Throwable) {
-                showSnackBar(resources.getString(R.string.error_occured));
+                showSnackBar(resources.getString(R.string.error_occured)+"  ${t.message}");
 
                 call.cancel()
                 // canceling the progress bar
@@ -114,24 +117,26 @@ class MyAlertsActivity : BaseActivity() {
                 ProgressBarClass.dialog.dismiss()
                 Log.e("respStr", " " + response.body().toString())
                 if (response.code().toString().equals("200")) {
-
                     var modelObj = response.body() as MyAlertDataClass
-
-                    if (modelObj.data.size == 0) {
-                        tvAlert.visibility = View.VISIBLE
-                        recyclerView?.visibility = View.INVISIBLE
+                    if (modelObj.status == 1) {
+                        if (modelObj.data.size == 0) {
+                            tvAlert.visibility = View.VISIBLE
+                            recyclerView?.visibility = View.INVISIBLE
+                        } else {
+                            arrayList = modelObj.data
+                            adapter = MyAlertAdapter(modelObj.data, this@MyAlertsActivity)
+                            recyclerView!!.setAdapter(adapter)
+                        }
                     } else {
-                        arrayList=modelObj.data
-                        adapter = MyAlertAdapter(modelObj.data, this@MyAlertsActivity)
-                        recyclerView!!.setAdapter(adapter)
+                        showSnackBar(modelObj.message)
                     }
                 } else {
-                    showSnackBar(resources.getString(R.string.error_occured));
+                    showSnackBar(resources.getString(R.string.error_occured)+"  ${response.code()}");
                 }
             }
 
             override fun onFailure(call: Call<MyAlertDataClass>, t: Throwable) {
-                showSnackBar(resources.getString(R.string.error_occured));
+                showSnackBar(resources.getString(R.string.error_occured)+"  ${t.message}");
 
                 call.cancel()
                 // canceling the progress bar

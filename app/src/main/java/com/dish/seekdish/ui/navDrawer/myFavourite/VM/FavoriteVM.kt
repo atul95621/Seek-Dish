@@ -95,7 +95,7 @@ class FavoriteVM : ViewModel() {
                 //finally we are setting the list to our MutableLiveData
                 getFavDeleteLiveData.postValue(response.body())
 
-                getFavDeleteLiveData.value = response.body()
+//                getFavDeleteLiveData.value = response.body()
 
                 Log.e("respoDeleteMealPrams", meal_id + "    " + restro_id + "    user" + userId)
 

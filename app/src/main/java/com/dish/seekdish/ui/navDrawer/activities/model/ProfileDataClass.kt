@@ -3,7 +3,8 @@ package com.dish.seekdish.ui.navDrawer.activities.model
 
 data class ProfileDataClass(
     val `data`: Data,
-    val status: Int
+    val status: Int,
+    val message: String
 )
 
 data class Data(
@@ -42,14 +43,15 @@ data class NewInfoData(
 
 data class ContactModel(
     val `data`: List<Data_Contact>,
-    val status: Int
+    val status: Int,
+    val message:String
 )
 
 data class Data_Contact(
-    val country: Int,
-    val email: String,
-    val facebook_id: String,
-    val phone: String,
-    val skype_id: String,
-    val twitter_id: String
+    val country: Int?,
+    val email: String?,
+    val facebook_id: String?,
+    val phone: String?,
+    val skype_id: String?,
+    val twitter_id: String?
 )

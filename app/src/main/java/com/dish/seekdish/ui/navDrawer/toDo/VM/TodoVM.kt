@@ -95,7 +95,7 @@ class TodoVM : ViewModel() {
                 //finally we are setting the list to our MutableLiveData
                 getTodoDeleteLiveData.postValue(response.body())
 
-                getTodoDeleteLiveData.value = response.body()
+//                getTodoDeleteLiveData.value = response.body()
 
                 Log.e("respoDeleteMealPrams", meal_id+"    "+restro_id+"    user"+userId)
 

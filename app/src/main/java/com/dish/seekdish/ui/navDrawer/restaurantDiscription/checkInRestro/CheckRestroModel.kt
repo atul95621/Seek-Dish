@@ -4,7 +4,8 @@ package com.dish.seekdish.ui.navDrawer.restaurantDiscription.checkInRestro
 
 data class CheckinRestroModel(
     val `data`: Data,
-    val status: Int
+    val status: Int,
+    val message:String
 )
 
 data class Data(

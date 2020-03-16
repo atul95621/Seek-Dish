@@ -28,7 +28,9 @@ class ContactFetchActivity : BaseActivity() {
     private var listView: ListView? = null
     private var contFetchAdapter: ContFetchAdapter? = null
     private var mobileHashset = HashSet<String>()
+    private var mobileArrayList = ArrayList<String>()
     private var contactMatchedArr = HashSet<Data>()
+    private var finalArray = HashSet<Data>()
 
     private var arraylist = ArrayList<Data>()
 
@@ -48,6 +50,8 @@ class ContactFetchActivity : BaseActivity() {
         {
             if (checkImgPermissionIsEnabledOrNot()) {
                 mobileHashset.clear()
+                mobileArrayList.clear()
+                finalArray.clear()
 //                fetchContact()
                 allFriendsAPi()
             } else {
@@ -58,11 +62,14 @@ class ContactFetchActivity : BaseActivity() {
         {
             finish()
         }
+
+
     }
 
     fun fetchContact() {
         mobileHashset.clear()
-
+        mobileArrayList.clear()
+        finalArray.clear()
         val phones = contentResolver.query(
             ContactsContract.CommonDataKinds.Phone.CONTENT_URI,
             null,
@@ -75,8 +82,10 @@ class ContactFetchActivity : BaseActivity() {
                 phones.getString(phones.getColumnIndex(ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME))*/
             val phoneNumber =
                 phones.getString(phones.getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER))
-            mobileHashset.add(phoneNumber)
+//            mobileHashset.add(phoneNumber.replace(Regex("[()\\-\\s]"), ""))
+            mobileArrayList.add(phoneNumber.replace(Regex("[()\\-\\s]"), ""))
 
+//NOTE: replace(Regex("[()\\-\\s]"), "") removes all the spaces and brackets
 
         }
         phones.close()
@@ -109,24 +118,51 @@ class ContactFetchActivity : BaseActivity() {
         val contactModel = ContactModel()
 
         for (i in 0 until arraylist.size) {
-            var searchString = arraylist[i].phone
-            for (j in 0 until mobileHashset.size) {
-                Log.e("resuktt run", "" + j)
+            if (arraylist[i].phone != null) {
+                var searchString = arraylist[i].phone.trim()
+                /*   for (j in 0 until mobileHashset.size) {
+                       Log.e("resuktt run", "" + j)
+                       Log.e("mobile numbers", "" + mobileHashset.elementAt(j).toString())
 
-                if (mobileHashset.contains(searchString)) {
-                    Log.e("resuktt succ", "" + mobileHashset.elementAt(j))
-                    contactMatchedArr.add(arraylist[i])
+                       if (mobileHashset.contains(searchString)) {
+                           Log.e("resuktt succ", "" + mobileHashset.elementAt(j))
+                           contactMatchedArr.add(arraylist[i])
+   //                    contactMatchedArr.add(mobileHashset.elementAt(j))
+
+                           break
+                       } else {
+                           Log.e("resuktt", "" + mobileHashset.elementAt(j) + " not founndd")
+                       }
+                   }*/
+                for (j in 0 until mobileArrayList.size) {
+                    Log.e("resuktt run", "" + j)
+                    Log.e("mobile numbers", "" + mobileArrayList[j].toString())
+                    var mobileNo = mobileArrayList[j]
+                    if (mobileNo.contains(searchString)) {
+                        Log.e("resuktt succ", "" + mobileArrayList[j])
+                        contactMatchedArr.add(arraylist[i])
 //                    contactMatchedArr.add(mobileHashset.elementAt(j))
 
-                    break
-                } else {
-                    Log.e("resuktt", "" + mobileHashset.elementAt(j) + " not founndd")
+                        break
+                    } else {
+                        Log.e("resuktt", "" + mobileArrayList[j] + " not founndd")
+                    }
                 }
             }
         }
-
-        contFetchAdapter = ContFetchAdapter(this, contactMatchedArr, this)
-        listView!!.adapter = contFetchAdapter
+        Log.e("array,contactMatchedArr", "" + contactMatchedArr.size)
+        for (item in contactMatchedArr) {
+            if (item.phone.isNullOrEmpty() == false) {
+                finalArray.add(item)
+            }
+        }
+        if (finalArray.size > 0) {
+            tvAlertContact.visibility = View.GONE
+            contFetchAdapter = ContFetchAdapter(this, finalArray, this)
+            listView?.adapter = contFetchAdapter
+        } else {
+            tvAlertContact.visibility = View.VISIBLE
+        }
 
         // dismissing the progress when the contacts are compared...
         ProgressBarClass.dialog.dismiss()
@@ -214,14 +250,17 @@ class ContactFetchActivity : BaseActivity() {
                             tvAlertContact.visibility == View.VISIBLE
                         } else {
                             arraylist = modelObj.data
+                            Log.e("arraylist no", "" + arraylist.size)
                             fetchContact()
                         }
 
+                    } else {
+                        showSnackBar(modelObj.message)
                     }
 
                 } else {
 //                    iSignUpView.onSetLoggedin(false, response)
-                    showSnackBar(resources.getString(com.dish.seekdish.R.string.error_occured));
+                    showSnackBar(resources.getString(com.dish.seekdish.R.string.error_occured) + "  ${response.code()}");
 
                 }
 
@@ -232,7 +271,7 @@ class ContactFetchActivity : BaseActivity() {
 
 //                Log.e("responseFailure", " " + t.toString())
 
-                showSnackBar(resources.getString(com.dish.seekdish.R.string.error_occured));
+                showSnackBar(resources.getString(R.string.error_occured)+"  ${t.message}");
 
                 call.cancel()
                 // canceling the progress bar
@@ -264,16 +303,18 @@ class ContactFetchActivity : BaseActivity() {
 
                     var modelObj = response.body() as AddTodoModel
                     if (modelObj.status == 1) {
-                        showSnackBar(modelObj.data.message)
+                        showSnackBar(modelObj.message)
+                    } else {
+                        showSnackBar(modelObj.message)
                     }
                 } else {
-                    showSnackBar(resources.getString(R.string.error_occured));
+                    showSnackBar(resources.getString(R.string.error_occured) + "    ${response.code()}");
                 }
             }
 
             override fun onFailure(call: Call<AddTodoModel>, t: Throwable) {
                 Log.e("responseFailure", " " + t.message)
-                showSnackBar(resources.getString(R.string.error_occured));
+                showSnackBar(resources.getString(R.string.error_occured)+"  ${t.message}");
                 call.cancel()
                 // canceling the progress bar
                 ProgressBarClass.dialog.dismiss()

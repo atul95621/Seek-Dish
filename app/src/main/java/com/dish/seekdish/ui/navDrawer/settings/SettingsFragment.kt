@@ -13,7 +13,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.AdapterView
 import android.widget.ListView
-import android.widget.Toast
 import com.dish.seekdish.R
 import com.dish.seekdish.custom.CustomListAdapterDialog
 import com.dish.seekdish.ui.home.HomeActivity
@@ -25,7 +24,6 @@ import com.dish.seekdish.ui.navDrawer.settings.presenter.SettingFragPresenter
 import com.dish.seekdish.ui.navDrawer.settings.view.ISettingView
 import com.dish.seekdish.util.BaseFragment
 import com.dish.seekdish.util.SessionManager
-import com.facebook.FacebookSdk.getApplicationContext
 import com.travijuu.numberpicker.library.NumberPicker
 import kotlinx.android.synthetic.main.fragment_settings.*
 import kotlinx.android.synthetic.main.fragment_settings.view.*
@@ -34,11 +32,11 @@ import java.util.*
 import kotlin.collections.ArrayList
 
 
-class SettingsFragment : BaseFragment(), ISettingView {
+class SettingsFragment(var homeActivity: HomeActivity) : BaseFragment(), ISettingView {
 
 
     internal var langArr: ArrayList<String> = ArrayList<String>()
-    private lateinit var homeActivity: HomeActivity
+    //     lateinit var homeActivity: HomeActivity
     internal var PLACE_PICKER_REQUEST = 1
 
     var address: String? = null
@@ -48,16 +46,20 @@ class SettingsFragment : BaseFragment(), ISettingView {
 
     var languageId: Int = 0
     var languageName: String = ""
-    var languageCode:String=""
+    var languageCode: String = ""
     var dialog: Dialog? = null
 
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
         super.onCreateView(inflater, container, savedInstanceState)
         // Inflate the layout for this fragment
         val view = inflater.inflate(R.layout.fragment_settings, container, false)
 
-        homeActivity = activity as HomeActivity
+//        homeActivity = activity as HomeActivity
 
         settingFragPresenter = SettingFragPresenter(this, homeActivity)
 
@@ -195,7 +197,9 @@ class SettingsFragment : BaseFragment(), ISettingView {
 
 
         // setting the address name
-        if (!sessionManager.getValue(SessionManager.PLACE_SELECTED).equals("") && sessionManager.getValue(SessionManager.PLACE_SELECTED) != null && sessionManager.getValue(
+        if (!sessionManager.getValue(SessionManager.PLACE_SELECTED).equals("") && sessionManager.getValue(
+                SessionManager.PLACE_SELECTED
+            ) != null && sessionManager.getValue(
                 SessionManager.PLACE_SELECTED
             ) != "null"
         ) {
@@ -278,7 +282,6 @@ class SettingsFragment : BaseFragment(), ISettingView {
     override fun onGetSettingInfo(result: Boolean, response: Response<SettingDataClass>) {
 
         if (result) {
-
             val settingDataClass = response.body() as SettingDataClass
             if (settingDataClass.status == 1) {
                 Log.e(
@@ -315,18 +318,14 @@ class SettingsFragment : BaseFragment(), ISettingView {
                     numberPicker?.isEnabled = true
 
                 } catch (e: Exception) {
-
-                    showSnackBar(this.getResources().getString(R.string.error_occured));
-
+                    showSnackBar(homeActivity?.resources?.getString(R.string.error_occured) + "   ${response.code()}");
                 }
 
             } else {
-                showSnackBar(homeActivity.getResources().getString(R.string.error_occured));
+                showSnackBar(settingDataClass.message);
             }
         } else {
-
-            showSnackBar(homeActivity.getResources().getString(R.string.error_occured));
-
+            showSnackBar(homeActivity.getResources().getString(R.string.error_occured) + "   ${response.code()}");
         }
     }
 
@@ -334,10 +333,8 @@ class SettingsFragment : BaseFragment(), ISettingView {
 
         //check connection
         if (homeActivity.connectionDetector.isConnectingToInternet) {
-
             settingFragPresenter.getLanguagesInfo(
                 sessionManager.getValue(SessionManager.USER_ID)
-
             )
 
         } else {
@@ -353,12 +350,13 @@ class SettingsFragment : BaseFragment(), ISettingView {
         if (result == true) {
             val sendUserGeneralSetting = response.body() as SendUserGeneralSetting
 
-            if (sendUserGeneralSetting.status == 1)
-
-                showSnackBar(homeActivity.getResources().getString(R.string.setting_saved));
+            if (sendUserGeneralSetting.status == 1) {
+                showSnackBar(sendUserGeneralSetting.message);
+            } else {
+                showSnackBar(sendUserGeneralSetting.message);
+            }
         } else {
-            showSnackBar(homeActivity.getResources().getString(R.string.error_occured));
-
+            showSnackBar(homeActivity.getResources().getString(R.string.error_occured) + "   ${response.code()}");
         }
     }
 
@@ -369,15 +367,15 @@ class SettingsFragment : BaseFragment(), ISettingView {
         if (result == true) {
             val languageData = response.body() as LanguageData
 
-            if (languageData.status == 1)
-
+            if (languageData.status == 1) {
                 showDialog(languageData.data)
+            } else {
+                showSnackBar(languageData.message);
+            }
 
         } else {
-            showSnackBar(homeActivity.getResources().getString(R.string.error_occured));
-
+            showSnackBar(homeActivity.getResources().getString(R.string.error_occured) + "   ${response.code()}");
         }
-
     }
 
     override fun onSaveLanguageInfo(result: Boolean, response: Response<SaveLanguageModel>) {
@@ -385,23 +383,33 @@ class SettingsFragment : BaseFragment(), ISettingView {
         if (result == true) {
             val saveLangData = response.body() as SaveLanguageModel
 
-            if (saveLangData.status == 1)
-
+            if (saveLangData.status == 1) {
                 sessionManager.setValues(SessionManager.LANGUAGE_ID, languageId.toString())
-            sessionManager.savesSessionLang(SessionManager.LANGUAGE_NAME, languageName.toString())
-            sessionManager.setValues(SessionManager.LANGUAGE_HOME_ACTIVITY, languageId.toString())
+                sessionManager.savesSessionLang(
+                    SessionManager.LANGUAGE_NAME,
+                    languageName.toString()
+                )
+                sessionManager.setValues(
+                    SessionManager.LANGUAGE_HOME_ACTIVITY,
+                    languageId.toString()
+                )
 
-            sessionManager.savesSessionLang(SessionManager.LANGUAGE_CODE, languageCode.toString())
+                sessionManager.savesSessionLang(
+                    SessionManager.LANGUAGE_CODE,
+                    languageCode.toString()
+                )
 
-            tvLanguage.setText(languageName)
+                tvLanguage.setText(languageName)
 
-            // setting laguage and chnaging
-            setLocaleForHome(languageCode)
+                // setting laguage and chnaging
+                setLocaleForHome(languageCode)
 
-            dialog?.dismiss()
+                dialog?.dismiss()
 
-            showSnackBar(saveLangData.data.message);
-
+                showSnackBar(saveLangData.message);
+            } else {
+                showSnackBar(saveLangData.message);
+            }
         } else {
             showSnackBar(homeActivity.resources.getString(R.string.error_occured));
 

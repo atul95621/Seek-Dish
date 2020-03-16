@@ -20,7 +20,7 @@ import retrofit2.Response
 class ContactActivity : BaseActivity() {
     var sessionManager: SessionManager? = null;
     internal lateinit var apiInterface: APIInterface
-    var user_id=""
+    var user_id = ""
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_contact)
@@ -83,19 +83,21 @@ class ContactActivity : BaseActivity() {
 
                     var modelObj = response.body() as CancelReModel
                     if (modelObj.status == 1) {
-                        showSnackBar(modelObj.data.message)
+                        showSnackBar(modelObj.message)
+                    } else {
+                        showSnackBar(modelObj.message)
                     }
 
                 } else {
 //                    iSignUpView.onSetLoggedin(false, response)
-                    showSnackBar(resources.getString(R.string.error_occured));
+                    showSnackBar(resources.getString(R.string.error_occured) + "   ${response.code()}");
                 }
             }
 
             override fun onFailure(call: Call<CancelReModel>, t: Throwable) {
 
 //                Log.e("responseFailure", " " + t.toString())
-                showSnackBar(resources.getString(R.string.error_occured));
+                showSnackBar(resources.getString(R.string.error_occured)+"  ${t.message}");
                 call.cancel()
                 // canceling the progress bar
                 ProgressBarClass.dialog.dismiss()
@@ -124,17 +126,19 @@ class ContactActivity : BaseActivity() {
 
                     var modelObj = response.body() as ContactModel
                     if (modelObj.status == 1) {
-                        edtTwitter.setText(modelObj.data[0].twitter_id)
-                        edtFacebook.setText(modelObj.data[0].facebook_id)
-                        edtEmail.setText(modelObj.data[0].email)
-                        edtPhone.setText(modelObj.data[0].phone)
-                        edtSkype.setText(modelObj.data[0].skype_id)
-                        ccpContact.setCountryForPhoneCode(modelObj.data[0].country)
+                        edtTwitter.setText(modelObj.data[0].twitter_id ?: "")
+                        edtFacebook.setText(modelObj.data[0].facebook_id ?: "")
+                        edtEmail.setText(modelObj.data[0].email ?: "")
+                        edtPhone.setText(modelObj.data[0].phone ?: "")
+                        edtSkype.setText(modelObj.data[0].skype_id ?: "")
+                        ccpContact.setCountryForPhoneCode(modelObj.data[0].country ?: 0)
+                    } else {
+                        showSnackBar(modelObj.message)
                     }
 
                 } else {
 //                    iSignUpView.onSetLoggedin(false, response)
-                    showSnackBar(resources.getString(R.string.error_occured));
+                    showSnackBar(resources.getString(R.string.error_occured) + "   ${response.code()}");
 
                 }
 
@@ -144,7 +148,7 @@ class ContactActivity : BaseActivity() {
             override fun onFailure(call: Call<ContactModel>, t: Throwable) {
 
                 Log.e("responseFailure", " " + t.message)
-                showSnackBar(resources.getString(R.string.error_occured));
+                showSnackBar(resources.getString(R.string.error_occured)+"  ${t.message}");
 
                 call.cancel()
                 // canceling the progress bar

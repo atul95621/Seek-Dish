@@ -83,13 +83,13 @@ class SignupPresenter(private val iSignUpView: ISignUpView, val signupActivity: 
                 Log.e("responseSignupFailure", " " + t.toString())
 
 
-                Toast.makeText(
+            /*    Toast.makeText(
                     FacebookSdk.getApplicationContext(),
                     signupActivity.resources.getString(R.string.error_occured),
                     Toast.LENGTH_LONG
                 ).show()
-
-                signupActivity.utilities.showSnackBar(signupActivity.resources.getString(R.string.error_occured))
+*/
+                signupActivity.utilities.showSnackBar(signupActivity.resources.getString(R.string.error_occured)  +"  ${t.message}")
 
                 call.cancel()
                 // canceling the progress bar
@@ -161,13 +161,13 @@ class SignupPresenter(private val iSignUpView: ISignUpView, val signupActivity: 
                 Log.e("responseSignupFailure", " " + t.toString())
 
 
-                Toast.makeText(
+              /*  Toast.makeText(
                     FacebookSdk.getApplicationContext(),
                     signupActivity.resources.getString(R.string.error_occured),
                     Toast.LENGTH_LONG
-                ).show()
+                ).show()*/
 
-                signupActivity.utilities.showSnackBar(signupActivity.resources.getString(R.string.error_occured))
+                signupActivity.utilities.showSnackBar(signupActivity.resources.getString(R.string.error_occured)  +"  ${t.message}")
 
                 call.cancel()
                 // canceling the progress bar

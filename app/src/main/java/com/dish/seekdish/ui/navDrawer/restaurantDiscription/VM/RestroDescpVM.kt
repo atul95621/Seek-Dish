@@ -83,7 +83,7 @@ class RestroDescpVM : ViewModel() {
                 isLoadingSubject.onNext(false)
 
                 //finally we are setting the list to our MutableLiveData
-                getAddAlertLiveData.postValue(response.body())
+//                getAddAlertLiveData.postValue(response.body())
 
                 getAddAlertLiveData.value = response.body()
                 Log.e("respGetDetails", response.body().toString())

@@ -116,7 +116,7 @@ class HomeActivityVM : ViewModel() {
                 //finally we are setting the list to our MutableLiveData
                 saveFilterLiveData.postValue(response.body())
 
-                saveFilterLiveData.value = response.body()
+//                saveFilterLiveData.value = response.body()
                 Log.e("respFilter", response.body().toString())
 
             }

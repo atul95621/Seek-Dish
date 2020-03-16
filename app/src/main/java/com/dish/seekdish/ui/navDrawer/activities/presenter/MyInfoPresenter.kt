@@ -71,7 +71,7 @@ class MyInfoPresenter(private val iMyInformationView: IMyInformationView, val co
                 Log.e("respUpdateMyInfoCode", response.code().toString() + "")
                 Log.e("respUpdateMyInfoStatus", " " + response.body()?.status)
                 Log.e("respUpdateMyInfoString", " " + response.body().toString())
-                Log.e("respUpdateMyInfoperror", " " + response.errorBody().toString())
+                Log.e("respUpdateMyInfoperror", " " + response.code().toString())
 
                 if (response.code().toString().equals("200")) {
 //                    Log.e("respSignupCode", response.code().toString() + "")
@@ -121,7 +121,7 @@ class MyInfoPresenter(private val iMyInformationView: IMyInformationView, val co
                 Log.e("respgetProfileCode", response.code().toString() + "")
                 Log.e("respgetProfileStatus", " " + response.body()?.status)
                 Log.e("respgetProfiletring", " " + response.body().toString())
-                Log.e("respgetProfileerror", " " + response.errorBody().toString())
+                Log.e("respgetProfileerror", " " + response.code().toString())
 
                 if (response.code().toString().equals("200")) {
                     Log.e("respSettPill",  "inside 200")
@@ -173,7 +173,7 @@ class MyInfoPresenter(private val iMyInformationView: IMyInformationView, val co
                 Log.e("respcountryCode", response.code().toString() + "")
 //                Log.e("respLocationStatus", " " + response.body()?.status)
                 Log.e("respcountrySt", " " + response.body().toString())
-                Log.e("respcountryerror", " " + response.errorBody().toString())
+                Log.e("respcountryerror", " " + response.code().toString())
 
                 if (response.code().toString().equals("200")) {
                     iMyInformationView.onGetCountryInfo(true, response)
@@ -221,7 +221,7 @@ class MyInfoPresenter(private val iMyInformationView: IMyInformationView, val co
                 Log.e("respCitiesCode", response.code().toString() + "")
 //                Log.e("respLocationStatus", " " + response.body()?.status)
                 Log.e("respCitiesSt", " " + response.body().toString())
-                Log.e("respCitieserror", " " + response.errorBody().toString())
+                Log.e("respCitieserror", " " + response.code().toString())
 
                 if (response.code().toString().equals("200")) {
                     iMyInformationView.onGetCitiesInfo(true, response)

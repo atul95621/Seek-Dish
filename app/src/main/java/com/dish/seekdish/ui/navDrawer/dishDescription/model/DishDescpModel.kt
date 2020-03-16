@@ -5,7 +5,8 @@ import java.io.Serializable
 
 data class DishDescpModel(
     val `data`: Data,
-    val status: Int
+    val status: Int,
+    val message: String
 )
 
 data class Data(
@@ -95,8 +96,9 @@ data class UserMealComment(
 )
 
 data class AddTodoModel(
-    val `data`: Data_TOdo,
-    val status: Int
+//    val `data`: Data_TOdo,
+    val status: Int,
+    val message: String
 )
 
 data class Data_TOdo(

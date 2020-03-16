@@ -7,7 +7,8 @@ data class FriendFragDataClass (
 )
 data class FriendDataModel(
     val `data`: Data,
-    val status: Int
+    val status: Int,
+    val message: String
 )
 
 data class Data(

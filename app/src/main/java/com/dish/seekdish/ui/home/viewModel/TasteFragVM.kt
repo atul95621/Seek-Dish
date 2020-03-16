@@ -47,10 +47,10 @@ class TasteFragVM : ViewModel() {
             pageNumber,
             Constants.noOfMeals
         )
-     /*   Log.e(
+        Log.e(
             "pramsGetTasteMeal",
             " " + userId + "    " + pageNumber + "lati   " + latitude + "    longi   " + longitude + "     radius   " + radius
-        )*/
+        )
         call.enqueue(object : Callback<TasteFragDataClass> {
             override fun onResponse(call: Call<TasteFragDataClass>, response: Response<TasteFragDataClass>) {
 
@@ -65,7 +65,7 @@ class TasteFragVM : ViewModel() {
             override fun onFailure(call: Call<TasteFragDataClass>, t: Throwable) {
                 // making progress bar invisible
                 isLoadingSubject.onNext(false)
-                Log.e("respoGetTasteMealFail", "failure")
+                Log.e("respoGetTasteMealFail", "failure "+" ${t.message}")
                 getTasteLiveData.postValue(null)
             }
         })

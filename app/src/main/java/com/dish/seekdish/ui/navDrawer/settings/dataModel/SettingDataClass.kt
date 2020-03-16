@@ -2,7 +2,8 @@ package com.dish.seekdish.ui.navDrawer.settings.dataModel
 
 data class SettingDataClass(
     val `data`: Data,
-    val status: Int
+    val status: Int,
+    val message: String
 )
 
 data class Data(
@@ -17,7 +18,8 @@ data class Data(
 
 data class SendUserGeneralSetting(
     val `data`: UserData,
-    val status: Int
+    val status: Int,
+    val message: String
 )
 
 data class UserData(
@@ -30,7 +32,8 @@ data class UserData(
 
 data class LanguageData(
     val `data`: ArrayList<LangData>,
-    val status: Int
+    val status: Int,
+    val message:String
 )
 
 data class LangData(
@@ -43,7 +46,8 @@ data class LangData(
 
 data class SaveLanguageModel(
     val `data`: Data_Lang,
-    val status: Int
+    val status: Int,
+    val message: String
 )
 
 data class Data_Lang(

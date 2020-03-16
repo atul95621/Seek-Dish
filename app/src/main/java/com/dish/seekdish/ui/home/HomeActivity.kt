@@ -567,7 +567,7 @@ class HomeActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
 
                     val fragmentManager = supportFragmentManager
                     fragmentManager.beginTransaction()
-                        .replace(R.id.content_frame, SettingsFragment())
+                        .replace(R.id.content_frame, SettingsFragment(this))
                         .commit()
                 }
                 R.id.nav_logout -> {
@@ -671,10 +671,12 @@ class HomeActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
                         // attach the adapter to the expandable list view
                         simpleExpandableListView!!.setAdapter(listAdapter)
                     }
+                } else {
+                    showSnackBar(response.message)
                 }
 
             } else {
-                showSnackBar(resources.getString(R.string.error_occured))
+                showSnackBar(this.getResources().getString(R.string.error_occured) + "    $response");
                 Log.e("rspSnak", "else error")
             }
         })
@@ -709,14 +711,13 @@ class HomeActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
                     val intent = Intent(this@HomeActivity, WalkThroughActivity::class.java)
                     intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
                     startActivity(intent)
+                } else {
+                    showSnackBar(response.message)
                 }
 
             } else {
-
-
-                showSnackBar("OOps! Error Occured.")
-
-                Log.e("rspSnak", "else error")
+                showSnackBar(this.getResources().getString(R.string.error_occured) + "    $response");
+                Log.e("rspSnakuu", "else error")
 
             }
         })
@@ -737,17 +738,19 @@ class HomeActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
                 if (response.status == 1) {
                     drawerLayout?.closeDrawer(GravityCompat.END)
 
-                    val message = response.data.message
+                    val message = response.message
                     showSnackBar(message)
 
                     val finalFrag =
                         Constants.refreshFragment(sessionManager?.getValue(SessionManager.CURRENT_SCREEN).toString())
 
                     reOpenFrag(finalFrag)
+                } else {
+                    showSnackBar(response.message)
                 }
             } else {
-                showSnackBar("OOps! Error Occured.")
-                Log.e("rspSnak", "else error")
+                showSnackBar(this.getResources().getString(R.string.error_occured) + "    $response");
+                Log.e("rspSnakrr", "else error")
             }
         })
     }
@@ -792,8 +795,7 @@ class HomeActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
     }
 
 
-    fun reOpenFrag(finalFrag: Fragment)
-    {
+    fun reOpenFrag(finalFrag: Fragment) {
         val fragmentManager = supportFragmentManager
         fragmentManager.beginTransaction()
             .replace(R.id.content_frame, finalFrag)

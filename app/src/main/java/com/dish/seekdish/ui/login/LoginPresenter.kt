@@ -13,16 +13,17 @@ class LoginPresenter(private val iSignUpView: ILoginView, val loginActivity: Log
 
     //activity
     internal lateinit var apiInterface: APIInterface
-
-
-    fun login(email: String, password: String, languageId: String) {
+    fun login(
+        email: String,
+        password: String,
+        languageId: String,
+        fcm: String
+    ) {
 
         ProgressBarClass.progressBarCalling(loginActivity)
-
         apiInterface = APIClient.getClient(loginActivity).create(APIInterface::class.java)
 
-
-        val call = apiInterface.doLogIn(email, password,languageId)
+        val call = apiInterface.doLogIn(email, password,languageId,fcm)
         call.enqueue(object : Callback<LoginDataClass> {
             override fun onResponse(call: Call<LoginDataClass>, response: Response<LoginDataClass>) {
 
@@ -37,19 +38,13 @@ class LoginPresenter(private val iSignUpView: ILoginView, val loginActivity: Log
                 } else {
                     iSignUpView.onSetLoggedin(false, response)
                 }
-
                 // canceling the progress bar
                 ProgressBarClass.dialog.dismiss()
-
-
             }
 
             override fun onFailure(call: Call<LoginDataClass>, t: Throwable) {
-
 //                Log.e("responseFailure", " " + t.toString())
-
-                loginActivity.showSnackBar(loginActivity.getResources().getString(R.string.error_occured));
-
+                loginActivity.showSnackBar(loginActivity.getResources().getString(R.string.error_occured)  +"   ${t.message}");
                 call.cancel()
                 // canceling the progress bar
                 ProgressBarClass.dialog.dismiss()

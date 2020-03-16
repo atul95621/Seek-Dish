@@ -5,7 +5,8 @@ import java.io.Serializable
 
 data class RestroDescpModel(
     val `data`: Data,
-    val status: Int
+    val status: Int,
+    val message: String
 )
 
 data class Data(
@@ -57,14 +58,14 @@ data class RestaurantDetail(
 )
 
 data class Detail(
-    val email: String,
-    val guests: String,
-    val id: Int,
-    val name: String,
-    val origin: String,
-    val phone: String,
-    val schedule: String,
-    val website: String
+    val email: String?,
+    val guests: String?,
+    val id: Int?,
+    val name: String?,
+    val origin: String?,
+    val phone: String?,
+    val schedule: String?,
+    val website: String?
 ):Serializable
 
 data class SimilarRestaurant(

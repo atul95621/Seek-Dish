@@ -94,9 +94,9 @@ class CheckinRestroActivity : BaseActivity() {
                 ProgressBarClass.dialog.dismiss()
 
                 Log.e("respStr", " " + response.body().toString())
-                var modelObj = response.body() as CheckinRestroModel
 
                 if (response.code().toString().equals("200")) {
+                    var modelObj = response.body() as CheckinRestroModel
 
                     if (modelObj.status == 1) {
 
@@ -118,12 +118,12 @@ class CheckinRestroActivity : BaseActivity() {
                         }
 
                     } else {
-                        showSnackBar(resources.getString(R.string.error_occured));
+                        showSnackBar(modelObj.message);
                     }
 
                 } else {
 //                    iSignUpView.onSetLoggedin(false, response)
-                    showSnackBar(resources.getString(R.string.error_occured));
+                    showSnackBar(resources.getString(R.string.error_occured)  +"  ${response.code()}");
                 }
             }
 
@@ -131,7 +131,7 @@ class CheckinRestroActivity : BaseActivity() {
 
 //                Log.e("responseFailure", " " + t.toString())
 
-                showSnackBar(resources.getString(R.string.error_occured));
+                showSnackBar(resources.getString(R.string.error_occured)  +"  ${t.message}");
 
                 call.cancel()
                 // canceling the progress bar

@@ -3,7 +3,8 @@ package com.dish.seekdish.ui.navDrawer.settings.myAlerts
 
 data class MyAlertDataClass(
     val `data`: ArrayList<Data_Alert>,
-    val status: Int
+    val status: Int,
+    val message: String
 )
 
 data class Data_Alert(
@@ -19,7 +20,8 @@ data class Data_Alert(
 
 data class InvitationModel(
     val `data`: Data,
-    val status: Int
+    val status: Int,
+    val message:String
 )
 
 data class Data(

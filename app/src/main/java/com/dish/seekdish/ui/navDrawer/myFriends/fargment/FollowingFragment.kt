@@ -102,8 +102,12 @@ class FollowingFragment(var userId: String) : BaseFragment() {
                         recyclerView!!.setAdapter(adapter)
                     }
                 }
+                else
+                {
+                    showSnackBar(response.message)
+                }
             } else {
-                showSnackBar("OOps! Error Occured.")
+                showSnackBar(this.getResources().getString(R.string.error_occured) + "    ${response}");
                 Log.e("rspSnak", "else error")
             }
         })
@@ -122,14 +126,14 @@ class FollowingFragment(var userId: String) : BaseFragment() {
                 Log.e("rspFavList", response.toString())
                 if (response.status == 1) {
                     hitApi()
-                    showSnackBar(response.data.message)
+                    showSnackBar(response.message)
                 }
                 else {
-                    showSnackBar(response.data.message)
+                    showSnackBar(response.message)
                 }
 
             } else {
-                showSnackBar("OOps! Error Occured.")
+                showSnackBar(this.getResources().getString(R.string.error_occured) + "    ${response}");
                 Log.e("rspSnak", "else error")
             }
         })
@@ -148,12 +152,12 @@ class FollowingFragment(var userId: String) : BaseFragment() {
                 Log.e("rspGetaddtodoDetails", response.status.toString())
 
                 if (response.status == 1) {
-                    showSnackBar(response.data.message)
+                    showSnackBar(response.message)
                 } else {
-                    showSnackBar(response.data.message)
+                    showSnackBar(response.message)
                 }
             } else {
-                showSnackBar("OOps! Error Occured.")
+                showSnackBar(this.getResources().getString(R.string.error_occured) + "    ${response}");
                 Log.e("rspGetaddtodoFail", "else error")
             }
         })
@@ -172,12 +176,12 @@ class FollowingFragment(var userId: String) : BaseFragment() {
                 Log.e("rspGetaddtodoDetails", response.status.toString())
 
                 if (response.status == 1) {
-                    showSnackBar(response.data.message)
+                    showSnackBar(response.message)
                 } else {
-                    showSnackBar(response.data.message)
+                    showSnackBar(response.message)
                 }
             } else {
-                showSnackBar("OOps! Error Occured.")
+                showSnackBar(this.getResources().getString(R.string.error_occured) + "    ${response}");
                 Log.e("rspGetaddtodoFail", "else error")
             }
         })

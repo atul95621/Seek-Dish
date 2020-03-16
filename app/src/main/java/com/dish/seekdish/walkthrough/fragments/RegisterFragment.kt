@@ -37,8 +37,6 @@ import com.twitter.sdk.android.core.TwitterConfig
 import com.twitter.sdk.android.core.TwitterAuthConfig
 import retrofit2.Response
 import java.util.*
-
-
 class RegisterFragment : BaseFragment(), IRegisterFragView {
 
 
@@ -86,6 +84,7 @@ class RegisterFragment : BaseFragment(), IRegisterFragView {
                 setLocale("en")
             }
             langId = sessionManager.getLangValue(SessionManager.LANGUAGE_HOME_ACTIVITY)
+            Log.e("langii",langId)
             sessionManager.setValues(SessionManager.LANGUAGE_ID, langId)
         }
 
@@ -245,7 +244,7 @@ class RegisterFragment : BaseFragment(), IRegisterFragView {
                     imageUrl,
                     sessionManager.getValue(SessionManager.FCM_TOKEN),
                     facebookUserId,
-                    langId
+                    sessionManager.getLangValue(SessionManager.LANGUAGE_HOME_ACTIVITY)
                 )
 
 //                ProgressBarClass.dialog.dismiss()
@@ -389,7 +388,7 @@ class RegisterFragment : BaseFragment(), IRegisterFragView {
                         imageProfileUrl,
                         sessionManager.getValue(SessionManager.FCM_TOKEN),
                         user.id.toString(),
-                        langId
+                        sessionManager.getLangValue(SessionManager.LANGUAGE_HOME_ACTIVITY)
                     )
 
                 }
@@ -415,64 +414,54 @@ class RegisterFragment : BaseFragment(), IRegisterFragView {
     override fun onFacebookSiginDetails(result: Boolean, response: Response<SignUpModel>) {
         if (result == true) {
 
-
-            Log.e("respFbSignupCode", response.code().toString() + "")
-            Log.e("respFbSignupStatus", " " + response.body()?.status)
-            Log.e("respFbSignupString", " " + response.body().toString())
-            Log.e("respFbSignuperror", " " + response.errorBody().toString())
-
-            // saving that user is already logged in
-            sessionManager?.setValues(SessionManager.LOGGEDIN, "1")
-
             var signUpModel = response.body() as SignUpModel
+            if (signUpModel.status == 1) {
+                // saving that user is already logged in
+                sessionManager?.setValues(SessionManager.LOGGEDIN, "1")
+                sessionManager.setValues(SessionManager.USERNAME, signUpModel.data.username)
+                sessionManager.setValues(SessionManager.FIRST_NAME, signUpModel.data.first_name)
+                sessionManager.setValues(SessionManager.LAST_NAME, signUpModel.data.last_name)
+                sessionManager.setValues(SessionManager.EMAIL, signUpModel.data.email)
+                sessionManager.setValues(SessionManager.USER_ID, signUpModel.data.id.toString())
+                sessionManager.setValues(SessionManager.PHOTO_URL, signUpModel.data.photo)
 
-            sessionManager.setValues(SessionManager.USERNAME, signUpModel.data.username)
-            sessionManager.setValues(SessionManager.FIRST_NAME, signUpModel.data.first_name)
-            sessionManager.setValues(SessionManager.LAST_NAME, signUpModel.data.last_name)
-            sessionManager.setValues(SessionManager.EMAIL, signUpModel.data.email)
-            sessionManager.setValues(SessionManager.USER_ID, signUpModel.data.id.toString())
-            sessionManager.setValues(SessionManager.PHOTO_URL, signUpModel.data.photo)
 
+                val intent = Intent(mcontext, HomeActivity::class.java)
+                intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+                mcontext.startActivity(intent)
 
-            val intent = Intent(mcontext, HomeActivity::class.java)
-            intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
-            mcontext.startActivity(intent)
-
+            } else {
+                showSnackBar(signUpModel.message)
+            }
 
         } else {
-            showSnackBar(getResources().getString(R.string.error_occured));
+            showSnackBar(getResources().getString(R.string.error_occured) + "  ${response.code()}");
         }
     }
 
     override fun onTwitterSiginDetails(result: Boolean, response: Response<SignUpModel>) {
         if (result == true) {
-
-
-            Log.e("respTwitterSignupCode", response.code().toString() + "")
-            Log.e("respTwitterSignupStatus", " " + response.body()?.status)
-            Log.e("respTwitterSignupString", " " + response.body().toString())
-            Log.e("respTwitterSignuperror", " " + response.errorBody().toString())
+            var signUpModel = response.body() as SignUpModel
+            if (signUpModel.status == 1) {
 
 // saving that user is already logged in
-            sessionManager?.setValues(SessionManager.LOGGEDIN, "1")
+                sessionManager?.setValues(SessionManager.LOGGEDIN, "1")
+                sessionManager.setValues(SessionManager.USERNAME, signUpModel.data.username)
+                sessionManager.setValues(SessionManager.FIRST_NAME, signUpModel.data.first_name)
+                sessionManager.setValues(SessionManager.LAST_NAME, signUpModel.data.last_name)
+                sessionManager.setValues(SessionManager.EMAIL, signUpModel.data.email)
+                sessionManager.setValues(SessionManager.USER_ID, signUpModel.data.id.toString())
+                sessionManager.setValues(SessionManager.PHOTO_URL, signUpModel.data.photo)
 
-
-            var signUpModel = response.body() as SignUpModel
-
-            sessionManager.setValues(SessionManager.USERNAME, signUpModel.data.username)
-            sessionManager.setValues(SessionManager.FIRST_NAME, signUpModel.data.first_name)
-            sessionManager.setValues(SessionManager.LAST_NAME, signUpModel.data.last_name)
-            sessionManager.setValues(SessionManager.EMAIL, signUpModel.data.email)
-            sessionManager.setValues(SessionManager.USER_ID, signUpModel.data.id.toString())
-            sessionManager.setValues(SessionManager.PHOTO_URL, signUpModel.data.photo)
-
-            val intent = Intent(mcontext, HomeActivity::class.java)
-            intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
-            mcontext.startActivity(intent)
-
+                val intent = Intent(mcontext, HomeActivity::class.java)
+                intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+                mcontext.startActivity(intent)
+            } else {
+                showSnackBar(signUpModel.message)
+            }
 
         } else {
-            showSnackBar(getResources().getString(R.string.error_occured));
+            showSnackBar(getResources().getString(R.string.error_occured) + "  ${response.code()}");
         }
     }
 

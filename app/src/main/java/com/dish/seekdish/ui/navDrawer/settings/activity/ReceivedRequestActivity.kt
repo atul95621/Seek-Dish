@@ -83,24 +83,30 @@ class ReceivedRequestActivity : BaseActivity() {
 
                 if (response.code().toString().equals("200")) {
                     var modelObj = response.body() as ReceivedRequestDataClass
-                    if (modelObj.data.size == 0) {
-                        tvAlert.visibility = View.VISIBLE
-                        recyclerView?.visibility = View.VISIBLE
-                    } else {
-                        arrayList = modelObj.data
-                        adapter = ReceivedRequestAdapter(arrayList, this@ReceivedRequestActivity)
-                        recyclerView!!.setAdapter(adapter)
-                    }
+                    if(modelObj.status==1) {
+                        if (modelObj.data.size == 0) {
+                            tvAlert.visibility = View.VISIBLE
+                            recyclerView?.visibility = View.VISIBLE
+                        } else {
+                            arrayList = modelObj.data
+                            adapter =
+                                ReceivedRequestAdapter(arrayList, this@ReceivedRequestActivity)
+                            recyclerView!!.setAdapter(adapter)
+                        }
 //                    iSignUpView.onSetLoggedin(true, response)
-
+                    }
+                    else
+                    {
+                        showSnackBar(modelObj.message)
+                    }
                 } else {
 //                    iSignUpView.onSetLoggedin(false, response)
-                    showSnackBar(resources.getString(R.string.error_occured));
+                    showSnackBar(resources.getString(R.string.error_occured) + "    ${response.code()}");
                 }
             }
 
             override fun onFailure(call: Call<ReceivedRequestDataClass>, t: Throwable) {
-                showSnackBar(resources.getString(R.string.error_occured));
+                showSnackBar(resources.getString(R.string.error_occured) + "    ${t.message}");
                 call.cancel()
                 // canceling the progress bar
                 ProgressBarClass.dialog.dismiss()
@@ -124,7 +130,7 @@ class ReceivedRequestActivity : BaseActivity() {
         ProgressBarClass.progressBarCalling(this)
         apiInterface = APIClient.getClient(this).create(APIInterface::class.java)
         val call = apiInterface.doAcceptReq(
-            sessionManager?.getValue(SessionManager.USER_ID).toString(), SenderuserId.toString()
+            SenderuserId.toString(),sessionManager?.getValue(SessionManager.USER_ID).toString()
         )
         call.enqueue(object : Callback<CancelReModel> {
             override fun onResponse(
@@ -136,20 +142,19 @@ class ReceivedRequestActivity : BaseActivity() {
                 var model = response.body() as CancelReModel
                 if (response.code().toString().equals("200")) {
                     if (model.status == 1) {
-                        showSnackBar(model.data.message)
+                        showSnackBar(model.message)
                         reqApiHit()
                     } else {
-                        showSnackBar(model.data.message)
+                        showSnackBar(model.message)
                     }
                 } else {
-                    showSnackBar(resources.getString(R.string.error_occured));
+                    showSnackBar(resources.getString(R.string.error_occured)  +"   ${response.code()}");
                 }
             }
 
             override fun onFailure(call: Call<CancelReModel>, t: Throwable) {
 
-                showSnackBar(resources.getString(R.string.error_occured));
-
+                showSnackBar(resources.getString(R.string.error_occured)+"   ${t.message}");
                 call.cancel()
                 // canceling the progress bar
                 ProgressBarClass.dialog.dismiss()
@@ -176,18 +181,18 @@ class ReceivedRequestActivity : BaseActivity() {
                 if (response.code().toString().equals("200")) {
                     var model = response.body() as CancelReModel
                     if (model.status == 1) {
-                        showSnackBar(model.data.message)
+                        showSnackBar(model.message)
                         reqApiHit()
                     } else {
-                        showSnackBar(model.data.message)
+                        showSnackBar(model.message)
                     }
                 } else {
-                    showSnackBar(resources.getString(R.string.error_occured));
+                    showSnackBar(resources.getString(R.string.error_occured) + "    ${response.code()}")
                 }
             }
 
             override fun onFailure(call: Call<CancelReModel>, t: Throwable) {
-                showSnackBar(resources.getString(R.string.error_occured));
+                showSnackBar(resources.getString(R.string.error_occured) + "    ${t.message}")
                 call.cancel()
                 // canceling the progress bar
                 ProgressBarClass.dialog.dismiss()

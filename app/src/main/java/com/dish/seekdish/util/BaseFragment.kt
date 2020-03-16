@@ -27,6 +27,7 @@ import android.graphics.drawable.BitmapDrawable
 import android.graphics.drawable.Drawable
 import android.util.DisplayMetrics
 import com.dish.seekdish.R
+import com.dish.seekdish.ui.navDrawer.myFriends.MyFriendsFragment
 import com.google.android.gms.maps.model.BitmapDescriptor
 import com.google.android.gms.maps.model.BitmapDescriptorFactory
 import java.text.ParseException
@@ -264,4 +265,6 @@ open class BaseFragment : Fragment() {
         }
         return newDate
     }
+
+
 }

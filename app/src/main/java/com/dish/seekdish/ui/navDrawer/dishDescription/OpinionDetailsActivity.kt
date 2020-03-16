@@ -72,7 +72,7 @@ class OpinionDetailsActivity : BaseActivity() {
                 Log.e("rspGetaddtodoDetails", response.status.toString())
 
                 if (response.status == 1) {
-                    showSnackBar(response.data.message)
+                    showSnackBar(response.message)
                 }
             } else {
                 showSnackBar("OOps! Error Occured.")
@@ -94,7 +94,7 @@ class OpinionDetailsActivity : BaseActivity() {
                 Log.e("rspGetaddtodoDetails", response.status.toString())
 
                 if (response.status == 1) {
-                    showSnackBar(response.data.message)
+                    showSnackBar(response.message)
                 }
             } else {
                 showSnackBar("OOps! Error Occured.")

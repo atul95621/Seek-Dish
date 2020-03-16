@@ -90,19 +90,17 @@ class InvitationSettingsActivity : BaseActivity() {
                     var modelObj = response.body() as CancelReModel
 
                     if (modelObj.status == 0) {
-
-                        showSnackBar(resources.getString(R.string.error_occured));
-
+                        showSnackBar(modelObj.message);
                     } else {
-                        showSnackBar(modelObj.data.message);
+                        showSnackBar(modelObj.message);
                     }
                 } else {
-                    showSnackBar(resources.getString(R.string.error_occured));
+                    showSnackBar(resources.getString(R.string.error_occured)+"  ${response.code()}");
                 }
             }
 
             override fun onFailure(call: Call<CancelReModel>, t: Throwable) {
-                showSnackBar(resources.getString(R.string.error_occured));
+                showSnackBar(resources.getString(R.string.error_occured)+"  ${t.message}");
 
                 call.cancel()
                 // canceling the progress bar

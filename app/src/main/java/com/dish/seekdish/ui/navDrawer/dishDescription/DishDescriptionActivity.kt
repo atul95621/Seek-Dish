@@ -313,12 +313,13 @@ class DishDescriptionActivity : BaseActivity(), Serializable {
                         )
                     )
                 }
+                else
+                {
+                    showSnackBar(response.message)
+                }
 
             } else {
-
-
-                showSnackBar("OOps! Error Occured.")
-
+                showSnackBar(resources.getString(R.string.error_occured)  +"  $response")
                 Log.e("rspGetDishDetailsFail", "else error")
 
             }
@@ -337,23 +338,22 @@ class DishDescriptionActivity : BaseActivity(), Serializable {
         dishDescriptionVM!!.getAddTodoLiveData.observe(this, Observer { response ->
             if (response != null) {
 
-                Log.e("rspGetaddtodoDetails", response.status.toString())
+                Log.e("rspGetaddtodoDetails", response.toString())
 
                 if (response.status == 1) {
-
 //                    onSendClick(response.data.message)
                     actionDialog.dismiss()
-                    showSnackBar(response.data.message)
-
+                    showSnackBar(response.message)
+                }
+                else
+                {
+                    showSnackBar(response.message)
                 }
 
             } else {
-
-
-                showSnackBar("OOps! Error Occured.")
-
+                showSnackBar(getResources().getString(R.string.error_occured)+"     $response ");
+//                showSnackBar("OOps! Error Occured.")
                 Log.e("rspGetaddtodoFail", "else error")
-
             }
         })
     }
@@ -370,20 +370,21 @@ class DishDescriptionActivity : BaseActivity(), Serializable {
         dishDescriptionVM!!.getAddFavouriteLiveData.observe(this, Observer { response ->
             if (response != null) {
 
-                Log.e("rspGetaddtodoDetails", response.status.toString())
+                Log.e("rspGetaddtodoDetailsd", response.toString())
 
                 if (response.status == 1) {
-
 //                    onSendClick(response.data.message)
                     actionDialog.dismiss()
-                    showSnackBar(response.data.message)
-
+                    showSnackBar(response.message)
+                }
+                else
+                {
+                    showSnackBar(response.message)
                 }
 
             } else {
-                showSnackBar("OOps! Error Occured.")
+                showSnackBar(getResources().getString(R.string.error_occured)+"   $response ");
                 Log.e("rspGetaddtodoFail", "else error")
-
             }
         })
     }
@@ -461,7 +462,6 @@ class DishDescriptionActivity : BaseActivity(), Serializable {
 
         }
 
-
         tvAddtodo.setOnClickListener()
         {
             if (connectionDetector.isConnectingToInternet) {
@@ -475,9 +475,7 @@ class DishDescriptionActivity : BaseActivity(), Serializable {
             }
 
         }
-
         actionDialog.show()
-
     }
 
 
@@ -536,7 +534,8 @@ class DishDescriptionActivity : BaseActivity(), Serializable {
 
 
         //setting dots with viewpager...
-        springDotsIndicator.setViewPager(pager)
+//        springDotsIndicator.setViewPager(pager)
+    springDotsIndicator.visibility=View.GONE
     }
 
 //Nothing special about this adapterPager, just throwing up colored views for demo

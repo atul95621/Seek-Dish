@@ -4,7 +4,8 @@ package com.dish.seekdish.ui.navDrawer.restaurants.dataClass
 
 data class RestroMapModel(
     val `data`: ArrayList<Data_Restro_Map>,
-    val status: Int
+    val status: Int,
+    val message: String
 )
 
 data class Data_Restro_Map(

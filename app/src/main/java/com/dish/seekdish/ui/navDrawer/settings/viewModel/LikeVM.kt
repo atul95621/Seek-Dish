@@ -130,7 +130,7 @@ class LikeVM : ViewModel() {
                 //finally we are setting the list to our MutableLiveData
                 saveLikedLiveData.postValue(response.body())
 
-                saveLikedLiveData.value = response.body()
+//                saveLikedLiveData.value = response.body()
                 Log.e("respoGetLiked", response.body().toString())
 
             }
@@ -140,7 +140,6 @@ class LikeVM : ViewModel() {
                 // making progress bar invisible
                 isLoadingSubject.onNext(false)
                 Log.e("respoGetLikedFail", "failure")
-
                 saveLikedLiveData.postValue(null)
 
 

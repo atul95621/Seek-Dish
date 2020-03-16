@@ -302,7 +302,9 @@ class RestroDescrpActivity : BaseActivity() {
         pager.clipChildren = false
 
         //setting dots with viewpager...
-        springDotsIndicator.setViewPager(pager)
+//        springDotsIndicator.setViewPager(pager)
+        springDotsIndicator.visibility=View.GONE
+
     }
 
 //Nothing special about this adapterPager, just throwing up colored views for demo
@@ -410,8 +412,12 @@ class RestroDescrpActivity : BaseActivity() {
                         )
                     )
                 }
+                else
+                {
+                    showSnackBar(response.message)
+                }
             } else {
-                showSnackBar("OOps! Error Occured.")
+                showSnackBar(this.getResources().getString(R.string.error_occured) + "    $response");
                 Log.e("rspGetDishDetailsFail", "else error")
 
             }
@@ -490,10 +496,14 @@ class RestroDescrpActivity : BaseActivity() {
             if (response != null) {
                 if (response.status == 1) {
                     actionDialog.dismiss()
-                    showSnackBar(response.data.message)
+                    showSnackBar(response.message)
+                }
+                else
+                {
+                    showSnackBar(response.message)
                 }
             } else {
-                showSnackBar("OOps! Error Occured.")
+                showSnackBar(this.getResources().getString(R.string.error_occured) + "    $response");
             }
         })
     }

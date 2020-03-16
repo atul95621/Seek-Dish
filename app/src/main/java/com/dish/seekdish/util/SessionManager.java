@@ -20,6 +20,11 @@ public class SessionManager {
     public static final String WALKTHROUGH = "walkthrough";
     public static final String LOGGEDIN = "loggedin";
 
+    public static final String REMEMBER = "remember";
+    public static final String REMEMBER_EMAIL = "remember_email";
+    public static final String REMEMBER_PASSWORD= "remember_password";
+
+
     // STORING THE MAIN COORDINATES=================
     public static final String LATITUDE = "lattitude";
     public static final String LONGITUDE = "longitude";
@@ -45,7 +50,7 @@ public class SessionManager {
     public static final String EMAIL = "email";
     public static final String USER_ID = "user_id";
     public static final String BIO = "bio";
-    public static final String LANGUAGE_ID = "languageId";
+    public static final String LANGUAGE_ID = "";
     public static final String RADIUS = "radius";
     public static final String LANGUAGE_HOME_ACTIVITY = "lang_home";
     public static final String LANGUAGE_CODE = "languageCode";
@@ -82,6 +87,11 @@ public class SessionManager {
     public void clearCetainValue(String key) {
         editor.remove(key);
         editor.apply();
+    }
+
+    public void clearOtherSessionValue(String key) {
+        editorLang.remove(key);
+        editorLang.apply();
     }
 
     // for saving the language activity lang

@@ -75,7 +75,7 @@ class RatingCommentVM : ViewModel() {
                 //finally we are setting the list to our MutableLiveData
                 getRatingLiveData.postValue(response.body())
 
-                getRatingLiveData.value = response.body()
+//                getRatingLiveData.value = response.body()
                 Log.e("rsppostcomment", response.body().toString())
 
             }

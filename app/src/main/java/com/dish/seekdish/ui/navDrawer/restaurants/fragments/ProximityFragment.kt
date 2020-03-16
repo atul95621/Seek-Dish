@@ -172,8 +172,12 @@ class ProximityFragment : BaseFragment() {
                         }
                     }
                 }
+                else
+                {
+                    showSnackBar(response.message)
+                }
             } else {
-                showSnackBar("OOps! Error Occured.")
+                showSnackBar(resources.getString(R.string.error_occured) + "    $response");
             }
         })
     }
@@ -226,7 +230,7 @@ class ProximityFragment : BaseFragment() {
                     }
                 }
             } else {
-                showSnackBar("OOps! Error Occured.")
+                showSnackBar(this.getResources().getString(R.string.error_occured) + "    $response");
             }
         })
     }

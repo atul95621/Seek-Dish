@@ -88,10 +88,14 @@ class CheckinActivity : BaseActivity() {
                         }
 
                     }
+                    else
+                    {
+                        showSnackBar(modelObj.message)
+                    }
 
                 } else {
 //                    iSignUpView.onSetLoggedin(false, response)
-                    showSnackBar(resources.getString(R.string.error_occured));
+                    showSnackBar(resources.getString(R.string.error_occured)+"  ${response.code()}");
                 }
             }
 
@@ -99,7 +103,7 @@ class CheckinActivity : BaseActivity() {
 
 //                Log.e("responseFailure", " " + t.toString())
 
-                showSnackBar(resources.getString(R.string.error_occured));
+                showSnackBar(resources.getString(R.string.error_occured)+"  ${t.message}");
 
                 call.cancel()
                 // canceling the progress bar

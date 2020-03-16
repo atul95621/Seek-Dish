@@ -74,7 +74,7 @@ class NotificationFarg : BaseFragment() {
             )*/
         val call =
             apiInterface.getNotificationList(
-                "210"
+                sessionManager.getValue(SessionManager.USER_ID)
             )
         call.enqueue(object : Callback<NotifyModel> {
             override fun onResponse(
@@ -88,8 +88,6 @@ class NotificationFarg : BaseFragment() {
 
                     var modelObj = response.body() as NotifyModel
                     if (modelObj.status == 1) {
-
-
                         arrayList = modelObj.data
                         if (arrayList.isEmpty()) {
                             recyclerView?.visibility = View.INVISIBLE
@@ -100,16 +98,15 @@ class NotificationFarg : BaseFragment() {
                             recyclerView!!.setAdapter(adapter)
                         }
                     } else {
-                        showSnackBar(resources.getString(R.string.error_occured));
-
+                        showSnackBar(modelObj.message);
                     }
                 } else {
-                    showSnackBar(resources.getString(R.string.error_occured));
+                    showSnackBar(resources.getString(R.string.error_occured)+"  ${response.code()}");
                 }
             }
 
             override fun onFailure(call: Call<NotifyModel>, t: Throwable) {
-                showSnackBar(resources.getString(R.string.error_occured));
+                showSnackBar(resources.getString(R.string.error_occured)+"  ${t.message}");
 
                 call.cancel()
                 // canceling the progress bar

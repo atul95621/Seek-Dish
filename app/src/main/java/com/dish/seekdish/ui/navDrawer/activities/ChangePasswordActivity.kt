@@ -75,11 +75,13 @@ class ChangePasswordActivity : BaseActivity() {
                     var modelObj = response.body() as CancelReModel
 
                     if (modelObj.status == 1) {
-                        showSnackBar(modelObj.data.message)
+                        showSnackBar(modelObj.message)
+                    } else {
+                        showSnackBar(modelObj.message)
                     }
 
                 } else {
-                    showSnackBar(getResources().getString(R.string.error_occured));
+                    showSnackBar(getResources().getString(R.string.error_occured) + "  ${response.code()}");
                 }
 
 

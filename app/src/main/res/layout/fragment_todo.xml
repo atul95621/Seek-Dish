@@ -44,9 +44,15 @@
     </LinearLayout>
 
     <androidx.viewpager.widget.ViewPager
+        android:visibility="gone"
             android:id="@+id/viewPagerTodoFrag"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
     />
 
+    <FrameLayout
+        android:background="@color/white"
+        android:id="@+id/content_todo_fragment"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
 </LinearLayout>

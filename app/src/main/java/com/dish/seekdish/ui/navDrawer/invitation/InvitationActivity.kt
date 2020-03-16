@@ -269,12 +269,9 @@ class InvitationActivity : BaseActivity() {
                 ProgressBarClass.dialog.dismiss()
                 Log.e("respStr", " " + response.body().toString())
                 if (response.code().toString().equals("200")) {
-
                     var modelObj = response.body() as InvitationModel
-
                     if (modelObj.status == 0) {
-
-                        showSnackBar(resources.getString(R.string.error_occured));
+                        showSnackBar(modelObj.message);
 
                     } else {
                         var imageUrl: String = modelObj.data.restaurant_image
@@ -300,12 +297,12 @@ class InvitationActivity : BaseActivity() {
                         Log.e("heii", "enerd")
                     }
                 } else {
-                    showSnackBar(resources.getString(R.string.error_occured));
+                    showSnackBar(resources.getString(R.string.error_occured)  +"   ${response.code()}");
                 }
             }
 
             override fun onFailure(call: Call<InvitationModel>, t: Throwable) {
-                showSnackBar(resources.getString(R.string.error_occured));
+                showSnackBar(resources.getString(R.string.error_occured)+"  ${t.message}");
 
                 call.cancel()
                 // canceling the progress bar
@@ -337,17 +334,18 @@ class InvitationActivity : BaseActivity() {
 
                     var modelObj = response.body() as CancelReModel
                     if (modelObj.status == 1) {
-                        onInvitationSendClick("Your invitation sent successfully.")
+                        onInvitationSendClick(modelObj.message)
+
                     } else {
-                        showSnackBar(modelObj.data.message);
+                        showSnackBar(modelObj.message);
                     }
                 } else {
-                    showSnackBar(resources.getString(R.string.error_occured));
+                    showSnackBar(resources.getString(R.string.error_occured)  +"   ${response.code()}");
                 }
             }
 
             override fun onFailure(call: Call<CancelReModel>, t: Throwable) {
-                showSnackBar(resources.getString(R.string.error_occured));
+                showSnackBar(resources.getString(R.string.error_occured)   +"   ${t.message}");
                 call.cancel()
                 // canceling the progress bar
                 ProgressBarClass.dialog.dismiss()
@@ -378,19 +376,19 @@ class InvitationActivity : BaseActivity() {
 
                     var modelObj = response.body() as CancelReModel
                     if (modelObj.status == 1) {
-                        onInvitationSendClick(modelObj.data.message)
+                        onInvitationSendClick(modelObj.message)
                         linBottomOption.visibility = View.VISIBLE
                         linOptionNotifi.visibility = View.GONE
                     } else {
-                        showSnackBar(modelObj.data.message);
+                        showSnackBar(modelObj.message);
                     }
                 } else {
-                    showSnackBar(resources.getString(R.string.error_occured));
+                    showSnackBar(resources.getString(R.string.error_occured)  +"   ${response.code()}");
                 }
             }
 
             override fun onFailure(call: Call<CancelReModel>, t: Throwable) {
-                showSnackBar(resources.getString(R.string.error_occured));
+                showSnackBar(resources.getString(R.string.error_occured)  +"   ${t.message}");
                 call.cancel()
                 // canceling the progress bar
                 ProgressBarClass.dialog.dismiss()

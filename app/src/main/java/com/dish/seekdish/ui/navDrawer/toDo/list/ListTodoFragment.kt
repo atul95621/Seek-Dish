@@ -102,11 +102,14 @@ class ListTodoFragment() : BaseFragment() {
                         recyclerView!!.setAdapter(adapter)
                     }
                 }
+                else
+                {
+                    showSnackBar(response.message)
+                }
 
             } else {
 
-
-                showSnackBar("OOps! Error Occured.")
+                showSnackBar(resources.getString(R.string.error_occured)  +"    ${response}")
 
                 Log.e("rspSnak", "else error")
 
@@ -135,15 +138,16 @@ class ListTodoFragment() : BaseFragment() {
                         adapter?.removeItem(positionRecycler)*/
                         arrayList.clear()
                         getTodoList()
-                        showSnackBar(response.data.message)
+                        showSnackBar(response.message)
                     }
+                }
+                else
+                {
+                    showSnackBar(response.message)
                 }
 
             } else {
-
-
-                showSnackBar("OOps! Error Occured.")
-
+                showSnackBar(resources.getString(R.string.error_occured)  +"    ${response}")
                 Log.e("rspSnak", "else error")
 
             }

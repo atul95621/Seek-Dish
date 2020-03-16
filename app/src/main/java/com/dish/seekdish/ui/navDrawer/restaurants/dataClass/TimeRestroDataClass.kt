@@ -4,7 +4,8 @@ package com.dish.seekdish.ui.navDrawer.restaurants.dataClass
 
 data class TimeRestroDataClass(
     val `data`: ArrayList<Data_Time_Restro>,
-    val status: Int
+    val status: Int,
+    val message: String
 )
 
 data class Data_Time_Restro(

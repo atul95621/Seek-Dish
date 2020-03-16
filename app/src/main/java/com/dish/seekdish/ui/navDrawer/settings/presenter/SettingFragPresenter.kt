@@ -56,12 +56,11 @@ class SettingFragPresenter(private val iSettingView: ISettingView, val homeActiv
                 Log.e("responseFailure", " " + t.toString())
 
 
-                homeActivity.showSnackBar(homeActivity.getResources().getString(R.string.error_occured));
+                homeActivity.showSnackBar(homeActivity.getResources().getString(R.string.error_occured) + "  ${t.message}");
 
                 call.cancel()
                 // canceling the progress bar
                 ProgressBarClass.dialog.dismiss()
-
             }
         })
     }
@@ -74,9 +73,7 @@ class SettingFragPresenter(private val iSettingView: ISettingView, val homeActiv
         checkboxPrivate: String,
         radius: Int
     ) {
-
         ProgressBarClass.progressBarCalling(homeActivity)
-
         apiInterface = APIClient.getClient(homeActivity).create(APIInterface::class.java)
 
 
@@ -111,7 +108,7 @@ class SettingFragPresenter(private val iSettingView: ISettingView, val homeActiv
 
                 Log.e("responseFailure", " " + t.toString())
 
-                homeActivity.showSnackBar(homeActivity.getResources().getString(R.string.error_occured));
+                homeActivity.showSnackBar(homeActivity.getResources().getString(R.string.error_occured) + "  ${t.message}");
 
                 call.cancel()
                 // canceling the progress bar
@@ -160,7 +157,7 @@ class SettingFragPresenter(private val iSettingView: ISettingView, val homeActiv
 
                 Log.e("responseFailure", " " + t.toString())
 
-                homeActivity.showSnackBar(homeActivity.getResources().getString(R.string.error_occured));
+                homeActivity.showSnackBar(homeActivity.getResources().getString(R.string.error_occured) + "  ${t.message}");
 
                 call.cancel()
                 // canceling the progress bar
@@ -205,15 +202,11 @@ class SettingFragPresenter(private val iSettingView: ISettingView, val homeActiv
             }
 
             override fun onFailure(call: Call<SaveLanguageModel>, t: Throwable) {
-
                 Log.e("responseFailure", " " + t.toString())
-
-                homeActivity.showSnackBar(homeActivity.getResources().getString(R.string.error_occured));
-
+                homeActivity.showSnackBar(homeActivity.getResources().getString(R.string.error_occured) + "  ${t.message}");
                 call.cancel()
                 // canceling the progress bar
                 ProgressBarClass.dialog.dismiss()
-
             }
         })
     }

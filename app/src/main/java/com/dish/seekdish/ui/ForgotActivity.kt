@@ -13,6 +13,7 @@ import com.dish.seekdish.custom.ProgressBarClass
 import com.dish.seekdish.retrofit.APIClient
 import com.dish.seekdish.retrofit.APIInterface
 import com.dish.seekdish.ui.login.LoginActivity
+import com.dish.seekdish.ui.navDrawer.settings.dataModel.CancelReModel
 import com.dish.seekdish.walkthrough.WalkThroughActivity
 import com.google.gson.JsonObject
 import kotlinx.android.synthetic.main.activity_forgot.*
@@ -25,7 +26,6 @@ import retrofit2.Response
 class ForgotActivity : BaseActivity() {
 
     internal lateinit var apiInterface: APIInterface
-
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -59,43 +59,33 @@ class ForgotActivity : BaseActivity() {
         apiInterface = APIClient.getClient(this).create(APIInterface::class.java)
 
         val call = apiInterface.forgotPassword(email)
-        call.enqueue(object : Callback<JsonObject> {
-            override fun onResponse(call: Call<JsonObject>, response: Response<JsonObject>) {
+        call.enqueue(object : Callback<CancelReModel> {
+            override fun onResponse(call: Call<CancelReModel>, response: Response<CancelReModel>) {
 
                 ProgressBarClass.dialog.dismiss()
 
                 if (response.code().toString().equals("200")) {
 
-                    val jsonObject: JsonObject = response.body()!!
 
 //                    Log.e("responseforgot", " " + response.body().toString())
-                    if (response.code() == 200) {
-                        val status: String = jsonObject.get("status").toString()
-//                        Log.e("responseStatus", " " + status)
-
-                        if (status.equals("1")) {
-                            val jsonDataObj: JsonObject = jsonObject.getAsJsonObject("data");
-                            val message: String = jsonDataObj.get("message").toString()
-
-                            //dialog open
-                            onSendClick(message)
-
-                        }
+                    var model = response.body() as CancelReModel
+                    if (model.status == 1) {
+                        //dialog open
+                        onSendClick(model.message)
+                    } else {
+                        showSnackBar(model.message)
                     }
-
                 } else {
-                    showSnackBar(getResources().getString(R.string.error_occured));
+                    showSnackBar(resources.getString(R.string.error_occured) + "  ${response.code()}");
                 }
 
 
             }
 
-            override fun onFailure(call: Call<JsonObject>, t: Throwable) {
+            override fun onFailure(call: Call<CancelReModel>, t: Throwable) {
 
-                showSnackBar(getResources().getString(R.string.error_occured));
-
+                showSnackBar(resources.getString(R.string.error_occured) + "  ${t.message}");
                 call.cancel()
-
                 ProgressBarClass.dialog.dismiss()
 
             }
@@ -111,7 +101,7 @@ class ForgotActivity : BaseActivity() {
         val textViewDescrp = dialog.findViewById<TextView>(R.id.textViewDescrp)
         val btnAccept = dialog.findViewById<Button>(R.id.btnAccept)
 //        textViewDescrp.setText(message)
-        textViewDescrp.setText("An e-mail containing a temporary password token has been sent to you.")
+        textViewDescrp.setText(message)
         // button_yes clk
         btnAccept.setOnClickListener {
             dialog.dismiss()

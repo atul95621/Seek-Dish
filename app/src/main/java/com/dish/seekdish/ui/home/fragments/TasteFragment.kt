@@ -51,7 +51,6 @@ class TasteFragment : BaseFragment(), GoogleApiClient.ConnectionCallbacks,
     GoogleApiClient.OnConnectionFailedListener,
     LocationListener {
 
-
     private var mGoogleApiClient: GoogleApiClient? = null
     private var mLocationRequest: LocationRequest? = null
 
@@ -166,7 +165,6 @@ class TasteFragment : BaseFragment(), GoogleApiClient.ConnectionCallbacks,
                 return isLoading
             }
 
-
             override fun loadMoreItems() {
                 Log.e("loadMoreItems ", "hitted")
 
@@ -268,6 +266,20 @@ class TasteFragment : BaseFragment(), GoogleApiClient.ConnectionCallbacks,
         }
 
         mFusedLocationClient = LocationServices.getFusedLocationProviderClient(homeActivity)
+        mFusedLocationClient?.lastLocation?.addOnSuccessListener { location->
+            if (location != null) {
+                currentLatitude = location.latitude
+                currentLongitude = location.longitude
+                Log.e("locsss", "${location.latitude},   ${location.longitude}")
+
+
+                //now loading the meals at current location if user came to app after login
+                mealForCurrentLOcation()
+
+//                checkAndSaveLocation()
+
+            }
+        }
 
         mGoogleApiClient = GoogleApiClient.Builder(homeActivity)
             // The next two lines tell the new client that “this” current class will handle connection stuff
@@ -298,7 +310,27 @@ class TasteFragment : BaseFragment(), GoogleApiClient.ConnectionCallbacks,
         if (!checkLocation()) {
             showAlert()
         }
+    }
 
+    fun mealForCurrentLOcation()
+    {
+        // in if loading current location meals   && in else saving the current location coordinates
+        if (homeActivity.connectionDetector.isConnectingToInternet) {
+            if (sessionManager.getValue(SessionManager.LATITUDE).isNullOrEmpty() == true && sessionManager.getValue(
+                    SessionManager.LONGITUDE
+                ).isNullOrEmpty() == true
+            ) {
+                //hitting api
+                sessionManager.setValues(SessionManager.LATITUDE, currentLatitude.toString())
+                sessionManager.setValues(SessionManager.LONGITUDE, currentLongitude.toString())
+                getTasteMeals(pageNumber)
+            } else {
+                sessionManager.setValues(SessionManager.CURRENT_LATITUDE, currentLatitude.toString())
+                sessionManager.setValues(SessionManager.CURRENT_LONGITUDE, currentLongitude.toString())
+            }
+        } else {
+            showSnackBar(getString(R.string.check_connection))
+        }
     }
 
 
@@ -409,6 +441,11 @@ class TasteFragment : BaseFragment(), GoogleApiClient.ConnectionCallbacks,
 //        if (updateLatLong == false) {
         //check connection
 
+//      checkAndSaveLocation()
+    }
+
+    fun checkAndSaveLocation()
+    {
         if (sessionManager.getValue(SessionManager.LOCATION_STATUS).equals("0")  ||sessionManager.getValue(SessionManager.LOCATION_STATUS).equals("") ) {
             if (homeActivity.connectionDetector.isConnectingToInternet) {
 
@@ -424,40 +461,24 @@ class TasteFragment : BaseFragment(), GoogleApiClient.ConnectionCallbacks,
                     )
                 }
 
-                /* else {
-                     // hit lat long api here WITH THE COORDITAE SELECTED BY USER
-                     tasteFragVM?.getCurrentLocation(
-                         sessionManager.getValue(SessionManager.USER_ID),
-                         sessionManager.getValue(SessionManager.LONGITUDE),
-                         sessionManager.getValue(SessionManager.LATITUDE)
-                     )
-
-                     *//*Log.e(
-                    "selectCordTaste",
-                    " " + "longi: " + sessionManager.getValue(SessionManager.LONGITUDE_SELECTED) + "lati:" + sessionManager.getValue(
-                        SessionManager.LATITUDE_SELECTED
-                    )
-                )*//*
-                }*/
             } else {
                 showSnackBar(getString(R.string.check_connection))
             }
         }
-//        }
 
-          //SAVE TO LOCAL
-          if (currentLatitude != 0.0 && currentLongitude != 0.0) {
-             /* sessionManager.setValues(SessionManager.LATITUDE, currentLatitude.toString())
-              sessionManager.setValues(SessionManager.LONGITUDE, currentLongitude.toString())*/
+        //SAVE TO LOCAL
+        if (currentLatitude != 0.0 && currentLongitude != 0.0) {
+            /* sessionManager.setValues(SessionManager.LATITUDE, currentLatitude.toString())
+             sessionManager.setValues(SessionManager.LONGITUDE, currentLongitude.toString())*/
 
-              // this will always have current live postition of the user
-              sessionManager.setValues(SessionManager.CURRENT_LATITUDE, currentLatitude.toString())
-              sessionManager.setValues(SessionManager.CURRENT_LONGITUDE, currentLongitude.toString())
-              Log.e("current_location", "$currentLatitude ,   $currentLongitude")
-
+            // this will always have current live postition of the user
+            sessionManager.setValues(SessionManager.CURRENT_LATITUDE, currentLatitude.toString())
+            sessionManager.setValues(SessionManager.CURRENT_LONGITUDE, currentLongitude.toString())
+            Log.e("current_location", "$currentLatitude ,   $currentLongitude")
 
 
-          }
+
+        }
     }
 
 
@@ -658,11 +679,14 @@ class TasteFragment : BaseFragment(), GoogleApiClient.ConnectionCallbacks,
                             adapter = TasteFragAdapter(conxt, arrayList, homeActivity)
                             recyclerView!!.adapter = adapter
                         }
-
                     }
                 }
+                else
+                {
+                    showSnackBar(response.message)
+                }
             } else {
-                showSnackBar("OOps! Error Occured.")
+                showSnackBar(resources.getString(R.string.error_occured)  +"   $response");
                 Log.e("rspSnak", "else error")
             }
         })
@@ -703,8 +727,12 @@ class TasteFragment : BaseFragment(), GoogleApiClient.ConnectionCallbacks,
                         " " + sessionManager.getValue(SessionManager.LONGITUDE)
                     )
                 }
+                else
+                {
+//                    showSnackBar(response.message)
+                }
             } else {
-                showSnackBar("OOps! Error Occured.")
+//                showSnackBar("OOps! Error Occured.")
                 Log.e("rspSnak", "else error")
             }
         })
@@ -797,7 +825,7 @@ class TasteFragment : BaseFragment(), GoogleApiClient.ConnectionCallbacks,
                     }
                 }
             } else {
-                showSnackBar("OOps! Error Occured.")
+                showSnackBar(getResources().getString(R.string.error_occured));
             }
         })
     }

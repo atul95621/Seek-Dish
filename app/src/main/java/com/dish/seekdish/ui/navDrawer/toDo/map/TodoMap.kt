@@ -234,10 +234,13 @@ class TodoMap() : BaseFragment(), OnMapReadyCallback, GoogleMap.OnMyLocationButt
                         )
                     }
                 }
+                else
+                {
+                    showSnackBar(response.message)
+                }
 
             } else {
-                showSnackBar("OOps! Error Occured.")
-
+                showSnackBar(resources.getString(R.string.error_occured)+"  $response");
                 Log.e("rspMaperror", "else error")
 
             }

@@ -85,7 +85,7 @@ class FriendVM : ViewModel() {
 
                 //finally we are setting the list to our MutableLiveData
                 getRemoveFrndLiveData.postValue(response.body())
-                getRemoveFrndLiveData.value = response.body()
+//                getRemoveFrndLiveData.value = response.body()
                 Log.e("respoGetFav", response.body().toString())
 
             }
@@ -122,7 +122,7 @@ class FriendVM : ViewModel() {
 
                 //finally we are setting the list to our MutableLiveData
                 getRemoveFollwLiveData.postValue(response.body())
-                getRemoveFollwLiveData.value = response.body()
+//                getRemoveFollwLiveData.value = response.body()
                 Log.e("respoGetFav", response.body().toString())
 
             }
@@ -159,7 +159,7 @@ class FriendVM : ViewModel() {
                 //finally we are setting the list to our MutableLiveData
                 getFollowingReqLiveData.postValue(response.body())
 
-                getFollowingReqLiveData.value = response.body()
+//                getFollowingReqLiveData.value = response.body()
                 Log.e("respGetDetails", response.body().toString())
 
             }
@@ -197,7 +197,7 @@ class FriendVM : ViewModel() {
                 //finally we are setting the list to our MutableLiveData
                 getFriendReqLiveData.postValue(response.body())
 
-                getFriendReqLiveData.value = response.body()
+//                getFriendReqLiveData.value = response.body()
                 Log.e("respGetDetails", response.body().toString())
 
             }

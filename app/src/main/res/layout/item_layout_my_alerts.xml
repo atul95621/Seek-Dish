@@ -26,7 +26,7 @@
             app:civ_border_width="0dp" />
 
         <LinearLayout
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_marginStart="15dp"
             android:layout_weight="7"
@@ -40,6 +40,7 @@
                 android:layout_weight="1"
                 android:fontFamily="@font/assistantregular"
                 android:paddingTop="5dp"
+                android:singleLine="true"
                 android:text="Opinion Title"
                 android:textColor="@color/black"
                 android:textSize="16sp" />
@@ -51,12 +52,14 @@
                 android:layout_weight="1"
                 android:fontFamily="@font/assistantregular"
                 android:paddingTop="3dp"
+                android:singleLine="true"
+                android:maxLines="1"
                 android:text="Opinion Date"
                 android:textSize="14sp" />
         </LinearLayout>
 
         <LinearLayout
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:gravity="end"
             android:paddingEnd="10dp"
             android:layout_height="wrap_content"

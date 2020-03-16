@@ -36,11 +36,10 @@ class LanguageActivity : BaseActivity(), ILanguageView {
     internal var langArr = ArrayList<String>()
     var sessionManager: SessionManager? = null;
     lateinit var languagePresenter: LanguagePresenter
-
     var languageId: Int = 0
     var languageName: String = ""
     var dialog: Dialog? = null
-    var languageCode=""
+    var languageCode = ""
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -75,25 +74,30 @@ class LanguageActivity : BaseActivity(), ILanguageView {
 
 
             tvNext.setOnClickListener {
-
-                if (tvLanguageSelect.text.toString() === "Select language")
+                if (tvLanguageSelect.text.toString() == "Select language") {
                     showSnackBar("Please select language")
+                }
                 else {
                     sessionManager?.setValues(SessionManager.LANGUAGE_ID, languageId.toString())
-                    sessionManager?.savesSessionLang(SessionManager.LANGUAGE_NAME, languageName.toString())
+                    sessionManager?.savesSessionLang(
+                        SessionManager.LANGUAGE_NAME,
+                        languageName.toString()
+                    )
                     sessionManager?.savesSessionLang(SessionManager.IS_LANGUAGE_SELECTED, "1")
                     sessionManager?.savesSessionLang(
                         SessionManager.LANGUAGE_HOME_ACTIVITY,
                         languageId.toString()
                     )
-                    sessionManager?.savesSessionLang(SessionManager.LANGUAGE_CODE, languageCode.toString())
+                    sessionManager?.savesSessionLang(
+                        SessionManager.LANGUAGE_CODE,
+                        languageCode.toString()
+                    )
                     // changing the langugae
                     setLocale(languageCode)
                     val intent = Intent(this@LanguageActivity, WalkThroughActivity::class.java)
                     intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
                     startActivity(intent)
                 }
-
             }
         }
 
@@ -124,9 +128,11 @@ class LanguageActivity : BaseActivity(), ILanguageView {
         if (result == true) {
             val languageData = response.body() as LanguageData
 
-            if (languageData.status == 1)
-
+            if (languageData.status == 1) {
                 showDialog(languageData.data)
+            } else {
+                showSnackBar(languageData.message)
+            }
 
         } else {
             showSnackBar(this.getResources().getString(R.string.error_occured));
@@ -176,8 +182,6 @@ class LanguageActivity : BaseActivity(), ILanguageView {
         dialog?.show();
 
     }
-
-
 
 
 }

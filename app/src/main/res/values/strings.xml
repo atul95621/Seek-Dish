@@ -24,7 +24,7 @@
     <string name="_15">(15)</string>
     <string name="opinion_1">Opinions</string>
     <string name="check_connection">Please check Internet Connection.</string>
-    <string name="error_occured">Error Occured! Try Later.</string>
+    <string name="error_occured">Error Occured! Try Later. Error code:</string>
     <!--facebook keys ids-->
     <string name="facebook_app_id">354887285188219</string>
     <string name="fb_login_protocol_scheme">fb354887285188219</string>
@@ -246,4 +246,5 @@
     <string name="dislikess">Dislikes</string>
     <string name="checkinns">Check-In</string>
     <string name="of_profile">of Profile</string>
+    <string name="username_length" />
 </resources>

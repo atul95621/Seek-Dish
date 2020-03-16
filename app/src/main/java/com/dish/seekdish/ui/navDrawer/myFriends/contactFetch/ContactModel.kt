@@ -25,7 +25,8 @@ class ContactModel {
 
 data class ContactsDetailsModel(
     val `data`: ArrayList<Data>,
-    val status: Int
+    val status: Int,
+    val message:String
 )
 
 data class Data(

@@ -8,7 +8,8 @@ data class ProximityDataClass(
 
 data class ProximityDataClass(
     val `data`: ArrayList<Data_Proximity>,
-    val status: Int
+    val status: Int,
+    val message: String
 )
 
 data class Data_Proximity(

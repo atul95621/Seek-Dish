@@ -39,12 +39,8 @@ class DishDescriptionVM : ViewModel() {
 
         // making progress bar visible
         isLoadingSubject.onNext(true)
-
-
         var api = APIClientMvvm.client.create(APIInterface::class.java)
-
         val call = api.getMealDetails(userId, meal_id, restaurant_id, longitude, latitude)
-
         call.enqueue(object : Callback<DishDescpModel> {
             override fun onResponse(call: Call<DishDescpModel>, response: Response<DishDescpModel>) {
 
@@ -95,7 +91,7 @@ class DishDescriptionVM : ViewModel() {
                 //finally we are setting the list to our MutableLiveData
                 getAddTodoLiveData.postValue(response.body())
 
-                getAddTodoLiveData.value = response.body()
+//                getAddTodoLiveData.value = response.body()
                 Log.e("rspAddtodo", response.body().toString())
             }
 
@@ -135,7 +131,7 @@ class DishDescriptionVM : ViewModel() {
                 //finally we are setting the list to our MutableLiveData
                 getAddFavouriteLiveData.postValue(response.body())
 
-                getAddFavouriteLiveData.value = response.body()
+//                getAddFavouriteLiveData.value = response.body()
                 Log.e("rspAddtodo", response.body().toString())
 
             }
@@ -214,7 +210,7 @@ class DishDescriptionVM : ViewModel() {
                 //finally we are setting the list to our MutableLiveData
                 getFollowingReqLiveData.postValue(response.body())
 
-                getFollowingReqLiveData.value = response.body()
+//                getFollowingReqLiveData.value = response.body()
                 Log.e("respGetDetails", response.body().toString())
 
             }

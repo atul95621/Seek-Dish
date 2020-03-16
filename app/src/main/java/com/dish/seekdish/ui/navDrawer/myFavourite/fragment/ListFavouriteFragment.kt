@@ -105,13 +105,12 @@ class ListFavouriteFragment : BaseFragment() {
                         adapter = ListFragAdapter(arrayList, homeActivity, this)
                         recyclerView!!.setAdapter(adapter)
                     }
+                } else {
+                    showSnackBar(response.message)
                 }
 
             } else {
-
-
-                showSnackBar("OOps! Error Occured.")
-
+                showSnackBar(this.getResources().getString(R.string.error_occured) + "    $response");
                 Log.e("rspSnak", "else error")
 
             }
@@ -138,15 +137,14 @@ class ListFavouriteFragment : BaseFragment() {
 
                         arrayList.clear()
                         getFavList()
-                        showSnackBar(response.data.message)
+                        showSnackBar(response.message)
                     }
+                } else {
+                    showSnackBar(response.message)
                 }
 
             } else {
-
-
-                showSnackBar("OOps! Error Occured.")
-
+                showSnackBar(this.getResources().getString(R.string.error_occured) + "    $response");
                 Log.e("rspSnak", "else error")
 
             }
@@ -164,7 +162,7 @@ class ListFavouriteFragment : BaseFragment() {
 
         view.edtSearchFavMeal.setOnClickListener()
         {
-            view.edtSearchFavMeal.isCursorVisible=true
+            view.edtSearchFavMeal.isCursorVisible = true
         }
 
         view.edtSearchFavMeal.addTextChangedListener(object : TextWatcher {
@@ -189,8 +187,8 @@ class ListFavouriteFragment : BaseFragment() {
                 if (view.edtSearchFavMeal.text.isNullOrEmpty() == false) {
                     filter(s.toString())
                 } else {
-                    rvFavList.visibility=View.VISIBLE
-                    tvFavAlert.visibility=View.GONE
+                    rvFavList.visibility = View.VISIBLE
+                    tvFavAlert.visibility = View.GONE
                     getFavList()
                 }
             }
@@ -204,16 +202,13 @@ class ListFavouriteFragment : BaseFragment() {
                 filteredItems.add(d)
             }
         }
-        if(filteredItems.size==0)
-        {
-            rvFavList.visibility=View.GONE
-            tvFavAlert.visibility=View.VISIBLE
-            tvFavAlert.text=getResources().getString(R.string.no_todo)
-        }
-        else
-        {
-            rvFavList.visibility=View.VISIBLE
-            tvFavAlert.visibility=View.GONE
+        if (filteredItems.size == 0) {
+            rvFavList.visibility = View.GONE
+            tvFavAlert.visibility = View.VISIBLE
+            tvFavAlert.text = getResources().getString(R.string.no_todo)
+        } else {
+            rvFavList.visibility = View.VISIBLE
+            tvFavAlert.visibility = View.GONE
         }
         //update recyclerview
         adapter?.updateList(filteredItems)

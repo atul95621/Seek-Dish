@@ -113,7 +113,7 @@ class DislikeActivity : BaseActivity() {
 
         edtSearch.setOnClickListener()
         {
-            edtSearch.isCursorVisible=true
+            edtSearch.isCursorVisible = true
         }
 
         tvAdd.setOnClickListener()
@@ -226,12 +226,12 @@ class DislikeActivity : BaseActivity() {
                         }
                     }
 
+                } else {
+                    showSnackBar(response.message)
                 }
 
             } else {
-
-
-                showSnackBar("OOps! Error Occured.")
+                showSnackBar(this.getResources().getString(R.string.error_occured) + "    ${response}");
 
                 Log.e("rspSnak", "else error")
 
@@ -275,25 +275,20 @@ class DislikeActivity : BaseActivity() {
                 Log.e("rspsaveDisLikedStat", response.status.toString())
 
                 if (response.status == 1) {
-                    showSnackBar(response.data.message)
+                    showSnackBar(response.message)
 
                     Handler().postDelayed({
                         val returnIntent = Intent()
                         setResult(Activity.RESULT_CANCELED, returnIntent)
                         finish()
                     }, 1000)
-                }
-                else
-                {
-                    showSnackBar(response.data.message)
+                } else {
+                    showSnackBar(response.message)
                 }
 
             } else {
-
-
-                showSnackBar("OOps! Error Occured.")
+                showSnackBar(this.getResources().getString(R.string.error_occured) + "    ${response}");
                 Log.e("rspsaveLikedError", "else error")
-
             }
         })
     }
@@ -328,13 +323,12 @@ class DislikeActivity : BaseActivity() {
                     }
 
 
+                } else {
+                    showSnackBar(response.message)
                 }
 
             } else {
-
-
-                showSnackBar("OOps! Error Occured.")
-
+                showSnackBar(this.getResources().getString(R.string.error_occured) + "    ${response}");
                 Log.e("rspsearchSnak", "else error")
 
             }

@@ -95,7 +95,7 @@ class DisLikeVM : ViewModel() {
                 //finally we are setting the list to our MutableLiveData
                 saveDisLikedLiveData.postValue(response.body())
 
-                saveDisLikedLiveData.value = response.body()
+//                saveDisLikedLiveData.value = response.body()
                 Log.e("respoGetDisLiked", response.body().toString())
 
             }

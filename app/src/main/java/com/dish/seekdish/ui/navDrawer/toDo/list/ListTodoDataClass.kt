@@ -7,7 +7,8 @@ data class ListTodoDataClass(
 */
 data class ListTodoDataClass(
     val `data`: ArrayList<Data_todo>,
-    val status: Int
+    val status: Int,
+    val message: String
 )
 
 data class Data_todo(
@@ -27,7 +28,8 @@ data class Data_todo(
 
 data class DeleteTodoList(
     val `data`: Data_Delete_TOdo,
-    val status: Int
+    val status: Int,
+    val message: String
 )
 
 data class Data_Delete_TOdo(

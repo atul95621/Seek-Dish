@@ -94,6 +94,7 @@ internal interface APIInterface {
     fun doTwitterSignup(
         @Field("email") email: String,
         @Field("first_name") first_name: String,
+        @Field("last_name") last_name: String,
         @Field("photo") photoUrl: String,
         @Field("fcm_token") fcm_token: String,
         @Field("provider_id") twitter_id: String,
@@ -105,15 +106,16 @@ internal interface APIInterface {
     fun doLogIn(
         @Field("email") email: String,
         @Field("password") password: String,
-        @Field("language_id")language_id:String
-    ): Call<LoginDataClass>
+        @Field("language_id")language_id:String,
+        @Field("fcm_token") fcm_token: String
+        ): Call<LoginDataClass>
 
 
     @POST("create_token")
     @FormUrlEncoded
     fun forgotPassword(
         @Field("email") email: String
-    ): Call<JsonObject>
+    ): Call<CancelReModel>
 
 
     @POST("reset_password")
@@ -123,7 +125,7 @@ internal interface APIInterface {
         @Field("token") tokenPassword: String,
         @Field("password") password: String,
         @Field("c_password") confirmPassword: String
-    ): Call<JsonObject>
+    ): Call<CancelReModel>
 
 
 
@@ -133,7 +135,6 @@ internal interface APIInterface {
         @Field("user_id") userId: String,
         @Field("longitude") longitude: String,
         @Field("latitude") latitude: String
-
     ): Call<Location>
 
 
@@ -141,7 +142,6 @@ internal interface APIInterface {
     @POST("get_user_settings")
     fun getGeneralSetting(
         @Field("user_id") userId: String
-
     ): Call<SettingDataClass>
 
     @FormUrlEncoded

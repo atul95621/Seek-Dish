@@ -45,8 +45,15 @@
 
     <androidx.viewpager.widget.ViewPager
             android:id="@+id/pager"
+        android:visibility="gone"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
     />
+    <FrameLayout
+        android:background="@color/white"
+        android:id="@+id/content_friends_fragment"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+
 
 </LinearLayout>

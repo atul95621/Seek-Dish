@@ -32,6 +32,8 @@ class LoginActivity : BaseActivity(), ILoginView {
         loginPresenter = LoginPresenter(this, this@LoginActivity)
         sessionManager = SessionManager(this)
 
+        getSavedCred()
+
 
         tvValidate.setOnClickListener()
         {
@@ -48,12 +50,16 @@ class LoginActivity : BaseActivity(), ILoginView {
                 if (connectionDetector.isConnectingToInternet) {
 
                     //calling api
-                    loginPresenter.login(edtEmail.text.toString(), edtPassword.text.toString(),sessionManager?.getValue(SessionManager.LANGUAGE_ID).toString())
+                    loginPresenter.login(
+                        edtEmail.text.toString(),
+                        edtPassword.text.toString(),
+                        sessionManager?.getValue(SessionManager.LANGUAGE_ID).toString(),
+                        sessionManager?.getValue(SessionManager.FCM_TOKEN).toString()
+                    )
                 } else {
                     showSnackBar(resources.getString(R.string.check_connection))
                 }
             }
-
 
         }
         tvForgot.setOnClickListener()
@@ -69,6 +75,13 @@ class LoginActivity : BaseActivity(), ILoginView {
         }
 
 
+    }
+
+    private fun getSavedCred() {
+        if (sessionManager?.getLangValue(SessionManager.REMEMBER).equals("1")) {
+            edtEmail.setText(sessionManager?.getLangValue(SessionManager.REMEMBER_EMAIL).toString())
+            edtPassword.setText(sessionManager?.getLangValue(SessionManager.REMEMBER_PASSWORD).toString())
+        }
     }
 
     override fun onSetLoggedin(result: Boolean, response: Response<LoginDataClass>) {
@@ -88,32 +101,52 @@ class LoginActivity : BaseActivity(), ILoginView {
 
             val loginmodel = response.body() as LoginDataClass
 
-            sessionManager?.setValues(SessionManager.USERNAME, loginmodel.data.username)
-            sessionManager?.setValues(SessionManager.FIRST_NAME, loginmodel.data.first_name)
-            sessionManager?.setValues(SessionManager.LAST_NAME, loginmodel.data.last_name)
-            sessionManager?.setValues(SessionManager.EMAIL, loginmodel.data.email)
-            sessionManager?.setValues(SessionManager.PHONE, loginmodel.data.phone)
-            sessionManager?.setValues(SessionManager.USER_ID, loginmodel.data.id.toString())
-            sessionManager?.setValues(
-                SessionManager.COUNTRY_CODE,
-                loginmodel.data.country_code.toString()
-            )
-            sessionManager?.setValues(SessionManager.PHOTO_URL, loginmodel.data.photo)
-            sessionManager?.setValues(SessionManager.FCM_TOKEN, loginmodel.data.fcm_token)
-            sessionManager?.setValues(SessionManager.GENDER, loginmodel.data.gender)
-            sessionManager?.setValues(SessionManager.BIO, loginmodel.data.bio)
+            if(loginmodel.status==1) {
+                sessionManager?.setValues(SessionManager.USERNAME, loginmodel.data.username)
+                sessionManager?.setValues(SessionManager.FIRST_NAME, loginmodel.data.first_name)
+                sessionManager?.setValues(SessionManager.LAST_NAME, loginmodel.data.last_name)
+                sessionManager?.setValues(SessionManager.EMAIL, loginmodel.data.email)
+                sessionManager?.setValues(SessionManager.PHONE, loginmodel.data.phone)
+                sessionManager?.setValues(SessionManager.USER_ID, loginmodel.data.id.toString())
+                sessionManager?.setValues(
+                    SessionManager.COUNTRY_CODE,
+                    loginmodel.data.country_code.toString()
+                )
+                sessionManager?.setValues(SessionManager.PHOTO_URL, loginmodel.data.photo)
+                sessionManager?.setValues(SessionManager.FCM_TOKEN, loginmodel.data.fcm_token)
+                sessionManager?.setValues(SessionManager.GENDER, loginmodel.data.gender)
+                sessionManager?.setValues(SessionManager.BIO, loginmodel.data.bio)
 
-            if (checkboxRememberMe.isChecked) {
-                sessionManager?.setValues(SessionManager.LOGGEDIN, "1")
+                if (checkboxRememberMe.isChecked) {
+                    sessionManager?.setValues(SessionManager.LOGGEDIN, "1")
+                    // saving the credentails
+                    sessionManager?.savesSessionLang(SessionManager.REMEMBER, "1")
+                    sessionManager?.savesSessionLang(
+                        SessionManager.REMEMBER_EMAIL,
+                        edtEmail.text.toString()
+                    )
+                    sessionManager?.savesSessionLang(
+                        SessionManager.REMEMBER_PASSWORD,
+                        edtPassword.text.toString()
+                    )
+                } else {
+                    sessionManager?.clearOtherSessionValue(SessionManager.REMEMBER)
+                    sessionManager?.clearOtherSessionValue(SessionManager.REMEMBER_EMAIL)
+                    sessionManager?.clearOtherSessionValue(SessionManager.REMEMBER_PASSWORD)
+                }
+
+
+                val intent = Intent(this@LoginActivity, HomeActivity::class.java)
+                intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+                startActivity(intent)
+            }
+            else
+            {
+                showSnackBar(loginmodel.message)
             }
 
-
-            val intent = Intent(this@LoginActivity, HomeActivity::class.java)
-            intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
-            startActivity(intent)
-
         } else {
-            showSnackBar(resources.getString(R.string.error_occured))
+            showSnackBar(resources.getString(R.string.error_occured)  +"    ${response.code()}")
         }
     }
 

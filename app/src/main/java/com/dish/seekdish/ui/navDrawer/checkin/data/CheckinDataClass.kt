@@ -5,7 +5,8 @@ package com.dish.seekdish.ui.navDrawer.checkin.data
 
 data class CheckinModel(
     val `data`: ArrayList<Data_Checkin>,
-    val status: Int
+    val status: Int,
+    val message:String
 )
 
 data class Data_Checkin(

@@ -34,7 +34,6 @@ class SentRequestActivity : BaseActivity() {
     private var adapter: SentRequestAdapter? = null
     internal lateinit var layoutManager: RecyclerView.LayoutManager
     internal var arrayList = ArrayList<Data_Req>()
-
     internal lateinit var apiInterface: APIInterface
     var sessionManager: SessionManager? = null;
 
@@ -67,12 +66,11 @@ class SentRequestActivity : BaseActivity() {
         }
 
 
-
-      /*  for (i in 0..6) {
-            val tasteData = SentRequestDataClass("imageUrl", "Cocatre Chansophao");
-            arrayList.add(tasteData)
-        }
-*/
+        /*  for (i in 0..6) {
+              val tasteData = SentRequestDataClass("imageUrl", "Cocatre Chansophao");
+              arrayList.add(tasteData)
+          }
+  */
 
 
     }
@@ -93,7 +91,8 @@ class SentRequestActivity : BaseActivity() {
         apiInterface = APIClient.getClient(this).create(APIInterface::class.java)
 
 
-        val call = apiInterface.sentReqList(sessionManager?.getValue(SessionManager.USER_ID).toString())
+        val call =
+            apiInterface.sentReqList(sessionManager?.getValue(SessionManager.USER_ID).toString())
         call.enqueue(object : Callback<ReceivedRequestDataClass> {
             override fun onResponse(
                 call: Call<ReceivedRequestDataClass>,
@@ -108,18 +107,20 @@ class SentRequestActivity : BaseActivity() {
                 if (response.code().toString().equals("200")) {
 
                     var modelObj = response.body() as ReceivedRequestDataClass
-
-                    if (modelObj.data.size == 0) {
-                        tvAlert.visibility = View.VISIBLE
-                    } else {
-                        arrayList=modelObj.data
-                        setRecyclerView(modelObj.data)
-                    }
+                    if (modelObj.status == 1) {
+                        if (modelObj.data.size == 0) {
+                            tvAlert.visibility = View.VISIBLE
+                        } else {
+                            arrayList = modelObj.data
+                            setRecyclerView(modelObj.data)
+                        }
 //                    iSignUpView.onSetLoggedin(true, response)
-
+                    } else {
+                        showSnackBar(modelObj.message)
+                    }
                 } else {
 //                    iSignUpView.onSetLoggedin(false, response)
-                    showSnackBar(resources.getString(R.string.error_occured));
+                    showSnackBar(resources.getString(R.string.error_occured) + "   ${response.code()}");
 
                 }
 
@@ -130,7 +131,7 @@ class SentRequestActivity : BaseActivity() {
 
 //                Log.e("responseFailure", " " + t.toString())
 
-                showSnackBar(resources.getString(R.string.error_occured));
+                showSnackBar(resources.getString(R.string.error_occured) + "   ${t.message}");
 
                 call.cancel()
                 // canceling the progress bar
@@ -159,22 +160,20 @@ class SentRequestActivity : BaseActivity() {
                 // canceling the progress bar
                 ProgressBarClass.dialog.dismiss()
                 if (response.code().toString().equals("200")) {
-
                     var model = response.body() as CancelReModel
-
                     if (model.status == 1) {
-                        showSnackBar(model.data.message)
+                        showSnackBar(model.message)
                         reqApiHit()
                     } else {
-                        showSnackBar(model.data.message)
+                        showSnackBar(model.message)
                     }
                 } else {
-                    showSnackBar(resources.getString(R.string.error_occured));
+                    showSnackBar(resources.getString(R.string.error_occured) + "   ${response.code()}");
                 }
             }
 
             override fun onFailure(call: Call<CancelReModel>, t: Throwable) {
-                showSnackBar(resources.getString(R.string.error_occured));
+                showSnackBar(resources.getString(R.string.error_occured) + "  ${t.message}");
                 call.cancel()
                 // canceling the progress bar
                 ProgressBarClass.dialog.dismiss()
@@ -185,7 +184,7 @@ class SentRequestActivity : BaseActivity() {
 
     fun setRecyclerView(data: ArrayList<Data_Req>) {
         arrayList = data
-        adapter = SentRequestAdapter(arrayList,this)
+        adapter = SentRequestAdapter(arrayList, this)
         recyclerView!!.setAdapter(adapter)
     }
 
@@ -193,7 +192,7 @@ class SentRequestActivity : BaseActivity() {
 
         edtSearchSent.setOnClickListener()
         {
-            edtSearchSent.isCursorVisible=true
+            edtSearchSent.isCursorVisible = true
         }
         edtSearchSent.addTextChangedListener(object : TextWatcher {
             override fun onTextChanged(

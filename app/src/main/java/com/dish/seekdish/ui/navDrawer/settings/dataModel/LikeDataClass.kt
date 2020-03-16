@@ -2,7 +2,8 @@ package com.dish.seekdish.ui.navDrawer.settings.dataModel
 
 data class LikeDataClass(
     val `data`: ArrayList<Data_Liked>,
-    val status: Int
+    val status: Int,
+    val message: String
 )
 
 data class Data_Liked(
@@ -15,7 +16,8 @@ data class Data_Liked(
 
 data class DisLikeDataClass(
     val `data`: ArrayList<Data_Disliked>,
-    val status: Int
+    val status: Int,
+    val message: String
 )
 
 data class Data_Disliked(
@@ -27,7 +29,8 @@ data class Data_Disliked(
 
 data class LikedIngredientsSaved(
     val `data`: DataResult,
-    val status: Int
+    val status: Int,
+    val message: String
 )
 
 data class DataResult(

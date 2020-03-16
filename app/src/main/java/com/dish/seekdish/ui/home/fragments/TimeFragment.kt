@@ -58,6 +58,8 @@ class TimeFragment : BaseFragment() {
         // Inflate the layout for this fragment
         homeActivity = activity as HomeActivity
 
+        Log.e("timee", "onCreateView Called")
+
         // hiding keyboard
         hideKeyBoard()
 
@@ -66,9 +68,18 @@ class TimeFragment : BaseFragment() {
 
         //check connection
         if (homeActivity.connectionDetector.isConnectingToInternet) {
+            if (sessionManager.getValue(SessionManager.LATITUDE).isNullOrEmpty() == false && sessionManager.getValue(
+                    SessionManager.LONGITUDE
+                ).isNullOrEmpty() == false
+            ) {
+                // when api app not having coordinates
+                showAlert(false, view)
 
-            //hitting api
-            getTimeMeals(pageNumber)
+                //hitting api
+                getTimeMeals(pageNumber)
+            } else {
+                showAlert(true, view)
+            }
 
         } else {
             showSnackBar(getString(R.string.check_connection))
@@ -84,20 +95,6 @@ class TimeFragment : BaseFragment() {
         recyclerView!!.setHasFixedSize(true)
         layoutManager = LinearLayoutManager(activity)
         recyclerView!!.setLayoutManager(layoutManager)
-
-        /*   for (i in 0..6) {
-               val tasteData = TimeFragDataClass("Manager", "Plat Origine", "1.45 Km", "4", "16", "2");
-               arrayList.add(tasteData)
-           }
-
-           adapter = TimeFragAdapter(arrayList,homeActivity)
-           recyclerView!!.setAdapter(adapter)*/
-
-
-        // these adapter is allocated memory and set on beacuse as so that focus of recyler does not go on top again
-       /* adapter = TimeFragAdapter(conxt, arrayList, homeActivity)
-        recyclerView!!.adapter = adapter*/
-
 
         recyclerView!!.addOnScrollListener(object : PaginationScrollListener(layoutManager) {
             override fun isLastPage(): Boolean {
@@ -133,36 +130,45 @@ class TimeFragment : BaseFragment() {
             }
         })
 
-   /*     view.edtSearch.addTextChangedListener(object : TextWatcher {
-            override fun afterTextChanged(p0: Editable?) {
+        /*     view.edtSearch.addTextChangedListener(object : TextWatcher {
+                 override fun afterTextChanged(p0: Editable?) {
 
-                // search like ingredient
-                var serchedText = edtSearch.text.toString();
+                     // search like ingredient
+                     var serchedText = edtSearch.text.toString();
 
-                if (serchedText != null && serchedText != "null" && serchedText != "") {
-                    flagSearch = true
-                    Log.e("textWatcher", "entered if scope")
-//                    getSearchedIngre(serchedText)
-                } else {
+                     if (serchedText != null && serchedText != "null" && serchedText != "") {
+                         flagSearch = true
+                         Log.e("textWatcher", "entered if scope")
+     //                    getSearchedIngre(serchedText)
+                     } else {
 
-                    Log.e("textWatcher", "entered else scope")
+                         Log.e("textWatcher", "entered else scope")
 
-                    flagSearch = false
-                    pageNumber = 1
-                    getTimeMeals(pageNumber)
+                         flagSearch = false
+                         pageNumber = 1
+                         getTimeMeals(pageNumber)
 
-                }
-            }
+                     }
+                 }
 
-            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
-            }
+                 override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+                 }
 
-            override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
-            }
-        })*/
+                 override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+                 }
+             })*/
 
 
         return view
+    }
+
+    private fun showAlert(alert: Boolean, view: View) {
+        if (alert == true) {
+            view.tvItemsAlert.visibility = View.VISIBLE
+
+        } else {
+            view.tvItemsAlert.visibility = View.GONE
+        }
     }
 
 
@@ -197,16 +203,19 @@ class TimeFragment : BaseFragment() {
                             alertShown = true
                         }
 
-                        if(pageNumber==1)
-                        {
+                        if (pageNumber == 1) {
                             adapter = TimeFragAdapter(conxt, arrayList, homeActivity)
                             recyclerView!!.adapter = adapter
                         }
                     }
+                } else {
+                    showSnackBar(response.message)
                 }
 
             } else {
-                showSnackBar("OOps! Error Occured.")
+                showSnackBar(resources.getString(R.string.error_occured)  +"  $response")
+                Log.e("rspSnakqq", "else error")
+
             }
         })
     }
@@ -265,12 +274,13 @@ class TimeFragment : BaseFragment() {
 //                    var arrySize = arrayList.size
                     if (response.data.isEmpty()) {
                         tvItemsAlert.visibility = View.VISIBLE
-                        tvItemsAlert.text=homeActivity.getResources().getString(R.string.no_meal_found)
+                        tvItemsAlert.text =
+                            homeActivity.getResources().getString(R.string.no_meal_found)
                         rvTimeFrag.visibility = View.GONE
                     } else {
                         tvItemsAlert.visibility = View.GONE
                         rvTimeFrag.visibility = View.VISIBLE
-                        searchArrayList=response.data
+                        searchArrayList = response.data
                         //setting adapter again
                         adapter = TimeFragAdapter(conxt, searchArrayList, homeActivity)
                         recyclerView!!.adapter = adapter
@@ -278,6 +288,8 @@ class TimeFragment : BaseFragment() {
                 }
             } else {
                 showSnackBar("OOps! Error Occured.")
+                Log.e("rspSnakww", "else error")
+
             }
         })
     }
@@ -287,7 +299,7 @@ class TimeFragment : BaseFragment() {
 
         view.edtSearchTime.setOnClickListener()
         {
-            view.edtSearchTime.isCursorVisible=true
+            view.edtSearchTime.isCursorVisible = true
         }
         view.edtSearchTime.addTextChangedListener(object : TextWatcher {
             override fun onTextChanged(
@@ -324,7 +336,7 @@ class TimeFragment : BaseFragment() {
     private fun getSearchedText() {
 //        Log.e("loadMoreItems", "entered getLikedIngre ")
         var radius: String = sessionManager.getValue(SessionManager.RADIUS)
-        if (radius.isNullOrEmpty()== false) {
+        if (radius.isNullOrEmpty() == false) {
             radius = sessionManager.getValue(SessionManager.RADIUS)
         } else {
             radius = "15"
@@ -337,6 +349,25 @@ class TimeFragment : BaseFragment() {
             sessionManager.getValue(SessionManager.LONGITUDE),
             sessionManager.getValue(SessionManager.LATITUDE),
             radius,
-            edtSearchTime.text.toString())
+            edtSearchTime.text.toString()
+        )
+    }
+
+    override fun onResume() {
+        super.onResume()
+        Log.e("timee", "onResume Called")
+
+    }
+
+    override fun onActivityCreated(savedInstanceState: Bundle?) {
+        super.onActivityCreated(savedInstanceState)
+        Log.e("timee", "onActivityCreated Called")
+
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        Log.e("timee", "onViewCreated Called")
+
     }
 }

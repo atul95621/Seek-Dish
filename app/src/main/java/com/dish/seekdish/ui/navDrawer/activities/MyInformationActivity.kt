@@ -222,7 +222,7 @@ class MyInformationActivity : BaseActivity(), IMyInformationView {
 
                     // compressing size of the image uploading
 //                    var finalFile = compressFile(file)
-                    var finalFile= bitmap?.let { saveBitmap(it,path) }
+                    var finalFile = bitmap?.let { saveBitmap(it, path) }
                     if (finalFile != null) {
                         var sizeAfter = finalFile.length().div(1024)
                         var sizeBefore = file.length().div(1024)
@@ -260,7 +260,7 @@ class MyInformationActivity : BaseActivity(), IMyInformationView {
                         stringConvertToRequestBody(edtCity.text.toString()),
                         stringConvertToRequestBody(countryId),
                         stringConvertToRequestBody(edtZipcode.text.toString()),
-                        stringConvertToRequestBody(spinnerBodyFat.selectedItem.toString()),
+                        stringConvertToRequestBody(bodyFat),
                         stringConvertToRequestBody(edtWeight.text.toString()),
                         stringConvertToRequestBody(edtHeight.text.toString()),
                         stringConvertToRequestBody(sessionManager!!.getValue(SessionManager.USER_ID)),
@@ -298,68 +298,68 @@ class MyInformationActivity : BaseActivity(), IMyInformationView {
     }
 
 
-  fun chooseImage() {
-      imagePicker = ImagePicker(this /*activity non null*/, null,
-          object : OnImagePickedListener {
-              override fun onImagePicked(imageUri: Uri) {
-                  //set flag to true
-                  imagePick = true
-                  //get image path from uri
+    fun chooseImage() {
+        imagePicker = ImagePicker(this /*activity non null*/, null,
+            object : OnImagePickedListener {
+                override fun onImagePicked(imageUri: Uri) {
+                    //set flag to true
+                    imagePick = true
+                    //get image path from uri
 //                    val path = getPath(imageUri)
-                  path = getRealPathFromURI(imageUri).toString()
-                  Log.e("path", path)
+                    path = getRealPathFromURI(imageUri).toString()
+                    Log.e("path", path)
 //                     Bitmap bmp = uriToBitmap(imageUri);
-                  if (path.isNullOrEmpty()==false) {
-                      //get bitmap from file path
-                      val bm = decodeSampledBitmapFromFile(path, 300, 300)
-                      try {
-                          //rotate bitmap to portrait if bitmap is orientated landscape
-                          val ei = ExifInterface(path)
-                          val orientation = ei.getAttributeInt(
-                              ExifInterface.TAG_ORIENTATION,
-                              ExifInterface.ORIENTATION_UNDEFINED
-                          )
-                          when (orientation) {
+                    if (path.isNullOrEmpty() == false) {
+                        //get bitmap from file path
+                        val bm = decodeSampledBitmapFromFile(path, 300, 300)
+                        try {
+                            //rotate bitmap to portrait if bitmap is orientated landscape
+                            val ei = ExifInterface(path)
+                            val orientation = ei.getAttributeInt(
+                                ExifInterface.TAG_ORIENTATION,
+                                ExifInterface.ORIENTATION_UNDEFINED
+                            )
+                            when (orientation) {
 
-                              ExifInterface.ORIENTATION_ROTATE_90 -> bitmap =
-                                  TransformationUtils.rotateImage(bm, 90)
+                                ExifInterface.ORIENTATION_ROTATE_90 -> bitmap =
+                                    TransformationUtils.rotateImage(bm, 90)
 
-                              ExifInterface.ORIENTATION_ROTATE_180 -> bitmap =
-                                  TransformationUtils.rotateImage(bm, 180)
+                                ExifInterface.ORIENTATION_ROTATE_180 -> bitmap =
+                                    TransformationUtils.rotateImage(bm, 180)
 
-                              ExifInterface.ORIENTATION_ROTATE_270 -> bitmap =
-                                  TransformationUtils.rotateImage(bm, 270)
+                                ExifInterface.ORIENTATION_ROTATE_270 -> bitmap =
+                                    TransformationUtils.rotateImage(bm, 270)
 
-                              ExifInterface.ORIENTATION_NORMAL -> bitmap = bm
-                              else -> bitmap = bm
-                          }
-                          // API TO BE STRIKE HERE FOR SUBMIT
-                          // profileFragmentPresenter.uploadProfilePic(rotatedBitmap);
-                          imgProfile.setImageBitmap(bitmap)
-                      } catch (e: IOException) {
-                          e.printStackTrace()
-                      }
-                  } else {
-                      val options = BitmapFactory.Options()
-                      // downsizing image as it throws OutOfMemory Exception for larger
-                      // images
-                      options.inSampleSize = 8
-                      bitmap = BitmapFactory.decodeFile(
-                          imageUri.path,
-                          options
-                      )
+                                ExifInterface.ORIENTATION_NORMAL -> bitmap = bm
+                                else -> bitmap = bm
+                            }
+                            // API TO BE STRIKE HERE FOR SUBMIT
+                            // profileFragmentPresenter.uploadProfilePic(rotatedBitmap);
+                            imgProfile.setImageBitmap(bitmap)
+                        } catch (e: IOException) {
+                            e.printStackTrace()
+                        }
+                    } else {
+                        val options = BitmapFactory.Options()
+                        // downsizing image as it throws OutOfMemory Exception for larger
+                        // images
+                        options.inSampleSize = 8
+                        bitmap = BitmapFactory.decodeFile(
+                            imageUri.path,
+                            options
+                        )
 
-                      path = imagePicker?.imageFile?.absoluteFile.toString()
+                        path = imagePicker?.imageFile?.absoluteFile.toString()
 //                        path = getImageUri(this@AnswerActivity, bitmap).toString()
-                      if (path != null && path != "" && path != "null") {
-                          // api hitting to upload the image
-                          imgProfile.setImageBitmap(bitmap)
-                      }
-                  }
-              }
-          })
-      imagePicker?.choosePicture(true)
-  }
+                        if (path != null && path != "" && path != "null") {
+                            // api hitting to upload the image
+                            imgProfile.setImageBitmap(bitmap)
+                        }
+                    }
+                }
+            })
+        imagePicker?.choosePicture(true)
+    }
 
     //images
     private fun requestImagePermission() {
@@ -430,7 +430,7 @@ class MyInformationActivity : BaseActivity(), IMyInformationView {
 
         // Creating adapter for spinner
         val languageSelectAdapter =
-            ArrayAdapter(this, android.R.layout.simple_spinner_item, genderArr)
+            ArrayAdapter(this, R.layout.spinner_item, genderArr)
 
         // Drop down layout style - list view with radio button
         languageSelectAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
@@ -454,7 +454,7 @@ class MyInformationActivity : BaseActivity(), IMyInformationView {
 
         // Creating adapter for spinner
         val bodyFatAdapter =
-            ArrayAdapter(this, android.R.layout.simple_spinner_item, bodyFatArr)
+            ArrayAdapter(this, R.layout.spinner_item, bodyFatArr)
 
         // Drop down layout style - list view with radio button
         bodyFatAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
@@ -577,13 +577,14 @@ class MyInformationActivity : BaseActivity(), IMyInformationView {
                              .into(imgProfile)
                      }*/
 
-                showSnackBar("Saved Successfully.")
+                showSnackBar(profileDataClass.message)
 
+            } else {
+                showSnackBar(profileDataClass.message)
             }
 
         } else {
-            showSnackBar(this.getResources().getString(R.string.error_occured));
-
+            showSnackBar(this.getResources().getString(R.string.error_occured) + "    ${response.code()}");
         }
 
     }
@@ -593,12 +594,14 @@ class MyInformationActivity : BaseActivity(), IMyInformationView {
         if (result == true) {
             val languageData = response.body() as LanguageData
 
-            if (languageData.status == 1)
+            if (languageData.status == 1) {
                 showDialogList(languageData.data, "Select Country")
+            } else {
+                showSnackBar(languageData.message)
+            }
 
         } else {
-            showSnackBar(this.getResources().getString(R.string.error_occured));
-
+            showSnackBar(this.getResources().getString(R.string.error_occured) + "    ${response.code()}");
         }
     }
 
@@ -611,7 +614,7 @@ class MyInformationActivity : BaseActivity(), IMyInformationView {
 //                showCitiesDialog(languageData.data,"Select City")
 
             } else {
-                showSnackBar(this.getResources().getString(R.string.error_occured));
+                showSnackBar(this.getResources().getString(R.string.error_occured) + "    ${response.code()}");
             }
         }
     }
@@ -651,12 +654,12 @@ class MyInformationActivity : BaseActivity(), IMyInformationView {
                 if (bodyFatVal.equals("Fat")) {
                     spinnerBodyFat.setSelection(3)
                 }
-                    if (profileDataClass.data.photo.isNullOrEmpty() == false) {
-                        GlideApp.with(this)
-                            .load(profileDataClass.data.photo)
-                            .placeholder(R.drawable.ic_user)
-                            .into(imgProfile)
-                    }/* else {
+                if (profileDataClass.data.photo.isNullOrEmpty() == false) {
+                    GlideApp.with(this)
+                        .load(profileDataClass.data.photo)
+                        .placeholder(R.drawable.ic_user)
+                        .into(imgProfile)
+                }/* else {
                         GlideApp.with(this)
                             .load(R.drawable.ic_user)
                             .placeholder(R.drawable.ic_user)
@@ -668,11 +671,12 @@ class MyInformationActivity : BaseActivity(), IMyInformationView {
 
                 Log.e("checkforId", " " + "COUNTRYiD: " + countryId + "   CitiId:  " + cityId)
 
+            } else {
+                showSnackBar(profileDataClass.message)
             }
 
         } else {
-            showSnackBar(this.getResources().getString(R.string.error_occured));
-
+            showSnackBar(this.getResources().getString(R.string.error_occured) + "    ${response.code()}");
         }
 
 

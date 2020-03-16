@@ -12,25 +12,24 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class RegisterFragPresenter(private val iRegisterFragView: IRegisterFragView, val context: WalkThroughActivity) {
+class RegisterFragPresenter(
+    private val iRegisterFragView: IRegisterFragView,
+    val context: WalkThroughActivity
+) {
 
     internal lateinit var apiInterface: APIInterface
 
-// facebook api
+    // facebook api
     fun facebookSigin(
-    email: String,
-    firstname: String,
-    lastName: String,
-    photoUrl: String,
-    fcmToken: String,
-    facebookUserId: String,
-    langId: String
-) {
-
-
+        email: String,
+        firstname: String,
+        lastName: String,
+        photoUrl: String,
+        fcmToken: String,
+        facebookUserId: String,
+        langId: String
+    ) {
         apiInterface = APIClient.getClient(context).create(APIInterface::class.java)
-
-
         val call = apiInterface.doFacebookSignup(
             email,
             firstname,
@@ -42,14 +41,12 @@ class RegisterFragPresenter(private val iRegisterFragView: IRegisterFragView, va
         )
         call.enqueue(object : Callback<SignUpModel> {
             override fun onResponse(call: Call<SignUpModel>, response: Response<SignUpModel>) {
-
-                context.showSnackBar(context.getResources().getString(R.string.error_occured));
-
-
                 // canceling the progress bar
                 ProgressBarClass.dialog.dismiss()
-
-                Log.e("pramsFacebook","EMAIL: "+ email +" FIRSTNAME  "+firstname+" LASTNAME  "+ lastName +"  PHOTO URL  "+photoUrl+ "   FCM TOKEN "+fcmToken+" FACEBOOK ID   "+facebookUserId)
+                Log.e(
+                    "pramsFacebook",
+                    "EMAIL: " + email + " FIRSTNAME  " + firstname + " LASTNAME  " + lastName + "  PHOTO URL  " + photoUrl + "   FCM TOKEN " + fcmToken + " FACEBOOK ID   " + facebookUserId
+                )
 
 
                 Log.e("responseFbSignupCode", response.code().toString() + "")
@@ -76,7 +73,7 @@ class RegisterFragPresenter(private val iRegisterFragView: IRegisterFragView, va
                 // canceling the progress bar
                 ProgressBarClass.dialog.dismiss()
 
-                context.showSnackBar(context.getResources().getString(R.string.error_occured));
+                context.showSnackBar(context.getResources().getString(R.string.error_occured)   +"   ${t.message}");
 
 
             }
@@ -97,12 +94,16 @@ class RegisterFragPresenter(private val iRegisterFragView: IRegisterFragView, va
 
         apiInterface = APIClient.getClient(context).create(APIInterface::class.java)
 
-        Log.e("pramsTwitter"," EMAIL:"+ email +" FIRSTNAME: "+firstname+" PHOTO URL: "+photoUrl+ " FCM TOKEN:"+fcmToken+" TWITTER ID:  "+twitter_id)
+        Log.e(
+            "pramsTwitter",
+            " EMAIL:" + email + " FIRSTNAME: " + firstname + " PHOTO URL: " + photoUrl + " FCM TOKEN:" + fcmToken + " TWITTER ID:  " + twitter_id
+        )
 
 
         val call = apiInterface.doTwitterSignup(
             email,
             firstname,
+            "",
             photoUrl,
             fcmToken,
             twitter_id,
@@ -138,7 +139,7 @@ class RegisterFragPresenter(private val iRegisterFragView: IRegisterFragView, va
                 // canceling the progress bar
                 ProgressBarClass.dialog.dismiss()
 
-                context.showSnackBar(context.getResources().getString(R.string.error_occured));
+                context.showSnackBar(context.getResources().getString(R.string.error_occured)  +"    ${t.message}");
 
 
             }

@@ -14,7 +14,8 @@ data class TasteFragDataClass(
 
 data class TasteFragDataClass(
     val `data`: ArrayList<Data_Taste>,
-    val status: Int
+    val status: Int,
+    val message: String
 )
 
 data class Data_Taste(
@@ -34,7 +35,8 @@ data class Data_Taste(
 
 data class Location(
     val `data`: Data,
-    val status: Int
+    val status: Int,
+    val message: String
 ) {
     data class Data(
         val latitude: String,

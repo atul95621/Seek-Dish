@@ -8,8 +8,8 @@ import com.dish.seekdish.custom.ProgressBarClass
 import com.dish.seekdish.retrofit.APIClient
 import com.dish.seekdish.retrofit.APIInterface
 import com.dish.seekdish.ui.login.LoginActivity
+import com.dish.seekdish.ui.navDrawer.settings.dataModel.CancelReModel
 import com.dish.seekdish.util.BaseActivity
-import com.google.gson.JsonObject
 import kotlinx.android.synthetic.main.activity_reset_password.*
 import retrofit2.Call
 import retrofit2.Callback
@@ -19,7 +19,7 @@ import retrofit2.Response
 class ResetPasswordActivity : BaseActivity() {
 
 
-        internal lateinit var apiInterface: APIInterface
+    internal lateinit var apiInterface: APIInterface
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -57,14 +57,19 @@ class ResetPasswordActivity : BaseActivity() {
         }
     }
 
-    fun resetPass(email: String, randomPassword: String, newPassword: String, confirmPassword: String) {
+    fun resetPass(
+        email: String,
+        randomPassword: String,
+        newPassword: String,
+        confirmPassword: String
+    ) {
 
         apiInterface = APIClient.getClient(this).create(APIInterface::class.java)
 
 
-        val call = apiInterface.resetPassword(email, randomPassword, newPassword,confirmPassword)
-        call.enqueue(object : Callback<JsonObject> {
-            override fun onResponse(call: Call<JsonObject>, response: Response<JsonObject>) {
+        val call = apiInterface.resetPassword(email, randomPassword, newPassword, confirmPassword)
+        call.enqueue(object : Callback<CancelReModel> {
+            override fun onResponse(call: Call<CancelReModel>, response: Response<CancelReModel>) {
 
                 ProgressBarClass.dialog.dismiss()
 
@@ -73,22 +78,16 @@ class ResetPasswordActivity : BaseActivity() {
 
                 if (response.code().toString().equals("200")) {
 
-                    val jsonObject: JsonObject = response.body()!!
-
-                    if (response.code() == 200) {
-                        val status: String = jsonObject.get("status").toString()
-
-                        if (status.equals("1")) {
-
-                            val intent = Intent(this@ResetPasswordActivity, LoginActivity::class.java)
-                            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK)
-                            startActivity(intent)
-
-                         /*   val jsonDataObj: JsonObject = jsonObject.getAsJsonObject("data");
-                            val message: String = jsonDataObj.get("message").toString()*/
+                    var model = response.body() as CancelReModel
+                    if (model.status == 1) {
 
 
-                        }
+                        val intent = Intent(this@ResetPasswordActivity, LoginActivity::class.java)
+                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK)
+                        startActivity(intent)
+
+                    } else {
+                        showSnackBar(model.message)
                     }
 
                 } else {
@@ -98,9 +97,9 @@ class ResetPasswordActivity : BaseActivity() {
 
             }
 
-            override fun onFailure(call: Call<JsonObject>, t: Throwable) {
+            override fun onFailure(call: Call<CancelReModel>, t: Throwable) {
 
-                showSnackBar(getResources().getString(R.string.error_occured));
+                showSnackBar(resources.getString(R.string.error_occured) + "    ${t.message}");
 
                 call.cancel()
 
