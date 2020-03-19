@@ -41,14 +41,15 @@ class MyAlertAdapter(arrayList: ArrayList<Data_Alert>, mcontext: MyAlertsActivit
         // now setted to the textview
         holder.tvCheckinName.text = MyAlertDataClass.name
 //        holder.tvCheckinDate.text = MyAlertDataClass.opinionDate
-        holder.tvAddress.text = MyAlertDataClass.street
+        holder.tvAddress.text =
+            MyAlertDataClass.street + "," + MyAlertDataClass.city + "," + MyAlertDataClass.zipcode
         GlideApp.with(mcontext)
             .load(MyAlertDataClass.restaurant_image).placeholder(R.drawable.app_logo)
             .into(holder.imgplace)
         holder.imgplace.setOnClickListener()
         {
             val intent = Intent(mcontext, RestroDescrpActivity::class.java)
-            intent.putExtra("RESTAURANT_ID",MyAlertDataClass.id.toString())
+            intent.putExtra("RESTAURANT_ID", MyAlertDataClass.id.toString())
             mcontext.startActivity(intent)
         }
 
@@ -81,8 +82,7 @@ class MyAlertAdapter(arrayList: ArrayList<Data_Alert>, mcontext: MyAlertsActivit
         }
     }
 
-    fun clear()
-    {
+    fun clear() {
         arrayList.clear()
         notifyDataSetChanged()
     }

@@ -25,9 +25,7 @@ import com.dish.seekdish.ui.navDrawer.activities.presenter.MyInfoPresenter
 import com.dish.seekdish.ui.navDrawer.activities.view.IMyInformationView
 import com.dish.seekdish.ui.navDrawer.settings.dataModel.LangData
 import com.dish.seekdish.ui.navDrawer.settings.dataModel.LanguageData
-import com.dish.seekdish.util.BaseFragment.Companion.rotateImage
 import com.dish.seekdish.util.SessionManager
-import com.facebook.FacebookSdk
 import com.myhexaville.smartimagepicker.ImagePicker
 import com.myhexaville.smartimagepicker.OnImagePickedListener
 import kotlinx.android.synthetic.main.activity_my_information.*
@@ -151,7 +149,7 @@ class MyInformationActivity : BaseActivity(), IMyInformationView {
                 zipCode = edtZipcode.text.toString()
             }
 
-            if (spinnerBodyFat!!.selectedItem == "Select Bodyfat") {
+            if (spinnerBodyFat!!.selectedItem == resources.getString(R.string.body_fat)) {
                 bodyFat = ""
             } else {
                 bodyFat = spinnerBodyFat.selectedItem.toString()
@@ -167,7 +165,7 @@ class MyInformationActivity : BaseActivity(), IMyInformationView {
             } else {
                 weight = edtWeight.text.toString()
             }
-            if (spinnerGender!!.selectedItem == "Select Gender") {
+            if (spinnerGender!!.selectedItem == getString(R.string.select_genderss)) {
                 gender = ""
             } else {
                 gender = spinnerGender.selectedItem.toString()
@@ -423,7 +421,7 @@ class MyInformationActivity : BaseActivity(), IMyInformationView {
         genderArr.clear()
 
         //add states to list
-        genderArr.add("Select Gender")
+        genderArr.add(resources.getString(R.string.select_genderss))
         genderArr.add("M")
         genderArr.add("F")
 
@@ -446,10 +444,10 @@ class MyInformationActivity : BaseActivity(), IMyInformationView {
         bodyFatArr.clear()
 
         //add states to list
-        bodyFatArr.add("Select Bodyfat")
-        bodyFatArr.add("Slim")
-        bodyFatArr.add("Medium")
-        bodyFatArr.add("Fat")
+        bodyFatArr.add(getString(R.string.body_fat))
+        bodyFatArr.add(getString(R.string.slim))
+        bodyFatArr.add(getString(R.string.medium))
+        bodyFatArr.add(getString(R.string.fat))
 
 
         // Creating adapter for spinner
@@ -645,13 +643,13 @@ class MyInformationActivity : BaseActivity(), IMyInformationView {
                 if (genderValue.equals("F")) {
                     spinnerGender.setSelection(2)
                 }
-                if (bodyFatVal.equals("Slim")) {
+                if (bodyFatVal.equals(resources.getString(R.string.slim))) {
                     spinnerBodyFat.setSelection(1)
                 }
-                if (bodyFatVal.equals("Medium")) {
+                if (bodyFatVal.equals(resources.getString(R.string.medium))) {
                     spinnerBodyFat.setSelection(2)
                 }
-                if (bodyFatVal.equals("Fat")) {
+                if (bodyFatVal.equals(resources.getString(R.string.fat))) {
                     spinnerBodyFat.setSelection(3)
                 }
                 if (profileDataClass.data.photo.isNullOrEmpty() == false) {

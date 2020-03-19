@@ -34,7 +34,7 @@ data class Data_Taste(
 )
 
 data class Location(
-    val `data`: Data,
+//    val `data`: Data,
     val status: Int,
     val message: String
 ) {

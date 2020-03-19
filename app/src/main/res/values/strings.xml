@@ -246,5 +246,10 @@
     <string name="dislikess">Dislikes</string>
     <string name="checkinns">Check-In</string>
     <string name="of_profile">of Profile</string>
-    <string name="username_length" />
+    <string name="body_fat">Select Body fat</string>
+    <string name="slim">Slim</string>
+    <string name="medium">Medium</string>
+    <string name="fat">Fat</string>
+    <string name="select_genderss">Select Gender</string>
+    <string name="select_gender_optional">Select Gender (Optional)</string>
 </resources>

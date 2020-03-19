@@ -86,8 +86,9 @@ class ReceivedRequestActivity : BaseActivity() {
                     if(modelObj.status==1) {
                         if (modelObj.data.size == 0) {
                             tvAlert.visibility = View.VISIBLE
-                            recyclerView?.visibility = View.VISIBLE
+                            recyclerView?.visibility = View.GONE
                         } else {
+                            recyclerView?.visibility = View.VISIBLE
                             arrayList = modelObj.data
                             adapter =
                                 ReceivedRequestAdapter(arrayList, this@ReceivedRequestActivity)

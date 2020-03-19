@@ -520,7 +520,7 @@ class SignupActivity : BaseActivity(), ISignUpView {
         genderArr.clear()
 
         //add states to list
-        genderArr.add("Select Gender (Optional)")
+        genderArr.add(getString(R.string.select_gender_optional))
         genderArr.add("M")
         genderArr.add("F")
 

@@ -13,7 +13,8 @@ data class Data_Alert(
     val id: Int,
     val name: String,
     val restaurant_image: String,
-    val street: String
+    val street: String,
+    val zipcode:Int
 )
 
 //-----------------------------------

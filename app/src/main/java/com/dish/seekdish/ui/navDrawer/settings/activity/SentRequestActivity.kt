@@ -85,12 +85,8 @@ class SentRequestActivity : BaseActivity() {
     }
 
     fun reqApiHit() {
-
         ProgressBarClass.progressBarCalling(this)
-
         apiInterface = APIClient.getClient(this).create(APIInterface::class.java)
-
-
         val call =
             apiInterface.sentReqList(sessionManager?.getValue(SessionManager.USER_ID).toString())
         call.enqueue(object : Callback<ReceivedRequestDataClass> {
@@ -110,7 +106,9 @@ class SentRequestActivity : BaseActivity() {
                     if (modelObj.status == 1) {
                         if (modelObj.data.size == 0) {
                             tvAlert.visibility = View.VISIBLE
+                            recyclerView?.visibility=View.GONE
                         } else {
+                            recyclerView?.visibility=View.VISIBLE
                             arrayList = modelObj.data
                             setRecyclerView(modelObj.data)
                         }

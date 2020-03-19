@@ -109,22 +109,23 @@ class TasteFragment : BaseFragment(), GoogleApiClient.ConnectionCallbacks,
         tasteFragVM = ViewModelProviders.of(this).get(TasteFragVM::class.java)
 
         // setting to refresh the layout
-       sessionManager.setValues(SessionManager.CURRENT_SCREEN,"HomeFragment")
+        sessionManager.setValues(SessionManager.CURRENT_SCREEN, "HomeFragment")
 
 
         // hiding keyboard
         hideKeyBoard()
 
 
-
         //check connection
         if (homeActivity.connectionDetector.isConnectingToInternet) {
-            if (sessionManager.getValue(SessionManager.LATITUDE).isNullOrEmpty() == false && sessionManager.getValue(
+            if (sessionManager.getValue(SessionManager.LATITUDE)
+                    .isNullOrEmpty() == false && sessionManager.getValue(
                     SessionManager.LONGITUDE
                 ).isNullOrEmpty() == false
             ) {
                 //hitting api
                 getTasteMeals(pageNumber)
+
             } else {
                 //location
                 startLocationUpdates()
@@ -189,45 +190,6 @@ class TasteFragment : BaseFragment(), GoogleApiClient.ConnectionCallbacks,
             }
         })
 
-
-
-        /*     view.edtSearch.addTextChangedListener(object : TextWatcher {
-                 override fun afterTextChanged(p0: Editable?) {
-
-                     // search like ingredient
-                     var serchedText = edtSearch.text.toString();
-
-                     if (serchedText != null && serchedText != "null" && serchedText != "") {
-                         flagSearch = true
-                         Log.e("textWatcher", "entered if scope")
-     //                    getSearchedIngre(serchedText)
-                     } else {
-
-                         Log.e("textWatcher", "entered else scope")
-
-                         flagSearch = false
-                         pageNumber = 1
-                         getTasteMeals(pageNumber)
-
-                     }
-                 }
-
-                 override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
-                 }
-
-                 override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
-                 }
-             })*/
-
-        /* for (i in 0..6) {
-             val tasteData = TasteFragDataClass("Manager", "Brochette De Boeuf", "1.85 Km", "3", "14", "4");
-             arrayList.add(tasteData)
-         }
-
-         adapter = TasteFragAdapter(arrayList, homeActivity)
-         recyclerView!!.setAdapter(adapter)*/
-
-
         return view
     }
 
@@ -266,7 +228,7 @@ class TasteFragment : BaseFragment(), GoogleApiClient.ConnectionCallbacks,
         }
 
         mFusedLocationClient = LocationServices.getFusedLocationProviderClient(homeActivity)
-        mFusedLocationClient?.lastLocation?.addOnSuccessListener { location->
+        mFusedLocationClient?.lastLocation?.addOnSuccessListener { location ->
             if (location != null) {
                 currentLatitude = location.latitude
                 currentLongitude = location.longitude
@@ -276,7 +238,8 @@ class TasteFragment : BaseFragment(), GoogleApiClient.ConnectionCallbacks,
                 //now loading the meals at current location if user came to app after login
                 mealForCurrentLOcation()
 
-//                checkAndSaveLocation()
+                // providng the slected coordinates to server...
+                checkAndSaveLocation()
 
             }
         }
@@ -312,11 +275,11 @@ class TasteFragment : BaseFragment(), GoogleApiClient.ConnectionCallbacks,
         }
     }
 
-    fun mealForCurrentLOcation()
-    {
+    fun mealForCurrentLOcation() {
         // in if loading current location meals   && in else saving the current location coordinates
         if (homeActivity.connectionDetector.isConnectingToInternet) {
-            if (sessionManager.getValue(SessionManager.LATITUDE).isNullOrEmpty() == true && sessionManager.getValue(
+            if (sessionManager.getValue(SessionManager.LATITUDE)
+                    .isNullOrEmpty() == true && sessionManager.getValue(
                     SessionManager.LONGITUDE
                 ).isNullOrEmpty() == true
             ) {
@@ -325,8 +288,14 @@ class TasteFragment : BaseFragment(), GoogleApiClient.ConnectionCallbacks,
                 sessionManager.setValues(SessionManager.LONGITUDE, currentLongitude.toString())
                 getTasteMeals(pageNumber)
             } else {
-                sessionManager.setValues(SessionManager.CURRENT_LATITUDE, currentLatitude.toString())
-                sessionManager.setValues(SessionManager.CURRENT_LONGITUDE, currentLongitude.toString())
+                sessionManager.setValues(
+                    SessionManager.CURRENT_LATITUDE,
+                    currentLatitude.toString()
+                )
+                sessionManager.setValues(
+                    SessionManager.CURRENT_LONGITUDE,
+                    currentLongitude.toString()
+                )
             }
         } else {
             showSnackBar(getString(R.string.check_connection))
@@ -444,39 +413,23 @@ class TasteFragment : BaseFragment(), GoogleApiClient.ConnectionCallbacks,
 //      checkAndSaveLocation()
     }
 
-    fun checkAndSaveLocation()
-    {
-        if (sessionManager.getValue(SessionManager.LOCATION_STATUS).equals("0")  ||sessionManager.getValue(SessionManager.LOCATION_STATUS).equals("") ) {
-            if (homeActivity.connectionDetector.isConnectingToInternet) {
-
-                if (sessionManager.getValue(SessionManager.LATITUDE) == "" && sessionManager.getValue(
-                        SessionManager.LONGITUDE
-                    ) == ""
-                ) {
-                    // hit lat long api here  WITH THE DEFAULT COORDITAE
-                    tasteFragVM?.getCurrentLocation(
-                        sessionManager.getValue(SessionManager.USER_ID),
-                        currentLongitude.toString(),
-                        currentLatitude.toString()
-                    )
-                }
-
-            } else {
-                showSnackBar(getString(R.string.check_connection))
-            }
+    fun checkAndSaveLocation() {
+        if (homeActivity.connectionDetector.isConnectingToInternet) {
+            // hit lat long api here  WITH THE DEFAULT COORDITAE
+            tasteFragVM?.getCurrentLocation(
+                sessionManager.getValue(SessionManager.USER_ID),
+                sessionManager.getValue(SessionManager.LONGITUDE),
+                sessionManager.getValue(SessionManager.LATITUDE)
+            )
+        } else {
+            showSnackBar(getString(R.string.check_connection))
         }
-
         //SAVE TO LOCAL
         if (currentLatitude != 0.0 && currentLongitude != 0.0) {
-            /* sessionManager.setValues(SessionManager.LATITUDE, currentLatitude.toString())
-             sessionManager.setValues(SessionManager.LONGITUDE, currentLongitude.toString())*/
-
             // this will always have current live postition of the user
             sessionManager.setValues(SessionManager.CURRENT_LATITUDE, currentLatitude.toString())
             sessionManager.setValues(SessionManager.CURRENT_LONGITUDE, currentLongitude.toString())
             Log.e("current_location", "$currentLatitude ,   $currentLongitude")
-
-
 
         }
     }
@@ -680,13 +633,11 @@ class TasteFragment : BaseFragment(), GoogleApiClient.ConnectionCallbacks,
                             recyclerView!!.adapter = adapter
                         }
                     }
-                }
-                else
-                {
+                } else {
                     showSnackBar(response.message)
                 }
             } else {
-                showSnackBar(resources.getString(R.string.error_occured)  +"   $response");
+                showSnackBar(resources.getString(R.string.error_occured) + "   $response");
                 Log.e("rspSnak", "else error")
             }
         })
@@ -701,42 +652,30 @@ class TasteFragment : BaseFragment(), GoogleApiClient.ConnectionCallbacks,
     */
         tasteFragVM!!.getLiveLocation.observe(this, Observer { response ->
             if (response != null) {
-
                 Log.e("respLocationString", " " + response.toString())
-
                 if (response.status == 1) {
-                    if (sessionManager.getValue(SessionManager.LOCATION_STATUS).equals("0") || sessionManager.getValue(SessionManager.LOCATION_STATUS).equals(""))
-                        sessionManager.setValues(SessionManager.LOCATION_STATUS, "1")
-
-                    sessionManager.setValues(SessionManager.LATITUDE, response.data.latitude)
-                    sessionManager.setValues(SessionManager.LONGITUDE, response.data.longitude)
-
+                    /*  if (sessionManager.getValue(SessionManager.LOCATION_STATUS).equals("0") || sessionManager.getValue(SessionManager.LOCATION_STATUS).equals(""))
+                        sessionManager.setValues(SessionManager.LOCATION_STATUS, "1")*/
                     // hitting api for first time coming user, as current location is picked from here
                     // if i found that user latitude and longitude are not saved in shared prefernce, this will live cordinate will be
                     //picked for 1st time and then "fused location api location service will be removed in next syntax"
-                    getTasteMeals(pageNumber)
-
-
+//                    getTasteMeals(pageNumber)
                     if (mFusedLocationClient != null) {
                         mFusedLocationClient?.removeLocationUpdates(mLocationCallback)
-                    }
-
-                    Log.e("sessionlat", " " + sessionManager.getValue(SessionManager.LATITUDE))
-                    Log.e(
-                        "sessionlongitude",
-                        " " + sessionManager.getValue(SessionManager.LONGITUDE)
-                    )
-                }
-                else
-                {
+                    } else {
 //                    showSnackBar(response.message)
+                    }
+//                    showSnackBar(response.message)
+                } else {
+                    showSnackBar(response.message)
                 }
             } else {
-//                showSnackBar("OOps! Error Occured.")
-                Log.e("rspSnak", "else error")
+                showSnackBar(getResources().getString(R.string.error_occured) + "  $response");
+//                Log.e("rspSnak", "else error")
             }
         })
     }
+
 
     fun resultAction(data: ArrayList<Data_Taste>) {
         Log.e("data came", "" + data.toString())
@@ -835,7 +774,7 @@ class TasteFragment : BaseFragment(), GoogleApiClient.ConnectionCallbacks,
 
         view.edtSearchTaste.setOnClickListener()
         {
-            view.edtSearchTaste.isCursorVisible=true
+            view.edtSearchTaste.isCursorVisible = true
         }
 
         view.edtSearchTaste.addTextChangedListener(object : TextWatcher {

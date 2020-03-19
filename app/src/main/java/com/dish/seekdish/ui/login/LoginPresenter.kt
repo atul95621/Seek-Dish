@@ -19,7 +19,6 @@ class LoginPresenter(private val iSignUpView: ILoginView, val loginActivity: Log
         languageId: String,
         fcm: String
     ) {
-
         ProgressBarClass.progressBarCalling(loginActivity)
         apiInterface = APIClient.getClient(loginActivity).create(APIInterface::class.java)
 

@@ -48,7 +48,6 @@ class LoginActivity : BaseActivity(), ILoginView {
             } else {
 
                 if (connectionDetector.isConnectingToInternet) {
-
                     //calling api
                     loginPresenter.login(
                         edtEmail.text.toString(),
@@ -64,7 +63,6 @@ class LoginActivity : BaseActivity(), ILoginView {
         }
         tvForgot.setOnClickListener()
         {
-
             val intent = Intent(this@LoginActivity, ForgotActivity::class.java)
             startActivity(intent)
         }
