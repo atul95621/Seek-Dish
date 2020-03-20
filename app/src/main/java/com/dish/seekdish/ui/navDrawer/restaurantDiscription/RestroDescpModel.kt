@@ -30,7 +30,7 @@ data class Restaurant(
     val rating: String,
     val restaurant_detail: RestaurantDetail,
     val restaurant_image: String,
-    val service_speed: Int,
+    val service_speed: Int?,
     val similar_restaurants: List<SimilarRestaurant>,
     val street: String
 ):Serializable

@@ -18,6 +18,7 @@ data class Data(
 
 data class Meals(
     val budget: String,
+    val budget_price:String,
     val calories: Int,
     val distance: Double,
     val latitude: String,

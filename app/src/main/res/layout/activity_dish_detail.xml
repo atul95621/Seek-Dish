@@ -1,287 +1,356 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:tools="http://schemas.android.com/tools"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:orientation="vertical"
+    tools:context=".ui.navDrawer.dishDescription.DishDetailActivity">
+    <!--toolbar-->
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:background="@color/colorPrimary"
+        android:gravity="center"
+        android:orientation="horizontal">
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="@string/details"
+            android:textColor="@color/white"
+            android:textSize="20sp" />
+
+        <TextView
+            android:id="@+id/tvBack"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="start|center_vertical"
+            android:layout_marginStart="10dp"
+            android:gravity="start"
+            android:text="@string/back"
+            android:textColor="@color/white"
+            android:textSize="18sp" />
+    </FrameLayout>
+
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/white"
         android:orientation="vertical"
-        tools:context=".ui.navDrawer.dishDescription.DishDetailActivity">
-    <!--toolbar-->
-    <FrameLayout android:layout_width="match_parent"
-                 android:layout_height="48dp"
-                 android:gravity="center"
-                 android:background="@color/colorPrimary"
-                 android:orientation="horizontal">
+        android:weightSum="10">
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="3.5"
+            android:orientation="vertical">
 
-        <TextView android:layout_width="wrap_content"
-                  android:layout_height="wrap_content"
-                  android:layout_gravity="center"
-                  android:text="@string/details"
-                  android:textColor="@color/white"
-                  android:textSize="20sp"/>
-        <TextView
-                android:id="@+id/tvBack"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:gravity="start"
-                android:layout_marginStart="10dp"
-                android:layout_gravity="start|center_vertical"
-                android:text="@string/back"
-                android:textColor="@color/white"
-                android:textSize="18sp"/>
-    </FrameLayout>
-    <LinearLayout android:layout_width="match_parent"
-                  android:orientation="vertical"
-                  android:weightSum="10"
-                  android:layout_height="match_parent">
-
-        <LinearLayout android:layout_width="match_parent"
-                      android:layout_weight="3.5"
-                      android:orientation="vertical"
-                      android:layout_height="0dp"
-        >
             <com.dish.seekdish.custom.PagerContainer
-                    android:layout_margin="10dp"
-                    android:id="@+id/pager_container"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent">
+                android:id="@+id/pager_container"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_margin="10dp">
 
                 <androidx.viewpager.widget.ViewPager
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                />
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" />
 
             </com.dish.seekdish.custom.PagerContainer>
         </LinearLayout>
 
 
         <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="5"
+            android:orientation="vertical">
+
+            <ScrollView
                 android:layout_width="match_parent"
-                android:orientation="vertical"
-                android:layout_weight="5"
-                android:layout_height="0dp"
-        >
-            <ScrollView android:layout_width="match_parent" android:layout_height="wrap_content">
-                <LinearLayout android:layout_width="match_parent"
-                              android:orientation="vertical" android:layout_height="match_parent">
+                android:layout_height="wrap_content">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
 
                     <!--resaturant-->
                     <LinearLayout
-                            android:background="@color/colorPrimary"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@color/colorPrimary"
+                        android:orientation="horizontal"
+                        android:padding="10dp"
+                        android:weightSum="2">
+
+                        <TextView
                             android:layout_width="match_parent"
-                            android:padding="10dp" android:layout_height="wrap_content"
-                            android:orientation="horizontal"
-                            android:weightSum="2">
-                        <TextView android:layout_width="match_parent"
-                                  android:layout_weight="1"
-                                  android:textColor="@color/black"
-                                  android:layout_height="wrap_content"
-                                  android:text="@string/restaurant"
-                                  android:fontFamily="@font/assistantbold"/>
-                        <TextView android:layout_width="match_parent"
-                                  android:id="@+id/tvRestroName"
-                                  android:layout_weight="1"
-                                  android:layout_height="wrap_content"
-                                  android:textColor="@color/black"
-                                  android:text=""/>
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:fontFamily="@font/assistantbold"
+                            android:text="@string/restaurant"
+                            android:textColor="@color/black" />
+
+                        <TextView
+                            android:id="@+id/tvRestroName"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text=""
+                            android:textColor="@color/black" />
                     </LinearLayout>
                     <!--budget-->
-                    <LinearLayout android:layout_width="match_parent"
-                                  android:padding="10dp" android:layout_height="wrap_content"
-                                  android:orientation="horizontal"
-                                  android:weightSum="2">
-                        <TextView android:layout_width="match_parent"
-                                  android:layout_weight="1"
-                                  android:textColor="@color/black"
-                                  android:layout_height="wrap_content"
-                                  android:text="@string/budget"
-                                  android:fontFamily="@font/assistantbold"/>
-                        <TextView android:layout_width="match_parent"
-                                  android:id="@+id/tvBudget"
-                                  android:layout_weight="1"
-                                  android:layout_height="wrap_content"
-                                  android:textColor="@color/black"
-                                  android:text=""/>
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:padding="10dp"
+                        android:weightSum="2">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:fontFamily="@font/assistantbold"
+                            android:text="@string/budget"
+                            android:textColor="@color/black" />
+
+                        <TextView
+                            android:id="@+id/tvBudget"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text=""
+                            android:textColor="@color/black" />
                     </LinearLayout>
 
                     <!--calories-->
                     <LinearLayout
-                            android:background="@color/colorPrimary"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@color/colorPrimary"
+                        android:orientation="horizontal"
+                        android:padding="10dp"
+                        android:weightSum="2">
+
+                        <TextView
                             android:layout_width="match_parent"
-                            android:padding="10dp" android:layout_height="wrap_content"
-                            android:orientation="horizontal"
-                            android:weightSum="2">
-                        <TextView android:layout_width="match_parent"
-                                  android:layout_weight="1"
-                                  android:textColor="@color/black"
-                                  android:layout_height="wrap_content"
-                                  android:text="@string/calories"
-                                  android:fontFamily="@font/assistantbold"/>
-                        <TextView android:layout_width="match_parent"
-                                  android:id="@+id/tvCalories"
-                                  android:layout_weight="1"
-                                  android:layout_height="wrap_content"
-                                  android:textColor="@color/black"
-                                  android:text=""/>
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:fontFamily="@font/assistantbold"
+                            android:text="@string/calories"
+                            android:textColor="@color/black" />
+
+                        <TextView
+                            android:id="@+id/tvCalories"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text=""
+                            android:textColor="@color/black" />
                     </LinearLayout>
 
                     <!--no of person-->
-                    <LinearLayout android:layout_width="match_parent"
-                                  android:padding="10dp" android:layout_height="wrap_content"
-                                  android:orientation="horizontal"
-                                  android:weightSum="2">
-                        <TextView android:layout_width="match_parent"
-                                  android:layout_weight="1"
-                                  android:textColor="@color/black"
-                                  android:layout_height="wrap_content"
-                                  android:text="@string/number_of_person"
-                                  android:fontFamily="@font/assistantbold"/>
-                        <TextView android:layout_width="match_parent"
-                                  android:id="@+id/tvPerson"
-                                  android:layout_weight="1"
-                                  android:layout_height="wrap_content"
-                                  android:textColor="@color/black"
-                                  android:text=""/>
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:padding="10dp"
+                        android:weightSum="2">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:fontFamily="@font/assistantbold"
+                            android:text="@string/number_of_person"
+                            android:textColor="@color/black" />
+
+                        <TextView
+                            android:id="@+id/tvPerson"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text=""
+                            android:textColor="@color/black" />
                     </LinearLayout>
 
                     <!--status-->
-                    <LinearLayout
-                            android:background="@color/colorPrimary"
-                            android:layout_width="match_parent"
-                            android:padding="10dp" android:layout_height="wrap_content"
-                            android:orientation="horizontal"
-                            android:weightSum="2">
-                        <TextView android:layout_width="match_parent"
-                                  android:layout_weight="1"
-                                  android:textColor="@color/black"
-                                  android:layout_height="wrap_content"
-                                  android:text="@string/status"
-                                  android:fontFamily="@font/assistantbold"/>
-                        <TextView android:layout_width="match_parent"
-                                  android:id="@+id/tvStatus"
-                                  android:layout_weight="1"
-                                  android:layout_height="wrap_content"
-                                  android:textColor="@color/black"/>
-                    </LinearLayout>
                     <!--speed of serive-->
-                    <LinearLayout android:layout_width="match_parent"
-                                  android:padding="10dp" android:layout_height="wrap_content"
-                                  android:orientation="horizontal"
-                                  android:weightSum="2">
-                        <TextView android:layout_width="match_parent"
-                                  android:layout_weight="1"
-                                  android:textColor="@color/black"
-                                  android:layout_height="wrap_content"
-                                  android:text="@string/speed_of_service"
-                                  android:fontFamily="@font/assistantbold"/>
-                        <TextView android:layout_width="match_parent"
-                                  android:id="@+id/tvSpeed"
-                                  android:layout_weight="1"
-                                  android:layout_height="wrap_content"
-                                  android:textColor="@color/black"
-/>                    </LinearLayout>
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@color/colorPrimary"
+                        android:orientation="horizontal"
+                        android:padding="10dp"
+                        android:weightSum="2">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:fontFamily="@font/assistantbold"
+                            android:text="@string/status"
+                            android:textColor="@color/black" />
+
+                        <TextView
+                            android:id="@+id/tvStatus"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:textColor="@color/black" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:padding="10dp"
+                        android:visibility="gone"
+                        android:weightSum="2">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:fontFamily="@font/assistantbold"
+                            android:text="@string/speed_of_service"
+                            android:textColor="@color/black" />
+
+                        <TextView
+                            android:id="@+id/tvSpeed"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:textColor="@color/black" />
+                    </LinearLayout>
                     <!--prepration time-->
                     <LinearLayout
-                            android:background="@color/colorPrimary"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:padding="10dp"
+                        android:weightSum="2">
+
+                        <TextView
                             android:layout_width="match_parent"
-                            android:padding="10dp" android:layout_height="wrap_content"
-                            android:orientation="horizontal"
-                            android:weightSum="2">
-                        <TextView android:layout_width="match_parent"
-                                  android:layout_weight="1"
-                                  android:textColor="@color/black"
-                                  android:layout_height="wrap_content"
-                                  android:text="@string/prepration_time"
-                                  android:fontFamily="@font/assistantbold"/>
-                        <TextView android:layout_width="match_parent"
-                                  android:id="@+id/tvPrepTime"
-                                  android:layout_weight="1"
-                                  android:layout_height="wrap_content"
-                                  android:textColor="@color/black"
-                                  android:text=""/>
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:fontFamily="@font/assistantbold"
+                            android:text="@string/prepration_time"
+                            android:textColor="@color/black" />
+
+                        <TextView
+                            android:id="@+id/tvPrepTime"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text=""
+                            android:textColor="@color/black" />
                     </LinearLayout>
                     <!-- intolerance-->
                     <LinearLayout
+                        android:background="@color/colorPrimary"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:padding="10dp"
+                        android:weightSum="2">
+
+                        <TextView
                             android:layout_width="match_parent"
-                            android:padding="10dp"
                             android:layout_height="wrap_content"
-                            android:orientation="horizontal"
-                            android:weightSum="2">
-                        <TextView android:layout_width="match_parent"
-                                  android:layout_weight="1"
-                                  android:textColor="@color/black"
-                                  android:layout_height="wrap_content"
-                                  android:text="@string/intolerance"
-                                  android:fontFamily="@font/assistantbold"/>
-                        <TextView android:layout_width="match_parent"
-                                  android:id="@+id/tvIntolrence" android:layout_weight="1"
-                                  android:layout_height="wrap_content"
-                                  android:textColor="@color/black"
-                                  android:text=""/>
+                            android:layout_weight="1"
+                            android:fontFamily="@font/assistantbold"
+                            android:text="@string/intolerance"
+                            android:textColor="@color/black" />
+
+                        <TextView
+                            android:id="@+id/tvIntolrence"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text=""
+                            android:textColor="@color/black" />
                     </LinearLayout>
 
                     <!-- tag-->
                     <LinearLayout
-                            android:background="@color/colorPrimary"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:padding="10dp"
+                        android:weightSum="2">
+
+                        <TextView
                             android:layout_width="match_parent"
-                            android:padding="10dp" android:layout_height="wrap_content"
-                            android:orientation="horizontal"
-                            android:weightSum="2">
-                        <TextView android:layout_width="match_parent"
-                                  android:layout_weight="1"
-                                  android:textColor="@color/black"
-                                  android:layout_height="wrap_content"
-                                  android:text="@string/tags"
-                                  android:fontFamily="@font/assistantbold"/>
-                        <TextView android:layout_width="match_parent"
-                                  android:id="@+id/tvTags" android:layout_weight="1"
-                                  android:layout_height="wrap_content"
-                                  android:textColor="@color/black"
-                                  android:text=""/>
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:fontFamily="@font/assistantbold"
+                            android:text="@string/tags"
+                            android:textColor="@color/black" />
+
+                        <TextView
+                            android:id="@+id/tvTags"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text=""
+                            android:textColor="@color/black" />
                     </LinearLayout>
 
                     <!-- seasionality-->
                     <LinearLayout
+                        android:background="@color/colorPrimary"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:padding="10dp"
+                        android:weightSum="2">
+
+                        <TextView
                             android:layout_width="match_parent"
-                            android:padding="10dp" android:layout_height="wrap_content"
-                            android:orientation="horizontal"
-                            android:weightSum="2">
-                        <TextView android:layout_width="match_parent"
-                                  android:layout_weight="1"
-                                  android:textColor="@color/black"
-                                  android:layout_height="wrap_content"
-                                  android:text="@string/seasonality"
-                                  android:fontFamily="@font/assistantbold"/>
-                        <TextView android:layout_width="match_parent"
-                                  android:id="@+id/tvSeasonlity"
-                                  android:layout_weight="1"
-                                  android:layout_height="wrap_content"
-                                  android:textColor="@color/black"
-                                  android:text=""/>
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:fontFamily="@font/assistantbold"
+                            android:text="@string/seasonality"
+                            android:textColor="@color/black" />
+
+                        <TextView
+                            android:id="@+id/tvSeasonlity"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text=""
+                            android:textColor="@color/black" />
                     </LinearLayout>
 
                     <!-- type of dish-->
                     <LinearLayout
-                            android:background="@color/colorPrimary"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:padding="10dp"
+                        android:weightSum="2">
+
+                        <TextView
                             android:layout_width="match_parent"
-                            android:padding="10dp" android:layout_height="wrap_content"
-                            android:orientation="horizontal"
-                            android:weightSum="2">
-                        <TextView android:layout_width="match_parent"
-                                  android:layout_weight="1"
-                                  android:textColor="@color/black"
-                                  android:layout_height="wrap_content"
-                                  android:text="@string/type_of_dish"
-                                  android:fontFamily="@font/assistantbold"/>
-                        <TextView android:layout_width="match_parent"
-                                  android:id="@+id/tvTypeDish"
-                                  android:layout_weight="1"
-                                  android:layout_height="wrap_content"
-                                  android:textColor="@color/black"
-                                  android:text=""/>
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:fontFamily="@font/assistantbold"
+                            android:text="@string/type_of_dish"
+                            android:textColor="@color/black" />
+
+                        <TextView
+                            android:id="@+id/tvTypeDish"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text=""
+                            android:textColor="@color/black" />
                     </LinearLayout>
 
                 </LinearLayout>
@@ -289,67 +358,76 @@
         </LinearLayout>
 
 
-        <LinearLayout android:layout_width="match_parent" android:layout_height="0dp"
-                      android:layout_weight="1.5">
-            <LinearLayout android:layout_width="match_parent" android:layout_height="match_parent">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1.5">
 
-                <LinearLayout android:layout_width="match_parent"
-                              android:layout_height="match_parent"
-                              android:orientation="vertical"
-                              android:gravity="center">
-                    <TextView android:layout_width="match_parent"
-                              android:layout_height="wrap_content"
-                              android:textColor="@color/black"
-                              android:textSize="20sp"
-                              android:id="@+id/tvDishName"
-                              android:gravity="center"
-                              android:layout_marginTop="15dp"
-                              android:fontFamily="@font/assistantbold"
-                              android:text=""
-                    />
-                    <LinearLayout android:layout_width="match_parent"
-                                  android:layout_height="wrap_content"
-                                  android:layout_gravity="center"
-                                  android:gravity="center"
-                                  android:layout_marginBottom="10dp"
-                                  android:orientation="horizontal">
-                        <com.willy.ratingbar.ScaleRatingBar
-                                xmlns:app="http://schemas.android.com/apk/res-auto"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                app:srb_rating="4"
-                                android:id="@+id/starRating"
-                                android:layout_gravity="center"
-                                android:gravity="center"
-                                app:srb_starPadding="5dp"
-                                app:srb_starWidth="20dp"
-                                app:srb_starHeight="20dp"
-                                app:srb_stepSize="1"
-                                app:srb_isIndicator="false"
-                                app:srb_clickable="false"
-                                app:srb_scrollable="false"
-                                app:srb_clearRatingEnabled="false"
-                                app:srb_drawableEmpty="@drawable/ic_empty_star"
-                                app:srb_drawableFilled="@drawable/ic_filled_star"/>
-                        <com.willy.ratingbar.ScaleRatingBar
-                                xmlns:app="http://schemas.android.com/apk/res-auto"
-                                android:layout_width="wrap_content"
-                                android:layout_marginStart="20dp"
-                                android:layout_height="wrap_content"
-                                app:srb_rating="2"
-                                android:layout_gravity="center"
-                                android:id="@+id/euroRating"
-                                android:gravity="center"
-                                app:srb_starPadding="5dp"
-                                app:srb_starWidth="20dp"
-                                app:srb_starHeight="20dp"
-                                app:srb_stepSize="1"
-                                app:srb_isIndicator="false"
-                                app:srb_clickable="false"
-                                app:srb_scrollable="false"
-                                app:srb_clearRatingEnabled="false"
-                                app:srb_drawableEmpty="@drawable/ic_empty_euro"
-                                app:srb_drawableFilled="@drawable/ic_filled_euro"/>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/tvDishName"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="15dp"
+                        android:fontFamily="@font/assistantbold"
+                        android:gravity="center"
+                        android:text=""
+                        android:textColor="@color/black"
+                        android:textSize="20sp" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginBottom="10dp"
+                        android:gravity="center"
+                        android:orientation="horizontal">
+
+                        <com.willy.ratingbar.ScaleRatingBar xmlns:app="http://schemas.android.com/apk/res-auto"
+                            android:id="@+id/starRating"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:gravity="center"
+                            app:srb_clearRatingEnabled="false"
+                            app:srb_clickable="false"
+                            app:srb_drawableEmpty="@drawable/ic_empty_star"
+                            app:srb_drawableFilled="@drawable/ic_filled_star"
+                            app:srb_isIndicator="false"
+                            app:srb_rating="4"
+                            app:srb_scrollable="false"
+                            app:srb_starHeight="20dp"
+                            app:srb_starPadding="5dp"
+                            app:srb_starWidth="20dp"
+                            app:srb_stepSize="1" />
+
+                        <com.willy.ratingbar.ScaleRatingBar xmlns:app="http://schemas.android.com/apk/res-auto"
+                            android:id="@+id/euroRating"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_marginStart="20dp"
+                            android:gravity="center"
+                            app:srb_clearRatingEnabled="false"
+                            app:srb_clickable="false"
+                            app:srb_drawableEmpty="@drawable/ic_empty_euro"
+                            app:srb_drawableFilled="@drawable/ic_filled_euro"
+                            app:srb_isIndicator="false"
+                            app:srb_rating="2"
+                            app:srb_scrollable="false"
+                            app:srb_starHeight="20dp"
+                            app:srb_starPadding="5dp"
+                            app:srb_starWidth="20dp"
+                            app:srb_stepSize="1" />
 
                     </LinearLayout>
 

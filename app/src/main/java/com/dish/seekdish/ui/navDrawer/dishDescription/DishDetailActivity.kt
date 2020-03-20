@@ -72,10 +72,10 @@ class DishDetailActivity : BaseActivity() {
         mResources.add(imageMeal)
 
         tvRestroName.setText(dishMealModel.restro_name)
-        tvBudget.setText(dishMealModel.budget)
+        tvBudget.setText(dishMealModel.budget_price)
         tvCalories.setText(dishMealModel.calories.toString())
         tvPerson.setText(dishMealModel.meal_people)
-        tvSpeed.setText(dishMealModel.preperation_time)
+//        tvSpeed.setText(dishMealModel.preperation_time)
         tvPrepTime.setText(dishMealModel.preperation_time)
         tvTypeDish.setText(dishMealModel.meal_type)
 
@@ -102,7 +102,7 @@ class DishDetailActivity : BaseActivity() {
             tagsArr.add(j)
         }
         tagsStr = join1(" | ", tagsArr)
-        tvIntolrence.setText(tagsStr)
+        tvTags.setText(tagsStr)
 
         tvDishName.setText(dishMealModel.meal_name)
         starRating.rating = dishMealModel.meal_avg_rating.toFloat()

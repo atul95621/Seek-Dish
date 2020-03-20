@@ -130,9 +130,9 @@ class IngredientFragment(var objDishModel: DishDescpModel) : BaseFragment() {
         for (items in seasoning) {
             addProduct(getString(R.string.season), items.toString())
         }
-        for (items in intolerance) {
+        /*for (items in intolerance) {
             addProduct(getString(R.string.intol_capa), items.toString())
-        }
+        }*/
         for (items in tags) {
             addProduct(getString(R.string.meal), items.toString())
         }
