@@ -4,7 +4,7 @@ public class ChildData {
 
     public String playerName = "";
     String itemId;
-    Boolean isSelected;
+    String isSelected;
     String groupName = "";
 
     public String getGroupName() {
@@ -24,11 +24,11 @@ public class ChildData {
     }
 
 
-    public Boolean getSelected() {
+    public String getSelected() {
         return isSelected;
     }
 
-    public void setSelected(Boolean selected) {
+    public void setSelected(String selected) {
         isSelected = selected;
     }
 

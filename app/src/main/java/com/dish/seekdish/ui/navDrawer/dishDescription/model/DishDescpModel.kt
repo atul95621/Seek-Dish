@@ -18,20 +18,20 @@ data class Data(
 
 data class Meals(
     val budget: String,
-    val budget_price:String,
+    val budget_price: String,
     val calories: Int,
     val distance: Double,
     val latitude: String,
     val longitude: String,
-    val city:String,
-    val zipcode:Int,
-    val street:String,
+    val city: String,
+    val zipcode: Int,
+    val street: String,
     val meal_avg_rating: String,
     val meal_id: Int,
     val meal_image: String,
     val meal_name: String,
-    val facebook:String,
-    val twitter:String,
+    val facebook: String,
+    val twitter: String,
     val meal_people: String,
     val meal_status: List<String>,
     val meal_type: String,
@@ -67,7 +67,7 @@ data class SimilarMeal(
     val no_of_reviews: Int,
     val restro_id: Int,
     val restro_name: String
-)
+) : Serializable
 
 data class UserMealComment(
     val `private`: Int,
@@ -105,3 +105,5 @@ data class AddTodoModel(
 data class Data_TOdo(
     val message: String
 )
+
+

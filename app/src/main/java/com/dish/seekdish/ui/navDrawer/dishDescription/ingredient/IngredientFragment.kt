@@ -14,7 +14,6 @@ import android.widget.Toast
 import com.dish.seekdish.R
 import com.dish.seekdish.ui.home.HomeActivity
 import com.dish.seekdish.ui.navDrawer.dishDescription.DishDescriptionActivity
-import com.dish.seekdish.ui.navDrawer.dishDescription.model.Data
 import com.dish.seekdish.ui.navDrawer.dishDescription.model.DishDescpModel
 import com.dish.seekdish.ui.navDrawer.dishDescription.model.Meals
 import com.dish.seekdish.util.BaseFragment

@@ -407,7 +407,12 @@ class HomeActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
 
 
     // here we maintain team and player names
-    private fun addProduct(categoryName: String, itemName: String, itemId: Int): Int {
+    private fun addProduct(
+        categoryName: String,
+        itemName: String,
+        itemId: Int,
+        selected: Int
+    ): Int {
 
         var groupPosition = 0
 
@@ -433,6 +438,7 @@ class HomeActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
         detailInfo.name = itemName
         detailInfo.itemId = itemId.toString()
         detailInfo.groupName = headerInfo.name
+        detailInfo.selected=selected.toString()
 
         productList.add(detailInfo)
         headerInfo.playerName = productList
@@ -638,32 +644,72 @@ class HomeActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
                             }
                         }
                         for (items in response.data.additional_services) {
-                            addProduct(getString(R.string.addtional_service), items.name, items.id)
+                            addProduct(getString(R.string.addtional_service), items.name, items.id,items.selected)
                         }
                         for (items in response.data.budget) {
                             Log.e("Budget", items.name)
-                            addProduct(getString(R.string.budget), items.name, items.id)
+                            addProduct(
+                                getString(R.string.budget),
+                                items.name,
+                                items.id,
+                                items.selected
+                            )
                         }
                         for (items in response.data.intolerance_compatibilities) {
-                            addProduct(getString(R.string.comp_intolr), items.name, items.id)
+                            addProduct(
+                                getString(R.string.comp_intolr),
+                                items.name,
+                                items.id,
+                                items.selected
+                            )
                         }
                         for (items in response.data.ambiance_complementary) {
-                            addProduct(getString(R.string.comp_ambiance), items.name, items.id)
+                            addProduct(
+                                getString(R.string.comp_ambiance),
+                                items.name,
+                                items.id,
+                                items.selected
+                            )
                         }
                         for (items in response.data.meal_types) {
-                            addProduct(getString(R.string.meal_type), items.name, items.id)
+                            addProduct(
+                                getString(R.string.meal_type),
+                                items.name,
+                                items.id,
+                                items.selected
+                            )
                         }
                         for (items in response.data.ambiance) {
-                            addProduct(getString(R.string.restro_ambiance), items.name, items.id)
+                            addProduct(
+                                getString(R.string.restro_ambiance),
+                                items.name,
+                                items.id,
+                                items.selected
+                            )
                         }
                         for (items in response.data.speciality) {
-                            addProduct(getString(R.string.restro_speacial), items.name, items.id)
+                            addProduct(
+                                getString(R.string.restro_speacial),
+                                items.name,
+                                items.id,
+                                items.selected
+                            )
                         }
                         for (items in response.data.seasons) {
-                            addProduct(getString(R.string.seasonali), items.name, items.id)
+                            addProduct(
+                                getString(R.string.seasonali),
+                                items.name,
+                                items.id,
+                                items.selected
+                            )
                         }
                         for (items in response.data.service_speed) {
-                            addProduct(getString(R.string.service_sped), items.name, items.id)
+                            addProduct(
+                                getString(R.string.service_sped),
+                                items.name,
+                                items.id,
+                                items.selected
+                            )
                         }
 
                         // create the adapter by passing your ArrayList data
@@ -801,4 +847,17 @@ class HomeActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
             .replace(R.id.content_frame, finalFrag)
             .commit()
     }
+
+  /*  fun clearFilterConstValues()
+    {
+       Global.budgetSet.clear()
+       Global.serviceSet.clear()
+       Global.mealSet.clear()
+       Global.compatIntSet.clear()
+        Global.restroSpeclSet.clear()
+         Global.restroAmbiSet.clear()
+         Global.compAmbianceSet.clear()
+         Global.additonalSet.clear()
+         Global.seasonlitySet.clear()
+    }*/
 }

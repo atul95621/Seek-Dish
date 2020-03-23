@@ -35,7 +35,8 @@ class FilterAdapter(private val context: Context, private val teamName: ArrayLis
 
         val detailInfo = getChild(groupPosition, childPosition) as ChildData
         if (view == null) {
-            val infalInflater = context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
+            val infalInflater =
+                context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
             view = infalInflater.inflate(R.layout.item_layout_filter_child, null)
         }
         val childItem = view!!.findViewById<View>(R.id.childDetailItem) as TextView
@@ -51,11 +52,14 @@ class FilterAdapter(private val context: Context, private val teamName: ArrayLis
         childDetailItemId.text = detailInfo.itemId.trim { it <= ' ' }
         Log.e("itemId", "" + childDetailItemId.text)
 
-
-        if (detailInfo.selected == true) {
+// if already seleceted or saved on api
+        if (detailInfo.selected.equals("1")) {
             filterCheckBox.isChecked = true
+            addSelected(detailInfo.itemId, detailInfo.groupName)
+
         } else {
             filterCheckBox.isChecked = false
+            deleteSelected(detailInfo.itemId, detailInfo.groupName)
         }
 
 
@@ -73,8 +77,8 @@ class FilterAdapter(private val context: Context, private val teamName: ArrayLis
                     "    " + detailInfo.name + " status is now " + filterCheckBox.isChecked + "in " + detailInfo.groupName + " group"
                 )
 
-                    // to tell model that it has been not been selected
-                    detailInfo.selected = false
+                // to tell model that it has been not been selected
+                detailInfo.selected = "0"
 
                 // method to add the selected ids to static variable
                 deleteSelected(detailInfo.itemId, detailInfo.groupName)
@@ -87,7 +91,7 @@ class FilterAdapter(private val context: Context, private val teamName: ArrayLis
                     "    " + detailInfo.name + " status is now " + filterCheckBox.isChecked + "in " + detailInfo.groupName + " group"
                 )
                 // to tell model that it has been selected
-                detailInfo.selected = true
+                detailInfo.selected = "1"
 
                 // method to add the selected ids to static variable
                 addSelected(detailInfo.itemId, detailInfo.groupName)
@@ -113,7 +117,7 @@ class FilterAdapter(private val context: Context, private val teamName: ArrayLis
     }
 
     private fun deleteSelected(itemId: String?, groupName: String?) {
-        if (groupName.equals("Budget")) {
+        if (groupName.equals(context.resources.getString(R.string.budget))) {
 
             for (i in 0 until Global.budgetSet.size) {
                 if (Global.budgetSet.contains(itemId)) {
@@ -123,7 +127,7 @@ class FilterAdapter(private val context: Context, private val teamName: ArrayLis
             Log.e("ListDeleteBudget", TextUtils.join(",", Global.budgetSet))
 
 
-        } else if (groupName.equals("Service Speed")) {
+        } else if (groupName.equals(context.resources.getString(R.string.service_sped))) {
 
             for (i in 0 until Global.serviceSet.size) {
                 if (Global.serviceSet.contains(itemId)) {
@@ -133,7 +137,7 @@ class FilterAdapter(private val context: Context, private val teamName: ArrayLis
             Log.e("ListDeleteService", TextUtils.join(",", Global.serviceSet))
 
 
-        } else if (groupName.equals("Meal type")) {
+        } else if (groupName.equals(context.resources.getString(R.string.meal_type))) {
 
             for (i in 0 until Global.mealSet.size) {
                 if (Global.mealSet.contains(itemId)) {
@@ -141,7 +145,7 @@ class FilterAdapter(private val context: Context, private val teamName: ArrayLis
                 }
             }
 
-        } else if (groupName.equals("Compatibility intolerance")) {
+        } else if (groupName.equals(context.resources.getString(R.string.comp_intolr))) {
 
             for (i in 0 until Global.compatIntSet.size) {
                 if (Global.compatIntSet.contains(itemId)) {
@@ -150,7 +154,7 @@ class FilterAdapter(private val context: Context, private val teamName: ArrayLis
             }
 
 
-        } else if (groupName.equals("Restaurant speciality")) {
+        } else if (groupName.equals(context.resources.getString(R.string.restro_speacial))) {
 
             for (i in 0 until Global.restroSpeclSet.size) {
                 if (Global.restroSpeclSet.contains(itemId)) {
@@ -158,7 +162,7 @@ class FilterAdapter(private val context: Context, private val teamName: ArrayLis
                 }
             }
 
-        } else if (groupName.equals("Restaurant ambiance")) {
+        } else if (groupName.equals(context.resources.getString(R.string.restro_ambiance))) {
 
             for (i in 0 until Global.restroAmbiSet.size) {
                 if (Global.restroAmbiSet.contains(itemId)) {
@@ -166,14 +170,14 @@ class FilterAdapter(private val context: Context, private val teamName: ArrayLis
                 }
             }
 
-        } else if (groupName.equals("Complementary ambiance")) {
+        } else if (groupName.equals(context.resources.getString(R.string.comp_ambiance))) {
             for (i in 0 until Global.compAmbianceSet.size) {
                 if (Global.compAmbianceSet.contains(itemId)) {
                     Global.compAmbianceSet.remove(itemId)
                 }
             }
 
-        } else if (groupName.equals("Additional Services")) {
+        } else if (groupName.equals(context.resources.getString(R.string.additional_Service))) {
 
             for (i in 0 until Global.additonalSet.size) {
                 if (Global.additonalSet.contains(itemId)) {
@@ -181,7 +185,7 @@ class FilterAdapter(private val context: Context, private val teamName: ArrayLis
                 }
             }
 
-        } else if (groupName.equals("Seasonality")) {
+        } else if (groupName.equals(context.resources.getString(R.string.seasonali))) {
 
             for (i in 0 until Global.seasonlitySet.size) {
                 if (Global.seasonlitySet.contains(itemId)) {
@@ -193,7 +197,7 @@ class FilterAdapter(private val context: Context, private val teamName: ArrayLis
 
     private fun addSelected(itemId: String?, groupName: String?) {
 
-        if (groupName.equals("Budget")) {
+/*        if (groupName.equals("Budget")) {
 
             Global.budgetSet.add(itemId)
             Log.e("Listaddedbudget", TextUtils.join(",", Global.budgetSet))
@@ -230,8 +234,46 @@ class FilterAdapter(private val context: Context, private val teamName: ArrayLis
         } else if (groupName.equals("Seasonality")) {
 
             Global.seasonlitySet.add(itemId)
-        }
+        }*/
 
+
+        if (groupName.equals(context.resources.getString(R.string.budget))) {
+
+            Global.budgetSet.add(itemId)
+            Log.e("Listaddedbudget", TextUtils.join(",", Global.budgetSet))
+
+        } else if (groupName.equals(context.resources.getString(R.string.service_sped))) {
+
+            Global.serviceSet.add(itemId)
+            Log.e("ListaddedService", TextUtils.join(",", Global.serviceSet))
+
+        } else if (groupName.equals(context.resources.getString(R.string.meal_type))) {
+
+            Global.mealSet.add(itemId)
+
+        } else if (groupName.equals(context.resources.getString(R.string.comp_intolr))) {
+
+            Global.compatIntSet.add(itemId)
+
+        } else if (groupName.equals(context.resources.getString(R.string.restro_speacial))) {
+
+            Global.restroSpeclSet.add(itemId)
+
+        } else if (groupName.equals(context.resources.getString(R.string.restro_ambiance))) {
+
+            Global.restroAmbiSet.add(itemId)
+
+        } else if (groupName.equals(context.resources.getString(R.string.comp_ambiance))) {
+            Global.compAmbianceSet.add(itemId)
+
+        } else if (groupName.equals(context.resources.getString(R.string.addtional_service))) {
+
+            Global.additonalSet.add(itemId)
+
+        } else if (groupName.equals(context.resources.getString(R.string.seasonali))) {
+
+            Global.seasonlitySet.add(itemId)
+        }
     }
 
     override fun getChildrenCount(groupPosition: Int): Int {

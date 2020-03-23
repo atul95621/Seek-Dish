@@ -25,46 +25,55 @@ data class ConsiderMyProfile(
 
 data class Speciality(
     val id: Int,
+    val selected: Int,
     val name: String
 )
 
 data class Budget(
     val id: Int,
+    val selected: Int,
     val name: String
 )
 
 data class Ambiance(
     val id: Int,
+    val selected: Int,
     val name: String
 )
 
 data class AmbianceComplementary(
     val id: Int,
+    val selected: Int,
     val name: String
 )
 
 data class ServiceSpeed(
     val id: Int,
+    val selected: Int,
     val name: String
 )
 
 data class AdditionalService(
     val id: Int,
+    val selected: Int,
     val name: String
 )
 
 data class Season(
     val id: Int,
+    val selected: Int,
     val name: String
 )
 
 data class MealType(
     val id: Int,
+    val selected: Int,
     val name: String
 )
 
 data class IntoleranceCompatibility(
     val id: Int,
+    val selected: Int,
     val name: String
 )
 

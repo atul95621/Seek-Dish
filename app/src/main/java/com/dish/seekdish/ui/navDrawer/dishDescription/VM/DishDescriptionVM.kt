@@ -41,6 +41,7 @@ class DishDescriptionVM : ViewModel() {
         isLoadingSubject.onNext(true)
         var api = APIClientMvvm.client.create(APIInterface::class.java)
         val call = api.getMealDetails(userId, meal_id, restaurant_id, longitude, latitude)
+        Log.e("respGetDetailsprams","$userId  , $meal_id   ,$restaurant_id   ,$longitude  , $latitude")
         call.enqueue(object : Callback<DishDescpModel> {
             override fun onResponse(call: Call<DishDescpModel>, response: Response<DishDescpModel>) {
 
@@ -59,7 +60,7 @@ class DishDescriptionVM : ViewModel() {
 
                 // making progress bar invisible
                 isLoadingSubject.onNext(false)
-                Log.e("respGetDetailsFail", "failure")
+                Log.e("respGetDetailsFail", "failure"+t.message)
 
                 getDishDetailLiveData.postValue(null)
             }

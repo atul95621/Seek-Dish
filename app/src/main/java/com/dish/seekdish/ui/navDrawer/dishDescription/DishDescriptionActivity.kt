@@ -141,7 +141,7 @@ class DishDescriptionActivity : BaseActivity(), Serializable {
 
 
         viewPager = findViewById(R.id.viewPagerDishActivity) as ViewPager
-
+//        viewPager.setOffscreenPageLimit(3);
 
 //        tabLayout.setTabTextColors(
 //                ContextCompat.getColor(this, R.color.black),
@@ -254,7 +254,6 @@ class DishDescriptionActivity : BaseActivity(), Serializable {
     }
 
     fun getDishDetailsObserver() {
-
         //observe
         dishDescriptionVM!!.isLoadingObservable().observeOn(AndroidSchedulers.mainThread())
             .subscribe {
@@ -369,9 +368,7 @@ class DishDescriptionActivity : BaseActivity(), Serializable {
 
         dishDescriptionVM!!.getAddFavouriteLiveData.observe(this, Observer { response ->
             if (response != null) {
-
                 Log.e("rspGetaddtodoDetailsd", response.toString())
-
                 if (response.status == 1) {
 //                    onSendClick(response.data.message)
                     actionDialog.dismiss()
@@ -381,7 +378,6 @@ class DishDescriptionActivity : BaseActivity(), Serializable {
                 {
                     showSnackBar(response.message)
                 }
-
             } else {
                 showSnackBar(getResources().getString(R.string.error_occured)+"   $response ");
                 Log.e("rspGetaddtodoFail", "else error")
@@ -458,8 +454,6 @@ class DishDescriptionActivity : BaseActivity(), Serializable {
             } else {
                 showSnackBar(getString(R.string.check_connection))
             }
-
-
         }
 
         tvAddtodo.setOnClickListener()

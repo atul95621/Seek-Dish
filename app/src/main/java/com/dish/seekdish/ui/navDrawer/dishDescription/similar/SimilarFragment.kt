@@ -54,7 +54,6 @@ class SimilarFragment(var objDishModel: DishDescpModel) : BaseFragment() {
         }
         else
         {
-
             for (item in objDishModel.data.similar_meals) {
                 val similarDataClass = SimilarDataClass(
                     item.meal_image,
