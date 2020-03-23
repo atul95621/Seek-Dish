@@ -177,13 +177,15 @@ class FilterAdapter(private val context: Context, private val teamName: ArrayLis
                 }
             }
 
-        } else if (groupName.equals(context.resources.getString(R.string.additional_Service))) {
+        } else if (groupName.equals(context.resources.getString(R.string.addtional_service))) {
 
             for (i in 0 until Global.additonalSet.size) {
                 if (Global.additonalSet.contains(itemId)) {
                     Global.additonalSet.remove(itemId)
                 }
             }
+            Log.e("ListDeleteAdditonalSet", TextUtils.join(",", Global.additonalSet))
+
 
         } else if (groupName.equals(context.resources.getString(R.string.seasonali))) {
 
