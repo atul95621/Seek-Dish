@@ -51,7 +51,7 @@ class InvitationActivity : BaseActivity() {
     var timeDate = ""
     var timedelected = ""
     var dateSelected = ""
-    var invitation_status=""
+    var invitation_status = ""
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_invitation)
@@ -90,8 +90,8 @@ class InvitationActivity : BaseActivity() {
                 tvDate.setText(date)
                 tvTime.setText(time)
 
-                tvDate.isEnabled=false
-                tvTime.isEnabled=false
+                tvDate.isEnabled = false
+                tvTime.isEnabled = false
 
                 getInvitationApiHit()
             } else {
@@ -170,11 +170,14 @@ class InvitationActivity : BaseActivity() {
         imgInvitaionSend.setOnClickListener()
         {
             var recievers_id = TextUtils.join(",", Global.selectedFriends)
+            Log.e("selected_friend_SENDING",recievers_id)
 
-            if (recievers_id != null && recievers_id != "null" && recievers_id != "") {
-                postInvitation(recievers_id)
-            } else {
+            if (recievers_id.isNullOrEmpty()) {
                 showSnackBar("Please choose friends first.")
+            } else if (timedelected.isNullOrEmpty() && dateSelected.isNullOrEmpty()) {
+                showSnackBar("Please choose time and date first.")
+            } else {
+                postInvitation(recievers_id)
             }
         }
     }
@@ -240,11 +243,13 @@ class InvitationActivity : BaseActivity() {
         val currentDate = Calendar.getInstance()
 
         var date: String =
-            currentDate.get(Calendar.DATE).toString() + "/" + currentDate.get(Calendar.MONTH).plus(1) + "/" + currentDate.get(
+            currentDate.get(Calendar.DATE).toString() + "/" + currentDate.get(Calendar.MONTH)
+                .plus(1) + "/" + currentDate.get(
                 Calendar.YEAR
             )
         var time: String =
-            currentDate.get(Calendar.HOUR_OF_DAY).toString() + ":" + currentDate.get(Calendar.MINUTE)
+            currentDate.get(Calendar.HOUR_OF_DAY)
+                .toString() + ":" + currentDate.get(Calendar.MINUTE)
         Log.e("time", time)
         Log.e("date", date)
 
@@ -297,12 +302,12 @@ class InvitationActivity : BaseActivity() {
                         Log.e("heii", "enerd")
                     }
                 } else {
-                    showSnackBar(resources.getString(R.string.error_occured)  +"   ${response.code()}");
+                    showSnackBar(resources.getString(R.string.error_occured) + "   ${response.code()}");
                 }
             }
 
             override fun onFailure(call: Call<InvitationModel>, t: Throwable) {
-                showSnackBar(resources.getString(R.string.error_occured)+"  ${t.message}");
+                showSnackBar(resources.getString(R.string.error_occured) + "  ${t.message}");
 
                 call.cancel()
                 // canceling the progress bar
@@ -340,12 +345,12 @@ class InvitationActivity : BaseActivity() {
                         showSnackBar(modelObj.message);
                     }
                 } else {
-                    showSnackBar(resources.getString(R.string.error_occured)  +"   ${response.code()}");
+                    showSnackBar(resources.getString(R.string.error_occured) + "   ${response.code()}");
                 }
             }
 
             override fun onFailure(call: Call<CancelReModel>, t: Throwable) {
-                showSnackBar(resources.getString(R.string.error_occured)   +"   ${t.message}");
+                showSnackBar(resources.getString(R.string.error_occured) + "   ${t.message}");
                 call.cancel()
                 // canceling the progress bar
                 ProgressBarClass.dialog.dismiss()
@@ -383,12 +388,12 @@ class InvitationActivity : BaseActivity() {
                         showSnackBar(modelObj.message);
                     }
                 } else {
-                    showSnackBar(resources.getString(R.string.error_occured)  +"   ${response.code()}");
+                    showSnackBar(resources.getString(R.string.error_occured) + "   ${response.code()}");
                 }
             }
 
             override fun onFailure(call: Call<CancelReModel>, t: Throwable) {
-                showSnackBar(resources.getString(R.string.error_occured)  +"   ${t.message}");
+                showSnackBar(resources.getString(R.string.error_occured) + "   ${t.message}");
                 call.cancel()
                 // canceling the progress bar
                 ProgressBarClass.dialog.dismiss()

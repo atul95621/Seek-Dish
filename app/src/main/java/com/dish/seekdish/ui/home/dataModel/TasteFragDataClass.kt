@@ -27,7 +27,7 @@ data class Data_Taste(
     val meal_image: String,
     val name: String,
     val no_of_reviews: Int,
-    val rating: Int,
+    val rating: String,
     val meal_id: Int,
     val restro_id: Int
 

@@ -356,6 +356,7 @@ class MyInformationActivity : BaseActivity(), IMyInformationView {
                     }
                 }
             })
+            .setWithImageCrop(1,1)
         imagePicker?.choosePicture(true)
     }
 

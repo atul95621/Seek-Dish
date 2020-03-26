@@ -172,6 +172,7 @@ open class BaseActivity : AppCompatActivity() {
         options.inSampleSize = inSampleSize
         // Decode bitmap with inSampleSize set
         options.inJustDecodeBounds = false
+
         return BitmapFactory.decodeFile(path, options)
     }
 

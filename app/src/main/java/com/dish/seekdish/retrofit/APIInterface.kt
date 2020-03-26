@@ -32,10 +32,6 @@ import retrofit2.http.*
 import retrofit2.http.GET
 
 
-/**
- * Created by anupamchugh on 09/01/17.
- */
-
 internal interface APIInterface {
 
     // with image
@@ -521,7 +517,6 @@ internal interface APIInterface {
         @Part image2: MultipartBody.Part
     ): Call<AddTodoModel>
 
-
     @FormUrlEncoded
     @POST("logout")
     fun logout(
@@ -680,7 +675,6 @@ internal interface APIInterface {
 
     ): Call<InvitationModel>
 
-
     @FormUrlEncoded
     @POST("get_all_users_details")
     fun getAllUsersDetails(
@@ -701,7 +695,7 @@ internal interface APIInterface {
     fun postInvitationApi(
         @Field("sender_id") sender_id: String,
         @Field("restro_id") restro_id: String,
-        @Field("receiver_id") receiver_id: String,
+        @Field("receiver_ids") receiver_id: String,
         @Field("invitation_schedule_time") time: String,
         @Field("invitation_schedule_date") date: String
 
@@ -712,7 +706,6 @@ internal interface APIInterface {
     fun getNotificationList(
         @Field("user_id") user_id: String
     ): Call<NotifyModel>
-
 
     @FormUrlEncoded
     @POST("accept_decline_invitation")

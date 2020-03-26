@@ -29,7 +29,7 @@ data class Restaurant(
     val no_of_reviews: Int,
     val rating: String,
     val restaurant_detail: RestaurantDetail,
-    val restaurant_image: String,
+    val restaurant_image: List<String>,
     val service_speed: Int?,
     val similar_restaurants: List<SimilarRestaurant>,
     val street: String

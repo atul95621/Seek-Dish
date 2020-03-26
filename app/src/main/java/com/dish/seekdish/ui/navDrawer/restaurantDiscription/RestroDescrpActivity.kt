@@ -21,12 +21,9 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.viewpager.widget.PagerAdapter
 import androidx.viewpager.widget.ViewPager
-import com.dish.seekdish.Constants
 import com.dish.seekdish.R
 import com.dish.seekdish.custom.GlideApp
 import com.dish.seekdish.custom.PagerContainer
-import com.dish.seekdish.custom.ProgressBarClass.dialog
-import com.dish.seekdish.ui.navDrawer.dishDescription.MealRatingActivity
 import com.dish.seekdish.ui.navDrawer.invitation.InvitationActivity
 import com.dish.seekdish.ui.navDrawer.restaurantDiscription.VM.RestroDescpVM
 import com.dish.seekdish.ui.navDrawer.restaurantDiscription.adapter.RestroDescrpAdapter
@@ -47,8 +44,6 @@ import de.hdodenhof.circleimageview.CircleImageView
 import io.reactivex.android.schedulers.AndroidSchedulers
 import kotlinx.android.synthetic.main.activity_restro_description.*
 import kotlinx.android.synthetic.main.activity_restro_description.tvBack
-import kotlinx.android.synthetic.main.pager_item.*
-import java.util.ArrayList
 
 class RestroDescrpActivity : BaseActivity() {
     lateinit var tabLayout: TabLayout
@@ -203,7 +198,7 @@ class RestroDescrpActivity : BaseActivity() {
 
     private fun getIntents() {
         restro_id = intent.getStringExtra("RESTAURANT_ID")
-        Log.e("resid", restro_id)
+        Log.e("resid", restro_id.toString())
     }
 
     private fun onShare() {
@@ -286,7 +281,7 @@ class RestroDescrpActivity : BaseActivity() {
 
     }
 
-    private fun initializeviews() {
+    private fun initializeviews(mResources: HashSet<String>) {
 
         mContainer = findViewById(R.id.pager_container) as PagerContainer
         pager = mContainer.viewPager
@@ -302,8 +297,12 @@ class RestroDescrpActivity : BaseActivity() {
         pager.clipChildren = false
 
         //setting dots with viewpager...
-//        springDotsIndicator.setViewPager(pager)
-        springDotsIndicator.visibility=View.GONE
+        springDotsIndicator.setViewPager(pager)
+        if (mResources.size > 1) {
+            springDotsIndicator.visibility = View.VISIBLE
+        } else {
+            springDotsIndicator.visibility = View.GONE
+        }
 
     }
 
@@ -371,13 +370,13 @@ class RestroDescrpActivity : BaseActivity() {
                 if (response.status == 1) {
 
                     // feeding the image to the list
-                    var imageMeal = response.data.restaurant.restaurant_image
-                    mResources.add(imageMeal)
-
-                    Log.e("restro_image", "" + imageMeal)
+                    for (item in response.data.restaurant.restaurant_image) {
+                        mResources.add(item)
+                    }
+//                    var imageMeal = response.data.restaurant.restaurant_image
 
                     tvRestroName.setText(response.data.restaurant.name)
-                    tvRestroAddress.setText(response.data.restaurant.street + ", " +response.data.restaurant.city+", "+ response.data.restaurant.zipcode)
+                    tvRestroAddress.setText(response.data.restaurant.street + ", " + response.data.restaurant.city + ", " + response.data.restaurant.zipcode)
                     tvRestroReview.setText("(" + response.data.restaurant.no_of_reviews + ")")
                     latitude = response.data.restaurant.latitude
                     longitude = response.data.restaurant.longitude
@@ -386,7 +385,8 @@ class RestroDescrpActivity : BaseActivity() {
                     twitterLink = response.data.restaurant.twitter
 
                     //for swipe images on top
-                    initializeviews()
+                    initializeviews(mResources)
+
 
                     tvRestroName.setOnClickListener()
                     {
@@ -411,13 +411,13 @@ class RestroDescrpActivity : BaseActivity() {
                             tabLayout
                         )
                     )
-                }
-                else
-                {
+                } else {
                     showSnackBar(response.message)
                 }
             } else {
-                showSnackBar(this.getResources().getString(R.string.error_occured) + "    $response");
+                showSnackBar(
+                    this.getResources().getString(R.string.error_occured) + "    $response"
+                );
                 Log.e("rspGetDishDetailsFail", "else error")
 
             }
@@ -497,13 +497,13 @@ class RestroDescrpActivity : BaseActivity() {
                 if (response.status == 1) {
                     actionDialog.dismiss()
                     showSnackBar(response.message)
-                }
-                else
-                {
+                } else {
                     showSnackBar(response.message)
                 }
             } else {
-                showSnackBar(this.getResources().getString(R.string.error_occured) + "    $response");
+                showSnackBar(
+                    this.getResources().getString(R.string.error_occured) + "    $response"
+                );
             }
         })
     }

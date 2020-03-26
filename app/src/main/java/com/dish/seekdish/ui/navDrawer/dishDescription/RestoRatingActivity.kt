@@ -416,8 +416,8 @@ class RestoRatingActivity : BaseActivity() {
 
                     if (path != null && path != "" && path != "null") {
 
-                        //get bitmap from file path
-                        val bm = decodeSampledBitmapFromFile(path, 300, 300)
+                            //get bitmap from file path
+                            val bm = decodeSampledBitmapFromFile(path, 300, 300)
 
                         try {
 
@@ -524,14 +524,10 @@ class RestoRatingActivity : BaseActivity() {
 //                        imgOne?.setImageBitmap(bitmap)
 
 //                        profile_image.setImageBitmap(bitmap)
-
-
                     }
-
-
                 }
             })
-
+            .setWithImageCrop(1,1)
         imagePicker.choosePicture(true)
     }
 
@@ -555,6 +551,9 @@ class RestoRatingActivity : BaseActivity() {
         super.onActivityResult(requestCode, resultCode, result)
 
         //Log.e("test", "onactivitycalled");
+        if (resultCode != RESULT_OK) {
+            return;
+        }
 
         if (resultCode == RESULT_OK) {
 

@@ -339,6 +339,7 @@ class SignupActivity : BaseActivity(), ISignUpView {
                     }
                 }
             })
+            .setWithImageCrop(1,1)
         imagePicker?.choosePicture(true)
     }
     /*fun chooseImage() {

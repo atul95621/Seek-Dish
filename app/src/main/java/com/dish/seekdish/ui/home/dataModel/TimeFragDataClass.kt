@@ -20,5 +20,5 @@ data class Data_time(
     val name: String,
     val no_of_reviews: Int,
     val preperation_time: Int,
-    val rating: Int
+    val rating: String
 )

@@ -2,6 +2,7 @@ package com.dish.seekdish.ui.navDrawer.invitation.includeFriends
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import androidx.viewpager.widget.ViewPager
 import com.google.android.material.tabs.TabLayout
 import kotlinx.android.synthetic.main.activity_include_friends.*
@@ -10,6 +11,7 @@ import androidx.fragment.app.FragmentTransaction
 import com.dish.seekdish.R
 import com.dish.seekdish.ui.navDrawer.invitation.includeFriendDataModels.fragments.selected.SelectedInclFragment
 import com.dish.seekdish.ui.navDrawer.invitation.includeFriends.fragments.friends.FriendsInclFragment
+import com.dish.seekdish.util.Global
 
 
 class IncludeFriendsActivity : AppCompatActivity() {
@@ -81,6 +83,7 @@ class IncludeFriendsActivity : AppCompatActivity() {
             /*val intent = Intent(this, InvitationActivity::class.java)
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK)
             startActivity(intent)*/
+            Log.e("selected_friend",Global.selectedFriends.toString())
             finish()
         }
         tvBack.setOnClickListener()
