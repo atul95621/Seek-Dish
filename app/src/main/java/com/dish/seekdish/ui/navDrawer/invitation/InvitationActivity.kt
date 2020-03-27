@@ -191,7 +191,7 @@ class InvitationActivity : BaseActivity() {
         val textViewDescrp = dialog.findViewById<TextView>(R.id.textViewDescrp)
         val btnAccept = dialog.findViewById<Button>(R.id.btnAccept)
         Global.selectedFriends.clear()
-        textViewTitle.setText("Invitation Status")
+        textViewTitle.setText(getString(R.string.inviatation_status))
         textViewDescrp.setText(message)
         // button_yes clk
         btnAccept.setOnClickListener {

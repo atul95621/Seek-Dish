@@ -173,7 +173,7 @@ class HomeActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
 
         if (from != null) {
             if (from.equals("MyProfileActivity")) {
-                tvTitle.setText("My Friends")
+                tvTitle.setText(resources.getString(R.string.my_friends))
                 val fragmentManager = supportFragmentManager
                 fragmentManager.beginTransaction().replace(
                     R.id.content_frame,
@@ -181,7 +181,7 @@ class HomeActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
                 ).commit()
             } else if (from.equals("FriendInfoActivity")) {
                 if (!fromValue.isNullOrEmpty()) {
-                    tvTitle.setText("My Friends")
+                    tvTitle.setText(resources.getString(R.string.my_friends))
                     val fragmentManager = supportFragmentManager
                     fragmentManager.beginTransaction().replace(
                         R.id.content_frame,
@@ -190,7 +190,7 @@ class HomeActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
                 }
             } else if (from.equals("SettingsFragment")) {
                 if (!fromValue.isNullOrEmpty()) {
-                    tvTitle.setText("My Friends")
+                    tvTitle.setText(resources.getString(R.string.my_friends))
                     tvAdd.visibility = View.VISIBLE
                     imgFilters.visibility = (View.INVISIBLE)
                     val fragmentManager = supportFragmentManager
@@ -267,10 +267,10 @@ class HomeActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
             //get the child info
             val detailInfo = headerInfo.playerName[childPosition]
             //display it or do something with it
-            Toast.makeText(
+      /*      Toast.makeText(
                 this, " Team And Player :: " + headerInfo.name
                         + "/" + detailInfo.name, Toast.LENGTH_LONG
-            ).show()
+            ).show()*/
             false
         })
         // setOnGroupClickListener listener for group heading click
@@ -450,7 +450,7 @@ class HomeActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
 
 
     private fun setInitialFragment() {
-        tvTitle.setText("Home")
+        tvTitle.setText(resources.getString(R.string.home))
         val fragmentManager = supportFragmentManager
         fragmentManager.beginTransaction().replace(R.id.content_frame, HomeFragment()).commit()
     }
@@ -506,7 +506,7 @@ class HomeActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
                 R.id.nav_home -> {
                     imgFilters.visibility = (View.VISIBLE)
                     tvAdd.visibility = (View.INVISIBLE)
-                    tvTitle.setText("Home")
+                    tvTitle.setText(resources.getString(R.string.home))
                     val fragmentManager = supportFragmentManager
                     fragmentManager.beginTransaction()
                         .replace(R.id.content_frame, HomeFragment())
@@ -515,16 +515,16 @@ class HomeActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
                 }
                 R.id.nav_restaurants -> {
                     tvAdd.visibility = (View.INVISIBLE)
-                    tvTitle.setText("Restaurants")
+                    tvTitle.setText(resources.getString(R.string.restaurant))
                     val fragmentManager = supportFragmentManager
                     fragmentManager.beginTransaction()
                         .replace(R.id.content_frame, RestaurantsFragment())
                         .commit()
                 }
                 R.id.nav_my_friends -> {
-                    tvAdd.setText("Add")
+                    tvAdd.setText(resources.getString(R.string.add))
                     tvAdd.visibility = (View.VISIBLE)
-                    tvTitle.setText("My Friends")
+                    tvTitle.setText(resources.getString(R.string.my_friends))
                     imgFilters.visibility = (View.INVISIBLE)
 
                     val fragmentManager = supportFragmentManager
@@ -538,7 +538,7 @@ class HomeActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
                 R.id.nav_favorite_menu -> {
                     tvAdd.visibility = (View.INVISIBLE)
                     imgFilters.visibility = (View.INVISIBLE)
-                    tvTitle.setText("My Favourites")
+                    tvTitle.setText(resources.getString(R.string.my_favourites))
                     val fragmentManager = supportFragmentManager
                     fragmentManager.beginTransaction()
                         .replace(R.id.content_frame, MyFavouriteFragment())
@@ -548,7 +548,7 @@ class HomeActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
                 R.id.nav_todo -> {
                     tvAdd.visibility = (View.INVISIBLE)
                     imgFilters.visibility = (View.INVISIBLE)
-                    tvTitle.setText("To do")
+                    tvTitle.setText(resources.getString(R.string.todo))
                     val fragmentManager = supportFragmentManager
                     fragmentManager.beginTransaction()
                         .replace(R.id.content_frame, TodoFragment())
@@ -557,7 +557,7 @@ class HomeActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
                 R.id.nav_notifications -> {
                     tvAdd.visibility = (View.INVISIBLE)
                     imgFilters.visibility = (View.INVISIBLE)
-                    tvTitle.setText("Notifications")
+                    tvTitle.setText(resources.getString(R.string.notifications))
                     val fragmentManager = supportFragmentManager
                     fragmentManager.beginTransaction()
                         .replace(R.id.content_frame, NotificationFarg())
@@ -566,10 +566,10 @@ class HomeActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
                 R.id.nav_settings -> {
 
                     tvAdd.visibility = (View.VISIBLE)
-                    tvAdd.setText("Save")
+                    tvAdd.setText(resources.getString(R.string.save))
 
                     imgFilters.visibility = (View.INVISIBLE)
-                    tvTitle.setText("Settings")
+                    tvTitle.setText(resources.getString(R.string.settings))
 
                     val fragmentManager = supportFragmentManager
                     fragmentManager.beginTransaction()

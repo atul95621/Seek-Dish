@@ -1,6 +1,7 @@
 package com.dish.seekdish.ui.navDrawer.restaurants.fragments
 
 import android.Manifest
+import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.Bitmap
 import android.graphics.drawable.BitmapDrawable
@@ -14,10 +15,10 @@ import androidx.core.content.ContextCompat
 import androidx.core.content.res.ResourcesCompat
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
-
 import com.dish.seekdish.R
 import com.dish.seekdish.ui.home.HomeActivity
 import com.dish.seekdish.ui.home.dataModel.Location
+import com.dish.seekdish.ui.navDrawer.restaurantDiscription.RestroDescrpActivity
 import com.dish.seekdish.ui.navDrawer.restaurants.dataClass.Data_Restro_Map
 import com.dish.seekdish.ui.navDrawer.restaurants.mapWindow.InfoWindowModel
 import com.dish.seekdish.ui.navDrawer.restaurants.mapWindow.RestroMapInfoWindow
@@ -28,7 +29,6 @@ import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
-import com.google.android.gms.maps.model.BitmapDescriptorFactory
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.Marker
 import com.google.android.gms.maps.model.MarkerOptions
@@ -40,16 +40,14 @@ GoogleMap.OnMyLocationClickListener, GoogleMap.OnMarkerClickListener  {
 
     lateinit var marker: Marker
     private lateinit var myContext: HomeActivity
-
     private var mMap: GoogleMap? = null
-
     val PERMISSION_REQUEST_LOCATION_CODE = 1
-
     var restroMapVM: RestroMapVM? = null
     internal var arrayList = ArrayList<Data_Restro_Map>()
     var bitmapdraw: BitmapDrawable? = null
     var customSizeMarker: Bitmap? = null;
 
+    var restroIDInfoWindow=""
     internal var markerMapHash: MutableMap<Marker, InfoWindowModel> = HashMap<Marker, InfoWindowModel>()
 
 
@@ -100,13 +98,20 @@ GoogleMap.OnMyLocationClickListener, GoogleMap.OnMarkerClickListener  {
 
         googleMap.setOnMarkerClickListener {
 
-
             false
         }
 
 
         googleMap.setOnInfoWindowClickListener { marker ->
-            Log.e("rate", "info window clicked")
+
+            val infoModel: InfoWindowModel? = marker.tag as InfoWindowModel?
+
+            Log.e("ratedd", "info window clicked"+"  "+infoModel?.restro_id+"   ${infoModel?.restroTitle}"
+            )
+            var restr_id=infoModel?.restro_id.toString()
+            val intent = Intent(myContext, RestroDescrpActivity::class.java)
+            intent.putExtra("RESTAURANT_ID", restr_id)
+            myContext.startActivity(intent)
         }
 
 
@@ -236,7 +241,8 @@ GoogleMap.OnMyLocationClickListener, GoogleMap.OnMarkerClickListener  {
                             var imageUrl = arrayList[i].restaurant_image
                             var starRate = arrayList[i].rating.toString()
                             var mealName = arrayList[i].name
-                            var address = arrayList[i].street
+                            var address = arrayList[i].street +", "+arrayList[i].city+", "+arrayList[i].zipcode
+                            var restro_id = arrayList[i].id
 
 
                             // adding custom info window
@@ -255,7 +261,8 @@ GoogleMap.OnMyLocationClickListener, GoogleMap.OnMarkerClickListener  {
                                 imageUrl,
                                 starRate,
                                 mealName,
-                                address
+                                address,
+                                restro_id
                             );
 
                             var marker = mMap!!.addMarker(markerOptions);

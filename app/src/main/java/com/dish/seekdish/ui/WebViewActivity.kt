@@ -17,11 +17,11 @@ class WebViewActivity : AppCompatActivity() {
         val fromPage = intent.getStringExtra("from")
 
         if (fromPage.equals("SignupTerms")) {
-            tvTitle.setText("Terms of Use")
+            tvTitle.setText(getString(R.string.terms_of_use))
             loadUrl(urlToLoad)
         }
         if (fromPage.equals("SignupPolicy")) {
-            tvTitle.setText("Privacy Policy")
+            tvTitle.setText(getString(R.string.privacy_policy))
             loadUrl(urlToLoad)
         }
 

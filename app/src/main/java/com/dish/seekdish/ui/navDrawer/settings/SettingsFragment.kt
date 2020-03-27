@@ -310,8 +310,8 @@ class SettingsFragment(var homeActivity: HomeActivity) : BaseFragment(), ISettin
 
                     sessionManager.setValues(SessionManager.RADIUS, radius.toString())
 
-                    tvLikeCount.setText(settingDataClass.data.liked_count.toString() + " I Like")
-                    tvDisLikeCount.setText(settingDataClass.data.disliked_count.toString() + " I Dislike")
+                    tvLikeCount.setText(settingDataClass.data.liked_count.toString() +" "+ resources.getString(R.string.i_like))
+                    tvDisLikeCount.setText(settingDataClass.data.disliked_count.toString() + " "+resources.getString(R.string.i_dislike))
 
                     numberPicker?.setValue(settingDataClass.data.radius)
 

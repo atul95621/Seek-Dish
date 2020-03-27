@@ -1,93 +1,99 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        android:layout_width="wrap_content"
-        android:orientation="horizontal"
-        android:background="@drawable/roundege_color_primary"
-        android:layout_weight="5"
-        android:padding="2dp"
-        android:layout_height="wrap_content">
-    <LinearLayout android:layout_width="0dp"
-                  android:layout_gravity="center"
-                  android:layout_weight="1"
-                  android:padding="2dp"
-                  android:orientation="vertical"
-                  android:layout_height="wrap_content">
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:maxWidth="170dp"
+    android:maxHeight="80dp"
+    android:layout_weight="5"
+    android:background="@drawable/roundege_color_primary"
+    android:orientation="horizontal"
+    android:padding="2dp">
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_weight="1"
+        android:orientation="vertical"
+        android:padding="2dp">
+
         <ImageView
-                android:layout_gravity="center"
-                android:id="@+id/imgInfoWindow"
-                android:layout_width="70dp"
-                android:layout_height="70dp"
-                android:src="@drawable/ic_foodimg"/>
+            android:id="@+id/imgInfoWindow"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:layout_gravity="center"
+            android:src="@drawable/ic_foodimg" />
 
     </LinearLayout>
-    <LinearLayout android:layout_width="0dp"
-                  android:layout_weight="4"
-                  android:weightSum="3"
-                  android:paddingEnd="5dp"
-                  android:layout_height="wrap_content"
-                  android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="4"
+        android:orientation="vertical"
+        android:paddingEnd="5dp"
+        android:weightSum="3">
+
         <TextView
-                android:id="@+id/tvRestro"
-                android:layout_width="wrap_content"
-                android:layout_gravity="center"
-                android:gravity="center|center_vertical"
-                android:paddingStart="10dp"
-                android:layout_weight="1"
-                android:textSize="16sp"
-                android:textColor="@color/black"
-                android:fontFamily="@font/assistantbold"
-                android:layout_height="match_parent"
-                android:text=""
-        />
+            android:id="@+id/tvRestro"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:layout_weight="1"
+            android:fontFamily="@font/assistantbold"
+            android:gravity="center|center_vertical"
+            android:paddingStart="10dp"
+            android:text=""
+            android:textColor="@color/black"
+            android:textSize="16sp" />
 
 
         <RatingBar
-            android:visibility="visible"
-                android:id="@+id/euro_rating"
-                android:layout_gravity="center"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:gravity="center_horizontal"
-                android:numStars="5"
-                android:isIndicator="false"
-                android:stepSize="1"
-                android:layout_weight="1"
-                android:scaleX=".6"
-                android:scaleY=".7"
-                style="@style/EuroRatingBar"
-        />
-      <!--  <com.willy.ratingbar.ScaleRatingBar
-            android:visibility="visible"
-            xmlns:app="http://schemas.android.com/apk/res-auto"
-            android:layout_weight="1"
-            android:id="@+id/euroRatingBar"
+            android:id="@+id/euro_rating"
+            style="@style/EuroRatingBar"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:layout_gravity="center"
-            android:gravity="center"
-            app:srb_starPadding="3dp"
-            app:srb_starWidth="15dp"
-            app:srb_starHeight="15dp"
-            app:srb_stepSize="1"
-            app:srb_isIndicator="false"
-            app:srb_clickable="false"
-            app:srb_scrollable="false"
-            app:srb_clearRatingEnabled="false"
-            app:srb_drawableEmpty="@drawable/ic_empty_euro"
-            app:srb_drawableFilled="@drawable/ic_filled_euro"/>
--->
-        <TextView android:layout_width="wrap_content"
-                  android:layout_height="match_parent"
-                  android:layout_weight="1"
-                  android:textSize="12sp"
+            android:layout_weight="1"
+            android:gravity="center_horizontal"
+            android:isIndicator="false"
+            android:numStars="5"
+            android:scaleX=".6"
+            android:scaleY=".7"
+            android:stepSize="1"
+            android:visibility="visible" />
+        <!--  <com.willy.ratingbar.ScaleRatingBar
+              android:visibility="visible"
+              xmlns:app="http://schemas.android.com/apk/res-auto"
+              android:layout_weight="1"
+              android:id="@+id/euroRatingBar"
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:layout_gravity="center"
+              android:gravity="center"
+              app:srb_starPadding="3dp"
+              app:srb_starWidth="15dp"
+              app:srb_starHeight="15dp"
+              app:srb_stepSize="1"
+              app:srb_isIndicator="false"
+              app:srb_clickable="false"
+              app:srb_scrollable="false"
+              app:srb_clearRatingEnabled="false"
+              app:srb_drawableEmpty="@drawable/ic_empty_euro"
+              app:srb_drawableFilled="@drawable/ic_filled_euro"/>
+  -->
+        <TextView
             android:id="@+id/tvAddress"
-                  android:layout_gravity="center"
-                  android:gravity="center"
-                  android:fontFamily="@font/assistantregular"
-                  android:text=""
-        >
-        </TextView>
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:layout_weight="1"
+            android:fontFamily="@font/assistantregular"
+            android:gravity="center"
+            android:maxLines="2"
+            android:maxWidth="180dp"
+            android:text=""
+            android:textSize="12sp"/>
 
 
     </LinearLayout>

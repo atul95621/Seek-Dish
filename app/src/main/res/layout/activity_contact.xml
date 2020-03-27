@@ -104,7 +104,7 @@
                     android:layout_gravity="center"
                     android:gravity="center"
                     app:ccpDialog_keyboardAutoPopup="false"
-                    app:ccp_autoDetectCountry="true"
+                    app:ccp_autoDetectCountry="false"
                     app:ccp_hintExampleNumber="true"
                     app:ccp_showFlag="false"
                     app:ccp_showFullName="false"

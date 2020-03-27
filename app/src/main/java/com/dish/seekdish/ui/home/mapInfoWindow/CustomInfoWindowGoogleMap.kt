@@ -2,15 +2,18 @@ package com.dish.seekdish.ui.home.mapInfoWindow
 
 import android.app.Activity
 import android.content.Context
+import android.graphics.drawable.Drawable
 import android.util.Log
 import android.view.View
 import android.widget.ImageView
 import android.widget.RatingBar
 import android.widget.TextView
+import com.bumptech.glide.RequestBuilder
 import com.dish.seekdish.R
 import com.dish.seekdish.custom.GlideApp
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.model.Marker
+
 
 class CustomInfoWindowGoogleMap(
     val context: Context
@@ -30,6 +33,9 @@ class CustomInfoWindowGoogleMap(
         val tvRestro = view.findViewById<TextView>(R.id.tvRestro)
         val imgInfoWindow = view.findViewById<ImageView>(R.id.imgInfoWindow)
 
+//        val starRatingBar=  view.findViewById<ScaleRatingBar>(R.id.starRatingBar)
+//        val starRatingBar = view.findViewById(R.id.starRatingBar) as ScaleRatingBar
+
 
         val infoWindowGoogleMap = marker.tag as InfoWindowData
 
@@ -41,6 +47,7 @@ class CustomInfoWindowGoogleMap(
 //        imgInfoWindow.setImageResource(R.drawable.ic_foodex)
 
 
+
         GlideApp.with(context)
             .load(infoWindowGoogleMap.imageUrl)
             .placeholder(R.drawable.app_logo)
@@ -49,6 +56,10 @@ class CustomInfoWindowGoogleMap(
 
         star_rating.rating= infoWindowGoogleMap.starRating!!.toFloat()
         euro_rating.rating= infoWindowGoogleMap.euroRating!!.toFloat()
+
+//        starRatingBar.rating= infoWindowGoogleMap.starRating!!.toFloat()
+
+
 
         Log.e(
             "rate",

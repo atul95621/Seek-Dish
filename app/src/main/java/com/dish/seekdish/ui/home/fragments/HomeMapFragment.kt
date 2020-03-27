@@ -1,6 +1,7 @@
 package com.dish.seekdish.ui.home.fragments
 
 import android.Manifest
+import android.content.Intent
 import android.content.pm.PackageManager
 import android.location.Location
 import android.os.Build
@@ -31,6 +32,7 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 import android.graphics.Bitmap
 import android.graphics.drawable.BitmapDrawable
 import androidx.core.content.res.ResourcesCompat
+import com.dish.seekdish.ui.navDrawer.dishDescription.DishDescriptionActivity
 import java.util.HashMap
 
 
@@ -100,7 +102,15 @@ class HomeMapFragment : BaseFragment(), OnMapReadyCallback, GoogleMap.OnMyLocati
 
 
         googleMap.setOnInfoWindowClickListener { marker ->
-            Log.e("rate", "info window clicked")
+          /*  val infoModel: InfoWindowData? = marker.tag as InfoWindowData?
+
+            Log.e("ratedd", "info window clicked"+"  "+infoModel?.mealId+"   ${infoModel?.restroTitle}"
+            )
+            var restr_id=infoModel?.mealId.toString()
+            val intent = Intent(context, DishDescriptionActivity::class.java)
+            intent.putExtra("MEAL_ID", infoModel?.mealId.toString())
+            intent.putExtra("RESTAURANT_ID", infoModel?..toString())
+            context.startActivity(intent)*/
         }
 
 
@@ -235,6 +245,8 @@ class HomeMapFragment : BaseFragment(), OnMapReadyCallback, GoogleMap.OnMyLocati
                                         var starRate = arrayList[i].rating.toString()
                                         var euroRate = arrayList[i].budget.toString()
                                         var mealName = arrayList[i].name
+                                        var mealId = arrayList[i].id
+//                                        var mealId = arrayList[i].
 
 
                                         // adding custom info window
@@ -253,7 +265,8 @@ class HomeMapFragment : BaseFragment(), OnMapReadyCallback, GoogleMap.OnMyLocati
                                             imageUrl,
                                             starRate,
                                             euroRate,
-                                            mealName
+                                            mealName,
+                                            mealId.toString()
                                         );
 
 
