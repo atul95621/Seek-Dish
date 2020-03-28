@@ -265,6 +265,7 @@ class InvitationActivity : BaseActivity() {
                 sessionManager?.getValue(SessionManager.USER_ID).toString(),
                 restro_id
             )
+
         call.enqueue(object : Callback<InvitationModel> {
             override fun onResponse(
                 call: Call<InvitationModel>,

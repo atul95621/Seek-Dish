@@ -13,6 +13,7 @@
                   android:layout_height="wrap_content">
         <ImageView
                 android:id="@+id/imgInfoWindow"
+            android:scaleType="centerCrop"
                 android:layout_width="50dp"
                 android:layout_height="50dp"
                 android:src="@drawable/ic_foodimg"/>
@@ -35,7 +36,6 @@
                 android:textColor="@color/black"
                 android:fontFamily="@font/assistantbold"
                 android:layout_height="match_parent"
-                android:text=""
         />
         <LinearLayout android:layout_width="match_parent"
                       android:layout_height="match_parent"
@@ -46,30 +46,32 @@
 
 
             <RatingBar
-
+                android:layout_weight="1"
                     android:id="@+id/infowindow_rating"
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:gravity="center_horizontal"
                     android:numStars="5"
                     android:isIndicator="false"
                     android:stepSize="1"
-                    android:scaleX=".6"
-                    android:scaleY=".8"
+                android:scaleX=".6"
+                android:scaleY=".6"
                     style="@style/StarRatingBar"
 
             />
 
             <RatingBar
-                    android:id="@+id/euro_rating"
-                    android:layout_width="wrap_content"
+                android:layout_weight="1"
+
+                android:id="@+id/euro_rating"
+                android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:gravity="center_horizontal"
                     android:numStars="5"
                     android:isIndicator="false"
                     android:stepSize="1"
                     android:scaleX=".6"
-                    android:scaleY=".7"
+                    android:scaleY=".6"
                     style="@style/EuroRatingBar"
             />
 

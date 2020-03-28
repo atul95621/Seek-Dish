@@ -8,11 +8,12 @@ data class MapHomeModel(
 
 data class Data_Home_Map(
     val budget: Int,
-    val id: Int,
+    val meal_id: Int,
     val latitude: String,
     val longitude: String,
     val meal_image: String,
     val name: String,
     val no_of_reviews: Int,
-    val rating: Int
+    val rating: Int,
+    val restro_id:Int
 )

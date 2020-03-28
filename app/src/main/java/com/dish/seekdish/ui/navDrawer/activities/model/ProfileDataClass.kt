@@ -48,7 +48,7 @@ data class ContactModel(
 )
 
 data class Data_Contact(
-    val country: Int?,
+    val callingcode: Int?,
     val email: String?,
     val facebook_id: String?,
     val phone: String?,

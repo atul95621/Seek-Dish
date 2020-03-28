@@ -71,6 +71,8 @@
                 android:id="@+id/edtEmail"
                 android:layout_width="match_parent"
                 android:layout_height="30dp"
+                android:enabled="false"
+                android:singleLine="true"
                 android:layout_marginStart="20dp"
                 android:background="@drawable/rect_curve_gray_border"
                 android:fontFamily="@font/assistantregular"
@@ -117,6 +119,7 @@
                 android:id="@+id/edtPhone"
                 android:layout_width="match_parent"
                 android:layout_height="30dp"
+                android:singleLine="true"
                 android:layout_marginStart="20dp"
                 android:background="@drawable/rect_curve_gray_border"
                 android:fontFamily="@font/assistantregular"
@@ -138,7 +141,7 @@
 
             <EditText
                 android:id="@+id/edtSkype"
-
+                android:singleLine="true"
                 android:layout_width="match_parent"
                 android:layout_height="30dp"
                 android:layout_marginStart="20dp"
@@ -163,6 +166,7 @@
 
             <EditText
                 android:id="@+id/edtFacebook"
+                android:singleLine="true"
                 android:layout_width="match_parent"
                 android:layout_height="30dp"
                 android:layout_marginStart="20dp"
@@ -190,6 +194,7 @@
                 android:id="@+id/edtTwitter"
                 android:layout_width="match_parent"
                 android:layout_height="30dp"
+                android:singleLine="true"
                 android:layout_marginStart="20dp"
                 android:background="@drawable/rect_curve_gray_border"
                 android:fontFamily="@font/assistantregular"

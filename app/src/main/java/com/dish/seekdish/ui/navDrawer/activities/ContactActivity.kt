@@ -134,7 +134,7 @@ class ContactActivity : BaseActivity() {
                             edtEmail.setText(modelObj.data[0].email ?: "")
                             edtPhone.setText(modelObj.data[0].phone ?: "")
                             edtSkype.setText(modelObj.data[0].skype_id ?: "")
-                            ccpContact.setCountryForPhoneCode(modelObj.data[0].country ?: 0)
+                            ccpContact.setCountryForPhoneCode(modelObj.data[0].callingcode ?: 0)
                         }
                         else
                         {

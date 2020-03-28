@@ -1,6 +1,7 @@
 package com.dish.seekdish.ui.navDrawer.myFavourite.fragment
 
 import android.Manifest
+import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.Color
 import android.location.Location
@@ -20,6 +21,7 @@ import com.dish.seekdish.R
 import com.dish.seekdish.ui.home.HomeActivity
 import com.dish.seekdish.ui.home.mapInfoWindow.CustomInfoWindowGoogleMap
 import com.dish.seekdish.ui.home.mapInfoWindow.InfoWindowData
+import com.dish.seekdish.ui.navDrawer.dishDescription.DishDescriptionActivity
 import com.dish.seekdish.ui.navDrawer.myFavourite.VM.FavoriteVM
 import com.dish.seekdish.ui.navDrawer.toDo.list.Data_todo
 import com.dish.seekdish.util.SessionManager
@@ -94,6 +96,13 @@ class FavouriteMapFragment : BaseFragment(), OnMapReadyCallback, GoogleMap.OnMyL
 
         googleMap.setOnInfoWindowClickListener { marker ->
             Log.e("rate", "info window clicked")
+
+            val infoModel: InfoWindowData? = marker.tag as InfoWindowData?
+
+            val intent = Intent(myContext, DishDescriptionActivity::class.java)
+            intent.putExtra("MEAL_ID", infoModel?.mealId.toString())
+            intent.putExtra("RESTAURANT_ID", infoModel?.restaurantId.toString())
+            myContext.startActivity(intent)
         }
 
 /*
@@ -195,6 +204,8 @@ class FavouriteMapFragment : BaseFragment(), OnMapReadyCallback, GoogleMap.OnMyL
                                         var starRate = arrayList[i].meal_avg_rating.toString()
                                         var euroRate = arrayList[i].budget_rating.toString()
                                         var mealName = arrayList[i].name
+                                        var mealId = arrayList[i].meal_id.toString()
+                                        var restroId = arrayList[i].restro_id.toString()
 
 
                                         // adding custom info window
@@ -214,7 +225,9 @@ class FavouriteMapFragment : BaseFragment(), OnMapReadyCallback, GoogleMap.OnMyL
                                             imageUrl,
                                             starRate,
                                             euroRate,
-                                            mealName
+                                            mealName,
+                                            mealId.toString(),
+                                            restroId.toString()
                                         );
 
 

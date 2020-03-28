@@ -52,6 +52,7 @@ class CustomInfoWindowGoogleMap(
             .load(infoWindowGoogleMap.imageUrl)
             .placeholder(R.drawable.app_logo)
             .into(imgInfoWindow)
+
         tvRestro.setText(infoWindowGoogleMap.restroTitle)
 
         star_rating.rating= infoWindowGoogleMap.starRating!!.toFloat()

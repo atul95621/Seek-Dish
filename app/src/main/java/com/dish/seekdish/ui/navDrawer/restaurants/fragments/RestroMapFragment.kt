@@ -242,7 +242,7 @@ GoogleMap.OnMyLocationClickListener, GoogleMap.OnMarkerClickListener  {
                             var starRate = arrayList[i].rating.toString()
                             var mealName = arrayList[i].name
                             var address = arrayList[i].street +", "+arrayList[i].city+", "+arrayList[i].zipcode
-                            var restro_id = arrayList[i].id
+                            var restro_id = arrayList[i].restro_id
 
 
                             // adding custom info window

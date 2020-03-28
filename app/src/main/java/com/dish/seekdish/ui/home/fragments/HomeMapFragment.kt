@@ -102,15 +102,15 @@ class HomeMapFragment : BaseFragment(), OnMapReadyCallback, GoogleMap.OnMyLocati
 
 
         googleMap.setOnInfoWindowClickListener { marker ->
-          /*  val infoModel: InfoWindowData? = marker.tag as InfoWindowData?
+            val infoModel: InfoWindowData? = marker.tag as InfoWindowData?
 
-            Log.e("ratedd", "info window clicked"+"  "+infoModel?.mealId+"   ${infoModel?.restroTitle}"
+            Log.e("ratedd", "info window clicked"+"  "+infoModel?.mealId+"   ${infoModel?.restaurantId}"
             )
-            var restr_id=infoModel?.mealId.toString()
-            val intent = Intent(context, DishDescriptionActivity::class.java)
+
+            val intent = Intent(myContext, DishDescriptionActivity::class.java)
             intent.putExtra("MEAL_ID", infoModel?.mealId.toString())
-            intent.putExtra("RESTAURANT_ID", infoModel?..toString())
-            context.startActivity(intent)*/
+            intent.putExtra("RESTAURANT_ID", infoModel?.restaurantId.toString())
+            myContext.startActivity(intent)
         }
 
 
@@ -245,8 +245,8 @@ class HomeMapFragment : BaseFragment(), OnMapReadyCallback, GoogleMap.OnMyLocati
                                         var starRate = arrayList[i].rating.toString()
                                         var euroRate = arrayList[i].budget.toString()
                                         var mealName = arrayList[i].name
-                                        var mealId = arrayList[i].id
-//                                        var mealId = arrayList[i].
+                                        var mealId = arrayList[i].meal_id.toString()
+                                        var restroId = arrayList[i].restro_id.toString()
 
 
                                         // adding custom info window
@@ -266,8 +266,9 @@ class HomeMapFragment : BaseFragment(), OnMapReadyCallback, GoogleMap.OnMyLocati
                                             starRate,
                                             euroRate,
                                             mealName,
-                                            mealId.toString()
-                                        );
+                                            mealId.toString(),
+                                            restroId.toString()
+                                        )
 
 
                                         var marker = mMap!!.addMarker(markerOptions);
