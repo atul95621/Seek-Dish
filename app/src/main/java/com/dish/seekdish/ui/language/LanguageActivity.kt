@@ -74,8 +74,8 @@ class LanguageActivity : BaseActivity(), ILanguageView {
 
 
             tvNext.setOnClickListener {
-                if (tvLanguageSelect.text.toString() == "Select language") {
-                    showSnackBar("Please select language")
+                if (tvLanguageSelect.text.toString() == resources.getString(R.string.select_language_D)) {
+                    showSnackBar(resources.getString(R.string.select_language_D))
                 }
                 else {
                     sessionManager?.setValues(SessionManager.LANGUAGE_ID, languageId.toString())

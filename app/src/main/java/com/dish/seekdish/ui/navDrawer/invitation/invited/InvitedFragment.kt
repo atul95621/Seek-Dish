@@ -13,6 +13,7 @@ import com.dish.seekdish.R
 import com.dish.seekdish.ui.navDrawer.invitation.InvitationActivity
 import com.dish.seekdish.ui.navDrawer.settings.myAlerts.InvitationModel
 import kotlinx.android.synthetic.main.fragment_invited.*
+import kotlinx.android.synthetic.main.fragment_invited.view.*
 import java.util.ArrayList
 
 
@@ -43,10 +44,11 @@ class InvitedFragment(var invitationModel: InvitationModel) : Fragment() {
          }*/
 
         if (invitationModel.data.invited_tab_array.size != 0) {
+            view.tvAlert.visibility = View.GONE
             adapter = InvitedAdapter(arrayList, mcontext, invitationModel.data.invited_tab_array)
             recyclerView!!.setAdapter(adapter)
         } else {
-            tvAlert.visibility = View.VISIBLE
+            view.tvAlert.visibility = View.VISIBLE
         }
         return view
     }
