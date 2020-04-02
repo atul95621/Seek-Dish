@@ -267,10 +267,10 @@ class HomeActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
             //get the child info
             val detailInfo = headerInfo.playerName[childPosition]
             //display it or do something with it
-      /*      Toast.makeText(
-                this, " Team And Player :: " + headerInfo.name
-                        + "/" + detailInfo.name, Toast.LENGTH_LONG
-            ).show()*/
+            /*      Toast.makeText(
+                      this, " Team And Player :: " + headerInfo.name
+                              + "/" + detailInfo.name, Toast.LENGTH_LONG
+                  ).show()*/
             false
         })
         // setOnGroupClickListener listener for group heading click
@@ -374,34 +374,19 @@ class HomeActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
     }
 
     private fun setUserDetail() {
-        if (!sessionManager?.getValue(SessionManager.PHOTO_URL).equals(null) && !sessionManager?.getValue(
-                SessionManager.PHOTO_URL
-            ).equals(
-                "null"
-            ) && !sessionManager?.getValue(SessionManager.PHOTO_URL).equals("") && !sessionManager?.getValue(
-                SessionManager.FIRST_NAME
-            ).equals("")
-        ) {
-
-            Log.e("imageurl", "" + sessionManager?.getValue(SessionManager.PHOTO_URL))
-
-
+        if (!sessionManager?.getValue(SessionManager.PHOTO_URL).isNullOrEmpty()) {
             GlideApp.with(this)
                 .load(sessionManager?.getValue(SessionManager.PHOTO_URL))
                 .placeholder(R.drawable.ic_user)
                 .into(imageViewNavDrawer)
-
-
-            tvName.setText(sessionManager?.getValue(SessionManager.FIRST_NAME))
-
         } else {
             GlideApp.with(this)
                 .load(R.drawable.ic_user)
                 .placeholder(R.drawable.ic_user)
                 .into(imageViewNavDrawer)
-            tvName.setText(sessionManager?.getValue(SessionManager.FIRST_NAME))
-
         }
+
+        tvName.setText(sessionManager?.getValue(SessionManager.FIRST_NAME)?:"Null")
 
     }
 
@@ -438,7 +423,7 @@ class HomeActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
         detailInfo.name = itemName
         detailInfo.itemId = itemId.toString()
         detailInfo.groupName = headerInfo.name
-        detailInfo.selected=selected.toString()
+        detailInfo.selected = selected.toString()
 
         productList.add(detailInfo)
         headerInfo.playerName = productList
@@ -531,7 +516,9 @@ class HomeActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
                     fragmentManager.beginTransaction()
                         .replace(
                             R.id.content_frame,
-                            MyFriendsFragment(sessionManager?.getValue(SessionManager.USER_ID).toString())
+                            MyFriendsFragment(
+                                sessionManager?.getValue(SessionManager.USER_ID).toString()
+                            )
                         )
                         .commit()
                 }
@@ -644,7 +631,12 @@ class HomeActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
                             }
                         }
                         for (items in response.data.additional_services) {
-                            addProduct(getString(R.string.addtional_service), items.name, items.id,items.selected)
+                            addProduct(
+                                getString(R.string.addtional_service),
+                                items.name,
+                                items.id,
+                                items.selected
+                            )
                         }
                         for (items in response.data.budget) {
                             Log.e("Budget", items.name)
@@ -722,7 +714,9 @@ class HomeActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
                 }
 
             } else {
-                showSnackBar(this.getResources().getString(R.string.error_occured) + "    $response");
+                showSnackBar(
+                    this.getResources().getString(R.string.error_occured) + "    $response"
+                );
                 Log.e("rspSnak", "else error")
             }
         })
@@ -762,7 +756,9 @@ class HomeActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
                 }
 
             } else {
-                showSnackBar(this.getResources().getString(R.string.error_occured) + "    $response");
+                showSnackBar(
+                    this.getResources().getString(R.string.error_occured) + "    $response"
+                );
                 Log.e("rspSnakuu", "else error")
 
             }
@@ -788,14 +784,18 @@ class HomeActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
                     showSnackBar(message)
 
                     val finalFrag =
-                        Constants.refreshFragment(sessionManager?.getValue(SessionManager.CURRENT_SCREEN).toString())
+                        Constants.refreshFragment(
+                            sessionManager?.getValue(SessionManager.CURRENT_SCREEN).toString()
+                        )
 
                     reOpenFrag(finalFrag)
                 } else {
                     showSnackBar(response.message)
                 }
             } else {
-                showSnackBar(this.getResources().getString(R.string.error_occured) + "    $response");
+                showSnackBar(
+                    this.getResources().getString(R.string.error_occured) + "    $response"
+                );
                 Log.e("rspSnakrr", "else error")
             }
         })
@@ -848,16 +848,16 @@ class HomeActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
             .commit()
     }
 
-  /*  fun clearFilterConstValues()
-    {
-       Global.budgetSet.clear()
-       Global.serviceSet.clear()
-       Global.mealSet.clear()
-       Global.compatIntSet.clear()
-        Global.restroSpeclSet.clear()
-         Global.restroAmbiSet.clear()
-         Global.compAmbianceSet.clear()
-         Global.additonalSet.clear()
-         Global.seasonlitySet.clear()
-    }*/
+    /*  fun clearFilterConstValues()
+      {
+         Global.budgetSet.clear()
+         Global.serviceSet.clear()
+         Global.mealSet.clear()
+         Global.compatIntSet.clear()
+          Global.restroSpeclSet.clear()
+           Global.restroAmbiSet.clear()
+           Global.compAmbianceSet.clear()
+           Global.additonalSet.clear()
+           Global.seasonlitySet.clear()
+      }*/
 }

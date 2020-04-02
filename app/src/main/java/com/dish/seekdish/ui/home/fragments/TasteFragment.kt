@@ -414,16 +414,7 @@ class TasteFragment : BaseFragment(), GoogleApiClient.ConnectionCallbacks,
     }
 
     fun checkAndSaveLocation() {
-        if (homeActivity.connectionDetector.isConnectingToInternet) {
-            // hit lat long api here  WITH THE DEFAULT COORDITAE
-            tasteFragVM?.getCurrentLocation(
-                sessionManager.getValue(SessionManager.USER_ID),
-                sessionManager.getValue(SessionManager.LONGITUDE),
-                sessionManager.getValue(SessionManager.LATITUDE)
-            )
-        } else {
-            showSnackBar(getString(R.string.check_connection))
-        }
+
         //SAVE TO LOCAL
         if (currentLatitude != 0.0 && currentLongitude != 0.0) {
             // this will always have current live postition of the user
@@ -432,6 +423,25 @@ class TasteFragment : BaseFragment(), GoogleApiClient.ConnectionCallbacks,
             Log.e("current_location", "$currentLatitude ,   $currentLongitude")
 
         }
+
+        if (homeActivity.connectionDetector.isConnectingToInternet) {
+            // hit lat long api here  WITH THE DEFAULT COORDITAE
+            tasteFragVM?.getCurrentLocation(
+                sessionManager.getValue(SessionManager.USER_ID),
+                sessionManager.getValue(SessionManager.LONGITUDE),
+                sessionManager.getValue(SessionManager.LATITUDE)
+            )
+            Log.e(
+                "locationsent",
+                "" + sessionManager.getValue(SessionManager.LATITUDE) + "  " + sessionManager.getValue(
+                    SessionManager.LONGITUDE
+                )
+            )
+
+        } else {
+            showSnackBar(getString(R.string.check_connection))
+        }
+
     }
 
 

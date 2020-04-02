@@ -8,6 +8,7 @@ import com.dish.seekdish.retrofit.APIClientMvvm
 import com.dish.seekdish.retrofit.APIInterface
 import com.dish.seekdish.ui.home.dataModel.Location
 import com.dish.seekdish.ui.home.dataModel.TasteFragDataClass
+import com.dish.seekdish.ui.navDrawer.settings.dataModel.CancelReModel
 import io.reactivex.Observable
 import io.reactivex.subjects.BehaviorSubject
 import retrofit2.Call
@@ -18,7 +19,7 @@ class TasteFragVM : ViewModel() {
 
     //this is the data that we will fetch asynchronously
     var getTasteLiveData: MutableLiveData<TasteFragDataClass> = MutableLiveData<TasteFragDataClass>()
-    var getLiveLocation: MutableLiveData<Location> = MutableLiveData<Location>()
+    var getLiveLocation: MutableLiveData<CancelReModel> = MutableLiveData<CancelReModel>()
     var tasteSearchData: MutableLiveData<TasteFragDataClass> = MutableLiveData<TasteFragDataClass>()
 
 
@@ -86,8 +87,8 @@ class TasteFragVM : ViewModel() {
             " " + userId + "  "+"lati   " + latitude + "    longi   " + longitude
         )
 
-        call.enqueue(object : Callback<Location> {
-            override fun onResponse(call: Call<Location>, response: Response<Location>) {
+        call.enqueue(object : Callback<CancelReModel> {
+            override fun onResponse(call: Call<CancelReModel>, response: Response<CancelReModel>) {
 
                 // making progress bar invisible
 //                isLoadingSubject.onNext(false)
@@ -100,7 +101,7 @@ class TasteFragVM : ViewModel() {
 
             }
 
-            override fun onFailure(call: Call<Location>, t: Throwable) {
+            override fun onFailure(call: Call<CancelReModel>, t: Throwable) {
 
                 // making progress bar invisible
 //                isLoadingSubject.onNext(false)

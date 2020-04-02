@@ -131,7 +131,7 @@ internal interface APIInterface {
         @Field("user_id") userId: String,
         @Field("longitude") longitude: String,
         @Field("latitude") latitude: String
-    ): Call<Location>
+    ): Call<CancelReModel>
 
 
     @FormUrlEncoded

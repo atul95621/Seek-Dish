@@ -14,6 +14,10 @@ import android.util.Log
 import android.view.View
 import androidx.core.content.ContextCompat
 import com.dish.seekdish.R
+import com.dish.seekdish.custom.ProgressBarClass
+import com.dish.seekdish.retrofit.APIClient
+import com.dish.seekdish.retrofit.APIInterface
+import com.dish.seekdish.ui.navDrawer.settings.dataModel.CancelReModel
 import com.dish.seekdish.util.BaseActivity
 import com.dish.seekdish.util.SessionManager
 import com.google.android.gms.maps.CameraUpdateFactory
@@ -27,6 +31,9 @@ import com.google.android.libraries.places.widget.Autocomplete
 import com.google.android.libraries.places.widget.AutocompleteActivity
 import com.google.android.libraries.places.widget.model.AutocompleteActivityMode
 import kotlinx.android.synthetic.main.activity_radius_center.*
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 import java.util.*
 import kotlin.collections.ArrayList
 
@@ -41,6 +48,7 @@ class RadiusCenterActivity : BaseActivity(), OnMapReadyCallback, GoogleMap.OnMyL
     val PERMISSION_REQUEST_LOCATION_CODE = 1
 
     private val AUTOCOMPLETE_REQUEST_CODE = 1
+    internal lateinit var apiInterface: APIInterface
 
     var selectedLat: String? = ""
     var selectedLong: String? = ""
@@ -92,24 +100,36 @@ class RadiusCenterActivity : BaseActivity(), OnMapReadyCallback, GoogleMap.OnMyL
                         SessionManager.LATITUDE_SELECTED
                     )
                 )*/
+//                updateCordsOnServer(sessionManager?.getValue(SessionManager.USER_ID).toString(),selectedLong.toString(),selectedLat.toString())
 
                 val returnIntent = Intent()
                 setResult(Activity.RESULT_CANCELED, returnIntent)
                 finish()
             } else if (!currentAddress.equals("")) {
 
-                sessionManager?.setValues(
+             /*   sessionManager?.setValues(
                     SessionManager.LATITUDE_SELECTED,
                     sessionManager?.getValue(SessionManager.LATITUDE)
                 );
                 sessionManager?.setValues(
                     SessionManager.LONGITUDE_SELECTED,
                     sessionManager?.getValue(SessionManager.LONGITUDE)
+                );*/
+
+                sessionManager?.setValues(
+                    SessionManager.LATITUDE,
+                    sessionManager?.getValue(SessionManager.CURRENT_LATITUDE)
+                );
+                sessionManager?.setValues(
+                    SessionManager.LONGITUDE,
+                    sessionManager?.getValue(SessionManager.CURRENT_LONGITUDE)
                 );
                 sessionManager?.setValues(SessionManager.PLACE_SELECTED, currentAddress)
 
                 Log.e("addressCureent", " " + currentAddress)
 
+                // updating coords over the db
+                updateCordsOnServer(sessionManager?.getValue(SessionManager.USER_ID).toString(),sessionManager?.getValue(SessionManager.CURRENT_LONGITUDE).toString(),sessionManager?.getValue(SessionManager.CURRENT_LATITUDE).toString())
 
 /*                val intent = Intent()
                 intent.putExtra("ADDRESS", currentAddress)
@@ -318,6 +338,39 @@ class RadiusCenterActivity : BaseActivity(), OnMapReadyCallback, GoogleMap.OnMyL
         if (!Places.isInitialized()) {
             Places.initialize(getApplicationContext(), getString(R.string.google_maps_api))
         }
+    }
+
+    fun updateCordsOnServer(
+        userId: String,
+        longitude: String,
+        latitude: String) {
+        ProgressBarClass.progressBarCalling(this)
+
+        apiInterface = APIClient.getClient(this).create(APIInterface::class.java)
+        val call = apiInterface.getLocation(userId, longitude,latitude)
+        call.enqueue(object : Callback<CancelReModel> {
+            override fun onResponse(call: Call<CancelReModel>, response: Response<CancelReModel>) {
+                ProgressBarClass.dialog.dismiss()
+                Log.e("respResetSignupCode", response.code().toString() + "")
+                if (response.code().toString().equals("200")) {
+                    var model = response.body() as CancelReModel
+                    if (model.status == 1) {
+                        showSnackBar(model.message)
+
+                    } else {
+                        showSnackBar(model.message)
+                    }
+                } else {
+                    showSnackBar(getResources().getString(R.string.error_occured));
+                }
+            }
+            override fun onFailure(call: Call<CancelReModel>, t: Throwable) {
+                showSnackBar(resources.getString(R.string.error_occured) + "    ${t.message}");
+                call.cancel()
+                ProgressBarClass.dialog.dismiss()
+
+            }
+        })
     }
 
 }

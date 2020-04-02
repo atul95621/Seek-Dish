@@ -162,7 +162,7 @@
     <string name="comment_here">Comment here</string>
     <string name="nobody_invited_yet">Nobody invited yet.</string>
     <string name="cold_entrance">Cold Entrance</string>
-    <string name="connect_with">Connect with &#160;</string>
+    <string name="connect_with">"Connect with "</string>
     <string name="facebook">Facebook</string>
     <string name="twitter">Twitter</string>
     <string name="already_have_an_account_sign_in">Already have an account? Sign in</string>

@@ -23,14 +23,14 @@ import retrofit2.Response
 class CheckinRestroActivity : BaseActivity() {
 
     private var rvRegisteredMeal: RecyclerView? = null
-    private var rvRegisteredCheckMeals: RecyclerView? = null
+    private var rvTodoMeals: RecyclerView? = null
     private var regisMealAdapter: CheckinRestroAdapter? = null
     private var mealAdapter: CheckinMealAdapter? = null
 
     internal lateinit var layoutManager: RecyclerView.LayoutManager
     internal lateinit var layoutManagerMeals: RecyclerView.LayoutManager
 
-    internal var arrayListMeal = ArrayList<TodoMeal>()
+    internal var arrayListMealToDO = ArrayList<TodoMeal>()
     internal var arrayListRegis = ArrayList<RegisteredMeal>()
 
     var sessionManager: SessionManager? = null;
@@ -44,7 +44,7 @@ class CheckinRestroActivity : BaseActivity() {
 
         sessionManager = SessionManager(this)
         rvRegisteredMeal = findViewById(R.id.rvRegistered) as RecyclerView
-        rvRegisteredCheckMeals = findViewById(R.id.rvMeals) as RecyclerView
+        rvTodoMeals = findViewById(R.id.rvMeals) as RecyclerView
 
         initRecyclerView()
 
@@ -70,9 +70,9 @@ class CheckinRestroActivity : BaseActivity() {
         layoutManager = LinearLayoutManager(this)
         rvRegisteredMeal!!.setLayoutManager(layoutManager)
 
-        rvRegisteredCheckMeals!!.setHasFixedSize(true)
+        rvTodoMeals!!.setHasFixedSize(true)
         layoutManagerMeals = LinearLayoutManager(this)
-        rvRegisteredCheckMeals!!.setLayoutManager(layoutManagerMeals)
+        rvTodoMeals!!.setLayoutManager(layoutManagerMeals)
     }
 
     fun checkinListApiHit() {
@@ -93,7 +93,7 @@ class CheckinRestroActivity : BaseActivity() {
                 // canceling the progress bar
                 ProgressBarClass.dialog.dismiss()
 
-                Log.e("respStr", " " + response.body().toString())
+                Log.e("respCheckinRestro", " " + response.body().toString())
 
                 if (response.code().toString().equals("200")) {
                     var modelObj = response.body() as CheckinRestroModel
@@ -102,19 +102,22 @@ class CheckinRestroActivity : BaseActivity() {
 
                         if (modelObj.data.registered_meals.size == 0) {
                             tvRegisAlert.visibility = View.VISIBLE
-                        } else if (modelObj.data.todo_meals.size == 0) {
-                            tvCheckinMeal.visibility = View.VISIBLE
                         } else {
-                            arrayListMeal = modelObj.data.todo_meals
+                            tvRegisAlert.visibility = View.GONE
                             arrayListRegis = modelObj.data.registered_meals
-
-                            mealAdapter =
-                                CheckinMealAdapter(arrayListMeal, this@CheckinRestroActivity)
-                            rvRegisteredMeal!!.setAdapter(mealAdapter)
-
                             regisMealAdapter =
                                 CheckinRestroAdapter(arrayListRegis, this@CheckinRestroActivity)
-                            rvRegisteredCheckMeals!!.setAdapter(regisMealAdapter)
+                            rvRegisteredMeal!!.setAdapter(regisMealAdapter)
+                        }
+
+                        if (modelObj.data.todo_meals.size == 0) {
+                            tvCheckinMeal.visibility = View.VISIBLE
+                        } else {
+                            tvCheckinMeal.visibility = View.GONE
+                            arrayListMealToDO = modelObj.data.todo_meals
+                            mealAdapter =
+                                CheckinMealAdapter(arrayListMealToDO, this@CheckinRestroActivity)
+                            rvTodoMeals!!.setAdapter(mealAdapter)
                         }
 
                     } else {
@@ -123,7 +126,7 @@ class CheckinRestroActivity : BaseActivity() {
 
                 } else {
 //                    iSignUpView.onSetLoggedin(false, response)
-                    showSnackBar(resources.getString(R.string.error_occured)  +"  ${response.code()}");
+                    showSnackBar(resources.getString(R.string.error_occured) + "  ${response.code()}");
                 }
             }
 
@@ -131,7 +134,7 @@ class CheckinRestroActivity : BaseActivity() {
 
 //                Log.e("responseFailure", " " + t.toString())
 
-                showSnackBar(resources.getString(R.string.error_occured)  +"  ${t.message}");
+                showSnackBar(resources.getString(R.string.error_occured) + "  ${t.message}");
 
                 call.cancel()
                 // canceling the progress bar
@@ -174,7 +177,7 @@ class CheckinRestroActivity : BaseActivity() {
         val filteredRegMeal = java.util.ArrayList<RegisteredMeal>()
         val filteredItemsMeal = java.util.ArrayList<TodoMeal>()
 
-        for (d in arrayListMeal) {
+        for (d in arrayListMealToDO) {
             if (d.meal_name.contains(text.toString(), ignoreCase = true)) {
                 filteredItemsMeal.add(d)
             }

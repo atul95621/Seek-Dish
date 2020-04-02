@@ -29,6 +29,7 @@ import com.twitter.sdk.android.core.TwitterConfig
 import com.twitter.sdk.android.core.identity.TwitterAuthClient
 import android.R.attr.data
 import com.dish.seekdish.util.BaseActivity
+import com.dish.seekdish.util.SessionManager
 
 
 class WalkThroughActivity : BaseActivity() {
@@ -40,12 +41,18 @@ class WalkThroughActivity : BaseActivity() {
 
     private lateinit var pagerAdapterView: MyPagerAdapter
     private val uiHelper = UiHelper()
+    var sessionManager: SessionManager? = null;
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         requestWindowFeature(Window.FEATURE_NO_TITLE)
         window.setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN)
         setContentView(R.layout.activity_walkthrough)
+        sessionManager = SessionManager(this)
+
+        //setting multi-language code
+        var langCode=sessionManager?.getLangValue(SessionManager.LANGUAGE_CODE)?:"en"
+        setLocale(langCode)
 
 
         pagerAdapterView = MyPagerAdapter(supportFragmentManager)

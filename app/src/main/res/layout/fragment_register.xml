@@ -52,6 +52,14 @@
                     android:fontFamily="@font/assistantbold"
                     android:textColor="@android:color/white"/>
             <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAllCaps="false"
+                android:textSize="18sp"
+                android:text="@string/space"
+                android:fontFamily="@font/assistantbold"
+                android:textColor="@android:color/white"/>
+            <TextView
 
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -80,8 +88,15 @@
                     android:textSize="18sp"
                     android:text="@string/connect_with"
                     android:fontFamily="@font/assistantbold"
-
                     android:textColor="@android:color/white"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAllCaps="false"
+                android:textSize="18sp"
+                android:text="@string/space"
+                android:fontFamily="@font/assistantbold"
+                android:textColor="@android:color/white"/>
             <TextView
 
                     android:layout_width="wrap_content"
@@ -111,10 +126,16 @@
                     android:textSize="18sp"
                     android:text="@string/connect_with"
                     android:fontFamily="@font/assistantbold"
-
                     android:textColor="@android:color/white"/>
             <TextView
-
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAllCaps="false"
+                android:textSize="18sp"
+                android:text="@string/space"
+                android:fontFamily="@font/assistantbold"
+                android:textColor="@android:color/white"/>
+            <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textAllCaps="false"

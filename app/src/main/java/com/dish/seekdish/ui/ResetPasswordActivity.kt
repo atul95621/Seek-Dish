@@ -63,46 +63,28 @@ class ResetPasswordActivity : BaseActivity() {
         newPassword: String,
         confirmPassword: String
     ) {
-
         apiInterface = APIClient.getClient(this).create(APIInterface::class.java)
-
-
         val call = apiInterface.resetPassword(email, randomPassword, newPassword, confirmPassword)
         call.enqueue(object : Callback<CancelReModel> {
             override fun onResponse(call: Call<CancelReModel>, response: Response<CancelReModel>) {
-
                 ProgressBarClass.dialog.dismiss()
-
-
                 Log.e("respResetSignupCode", response.code().toString() + "")
-
                 if (response.code().toString().equals("200")) {
-
                     var model = response.body() as CancelReModel
                     if (model.status == 1) {
-
-
                         val intent = Intent(this@ResetPasswordActivity, LoginActivity::class.java)
                         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK)
                         startActivity(intent)
-
                     } else {
                         showSnackBar(model.message)
                     }
-
                 } else {
                     showSnackBar(getResources().getString(R.string.error_occured));
                 }
-
-
             }
-
             override fun onFailure(call: Call<CancelReModel>, t: Throwable) {
-
                 showSnackBar(resources.getString(R.string.error_occured) + "    ${t.message}");
-
                 call.cancel()
-
                 ProgressBarClass.dialog.dismiss()
 
             }

@@ -37,6 +37,7 @@ import com.twitter.sdk.android.core.TwitterConfig
 import com.twitter.sdk.android.core.TwitterAuthConfig
 import retrofit2.Response
 import java.util.*
+
 class RegisterFragment : BaseFragment(), IRegisterFragView {
 
 
@@ -84,7 +85,7 @@ class RegisterFragment : BaseFragment(), IRegisterFragView {
                 setLocale("en")
             }
             langId = sessionManager.getLangValue(SessionManager.LANGUAGE_HOME_ACTIVITY)
-            Log.e("langii",langId)
+            Log.e("langii", langId)
             sessionManager.setValues(SessionManager.LANGUAGE_ID, langId)
         }
 
@@ -416,6 +417,10 @@ class RegisterFragment : BaseFragment(), IRegisterFragView {
 
             var signUpModel = response.body() as SignUpModel
             if (signUpModel.status == 1) {
+                Log.e(
+                    "respFacebook",
+                    "" + response.body().toString()
+                )
                 // saving that user is already logged in
                 sessionManager?.setValues(SessionManager.LOGGEDIN, "1")
                 sessionManager.setValues(SessionManager.USERNAME, signUpModel.data.username)

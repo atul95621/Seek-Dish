@@ -54,8 +54,8 @@ class ProximityAdapter(
         holder.tvAddress.text = proxiModel.street
         var review: String="("+proxiModel.no_of_reviews+")"
         var startRating = proxiModel.rating.toFloat()
-        Log.e("rating",""+startRating)
-//        holder.starScaleRatingBar.rating = startRating
+        Log.e("rating",""+startRating+"   "+proxiModel.name)
+        holder.starScaleRatingBar.rating = startRating
         var dist= proxiModel.distance
         holder.tvDistance.text =String.format("%.2f", dist) +" Km"
 
