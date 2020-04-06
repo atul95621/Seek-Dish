@@ -133,6 +133,8 @@ class LoginActivity : BaseActivity(), ILoginView {
                     sessionManager?.clearOtherSessionValue(SessionManager.REMEMBER_PASSWORD)
                 }
 
+                sessionManager?.setValues(SessionManager.LOGGEDIN_THROUGH, "0")
+
 
                 val intent = Intent(this@LoginActivity, HomeActivity::class.java)
                 intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK

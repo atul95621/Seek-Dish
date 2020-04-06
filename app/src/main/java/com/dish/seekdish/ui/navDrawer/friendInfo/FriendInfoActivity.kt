@@ -14,28 +14,41 @@ import android.icu.lang.UCharacter.GraphemeClusterBreak.T
 import com.dish.seekdish.custom.GlideApp
 import com.dish.seekdish.ui.home.HomeActivity
 import com.dish.seekdish.ui.navDrawer.checkin.data.Data_Checkin
+import com.dish.seekdish.util.BaseActivity
+import com.dish.seekdish.util.SessionManager
 
 
-class FriendInfoActivity : AppCompatActivity() {
+class FriendInfoActivity : BaseActivity() {
     var image = ""
     var name = ""
     var user_id = ""
+    var sessionManager: SessionManager? = null;
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(com.dish.seekdish.R.layout.activity_friend_info)
+        setContentView(R.layout.activity_friend_info)
+        sessionManager = SessionManager(this)
 
         getIntents()
+
+        tvBack.setOnClickListener()
+        {
+            finish()
+        }
 
         tvCheckin.setOnClickListener {
             val intent = Intent(this@FriendInfoActivity, CheckinActivity::class.java)
             intent.putExtra("USER_ID", user_id.toString());
+            intent.putExtra("fromUsername", name)
+
             startActivity(intent)
         }
 
         tvContact.setOnClickListener {
-            val intent = Intent(this@FriendInfoActivity, ContactActivity::class.java)
-            intent.putExtra("USER_ID", user_id.toString());
-            startActivity(intent)
+            if (sessionManager?.getValue(SessionManager.USER_ID).equals(user_id)) {
+                val intent = Intent(this@FriendInfoActivity, ContactActivity::class.java)
+                intent.putExtra("USER_ID", user_id.toString());
+                startActivity(intent)
+            }
         }
 
         tvFriend.setOnClickListener()
@@ -43,6 +56,7 @@ class FriendInfoActivity : AppCompatActivity() {
             val intent = Intent(this@FriendInfoActivity, HomeActivity::class.java)
             intent.putExtra("from", "FriendInfoActivity")
             intent.putExtra("fromValue", user_id)
+            intent.putExtra("fromUsername", name)
             startActivity(intent)
 
         }

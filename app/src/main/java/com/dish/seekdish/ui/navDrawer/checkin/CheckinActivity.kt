@@ -34,7 +34,7 @@ class CheckinActivity : BaseActivity() {
     var sessionManager: SessionManager? = null;
     internal lateinit var apiInterface: APIInterface
     var user_id = ""
-
+    var fromUsername = ""
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_checkin)
@@ -46,6 +46,13 @@ class CheckinActivity : BaseActivity() {
         recyclerView!!.setLayoutManager(layoutManager)
 
         user_id = intent.getStringExtra("USER_ID").toString()
+        if (sessionManager?.getValue(SessionManager.USER_ID).equals(user_id)) {
+            tvTitle.text = resources.getString(R.string.my_check_in_list)
+        } else {
+            fromUsername = intent.getStringExtra("fromUsername").toString()
+            tvTitle.text =
+                fromUsername + "'s" + " " + resources.getString(R.string.checkinns)
+        }
 
         if (user_id.isNullOrEmpty() == false) {
             checkinListApiHit(user_id)
@@ -87,15 +94,13 @@ class CheckinActivity : BaseActivity() {
                             recyclerView!!.setAdapter(adapter)
                         }
 
-                    }
-                    else
-                    {
+                    } else {
                         showSnackBar(modelObj.message)
                     }
 
                 } else {
 //                    iSignUpView.onSetLoggedin(false, response)
-                    showSnackBar(resources.getString(R.string.error_occured)+"  ${response.code()}");
+                    showSnackBar(resources.getString(R.string.error_occured) + "  ${response.code()}");
                 }
             }
 
@@ -103,7 +108,7 @@ class CheckinActivity : BaseActivity() {
 
 //                Log.e("responseFailure", " " + t.toString())
 
-                showSnackBar(resources.getString(R.string.error_occured)+"  ${t.message}");
+                showSnackBar(resources.getString(R.string.error_occured) + "  ${t.message}");
 
                 call.cancel()
                 // canceling the progress bar

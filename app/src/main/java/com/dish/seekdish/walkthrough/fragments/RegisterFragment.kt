@@ -221,12 +221,15 @@ class RegisterFragment : BaseFragment(), IRegisterFragView {
             try {
                 Log.i("Response", response.toString())
                 val email: String? = `object`.getString("email")
+                val firstName: String? = `object`.getString("first_name")
+                val lastName: String? = `object`.getString("last_name")
+                val facebookUserId: String? = `object`.getString("id")
 
                 val mProfile: Profile? = Profile.getCurrentProfile()
-                val firstName = mProfile?.firstName
+              /*  val firstName = mProfile?.firstName
                 val lastName = mProfile?.lastName
                 val facebookUserId = mProfile?.id.toString()
-
+*/
                 val imageUrl =
                     "https://graph.facebook.com/" + facebookUserId + "/picture?type=large"
 
@@ -244,7 +247,7 @@ class RegisterFragment : BaseFragment(), IRegisterFragView {
                     lastName.toString(),
                     imageUrl,
                     sessionManager.getValue(SessionManager.FCM_TOKEN),
-                    facebookUserId,
+                    facebookUserId.toString(),
                     sessionManager.getLangValue(SessionManager.LANGUAGE_HOME_ACTIVITY)
                 )
 
@@ -430,6 +433,7 @@ class RegisterFragment : BaseFragment(), IRegisterFragView {
                 sessionManager.setValues(SessionManager.USER_ID, signUpModel.data.id.toString())
                 sessionManager.setValues(SessionManager.PHOTO_URL, signUpModel.data.photo)
 
+                sessionManager.setValues(SessionManager.LOGGEDIN_THROUGH, "1")
 
                 val intent = Intent(mcontext, HomeActivity::class.java)
                 intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
@@ -457,6 +461,10 @@ class RegisterFragment : BaseFragment(), IRegisterFragView {
                 sessionManager.setValues(SessionManager.EMAIL, signUpModel.data.email)
                 sessionManager.setValues(SessionManager.USER_ID, signUpModel.data.id.toString())
                 sessionManager.setValues(SessionManager.PHOTO_URL, signUpModel.data.photo)
+
+                sessionManager.setValues(SessionManager.LOGGEDIN_THROUGH, "1")
+
+
 
                 val intent = Intent(mcontext, HomeActivity::class.java)
                 intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK

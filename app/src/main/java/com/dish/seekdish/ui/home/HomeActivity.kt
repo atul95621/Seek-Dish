@@ -89,6 +89,7 @@ class HomeActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
     var seasonlityItems = ""
     var from: String? = null
     var fromValue: String? = null
+    var fromUsername: String? = null
     var drawerLayout: DrawerLayout? = null
     private var doubleBackToExitPressedOnce = false
 
@@ -170,6 +171,7 @@ class HomeActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
 // callbacks from activities
         from = intent.getStringExtra("from")
         fromValue = intent.getStringExtra("fromValue")
+        fromUsername = intent.getStringExtra("fromUsername")
 
         if (from != null) {
             if (from.equals("MyProfileActivity")) {
@@ -181,7 +183,15 @@ class HomeActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
                 ).commit()
             } else if (from.equals("FriendInfoActivity")) {
                 if (!fromValue.isNullOrEmpty()) {
-                    tvTitle.setText(resources.getString(R.string.my_friends))
+                    if (sessionManager?.getValue(SessionManager.USER_ID).equals(fromValue)) {
+                        tvTitle.setText(resources.getString(R.string.my_friends))
+                    } else {
+                        tvTitle.setText(
+                            fromUsername + "'s" + resources.getString(R.string.space) + resources.getString(
+                                R.string.friends
+                            )
+                        )
+                    }
                     val fragmentManager = supportFragmentManager
                     fragmentManager.beginTransaction().replace(
                         R.id.content_frame,
@@ -386,7 +396,7 @@ class HomeActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
                 .into(imageViewNavDrawer)
         }
 
-        tvName.setText(sessionManager?.getValue(SessionManager.FIRST_NAME)?:"Null")
+        tvName.setText(sessionManager?.getValue(SessionManager.FIRST_NAME) ?: "Null")
 
     }
 

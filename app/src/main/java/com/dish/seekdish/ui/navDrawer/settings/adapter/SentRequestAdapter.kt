@@ -23,7 +23,7 @@ class SentRequestAdapter(
 ) :
     RecyclerView.Adapter<SentRequestAdapter.RecyclerViewHolder>() {
     internal var arrayList = ArrayList<Data_Req>()
-    lateinit var context: Context
+//    lateinit var context: Context
 
     init {
         this.arrayList = arrayList
@@ -44,16 +44,19 @@ class SentRequestAdapter(
         Glide.with(sentRequestActivity).load(imageUrl).placeholder(R.drawable.ic_user)
             .into(holder.imgFriend);//        Glide.with(this).load(imgFriend).apply(options).into(holder.imgFoodImage);
         holder.tvFriendName.text = followingDataClass.username
-        holder.imgFriend.setOnClickListener()
+     /*   holder.imgFriend.setOnClickListener()
         {
             val intent = Intent(context, MyInformationActivity::class.java)
             context.startActivity(intent)
-        }
+        }*/
 
         holder.imgFriend.setOnClickListener()
         {
-            val intent = Intent(context, FriendInfoActivity::class.java)
-            context.startActivity(intent)
+            val intent = Intent(sentRequestActivity, FriendInfoActivity::class.java)
+            intent.putExtra("USER_ID", followingDataClass.user_id);
+            intent.putExtra("NAME", followingDataClass.username);
+            intent.putExtra("IMAGE", followingDataClass.user_image);
+            sentRequestActivity.startActivity(intent)
         }
 
         holder.btnCancel.setOnClickListener()

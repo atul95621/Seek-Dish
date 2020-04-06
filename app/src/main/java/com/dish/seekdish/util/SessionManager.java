@@ -19,6 +19,7 @@ public class SessionManager {
     public static final String IS_LANGUAGE_SELECTED = "IS_LANGUAGE_SELECTED";
     public static final String WALKTHROUGH = "walkthrough";
     public static final String LOGGEDIN = "loggedin";
+    public static final String LOGGEDIN_THROUGH = "loggedinThrough";// 0- mannual ,,1 - fb, twitter
 
     public static final String REMEMBER = "remember";
     public static final String REMEMBER_EMAIL = "remember_email";
@@ -37,7 +38,9 @@ public class SessionManager {
 
     public static final String LATITUDE_SELECTED = "lattitude_selected";
     public static final String LONGITUDE_SELECTED = "longitude_selected";
-    public static final String PLACE_SELECTED = "place_selected";
+    public static final String PLACE_SELECTED = "place_selected";  // selected with aadress to show address only in textview
+    public static final String LOCATION_SELECTED = "location_selected";   // selected a particular location,
+    // 1- means he has selected particular location, 0 - means its current location wherever he will go it gets updated.
 
     public static final String LOCATION_STATUS = "location";
     public static final String USERNAME = "name";

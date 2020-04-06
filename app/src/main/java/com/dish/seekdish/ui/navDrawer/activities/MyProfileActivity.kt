@@ -31,11 +31,7 @@ class MyProfileActivity : BaseActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_my_profile)
-
-
         clickListners()
-
-
     }
 
 
@@ -63,17 +59,22 @@ class MyProfileActivity : BaseActivity() {
                     var modelObj = response.body() as ProfileDataClass
                     if (modelObj.status == 1) {
 
-                        tvFriends.text = modelObj.data.new_info_data.friends.toString() +" "+ getString(
-                                                    R.string.friends)
+                        tvFriends.text =
+                            modelObj.data.new_info_data.friends.toString() + " " + getString(
+                                R.string.friends
+                            )
                         tvFollower.text =
-                            modelObj.data.new_info_data.followers.toString()+" " + getString(R.string.followers)
-                        tvLike.text = modelObj.data.new_info_data.like.toString()+" " + getString(R.string.likesss)
+                            modelObj.data.new_info_data.followers.toString() + " " + getString(R.string.followers)
+                        tvLike.text =
+                            modelObj.data.new_info_data.like.toString() + " " + getString(R.string.likesss)
                         tvDislike.text =
-                            modelObj.data.new_info_data.dislike.toString()+" " + getString(R.string.dislikess)
+                            modelObj.data.new_info_data.dislike.toString() + " " + getString(R.string.dislikess)
                         tvCheckin.text =
-                            modelObj.data.new_info_data.checkin.toString()+" " + getString(R.string.checkinns)
+                            modelObj.data.new_info_data.checkin.toString() + " " + getString(R.string.checkinns)
                         tvProfilePercent.text =
-                            modelObj.data.new_info_data.profile_percentage.toString()+" " + getString(R.string.of_profile)
+                            modelObj.data.new_info_data.profile_percentage.toString() + " " + getString(
+                                R.string.of_profile
+                            )
                         tvName.text = modelObj.data.first_name
                         tvBio.text = modelObj.data.bio
 
@@ -109,6 +110,12 @@ class MyProfileActivity : BaseActivity() {
 
         initView()
 
+        if (sessionManager?.getValue(SessionManager.LOGGEDIN_THROUGH).equals("0")) {
+            btnChnagePassword.visibility = View.VISIBLE
+        } else {
+            btnChnagePassword.visibility = View.GONE
+        }
+
         if (connectionDetector.isConnectingToInternet) {
             // api hit
             reqApiHit()
@@ -117,11 +124,13 @@ class MyProfileActivity : BaseActivity() {
         }
 
 
-        if (!sessionManager?.getValue(SessionManager.PHOTO_URL).equals(null) && !sessionManager?.getValue(
+        if (!sessionManager?.getValue(SessionManager.PHOTO_URL)
+                .equals(null) && !sessionManager?.getValue(
                 SessionManager.PHOTO_URL
             ).equals(
                 "null"
-            ) && !sessionManager?.getValue(SessionManager.PHOTO_URL).equals("") && !sessionManager?.getValue(
+            ) && !sessionManager?.getValue(SessionManager.PHOTO_URL)
+                .equals("") && !sessionManager?.getValue(
                 SessionManager.FIRST_NAME
             ).equals("")
         ) {
@@ -167,7 +176,7 @@ class MyProfileActivity : BaseActivity() {
         tvCheckin.setOnClickListener()
         {
             val intent = Intent(this@MyProfileActivity, CheckinActivity::class.java)
-            intent.putExtra("USER_ID",sessionManager?.getValue(SessionManager.USER_ID).toString());
+            intent.putExtra("USER_ID", sessionManager?.getValue(SessionManager.USER_ID).toString());
             startActivity(intent)
         }
 

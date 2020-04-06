@@ -560,6 +560,9 @@ class SignupActivity : BaseActivity(), ISignUpView {
                 sessionManager.setValues(SessionManager.GENDER, signUpModel.data.gender)
                 sessionManager.setValues(SessionManager.BIO, signUpModel.data.bio)
 
+                sessionManager.setValues(SessionManager.LOGGEDIN_THROUGH, "0")
+
+
                 val intent = Intent(this@SignupActivity, HomeActivity::class.java)
                 intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
                 startActivity(intent)

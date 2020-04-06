@@ -128,12 +128,11 @@ class TasteFragment : BaseFragment(), GoogleApiClient.ConnectionCallbacks,
 
             } else {
                 //location
-                startLocationUpdates()
+//                startLocationUpdates()
             }
         } else {
             showSnackBar(getString(R.string.check_connection))
         }
-
 
         //location
         startLocationUpdates()

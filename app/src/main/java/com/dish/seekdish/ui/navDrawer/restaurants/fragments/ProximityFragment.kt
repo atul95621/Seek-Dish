@@ -53,8 +53,6 @@ class ProximityFragment : BaseFragment() {
         // Inflate the layout for this fragment
         val view = inflater.inflate(R.layout.fragment_proximity, container, false)
 
-
-
         homeActivity = activity as HomeActivity
         proximityVM = ViewModelProviders.of(this).get(ProximityVM::class.java)
 

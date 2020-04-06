@@ -1,5 +1,6 @@
 package com.dish.seekdish.ui.navDrawer.settings.adapter
 
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -9,6 +10,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.dish.seekdish.R
+import com.dish.seekdish.ui.navDrawer.friendInfo.FriendInfoActivity
 import com.dish.seekdish.ui.navDrawer.settings.activity.ReceivedRequestActivity
 import com.dish.seekdish.ui.navDrawer.settings.dataModel.Data_Req
 import java.util.ArrayList
@@ -37,6 +39,15 @@ class ReceivedRequestAdapter(
         var imageUrl: String = followingDataClass.user_image
         Glide.with(acitityReq).load(imageUrl).placeholder(R.drawable.ic_user).into(holder.imgFriend);
         holder.tvFriendName.text = followingDataClass.username
+
+        holder.imgFriend.setOnClickListener()
+        {
+            val intent = Intent(acitityReq, FriendInfoActivity::class.java)
+            intent.putExtra("USER_ID", followingDataClass.user_id);
+            intent.putExtra("NAME", followingDataClass.username);
+            intent.putExtra("IMAGE", followingDataClass.user_image);
+            acitityReq.startActivity(intent)
+        }
 
         holder.btnDecline.setOnClickListener()
         {

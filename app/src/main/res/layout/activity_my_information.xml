@@ -85,6 +85,7 @@
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight=".99"
+                    android:singleLine="true"
                     android:background="@color/edt_light_gray"
                     android:hint="@string/first_name"
                     android:inputType="text"
@@ -101,6 +102,7 @@
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="0.99"
+                    android:singleLine="true"
                     android:background="@color/edt_light_gray"
                     android:hint="@string/last_name"
                     android:inputType="text"
@@ -120,6 +122,7 @@
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="2"
+                    android:singleLine="true"
                     android:background="@color/edt_light_gray"
                     android:hint="@string/username"
                     android:inputType="text"
@@ -165,6 +168,7 @@
                     android:background="@color/edt_light_gray"
                     android:hint="@string/address_line_1"
                     android:inputType="text"
+                    android:singleLine="true"
                     android:paddingStart="8dp"
                     android:textColor="@color/black" />
 
@@ -187,6 +191,7 @@
                     android:background="@color/edt_light_gray"
                     android:hint="@string/address_line_2"
                     android:inputType="text"
+                    android:singleLine="true"
                     android:paddingStart="8dp"
                     android:textColor="@color/black" />
 
@@ -208,6 +213,7 @@
                     android:background="@color/edt_light_gray"
                     android:gravity="center_vertical"
                     android:hint="@string/country"
+                    android:singleLine="true"
                     android:inputType="text"
                     android:paddingStart="8dp"
                     android:textColor="@color/black"
@@ -226,6 +232,7 @@
                     android:background="@color/edt_light_gray"
                     android:gravity="center_vertical"
                     android:hint="@string/city"
+                    android:singleLine="true"
                     android:inputType="text"
                     android:paddingStart="8dp"
                     android:textColor="@color/black"
@@ -273,6 +280,7 @@
                     android:layout_weight=".99"
                     android:background="@color/edt_light_gray"
                     android:hint="@string/gender"
+                    android:singleLine="true"
                     android:inputType="text"
                     android:paddingStart="8dp"
                     android:textColor="@color/black" />
@@ -295,6 +303,7 @@
                     android:hint="@string/weight_kg"
                     android:inputType="numberDecimal"
                     android:paddingStart="8dp"
+                    android:singleLine="true"
                     android:textColor="@color/black" />
 
                 <View
@@ -311,6 +320,7 @@
                     android:hint="@string/height_cm"
                     android:inputType="numberDecimal"
                     android:paddingStart="8dp"
+                    android:singleLine="true"
                     android:textColor="@color/black" />
             </LinearLayout>
 
