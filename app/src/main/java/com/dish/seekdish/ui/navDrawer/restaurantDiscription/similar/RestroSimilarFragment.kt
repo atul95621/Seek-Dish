@@ -42,7 +42,7 @@ class RestroSimilarFragment(var response: RestroDescpModel) : Fragment() {
             for (i in 0 until response.data.restaurant.similar_restaurants.size) {
 
                 var title = response.data.restaurant.similar_restaurants[i].name
-                var address = response.data.restaurant.similar_restaurants[i].street
+                var address = response.data.restaurant.similar_restaurants[i].street+","+response.data.restaurant.similar_restaurants[i].city+","+response.data.restaurant.similar_restaurants[i].zipcode
                 var image = response.data.restaurant.similar_restaurants[i].restaurant_image
 
                 val restroSimilarDataClass = RestroSimilarDataClass(title, address, image);

@@ -12,6 +12,7 @@
               android:background="@color/light_gray"
               android:textSize="18sp"
               android:padding="2dp"
+        android:visibility="gone"
               android:text="@string/proximity"/>
 
     <FrameLayout android:layout_width="match_parent" android:layout_height="match_parent">

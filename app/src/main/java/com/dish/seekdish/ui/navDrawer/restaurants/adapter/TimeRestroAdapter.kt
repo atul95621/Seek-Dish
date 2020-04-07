@@ -49,7 +49,7 @@ class TimeRestroAdapter(
             .placeholder(R.drawable.app_logo)
             .into(holder.imgFoodImage)
         holder.tvDishName.text = restroTimeModel.name
-        holder.tvAddress.text = restroTimeModel.street
+        holder.tvAddress.text = restroTimeModel.street+","+restroTimeModel.city+","+restroTimeModel.zipcode
         var review: String="("+restroTimeModel.no_of_reviews+")"
         var startRating = restroTimeModel.rating.toFloat()
         holder.starScaleRatingBar.rating = startRating

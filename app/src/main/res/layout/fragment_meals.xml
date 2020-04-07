@@ -11,6 +11,7 @@
               android:layout_height="wrap_content"
               android:background="@color/light_gray"
               android:textSize="18sp"
+        android:visibility="gone"
               android:padding="2dp"
               android:text="@string/cold_entrance"/>
 

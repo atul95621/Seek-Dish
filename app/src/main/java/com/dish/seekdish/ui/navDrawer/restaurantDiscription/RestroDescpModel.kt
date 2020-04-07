@@ -75,6 +75,7 @@ data class SimilarRestaurant(
     val email: String,
     val guests: String,
     val id: Int,
+    val zipcode:Int,
     val latitude: String,
     val longitude: String,
     val name: String,

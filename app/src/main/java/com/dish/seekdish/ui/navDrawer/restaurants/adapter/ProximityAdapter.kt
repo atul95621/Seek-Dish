@@ -51,7 +51,7 @@ class ProximityAdapter(
             .placeholder(R.drawable.app_logo)
             .into(holder.imgFoodImage)
         holder.tvDishName.text = proxiModel.name
-        holder.tvAddress.text = proxiModel.street+","+proxiModel.city
+        holder.tvAddress.text = proxiModel.street+","+proxiModel.city+","+proxiModel.zipcode
         var review: String="("+proxiModel.no_of_reviews+")"
         var startRating = proxiModel.rating.toFloat()
         Log.e("rating",""+startRating+"   "+proxiModel.name)
