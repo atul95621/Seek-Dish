@@ -10,30 +10,29 @@ import android.media.ExifInterface
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
-import android.text.Editable
 import android.text.TextUtils
-import android.text.TextWatcher
 import android.util.Log
+import android.view.View
+import android.widget.AdapterView
 import android.widget.ArrayAdapter
+import android.widget.TextView
 import androidx.core.content.ContextCompat
 import com.bumptech.glide.load.resource.bitmap.TransformationUtils
-import com.dish.seekdish.util.BaseActivity
 import com.dish.seekdish.R
 import com.dish.seekdish.ui.WebViewActivity
 import com.dish.seekdish.ui.home.HomeActivity
+import com.dish.seekdish.util.BaseActivity
 import com.dish.seekdish.util.SessionManager
 import com.myhexaville.smartimagepicker.ImagePicker
 import com.myhexaville.smartimagepicker.OnImagePickedListener
 import kotlinx.android.synthetic.main.activity_signup.*
-import kotlinx.android.synthetic.main.activity_signup.tvNext
-import kotlinx.android.synthetic.main.spinner_item.*
 import okhttp3.MediaType
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
 import retrofit2.Response
 import java.io.File
 import java.io.IOException
-import java.util.ArrayList
+import java.util.*
 
 class SignupActivity : BaseActivity(), ISignUpView {
 
@@ -50,7 +49,7 @@ class SignupActivity : BaseActivity(), ISignUpView {
     // optional values...
     var bio = ""
     var gender = ""
-    var langId=""
+    var langId = ""
 
     // path for multipart image upload
     var path: String = ""
@@ -70,7 +69,7 @@ class SignupActivity : BaseActivity(), ISignUpView {
 
         //populating the spinner
         setGenderSpinner()
-        langId=sessionManager.getValue(SessionManager.LANGUAGE_ID).toString()
+        langId = sessionManager.getValue(SessionManager.LANGUAGE_ID).toString()
 
 
 // lisners::::
@@ -150,7 +149,9 @@ class SignupActivity : BaseActivity(), ISignUpView {
             } else if (TextUtils.isEmpty(edtConfirmPasword!!.text.toString().trim { it <= ' ' })) {
                 showSnackBar(getString(R.string.enter_cnfrm))
                 edtConfirmPasword!!.requestFocus()
-            } else if (edtPassword.text.toString().compareTo(edtConfirmPasword.text.toString()) != 0) {
+            } else if (edtPassword.text.toString()
+                    .compareTo(edtConfirmPasword.text.toString()) != 0
+            ) {
                 showSnackBar(getString(R.string.pass_not_match))
                 edtConfirmPasword!!.requestFocus()
             } else if (TextUtils.isEmpty(edtUsername!!.text.toString().trim { it <= ' ' })) {
@@ -173,7 +174,7 @@ class SignupActivity : BaseActivity(), ISignUpView {
 
                     // compressing size of the image uploading
 //                    var finalFile = compressFile(file)
-                    var finalFile= bitmap?.let { saveBitmap(it,path) }
+                    var finalFile = bitmap?.let { saveBitmap(it, path) }
                     if (finalFile != null) {
                         var sizeAfter = finalFile.length().div(1024)
                         var sizeBefore = file.length().div(1024)
@@ -279,6 +280,7 @@ class SignupActivity : BaseActivity(), ISignUpView {
 
 
     }
+
     fun chooseImage() {
         imagePicker = ImagePicker(this /*activity non null*/, null,
             object : OnImagePickedListener {
@@ -290,7 +292,7 @@ class SignupActivity : BaseActivity(), ISignUpView {
                     path = getRealPathFromURI(imageUri).toString()
                     Log.e("path", path)
 //                     Bitmap bmp = uriToBitmap(imageUri);
-                    if (path.isNullOrEmpty()==false) {
+                    if (path.isNullOrEmpty() == false) {
                         //get bitmap from file path
                         val bm = decodeSampledBitmapFromFile(path, 300, 300)
                         try {
@@ -339,7 +341,7 @@ class SignupActivity : BaseActivity(), ISignUpView {
                     }
                 }
             })
-            .setWithImageCrop(1,1)
+            .setWithImageCrop(1, 1)
         imagePicker?.choosePicture(true)
     }
     /*fun chooseImage() {
@@ -528,12 +530,45 @@ class SignupActivity : BaseActivity(), ISignUpView {
 
         // Creating adapter for spinner
         val languageSelectAdapter =
-            ArrayAdapter(this,R.layout.spinner_item, genderArr)
+            ArrayAdapter(this, R.layout.spinner_item, genderArr)
 
         // Drop down layout style - list view with radio button
         languageSelectAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
         // attaching data adapter to spinner
         spinnerGender!!.adapter = languageSelectAdapter
+
+        spinnerTextWatcher() // to turn the first "select" text to grey color and other to black
+    }
+
+    fun spinnerTextWatcher() {
+
+        spinnerGender.setOnItemSelectedListener(object : AdapterView.OnItemSelectedListener {
+            override fun onItemSelected(
+                parentView: AdapterView<*>?,
+                selectedItemView: View?,
+                position: Int,
+                id: Long
+            ) {
+                if (spinnerGender.selectedItemPosition == 0) {
+                    (spinnerGender.getSelectedView() as TextView).setTextColor(
+                        getResources().getColor(
+                            R.color.gray_hint
+                        )
+                    )
+
+                } else {
+                    (spinnerGender.getSelectedView() as TextView).setTextColor(
+                        getResources().getColor(
+                            R.color.black
+                        )
+                    )
+                }
+            }
+
+            override fun onNothingSelected(parentView: AdapterView<*>?) {
+                // your code here
+            }
+        })
     }
 
 
@@ -570,7 +605,10 @@ class SignupActivity : BaseActivity(), ISignUpView {
                 showSnackBar(signUpModel.message)
             }
         } else {
-            showSnackBar(this@SignupActivity.getResources().getString(R.string.error_occured)+"  ${response.code()}");
+            showSnackBar(
+                this@SignupActivity.getResources()
+                    .getString(R.string.error_occured) + "  ${response.code()}"
+            );
         }
     }
 }

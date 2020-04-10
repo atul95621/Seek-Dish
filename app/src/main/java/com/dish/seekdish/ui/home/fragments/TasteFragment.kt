@@ -111,6 +111,11 @@ class TasteFragment : BaseFragment(), GoogleApiClient.ConnectionCallbacks,
         // setting to refresh the layout
         sessionManager.setValues(SessionManager.CURRENT_SCREEN, "HomeFragment")
 
+        /// did this so that if user move when selected current position teh location gets updated if selected then not
+        if (sessionManager.getValue(SessionManager.LOCATION_SELECTED).isNullOrEmpty()) {
+            sessionManager.setValues(SessionManager.LOCATION_SELECTED, "0")
+        }
+
 
         // hiding keyboard
         hideKeyBoard()
@@ -121,8 +126,10 @@ class TasteFragment : BaseFragment(), GoogleApiClient.ConnectionCallbacks,
             if (sessionManager.getValue(SessionManager.LATITUDE)
                     .isNullOrEmpty() == false && sessionManager.getValue(
                     SessionManager.LONGITUDE
-                ).isNullOrEmpty() == false
+                ).isNullOrEmpty() == false &&sessionManager.getValue(SessionManager.LOCATION_SELECTED).equals("1")
             ) {
+                Log.e("current_location11", "$currentLatitude ,   $currentLongitude")
+
                 //hitting api
                 getTasteMeals(pageNumber)
 
@@ -276,12 +283,19 @@ class TasteFragment : BaseFragment(), GoogleApiClient.ConnectionCallbacks,
 
     fun mealForCurrentLOcation() {
         // in if loading current location meals   && in else saving the current location coordinates
-        if (homeActivity.connectionDetector.isConnectingToInternet) {
+        /*if (homeActivity.connectionDetector.isConnectingToInternet) {
             if (sessionManager.getValue(SessionManager.LATITUDE)
                     .isNullOrEmpty() == true && sessionManager.getValue(
                     SessionManager.LONGITUDE
                 ).isNullOrEmpty() == true
+            ) {*/
+        if (homeActivity.connectionDetector.isConnectingToInternet) {
+            if (sessionManager.getValue(
+                    SessionManager.LOCATION_SELECTED
+                ).equals("0")
             ) {
+                Log.e("current_location22", "$currentLatitude ,   $currentLongitude")
+
                 //hitting api
                 sessionManager.setValues(SessionManager.LATITUDE, currentLatitude.toString())
                 sessionManager.setValues(SessionManager.LONGITUDE, currentLongitude.toString())

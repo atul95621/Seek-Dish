@@ -437,7 +437,40 @@ class MyInformationActivity : BaseActivity(), IMyInformationView {
         // attaching data adapter to spinner
         spinnerGender!!.adapter = languageSelectAdapter
 
+        spinnerTextWatcher()
     }
+
+    fun spinnerTextWatcher() {
+
+        spinnerGender.setOnItemSelectedListener(object : AdapterView.OnItemSelectedListener {
+            override fun onItemSelected(
+                parentView: AdapterView<*>?,
+                selectedItemView: View?,
+                position: Int,
+                id: Long
+            ) {
+                if (spinnerGender.selectedItemPosition == 0) {
+                    (spinnerGender.getSelectedView() as TextView).setTextColor(
+                        getResources().getColor(
+                            R.color.gray_hint
+                        )
+                    )
+
+                } else {
+                    (spinnerGender.getSelectedView() as TextView).setTextColor(
+                        getResources().getColor(
+                            R.color.black
+                        )
+                    )
+                }
+            }
+
+            override fun onNothingSelected(parentView: AdapterView<*>?) {
+                // your code here
+            }
+        })
+    }
+
 
     private fun setBodyList() {
         //        ___________________________________________________________BUSINESS TYPE SPINNER
@@ -461,7 +494,40 @@ class MyInformationActivity : BaseActivity(), IMyInformationView {
         // attaching data adapter to spinner
         spinnerBodyFat!!.adapter = bodyFatAdapter
 
+        spinnerBodyFatWatcher()  // to turn the first "select" text to grey color and other to black
     }
+
+    fun spinnerBodyFatWatcher() {
+
+        spinnerBodyFat.setOnItemSelectedListener(object : AdapterView.OnItemSelectedListener {
+            override fun onItemSelected(
+                parentView: AdapterView<*>?,
+                selectedItemView: View?,
+                position: Int,
+                id: Long
+            ) {
+                if (spinnerBodyFat.selectedItemPosition == 0) {
+                    (spinnerBodyFat.getSelectedView() as TextView).setTextColor(
+                        getResources().getColor(
+                            R.color.gray_hint
+                        )
+                    )
+
+                } else {
+                    (spinnerBodyFat.getSelectedView() as TextView).setTextColor(
+                        getResources().getColor(
+                            R.color.black
+                        )
+                    )
+                }
+            }
+
+            override fun onNothingSelected(parentView: AdapterView<*>?) {
+                // your code here
+            }
+        })
+    }
+
 
     fun showDialogList(
         listData: ArrayList<LangData>,

@@ -17,6 +17,7 @@
     <color name="yellow_light">#FEFC1C</color>
     <color name="gray_lighter">#efefef</color>
     <color name="dark_gray">#7E7E7E</color>
+    <color name="gray_hint">#A5A1A1</color>
     <color name="light_gray">#EDEBEC</color>
     <color name="edt_light_gray">#F4F4F4</color>
     <color name="light_green">#7DD4A3</color>

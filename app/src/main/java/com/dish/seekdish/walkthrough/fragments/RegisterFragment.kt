@@ -333,7 +333,7 @@ class RegisterFragment : BaseFragment(), IRegisterFragView {
                     ProgressBarClass.dialog.dismiss()
 
                     Log.e("TwitterException", "" + e.toString() + "    " + e.printStackTrace());
-                    showSnackBar("Failed to authenticate. Please try again.")
+                    showSnackBar(resources.getString(R.string.error_occured)+  " "+e.message)
 
                 }
             })
@@ -359,7 +359,7 @@ class RegisterFragment : BaseFragment(), IRegisterFragView {
             }
 
             override fun failure(exception: TwitterException) {
-                showSnackBar("Failed to authenticate. Please try again.")
+                showSnackBar(resources.getString(R.string.error_occured)+  " "+exception.message)
             }
         })
     }
@@ -399,7 +399,7 @@ class RegisterFragment : BaseFragment(), IRegisterFragView {
 
                 override fun failure(exception: TwitterException) {
 
-                    showSnackBar("Failed to authenticate. Please try again.")
+                    showSnackBar(resources.getString(R.string.error_occured)+  " "+exception.message)
 
                 }
             })

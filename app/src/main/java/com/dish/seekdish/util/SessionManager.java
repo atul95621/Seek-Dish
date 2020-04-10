@@ -39,9 +39,11 @@ public class SessionManager {
     public static final String LATITUDE_SELECTED = "lattitude_selected";
     public static final String LONGITUDE_SELECTED = "longitude_selected";
     public static final String PLACE_SELECTED = "place_selected";  // selected with aadress to show address only in textview
+   //------------------
     public static final String LOCATION_SELECTED = "location_selected";   // selected a particular location,
     // 1- means he has selected particular location, 0 - means its current location wherever he will go it gets updated.
-
+    /// did this so that if user move when selected current position teh location gets updated if selected then not
+//-----------------------
     public static final String LOCATION_STATUS = "location";
     public static final String USERNAME = "name";
     public static final String FIRST_NAME = "first_name";
