@@ -1,21 +1,13 @@
 package com.dish.seekdish.ui.navDrawer.dishDescription
 
 import android.app.ActionBar
-import android.app.Activity
 import android.app.Dialog
 import android.content.Context
-import android.os.Bundle
-import androidx.viewpager.widget.ViewPager
-import com.dish.seekdish.ui.navDrawer.dishDescription.adapter.DishDescpAdapter
-import com.google.android.material.tabs.TabLayout
-import kotlinx.android.synthetic.main.activity_dish_description.*
 import android.content.Intent
-import android.graphics.Bitmap
-import android.graphics.BitmapFactory
 import android.graphics.Color
-import android.graphics.Shader
 import android.graphics.drawable.ColorDrawable
 import android.net.Uri
+import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -28,11 +20,12 @@ import android.widget.TextView
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.viewpager.widget.PagerAdapter
-import com.dish.seekdish.Constants
+import androidx.viewpager.widget.ViewPager
 import com.dish.seekdish.R
 import com.dish.seekdish.custom.GlideApp
 import com.dish.seekdish.custom.PagerContainer
 import com.dish.seekdish.ui.navDrawer.dishDescription.VM.DishDescriptionVM
+import com.dish.seekdish.ui.navDrawer.dishDescription.adapter.DishDescpAdapter
 import com.dish.seekdish.ui.navDrawer.dishDescription.model.Ingredients
 import com.dish.seekdish.ui.navDrawer.dishDescription.model.Meals
 import com.dish.seekdish.ui.navDrawer.invitation.InvitationActivity
@@ -42,21 +35,17 @@ import com.dish.seekdish.util.SessionManager
 import com.facebook.CallbackManager
 import com.facebook.FacebookCallback
 import com.facebook.FacebookException
-import com.facebook.FacebookSdk
 import com.facebook.share.Sharer
 import com.facebook.share.model.ShareLinkContent
-import com.facebook.share.model.ShareLinkContent.*
 import com.facebook.share.widget.ShareDialog
 import com.facebook.share.widget.ShareDialog.canShow
+import com.google.android.material.tabs.TabLayout
 import com.twitter.sdk.android.core.*
 import com.twitter.sdk.android.core.identity.TwitterAuthClient
-import com.twitter.sdk.android.core.models.Tweet
 import de.hdodenhof.circleimageview.CircleImageView
 import io.reactivex.android.schedulers.AndroidSchedulers
-import java.io.IOException
+import kotlinx.android.synthetic.main.activity_dish_description.*
 import java.io.Serializable
-import java.net.URL
-import kotlin.Result
 
 
 class DishDescriptionActivity : BaseActivity(), Serializable {
@@ -268,7 +257,7 @@ class DishDescriptionActivity : BaseActivity(), Serializable {
                 if (response.status == 1) {
 
                     tvMealName.setText(response.data.meals.meal_name)
-                    tvRestaurantName.setText(response.data.meals.restro_name + ", "+response.data.meals.street + ", " + response.data.meals.city + ", " + response.data.meals.zipcode)
+                    tvRestaurantName.setText(response.data.meals.restro_name + ", " + response.data.meals.street + ", " + response.data.meals.city + ", " + response.data.meals.zipcode)
                     ratingStarMeal.rating = response.data.meals.meal_avg_rating.toFloat()
                     ratingEuroMeal.rating = response.data.meals.budget.toFloat()
 
@@ -292,15 +281,15 @@ class DishDescriptionActivity : BaseActivity(), Serializable {
                     //for swipe images on top
                     initializeviews()
 
-                /*    tvRestaurantName.setOnClickListener()
-                    {
-                        startActivity(
-                            Intent(
-                                Intent.ACTION_VIEW,
-                                Uri.parse("https://www.google.com/#q=" + tvRestaurantName.getText())
-                            )
-                        );
-                    }*/
+                    /*    tvRestaurantName.setOnClickListener()
+                        {
+                            startActivity(
+                                Intent(
+                                    Intent.ACTION_VIEW,
+                                    Uri.parse("https://www.google.com/#q=" + tvRestaurantName.getText())
+                                )
+                            );
+                        }*/
 
                     //++++++++++++++++++++++++ setting the adapter after the responses come in...
                     adapter =
@@ -311,14 +300,12 @@ class DishDescriptionActivity : BaseActivity(), Serializable {
                             tabLayout
                         )
                     )
-                }
-                else
-                {
+                } else {
                     showSnackBar(response.message)
                 }
 
             } else {
-                showSnackBar(resources.getString(R.string.error_occured)  +"  $response")
+                showSnackBar(resources.getString(R.string.error_occured) + "  $response")
                 Log.e("rspGetDishDetailsFail", "else error")
 
             }
@@ -343,14 +330,12 @@ class DishDescriptionActivity : BaseActivity(), Serializable {
 //                    onSendClick(response.data.message)
                     actionDialog.dismiss()
                     showSnackBar(response.message)
-                }
-                else
-                {
+                } else {
                     showSnackBar(response.message)
                 }
 
             } else {
-                showSnackBar(getResources().getString(R.string.error_occured)+"     $response ");
+                showSnackBar(getResources().getString(R.string.error_occured) + "     $response ");
 //                showSnackBar("OOps! Error Occured.")
                 Log.e("rspGetaddtodoFail", "else error")
             }
@@ -373,13 +358,11 @@ class DishDescriptionActivity : BaseActivity(), Serializable {
 //                    onSendClick(response.data.message)
                     actionDialog.dismiss()
                     showSnackBar(response.message)
-                }
-                else
-                {
+                } else {
                     showSnackBar(response.message)
                 }
             } else {
-                showSnackBar(getResources().getString(R.string.error_occured)+"   $response ");
+                showSnackBar(getResources().getString(R.string.error_occured) + "   $response ");
                 Log.e("rspGetaddtodoFail", "else error")
             }
         })
@@ -431,7 +414,6 @@ class DishDescriptionActivity : BaseActivity(), Serializable {
 
         tvAddfav.setOnClickListener()
         {
-
             if (connectionDetector.isConnectingToInternet) {
                 dishDescriptionVM?.getAddFavouritestat(
                     sessionManager?.getValue(SessionManager.USER_ID).toString(),
@@ -441,7 +423,6 @@ class DishDescriptionActivity : BaseActivity(), Serializable {
             } else {
                 showSnackBar(getString(R.string.check_connection))
             }
-
         }
 
         tvViewDetail.setOnClickListener()
@@ -490,20 +471,19 @@ class DishDescriptionActivity : BaseActivity(), Serializable {
         ic_facebk.setOnClickListener()
         {
             if (facebookLink.isEmpty()) {
-                sharePostOnFacebook()
+                showSnackBar(resources.getString(R.string.not_found))
             } else {
-                showSnackBar("Oops! Link not available")
+                sharePostOnFacebook()
             }
             dialog.dismiss()
         }
 
         imgTwitter.setOnClickListener()
         {
-
             if (facebookLink.isEmpty()) {
-                shareProductOnTwitter()
+                showSnackBar(resources.getString(R.string.not_found))
             } else {
-                showSnackBar("Oops! Link not available")
+                shareProductOnTwitter()
             }
             dialog.dismiss()
         }
@@ -529,7 +509,7 @@ class DishDescriptionActivity : BaseActivity(), Serializable {
 
         //setting dots with viewpager...
 //        springDotsIndicator.setViewPager(pager)
-    springDotsIndicator.visibility=View.GONE
+        springDotsIndicator.visibility = View.GONE
     }
 
 //Nothing special about this adapterPager, just throwing up colored views for demo
@@ -631,7 +611,7 @@ class DishDescriptionActivity : BaseActivity(), Serializable {
         })
         if (canShow(ShareLinkContent::class.java)) {
             val linkContent = ShareLinkContent.Builder()
-                .setQuote("Seekdish")
+                .setQuote(resources.getString(R.string.seekdish))
                 .setContentUrl(Uri.parse(facebookLink))
                 .build()
             shareDialog.show(linkContent)
@@ -672,7 +652,10 @@ class DishDescriptionActivity : BaseActivity(), Serializable {
     }
 
     private fun shareOnTwitter() {
-        val statusesService = TwitterCore.getInstance().getApiClient().getStatusesService()
+        val tweetUrl = ("https://twitter.com/intent/tweet?text=SeekDish&url=" + twitterLink)
+        val uri = Uri.parse(tweetUrl)
+        startActivity(Intent(Intent.ACTION_VIEW, uri))
+   /*     val statusesService = TwitterCore.getInstance().getApiClient().getStatusesService()
         val tweetCall =
             statusesService.update("Seekdish:  ", null, false, null, null, null, false, false, null)
         tweetCall.enqueue(object : Callback<Tweet>() {
@@ -684,7 +667,7 @@ class DishDescriptionActivity : BaseActivity(), Serializable {
             override fun failure(exception: TwitterException) {
                 Log.e("TAG", "Twitter Share Failed with Error: " + exception.getLocalizedMessage())
             }
-        })
+        })*/
     }
 
 

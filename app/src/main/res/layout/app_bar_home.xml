@@ -1,73 +1,79 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools"
-        android:layout_width="match_parent"
-        android:orientation="vertical"
-        android:layout_height="match_parent"
-        tools:context=".ui.home.HomeActivity">
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".ui.home.HomeActivity">
 
     <com.google.android.material.appbar.AppBarLayout
-            android:layout_height="wrap_content"
-            android:layout_width="match_parent"
-            android:theme="@style/AppTheme.AppBarOverlay">
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:theme="@style/AppTheme.AppBarOverlay">
 
 
         <!--toolbar-->
-        <FrameLayout android:layout_width="match_parent"
-                     android:layout_height="match_parent"
-                     android:gravity="center"
-                     android:background="@color/colorPrimary"
-                     android:orientation="horizontal">
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/colorPrimary"
+            android:gravity="center"
+            android:orientation="horizontal">
+
             <androidx.appcompat.widget.Toolbar
-                    android:id="@+id/toolbar"
-                    android:layout_width="match_parent"
-                    android:layout_height="?attr/actionBarSize"
-                    android:background="@color/white"
-                    app:popupTheme="@style/AppTheme.PopupOverlay"/>
+                android:id="@+id/toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                android:background="@color/white"
+                app:popupTheme="@style/AppTheme.PopupOverlay" />
 
             <ImageView
-                    android:visibility="gone"
-                    android:id="@+id/imgHamburger"
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
-                    android:layout_marginStart="10dp" android:gravity="end"
-                    android:background="@drawable/ic_hamburger"
-                    android:layout_gravity="start|center_vertical"
-            />
+                android:id="@+id/imgHamburger"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_gravity="start|center_vertical"
+                android:layout_marginStart="10dp"
+                android:background="@drawable/ic_hamburger"
+                android:gravity="end"
+                android:visibility="gone" />
+
             <TextView
-                    android:id="@+id/tvToolbarTitle"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:text="@string/home"
-                    android:fontFamily="@font/assistantbold"
-                    android:textColor="@color/black"
-                    android:textSize="20sp"/>
+                android:id="@+id/tvToolbarTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:fontFamily="@font/assistantbold"
+                android:text="@string/home"
+                android:textColor="@color/black"
+                android:textSize="20sp" />
+
             <ImageView
-                    android:visibility="visible"
-                    android:id="@+id/imgFilters"
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
-                    android:layout_marginEnd="10dp"
-                    android:gravity="end"
-                    android:background="@drawable/ic_settings_button"
-                    android:layout_gravity="end|center_vertical"
-            />
+                android:id="@+id/imgFilters"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_gravity="end|center_vertical"
+                android:layout_marginEnd="10dp"
+                android:background="@drawable/ic_settings_button"
+                android:gravity="end"
+                android:visibility="visible" />
+
             <TextView
-                    android:visibility="gone"
-                    android:background="@drawable/roundedge_gray_border"
-                    android:id="@+id/tvAdd"
-                    android:layout_width="80dp"
-                    android:layout_marginEnd="10dp"
-                    android:gravity="center_vertical|center"
-                    android:textColor="@color/colorPrimary"
-                    android:fontFamily="@font/assistantbold"
-                    android:textSize="18sp"
-                    android:layout_height="30dp"
-                    android:layout_gravity="end|center_vertical"
-                    android:text="@string/add"/>
+                android:id="@+id/tvAdd"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="end|center_vertical"
+                android:layout_marginEnd="5dp"
+                android:padding="5dp"
+                android:minWidth="80dp"
+                android:maxWidth="120dp"
+                android:background="@drawable/roundedge_gray_border"
+                android:fontFamily="@font/assistantbold"
+                android:gravity="center_vertical|center"
+                android:text="@string/add"
+                android:textColor="@color/colorPrimary"
+                android:textSize="16sp"
+                android:visibility="gone" />
         </FrameLayout>
 
 
@@ -75,9 +81,9 @@
 
     <!--<include layout="@layout/content_home"/>-->
     <FrameLayout
-            android:background="@color/white"
-            android:id="@+id/content_frame"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"/>
+        android:id="@+id/content_frame"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/white" />
 
 </LinearLayout>

@@ -259,9 +259,9 @@ class RestroDescrpActivity : BaseActivity() {
         ic_facebk.setOnClickListener()
         {
             if (facebookLink.isEmpty()) {
-                sharePostOnFacebook()
+                showSnackBar(resources.getString(R.string.not_found))
             } else {
-                showSnackBar("Oops! Link not available")
+                sharePostOnFacebook()
             }
             dialog.dismiss()
         }
@@ -270,9 +270,10 @@ class RestroDescrpActivity : BaseActivity() {
         {
 
             if (facebookLink.isEmpty()) {
-                shareProductOnTwitter()
+                showSnackBar(resources.getString(R.string.not_found))
             } else {
-                showSnackBar("Oops! Link not available")
+                shareProductOnTwitter()
+
             }
             dialog.dismiss()
         }
@@ -444,7 +445,7 @@ class RestroDescrpActivity : BaseActivity() {
         })
         if (ShareDialog.canShow(ShareLinkContent::class.java)) {
             val linkContent = ShareLinkContent.Builder()
-                .setQuote("Seekdish")
+                .setQuote(resources.getString(R.string.seekdish))
                 .setContentUrl(Uri.parse(facebookLink))
                 .build()
             shareDialog.show(linkContent)
@@ -510,19 +511,25 @@ class RestroDescrpActivity : BaseActivity() {
 
 
     private fun shareOnTwitter() {
-        val statusesService = TwitterCore.getInstance().getApiClient().getStatusesService()
-        val tweetCall =
-            statusesService.update("Seekdish:  ", null, false, null, null, null, false, false, null)
-        tweetCall.enqueue(object : Callback<Tweet>() {
-            override fun success(result: com.twitter.sdk.android.core.Result<Tweet>?) {
-                Log.e("TAG", "Twitter Share Success")
-//                logoutTwitter()            }
-            }
 
-            override fun failure(exception: TwitterException) {
-                Log.e("TAG", "Twitter Share Failed with Error: " + exception.getLocalizedMessage())
-            }
-        })
+        val tweetUrl = ("https://twitter.com/intent/tweet?text=SeekDish&url=" + twitterLink)
+        val uri = Uri.parse(tweetUrl)
+        startActivity(Intent(Intent.ACTION_VIEW, uri))
+
+
+        /*   val statusesService = TwitterCore.getInstance().getApiClient().getStatusesService()
+           val tweetCall =
+               statusesService.update("Seekdish:  ", null, false, null, null, null, false, false, null)
+           tweetCall.enqueue(object : Callback<Tweet>() {
+               override fun success(result: com.twitter.sdk.android.core.Result<Tweet>?) {
+                   Log.e("TAG", "Twitter Share Success")
+   //                logoutTwitter()            }
+               }
+
+               override fun failure(exception: TwitterException) {
+                   Log.e("TAG", "Twitter Share Failed with Error: " + exception.getLocalizedMessage())
+               }
+           })*/
     }
 }
 

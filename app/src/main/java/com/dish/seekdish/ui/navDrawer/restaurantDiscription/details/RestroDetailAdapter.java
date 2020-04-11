@@ -16,6 +16,7 @@ public class RestroDetailAdapter extends BaseExpandableListAdapter {
 
     private Context context;
     private ArrayList<GroupData> teamName;
+    String pos="";
 
     public RestroDetailAdapter(Context context, ArrayList<GroupData> deptList) {
         this.context = context;
