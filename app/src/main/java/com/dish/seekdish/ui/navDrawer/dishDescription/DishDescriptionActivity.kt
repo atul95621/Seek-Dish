@@ -153,7 +153,14 @@ class DishDescriptionActivity : BaseActivity(), Serializable {
 
     }
 
+    override fun onResume() {
+        super.onResume()
+
+
+    }
+
     private fun clickListner() {
+
 
 
         imgGoogleApp.setOnClickListener()

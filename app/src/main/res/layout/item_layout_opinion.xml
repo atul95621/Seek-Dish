@@ -1,63 +1,66 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              xmlns:tools="http://schemas.android.com/tools"
-              android:layout_width="match_parent"
-              android:layout_height="wrap_content"
-              android:layout_margin="5dp"
-              android:gravity="center"
-              android:background="@android:color/white"
-              android:orientation="vertical">
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="5dp"
+    android:background="@android:color/white"
+    android:gravity="center"
+    android:orientation="vertical">
 
 
     <LinearLayout
-            android:id="@+id/linOpinion"
-            android:padding="5dp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-    >
+        android:id="@+id/linOpinion"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="5dp">
 
-        <de.hdodenhof.circleimageview.CircleImageView
-                xmlns:app="http://schemas.android.com/apk/res-auto"
-                android:id="@+id/imgplace"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                android:layout_marginStart="5dp"
-                android:src="@drawable/ic_applogo_small"
-                app:civ_border_color="#ffffff"
-                app:civ_border_width="0dp"/>
+        <de.hdodenhof.circleimageview.CircleImageView xmlns:app="http://schemas.android.com/apk/res-auto"
+            android:id="@+id/imgplace"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_gravity="center"
+            android:layout_marginStart="5dp"
+            android:src="@drawable/ic_applogo_small"
+            app:civ_border_color="#ffffff"
+            app:civ_border_width="0dp" />
+
         <LinearLayout
-                android:layout_weight="7"
-                android:layout_marginStart="20dp"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:orientation="vertical"
-                android:weightSum="2">
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_weight="7"
+            android:orientation="vertical"
+            android:weightSum="2">
+
             <TextView
-                    android:id="@+id/tvCheckinName"
-                    android:paddingTop="5dp"
-                    android:textSize="16sp"
-                    android:textColor="@color/black"
-                    android:layout_width="match_parent"
-                    android:layout_height="0dp"
-                    android:layout_weight="1"
-                    android:text="Opinion Title"/>
+                android:id="@+id/tvCheckinName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:maxLines="2"
+                android:paddingTop="5dp"
+                android:text="Opinion Title"
+                android:textColor="@color/black"
+                android:textSize="16sp" />
+
             <TextView
-                    android:id="@+id/tvCheckinDate"
-                    android:layout_width="match_parent"
-                    android:paddingTop="3dp"
-                    android:layout_height="0dp"
-                    android:textSize="14sp"
-                    android:layout_weight="1"
-                    android:text="Opinion Date"/>
+                android:id="@+id/tvCheckinDate"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:maxLines="1"
+                android:paddingTop="3dp"
+                android:singleLine="true"
+                android:text="Opinion Date"
+                android:textSize="14sp" />
         </LinearLayout>
 
 
     </LinearLayout>
 
     <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:layout_marginTop="4dp"
-            android:background="@color/dark_gray"/>
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginTop="4dp"
+        android:background="@color/dark_gray" />
 </LinearLayout>

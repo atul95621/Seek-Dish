@@ -77,7 +77,7 @@ class RestroDetailsFragment(var response: RestroDescpModel) : Fragment() {
 
         var email = response.data.restaurant.restaurant_detail.detail[0].email?: "null"
         addProduct(getString(R.string.email), email)
-        var website = response.data.restaurant.restaurant_detail.detail[0].website ?: "null"
+        var website = response.data.restaurant.restaurant_detail.detail[0].website?:"null"
         addProduct(getString(R.string.website), website)
         var serviceSpeed = response.data.restaurant.service_speed
         addProduct(getString(R.string.service_sped), serviceSpeed.toString())

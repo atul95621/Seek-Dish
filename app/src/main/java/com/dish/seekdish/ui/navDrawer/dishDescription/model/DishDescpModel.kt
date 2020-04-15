@@ -7,7 +7,7 @@ data class DishDescpModel(
     val `data`: Data,
     val status: Int,
     val message: String
-)
+): Serializable
 
 data class Data(
     val Ingredients: Ingredients,
@@ -94,7 +94,7 @@ data class UserMealComment(
     val texture_rating: Int,
     val user_id: Int,
     val username: String
-)
+) : Serializable
 
 data class AddTodoModel(
 //    val `data`: Data_TOdo,

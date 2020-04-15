@@ -1,8 +1,6 @@
 package com.dish.seekdish.ui.navDrawer.dishDescription.opinion
 
 import android.content.Intent
-import android.util.Half.toFloat
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -14,6 +12,7 @@ import com.dish.seekdish.R
 import com.dish.seekdish.custom.GlideApp
 import com.dish.seekdish.ui.navDrawer.dishDescription.DishDescriptionActivity
 import com.dish.seekdish.ui.navDrawer.dishDescription.OpinionDetailsActivity
+import com.dish.seekdish.ui.navDrawer.dishDescription.model.DishDescpModel
 import com.dish.seekdish.ui.navDrawer.dishDescription.model.UserMealComment
 import java.util.ArrayList
 
@@ -21,7 +20,8 @@ import java.util.ArrayList
 class OpinionAdapter(
     arrayList: ArrayList<OpinionDataClass>,
     mcontext: DishDescriptionActivity,
-    var opinionDetails: List<UserMealComment>
+    var opinionDetails: List<UserMealComment>,
+    var userMealComments: List<UserMealComment>
 ) :
     RecyclerView.Adapter<OpinionAdapter.RecyclerViewHolder>(), java.io.Serializable {
     internal var arrayList = ArrayList<OpinionDataClass>()
@@ -58,7 +58,9 @@ class OpinionAdapter(
         {
 
             val intent = Intent(mcontext, OpinionDetailsActivity::class.java)
-            intent.putExtra("TASTE_RATING", opinionDetails[position].taste_rating.toFloat())
+            intent.putExtra("OPINION_RATING", userMealComments[position])
+
+         /*   intent.putExtra("TASTE_RATING", opinionDetails[position].taste_rating.toFloat())
             intent.putExtra("AMBIANCE_RATING", opinionDetails[position].ambiance_rating.toFloat())
             intent.putExtra("CLEAN_RATING", opinionDetails[position].cleanness_rating.toFloat())
             intent.putExtra("DECOR_RATING", opinionDetails[position].decore_rating.toFloat())
@@ -80,7 +82,7 @@ class OpinionAdapter(
             intent.putExtra("COMMENT_USER_ID", opinionDetails[position].user_id.toString())
 
 //            var size_images_arr = opinionDetails[position].comment_images.size
-/*
+*//*
             if (size_images_arr == 1) {
                 var image1 = opinionDetails[position].comment_images[0].image1
                 intent.putExtra("COMMENT_IMAGE_1", image1.toString())
@@ -88,12 +90,12 @@ class OpinionAdapter(
 
             } else {
 
-            }*/
+            }*//*
 
             var image1 = opinionDetails[position].rating_image1
             intent.putExtra("COMMENT_IMAGE_1", image1.toString())
             var image2 = opinionDetails[position].rating_image2
-            intent.putExtra("COMMENT_IMAGE_2", image2.toString())
+            intent.putExtra("COMMENT_IMAGE_2", image2.toString())*/
 
 
             mcontext.startActivity(intent)

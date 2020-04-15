@@ -10,6 +10,8 @@ import com.bumptech.glide.Glide
 import com.dish.seekdish.R
 import com.dish.seekdish.custom.GlideApp
 import com.dish.seekdish.ui.navDrawer.dishDescription.VM.DishDescriptionVM
+import com.dish.seekdish.ui.navDrawer.dishDescription.model.DishDescpModel
+import com.dish.seekdish.ui.navDrawer.dishDescription.model.UserMealComment
 import com.dish.seekdish.util.BaseActivity
 import com.dish.seekdish.util.SessionManager
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -23,7 +25,6 @@ class OpinionDetailsActivity : BaseActivity() {
     var comment_userId = ""
     var dishDescriptionVM: DishDescriptionVM? = null
     var sessionManager: SessionManager? = null
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_opinion_details)
@@ -72,10 +73,15 @@ class OpinionDetailsActivity : BaseActivity() {
                 Log.e("rspGetaddtodoDetails", response.status.toString())
 
                 if (response.status == 1) {
+                    imgFriendRequest.visibility = View.GONE
+                    showSnackBar(response.message)
+                } else {
+                    imgFriendRequest.visibility = View.VISIBLE
                     showSnackBar(response.message)
                 }
             } else {
-                showSnackBar("OOps! Error Occured.")
+                showSnackBar(getResources().getString(R.string.error_occured) + " $response");
+
                 Log.e("rspGetaddtodoFail", "else error")
             }
         })
@@ -94,10 +100,17 @@ class OpinionDetailsActivity : BaseActivity() {
                 Log.e("rspGetaddtodoDetails", response.status.toString())
 
                 if (response.status == 1) {
+
+                    imgFollowing.visibility = View.GONE
+                    showSnackBar(response.message)
+
+                } else {
+                    imgFollowing.visibility = View.VISIBLE
                     showSnackBar(response.message)
                 }
             } else {
-                showSnackBar("OOps! Error Occured.")
+
+                showSnackBar(getResources().getString(R.string.error_occured) + " $response");
                 Log.e("rspGetaddtodoFail", "else error")
             }
         })
@@ -105,30 +118,37 @@ class OpinionDetailsActivity : BaseActivity() {
 
     private fun getIntentData() {
 
-        comment_userId = intent.getStringExtra("COMMENT_USER_ID")
+        val userMealComment = intent.getSerializableExtra("OPINION_RATING") as UserMealComment
 
-        val mealImage = intent.getStringExtra("MEAL_IMAGE")
+        comment_userId = userMealComment.user_id.toString()
+
+        val mealImage = userMealComment.meal_image
         Glide.with(this).load(mealImage).dontAnimate().fitCenter().into(imgMealImage)
 
-        ratingTaste.rating = intent.getFloatExtra("TASTE_RATING", 0F)
-        ratingAmbience.rating = intent.getFloatExtra("AMBIANCE_RATING", 0F)
-        ratingCleaniness.rating = intent.getFloatExtra("CLEAN_RATING", 0F)
-        ratingDecor.rating = intent.getFloatExtra("DECOR_RATING", 0F)
-        ratingOdor.rating = intent.getFloatExtra("ODOR_RATING", 0F)
-        ratingPresentation.rating = intent.getFloatExtra("PRESENTATION_RATING", 0F)
-        ratingService.rating = intent.getFloatExtra("SERVICE_RATING", 0F)
-        ratingTexture.rating = intent.getFloatExtra("TEXTURE_RATING", 0F)
-        ratingStar.rating = intent.getFloatExtra("AVG_RATING", 0F)
-        ratingEuro.rating = intent.getFloatExtra("BUDGET_RATING", 0F)
+        ratingTaste.rating = userMealComment.taste_rating.toFloat()
+        ratingAmbience.rating = userMealComment.ambiance_rating.toFloat()
+        ratingCleaniness.rating = userMealComment.cleanness_rating.toFloat()
+        ratingDecor.rating = userMealComment.decore_rating.toFloat()
+        ratingOdor.rating = userMealComment.odor_rating.toFloat()
+        ratingPresentation.rating = userMealComment.presentation_rating.toFloat()
+        ratingService.rating = userMealComment.service_rating.toFloat()
+        ratingTexture.rating = userMealComment.texture_rating.toFloat()
+        ratingStar.rating = userMealComment.meal_avg_rating.toFloat()
+        ratingEuro.rating = userMealComment.budget.toFloat()
 
-        tvMealName.setText(intent.getStringExtra("MEAL_NAME"))
-        tvComment.setText(intent.getStringExtra("COMMENT"))
-        var date = intent.getStringExtra("DATE")
-        tvDateName.setText(datePrase(date) + " - " + intent.getStringExtra("USERNAME"))
+        tvMealName.setText(userMealComment.name)
+        tvComment.setText(userMealComment.comment)
 
-        var firend = intent.getStringExtra("IS_FRIEND")
-        var private = intent.getStringExtra("IS_PRIVATE")
-        var follower = intent.getStringExtra("IS_FOLLOWER")
+        var date = userMealComment.published_on
+        tvDateName.setText(datePrase(date) + " - " + userMealComment.username)
+
+        var firend = userMealComment.friend
+        var private = userMealComment.private
+        var follower = userMealComment.follower
+
+        var image1 = userMealComment.rating_image1
+        var image2 = userMealComment.rating_image2
+
 
         if (firend.equals(1)) {
             imgFriendRequest.visibility = View.INVISIBLE
@@ -140,8 +160,6 @@ class OpinionDetailsActivity : BaseActivity() {
             imgFollowing.visibility = View.INVISIBLE
         }
 
-        var image1 = intent.getStringExtra("COMMENT_IMAGE_1")
-        var image2 = intent.getStringExtra("COMMENT_IMAGE_2")
 
         if (image1 != null && image1 != "null" && image1 != "") {
             Glide.with(this).load(image1).dontAnimate().fitCenter().into(imgCommentImage)

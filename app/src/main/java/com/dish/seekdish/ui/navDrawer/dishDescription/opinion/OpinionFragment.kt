@@ -68,7 +68,7 @@ class OpinionFragment(var objDishModel: DishDescpModel) : BaseFragment(), Serial
             }
 
 
-            adapter = OpinionAdapter(arrayList, mcontext, opinionDetails)
+            adapter = OpinionAdapter(arrayList, mcontext, opinionDetails,objDishModel.data.user_meal_comments)
             recyclerView!!.setAdapter(adapter)
         }
 
