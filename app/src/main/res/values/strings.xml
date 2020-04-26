@@ -255,5 +255,6 @@
     <string name="my_favourites">My Favourites</string>
     <string name="inviatation_status">Invitation Status</string>
     <string name="space" translatable="false">\u0020</string>
+    <string name="inivitee_incorrect">Oops!! You selected date of Past. Please select date in Future.</string>
 
 </resources>

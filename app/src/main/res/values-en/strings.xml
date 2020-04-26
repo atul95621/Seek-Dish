@@ -254,4 +254,5 @@
     <string name="select_gender_optional">Select Gender (Optional)</string>
     <string name="my_favourites">My Favourites</string>
     <string name="inviatation_status">Invitation Status</string>
+    <string name="inivitee_incorrect">Oops!! You selected date of Past. Please select date in Future.</string>
 </resources>

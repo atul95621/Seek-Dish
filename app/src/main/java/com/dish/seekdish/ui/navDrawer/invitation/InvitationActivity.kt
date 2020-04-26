@@ -170,7 +170,7 @@ class InvitationActivity : BaseActivity() {
         imgInvitaionSend.setOnClickListener()
         {
             var recievers_id = TextUtils.join(",", Global.selectedFriends)
-            Log.e("selected_friend_SENDING",recievers_id)
+            Log.e("selected_friend_SENDING", recievers_id)
 
             if (recievers_id.isNullOrEmpty()) {
                 showSnackBar("Please choose friends first.")
@@ -210,26 +210,33 @@ class InvitationActivity : BaseActivity() {
             this,
             DatePickerDialog.OnDateSetListener { view, year, monthOfYear, dayOfMonth ->
                 date.set(year, monthOfYear, dayOfMonth)
+
+                var cal = Calendar.getInstance()
+                cal.roll(Calendar.DATE, -1)
+                if (date.time.before(cal.time)) {
+                    showSnackBar(getString(R.string.inivitee_incorrect))
+                } else {
 //                date.getMinimum((System.currentTimeMillis() - 1000).toInt())
-                TimePickerDialog(
-                    this,
-                    TimePickerDialog.OnTimeSetListener { view, hourOfDay, minute ->
-                        date.set(Calendar.HOUR_OF_DAY, hourOfDay)
-                        date.set(Calendar.MINUTE, minute)
-                        timedelected = hourOfDay.toString() + ":" + minute
-                        tvTime.setText(timedelected)
-                        dateSelected =
-                            dayOfMonth.toString() + "-" + monthOfYear.plus(1) + "-" + year.toString()
-                        tvDate.setText(dateSelected)
+                    TimePickerDialog(
+                        this,
+                        TimePickerDialog.OnTimeSetListener { view, hourOfDay, minute ->
+                            date.set(Calendar.HOUR_OF_DAY, hourOfDay)
+                            date.set(Calendar.MINUTE, minute)
+                            timedelected = hourOfDay.toString() + ":" + minute
+                            tvTime.setText(timedelected)
+                            dateSelected =
+                                dayOfMonth.toString() + "-" + monthOfYear.plus(1) + "-" + year.toString()
+                            tvDate.setText(dateSelected)
 
-                        Log.v("picktime", "The choosen one " + hourOfDay + minute)
+                            Log.v("picktime", "The choosen one " + hourOfDay + minute)
 
-                        Log.v("pickdate", "The choosen one " + date.getTime())
-                    },
-                    currentDate.get(Calendar.HOUR_OF_DAY),
-                    currentDate.get(Calendar.MINUTE),
-                    true
-                ).show()
+                            Log.v("pickdate", "The choosen one " + date.getTime())
+                        },
+                        currentDate.get(Calendar.HOUR_OF_DAY),
+                        currentDate.get(Calendar.MINUTE),
+                        true
+                    ).show()
+                }
             },
             currentDate.get(Calendar.YEAR),
             currentDate.get(Calendar.MONTH),

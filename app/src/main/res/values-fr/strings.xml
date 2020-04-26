@@ -268,6 +268,7 @@ Le mot de passe et la confirmation ne correspondent pas.
     <string name="select_gender_optional">Sélectionnez le sexe (facultatif)</string>
     <string name="my_favourites">Mes préférés</string>
     <string name="inviatation_status">"Statut de l'invitation "</string>
+    <string name="inivitee_incorrect">Oops!! Vous avez sélectionné la date du passé. Veuillez sélectionner la date dans Future.</string>
 </resources>
 <!--
 <resources>
