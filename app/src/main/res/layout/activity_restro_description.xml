@@ -259,14 +259,20 @@
             android:layout_weight="1"
             android:src="@drawable/ic_checkin_button" />
 
-        <ImageView
+      <!--  <ImageView
             android:id="@+id/imgInvitation"
             android:layout_width="0dp"
             android:layout_height="55dp"
             android:layout_marginStart="30dp"
             android:layout_weight="1"
-            android:src="@drawable/ic_invitation_button" />
-
+            android:src="@drawable/ic_invitation_button" />-->
+        <ImageView
+            android:id="@+id/imgCallRestro"
+            android:layout_width="0dp"
+            android:layout_height="55dp"
+            android:layout_marginStart="30dp"
+            android:layout_weight="1"
+            android:src="@drawable/ic_call_icon" />
     </LinearLayout>
     <!--</LinearLayout>-->
     <!--</ScrollView>-->

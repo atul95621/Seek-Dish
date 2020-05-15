@@ -1,12 +1,16 @@
 package com.dish.seekdish.ui.navDrawer.dishDescription
 
+import android.Manifest
+import android.annotation.SuppressLint
 import android.app.ActionBar
 import android.app.Dialog
 import android.content.Context
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.net.Uri
+import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -17,6 +21,7 @@ import android.widget.Button
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
+import androidx.core.content.ContextCompat
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.viewpager.widget.PagerAdapter
@@ -28,7 +33,6 @@ import com.dish.seekdish.ui.navDrawer.dishDescription.VM.DishDescriptionVM
 import com.dish.seekdish.ui.navDrawer.dishDescription.adapter.DishDescpAdapter
 import com.dish.seekdish.ui.navDrawer.dishDescription.model.Ingredients
 import com.dish.seekdish.ui.navDrawer.dishDescription.model.Meals
-import com.dish.seekdish.ui.navDrawer.invitation.InvitationActivity
 import com.dish.seekdish.ui.navDrawer.restaurantDiscription.RestroDescrpActivity
 import com.dish.seekdish.util.BaseActivity
 import com.dish.seekdish.util.SessionManager
@@ -80,7 +84,9 @@ class DishDescriptionActivity : BaseActivity(), Serializable {
     lateinit var shareDialog: ShareDialog
     lateinit var actionDialog: Dialog
     var imageUrl: String = ""
-//   lateinit var messageDialog :Dialog
+
+    //   lateinit var messageDialog :Dialog
+    val PERMISSION_REQUEST_IMG_CODE = 2
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -159,8 +165,8 @@ class DishDescriptionActivity : BaseActivity(), Serializable {
 
     }
 
+    @SuppressLint("MissingPermission")
     private fun clickListner() {
-
 
 
         imgGoogleApp.setOnClickListener()
@@ -202,14 +208,26 @@ class DishDescriptionActivity : BaseActivity(), Serializable {
             startActivity(intent)
         }
 
-        imgInvitation.setOnClickListener()
+        /*imgInvitation.setOnClickListener()
         {
             val intent = Intent(this@DishDescriptionActivity, InvitationActivity::class.java)
             intent.putExtra("RESTAURANT_ID", restro_id.toString())
             intent.putExtra("FROM", "DishDescriptionActivity")
 
             startActivity(intent)
+        }*/
+
+
+        imgCallRestro.setOnClickListener()
+        {
+            if (checkImgPermissionIsEnabledOrNot()) {
+            callTheRestaurant();
+            } else {
+                requestImagePermission()
+            }
         }
+
+
         tvRestaurantName.setOnClickListener()
         {
             if (connectionDetector.isConnectingToInternet) {
@@ -230,6 +248,13 @@ class DishDescriptionActivity : BaseActivity(), Serializable {
                 showSnackBar(getString(R.string.check_connection))
             }
         }
+    }
+
+    @SuppressLint("MissingPermission")
+    private fun callTheRestaurant() {
+        val callIntent = Intent(Intent.ACTION_CALL)
+        callIntent.data = Uri.parse("tel:" + "+912345678985")
+        startActivity(callIntent)
     }
 
     public fun getIntents() {
@@ -662,19 +687,19 @@ class DishDescriptionActivity : BaseActivity(), Serializable {
         val tweetUrl = ("https://twitter.com/intent/tweet?text=SeekDish&url=" + twitterLink)
         val uri = Uri.parse(tweetUrl)
         startActivity(Intent(Intent.ACTION_VIEW, uri))
-   /*     val statusesService = TwitterCore.getInstance().getApiClient().getStatusesService()
-        val tweetCall =
-            statusesService.update("Seekdish:  ", null, false, null, null, null, false, false, null)
-        tweetCall.enqueue(object : Callback<Tweet>() {
-            override fun success(result: com.twitter.sdk.android.core.Result<Tweet>?) {
-                Log.e("TAG", "Twitter Share Success")
-//                logoutTwitter()            }
-            }
+        /*     val statusesService = TwitterCore.getInstance().getApiClient().getStatusesService()
+             val tweetCall =
+                 statusesService.update("Seekdish:  ", null, false, null, null, null, false, false, null)
+             tweetCall.enqueue(object : Callback<Tweet>() {
+                 override fun success(result: com.twitter.sdk.android.core.Result<Tweet>?) {
+                     Log.e("TAG", "Twitter Share Success")
+     //                logoutTwitter()            }
+                 }
 
-            override fun failure(exception: TwitterException) {
-                Log.e("TAG", "Twitter Share Failed with Error: " + exception.getLocalizedMessage())
-            }
-        })*/
+                 override fun failure(exception: TwitterException) {
+                     Log.e("TAG", "Twitter Share Failed with Error: " + exception.getLocalizedMessage())
+                 }
+             })*/
     }
 
 
@@ -704,6 +729,43 @@ class DishDescriptionActivity : BaseActivity(), Serializable {
             getMealDetials(meal_id.toString(), restro_id.toString())
             Log.e("methodIn", "hit again")
 
+        }
+    }
+
+    //calling
+    private fun requestImagePermission() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            requestPermissions(
+                arrayOf(
+                    Manifest.permission.CALL_PHONE
+
+                ), PERMISSION_REQUEST_IMG_CODE
+            )
+        }
+    }
+
+    //CALLING
+    private fun checkImgPermissionIsEnabledOrNot(): Boolean {
+        val FirstPermissionResult =
+            ContextCompat.checkSelfPermission(this, Manifest.permission.CALL_PHONE)
+        return FirstPermissionResult == PackageManager.PERMISSION_GRANTED
+    }
+
+    override fun onRequestPermissionsResult(
+        requestCode: Int,
+        permissions: Array<String>,
+        grantResults: IntArray
+    ) {
+        if (requestCode == 2) {
+            // If request is cancelled, the result arrays are empty.
+            if ((grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED)) {
+                // permission was granted, yay!
+                callTheRestaurant()
+            } else {
+                // permission denied, boo! Disable the
+                // functionality
+            }
+            return
         }
     }
 }

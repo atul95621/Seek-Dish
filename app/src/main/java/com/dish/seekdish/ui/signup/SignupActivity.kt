@@ -453,7 +453,6 @@ class SignupActivity : BaseActivity(), ISignUpView {
                 ), PERMISSION_REQUEST_IMG_CODE
             )
         }
-
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, result: Intent?) {

@@ -1,12 +1,16 @@
 package com.dish.seekdish.ui.navDrawer.restaurantDiscription
 
+import android.Manifest
+import android.annotation.SuppressLint
 import android.app.ActionBar
 import android.app.Dialog
 import android.content.Context
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.net.Uri
+import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -17,6 +21,7 @@ import android.widget.Button
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
+import androidx.core.content.ContextCompat
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.viewpager.widget.PagerAdapter
@@ -73,6 +78,7 @@ class RestroDescrpActivity : BaseActivity() {
     lateinit var actionDialog: Dialog
     var imageUrl: String = ""
 
+    val PERMISSION_REQUEST_IMG_CODE = 2
 
     /*  internal var mResources = intArrayOf(
           R.drawable.ic_foodex,
@@ -171,14 +177,42 @@ class RestroDescrpActivity : BaseActivity() {
             startActivity(intent)
         }
 
-        imgInvitation.setOnClickListener()
+        /*    imgInvitation.setOnClickListener()
+            {
+                val intent = Intent(this@RestroDescrpActivity, InvitationActivity::class.java)
+                intent.putExtra("RESTAURANT_ID", restro_id.toString())
+                intent.putExtra("FROM", "RestroDescrpActivity")
+                startActivity(intent)
+            }*/
+
+        imgCallRestro.setOnClickListener()
         {
-            val intent = Intent(this@RestroDescrpActivity, InvitationActivity::class.java)
-            intent.putExtra("RESTAURANT_ID", restro_id.toString())
-            intent.putExtra("FROM", "RestroDescrpActivity")
-            startActivity(intent)
+            if (checkImgPermissionIsEnabledOrNot()) {
+                callTheRestaurant();
+            } else {
+                requestImagePermission()
+            }
         }
 
+    }
+
+    //calling
+    private fun requestImagePermission() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            requestPermissions(
+                arrayOf(
+                    Manifest.permission.CALL_PHONE
+
+                ), PERMISSION_REQUEST_IMG_CODE
+            )
+        }
+    }
+
+    @SuppressLint("MissingPermission")
+    private fun callTheRestaurant() {
+        val callIntent = Intent(Intent.ACTION_CALL)
+        callIntent.data = Uri.parse("tel:" + "+912345678985")
+        startActivity(callIntent)
     }
 
     fun getMealDetials(restroId: String) {
@@ -530,6 +564,31 @@ class RestroDescrpActivity : BaseActivity() {
                    Log.e("TAG", "Twitter Share Failed with Error: " + exception.getLocalizedMessage())
                }
            })*/
+    }
+
+    //CALLING
+    private fun checkImgPermissionIsEnabledOrNot(): Boolean {
+        val FirstPermissionResult =
+            ContextCompat.checkSelfPermission(this, Manifest.permission.CALL_PHONE)
+        return FirstPermissionResult == PackageManager.PERMISSION_GRANTED
+    }
+
+    override fun onRequestPermissionsResult(
+        requestCode: Int,
+        permissions: Array<String>,
+        grantResults: IntArray
+    ) {
+        if (requestCode == 2) {
+            // If request is cancelled, the result arrays are empty.
+            if ((grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED)) {
+                // permission was granted, yay!
+                callTheRestaurant()
+            } else {
+                // permission denied, boo! Disable the
+                // functionality
+            }
+            return
+        }
     }
 }
 
