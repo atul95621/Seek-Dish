@@ -75,19 +75,22 @@ class RestroDetailsFragment(var response: RestroDescpModel) : Fragment() {
     // load some initial data into out list
     private fun loadData() {
 
-        var email = response.data.restaurant.restaurant_detail.detail[0].email?: "null"
+        var email = response.data.restaurant.restaurant_detail.detail[0].email ?: "null"
         addProduct(getString(R.string.email), email)
-        var website = response.data.restaurant.restaurant_detail.detail[0].website?:"null"
-        addProduct(getString(R.string.website), website)
+        var webs = response.data.restaurant.restaurant_detail.detail[0].website
+        if (!webs.isNullOrEmpty()) {
+            var website = response.data.restaurant.restaurant_detail.detail[0].website ?: "null"
+            addProduct(getString(R.string.website), website)
+        }
         var serviceSpeed = response.data.restaurant.service_speed
         addProduct(getString(R.string.service_sped), serviceSpeed.toString())
-        var guets = response.data.restaurant.restaurant_detail.detail[0].guests?: "null"
+        var guets = response.data.restaurant.restaurant_detail.detail[0].guests ?: "null"
         addProduct(getString(R.string.guest), guets)
-        var origin = response.data.restaurant.restaurant_detail.detail[0].origin?: "null"
+        var origin = response.data.restaurant.restaurant_detail.detail[0].origin ?: "null"
         addProduct(getString(R.string.origin), origin)
-        var phone = response.data.restaurant.restaurant_detail.detail[0].phone?: "null"
+        var phone = response.data.restaurant.restaurant_detail.detail[0].phone ?: "null"
         addProduct(getString(R.string.phone), phone)
-        var schedule = response.data.restaurant.restaurant_detail.detail[0].schedule?: "null"
+        var schedule = response.data.restaurant.restaurant_detail.detail[0].schedule ?: "null"
         addProduct(getString(R.string.schedule), schedule)
         for (items in response.data.restaurant.restaurant_detail.additional_services) {
             addProduct(getString(R.string.additional_Service), items)

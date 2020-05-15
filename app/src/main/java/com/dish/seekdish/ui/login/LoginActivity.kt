@@ -3,6 +3,7 @@ package com.dish.seekdish.ui.login
 import android.content.Intent
 import android.os.Bundle
 import android.text.TextUtils
+import android.util.Log
 import com.dish.seekdish.util.BaseActivity
 import com.dish.seekdish.R
 import com.dish.seekdish.ui.ForgotActivity
@@ -48,6 +49,7 @@ class LoginActivity : BaseActivity(), ILoginView {
             } else {
 
                 if (connectionDetector.isConnectingToInternet) {
+                    Log.e("langggg","  "+  sessionManager?.getValue(SessionManager.LANGUAGE_ID).toString())
                     //calling api
                     loginPresenter.login(
                         edtEmail.text.toString(),

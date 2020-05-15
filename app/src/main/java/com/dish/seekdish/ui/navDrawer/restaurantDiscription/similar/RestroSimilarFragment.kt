@@ -11,7 +11,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.dish.seekdish.R
 import com.dish.seekdish.ui.navDrawer.restaurantDiscription.RestroDescpModel
 import com.dish.seekdish.ui.navDrawer.restaurantDiscription.RestroDescrpActivity
-import kotlinx.android.synthetic.main.fragment_restro_similar.*
+import com.dish.seekdish.ui.navDrawer.restaurantDiscription.SimilarRestaurant
 import kotlinx.android.synthetic.main.fragment_restro_similar.view.*
 
 import java.util.ArrayList
@@ -21,9 +21,9 @@ class RestroSimilarFragment(var response: RestroDescpModel) : Fragment() {
     private var recyclerView: RecyclerView? = null
     private var adapter: RestroSimilarAdapter? = null
     internal lateinit var layoutManager: RecyclerView.LayoutManager
-
     lateinit var mcontext: RestroDescrpActivity
-    internal var arrayList = ArrayList<RestroSimilarDataClass>()
+    internal var arrayList = ArrayList<SimilarRestaurant>()
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -39,20 +39,10 @@ class RestroSimilarFragment(var response: RestroDescpModel) : Fragment() {
         recyclerView!!.setLayoutManager(layoutManager)
 
         if (response.data.restaurant.similar_restaurants.size != 0) {
-            for (i in 0 until response.data.restaurant.similar_restaurants.size) {
-
-                var title = response.data.restaurant.similar_restaurants[i].name
-                var address = response.data.restaurant.similar_restaurants[i].street+","+response.data.restaurant.similar_restaurants[i].city+","+response.data.restaurant.similar_restaurants[i].zipcode
-                var image = response.data.restaurant.similar_restaurants[i].restaurant_image
-
-                val restroSimilarDataClass = RestroSimilarDataClass(title, address, image);
-                arrayList.add(restroSimilarDataClass)
-            }
+            arrayList = response.data.restaurant.similar_restaurants;
         } else {
             view.tvFavSiml.visibility = View.VISIBLE
         }
-
-
 
         adapter = RestroSimilarAdapter(arrayList, mcontext)
         recyclerView!!.setAdapter(adapter)
