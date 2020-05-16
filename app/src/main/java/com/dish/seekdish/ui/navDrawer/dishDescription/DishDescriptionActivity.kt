@@ -84,6 +84,7 @@ class DishDescriptionActivity : BaseActivity(), Serializable {
     lateinit var shareDialog: ShareDialog
     lateinit var actionDialog: Dialog
     var imageUrl: String = ""
+    var phoneNumber = ""
 
     //   lateinit var messageDialog :Dialog
     val PERMISSION_REQUEST_IMG_CODE = 2
@@ -221,7 +222,7 @@ class DishDescriptionActivity : BaseActivity(), Serializable {
         imgCallRestro.setOnClickListener()
         {
             if (checkImgPermissionIsEnabledOrNot()) {
-            callTheRestaurant();
+                callTheRestaurant();
             } else {
                 requestImagePermission()
             }
@@ -253,7 +254,7 @@ class DishDescriptionActivity : BaseActivity(), Serializable {
     @SuppressLint("MissingPermission")
     private fun callTheRestaurant() {
         val callIntent = Intent(Intent.ACTION_CALL)
-        callIntent.data = Uri.parse("tel:" + "+912345678985")
+        callIntent.data = Uri.parse("tel:" + phoneNumber)
         startActivity(callIntent)
     }
 
@@ -261,7 +262,6 @@ class DishDescriptionActivity : BaseActivity(), Serializable {
         meal_id = intent.getStringExtra("MEAL_ID")
         restro_id = intent.getStringExtra("RESTAURANT_ID")
         var refersh = intent.getStringExtra("REFRESH_ACTIVITY")
-
     }
 
     fun getMealDetials(mealId: String, restroId: String) {
@@ -309,6 +309,8 @@ class DishDescriptionActivity : BaseActivity(), Serializable {
                     facebookLink = response.data.meals.facebook
                     twitterLink = response.data.meals.twitter
 
+                    phoneNumber =
+                        response.data.meals.country_code.toString() + response.data.meals.phone
 
                     //for swipe images on top
                     initializeviews()

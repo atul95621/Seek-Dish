@@ -77,7 +77,7 @@ class RestroDescrpActivity : BaseActivity() {
     lateinit var shareDialog: ShareDialog
     lateinit var actionDialog: Dialog
     var imageUrl: String = ""
-
+    var phoneNumber = ""
     val PERMISSION_REQUEST_IMG_CODE = 2
 
     /*  internal var mResources = intArrayOf(
@@ -211,7 +211,7 @@ class RestroDescrpActivity : BaseActivity() {
     @SuppressLint("MissingPermission")
     private fun callTheRestaurant() {
         val callIntent = Intent(Intent.ACTION_CALL)
-        callIntent.data = Uri.parse("tel:" + "+912345678985")
+        callIntent.data = Uri.parse("tel:" + phoneNumber)
         startActivity(callIntent)
     }
 
@@ -418,6 +418,9 @@ class RestroDescrpActivity : BaseActivity() {
                     ratingRestro.rating = response.data.restaurant.rating.toFloat()
                     facebookLink = response.data.restaurant.facebook
                     twitterLink = response.data.restaurant.twitter
+
+                    phoneNumber =
+                        response.data.restaurant.country_code.toString() + response.data.restaurant.phone
 
                     //for swipe images on top
                     initializeviews(mResources)

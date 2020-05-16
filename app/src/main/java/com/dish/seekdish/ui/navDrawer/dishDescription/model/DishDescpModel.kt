@@ -7,7 +7,7 @@ data class DishDescpModel(
     val `data`: Data,
     val status: Int,
     val message: String
-): Serializable
+) : Serializable
 
 data class Data(
     val Ingredients: Ingredients,
@@ -19,6 +19,8 @@ data class Data(
 data class Meals(
     val budget: String,
     val budget_price: String,
+    val phone: String,
+    val country_code: Int,
     val calories: Int,
     val distance: Double,
     val latitude: String,

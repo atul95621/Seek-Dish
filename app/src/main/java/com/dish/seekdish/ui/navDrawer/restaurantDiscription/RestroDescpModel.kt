@@ -16,6 +16,8 @@ data class Data(
 data class Restaurant(
     val city: String,
     val country: String,
+    val phone: String,
+    val country_code: Int,
     val description: String,
     val distance: Double,
     val id: Int,
