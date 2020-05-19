@@ -8,6 +8,7 @@ import com.dish.seekdish.ui.navDrawer.activities.model.ProfileDataClass
 import com.dish.seekdish.ui.navDrawer.checkin.data.CheckinModel
 import com.dish.seekdish.ui.navDrawer.dishDescription.model.AddTodoModel
 import com.dish.seekdish.ui.navDrawer.dishDescription.model.DishDescpModel
+import com.dish.seekdish.ui.navDrawer.dishDescription.opinion.CommentDetailModel
 import com.dish.seekdish.ui.navDrawer.myFriends.contactFetch.ContactsDetailsModel
 import com.dish.seekdish.ui.navDrawer.myFriends.dataModel.FriendDataModel
 import com.dish.seekdish.ui.navDrawer.notifications.NotifyModel
@@ -716,4 +717,13 @@ internal interface APIInterface {
         @Field("invitation_status") invitation_status: String
         ): Call<CancelReModel>
 
+
+    @FormUrlEncoded
+    @POST("getcomment")
+    fun getcomment(
+        @Field("user_id") user_id: String,
+        @Field("meal_id") meal_id: String,
+        @Field("restaurant_id") restaurant_id: String,
+        @Field("comment_id") comment_id: String
+    ): Call<CommentDetailModel>
 }

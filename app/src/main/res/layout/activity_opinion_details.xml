@@ -57,7 +57,7 @@
                     android:layout_marginStart="50dp"
                     android:layout_marginTop="20dp"
                     android:layout_marginEnd="50dp"
-                    android:src="@drawable/ic_pasta" />
+                  />
             </LinearLayout>
 
             <ScrollView
@@ -459,7 +459,7 @@
                                 android:layout_height="150dp"
                                 android:layout_gravity="center"
                                 android:layout_marginTop="20dp"
-                                android:src="@drawable/ic_pasta" />
+                               />
 
                             <ImageView
                                 android:id="@+id/imgCommentImageTwo"
@@ -467,7 +467,7 @@
                                 android:layout_height="150dp"
                                 android:layout_gravity="center"
                                 android:layout_marginTop="10dp"
-                                android:src="@drawable/ic_foodimg" />
+                               />
                         </LinearLayout>
                     </LinearLayout>
                 </LinearLayout>

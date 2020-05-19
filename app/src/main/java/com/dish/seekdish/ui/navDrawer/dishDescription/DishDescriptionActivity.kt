@@ -67,6 +67,7 @@ class DishDescriptionActivity : BaseActivity(), Serializable {
 
     var meal_id: String? = null
     var restro_id: String? = null
+
     var latitude: String? = null
     var longitude: String? = null
     var dishInfoDetails: Meals? = null
@@ -103,18 +104,15 @@ class DishDescriptionActivity : BaseActivity(), Serializable {
         getIntents()
 
 
-
-
         if (meal_id != null && restro_id != null) {
-
             //check connection
             if (connectionDetector.isConnectingToInternet) {
                 //hitting api
                 getMealDetials(meal_id.toString(), restro_id.toString())
+                Log.e("infomeal","  "+meal_id+"  "+restro_id)
             } else {
                 showSnackBar(getString(R.string.check_connection))
             }
-
         }
 
         getDishDetailsObserver()
@@ -123,10 +121,10 @@ class DishDescriptionActivity : BaseActivity(), Serializable {
         clickListner()
 
 
-        // setting up tabLayout
-        this.tabLayout = findViewById(R.id.tabLayoutDishActivity)
-        mContainer = findViewById(R.id.pager_container) as PagerContainer
 
+        mContainer = findViewById(R.id.pager_container) as PagerContainer
+// setting up tabLayout
+        this.tabLayout = findViewById(R.id.tabLayoutDishActivity)
 
         tabLayout.addTab(tabLayout.newTab().setText(getString(R.string.ingre)))
         tabLayout.addTab(tabLayout.newTab().setText(getString(R.string.opini)))
@@ -272,6 +270,12 @@ class DishDescriptionActivity : BaseActivity(), Serializable {
             sessionManager?.getValue(SessionManager.LONGITUDE).toString(),
             sessionManager?.getValue(SessionManager.LATITUDE).toString()
         )
+
+        Log.e("informa22","  "+  sessionManager?.getValue(SessionManager.USER_ID).toString()+"  "+
+            mealId+" "+
+            restroId+" "+
+            sessionManager?.getValue(SessionManager.LONGITUDE).toString()+" "+
+            sessionManager?.getValue(SessionManager.LATITUDE).toString())
     }
 
     fun getDishDetailsObserver() {

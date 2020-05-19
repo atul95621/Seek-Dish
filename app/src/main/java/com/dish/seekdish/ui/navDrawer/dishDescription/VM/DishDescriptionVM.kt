@@ -3,11 +3,11 @@ package com.dish.seekdish.ui.navDrawer.dishDescription.VM
 import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.dish.seekdish.Constants
 import com.dish.seekdish.retrofit.APIClientMvvm
 import com.dish.seekdish.retrofit.APIInterface
 import com.dish.seekdish.ui.navDrawer.dishDescription.model.AddTodoModel
 import com.dish.seekdish.ui.navDrawer.dishDescription.model.DishDescpModel
+import com.dish.seekdish.ui.navDrawer.dishDescription.opinion.CommentDetailModel
 import io.reactivex.Observable
 import io.reactivex.subjects.BehaviorSubject
 import retrofit2.Call
@@ -24,6 +24,7 @@ class DishDescriptionVM : ViewModel() {
     var getFriendReqLiveData: MutableLiveData<AddTodoModel> = MutableLiveData<AddTodoModel>()
     var getFollowingReqLiveData: MutableLiveData<AddTodoModel> = MutableLiveData<AddTodoModel>()
 
+    var getCommentLiveData: MutableLiveData<CommentDetailModel> = MutableLiveData<CommentDetailModel>()
 
     val isLoadingSubject = BehaviorSubject.create<Boolean>()
 
@@ -223,6 +224,37 @@ class DishDescriptionVM : ViewModel() {
                 Log.e("respGetDetailsFail", "failure")
 
                 getFollowingReqLiveData.postValue(null)
+            }
+        })
+    }
+
+
+    fun getComments(
+        userId: String,
+        mealId: String,
+        restaurantId: String,
+        commentId: String
+    ) {
+
+        // making progress bar visible
+        isLoadingSubject.onNext(true)
+        var api = APIClientMvvm.client.create(APIInterface::class.java)
+        val call = api.getcomment(userId,mealId,restaurantId,commentId)
+        call.enqueue(object : Callback<CommentDetailModel> {
+            override fun onResponse(call: Call<CommentDetailModel>, response: Response<CommentDetailModel>) {
+                // making progress bar invisible
+                isLoadingSubject.onNext(false)
+                //finally we are setting the list to our MutableLiveData
+                getCommentLiveData.postValue(response.body())
+//                getFollowingReqLiveData.value = response.body()
+                Log.e("respGetDetails", response.body().toString())
+            }
+
+            override fun onFailure(call: Call<CommentDetailModel>, t: Throwable) {
+                // making progress bar invisible
+                isLoadingSubject.onNext(false)
+                Log.e("respGetDetailsFail", "failure")
+                getCommentLiveData.postValue(null)
             }
         })
     }

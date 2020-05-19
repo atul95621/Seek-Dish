@@ -72,6 +72,7 @@ data class SimilarMeal(
 ) : Serializable
 
 data class UserMealComment(
+    var comment_id:Int,
     val `private`: Int,
     val ambiance_rating: Int,
     val anonymous: Int,
