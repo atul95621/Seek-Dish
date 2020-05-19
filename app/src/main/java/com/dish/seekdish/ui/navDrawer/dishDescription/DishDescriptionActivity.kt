@@ -313,8 +313,7 @@ class DishDescriptionActivity : BaseActivity(), Serializable {
                     facebookLink = response.data.meals.facebook
                     twitterLink = response.data.meals.twitter
 
-                    phoneNumber =
-                        response.data.meals.country_code.toString() + response.data.meals.phone
+                    phoneNumber = response.data.meals.phone
 
                     //for swipe images on top
                     initializeviews()

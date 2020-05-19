@@ -419,8 +419,7 @@ class RestroDescrpActivity : BaseActivity() {
                     facebookLink = response.data.restaurant.facebook
                     twitterLink = response.data.restaurant.twitter
 
-                    phoneNumber =
-                        response.data.restaurant.country_code.toString() + response.data.restaurant.phone
+                    phoneNumber = response.data.restaurant.phone
 
                     //for swipe images on top
                     initializeviews(mResources)
