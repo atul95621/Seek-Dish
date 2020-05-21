@@ -77,7 +77,6 @@ class OpinionDetailsActivity : BaseActivity() {
             if (response != null) {
 
                 Log.e("rspComment", response.status.toString())
-
                 if (response.status == 1) {
                     val mealImage = response.response.data.meal_image
                     Glide.with(this).load(mealImage).dontAnimate().fitCenter().into(imgMealImage)
@@ -106,14 +105,13 @@ class OpinionDetailsActivity : BaseActivity() {
                     var image1 = response.response.data.image1
                     var image2 = response.response.data.image2
 
-
-                    if (firend.equals(1)) {
+                    if (firend==1) {
                         imgFriendRequest.visibility = View.INVISIBLE
                     }
-                    if (follower.equals(1)) {
+                    if (follower==1) {
                         imgFollowing.visibility = View.INVISIBLE
                     }
-                    if (private.equals(1)) {
+                    if (private==1) {
                         imgFollowing.visibility = View.INVISIBLE
                     }
 
@@ -136,6 +134,7 @@ class OpinionDetailsActivity : BaseActivity() {
                         linFollowOptions.visibility = View.VISIBLE
                     }
                 } else {
+                    tvLayout.visibility=View.GONE
                     showSnackBar(response.message)
                 }
             } else {
