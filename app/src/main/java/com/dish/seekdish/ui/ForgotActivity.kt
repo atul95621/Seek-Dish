@@ -105,9 +105,11 @@ class ForgotActivity : BaseActivity() {
         // button_yes clk
         btnAccept.setOnClickListener {
             dialog.dismiss()
-            val intent = Intent(this@ForgotActivity, ResetPasswordActivity::class.java)
+         /*   val intent = Intent(this@ForgotActivity, ResetPasswordActivity::class.java)
+            startActivity(intent)*/
+            val intent = Intent(this@ForgotActivity, LoginActivity::class.java)
             startActivity(intent)
-//            finish()
+            finish()
         }
 
         dialog.show()

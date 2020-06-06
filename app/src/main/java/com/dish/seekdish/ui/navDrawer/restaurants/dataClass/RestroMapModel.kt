@@ -11,7 +11,7 @@ data class RestroMapModel(
 data class Data_Restro_Map(
     val description: String,
     val distance: Double,
-    val restro_id: Int,
+    val id: Int,
     val city:String,
     val zipcode:Int,
     val latitude: String,

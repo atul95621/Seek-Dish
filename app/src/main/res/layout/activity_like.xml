@@ -103,7 +103,7 @@
         android:gravity="center"
         android:visibility="gone"
         android:layout_width="match_parent"
-        android:text="@string/no_result_found"
+        android:text="@string/not_found"
         android:layout_height="wrap_content"/>
 
     <ProgressBar android:layout_width="30dp"

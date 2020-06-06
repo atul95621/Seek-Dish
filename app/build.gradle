@@ -95,11 +95,14 @@ dependencies {
     //facebook dependency
     implementation 'com.facebook.android:facebook-login:4.42.0'
     implementation 'com.facebook.android:facebook-android-sdk:4.42.0'
+//    implementation 'com.facebook.android:facebook-share:5.15.3'
+
 
     //twitter dependency
     implementation 'com.twitter.sdk.android:tweet-ui:3.1.1'
     implementation 'com.twitter.sdk.android:twitter-core:3.1.1'
-//    implementation 'com.facebook.android:facebook-share:5.11.0'
+    //Twitter Compose API dependency required to Share images
+    implementation 'com.twitter.sdk.android:tweet-composer:3.1.1'
 
     // new map places SDK
     implementation 'com.google.android.libraries.places:places:2.2.0'

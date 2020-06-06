@@ -7,9 +7,12 @@ import android.app.Dialog
 import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
+import android.graphics.Bitmap
+import android.graphics.BitmapFactory
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.net.Uri
+import android.os.AsyncTask
 import android.os.Build
 import android.os.Bundle
 import android.util.Log
@@ -109,7 +112,7 @@ class DishDescriptionActivity : BaseActivity(), Serializable {
             if (connectionDetector.isConnectingToInternet) {
                 //hitting api
                 getMealDetials(meal_id.toString(), restro_id.toString())
-                Log.e("infomeal","  "+meal_id+"  "+restro_id)
+                Log.e("infomeal", "  " + meal_id + "  " + restro_id)
             } else {
                 showSnackBar(getString(R.string.check_connection))
             }
@@ -271,11 +274,13 @@ class DishDescriptionActivity : BaseActivity(), Serializable {
             sessionManager?.getValue(SessionManager.LATITUDE).toString()
         )
 
-        Log.e("informa22","  "+  sessionManager?.getValue(SessionManager.USER_ID).toString()+"  "+
-            mealId+" "+
-            restroId+" "+
-            sessionManager?.getValue(SessionManager.LONGITUDE).toString()+" "+
-            sessionManager?.getValue(SessionManager.LATITUDE).toString())
+        Log.e(
+            "informa22", "  " + sessionManager?.getValue(SessionManager.USER_ID).toString() + "  " +
+                    mealId + " " +
+                    restroId + " " +
+                    sessionManager?.getValue(SessionManager.LONGITUDE).toString() + " " +
+                    sessionManager?.getValue(SessionManager.LATITUDE).toString()
+        )
     }
 
     fun getDishDetailsObserver() {
@@ -646,6 +651,8 @@ class DishDescriptionActivity : BaseActivity(), Serializable {
                 Log.e("TAG", "Facebook Share Success: Error: " + error.getLocalizedMessage())
             }
         })
+
+//        var oldIosUrl = "https://seekdish.com/restaurant/get/meals/details/182?language_id=fr";
         if (canShow(ShareLinkContent::class.java)) {
             val linkContent = ShareLinkContent.Builder()
                 .setQuote(resources.getString(R.string.seekdish))
@@ -689,9 +696,25 @@ class DishDescriptionActivity : BaseActivity(), Serializable {
     }
 
     private fun shareOnTwitter() {
-        val tweetUrl = ("https://twitter.com/intent/tweet?text=SeekDish&url=" + twitterLink)
+        var urlTwi =
+            "http://twitter.com/share?text=Im Sharing on Twitter&url=https://stackoverflow.com/users/2943186/youssef-subehi&hashtags=stackoverflow,example,youssefusf";
+        val tweetUrl = ("https://twitter.com/share?text=SeekDish&url=" + twitterLink)
         val uri = Uri.parse(tweetUrl)
         startActivity(Intent(Intent.ACTION_VIEW, uri))
+
+
+        /*     val session = TwitterCore.getInstance().getSessionManager()
+                 .getActiveSession()
+             val intent: Intent = ComposerActivity.Builder(this)
+                 .session(session)
+                 .image(uri)
+                 .text("Love where you work")
+                 .hashtags("#twitter")
+                 .createIntent()
+     //        startActivity(Intent(Intent.ACTION_VIEW, uri))
+             startActivity(intent)*/
+
+
         /*     val statusesService = TwitterCore.getInstance().getApiClient().getStatusesService()
              val tweetCall =
                  statusesService.update("Seekdish:  ", null, false, null, null, null, false, false, null)

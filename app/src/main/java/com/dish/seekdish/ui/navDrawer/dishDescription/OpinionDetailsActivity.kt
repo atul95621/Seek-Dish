@@ -76,7 +76,7 @@ class OpinionDetailsActivity : BaseActivity() {
         dishDescriptionVM!!.getCommentLiveData.observe(this, Observer { response ->
             if (response != null) {
 
-                Log.e("rspComment", response.status.toString())
+                Log.e("rspComment", response.toString())
                 if (response.status == 1) {
                     val mealImage = response.response.data.meal_image
                     Glide.with(this).load(mealImage).dontAnimate().fitCenter().into(imgMealImage)
@@ -114,7 +114,6 @@ class OpinionDetailsActivity : BaseActivity() {
                     if (private==1) {
                         imgFollowing.visibility = View.INVISIBLE
                     }
-
 
                     if (image1 != null && image1 != "null" && image1 != "") {
                         Glide.with(this).load(image1).dontAnimate().fitCenter().into(imgCommentImage)
