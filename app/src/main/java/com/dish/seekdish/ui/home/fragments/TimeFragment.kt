@@ -9,7 +9,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProviders
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.dish.seekdish.util.BaseFragment
@@ -63,7 +63,7 @@ class TimeFragment : BaseFragment() {
         // hiding keyboard
         hideKeyBoard()
 
-        timeVM = ViewModelProviders.of(this).get(TimeVM::class.java)
+        timeVM = ViewModelProvider(this).get(TimeVM::class.java)
 
 
         //check connection
@@ -181,7 +181,7 @@ class TimeFragment : BaseFragment() {
             setIsLoading(it)
         }
 
-        timeVM!!.getTasteLiveData.observe(this, Observer { response ->
+        timeVM!!.getTasteLiveData.observe(viewLifecycleOwner, Observer { response ->
             if (response != null) {
 
 
@@ -268,7 +268,7 @@ class TimeFragment : BaseFragment() {
             setIsLoading(it)
         }
 
-        timeVM!!.timeSearchData.observe(this, Observer { response ->
+        timeVM!!.timeSearchData.observe(viewLifecycleOwner, Observer { response ->
             if (response != null) {
                 if (response.status == 1) {
 //                    var arrySize = arrayList.size

@@ -6,7 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProviders
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.dish.seekdish.util.BaseFragment
@@ -40,7 +40,7 @@ class FriendsInclFragment : BaseFragment() {
         val view = inflater.inflate(R.layout.fragment_friends_include, container, false)
 
         context = activity as IncludeFriendsActivity
-        friendVM = ViewModelProviders.of(this).get(FriendVM::class.java)
+        friendVM = ViewModelProvider(this).get(FriendVM::class.java)
         sessionManager = SessionManager(context)
         // hiding keyboard
         hideKeyBoard()
@@ -67,7 +67,7 @@ class FriendsInclFragment : BaseFragment() {
             setIsLoading(it)
         }
 
-        friendVM!!.getFriendLiveData.observe(this, Observer { response ->
+        friendVM!!.getFriendLiveData.observe(viewLifecycleOwner, Observer { response ->
             if (response != null) {
                 Log.e("rspFavList", response.toString())
                 if (response.status == 1) {

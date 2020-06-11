@@ -13,7 +13,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProviders
+import androidx.lifecycle.ViewModelProvider
 import com.dish.seekdish.Constants
 import com.dish.seekdish.util.BaseFragment
 
@@ -57,7 +57,7 @@ class FavouriteMapFragment : BaseFragment(), OnMapReadyCallback, GoogleMap.OnMyL
         val view = inflater.inflate(R.layout.fragment_favourite_map, container, false)
 
         myContext = activity as HomeActivity
-        favoriteVM = ViewModelProviders.of(this).get(FavoriteVM::class.java)
+        favoriteVM = ViewModelProvider(this).get(FavoriteVM::class.java)
 
 
         //main map fragment
@@ -179,7 +179,7 @@ class FavouriteMapFragment : BaseFragment(), OnMapReadyCallback, GoogleMap.OnMyL
             setIsLoading(it)
         }
 
-        favoriteVM!!.getFavoriteLiveData.observe(this, Observer { response ->
+        favoriteVM!!.getFavoriteLiveData.observe(viewLifecycleOwner, Observer { response ->
             if (response != null) {
 
 

@@ -26,7 +26,7 @@ import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProviders
+import androidx.lifecycle.ViewModelProvider
 import androidx.viewpager.widget.PagerAdapter
 import androidx.viewpager.widget.ViewPager
 import com.dish.seekdish.R
@@ -102,7 +102,7 @@ class DishDescriptionActivity : BaseActivity(), Serializable {
         mResources.clear()
 
         sessionManager = SessionManager(this)
-        dishDescriptionVM = ViewModelProviders.of(this).get(DishDescriptionVM::class.java)
+        dishDescriptionVM = ViewModelProvider(this).get(DishDescriptionVM::class.java)
 
         getIntents()
 

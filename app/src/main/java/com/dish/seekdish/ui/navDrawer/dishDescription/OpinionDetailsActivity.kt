@@ -4,7 +4,7 @@ import android.os.Bundle
 import android.util.Log
 import android.view.View
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProviders
+import androidx.lifecycle.ViewModelProvider
 import com.bumptech.glide.Glide
 import com.dish.seekdish.R
 import com.dish.seekdish.ui.navDrawer.dishDescription.VM.DishDescriptionVM
@@ -30,7 +30,7 @@ class OpinionDetailsActivity : BaseActivity() {
         setContentView(R.layout.activity_opinion_details)
 
         sessionManager = SessionManager(this)
-        dishDescriptionVM = ViewModelProviders.of(this).get(DishDescriptionVM::class.java)
+        dishDescriptionVM = ViewModelProvider(this).get(DishDescriptionVM::class.java)
 
         getIntentData()
 

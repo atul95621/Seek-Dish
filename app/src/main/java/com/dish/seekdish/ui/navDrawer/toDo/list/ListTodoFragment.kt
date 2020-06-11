@@ -8,7 +8,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProviders
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.dish.seekdish.util.BaseFragment
@@ -44,7 +44,7 @@ class ListTodoFragment() : BaseFragment() {
 
         // Inflate the layout for this fragment
         homeActivity = activity as HomeActivity
-        todoVM = ViewModelProviders.of(this).get(TodoVM::class.java)
+        todoVM = ViewModelProvider(this).get(TodoVM::class.java)
 
 
         // hiding keyboard
@@ -80,7 +80,7 @@ class ListTodoFragment() : BaseFragment() {
             setIsLoading(it)
         }
 
-        todoVM!!.getTodoLiveData.observe(this, Observer { response ->
+        todoVM!!.getTodoLiveData.observe(viewLifecycleOwner, Observer { response ->
             if (response != null) {
 
 
@@ -124,7 +124,7 @@ class ListTodoFragment() : BaseFragment() {
             setIsLoading(it)
         }
 
-        todoVM!!.getTodoDeleteLiveData.observe(this, Observer { response ->
+        todoVM!!.getTodoDeleteLiveData.observe(viewLifecycleOwner, Observer { response ->
             if (response != null) {
 
 

@@ -9,7 +9,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProviders
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.dish.seekdish.util.BaseFragment
@@ -54,7 +54,7 @@ class ProximityFragment : BaseFragment() {
         val view = inflater.inflate(R.layout.fragment_proximity, container, false)
 
         homeActivity = activity as HomeActivity
-        proximityVM = ViewModelProviders.of(this).get(ProximityVM::class.java)
+        proximityVM = ViewModelProvider(this).get(ProximityVM::class.java)
 
 
         // setting to refresh the layout
@@ -150,7 +150,7 @@ class ProximityFragment : BaseFragment() {
             setIsLoading(it)
         }
 
-        proximityVM!!.getProxiRestroLiveData.observe(this, Observer { response ->
+        proximityVM!!.getProxiRestroLiveData.observe(viewLifecycleOwner, Observer { response ->
             if (response != null) {
                 if (response.status == 1) {
                     if (response.data.isEmpty() && alertShown == false) {
@@ -209,7 +209,7 @@ class ProximityFragment : BaseFragment() {
             setIsLoading(it)
         }
 
-        proximityVM!!.getProxiSearchData.observe(this, Observer { response ->
+        proximityVM!!.getProxiSearchData.observe(viewLifecycleOwner, Observer { response ->
             if (response != null) {
                 if (response.status == 1) {
 //                    var arrySize = arrayList.size

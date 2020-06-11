@@ -12,7 +12,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProviders
+import androidx.lifecycle.ViewModelProvider
 import com.dish.seekdish.Constants
 import com.dish.seekdish.util.BaseFragment
 import com.dish.seekdish.R
@@ -54,7 +54,7 @@ class HomeMapFragment : BaseFragment(), OnMapReadyCallback, GoogleMap.OnMyLocati
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         super.onCreateView(inflater, container, savedInstanceState)
         myContext = activity as HomeActivity
-        mapHomeVM = ViewModelProviders.of(this).get(MapHomeVM::class.java)
+        mapHomeVM = ViewModelProvider(this).get(MapHomeVM::class.java)
 
 
         // Inflate the layout for this fragment
@@ -221,7 +221,7 @@ class HomeMapFragment : BaseFragment(), OnMapReadyCallback, GoogleMap.OnMyLocati
             setIsLoading(it)
         }
 
-        mapHomeVM!!.getMapData.observe(this, Observer { response ->
+        mapHomeVM!!.getMapData.observe(viewLifecycleOwner, Observer { response ->
             if (response != null) {
 
 

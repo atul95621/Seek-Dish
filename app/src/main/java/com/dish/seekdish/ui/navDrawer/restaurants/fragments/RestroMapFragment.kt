@@ -14,7 +14,7 @@ import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import androidx.core.content.res.ResourcesCompat
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProviders
+import androidx.lifecycle.ViewModelProvider
 import com.dish.seekdish.R
 import com.dish.seekdish.ui.home.HomeActivity
 import com.dish.seekdish.ui.home.dataModel.Location
@@ -58,7 +58,7 @@ GoogleMap.OnMyLocationClickListener, GoogleMap.OnMarkerClickListener  {
         super.onCreateView(inflater, container, savedInstanceState)
 
         myContext = activity as HomeActivity
-        restroMapVM = ViewModelProviders.of(this).get(RestroMapVM::class.java)
+        restroMapVM = ViewModelProvider(this).get(RestroMapVM::class.java)
 
 
         // Inflate the layout for this fragment
@@ -224,7 +224,7 @@ GoogleMap.OnMyLocationClickListener, GoogleMap.OnMarkerClickListener  {
             setIsLoading(it)
         }
 
-        restroMapVM!!.getMapData.observe(this, Observer { response ->
+        restroMapVM!!.getMapData.observe(viewLifecycleOwner, Observer { response ->
             if (response != null) {
                 Log.e("rspgemap", response.toString())
                 Log.e("rspgetmaptat", response.status.toString())

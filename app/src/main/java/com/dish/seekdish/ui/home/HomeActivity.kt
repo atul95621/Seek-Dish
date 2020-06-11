@@ -27,7 +27,7 @@ import android.view.View
 import android.widget.*
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProviders
+import androidx.lifecycle.ViewModelProvider
 import com.dish.seekdish.Constants
 import com.dish.seekdish.custom.GlideApp
 import com.dish.seekdish.ui.home.adapter.FilterAdapter
@@ -99,7 +99,7 @@ class HomeActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
         setContentView(R.layout.activity_home)
 
         sessionManager = SessionManager(this)
-        homeActivityVM = ViewModelProviders.of(this).get(HomeActivityVM::class.java)
+        homeActivityVM = ViewModelProvider(this).get(HomeActivityVM::class.java)
 
 
 

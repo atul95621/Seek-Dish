@@ -9,7 +9,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProviders
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.dish.seekdish.util.BaseFragment
@@ -59,7 +59,7 @@ class TimeRestroFragment : BaseFragment() {
 
 
         homeActivity = activity as HomeActivity
-        restroTimeVM = ViewModelProviders.of(this).get(RestroTimeVM::class.java)
+        restroTimeVM = ViewModelProvider(this).get(RestroTimeVM::class.java)
 
         // hiding keyboard
         hideKeyBoard()
@@ -161,7 +161,7 @@ class TimeRestroFragment : BaseFragment() {
             setIsLoading(it)
         }
 
-        restroTimeVM!!.getTimeRestroLiveData.observe(this, Observer { response ->
+        restroTimeVM!!.getTimeRestroLiveData.observe(viewLifecycleOwner, Observer { response ->
             if (response != null) {
 
 
@@ -234,7 +234,7 @@ class TimeRestroFragment : BaseFragment() {
             setIsLoading(it)
         }
 
-        restroTimeVM!!.searchTimeRestro.observe(this, Observer { response ->
+        restroTimeVM!!.searchTimeRestro.observe(viewLifecycleOwner, Observer { response ->
             if (response != null) {
                 if (response.status == 1) {
 //                    var arrySize = arrayList.size

@@ -8,7 +8,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProviders
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.dish.seekdish.util.BaseFragment
@@ -45,7 +45,7 @@ class FollowingFragment(var userId: String) : BaseFragment() {
         val view = inflater.inflate(R.layout.fragment_following, container, false)
 
         homeActivity = activity as HomeActivity
-        friendVM = ViewModelProviders.of(this).get(FriendVM::class.java)
+        friendVM = ViewModelProvider(this).get(FriendVM::class.java)
 
         // hiding keyboard
         hideKeyBoard()
@@ -88,7 +88,7 @@ class FollowingFragment(var userId: String) : BaseFragment() {
             setIsLoading(it)
         }
 
-        friendVM!!.getFriendLiveData.observe(this, Observer { response ->
+        friendVM!!.getFriendLiveData.observe(viewLifecycleOwner, Observer { response ->
             if (response != null) {
                 Log.e("rspFavList", response.toString())
                 if (response.status == 1) {
@@ -119,7 +119,7 @@ class FollowingFragment(var userId: String) : BaseFragment() {
             setIsLoading(it)
         }
 
-        friendVM!!.getRemoveFollwLiveData.observe(this, Observer { response ->
+        friendVM!!.getRemoveFollwLiveData.observe(viewLifecycleOwner, Observer { response ->
             if (response != null) {
 
 
@@ -146,7 +146,7 @@ class FollowingFragment(var userId: String) : BaseFragment() {
                 setIsLoading(it)
             }
 
-        friendVM!!.getFriendReqLiveData.observe(this, Observer { response ->
+        friendVM!!.getFriendReqLiveData.observe(viewLifecycleOwner, Observer { response ->
             if (response != null) {
 
                 Log.e("rspGetaddtodoDetails", response.status.toString())
@@ -170,7 +170,7 @@ class FollowingFragment(var userId: String) : BaseFragment() {
                 setIsLoading(it)
             }
 
-        friendVM!!.getFollowingReqLiveData.observe(this, Observer { response ->
+        friendVM!!.getFollowingReqLiveData.observe(viewLifecycleOwner, Observer { response ->
             if (response != null) {
 
                 Log.e("rspGetaddtodoDetails", response.status.toString())

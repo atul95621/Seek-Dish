@@ -8,7 +8,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProviders
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.dish.seekdish.util.BaseFragment
@@ -42,7 +42,7 @@ class FollowerFragment(var userId: String) : BaseFragment() {
         val view = inflater.inflate(R.layout.fragment_follower, container, false)
 
         homeActivity = activity as HomeActivity
-        friendVM = ViewModelProviders.of(this).get(FriendVM::class.java)
+        friendVM = ViewModelProvider(this).get(FriendVM::class.java)
 
         // hiding keyboard
         hideKeyBoard()
@@ -72,7 +72,7 @@ class FollowerFragment(var userId: String) : BaseFragment() {
             setIsLoading(it)
         }
 
-        friendVM!!.getFriendLiveData.observe(this, Observer { response ->
+        friendVM!!.getFriendLiveData.observe(viewLifecycleOwner, Observer { response ->
             if (response != null) {
 
                 Log.e("rspFavList", response.toString())

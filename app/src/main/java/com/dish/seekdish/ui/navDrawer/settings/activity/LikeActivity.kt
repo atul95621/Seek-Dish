@@ -5,7 +5,7 @@ import android.os.Handler
 import android.util.Log
 import android.view.View
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProviders
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.dish.seekdish.util.BaseActivity
@@ -62,7 +62,7 @@ class LikeActivity : BaseActivity() {
         // hiding keyboard
         hideKeyBoard()
 
-        likeVM = ViewModelProviders.of(this).get(LikeVM::class.java)
+        likeVM = ViewModelProvider(this).get(LikeVM::class.java)
         sessionManager = SessionManager(this)
 
         Global.likedItemsSet.clear()

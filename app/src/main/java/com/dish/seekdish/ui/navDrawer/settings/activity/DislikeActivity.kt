@@ -10,7 +10,7 @@ import android.text.TextWatcher
 import android.util.Log
 import android.view.View
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProviders
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.dish.seekdish.util.BaseActivity
@@ -59,7 +59,7 @@ class DislikeActivity : BaseActivity() {
         // hiding keyboard
         hideKeyBoard()
 
-        disLikeVM = ViewModelProviders.of(this).get(DisLikeVM::class.java)
+        disLikeVM = ViewModelProvider(this).get(DisLikeVM::class.java)
         sessionManager = SessionManager(this)
 
 

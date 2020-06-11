@@ -15,7 +15,7 @@ import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import androidx.core.content.res.ResourcesCompat
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProviders
+import androidx.lifecycle.ViewModelProvider
 import com.dish.seekdish.Constants
 import com.dish.seekdish.R
 import com.dish.seekdish.ui.home.HomeActivity
@@ -58,7 +58,7 @@ class TodoMap() : BaseFragment(), OnMapReadyCallback, GoogleMap.OnMyLocationButt
         val view = inflater.inflate(R.layout.fragment_home_map, container, false)
         myContext = activity as HomeActivity
 
-        todoVM = ViewModelProviders.of(this).get(TodoVM::class.java)
+        todoVM = ViewModelProvider(this).get(TodoVM::class.java)
         //main map fragment
         val mapFragment = childFragmentManager.findFragmentById(R.id.map) as SupportMapFragment
         mapFragment.getMapAsync(this)
@@ -170,7 +170,7 @@ class TodoMap() : BaseFragment(), OnMapReadyCallback, GoogleMap.OnMyLocationButt
             setIsLoading(it)
         }
 
-        todoVM!!.getTodoLiveData.observe(this, Observer { response ->
+        todoVM!!.getTodoLiveData.observe(viewLifecycleOwner, Observer { response ->
             if (response != null) {
 
 

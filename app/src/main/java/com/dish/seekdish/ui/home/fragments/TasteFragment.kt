@@ -21,10 +21,9 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProviders
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.dish.seekdish.util.BaseFragment
@@ -35,7 +34,6 @@ import com.dish.seekdish.ui.home.HomeActivity
 import com.dish.seekdish.ui.home.adapter.TasteFragAdapter
 import com.dish.seekdish.ui.home.dataModel.Data_Taste
 import com.dish.seekdish.ui.home.viewModel.TasteFragVM
-import com.dish.seekdish.ui.navDrawer.toDo.list.Data_todo
 import com.dish.seekdish.util.SessionManager
 import com.google.android.gms.common.ConnectionResult
 import com.google.android.gms.common.api.GoogleApiClient
@@ -106,7 +104,7 @@ class TasteFragment : BaseFragment(), GoogleApiClient.ConnectionCallbacks,
 
 
         homeActivity = activity as HomeActivity
-        tasteFragVM = ViewModelProviders.of(this).get(TasteFragVM::class.java)
+        tasteFragVM = ViewModelProvider(this).get(TasteFragVM()::class.java)
 
         // setting to refresh the layout
         sessionManager.setValues(SessionManager.CURRENT_SCREEN, "HomeFragment")
@@ -630,7 +628,7 @@ class TasteFragment : BaseFragment(), GoogleApiClient.ConnectionCallbacks,
             setIsLoading(it)
         }
 
-        tasteFragVM!!.getTasteLiveData.observe(this, Observer { response ->
+        tasteFragVM!!.getTasteLiveData.observe(viewLifecycleOwner, Observer { response ->
             if (response != null) {
                 Log.e("rspgetLiked", response.toString())
                 Log.e("rspgetLikedStat", response.status.toString())
@@ -673,7 +671,7 @@ class TasteFragment : BaseFragment(), GoogleApiClient.ConnectionCallbacks,
                 setIsLoading(it)
             }
     */
-        tasteFragVM!!.getLiveLocation.observe(this, Observer { response ->
+        tasteFragVM!!.getLiveLocation.observe(viewLifecycleOwner, Observer { response ->
             if (response != null) {
                 Log.e("respLocationString", " " + response.toString())
                 if (response.status == 1) {
@@ -767,7 +765,7 @@ class TasteFragment : BaseFragment(), GoogleApiClient.ConnectionCallbacks,
             setIsLoading(it)
         }
 
-        tasteFragVM!!.tasteSearchData.observe(this, Observer { response ->
+        tasteFragVM!!.tasteSearchData.observe(viewLifecycleOwner, Observer { response ->
             if (response != null) {
                 if (response.status == 1) {
 //                    var arrySize = arrayList.size

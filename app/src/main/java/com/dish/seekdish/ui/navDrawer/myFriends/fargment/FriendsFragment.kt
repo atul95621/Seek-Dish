@@ -8,7 +8,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProviders
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.dish.seekdish.util.BaseFragment
@@ -24,12 +24,12 @@ import kotlinx.android.synthetic.main.fragment_friends.view.*
 import java.util.ArrayList
 
 
-class FriendsFragment(var  userId: String) : BaseFragment() {
+class FriendsFragment(var userId: String) : BaseFragment() {
+
     private var recyclerView: RecyclerView? = null
     private var adapter: FriendFragAdapter? = null
     internal lateinit var layoutManager: RecyclerView.LayoutManager
     internal var arrayList = ArrayList<Friend>()
-
     lateinit var homeActivity: HomeActivity
     var friendVM: FriendVM? = null
 
@@ -42,7 +42,8 @@ class FriendsFragment(var  userId: String) : BaseFragment() {
         val view = inflater.inflate(R.layout.fragment_friends, container, false)
 
         homeActivity = activity as HomeActivity
-        friendVM = ViewModelProviders.of(this).get(FriendVM::class.java)
+        friendVM = ViewModelProvider(this).get(FriendVM::class.java)
+
         // hiding keyboard
         hideKeyBoard()
 
@@ -81,7 +82,7 @@ class FriendsFragment(var  userId: String) : BaseFragment() {
             setIsLoading(it)
         }
 
-        friendVM!!.getFriendLiveData.observe(this, Observer { response ->
+        friendVM!!.getFriendLiveData.observe(viewLifecycleOwner, Observer { response ->
             if (response != null) {
 
 
@@ -97,22 +98,18 @@ class FriendsFragment(var  userId: String) : BaseFragment() {
                         tvFavAlert.visibility = View.VISIBLE
 
                     } else {
-                        adapter = FriendFragAdapter(arrayList, homeActivity, this,userId)
+                        adapter = FriendFragAdapter(arrayList, homeActivity, this, userId)
                         recyclerView!!.setAdapter(adapter)
                     }
-                }
-                else
-                {
+                } else {
                     showSnackBar(response.message)
                 }
 
             } else {
-
-
-                showSnackBar(this.getResources().getString(R.string.error_occured) + "    $response");
-
+                showSnackBar(
+                    this.getResources().getString(R.string.error_occured) + "    $response"
+                );
                 Log.e("rspSnak", "else error")
-
             }
         })
     }
@@ -124,22 +121,20 @@ class FriendsFragment(var  userId: String) : BaseFragment() {
             setIsLoading(it)
         }
 
-        friendVM!!.getRemoveFrndLiveData.observe(this, Observer { response ->
+        friendVM!!.getRemoveFrndLiveData.observe(viewLifecycleOwner, Observer { response ->
             if (response != null) {
-
-
                 Log.e("rspFavList", response.toString())
                 if (response.status == 1) {
                     hitApi()
                     showSnackBar(response.message)
-                }
-                else
-                {
+                } else {
                     showSnackBar(response.message)
                 }
 
             } else {
-                showSnackBar(this.getResources().getString(R.string.error_occured) + "    $response");
+                showSnackBar(
+                    this.getResources().getString(R.string.error_occured) + "    $response"
+                );
                 Log.e("rspSnak", "else error")
             }
         })
@@ -150,7 +145,7 @@ class FriendsFragment(var  userId: String) : BaseFragment() {
 
         view.edtSearchFriends.setOnClickListener()
         {
-            view.edtSearchFriends.isCursorVisible=true
+            view.edtSearchFriends.isCursorVisible = true
         }
         view.edtSearchFriends.addTextChangedListener(object : TextWatcher {
             override fun onTextChanged(
@@ -174,8 +169,8 @@ class FriendsFragment(var  userId: String) : BaseFragment() {
                 if (view.edtSearchFriends.text.isNullOrEmpty() == false) {
                     filter(s.toString())
                 } else {
-                    rvMyFriendsFrag.visibility=View.VISIBLE
-                    tvFavAlert.visibility=View.GONE
+                    rvMyFriendsFrag.visibility = View.VISIBLE
+                    tvFavAlert.visibility = View.GONE
                     hitApi()
                 }
             }
@@ -188,16 +183,13 @@ class FriendsFragment(var  userId: String) : BaseFragment() {
             if (d.username.contains(text.toString(), ignoreCase = true)) {
                 filteredItems.add(d)
             }
-            if(filteredItems.size==0)
-            {
-                rvMyFriendsFrag.visibility=View.GONE
-                tvFavAlert.visibility=View.VISIBLE
-                tvFavAlert.text=getResources().getString(R.string.no_todo)
-            }
-            else
-            {
-                rvMyFriendsFrag.visibility=View.VISIBLE
-                tvFavAlert.visibility=View.GONE
+            if (filteredItems.size == 0) {
+                rvMyFriendsFrag.visibility = View.GONE
+                tvFavAlert.visibility = View.VISIBLE
+                tvFavAlert.text = getResources().getString(R.string.no_todo)
+            } else {
+                rvMyFriendsFrag.visibility = View.VISIBLE
+                tvFavAlert.visibility = View.GONE
             }
         }
         //update recyclerview

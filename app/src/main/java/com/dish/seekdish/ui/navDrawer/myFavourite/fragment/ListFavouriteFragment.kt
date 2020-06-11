@@ -8,7 +8,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProviders
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.dish.seekdish.util.BaseFragment
@@ -47,7 +47,7 @@ class ListFavouriteFragment : BaseFragment() {
 
         // Inflate the layout for this fragment
         homeActivity = activity as HomeActivity
-        favoriteVM = ViewModelProviders.of(this).get(FavoriteVM::class.java)
+        favoriteVM = ViewModelProvider(this).get(FavoriteVM::class.java)
 
 
         // hiding keyboard
@@ -86,7 +86,7 @@ class ListFavouriteFragment : BaseFragment() {
             setIsLoading(it)
         }
 
-        favoriteVM!!.getFavoriteLiveData.observe(this, Observer { response ->
+        favoriteVM!!.getFavoriteLiveData.observe(viewLifecycleOwner, Observer { response ->
             if (response != null) {
 
 
@@ -124,7 +124,7 @@ class ListFavouriteFragment : BaseFragment() {
             setIsLoading(it)
         }
 
-        favoriteVM!!.getFavDeleteLiveData.observe(this, Observer { response ->
+        favoriteVM!!.getFavDeleteLiveData.observe(viewLifecycleOwner, Observer { response ->
             if (response != null) {
 
 

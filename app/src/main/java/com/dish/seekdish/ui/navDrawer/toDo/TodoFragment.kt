@@ -8,7 +8,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentTransaction
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProviders
+import androidx.lifecycle.ViewModelProvider
 import androidx.viewpager.widget.ViewPager
 
 import com.dish.seekdish.R
@@ -39,7 +39,7 @@ class TodoFragment : BaseFragment() {
         // Inflate the layout for this fragment
         val view = inflater.inflate(R.layout.fragment_todo, container, false)
 
-        todoVM = ViewModelProviders.of(this).get(TodoVM::class.java)
+        todoVM = ViewModelProvider(this).get(TodoVM::class.java)
 
         // setting up tabLayout
         this.tabLayout = view.findViewById(R.id.tabLayoutTodoFrag)

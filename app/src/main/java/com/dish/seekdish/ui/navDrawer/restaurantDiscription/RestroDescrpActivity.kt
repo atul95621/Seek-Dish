@@ -23,7 +23,7 @@ import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProviders
+import androidx.lifecycle.ViewModelProvider
 import androidx.viewpager.widget.PagerAdapter
 import androidx.viewpager.widget.ViewPager
 import com.dish.seekdish.R
@@ -98,7 +98,7 @@ class RestroDescrpActivity : BaseActivity() {
         mResources.clear()
 
         sessionManager = SessionManager(this)
-        restroDescpVM = ViewModelProviders.of(this).get(RestroDescpVM::class.java)
+        restroDescpVM = ViewModelProvider(this).get(RestroDescpVM::class.java)
 
 
         getIntents()

@@ -8,6 +8,7 @@ import com.dish.seekdish.retrofit.APIClientMvvm
 import com.dish.seekdish.retrofit.APIInterface
 import com.dish.seekdish.ui.home.dataModel.Location
 import com.dish.seekdish.ui.home.dataModel.TasteFragDataClass
+import com.dish.seekdish.ui.home.fragments.TasteFragment
 import com.dish.seekdish.ui.navDrawer.settings.dataModel.CancelReModel
 import io.reactivex.Observable
 import io.reactivex.subjects.BehaviorSubject
@@ -15,7 +16,7 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class TasteFragVM : ViewModel() {
+class TasteFragVM() : ViewModel() {
 
     //this is the data that we will fetch asynchronously
     var getTasteLiveData: MutableLiveData<TasteFragDataClass> = MutableLiveData<TasteFragDataClass>()

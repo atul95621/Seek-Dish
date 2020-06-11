@@ -44,7 +44,7 @@ class NotificationFarg : BaseFragment() {
 
         homeActivity = activity as HomeActivity
         sessionManager=SessionManager(context)
-//        friendVM = ViewModelProviders.of(this).get(FriendVM::class.java)
+//        friendVM = ViewModelProvider(this).get(FriendVM::class.java)
 
         // hiding keyboard
         hideKeyBoard()

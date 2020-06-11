@@ -16,7 +16,7 @@ import android.view.Window
 import android.widget.*
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProviders
+import androidx.lifecycle.ViewModelProvider
 import com.bumptech.glide.load.resource.bitmap.TransformationUtils
 import com.dish.seekdish.util.BaseActivity
 import com.dish.seekdish.R
@@ -76,7 +76,7 @@ class RestoRatingActivity : BaseActivity() {
         setContentView(R.layout.activity_resto_rating)
 
         sessionManager = SessionManager(this)
-        ratingCommentVM = ViewModelProviders.of(this).get(RatingCommentVM::class.java)
+        ratingCommentVM = ViewModelProvider(this).get(RatingCommentVM::class.java)
 
         getIntents()
 
