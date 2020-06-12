@@ -11,6 +11,7 @@ import com.dish.seekdish.ui.navDrawer.dishDescription.VM.DishDescriptionVM
 import com.dish.seekdish.ui.navDrawer.dishDescription.model.UserMealComment
 import com.dish.seekdish.util.BaseActivity
 import com.dish.seekdish.util.SessionManager
+import com.example.firestorecrud.chat.imageOpen.BigImageDialog
 import io.reactivex.android.schedulers.AndroidSchedulers
 import kotlinx.android.synthetic.main.activity_opinion_details.*
 import kotlinx.android.synthetic.main.activity_opinion_details.tvBack
@@ -24,6 +25,8 @@ class OpinionDetailsActivity : BaseActivity() {
     var mealId = ""
     var restaurantId = ""
     var commentId = ""
+    var image1 = ""
+    var image2 = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -37,7 +40,7 @@ class OpinionDetailsActivity : BaseActivity() {
         // for getting comment info
         getCommentApi()
 
-        
+
         getCommentObserver()
         getFriendReqObserver()
         getFollowingReqObserver()
@@ -62,6 +65,18 @@ class OpinionDetailsActivity : BaseActivity() {
                 sessionManager?.getValue(SessionManager.USER_ID).toString(),
                 comment_userId.toString()
             )
+        }
+
+        // opening the image in dailog fragment for bigger screen
+        imgCommentImage.setOnClickListener()
+        {
+            BigImageDialog.newInstance(image1)
+                .show(this.supportFragmentManager, "")
+        }
+        imgCommentImageTwo.setOnClickListener()
+        {
+            BigImageDialog.newInstance(image2)
+                .show(this.supportFragmentManager, "")
         }
     }
 
@@ -102,27 +117,29 @@ class OpinionDetailsActivity : BaseActivity() {
                     var private = response.response.private
                     var follower = response.response.follower
 
-                    var image1 = response.response.data.image1
-                    var image2 = response.response.data.image2
+                     image1 = response.response.data.image1
+                     image2 = response.response.data.image2
 
-                    if (firend==1) {
+                    if (firend == 1) {
                         imgFriendRequest.visibility = View.INVISIBLE
                     }
-                    if (follower==1) {
+                    if (follower == 1) {
                         imgFollowing.visibility = View.INVISIBLE
                     }
-                    if (private==1) {
+                    if (private == 1) {
                         imgFollowing.visibility = View.INVISIBLE
                     }
 
                     if (image1 != null && image1 != "null" && image1 != "") {
-                        Glide.with(this).load(image1).dontAnimate().fitCenter().into(imgCommentImage)
+                        Glide.with(this).load(image1).dontAnimate().fitCenter()
+                            .into(imgCommentImage)
                     } else {
                         imgCommentImage.visibility = View.GONE
                     }
 
                     if (image2 != null && image2 != "null" && image2 != "") {
-                        Glide.with(this).load(image2).dontAnimate().fitCenter().into(imgCommentImageTwo)
+                        Glide.with(this).load(image2).dontAnimate().fitCenter()
+                            .into(imgCommentImageTwo)
                     } else {
                         imgCommentImageTwo.visibility = View.GONE
                     }
@@ -133,7 +150,7 @@ class OpinionDetailsActivity : BaseActivity() {
                         linFollowOptions.visibility = View.VISIBLE
                     }
                 } else {
-                    tvLayout.visibility=View.GONE
+                    tvLayout.visibility = View.GONE
                     showSnackBar(response.message)
                 }
             } else {
@@ -219,62 +236,62 @@ class OpinionDetailsActivity : BaseActivity() {
         mealId = userMealComment.meal_id.toString()
         commentId = userMealComment.comment_id.toString()
 
-       /* val mealImage = userMealComment.meal_image
-        Glide.with(this).load(mealImage).dontAnimate().fitCenter().into(imgMealImage)
+        /* val mealImage = userMealComment.meal_image
+         Glide.with(this).load(mealImage).dontAnimate().fitCenter().into(imgMealImage)
 
-        ratingTaste.rating = userMealComment.taste_rating.toFloat()
-        ratingAmbience.rating = userMealComment.ambiance_rating.toFloat()
-        ratingCleaniness.rating = userMealComment.cleanness_rating.toFloat()
-        ratingDecor.rating = userMealComment.decore_rating.toFloat()
-        ratingOdor.rating = userMealComment.odor_rating.toFloat()
-        ratingPresentation.rating = userMealComment.presentation_rating.toFloat()
-        ratingService.rating = userMealComment.service_rating.toFloat()
-        ratingTexture.rating = userMealComment.texture_rating.toFloat()
-        ratingStar.rating = userMealComment.meal_avg_rating.toFloat()
-        ratingEuro.rating = userMealComment.budget.toFloat()
+         ratingTaste.rating = userMealComment.taste_rating.toFloat()
+         ratingAmbience.rating = userMealComment.ambiance_rating.toFloat()
+         ratingCleaniness.rating = userMealComment.cleanness_rating.toFloat()
+         ratingDecor.rating = userMealComment.decore_rating.toFloat()
+         ratingOdor.rating = userMealComment.odor_rating.toFloat()
+         ratingPresentation.rating = userMealComment.presentation_rating.toFloat()
+         ratingService.rating = userMealComment.service_rating.toFloat()
+         ratingTexture.rating = userMealComment.texture_rating.toFloat()
+         ratingStar.rating = userMealComment.meal_avg_rating.toFloat()
+         ratingEuro.rating = userMealComment.budget.toFloat()
 
-        tvMealName.setText(userMealComment.name)
-        tvComment.setText(userMealComment.comment)
+         tvMealName.setText(userMealComment.name)
+         tvComment.setText(userMealComment.comment)
 
-        var date = userMealComment.published_on
-        tvDateName.setText(datePrase(date) + " - " + userMealComment.username)
+         var date = userMealComment.published_on
+         tvDateName.setText(datePrase(date) + " - " + userMealComment.username)
 
-        var firend = userMealComment.friend
-        var private = userMealComment.private
-        var follower = userMealComment.follower
+         var firend = userMealComment.friend
+         var private = userMealComment.private
+         var follower = userMealComment.follower
 
-        var image1 = userMealComment.rating_image1
-        var image2 = userMealComment.rating_image2
-
-
-        if (firend.equals(1)) {
-            imgFriendRequest.visibility = View.INVISIBLE
-        }
-        if (follower.equals(1)) {
-            imgFollowing.visibility = View.INVISIBLE
-        }
-        if (private.equals(1)) {
-            imgFollowing.visibility = View.INVISIBLE
-        }
+         var image1 = userMealComment.rating_image1
+         var image2 = userMealComment.rating_image2
 
 
-        if (image1 != null && image1 != "null" && image1 != "") {
-            Glide.with(this).load(image1).dontAnimate().fitCenter().into(imgCommentImage)
-        } else {
-            imgCommentImage.visibility = View.GONE
-        }
+         if (firend.equals(1)) {
+             imgFriendRequest.visibility = View.INVISIBLE
+         }
+         if (follower.equals(1)) {
+             imgFollowing.visibility = View.INVISIBLE
+         }
+         if (private.equals(1)) {
+             imgFollowing.visibility = View.INVISIBLE
+         }
 
-        if (image2 != null && image2 != "null" && image2 != "") {
-            Glide.with(this).load(image2).dontAnimate().fitCenter().into(imgCommentImageTwo)
-        } else {
-            imgCommentImageTwo.visibility = View.GONE
-        }
 
-        if (sessionManager?.getValue(SessionManager.USER_ID).equals(comment_userId)) {
-            linFollowOptions.visibility = View.GONE
-        } else {
-            linFollowOptions.visibility = View.VISIBLE
-        }*/
+         if (image1 != null && image1 != "null" && image1 != "") {
+             Glide.with(this).load(image1).dontAnimate().fitCenter().into(imgCommentImage)
+         } else {
+             imgCommentImage.visibility = View.GONE
+         }
+
+         if (image2 != null && image2 != "null" && image2 != "") {
+             Glide.with(this).load(image2).dontAnimate().fitCenter().into(imgCommentImageTwo)
+         } else {
+             imgCommentImageTwo.visibility = View.GONE
+         }
+
+         if (sessionManager?.getValue(SessionManager.USER_ID).equals(comment_userId)) {
+             linFollowOptions.visibility = View.GONE
+         } else {
+             linFollowOptions.visibility = View.VISIBLE
+         }*/
 
     }
 }

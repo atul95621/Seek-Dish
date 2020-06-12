@@ -269,6 +269,8 @@ Le mot de passe et la confirmation ne correspondent pas.
     <string name="my_favourites">Mes préférés</string>
     <string name="inviatation_status">"Statut de l'invitation "</string>
     <string name="inivitee_incorrect">Oops!! Vous avez sélectionné la date du passé. Veuillez sélectionner la date dans Future.</string>
+    <string name="select_profession">Sélectionner une profession</string>
+    <string name="date_of_birth">Date de naissance</string>
 </resources>
 <!--
 <resources>

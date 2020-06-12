@@ -1,6 +1,7 @@
 package com.dish.seekdish.ui.navDrawer.activities
 
 import android.Manifest
+import android.app.DatePickerDialog
 import android.app.Dialog
 import android.content.Intent
 import android.content.pm.PackageManager
@@ -16,15 +17,16 @@ import android.widget.*
 import androidx.core.content.ContextCompat
 import androidx.exifinterface.media.ExifInterface
 import com.bumptech.glide.load.resource.bitmap.TransformationUtils
-import com.dish.seekdish.util.BaseActivity
 import com.dish.seekdish.R
 import com.dish.seekdish.custom.CustomListAdapterDialog
 import com.dish.seekdish.custom.GlideApp
+import com.dish.seekdish.ui.navDrawer.activities.model.Profession
 import com.dish.seekdish.ui.navDrawer.activities.model.ProfileDataClass
 import com.dish.seekdish.ui.navDrawer.activities.presenter.MyInfoPresenter
 import com.dish.seekdish.ui.navDrawer.activities.view.IMyInformationView
 import com.dish.seekdish.ui.navDrawer.settings.dataModel.LangData
 import com.dish.seekdish.ui.navDrawer.settings.dataModel.LanguageData
+import com.dish.seekdish.util.BaseActivity
 import com.dish.seekdish.util.SessionManager
 import com.myhexaville.smartimagepicker.ImagePicker
 import com.myhexaville.smartimagepicker.OnImagePickedListener
@@ -35,11 +37,12 @@ import okhttp3.RequestBody
 import retrofit2.Response
 import java.io.File
 import java.io.IOException
-import java.util.ArrayList
+import java.util.*
 
 class MyInformationActivity : BaseActivity(), IMyInformationView {
 
     lateinit var myInfoPresenter: MyInfoPresenter
+
     // lateinit var context  : Context
     var sessionManager: SessionManager? = null;
 
@@ -50,6 +53,9 @@ class MyInformationActivity : BaseActivity(), IMyInformationView {
     internal var bitmap: Bitmap? = null
     internal var genderArr = ArrayList<String>()
     internal var bodyFatArr = ArrayList<String>()
+
+    internal var professionArr = ArrayList<String>()
+    internal var arraylistProfession = ArrayList<Profession>()
 
     // path for multipart image upload
     var path: String = ""
@@ -64,6 +70,8 @@ class MyInformationActivity : BaseActivity(), IMyInformationView {
     var height = ""
     var bodyFat = ""
     var gender = ""
+    var dob = ""
+    var profession_id = ""
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -89,10 +97,34 @@ class MyInformationActivity : BaseActivity(), IMyInformationView {
         //populating the spinner
         setGenderSpinner()
         setBodyList()
+//        professionSpinnerWatch()
 
         tvCountry.setOnClickListener()
         {
             myInfoPresenter.getCountriesData(sessionManager!!.getValue(SessionManager.USER_ID))
+        }
+
+        tvDOB.setOnClickListener()
+        {
+            val c = Calendar.getInstance()
+            val year = c.get(Calendar.YEAR)
+            val month = c.get(Calendar.MONTH)
+            val day = c.get(Calendar.DAY_OF_MONTH)
+
+
+            val dpd = DatePickerDialog(
+                this,
+                DatePickerDialog.OnDateSetListener { view, year, monthOfYear, dayOfMonth ->
+                    // Display Selected date in textbox
+                    tvDOB.setText("" + year  + "-" + monthOfYear.plus(1) + "-" +dayOfMonth )
+
+                },
+                year,
+                month,
+                day
+            )
+            dpd.getDatePicker().setMaxDate(c.getTimeInMillis());
+            dpd.show()
         }
 
         /*  tvCity.setOnClickListener()
@@ -170,6 +202,24 @@ class MyInformationActivity : BaseActivity(), IMyInformationView {
             } else {
                 gender = spinnerGender.selectedItem.toString()
             }
+
+            if (spinnerProfession!!.selectedItem == getString(R.string.select_profession)) {
+                profession_id = ""
+            } else {
+                profession_id = spinnerProfession.selectedItemPosition.toString()
+            }
+
+            if (tvDOB.length() == 0) {
+                dob = ""
+            } else {
+                dob = tvDOB.text.toString()
+            }
+
+            Log.e("check22", "Pro  " + profession_id + "  " + dob)
+
+
+
+
 
             if (TextUtils.isEmpty(edtName!!.text.toString().trim { it <= ' ' })) {
                 showSnackBar(getString(R.string.fill_first))
@@ -262,6 +312,8 @@ class MyInformationActivity : BaseActivity(), IMyInformationView {
                         stringConvertToRequestBody(edtWeight.text.toString()),
                         stringConvertToRequestBody(edtHeight.text.toString()),
                         stringConvertToRequestBody(sessionManager!!.getValue(SessionManager.USER_ID)),
+                        stringConvertToRequestBody(profession_id),
+                        stringConvertToRequestBody(dob),
                         part
                     )
                 } else {
@@ -356,7 +408,7 @@ class MyInformationActivity : BaseActivity(), IMyInformationView {
                     }
                 }
             })
-            .setWithImageCrop(1,1)
+            .setWithImageCrop(1, 1)
         imagePicker?.choosePicture(true)
     }
 
@@ -375,9 +427,7 @@ class MyInformationActivity : BaseActivity(), IMyInformationView {
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, result: Intent?) {
-
         super.onActivityResult(requestCode, resultCode, result)
-
         //Log.e("test", "onactivitycalled");
 
         if (resultCode == RESULT_OK) {
@@ -411,7 +461,6 @@ class MyInformationActivity : BaseActivity(), IMyInformationView {
             }
 
             else ->
-
                 imagePicker?.handlePermission(requestCode, grantResults)
         }
     }
@@ -437,39 +486,31 @@ class MyInformationActivity : BaseActivity(), IMyInformationView {
         // attaching data adapter to spinner
         spinnerGender!!.adapter = languageSelectAdapter
 
-        spinnerTextWatcher()
+        spinnerBodyFatWatcher(spinnerGender)
     }
 
-    fun spinnerTextWatcher() {
+/*    fun professionSpinnerWatch() {
 
-        spinnerGender.setOnItemSelectedListener(object : AdapterView.OnItemSelectedListener {
+        spinnerProfession.setOnItemSelectedListener(object : AdapterView.OnItemSelectedListener {
             override fun onItemSelected(
                 parentView: AdapterView<*>?,
                 selectedItemView: View?,
                 position: Int,
                 id: Long
             ) {
-                if (spinnerGender.selectedItemPosition == 0) {
-                    (spinnerGender.getSelectedView() as TextView).setTextColor(
-                        getResources().getColor(
-                            R.color.gray_hint
-                        )
-                    )
-
+                if (spinnerProfession.selectedItemPosition == 0) {
+                    profession_id = ""
                 } else {
-                    (spinnerGender.getSelectedView() as TextView).setTextColor(
-                        getResources().getColor(
-                            R.color.black
-                        )
-                    )
+                    profession_id = spinnerProfession.selectedItemPosition.toString()
                 }
+                Log.e("check22","id is "+profession_id+  "  "+position)
             }
 
             override fun onNothingSelected(parentView: AdapterView<*>?) {
                 // your code here
             }
         })
-    }
+    }*/
 
 
     private fun setBodyList() {
@@ -494,27 +535,27 @@ class MyInformationActivity : BaseActivity(), IMyInformationView {
         // attaching data adapter to spinner
         spinnerBodyFat!!.adapter = bodyFatAdapter
 
-        spinnerBodyFatWatcher()  // to turn the first "select" text to grey color and other to black
+        spinnerBodyFatWatcher(spinnerBodyFat)  // to turn the first "select" text to grey color and other to black
     }
 
-    fun spinnerBodyFatWatcher() {
+    fun spinnerBodyFatWatcher(spinnerProfession: Spinner) {
 
-        spinnerBodyFat.setOnItemSelectedListener(object : AdapterView.OnItemSelectedListener {
+        spinnerProfession.setOnItemSelectedListener(object : AdapterView.OnItemSelectedListener {
             override fun onItemSelected(
                 parentView: AdapterView<*>?,
                 selectedItemView: View?,
                 position: Int,
                 id: Long
             ) {
-                if (spinnerBodyFat.selectedItemPosition == 0) {
-                    (spinnerBodyFat.getSelectedView() as TextView).setTextColor(
+                if (spinnerProfession.selectedItemPosition == 0) {
+                    (spinnerProfession.getSelectedView() as TextView).setTextColor(
                         getResources().getColor(
                             R.color.gray_hint
                         )
                     )
 
                 } else {
-                    (spinnerBodyFat.getSelectedView() as TextView).setTextColor(
+                    (spinnerProfession.getSelectedView() as TextView).setTextColor(
                         getResources().getColor(
                             R.color.black
                         )
@@ -571,45 +612,6 @@ class MyInformationActivity : BaseActivity(), IMyInformationView {
 
     }
 
-
-    /*  fun showCitiesDialog(
-          listData: ArrayList<LangData>,
-          title: String
-      ) {
-
-          val dialog = Dialog(this);
-
-          val view: View = getLayoutInflater().inflate(R.layout.dialog_language, null);
-
-
-          // Change MyActivity.this and myListOfItems to your own values
-          val clad: CustomListAdapterDialog = CustomListAdapterDialog(this, listData);
-
-          val list = view.findViewById<View>(R.id.custom_list) as ListView
-          val tvTittleLang = view.findViewById<View>(R.id.tvTittleLang) as TextView
-          tvTittleLang.setText(title)
-
-          list.setAdapter(clad);
-
-          list.setOnItemClickListener(AdapterView.OnItemClickListener { adapter, view, position, arg ->
-              // TODO Auto-generated method stub
-  //            val tvLanguage = view.findViewById<View>(R.id.tvLanguage) as TextView
-
-              cityId = listData[position].id.toString()
-              val cityName = listData[position].name
-
-  //            tvCity.setText(cityName)
-
-              dialog.dismiss()
-          }
-          )
-
-          dialog.setContentView(view);
-
-          dialog.show();
-
-      }*/
-
     override fun onSetDataChanged(result: Boolean, response: Response<ProfileDataClass>) {
 
 
@@ -649,7 +651,9 @@ class MyInformationActivity : BaseActivity(), IMyInformationView {
             }
 
         } else {
-            showSnackBar(this.getResources().getString(R.string.error_occured) + "    ${response.code()}");
+            showSnackBar(
+                this.getResources().getString(R.string.error_occured) + "    ${response.code()}"
+            );
         }
 
     }
@@ -666,7 +670,9 @@ class MyInformationActivity : BaseActivity(), IMyInformationView {
             }
 
         } else {
-            showSnackBar(this.getResources().getString(R.string.error_occured) + "    ${response.code()}");
+            showSnackBar(
+                this.getResources().getString(R.string.error_occured) + "    ${response.code()}"
+            );
         }
     }
 
@@ -679,7 +685,9 @@ class MyInformationActivity : BaseActivity(), IMyInformationView {
 //                showCitiesDialog(languageData.data,"Select City")
 
             } else {
-                showSnackBar(this.getResources().getString(R.string.error_occured) + "    ${response.code()}");
+                showSnackBar(
+                    this.getResources().getString(R.string.error_occured) + "    ${response.code()}"
+                );
             }
         }
     }
@@ -701,8 +709,15 @@ class MyInformationActivity : BaseActivity(), IMyInformationView {
                 edtWeight.setText(profileDataClass.data.weight)
                 edtHeight.setText(profileDataClass.data.height)
                 edtBio.setText(profileDataClass.data.bio)
+                tvDOB.setText(profileDataClass.data.birth_date)
+
                 var genderValue: String = profileDataClass.data.gender
                 var bodyFatVal: String = profileDataClass.data.body_fat
+
+                arraylistProfession = profileDataClass.data.professions
+
+                // feeding the spinner...
+                feedProfessionSpinner(arraylistProfession)
 
                 if (genderValue.equals("M")) {
                     spinnerGender.setSelection(1)
@@ -734,6 +749,7 @@ class MyInformationActivity : BaseActivity(), IMyInformationView {
                 countryId = profileDataClass.data.country_id
 //                cityId = profileDataClass.data.city_id
 
+
                 Log.e("checkforId", " " + "COUNTRYiD: " + countryId + "   CitiId:  " + cityId)
 
             } else {
@@ -741,11 +757,49 @@ class MyInformationActivity : BaseActivity(), IMyInformationView {
             }
 
         } else {
-            showSnackBar(this.getResources().getString(R.string.error_occured) + "    ${response.code()}");
+            showSnackBar(
+                this.getResources().getString(R.string.error_occured) + "    ${response.code()}"
+            );
         }
 
 
     }
 
+    private fun feedProfessionSpinner(arraylistProfession: ArrayList<Profession>) {
+
+        var selectedAlready: Int = 0
+        //clear list
+        professionArr.clear()
+        //add states to list
+        professionArr.add(getString(R.string.select_profession))
+        for (item in 0 until arraylistProfession.size) {
+            professionArr.add(arraylistProfession[item].name)
+            if (arraylistProfession[item].is_selected == 1) {
+                selectedAlready = item
+            }
+        }
+        Log.e("proID","  "+selectedAlready)
+
+
+
+        // Creating adapter for spinner
+        val professionAdapter =
+            ArrayAdapter(this, R.layout.spinner_item, professionArr)
+
+        // Drop down layout style - list view with radio button
+        professionAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+        // attaching data adapter to spinner
+        spinnerProfession!!.adapter = professionAdapter
+
+        if (selectedAlready != 0) {
+            Log.e("proID2","  "+selectedAlready)
+
+            spinnerProfession.setSelection(selectedAlready)
+            profession_id = selectedAlready.toString()
+        }
+
+        spinnerBodyFatWatcher(spinnerProfession)  // to turn the first "select" text to grey color and other to black
+
+    }
 }
 

@@ -1,6 +1,7 @@
 package com.dish.seekdish.ui.navDrawer.activities.model
 
 
+/*
 data class ProfileDataClass(
     val `data`: Data,
     val status: Int,
@@ -39,7 +40,54 @@ data class NewInfoData(
     val like: Int,
     val profile_percentage: String
 )
+*/
+data class ProfileDataClass(
+    val `data`: Data,
+    val message: String,
+    val status: Int
+)
 
+data class Data(
+    val address_line1: String,
+    val address_line2: String,
+    val bio: String,
+    val birth_date: String,
+    val body_fat: String,
+    val city: String,
+    val city_id: String,
+    val country: String,
+    val country_id: String,
+    val email: String,
+    val facebook_id: Any,
+    val first_name: String,
+    val gender: String,
+    val height: String,
+    val id: Int,
+    val last_name: String,
+    val new_info_data: NewInfoData,
+    val phone: String,
+    val photo: String,
+    val professions: ArrayList<Profession>,
+    val twitter_id: Any,
+    val username: String,
+    val weight: String,
+    val zip_code: String
+)
+
+data class NewInfoData(
+    val checkin: Int,
+    val dislike: Int,
+    val followers: Int,
+    val friends: Int,
+    val like: Int,
+    val profile_percentage: String
+)
+
+data class Profession(
+    val id: Int,
+    val is_selected: Int,
+    val name: String
+)
 
 data class ContactModel(
     val `data`: List<Data_Contact>,

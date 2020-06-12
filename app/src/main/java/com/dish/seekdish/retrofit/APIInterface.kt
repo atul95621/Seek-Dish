@@ -207,6 +207,8 @@ internal interface APIInterface {
         @Part("weight") weight: RequestBody,
         @Part("height") height: RequestBody,
         @Part("user_id") user_id: RequestBody,
+        @Part("user_category_id" )profession_id:RequestBody,
+        @Part("birth_date" )date_of_birth:RequestBody,
         @Part file: MultipartBody.Part
     ): Call<ProfileDataClass>
 

@@ -39,6 +39,8 @@ class MyInfoPresenter(private val iMyInformationView: IMyInformationView, val co
         weight: RequestBody,
         height: RequestBody,
         userId: RequestBody,
+        profession_id:RequestBody,
+        dob:RequestBody,
         part: MultipartBody.Part
     ) {
 
@@ -63,6 +65,8 @@ class MyInfoPresenter(private val iMyInformationView: IMyInformationView, val co
             weight,
             height,
             userId,
+            profession_id,
+            dob,
             part
         )
         call.enqueue(object : Callback<ProfileDataClass> {
