@@ -104,6 +104,7 @@
                     </LinearLayout>
                     <!--budget-->
                     <LinearLayout
+                        android:visibility="gone"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="horizontal"
@@ -131,7 +132,6 @@
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:background="@color/colorPrimary"
                         android:orientation="horizontal"
                         android:padding="10dp"
                         android:weightSum="2">
@@ -159,6 +159,8 @@
                         android:layout_height="wrap_content"
                         android:orientation="horizontal"
                         android:padding="10dp"
+                        android:background="@color/colorPrimary"
+
                         android:weightSum="2">
 
                         <TextView
@@ -183,7 +185,6 @@
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:background="@color/colorPrimary"
                         android:orientation="horizontal"
                         android:padding="10dp"
                         android:weightSum="2">
@@ -209,6 +210,7 @@
                         android:layout_height="wrap_content"
                         android:orientation="horizontal"
                         android:padding="10dp"
+                        android:background="@color/colorPrimary"
                         android:visibility="gone"
                         android:weightSum="2">
 
@@ -233,6 +235,7 @@
                         android:layout_height="wrap_content"
                         android:orientation="horizontal"
                         android:padding="10dp"
+                        android:background="@color/colorPrimary"
                         android:weightSum="2">
 
                         <TextView
@@ -253,7 +256,6 @@
                     </LinearLayout>
                     <!-- intolerance-->
                     <LinearLayout
-                        android:background="@color/colorPrimary"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="horizontal"
@@ -283,6 +285,7 @@
                         android:layout_height="wrap_content"
                         android:orientation="horizontal"
                         android:padding="10dp"
+                        android:background="@color/colorPrimary"
                         android:weightSum="2">
 
                         <TextView
@@ -304,7 +307,6 @@
 
                     <!-- seasionality-->
                     <LinearLayout
-                        android:background="@color/colorPrimary"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="horizontal"
@@ -334,6 +336,7 @@
                         android:layout_height="wrap_content"
                         android:orientation="horizontal"
                         android:padding="10dp"
+                        android:background="@color/colorPrimary"
                         android:weightSum="2">
 
                         <TextView
@@ -377,9 +380,9 @@
                         android:id="@+id/tvDishName"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="15dp"
                         android:fontFamily="@font/assistantbold"
                         android:gravity="center"
+                        android:layout_marginTop="5dp"
                         android:text=""
                         android:textColor="@color/black"
                         android:textSize="20sp" />
@@ -388,7 +391,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
-                        android:layout_marginBottom="10dp"
+                        android:layout_marginBottom="3dp"
                         android:gravity="center"
                         android:orientation="horizontal">
 
@@ -409,9 +412,20 @@
                             app:srb_starPadding="5dp"
                             app:srb_starWidth="20dp"
                             app:srb_stepSize="1" />
+                        <TextView
+                            android:id="@+id/tvPrice"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:fontFamily="@font/assistantbold"
+                            android:text=""
+                            android:layout_marginStart="50dp"
+                            android:textColor="@color/red_google"
+                            android:textSize="26sp" />
 
                         <com.willy.ratingbar.ScaleRatingBar xmlns:app="http://schemas.android.com/apk/res-auto"
                             android:id="@+id/euroRating"
+                            android:visibility="gone"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"

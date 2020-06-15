@@ -17,8 +17,6 @@ import com.dish.seekdish.custom.PagerContainer
 import com.dish.seekdish.ui.navDrawer.dishDescription.model.Ingredients
 import com.dish.seekdish.ui.navDrawer.dishDescription.model.Meals
 import kotlinx.android.synthetic.main.activity_dish_detail.*
-import kotlinx.android.synthetic.main.activity_opinion_details.*
-import kotlinx.android.synthetic.main.activity_opinion_details.tvBack
 import java.util.HashSet
 import android.text.TextUtils.join as join1
 
@@ -78,6 +76,8 @@ class DishDetailActivity : BaseActivity() {
 //        tvSpeed.setText(dishMealModel.preperation_time)
         tvPrepTime.setText(dishMealModel.preperation_time)
         tvTypeDish.setText(dishMealModel.meal_type)
+        tvPrice.setText(dishMealModel.meal_symbol+" "+dishMealModel.meal_price)
+
 
         for (item in dishMealModel.seasons) {
             seasonArr.add(item)

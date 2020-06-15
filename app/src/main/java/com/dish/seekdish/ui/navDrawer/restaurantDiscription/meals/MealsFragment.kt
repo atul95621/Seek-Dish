@@ -11,7 +11,6 @@ import com.dish.seekdish.util.BaseFragment
 import com.dish.seekdish.R
 import com.dish.seekdish.ui.navDrawer.restaurantDiscription.RestroDescpModel
 import com.dish.seekdish.ui.navDrawer.restaurantDiscription.RestroDescrpActivity
-import kotlinx.android.synthetic.main.fragment_meals.*
 import kotlinx.android.synthetic.main.fragment_meals.view.*
 import java.util.ArrayList
 
@@ -50,6 +49,8 @@ class MealsFragment(var response: RestroDescpModel) : BaseFragment() {
             var euroRating = response.data.restaurant.meals[i].budget
             var mealId = response.data.restaurant.meals[i].meal_id
             var restroId = response.data.restaurant.meals[i].restro_id
+            var price = response.data.restaurant.meals[i].meal_price
+            var symbol = response.data.restaurant.meals[i].meal_symbol
 
 
             val MealsDataClass = MealsDataClass(
@@ -60,7 +61,9 @@ class MealsFragment(var response: RestroDescpModel) : BaseFragment() {
                 review.toString(),
                 euroRating.toString(),
                 mealId.toString(),
-                restroId.toString()
+                restroId.toString(),
+                price,
+                symbol
             );
             arrayList.add(MealsDataClass)
         }

@@ -62,13 +62,7 @@ class TodoMap() : BaseFragment(), OnMapReadyCallback, GoogleMap.OnMyLocationButt
         //main map fragment
         val mapFragment = childFragmentManager.findFragmentById(R.id.map) as SupportMapFragment
         mapFragment.getMapAsync(this)
-
-
-
-
-
         return view
-
     }
 
     override fun onMapReady(googleMap: GoogleMap) {
@@ -197,6 +191,8 @@ class TodoMap() : BaseFragment(), OnMapReadyCallback, GoogleMap.OnMyLocationButt
                                         var mealName = arrayList[i].name
                                         var mealId = arrayList[i].meal_id.toString()
                                         var restroId = arrayList[i].restro_id.toString()
+                                        var mealPrice = arrayList[i].meal_price.toString()
+                                        var mealSymbol = arrayList[i].meal_symbol.toString()
 
 
                                         // adding custom info window
@@ -219,7 +215,9 @@ class TodoMap() : BaseFragment(), OnMapReadyCallback, GoogleMap.OnMyLocationButt
                                             euroRate,
                                             mealName,
                                             mealId.toString(),
-                                            restroId.toString()
+                                            restroId.toString(),
+                                            mealPrice,
+                                            mealSymbol
                                         );
 
 

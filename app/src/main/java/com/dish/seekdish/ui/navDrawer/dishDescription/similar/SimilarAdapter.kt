@@ -52,6 +52,8 @@ class SimilarAdapter(
         var euroScaleRatingBar = tasteDataClass.euroRating!!.toFloat()
         holder.euroScaleRatingBar.rating = euroScaleRatingBar
 
+        holder.tvPrice.text = tasteDataClass.symbol + " " + tasteDataClass.price
+
         holder.frameTasteDish.setOnClickListener()
         {
             val intent = Intent(activity, DishDescriptionActivity::class.java)
@@ -76,6 +78,7 @@ class SimilarAdapter(
         internal var starScaleRatingBar: ScaleRatingBar
         internal var euroScaleRatingBar: ScaleRatingBar
         internal var frameTasteDish: FrameLayout
+        internal  var tvPrice:TextView
 
         init {
             starScaleRatingBar = view.findViewById(R.id.simpleRatingBar) as ScaleRatingBar
@@ -85,6 +88,7 @@ class SimilarAdapter(
             tvStarReview = view.findViewById(R.id.tvStarReview) as TextView
             tvDishName = view.findViewById(R.id.tvDishName) as TextView
             frameTasteDish = view.findViewById(R.id.frameTasteDish) as FrameLayout
+            tvPrice = view.findViewById(R.id.tvPrice) as TextView
 
         }
     }

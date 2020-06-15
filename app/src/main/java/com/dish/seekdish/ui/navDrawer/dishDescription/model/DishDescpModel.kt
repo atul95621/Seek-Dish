@@ -40,6 +40,8 @@ data class Meals(
     val preperation_time: String,
     val restro_id: Int,
     val restro_name: String,
+    val meal_price:String,
+    val meal_symbol:String,
     val seasons: List<String>
 ) : Serializable
 
@@ -68,7 +70,9 @@ data class SimilarMeal(
     val name: String,
     val no_of_reviews: Int,
     val restro_id: Int,
-    val restro_name: String
+    val restro_name: String,
+    val meal_price:String,
+    val meal_symbol:String
 ) : Serializable
 
 data class UserMealComment(
@@ -110,3 +114,7 @@ data class Data_TOdo(
 )
 
 
+data class CallCountModel(
+    val status: Int,
+    val message: String
+)

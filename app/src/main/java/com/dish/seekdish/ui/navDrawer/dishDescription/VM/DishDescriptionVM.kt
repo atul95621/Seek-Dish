@@ -6,6 +6,7 @@ import androidx.lifecycle.ViewModel
 import com.dish.seekdish.retrofit.APIClientMvvm
 import com.dish.seekdish.retrofit.APIInterface
 import com.dish.seekdish.ui.navDrawer.dishDescription.model.AddTodoModel
+import com.dish.seekdish.ui.navDrawer.dishDescription.model.CallCountModel
 import com.dish.seekdish.ui.navDrawer.dishDescription.model.DishDescpModel
 import com.dish.seekdish.ui.navDrawer.dishDescription.opinion.CommentDetailModel
 import io.reactivex.Observable
@@ -25,6 +26,7 @@ class DishDescriptionVM : ViewModel() {
     var getFollowingReqLiveData: MutableLiveData<AddTodoModel> = MutableLiveData<AddTodoModel>()
 
     var getCommentLiveData: MutableLiveData<CommentDetailModel> = MutableLiveData<CommentDetailModel>()
+    var getCallCountLiveData: MutableLiveData<CallCountModel> = MutableLiveData<CallCountModel>()
 
     val isLoadingSubject = BehaviorSubject.create<Boolean>()
 
@@ -197,32 +199,22 @@ class DishDescriptionVM : ViewModel() {
 
         // making progress bar visible
         isLoadingSubject.onNext(true)
-
-
         var api = APIClientMvvm.client.create(APIInterface::class.java)
-
         val call = api.sendFollowingRequest(senderId, receiverId)
-
         call.enqueue(object : Callback<AddTodoModel> {
             override fun onResponse(call: Call<AddTodoModel>, response: Response<AddTodoModel>) {
-
                 // making progress bar invisible
                 isLoadingSubject.onNext(false)
-
                 //finally we are setting the list to our MutableLiveData
                 getFollowingReqLiveData.postValue(response.body())
-
 //                getFollowingReqLiveData.value = response.body()
                 Log.e("respGetDetails", response.body().toString())
-
             }
 
             override fun onFailure(call: Call<AddTodoModel>, t: Throwable) {
-
                 // making progress bar invisible
                 isLoadingSubject.onNext(false)
                 Log.e("respGetDetailsFail", "failure")
-
                 getFollowingReqLiveData.postValue(null)
             }
         })
@@ -259,6 +251,36 @@ class DishDescriptionVM : ViewModel() {
         })
     }
 
+
+
+    fun postCallCount(
+        userId: String,
+        restaurantId: String,
+        date: String
+    ) {
+
+        // making progress bar visible
+        isLoadingSubject.onNext(true)
+        var api = APIClientMvvm.client.create(APIInterface::class.java)
+        val call = api.postCountCall(userId,restaurantId,date)
+        call.enqueue(object : Callback<CallCountModel> {
+            override fun onResponse(call: Call<CallCountModel>, response: Response<CallCountModel>) {
+                // making progress bar invisible
+                isLoadingSubject.onNext(false)
+                //finally we are setting the list to our MutableLiveData
+                getCallCountLiveData.postValue(response.body())
+//                getFollowingReqLiveData.value = response.body()
+                Log.e("respGetDetails", response.body().toString())
+            }
+
+            override fun onFailure(call: Call<CallCountModel>, t: Throwable) {
+                // making progress bar invisible
+                isLoadingSubject.onNext(false)
+                Log.e("respGetDetailsFail", "failure")
+                getCallCountLiveData.postValue(null)
+            }
+        })
+    }
     fun isLoadingObservable(): Observable<Boolean> {
         return isLoadingSubject
     }

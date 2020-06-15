@@ -48,5 +48,7 @@ data class Data(
     val user: Int,
     val viewed: Int,
     val username: String,
-    val budget: Int
+    val budget: Int,
+    val meal_price:String,
+    val meal_symbol:String
 )

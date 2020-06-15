@@ -648,7 +648,7 @@ class HomeActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
                                 items.selected
                             )
                         }
-                        for (items in response.data.budget) {
+                 /*       for (items in response.data.budget) {
                             Log.e("Budget", items.name)
                             addProduct(
                                 getString(R.string.budget),
@@ -656,7 +656,7 @@ class HomeActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
                                 items.id,
                                 items.selected
                             )
-                        }
+                        }*/
                         for (items in response.data.intolerance_compatibilities) {
                             addProduct(
                                 getString(R.string.comp_intolr),

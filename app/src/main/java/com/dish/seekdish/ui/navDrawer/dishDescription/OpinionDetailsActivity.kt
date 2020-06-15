@@ -113,6 +113,8 @@ class OpinionDetailsActivity : BaseActivity() {
                     var date = response.response.data.published_on
                     tvDateName.setText(datePrase(date) + " - " + response.response.data.username)
 
+                    tvPrice.text = response.response.data.meal_symbol + " " + response.response.data.meal_price
+
                     var firend = response.response.friend
                     var private = response.response.private
                     var follower = response.response.follower

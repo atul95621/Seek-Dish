@@ -1,115 +1,141 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:orientation="vertical"
-              android:layout_width="match_parent"
-              android:background="@color/white"
+    android:layout_width="match_parent"
+    android:layout_height="200dp"
+    android:background="@color/white"
 
-              android:layout_height="200dp">
-    <FrameLayout android:layout_width="match_parent"
-                 android:id="@+id/frameTasteDish"
-                 android:layout_height="match_parent">
+    android:orientation="vertical">
+
+    <FrameLayout
+        android:id="@+id/frameTasteDish"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
         <ImageView
-                android:id="@+id/imgFoodImage"
+            android:id="@+id/imgFoodImage"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scaleType="centerCrop"
+            android:src="@drawable/ic_foodex" />
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="80dp"
+            android:layout_gravity="bottom"
+            android:scaleType="fitXY"
+            android:src="@drawable/ic_white_shadow" />
+
+        <ImageView
+            android:id="@+id/imgDelete"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_gravity="end"
+            android:layout_marginTop="20dp"
+            android:layout_marginEnd="20dp"
+            android:src="@drawable/ic_delete" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_gravity="bottom"
+            android:layout_marginStart="7dp"
+            android:layout_marginEnd="7dp"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tvDishName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/assistantbold"
+                android:maxLines="1"
+                android:text="Brochette De Boeuf"
+                android:textColor="@color/black"
+                android:textSize="16sp" />
+
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:scaleType="centerCrop"
-                android:src="@drawable/ic_foodex"/>
-        <ImageView
-                android:layout_width="match_parent"
-                android:layout_height="80dp"
-                android:layout_gravity="bottom"
-                android:scaleType="fitXY"
-                android:src="@drawable/ic_white_shadow"/>
-        <ImageView android:layout_width="30dp"
-                   android:id="@+id/imgDelete"
-                   android:layout_height="30dp"
-                   android:layout_gravity="end"
-                   android:layout_marginTop="20dp"
-                   android:layout_marginEnd="20dp"
-                   android:src="@drawable/ic_delete"
-        />
+                android:orientation="horizontal"
 
-        <LinearLayout android:layout_width="match_parent"
-                      android:layout_height="50dp"
-                      android:layout_marginStart="7dp"
-                      android:orientation="vertical"
-                      android:layout_marginEnd="7dp"
-                      android:layout_gravity="bottom">
-            <TextView
-                    android:id="@+id/tvDishName"
-                    android:layout_width="match_parent"
-                    android:textColor="@color/black"
-                    android:fontFamily="@font/assistantbold"
+                >
+
+                <TextView
+                    android:id="@+id/tvPrice"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:maxLines="1"
-                    android:text="Brochette De Boeuf"/>
-            <LinearLayout android:layout_width="match_parent"
-                          android:layout_height="match_parent"
-                          android:orientation="horizontal"
+                    android:layout_gravity="center_vertical"
+                    android:fontFamily="@font/assistantbold"
+                    android:text=""
+                    android:textColor="@color/black"
+                    android:textSize="16sp" />
 
-            >
-                <TextView
-                        android:id="@+id/tvDistance"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center_vertical|start"
-                        android:text="1.73 Km"/>
-                <View android:layout_width="2dp"
-                      android:layout_marginStart="8dp"
-                      android:layout_marginTop="5dp"
-                      android:layout_marginBottom="5dp" android:layout_height="match_parent"
-                      android:background="@color/dark_gray"/>
-                <com.willy.ratingbar.ScaleRatingBar
-                        xmlns:app="http://schemas.android.com/apk/res-auto"
-                        android:id="@+id/starRating"
-                        android:layout_marginStart="5dp"
-                        android:layout_width="110dp"
-                        android:layout_height="match_parent"
-                        android:gravity="center"
-                        app:srb_starPadding="3dp"
-                        app:srb_starWidth="15dp"
-                        app:srb_starHeight="15dp"
-                        app:srb_stepSize="1"
-                        app:srb_isIndicator="false"
-                        app:srb_clickable="false"
-                        app:srb_scrollable="false"
-                        app:srb_clearRatingEnabled="false"
-                        app:srb_drawableEmpty="@drawable/ic_empty_star"
-                        app:srb_drawableFilled="@drawable/ic_filled_star">
-                </com.willy.ratingbar.ScaleRatingBar>
-                <TextView
-                        android:id="@+id/tvStarReview"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textColor="@color/red_google"
-                        android:layout_gravity="center"
-                        android:gravity="center_vertical"
-                        android:text="@string/_15"/>
+                <View
+                    android:layout_width="2dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginBottom="5dp"
+                    android:background="@color/dark_gray" />
 
-                <View android:layout_width="2dp"
-                      android:layout_marginStart="8dp"
-                      android:layout_marginTop="5dp"
-                      android:layout_marginBottom="5dp"
-                      android:layout_height="match_parent"
-                      android:background="@color/dark_gray"/>
-                <com.willy.ratingbar.ScaleRatingBar
-                        xmlns:app="http://schemas.android.com/apk/res-auto"
-                        android:id="@+id/euroRate"
-                        android:layout_marginStart="5dp"
-                        android:layout_width="110dp"
-                        android:layout_height="match_parent"
-                        android:gravity="center"
-                        app:srb_starPadding="3dp"
-                        app:srb_starWidth="15dp"
-                        app:srb_starHeight="15dp"
-                        app:srb_stepSize="1"
-                        app:srb_isIndicator="false"
-                        app:srb_clickable="false"
-                        app:srb_scrollable="false"
-                        app:srb_clearRatingEnabled="false"
-                        app:srb_drawableEmpty="@drawable/ic_empty_euro"
-                        app:srb_drawableFilled="@drawable/ic_filled_euro">
-                </com.willy.ratingbar.ScaleRatingBar>
+                <com.willy.ratingbar.ScaleRatingBar xmlns:app="http://schemas.android.com/apk/res-auto"
+                    android:id="@+id/starRating"
+                    android:layout_width="110dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginStart="5dp"
+                    android:gravity="center"
+                    app:srb_clearRatingEnabled="false"
+                    app:srb_clickable="false"
+                    app:srb_drawableEmpty="@drawable/ic_empty_star"
+                    app:srb_drawableFilled="@drawable/ic_filled_star"
+                    app:srb_isIndicator="false"
+                    app:srb_scrollable="false"
+                    app:srb_starHeight="15dp"
+                    app:srb_starPadding="3dp"
+                    app:srb_starWidth="15dp"
+                    app:srb_stepSize="1"></com.willy.ratingbar.ScaleRatingBar>
+
+                <TextView
+                    android:id="@+id/tvStarReview"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:gravity="center_vertical"
+                    android:text="@string/_15"
+                    android:textColor="@color/red_google" />
+
+                <View
+                    android:layout_width="2dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginBottom="5dp"
+                    android:background="@color/dark_gray" />
+
+                <TextView
+                    android:id="@+id/tvDistance"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical|start"
+                    android:layout_marginStart="10dp"
+                    android:text="1.73 Km" />
+
+                <com.willy.ratingbar.ScaleRatingBar xmlns:app="http://schemas.android.com/apk/res-auto"
+                    android:id="@+id/euroRate"
+                    android:layout_width="110dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginStart="5dp"
+                    android:gravity="center"
+                    android:visibility="gone"
+                    app:srb_clearRatingEnabled="false"
+                    app:srb_clickable="false"
+                    app:srb_drawableEmpty="@drawable/ic_empty_euro"
+                    app:srb_drawableFilled="@drawable/ic_filled_euro"
+                    app:srb_isIndicator="false"
+                    app:srb_scrollable="false"
+                    app:srb_starHeight="15dp"
+                    app:srb_starPadding="3dp"
+                    app:srb_starWidth="15dp"
+                    app:srb_stepSize="1"></com.willy.ratingbar.ScaleRatingBar>
 
             </LinearLayout>
 

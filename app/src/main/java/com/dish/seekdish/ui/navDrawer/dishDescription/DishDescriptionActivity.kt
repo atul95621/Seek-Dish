@@ -7,12 +7,9 @@ import android.app.Dialog
 import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
-import android.graphics.Bitmap
-import android.graphics.BitmapFactory
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.net.Uri
-import android.os.AsyncTask
 import android.os.Build
 import android.os.Bundle
 import android.util.Log
@@ -53,6 +50,9 @@ import de.hdodenhof.circleimageview.CircleImageView
 import io.reactivex.android.schedulers.AndroidSchedulers
 import kotlinx.android.synthetic.main.activity_dish_description.*
 import java.io.Serializable
+import java.text.SimpleDateFormat
+import java.util.*
+import kotlin.collections.HashSet
 
 
 class DishDescriptionActivity : BaseActivity(), Serializable {
@@ -121,6 +121,7 @@ class DishDescriptionActivity : BaseActivity(), Serializable {
         getDishDetailsObserver()
         getAddTODOObserver()
         getAddFavoriteObserver()
+        getCallCountCount()
         clickListner()
 
 
@@ -223,7 +224,10 @@ class DishDescriptionActivity : BaseActivity(), Serializable {
         imgCallRestro.setOnClickListener()
         {
             if (checkImgPermissionIsEnabledOrNot()) {
-                callTheRestaurant();
+                if (!meal_id.isNullOrEmpty()) {
+                    hitCallCountApi()
+                    callTheRestaurant();
+                }
             } else {
                 requestImagePermission()
             }
@@ -250,6 +254,16 @@ class DishDescriptionActivity : BaseActivity(), Serializable {
                 showSnackBar(getString(R.string.check_connection))
             }
         }
+    }
+
+    private fun hitCallCountApi() {
+        val currentDate: String =
+            SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(Date())
+        dishDescriptionVM?.postCallCount(
+            sessionManager?.getValue(SessionManager.USER_ID).toString(),
+            restro_id.toString(),
+            currentDate
+        )
     }
 
     @SuppressLint("MissingPermission")
@@ -301,6 +315,9 @@ class DishDescriptionActivity : BaseActivity(), Serializable {
                     tvRestaurantName.setText(response.data.meals.restro_name + ", " + response.data.meals.street + ", " + response.data.meals.city + ", " + response.data.meals.zipcode)
                     ratingStarMeal.rating = response.data.meals.meal_avg_rating.toFloat()
                     ratingEuroMeal.rating = response.data.meals.budget.toFloat()
+
+                    tvPrice.text =
+                        response.data.meals.meal_symbol + " " + response.data.meals.meal_price
 
                     // feeding the image to the list
                     var imageMeal = response.data.meals.meal_image
@@ -406,6 +423,29 @@ class DishDescriptionActivity : BaseActivity(), Serializable {
             } else {
                 showSnackBar(getResources().getString(R.string.error_occured) + "   $response ");
                 Log.e("rspGetaddtodoFail", "else error")
+            }
+        })
+    }
+
+
+    fun getCallCountCount() {
+        //observe
+        dishDescriptionVM!!.isLoadingObservable().observeOn(AndroidSchedulers.mainThread())
+            .subscribe {
+                setIsLoading(it)
+            }
+
+        dishDescriptionVM!!.getCallCountLiveData.observe(this, Observer { response ->
+            if (response != null) {
+                Log.e("rspCall", response.toString())
+                if (response.status == 1) {
+//                    showSnackBar(response.message)
+                } else {
+                    showSnackBar(response.message)
+                }
+            } else {
+                showSnackBar(getResources().getString(R.string.error_occured) + "   $response ");
+                Log.e("rspCallFail", "else error")
             }
         })
     }

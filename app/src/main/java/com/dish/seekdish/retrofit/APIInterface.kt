@@ -7,6 +7,7 @@ import com.dish.seekdish.ui.navDrawer.activities.model.ContactModel
 import com.dish.seekdish.ui.navDrawer.activities.model.ProfileDataClass
 import com.dish.seekdish.ui.navDrawer.checkin.data.CheckinModel
 import com.dish.seekdish.ui.navDrawer.dishDescription.model.AddTodoModel
+import com.dish.seekdish.ui.navDrawer.dishDescription.model.CallCountModel
 import com.dish.seekdish.ui.navDrawer.dishDescription.model.DishDescpModel
 import com.dish.seekdish.ui.navDrawer.dishDescription.opinion.CommentDetailModel
 import com.dish.seekdish.ui.navDrawer.myFriends.contactFetch.ContactsDetailsModel
@@ -728,4 +729,12 @@ internal interface APIInterface {
         @Field("restaurant_id") restaurant_id: String,
         @Field("comment_id") comment_id: String
     ): Call<CommentDetailModel>
+
+    @FormUrlEncoded
+    @POST("call_history")
+    fun postCountCall(
+        @Field("user_id") user_id: String,
+        @Field("restaurant_id") restaurant_id: String,
+        @Field("date") comment_id: String
+    ): Call<CallCountModel>
 }

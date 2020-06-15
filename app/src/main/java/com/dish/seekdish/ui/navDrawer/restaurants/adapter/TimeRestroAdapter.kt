@@ -46,7 +46,6 @@ class TimeRestroAdapter(
         var imageUrl: String = restroTimeModel.restaurant_image
         GlideApp.with(context)
             .load(imageUrl)
-            .placeholder(R.drawable.app_logo)
             .into(holder.imgFoodImage)
         holder.tvDishName.text = restroTimeModel.name
         holder.tvAddress.text = restroTimeModel.street+","+restroTimeModel.city+","+restroTimeModel.zipcode

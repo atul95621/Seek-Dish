@@ -28,10 +28,11 @@ class CustomInfoWindowGoogleMap(
             .inflate(R.layout.custom_info_window, null)
 
 
-        val star_rating=  view.findViewById<RatingBar>(R.id.infowindow_rating)
-        val euro_rating=  view.findViewById<RatingBar>(R.id.euro_rating)
+        val star_rating = view.findViewById<RatingBar>(R.id.infowindow_rating)
+        val euro_rating = view.findViewById<RatingBar>(R.id.euro_rating)
         val tvRestro = view.findViewById<TextView>(R.id.tvRestro)
         val imgInfoWindow = view.findViewById<ImageView>(R.id.imgInfoWindow)
+        val tvPrice = view.findViewById<TextView>(R.id.tvPrice)
 
 //        val starRatingBar=  view.findViewById<ScaleRatingBar>(R.id.starRatingBar)
 //        val starRatingBar = view.findViewById(R.id.starRatingBar) as ScaleRatingBar
@@ -47,19 +48,17 @@ class CustomInfoWindowGoogleMap(
 //        imgInfoWindow.setImageResource(R.drawable.ic_foodex)
 
 
-
         GlideApp.with(context)
             .load(infoWindowGoogleMap.imageUrl)
             .placeholder(R.drawable.app_logo)
             .into(imgInfoWindow)
 
         tvRestro.setText(infoWindowGoogleMap.restroTitle)
+        star_rating.rating = infoWindowGoogleMap.starRating!!.toFloat()
+        tvPrice.setText(infoWindowGoogleMap.mealSymbol + " " + infoWindowGoogleMap.mealPrice)
 
-        star_rating.rating= infoWindowGoogleMap.starRating!!.toFloat()
-        euro_rating.rating= infoWindowGoogleMap.euroRating!!.toFloat()
-
+//        euro_rating.rating= infoWindowGoogleMap.euroRating!!.toFloat()
 //        starRatingBar.rating= infoWindowGoogleMap.starRating!!.toFloat()
-
 
 
         Log.e(

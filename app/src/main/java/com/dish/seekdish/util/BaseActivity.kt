@@ -7,22 +7,17 @@ import android.content.res.Configuration
 import android.content.res.Resources
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
-import android.graphics.Matrix
 import android.net.Uri
 import android.os.Bundle
 import android.provider.MediaStore
 import android.util.DisplayMetrics
 import android.util.Log
-
 import android.view.WindowManager
-import android.widget.EditText
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toolbar
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
-import androidx.exifinterface.media.ExifInterface
-
 import com.bumptech.glide.Glide
 import com.dish.seekdish.R
 import com.google.android.material.snackbar.Snackbar
@@ -31,6 +26,7 @@ import okhttp3.RequestBody
 import java.io.*
 import java.net.HttpURLConnection
 import java.net.URL
+import java.text.DateFormat
 import java.text.ParseException
 import java.text.SimpleDateFormat
 import java.util.*
@@ -420,4 +416,20 @@ open class BaseActivity : AppCompatActivity() {
         }
         return file
     }
+
+    fun dateParse(dateRaw: String): String {
+        val inputFormat: DateFormat = SimpleDateFormat("yyyy-MM-dd")
+        val outputFormat: DateFormat = SimpleDateFormat("dd/MM/yyyy")
+        val date: Date = inputFormat.parse(dateRaw)
+        val outputDateStr: String = outputFormat.format(date)
+        return outputDateStr
+    }
+    fun dateParseToSend(dateRaw: String): String {
+        val inputFormat: DateFormat = SimpleDateFormat("dd/MM/yyyy")
+        val outputFormat: DateFormat = SimpleDateFormat("yyyy-MM-dd")
+        val date: Date = inputFormat.parse(dateRaw)
+        val outputDateStr: String = outputFormat.format(date)
+        return outputDateStr
+    }
+
 }

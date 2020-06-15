@@ -16,6 +16,7 @@ import com.dish.seekdish.ui.navDrawer.dishDescription.DishDescriptionActivity
 import com.dish.seekdish.ui.navDrawer.settings.dataModel.Data_Req
 import com.dish.seekdish.ui.navDrawer.toDo.VM.TodoVM
 import com.willy.ratingbar.ScaleRatingBar
+import org.w3c.dom.Text
 import java.util.ArrayList
 
 class ListTodoAdapter(
@@ -35,7 +36,8 @@ class ListTodoAdapter(
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerViewHolder {
-        val view = LayoutInflater.from(parent.context).inflate(R.layout.item_layout_list_todo_frag, parent, false)
+        val view = LayoutInflater.from(parent.context)
+            .inflate(R.layout.item_layout_list_todo_frag, parent, false)
         return RecyclerViewHolder(view)
     }
 
@@ -58,6 +60,7 @@ class ListTodoAdapter(
         var euroScaleRatingBar = listDataClass.budget_rating.toFloat()
         holder.euroScaleRatingBar.rating = euroScaleRatingBar
 
+        holder.tvPrice.text = listDataClass.meal_symbol + " " + listDataClass.meal_price
 
         holder.frameTasteDish.setOnClickListener()
         {
@@ -93,6 +96,7 @@ class ListTodoAdapter(
         internal var euroScaleRatingBar: ScaleRatingBar
         internal var frameTasteDish: FrameLayout
         internal var imgDelete: ImageView
+        internal var tvPrice: TextView
 
         init {
             starScaleRatingBar = view.findViewById(R.id.starRating) as ScaleRatingBar
@@ -103,6 +107,8 @@ class ListTodoAdapter(
             tvStarReview = view.findViewById(R.id.tvStarReview) as TextView
             tvDishName = view.findViewById(R.id.tvDishName) as TextView
             frameTasteDish = view.findViewById(R.id.frameTasteDish) as FrameLayout
+            tvPrice = view.findViewById(R.id.tvPrice) as TextView
+
         }
     }
 

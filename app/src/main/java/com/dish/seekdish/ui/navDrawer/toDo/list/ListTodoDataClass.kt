@@ -22,7 +22,9 @@ data class Data_todo(
     val no_of_reviews: Int,
     val restro_id: Int,
     val restro_name: String,
-    val distance: Double
+    val distance: Double,
+    val meal_price:String,
+    val meal_symbol:String
 )
 
 

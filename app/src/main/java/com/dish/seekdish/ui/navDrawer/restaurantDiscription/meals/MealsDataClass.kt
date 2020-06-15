@@ -7,6 +7,8 @@ data class MealsDataClass(
     var startRating: String? = null,
     var startReview: String? = null,
     var euroRating: String? = null,
-   var mealId: String,
-    var restroId: String
+    var mealId: String,
+    var restroId: String,
+    var price: String,
+   var  symbol: String
 )

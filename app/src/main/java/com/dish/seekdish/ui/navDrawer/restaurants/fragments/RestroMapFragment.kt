@@ -244,7 +244,6 @@ GoogleMap.OnMyLocationClickListener, GoogleMap.OnMarkerClickListener  {
                             var address = arrayList[i].street +", "+arrayList[i].city+", "+arrayList[i].zipcode
                             var restro_id = arrayList[i].id
 
-
                             // adding custom info window
                             var locationPos = LatLng(latititude, longitude);
                             var markerOptions = MarkerOptions();

@@ -6,9 +6,9 @@ data class InfoWindowData(
     var euroRating: String? = null,
     var restroTitle: String? = null,
     var mealId: String? = null,
-    var restaurantId: String? = null
-
-
+    var restaurantId: String? = null,
+    var mealPrice: String? = null,
+    var mealSymbol: String? = null
 )
 
 

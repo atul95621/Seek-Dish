@@ -61,6 +61,8 @@ class TimeFragAdapter(
         var euroScaleRatingBar = timeFragDataClass.budget!!.toFloat()
         holder.euroScaleRatingBar.rating = euroScaleRatingBar
 
+        holder.tvPrice.text = timeFragDataClass.meal_symbol + " " + timeFragDataClass.meal_price
+
         holder.frameTimeDish.setOnClickListener()
         {
             val intent = Intent(context, DishDescriptionActivity::class.java)
@@ -84,7 +86,7 @@ class TimeFragAdapter(
         internal var starScaleRatingBar: ScaleRatingBar
         internal var euroScaleRatingBar: ScaleRatingBar
         internal var frameTimeDish: FrameLayout
-
+internal  var tvPrice:TextView
 
         init {
             starScaleRatingBar = view.findViewById(R.id.simpleRatingBar) as ScaleRatingBar
@@ -94,6 +96,7 @@ class TimeFragAdapter(
             tvStarReview = view.findViewById(R.id.tvStarReview) as TextView
             tvDishName = view.findViewById(R.id.tvDishName) as TextView
             frameTimeDish = view.findViewById(R.id.frameTimeDish) as FrameLayout
+            tvPrice = view.findViewById(R.id.tvPrice) as TextView
 
         }
     }

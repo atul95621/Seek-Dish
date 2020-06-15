@@ -115,8 +115,22 @@ class MyInformationActivity : BaseActivity(), IMyInformationView {
             val dpd = DatePickerDialog(
                 this,
                 DatePickerDialog.OnDateSetListener { view, year, monthOfYear, dayOfMonth ->
+
+                    var date = ""
+                    var month = ""
+                    if (dayOfMonth.toString().length == 1) {
+                        date = "0" + dayOfMonth
+                    } else {
+                        date = dayOfMonth.toString()
+                    }
+
+                    if (monthOfYear.plus(1).toString().length == 1) {
+                        month = "0" + monthOfYear.plus(1)
+                    } else {
+                        month = monthOfYear.plus(1).toString()
+                    }
                     // Display Selected date in textbox
-                    tvDOB.setText("" + year  + "-" + monthOfYear.plus(1) + "-" +dayOfMonth )
+                    tvDOB.setText(date + "/" + month + "/" + year.toString())
 
                 },
                 year,
@@ -212,7 +226,8 @@ class MyInformationActivity : BaseActivity(), IMyInformationView {
             if (tvDOB.length() == 0) {
                 dob = ""
             } else {
-                dob = tvDOB.text.toString()
+                val date = dateParseToSend(tvDOB.text.toString())
+                dob = date
             }
 
             Log.e("check22", "Pro  " + profession_id + "  " + dob)
@@ -709,7 +724,9 @@ class MyInformationActivity : BaseActivity(), IMyInformationView {
                 edtWeight.setText(profileDataClass.data.weight)
                 edtHeight.setText(profileDataClass.data.height)
                 edtBio.setText(profileDataClass.data.bio)
-                tvDOB.setText(profileDataClass.data.birth_date)
+
+                var dateRaw = profileDataClass.data.birth_date
+                tvDOB.setText(dateParse(dateRaw))
 
                 var genderValue: String = profileDataClass.data.gender
                 var bodyFatVal: String = profileDataClass.data.body_fat
@@ -778,8 +795,7 @@ class MyInformationActivity : BaseActivity(), IMyInformationView {
                 selectedAlready = item
             }
         }
-        Log.e("proID","  "+selectedAlready)
-
+        Log.e("proID", "  " + selectedAlready)
 
 
         // Creating adapter for spinner
@@ -792,7 +808,7 @@ class MyInformationActivity : BaseActivity(), IMyInformationView {
         spinnerProfession!!.adapter = professionAdapter
 
         if (selectedAlready != 0) {
-            Log.e("proID2","  "+selectedAlready)
+            Log.e("proID2", "  " + selectedAlready)
 
             spinnerProfession.setSelection(selectedAlready)
             profession_id = selectedAlready.toString()

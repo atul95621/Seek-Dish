@@ -49,6 +49,9 @@ import de.hdodenhof.circleimageview.CircleImageView
 import io.reactivex.android.schedulers.AndroidSchedulers
 import kotlinx.android.synthetic.main.activity_restro_description.*
 import kotlinx.android.synthetic.main.activity_restro_description.tvBack
+import java.text.SimpleDateFormat
+import java.util.*
+import kotlin.collections.HashSet
 
 class RestroDescrpActivity : BaseActivity() {
     lateinit var tabLayout: TabLayout
@@ -109,6 +112,7 @@ class RestroDescrpActivity : BaseActivity() {
         }
         getDishDetailsObserver()
         getAddAlertObserver()
+        getCallCountCount()
         clickListner()
 
 
@@ -188,7 +192,10 @@ class RestroDescrpActivity : BaseActivity() {
         imgCallRestro.setOnClickListener()
         {
             if (checkImgPermissionIsEnabledOrNot()) {
-                callTheRestaurant();
+                if (!restro_id.isNullOrEmpty()) {
+                    hitCallCountApi()
+                    callTheRestaurant();
+                }
             } else {
                 requestImagePermission()
             }
@@ -219,6 +226,16 @@ class RestroDescrpActivity : BaseActivity() {
         restroDescpVM?.doGetRestroDetails(
             sessionManager?.getValue(SessionManager.USER_ID).toString(),
             restroId
+        )
+    }
+
+    private fun hitCallCountApi() {
+        val currentDate: String =
+            SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(Date())
+        restroDescpVM?.postCallCount(
+            sessionManager?.getValue(SessionManager.USER_ID).toString(),
+            restro_id.toString(),
+            currentDate
         )
     }
 
@@ -270,7 +287,6 @@ class RestroDescrpActivity : BaseActivity() {
             onShareSocial()
             actionDialog.dismiss()
         }
-
         actionDialog.show()
 
     }
@@ -413,6 +429,8 @@ class RestroDescrpActivity : BaseActivity() {
                     tvRestroName.setText(response.data.restaurant.name)
                     tvRestroAddress.setText(response.data.restaurant.street + ", " + response.data.restaurant.city + ", " + response.data.restaurant.zipcode)
                     tvRestroReview.setText("(" + response.data.restaurant.no_of_reviews + ")")
+
+
                     latitude = response.data.restaurant.latitude
                     longitude = response.data.restaurant.longitude
                     ratingRestro.rating = response.data.restaurant.rating.toFloat()
@@ -541,6 +559,28 @@ class RestroDescrpActivity : BaseActivity() {
                 showSnackBar(
                     this.getResources().getString(R.string.error_occured) + "    $response"
                 );
+            }
+        })
+    }
+
+    fun getCallCountCount() {
+        //observe
+        restroDescpVM!!.isLoadingObservable().observeOn(AndroidSchedulers.mainThread())
+            .subscribe {
+                setIsLoading(it)
+            }
+
+        restroDescpVM!!.getCallCountLiveData.observe(this, Observer { response ->
+            if (response != null) {
+                Log.e("rspCall", response.toString())
+                if (response.status == 1) {
+//                    showSnackBar(response.message)
+                } else {
+                    showSnackBar(response.message)
+                }
+            } else {
+                showSnackBar(getResources().getString(R.string.error_occured) + "   $response ");
+                Log.e("rspCallFail", "else error")
             }
         })
     }

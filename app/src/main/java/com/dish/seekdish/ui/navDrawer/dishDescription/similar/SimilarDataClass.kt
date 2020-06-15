@@ -8,5 +8,7 @@ data class SimilarDataClass(
     var startReview: String? = null,
     var euroRating: String? = null,
     var mealId: String? = null,
-    var restroId: String? = null
+    var restroId: String? = null,
+    var price: String? = null,
+    var symbol: String? = null
 )

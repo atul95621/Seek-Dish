@@ -247,7 +247,8 @@ class HomeMapFragment : BaseFragment(), OnMapReadyCallback, GoogleMap.OnMyLocati
                                         var mealName = arrayList[i].name
                                         var mealId = arrayList[i].meal_id.toString()
                                         var restroId = arrayList[i].restro_id.toString()
-
+                                        var mealPrice = arrayList[i].meal_price.toString()
+                                        var mealSymbol = arrayList[i].meal_symbol.toString()
 
                                         // adding custom info window
                                         var locationPos = LatLng(latititude, longitude);
@@ -267,7 +268,9 @@ class HomeMapFragment : BaseFragment(), OnMapReadyCallback, GoogleMap.OnMyLocati
                                             euroRate,
                                             mealName,
                                             mealId.toString(),
-                                            restroId.toString()
+                                            restroId.toString(),
+                                            mealPrice,
+                                            mealSymbol
                                         )
 
 

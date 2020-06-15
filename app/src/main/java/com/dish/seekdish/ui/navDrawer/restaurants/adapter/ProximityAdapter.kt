@@ -48,7 +48,6 @@ class ProximityAdapter(
         var imageUrl: String = proxiModel.restaurant_image
         GlideApp.with(context)
             .load(imageUrl)
-            .placeholder(R.drawable.app_logo)
             .into(holder.imgFoodImage)
         holder.tvDishName.text = proxiModel.name
         holder.tvAddress.text = proxiModel.street+","+proxiModel.city+","+proxiModel.zipcode

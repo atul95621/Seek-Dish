@@ -54,9 +54,10 @@ class MealsAdapter(
         var euroScaleRatingBar = tasteDataClass.euroRating!!.toFloat()
         holder.euroScaleRatingBar.rating = euroScaleRatingBar
 
+        holder.tvPrice.text = tasteDataClass.symbol + " " + tasteDataClass.price
+
         holder.frameTasteDish.setOnClickListener()
         {
-
             val intent = Intent(activity, DishDescriptionActivity::class.java)
             intent.putExtra("MEAL_ID",tasteDataClass.mealId.toString())
             intent.putExtra("RESTAURANT_ID",tasteDataClass.restroId.toString())
@@ -67,7 +68,6 @@ class MealsAdapter(
 
 
     override fun getItemCount(): Int {
-
         return arrayList.size
     }
 
@@ -80,6 +80,7 @@ class MealsAdapter(
         internal var starScaleRatingBar: ScaleRatingBar
         internal var euroScaleRatingBar: ScaleRatingBar
         internal var frameTasteDish: FrameLayout
+        internal  var tvPrice:TextView
 
         init {
             starScaleRatingBar = view.findViewById(com.dish.seekdish.R.id.simpleRatingBar) as ScaleRatingBar
@@ -89,6 +90,7 @@ class MealsAdapter(
             tvStarReview = view.findViewById(com.dish.seekdish.R.id.tvStarReview) as TextView
             tvDishName = view.findViewById(com.dish.seekdish.R.id.tvDishName) as TextView
             frameTasteDish = view.findViewById(com.dish.seekdish.R.id.frameTasteDish) as FrameLayout
+            tvPrice = view.findViewById(R.id.tvPrice) as TextView
 
         }
     }

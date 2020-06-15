@@ -206,7 +206,8 @@ class FavouriteMapFragment : BaseFragment(), OnMapReadyCallback, GoogleMap.OnMyL
                                         var mealName = arrayList[i].name
                                         var mealId = arrayList[i].meal_id.toString()
                                         var restroId = arrayList[i].restro_id.toString()
-
+                                        var mealPrice = arrayList[i].meal_price.toString()
+                                        var mealSymbol = arrayList[i].meal_symbol.toString()
 
                                         // adding custom info window
                                         var locationPos = LatLng(latititude, longitude);
@@ -227,7 +228,9 @@ class FavouriteMapFragment : BaseFragment(), OnMapReadyCallback, GoogleMap.OnMyL
                                             euroRate,
                                             mealName,
                                             mealId.toString(),
-                                            restroId.toString()
+                                            restroId.toString(),
+                                            mealPrice,
+                                            mealSymbol
                                         );
 
 

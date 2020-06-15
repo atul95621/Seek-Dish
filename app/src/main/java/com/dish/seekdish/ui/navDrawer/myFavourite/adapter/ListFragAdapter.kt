@@ -76,6 +76,7 @@ class ListFragAdapter(
         var euroScaleRatingBar = listDataClass.budget_rating.toFloat()
         holder.euroScaleRatingBar.rating = euroScaleRatingBar
 
+        holder.tvPrice.text = listDataClass.meal_symbol + " " + listDataClass.meal_price
 
         holder.frameTasteDish.setOnClickListener()
         {
@@ -112,6 +113,7 @@ class ListFragAdapter(
         internal var starScaleRatingBar: ScaleRatingBar
         internal var euroScaleRatingBar: ScaleRatingBar
         internal var frameTasteDish: FrameLayout
+        internal var tvPrice: TextView
 
         init {
             starScaleRatingBar = view.findViewById(R.id.simpleRatingBar) as ScaleRatingBar
@@ -122,6 +124,7 @@ class ListFragAdapter(
             tvStarReview = view.findViewById(R.id.tvStarReview) as TextView
             tvDishName = view.findViewById(R.id.tvDishName) as TextView
             frameTasteDish = view.findViewById(R.id.frameTasteDish) as FrameLayout
+            tvPrice = view.findViewById(R.id.tvPrice) as TextView
 
         }
     }

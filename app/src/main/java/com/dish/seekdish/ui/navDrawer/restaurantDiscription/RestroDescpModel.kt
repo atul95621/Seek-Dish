@@ -32,7 +32,7 @@ data class Restaurant(
     val rating: String,
     val restaurant_detail: RestaurantDetail,
     val restaurant_image: List<String>,
-    val service_speed: Int?,
+    val service_speed: String?,
     val similar_restaurants: ArrayList<SimilarRestaurant>,
     val street: String
 ):Serializable
@@ -48,7 +48,9 @@ data class Meal(
     val meal_name: String,
     val no_of_reviews: Int,
     val restro_id: Int,
-    val restro_name: String
+    val restro_name: String,
+    val meal_price:String,
+    val meal_symbol:String
 ):Serializable
 
 data class RestaurantDetail(
@@ -87,7 +89,7 @@ data class SimilarRestaurant(
     val rating: String,
     val restaurant_image: String,
     val schedule: String,
-    val service_speed: Int,
+    val service_speed: String,
     val street: String,
     val website: String,
     val distance:String

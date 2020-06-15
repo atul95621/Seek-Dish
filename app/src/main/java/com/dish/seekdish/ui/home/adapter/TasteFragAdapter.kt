@@ -62,6 +62,8 @@ class TasteFragAdapter(
         var euroScaleRatingBar = tasteDataClass.budget!!.toFloat()
         holder.euroScaleRatingBar.rating = euroScaleRatingBar
 
+        holder.tvPrice.text = tasteDataClass.meal_symbol + " " + tasteDataClass.meal_price
+
         holder.frameTasteDish.setOnClickListener()
         {
             val intent = Intent(context, DishDescriptionActivity::class.java)
@@ -86,6 +88,7 @@ class TasteFragAdapter(
         internal var starScaleRatingBar: ScaleRatingBar
         internal var euroScaleRatingBar: ScaleRatingBar
         internal var frameTasteDish: FrameLayout
+        internal var tvPrice: TextView
 
         init {
             starScaleRatingBar = view.findViewById(R.id.simpleRatingBar) as ScaleRatingBar
@@ -95,6 +98,7 @@ class TasteFragAdapter(
             tvStarReview = view.findViewById(R.id.tvStarReview) as TextView
             tvDishName = view.findViewById(R.id.tvDishName) as TextView
             frameTasteDish = view.findViewById(R.id.frameTasteDish) as FrameLayout
+            tvPrice = view.findViewById(R.id.tvPrice) as TextView
 
         }
     }

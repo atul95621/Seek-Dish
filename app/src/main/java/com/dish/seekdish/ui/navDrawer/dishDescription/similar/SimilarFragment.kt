@@ -63,7 +63,11 @@ class SimilarFragment(var objDishModel: DishDescpModel) : BaseFragment() {
                     item.no_of_reviews.toString(),
                     item.budget_rating.toString(),
                     item.meal_id.toString(),
-                    item.restro_id.toString()
+                    item.restro_id.toString(),
+                    item.meal_price.toString(),
+                    item.meal_symbol.toString()
+
+
                 );
                 arrayList.add(similarDataClass)
             }
