@@ -51,6 +51,7 @@ class MealsFragment(var response: RestroDescpModel) : BaseFragment() {
             var restroId = response.data.restaurant.meals[i].restro_id
             var price = response.data.restaurant.meals[i].meal_price
             var symbol = response.data.restaurant.meals[i].meal_symbol
+            var meal_type = response.data.restaurant.meals[i].meal_type
 
 
             val MealsDataClass = MealsDataClass(
@@ -63,7 +64,8 @@ class MealsFragment(var response: RestroDescpModel) : BaseFragment() {
                 mealId.toString(),
                 restroId.toString(),
                 price,
-                symbol
+                symbol,
+                meal_type
             );
             arrayList.add(MealsDataClass)
         }

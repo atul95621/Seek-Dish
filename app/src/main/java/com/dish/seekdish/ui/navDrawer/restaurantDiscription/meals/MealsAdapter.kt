@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.FrameLayout
 import android.widget.ImageView
+import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
@@ -15,7 +16,6 @@ import com.dish.seekdish.ui.navDrawer.restaurantDiscription.RestroDescrpActivity
 import com.willy.ratingbar.ScaleRatingBar
 import java.text.DecimalFormat
 import java.util.ArrayList
-
 
 
 class MealsAdapter(
@@ -34,7 +34,8 @@ class MealsAdapter(
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerViewHolder {
-        val view = LayoutInflater.from(parent.context).inflate(com.dish.seekdish.R.layout.item_layout_restro_meal_frag, parent, false)
+        val view = LayoutInflater.from(parent.context)
+            .inflate(com.dish.seekdish.R.layout.item_layout_restro_meal_frag, parent, false)
         return RecyclerViewHolder(view)
     }
 
@@ -43,10 +44,11 @@ class MealsAdapter(
 
         // getting all vales and storing in val...
         var imageUrl: String = tasteDataClass.foodImageUrl.toString()
-        Glide.with(activity).load(imageUrl).placeholder(R.drawable.app_logo).into(holder.imgFoodImage);
+        Glide.with(activity).load(imageUrl)
+            .into(holder.imgFoodImage);
         holder.tvDishName.text = tasteDataClass.dishName
         var dist = tasteDataClass.distance?.toDouble()
-        holder.tvDistance.setText(DecimalFormat("##.##").format(dist)+" km")
+        holder.tvDistance.setText(DecimalFormat("##.##").format(dist) + " km")
         var review: String = "(" + tasteDataClass.startReview + ")"
         holder.tvStarReview.text = review
         var startRating = tasteDataClass.startRating!!.toFloat()
@@ -56,11 +58,25 @@ class MealsAdapter(
 
         holder.tvPrice.text = tasteDataClass.symbol + " " + tasteDataClass.price
 
+        // for making the sections
+        if (position == 0) {
+            holder.linHeader.visibility = View.VISIBLE
+            holder.tvTypeOfMeal.setText(tasteDataClass.mealType)
+        } else {
+            if (arrayList[position].mealType.equals(arrayList[position.minus(1)].mealType)) {
+                holder.linHeader.visibility = View.GONE
+            } else {
+                holder.linHeader.visibility = View.VISIBLE
+                holder.tvTypeOfMeal.setText(tasteDataClass.mealType)
+            }
+        }
+
+
         holder.frameTasteDish.setOnClickListener()
         {
             val intent = Intent(activity, DishDescriptionActivity::class.java)
-            intent.putExtra("MEAL_ID",tasteDataClass.mealId.toString())
-            intent.putExtra("RESTAURANT_ID",tasteDataClass.restroId.toString())
+            intent.putExtra("MEAL_ID", tasteDataClass.mealId.toString())
+            intent.putExtra("RESTAURANT_ID", tasteDataClass.restroId.toString())
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK)
             activity.startActivity(intent)
         }
@@ -80,17 +96,23 @@ class MealsAdapter(
         internal var starScaleRatingBar: ScaleRatingBar
         internal var euroScaleRatingBar: ScaleRatingBar
         internal var frameTasteDish: FrameLayout
-        internal  var tvPrice:TextView
+        internal var tvPrice: TextView
+        internal var tvTypeOfMeal: TextView
+        internal var linHeader: LinearLayout
 
         init {
-            starScaleRatingBar = view.findViewById(com.dish.seekdish.R.id.simpleRatingBar) as ScaleRatingBar
-            euroScaleRatingBar = view.findViewById(com.dish.seekdish.R.id.euroSignRatingBar) as ScaleRatingBar
+            starScaleRatingBar =
+                view.findViewById(com.dish.seekdish.R.id.simpleRatingBar) as ScaleRatingBar
+            euroScaleRatingBar =
+                view.findViewById(com.dish.seekdish.R.id.euroSignRatingBar) as ScaleRatingBar
             imgFoodImage = view.findViewById(com.dish.seekdish.R.id.imgFoodImage) as ImageView
             tvDistance = view.findViewById(com.dish.seekdish.R.id.tvDistance) as TextView
             tvStarReview = view.findViewById(com.dish.seekdish.R.id.tvStarReview) as TextView
             tvDishName = view.findViewById(com.dish.seekdish.R.id.tvDishName) as TextView
             frameTasteDish = view.findViewById(com.dish.seekdish.R.id.frameTasteDish) as FrameLayout
             tvPrice = view.findViewById(R.id.tvPrice) as TextView
+            tvTypeOfMeal = view.findViewById(R.id.tvTypeOfMeal) as TextView
+            linHeader = view.findViewById(R.id.linHeader) as LinearLayout
 
         }
     }

@@ -42,6 +42,7 @@ data class Meals(
     val restro_name: String,
     val meal_price:String,
     val meal_symbol:String,
+    val description:String,
     val seasons: List<String>
 ) : Serializable
 
@@ -56,7 +57,9 @@ data class Ingredients(
     val intolerance_compatibilities: List<String>,
     val meal_tags: List<String>,
     val restaurant_tags: List<String>,
-    val seasoning: List<String>
+    val seasoning: List<String>,
+    val meal_keywords: List<String>
+
 ) : Serializable
 
 data class SimilarMeal(

@@ -29,7 +29,7 @@ class CustomInfoWindowGoogleMap(
 
 
         val star_rating = view.findViewById<RatingBar>(R.id.infowindow_rating)
-        val euro_rating = view.findViewById<RatingBar>(R.id.euro_rating)
+//        val euro_rating = view.findViewById<RatingBar>(R.id.euro_rating)
         val tvRestro = view.findViewById<TextView>(R.id.tvRestro)
         val imgInfoWindow = view.findViewById<ImageView>(R.id.imgInfoWindow)
         val tvPrice = view.findViewById<TextView>(R.id.tvPrice)
@@ -61,10 +61,10 @@ class CustomInfoWindowGoogleMap(
 //        starRatingBar.rating= infoWindowGoogleMap.starRating!!.toFloat()
 
 
-        Log.e(
+   /*     Log.e(
             "rate",
             "star:  " + infoWindowGoogleMap.starRating + "\neuro :" + infoWindowGoogleMap.euroRating + "\nimageurl :" + infoWindowGoogleMap.imageUrl + "\neuro :" + infoWindowGoogleMap.restroTitle
-        )
+        )*/
 
         return view
     }

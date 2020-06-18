@@ -21,13 +21,13 @@ data class Restaurant(
     val description: String,
     val distance: Double,
     val id: Int,
-    val zipcode:Int,
+    val zipcode: Int,
     val latitude: String,
     val longitude: String,
     val meals: List<Meal>,
     val name: String,
-    val facebook:String,
-    val twitter:String,
+    val facebook: String,
+    val twitter: String,
     val no_of_reviews: Int,
     val rating: String,
     val restaurant_detail: RestaurantDetail,
@@ -35,7 +35,7 @@ data class Restaurant(
     val service_speed: String?,
     val similar_restaurants: ArrayList<SimilarRestaurant>,
     val street: String
-):Serializable
+) : Serializable
 
 data class Meal(
     val budget: Int,
@@ -49,9 +49,10 @@ data class Meal(
     val no_of_reviews: Int,
     val restro_id: Int,
     val restro_name: String,
-    val meal_price:String,
-    val meal_symbol:String
-):Serializable
+    val meal_price: String,
+    val meal_symbol: String,
+    val meal_type: String
+) : Serializable
 
 data class RestaurantDetail(
     val additional_services: List<String>,
@@ -70,7 +71,7 @@ data class Detail(
     val phone: String?,
     val schedule: String?,
     val website: String?
-):Serializable
+) : Serializable
 
 data class SimilarRestaurant(
     val city: String,
@@ -79,7 +80,7 @@ data class SimilarRestaurant(
     val email: String,
     val guests: String,
     val id: Int,
-    val zipcode:Int,
+    val zipcode: Int,
     val latitude: String,
     val longitude: String,
     val name: String,
@@ -92,5 +93,5 @@ data class SimilarRestaurant(
     val service_speed: String,
     val street: String,
     val website: String,
-    val distance:String
-):Serializable
+    val distance: String
+) : Serializable

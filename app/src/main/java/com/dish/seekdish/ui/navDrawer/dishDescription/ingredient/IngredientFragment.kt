@@ -47,7 +47,8 @@ class IngredientFragment(var objDishModel: DishDescpModel) : BaseFragment() {
         loadData()
 
         //get reference of the ExpandableListView
-        simpleExpandableListView = view.findViewById(R.id.simpleExpandableListView) as ExpandableListView
+        simpleExpandableListView =
+            view.findViewById(R.id.simpleExpandableListView) as ExpandableListView
         // create the adapter by passing your ArrayList data
         listAdapter = CustomAdapter(context, deptList)
         // attach the adapter to the expandable list view
@@ -64,10 +65,10 @@ class IngredientFragment(var objDishModel: DishDescpModel) : BaseFragment() {
             //get the child info
             val detailInfo = headerInfo.playerName[childPosition]
             //display it or do something with it
-         /*   Toast.makeText(
-                context, " Team And Player :: " + headerInfo.name
-                        + "/" + detailInfo.name, Toast.LENGTH_LONG
-            ).show()*/
+            /*   Toast.makeText(
+                   context, " Team And Player :: " + headerInfo.name
+                           + "/" + detailInfo.name, Toast.LENGTH_LONG
+               ).show()*/
             false
         })
         // setOnGroupClickListener listener for group heading click
@@ -103,6 +104,8 @@ class IngredientFragment(var objDishModel: DishDescpModel) : BaseFragment() {
         var tags = objDishModel.data.Ingredients.meal_tags
         var rest_tags = objDishModel.data.Ingredients.restaurant_tags
         var seasoning = objDishModel.data.Ingredients.seasoning
+        var keywords = objDishModel.data.Ingredients.meal_keywords
+        var description = objDishModel.data.meals.description
 
 
         for (items in main_ingre) {
@@ -132,11 +135,17 @@ class IngredientFragment(var objDishModel: DishDescpModel) : BaseFragment() {
         /*for (items in intolerance) {
             addProduct(getString(R.string.intol_capa), items.toString())
         }*/
-        for (items in tags) {
-            addProduct(getString(R.string.meal), items.toString())
+        /*  for (items in tags) {
+              addProduct(getString(R.string.meal), items.toString())
+          }
+          for (items in rest_tags) {
+              addProduct(getString(R.string.restro_tags), items.toString())
+          }*/
+        for (items in keywords) {
+            addProduct(getString(R.string.keywords), items)
         }
-        for (items in rest_tags) {
-            addProduct(getString(R.string.restro_tags), items.toString())
+        if (!description.isNullOrEmpty()) {
+            addProduct(getString(R.string.description), description)
         }
 
     }

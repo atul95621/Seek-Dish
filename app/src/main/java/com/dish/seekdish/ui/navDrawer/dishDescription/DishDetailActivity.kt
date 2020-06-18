@@ -70,14 +70,14 @@ class DishDetailActivity : BaseActivity() {
         mResources.add(imageMeal)
 
         tvRestroName.setText(dishMealModel.restro_name)
-        tvBudget.setText(dishMealModel.budget_price)
+        tvBudget.setText(dishMealModel.meal_symbol+" "+dishMealModel.meal_price)
         tvCalories.setText(dishMealModel.calories.toString())
         tvPerson.setText(dishMealModel.meal_people)
 //        tvSpeed.setText(dishMealModel.preperation_time)
         tvPrepTime.setText(dishMealModel.preperation_time)
         tvTypeDish.setText(dishMealModel.meal_type)
         tvPrice.setText(dishMealModel.meal_symbol+" "+dishMealModel.meal_price)
-
+        tvDescription.setText(dishMealModel.description)
 
         for (item in dishMealModel.seasons) {
             seasonArr.add(item)

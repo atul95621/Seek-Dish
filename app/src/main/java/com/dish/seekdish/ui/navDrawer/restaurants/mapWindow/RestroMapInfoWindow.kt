@@ -27,7 +27,7 @@ class RestroMapInfoWindow(
 
 
 //        val star_rating=  view.findViewById<RatingBar>(R.id.infowindow_rating)
-        val euro_rating = view.findViewById<RatingBar>(R.id.euro_rating)
+//        val euro_rating = view.findViewById<RatingBar>(R.id.euro_rating)
         val tvRestro = view.findViewById<TextView>(R.id.tvRestro)
         val imgInfoWindow = view.findViewById<ImageView>(R.id.imgInfoWindow)
 //        val euroRatingBar = view.findViewById<ScaleRatingBar>(R.id.euroRatingBar)
@@ -43,11 +43,11 @@ class RestroMapInfoWindow(
         //        imgUrl.setImageResource(imageId);
 //        imgInfoWindow.setImageResource(R.drawable.ic_foodex)
 
-
+/*
         Log.e(
             "rate",
             "star:  " + infoWindowGoogleMap.starRating + "\nimageurl :" + infoWindowGoogleMap.imageUrl + "\neuro :" + infoWindowGoogleMap.restroTitle
-        )
+        )*/
         GlideApp.with(context)
             .load(infoWindowGoogleMap.imageUrl)
             .placeholder(R.drawable.app_logo)
@@ -55,7 +55,7 @@ class RestroMapInfoWindow(
         tvRestro.setText(infoWindowGoogleMap.restroTitle)
 
 //        star_rating.rating= infoWindowGoogleMap.starRating!!.toFloat()
-        euro_rating.rating = infoWindowGoogleMap.starRating!!.toFloat()
+//        euro_rating.rating = infoWindowGoogleMap.starRating!!.toFloat()
         tvAddress.text= infoWindowGoogleMap.address.toString()
 //        euroRatingBar.rating=infoWindowGoogleMap.starRating!!.toFloat()
         return view

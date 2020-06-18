@@ -104,7 +104,7 @@
                     </LinearLayout>
                     <!--budget-->
                     <LinearLayout
-                        android:visibility="gone"
+                        android:visibility="visible"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="horizontal"
@@ -134,6 +134,8 @@
                         android:layout_height="wrap_content"
                         android:orientation="horizontal"
                         android:padding="10dp"
+                        android:background="@color/colorPrimary"
+
                         android:weightSum="2">
 
                         <TextView
@@ -159,7 +161,6 @@
                         android:layout_height="wrap_content"
                         android:orientation="horizontal"
                         android:padding="10dp"
-                        android:background="@color/colorPrimary"
 
                         android:weightSum="2">
 
@@ -187,6 +188,8 @@
                         android:layout_height="wrap_content"
                         android:orientation="horizontal"
                         android:padding="10dp"
+                        android:background="@color/colorPrimary"
+
                         android:weightSum="2">
 
                         <TextView
@@ -210,7 +213,6 @@
                         android:layout_height="wrap_content"
                         android:orientation="horizontal"
                         android:padding="10dp"
-                        android:background="@color/colorPrimary"
                         android:visibility="gone"
                         android:weightSum="2">
 
@@ -235,7 +237,6 @@
                         android:layout_height="wrap_content"
                         android:orientation="horizontal"
                         android:padding="10dp"
-                        android:background="@color/colorPrimary"
                         android:weightSum="2">
 
                         <TextView
@@ -260,6 +261,7 @@
                         android:layout_height="wrap_content"
                         android:orientation="horizontal"
                         android:padding="10dp"
+                        android:background="@color/colorPrimary"
                         android:weightSum="2">
 
                         <TextView
@@ -285,7 +287,6 @@
                         android:layout_height="wrap_content"
                         android:orientation="horizontal"
                         android:padding="10dp"
-                        android:background="@color/colorPrimary"
                         android:weightSum="2">
 
                         <TextView
@@ -311,6 +312,7 @@
                         android:layout_height="wrap_content"
                         android:orientation="horizontal"
                         android:padding="10dp"
+                        android:background="@color/colorPrimary"
                         android:weightSum="2">
 
                         <TextView
@@ -336,7 +338,6 @@
                         android:layout_height="wrap_content"
                         android:orientation="horizontal"
                         android:padding="10dp"
-                        android:background="@color/colorPrimary"
                         android:weightSum="2">
 
                         <TextView
@@ -356,11 +357,36 @@
                             android:textColor="@color/black" />
                     </LinearLayout>
 
+                    <!-- type of dish-->
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:padding="10dp"
+                        android:background="@color/colorPrimary"
+                        android:weightSum="2">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:fontFamily="@font/assistantbold"
+                            android:text="Description"
+                            android:textColor="@color/black" />
+
+                        <TextView
+                            android:id="@+id/tvDescription"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text=""
+                            android:textColor="@color/black" />
+                    </LinearLayout>
                 </LinearLayout>
+
+
             </ScrollView>
         </LinearLayout>
-
-
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
@@ -384,6 +410,7 @@
                         android:gravity="center"
                         android:layout_marginTop="5dp"
                         android:text=""
+                        android:maxLines="1"
                         android:textColor="@color/black"
                         android:textSize="20sp" />
 

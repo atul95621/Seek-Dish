@@ -181,7 +181,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="4.7"
+        android:layout_weight="4.9"
         android:orientation="vertical">
 
         <LinearLayout
@@ -237,8 +237,7 @@
         android:layout_gravity="center"
         android:layout_marginStart="30dp"
         android:layout_marginEnd="30dp"
-        android:layout_marginBottom="5dp"
-        android:layout_weight=".3"
+        android:layout_weight=".1"
         android:background="@android:color/transparent"
         android:gravity="center"
         android:weightSum="3">
@@ -252,7 +251,6 @@
 
         <ImageView
             android:id="@+id/imgRatings"
-
             android:layout_width="0dp"
             android:layout_height="55dp"
             android:layout_marginStart="30dp"

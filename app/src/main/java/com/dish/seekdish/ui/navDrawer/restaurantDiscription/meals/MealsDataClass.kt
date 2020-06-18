@@ -10,5 +10,6 @@ data class MealsDataClass(
     var mealId: String,
     var restroId: String,
     var price: String,
-   var  symbol: String
+    var symbol: String,
+    var mealType: String
 )

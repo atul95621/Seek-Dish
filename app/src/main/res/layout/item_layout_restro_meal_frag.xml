@@ -3,8 +3,32 @@
     android:layout_width="match_parent"
     android:layout_height="200dp"
     android:background="@color/white"
-
     android:orientation="vertical">
+
+    <LinearLayout
+        android:id="@+id/linHeader"
+        android:layout_width="match_parent"
+        android:orientation="horizontal"
+        android:background="@color/gray_lighter"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/tvTypeOfMeal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:fontFamily="@font/assistantbold"
+            android:padding="5dp"
+            android:text=""
+          />
+
+        <ImageView
+            android:layout_width="15dp"
+            android:layout_height="15sp"
+            android:layout_gravity="center"
+            android:layout_marginEnd="10dp"
+            android:src="@drawable/ic_down"/>
+    </LinearLayout>
 
     <FrameLayout
         android:id="@+id/frameTasteDish"
@@ -105,9 +129,9 @@
                 <TextView
                     android:id="@+id/tvDistance"
                     android:layout_width="wrap_content"
-                    android:layout_marginStart="10dp"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical|start"
+                    android:layout_marginStart="10dp"
                     android:text="1.73 Km" />
 
                 <com.willy.ratingbar.ScaleRatingBar xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -127,11 +151,7 @@
                     app:srb_starPadding="3dp"
                     app:srb_starWidth="15dp"
                     app:srb_stepSize="1"></com.willy.ratingbar.ScaleRatingBar>
-
-
             </LinearLayout>
-
-
         </LinearLayout>
     </FrameLayout>
 </LinearLayout>
