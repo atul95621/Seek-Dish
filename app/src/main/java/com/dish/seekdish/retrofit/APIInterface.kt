@@ -275,7 +275,6 @@ internal interface APIInterface {
         @Field("page_no") pageNo: String,
         @Field("per_page") perPage: String,
         @Field("search_term") searchTerm: String
-
     ): Call<DisLikeDataClass>
 
 
@@ -284,7 +283,6 @@ internal interface APIInterface {
     fun getFilterData(
         @Field("user_id") userId: String,
         @Field("language_id") languageId: String
-
     ): Call<FilterDataModel>
 
 

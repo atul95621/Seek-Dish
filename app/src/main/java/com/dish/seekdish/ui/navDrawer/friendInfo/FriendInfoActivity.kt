@@ -11,6 +11,7 @@ import androidx.core.app.ComponentActivity
 import androidx.core.app.ComponentActivity.ExtraData
 import androidx.core.content.ContextCompat.getSystemService
 import android.icu.lang.UCharacter.GraphemeClusterBreak.T
+import android.view.View
 import com.dish.seekdish.custom.GlideApp
 import com.dish.seekdish.ui.home.HomeActivity
 import com.dish.seekdish.ui.navDrawer.checkin.data.Data_Checkin
@@ -48,6 +49,8 @@ class FriendInfoActivity : BaseActivity() {
                 val intent = Intent(this@FriendInfoActivity, ContactActivity::class.java)
                 intent.putExtra("USER_ID", user_id.toString());
                 startActivity(intent)
+            } else {
+                tvContact.visibility = View.GONE
             }
         }
 
