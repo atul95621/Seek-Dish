@@ -4,48 +4,45 @@ import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
 import android.util.Log
-
-import androidx.core.view.GravityCompat
-import androidx.appcompat.app.ActionBarDrawerToggle
-import android.view.MenuItem
-import androidx.drawerlayout.widget.DrawerLayout
-import com.google.android.material.navigation.NavigationView
-import androidx.appcompat.widget.Toolbar
 import android.view.Menu
-
-import com.dish.seekdish.util.BaseActivity
-import com.dish.seekdish.R
-import com.dish.seekdish.ui.home.fragments.HomeFragment
-import com.dish.seekdish.ui.navDrawer.activities.MyProfileActivity
-import com.dish.seekdish.ui.navDrawer.myFavourite.MyFavouriteFragment
-import com.dish.seekdish.ui.navDrawer.myFriends.MyFriendsFragment
-import com.dish.seekdish.ui.navDrawer.restaurants.RestaurantsFragment
-import com.dish.seekdish.ui.navDrawer.settings.SettingsFragment
-import de.hdodenhof.circleimageview.CircleImageView
-
+import android.view.MenuItem
 import android.view.View
 import android.widget.*
+import androidx.activity.OnBackPressedCallback
+import androidx.appcompat.app.ActionBarDrawerToggle
+import androidx.appcompat.widget.Toolbar
+import androidx.core.view.GravityCompat
+import androidx.drawerlayout.widget.DrawerLayout
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.dish.seekdish.Constants
+import com.dish.seekdish.R
 import com.dish.seekdish.custom.GlideApp
 import com.dish.seekdish.ui.home.adapter.FilterAdapter
 import com.dish.seekdish.ui.home.dataModel.FilterDataModel
+import com.dish.seekdish.ui.home.fragments.HomeFragment
 import com.dish.seekdish.ui.home.viewModel.HomeActivityVM
+import com.dish.seekdish.ui.navDrawer.activities.MyProfileActivity
+import com.dish.seekdish.ui.navDrawer.myFavourite.MyFavouriteFragment
+import com.dish.seekdish.ui.navDrawer.myFriends.MyFriendsFragment
 import com.dish.seekdish.ui.navDrawer.notifications.NotificationFarg
 import com.dish.seekdish.ui.navDrawer.restaurantDiscription.details.ChildData
 import com.dish.seekdish.ui.navDrawer.restaurantDiscription.details.GroupData
+import com.dish.seekdish.ui.navDrawer.restaurants.RestaurantsFragment
+import com.dish.seekdish.ui.navDrawer.settings.SettingsFragment
 import com.dish.seekdish.ui.navDrawer.toDo.TodoFragment
+import com.dish.seekdish.util.BaseActivity
 import com.dish.seekdish.util.Global
 import com.dish.seekdish.util.SessionManager
 import com.dish.seekdish.walkthrough.WalkThroughActivity
 import com.facebook.login.LoginManager
+import com.google.android.material.navigation.NavigationView
 import com.twitter.sdk.android.core.*
+import de.hdodenhof.circleimageview.CircleImageView
 import io.reactivex.android.schedulers.AndroidSchedulers
 import kotlinx.android.synthetic.main.activity_home.*
-import java.util.ArrayList
-import java.util.LinkedHashMap
+import java.util.*
 import android.text.TextUtils.join as join1
 
 
@@ -59,8 +56,8 @@ class HomeActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
     private var simpleExpandableListView: ExpandableListView? = null
     private var btnSaveFilterItems: Button? = null
 
-    private var rightToggle: ActionBarDrawerToggle? = null
-
+    //    private var rightToggle: ActionBarDrawerToggle? = null
+    lateinit var toggle: ActionBarDrawerToggle
     var homeActivityVM: HomeActivityVM? = null
 
     internal var filterArrayList = ArrayList<FilterDataModel>()
@@ -112,11 +109,14 @@ class HomeActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
 // setting imitial fragment to HomeFragment for "HOMEPAGE"
         setInitialFragment()
 
+        // hiding custom icon
+        imgHamburger.visibility = View.GONE
+
         val toolbar = findViewById(R.id.toolbar) as Toolbar
 
         drawerLayout = findViewById(R.id.drawer_layout)
         val navView: NavigationView = findViewById(R.id.nav_view)
-        var toggle = ActionBarDrawerToggle(
+        toggle = ActionBarDrawerToggle(
             this,
             drawerLayout,
             toolbar,
@@ -125,7 +125,7 @@ class HomeActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
         )
 
         drawerLayout?.addDrawerListener(toggle)
-        toggle.setHomeAsUpIndicator(R.drawable.ic_hamburger);
+//        toggle.setHomeAsUpIndicator(R.drawable.ic_hamburger);
 
         toggle.syncState()
 
@@ -367,6 +367,7 @@ class HomeActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
 
     }
 
+
     private fun getFilterData() {
         // hitting api
 
@@ -450,25 +451,23 @@ class HomeActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
         fragmentManager.beginTransaction().replace(R.id.content_frame, HomeFragment()).commit()
     }
 
+
     override fun onBackPressed() {
         val drawerLayout: DrawerLayout = findViewById(R.id.drawer_layout)
         if (drawerLayout.isDrawerOpen(GravityCompat.START)) {
             drawerLayout.closeDrawer(GravityCompat.START)
         } else {
-            super.onBackPressed()
+            // alert for user when backispressed
+            if (doubleBackToExitPressedOnce) {
+                super.onBackPressed();
+                finish();
+                return;
+            }
+            doubleBackToExitPressedOnce = true
+            Toast.makeText(this, getString(R.string.back_again), Toast.LENGTH_SHORT).show()
+
+            Handler().postDelayed({ doubleBackToExitPressedOnce = false }, 2000)
         }
-        // alert for user when backispressed
-        /*   else {
-               if (doubleBackToExitPressedOnce) {
-                   super.onBackPressed()
-                   return
-               }
-
-               this.doubleBackToExitPressedOnce = true
-               Toast.makeText(this, "Please click BACK again to exit", Toast.LENGTH_SHORT).show()
-
-               Handler().postDelayed(Runnable { doubleBackToExitPressedOnce = false }, 2000)
-           }*/
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -648,15 +647,15 @@ class HomeActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
                                 items.selected
                             )
                         }
-                 /*       for (items in response.data.budget) {
-                            Log.e("Budget", items.name)
-                            addProduct(
-                                getString(R.string.budget),
-                                items.name,
-                                items.id,
-                                items.selected
-                            )
-                        }*/
+                        /*       for (items in response.data.budget) {
+                                   Log.e("Budget", items.name)
+                                   addProduct(
+                                       getString(R.string.budget),
+                                       items.name,
+                                       items.id,
+                                       items.selected
+                                   )
+                               }*/
                         for (items in response.data.intolerance_compatibilities) {
                             addProduct(
                                 getString(R.string.comp_intolr),
@@ -857,6 +856,17 @@ class HomeActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
             .replace(R.id.content_frame, finalFrag)
             .commit()
     }
+
+    fun hideHamburgerIcon() {
+        toggle.setDrawerIndicatorEnabled(false);
+        // here imgHamburger has back button icon
+        imgHamburger.visibility = View.VISIBLE
+        imgHamburger.setOnClickListener()
+        {
+            finish()
+        }
+    }
+
 
     /*  fun clearFilterConstValues()
       {

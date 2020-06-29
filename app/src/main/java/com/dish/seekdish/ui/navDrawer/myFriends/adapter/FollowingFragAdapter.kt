@@ -73,17 +73,33 @@ class FollowingFragAdapter(
         holder.btnAddFriend.setOnClickListener()
         {
             followingFragment.addFriend(followingDataClass.user_id)
+        }
+        if (followingFragment?.sessionManager?.getValue(SessionManager.USER_ID).equals(userIdFrom)) {
+            holder.btnReplace.visibility = View.VISIBLE
+        } else {
+            holder.btnReplace.visibility = View.GONE
+            holder.linFollowAdd.visibility = View.VISIBLE
+            if (followingDataClass.already_follower == 1) {
+                holder.btnFollow.visibility = View.GONE
+            } else {
+                holder.btnFollow.visibility = View.VISIBLE
+            }
+            if (followingDataClass.already_friend == 1) {
+                holder.btnAddFriend.visibility = View.GONE
+            } else {
+                holder.btnAddFriend.visibility = View.VISIBLE
+            }
 
         }
-
-        if (!followingFragment.sessionManager.getValue(SessionManager.USER_ID).equals(userIdFrom)) {
+     
+   /*     if (!followingFragment.sessionManager.getValue(SessionManager.USER_ID).equals(userIdFrom)) {
             holder.btnReplace.visibility = View.GONE
             holder.linFollowAdd.visibility = View.VISIBLE
         }
         else {
             holder.btnReplace.visibility = View.VISIBLE
         }
-
+*/
     }
 
 

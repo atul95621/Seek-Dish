@@ -4,7 +4,9 @@ import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import android.widget.ImageView
+import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
@@ -13,13 +15,16 @@ import com.dish.seekdish.ui.home.HomeActivity
 import com.dish.seekdish.ui.navDrawer.friendInfo.FriendInfoActivity
 import com.dish.seekdish.ui.navDrawer.myFriends.dataModel.Follower
 import com.dish.seekdish.ui.navDrawer.myFriends.fargment.FollowerFragment
+import com.dish.seekdish.util.SessionManager
 import java.util.ArrayList
 
 
 class FollowersFragAdapter(
     arrayList: ArrayList<Follower>,
     activity: HomeActivity,
-   var followerFragment: FollowerFragment
+   var followerFragment: FollowerFragment,
+    var userIdFromOutside: String
+
 ) :
     RecyclerView.Adapter<FollowersFragAdapter.RecyclerViewHolder>() {
     internal var arrayList = ArrayList<Follower>()
@@ -54,7 +59,31 @@ class FollowersFragAdapter(
             intent.putExtra("USER_ID", friendDataClass.user_id);
             activity.startActivity(intent)
         }
+        if (followerFragment?.sessionManager?.getValue(SessionManager.USER_ID).equals(userIdFromOutside)) {
+//            holder.btnReplace.visibility = View.VISIBLE
+        } else {
+//            holder.btnReplace.visibility = View.GONE
+            holder.linFollowAdd.visibility = View.VISIBLE
+            if (friendDataClass.already_follower == 1) {
+                holder.btnFollow.visibility = View.GONE
+            } else {
+                holder.btnFollow.visibility = View.VISIBLE
+            }
+            if (friendDataClass.already_friend == 1) {
+                holder.btnAddFriend.visibility = View.GONE
+            } else {
+                holder.btnAddFriend.visibility = View.VISIBLE
+            }
 
+        }
+        holder.btnFollow.setOnClickListener()
+        {
+            followerFragment?.followFriend(friendDataClass.user_id)
+        }
+        holder.btnAddFriend.setOnClickListener()
+        {
+            followerFragment?.addFriend(friendDataClass.user_id)
+        }
     }
 
 
@@ -67,10 +96,15 @@ class FollowersFragAdapter(
     class RecyclerViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         internal var imgFriend: ImageView
         internal var tvFriendName: TextView
-
+        internal var linFollowAdd: LinearLayout
+        internal var btnFollow: Button
+        internal var btnAddFriend: Button
         init {
             imgFriend = view.findViewById(R.id.imgFriend) as ImageView
             tvFriendName = view.findViewById(R.id.tvFriendName) as TextView
+            linFollowAdd = view.findViewById(R.id.linFollowAdd) as LinearLayout
+            btnFollow = view.findViewById(R.id.btnFollow) as Button
+            btnAddFriend = view.findViewById(R.id.btnAddFriend) as Button
         }
     }
 

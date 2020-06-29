@@ -64,6 +64,45 @@ class FriendVM : ViewModel() {
         })
     }
 
+    fun doGetMutualFriends(
+        myUserId: String,
+        friendUserId:String
+    ) {
+        // making progress bar visible
+        isLoadingSubject.onNext(true)
+        var api = APIClientMvvm.client.create(APIInterface::class.java)
+
+        val call = api.getMutualFriendList(
+            myUserId,
+            friendUserId
+
+        )
+
+        call.enqueue(object : Callback<FriendDataModel> {
+            override fun onResponse(call: Call<FriendDataModel>, response: Response<FriendDataModel>) {
+
+                // making progress bar invisible
+                isLoadingSubject.onNext(false)
+
+                //finally we are setting the list to our MutableLiveData
+                getFriendLiveData.postValue(response.body())
+                getFriendLiveData.value = response.body()
+                Log.e("respoGetFav", response.body().toString())
+
+            }
+
+            override fun onFailure(call: Call<FriendDataModel>, t: Throwable) {
+
+                // making progress bar invisible
+                isLoadingSubject.onNext(false)
+                Log.e("respoGetFavFail", "failure")
+                getFriendLiveData.postValue(null)
+
+
+            }
+        })
+    }
+
     fun doRemoveFriend(
         userId: String,
         toBeRemovedUserId: String

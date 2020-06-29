@@ -273,6 +273,7 @@ Le mot de passe et la confirmation ne correspondent pas.
     <string name="date_of_birth">Date de naissance</string>
     <string name="description">La description</string>
     <string name="keywords">Mots clés</string>
+    <string name="back_again">Veuillez cliquer de nouveau sur BACK pour quitter</string>
 </resources>
 <!--
 <resources>

@@ -55,7 +55,8 @@ class FollowerFragment(var userId: String) : BaseFragment() {
         arrayList.clear()
         hitApi()
         getFavListObserver()
-
+        getFriendReqObserver()
+        getFollowingReqObserver()
         searchTextListner(view)
 
         return view
@@ -63,7 +64,12 @@ class FollowerFragment(var userId: String) : BaseFragment() {
     }
 
     private fun hitApi() {
-        friendVM?.doGetFriends(userId)
+        if (userId.equals(sessionManager.getValue(SessionManager.USER_ID))) {
+            friendVM?.doGetFriends(userId)
+        } else {
+//            homeActivity.imgFilters.visibility=View.GONE
+            friendVM?.doGetMutualFriends(sessionManager.getValue(SessionManager.USER_ID), userId)
+        }
     }
 
     fun getFavListObserver() {
@@ -85,7 +91,7 @@ class FollowerFragment(var userId: String) : BaseFragment() {
                         tvFavAlert.visibility = View.VISIBLE
 
                     } else {
-                        adapter = FollowersFragAdapter(arrayList,homeActivity,this)
+                        adapter = FollowersFragAdapter(arrayList,homeActivity,this,userId)
                         recyclerView!!.setAdapter(adapter)
                     }
                 }
@@ -94,7 +100,24 @@ class FollowerFragment(var userId: String) : BaseFragment() {
                 Log.e("rspSnak", "else error")
             }
         })
-    }  private fun searchTextListner(view: View) {
+    }
+    fun followFriend(userIdToFollow: Int) {
+        friendVM?.doSendFollwoingRequest(
+            sessionManager?.getValue(SessionManager.USER_ID).toString(),
+            userIdToFollow.toString()
+        )
+        var myId = sessionManager?.getValue(SessionManager.USER_ID).toString()
+        Log.e("uee", "myid: $myId  , friendId:$userIdToFollow  ")
+    }
+
+    fun addFriend(userIdToAddFriend: Int) {
+        friendVM?.doSendFriendRequest(
+            sessionManager?.getValue(SessionManager.USER_ID).toString(),
+            userIdToAddFriend.toString()
+        )
+    }
+
+    private fun searchTextListner(view: View) {
 
         view.edtSearchFollower.setOnClickListener()
         {
@@ -126,6 +149,56 @@ class FollowerFragment(var userId: String) : BaseFragment() {
                     tvFavAlert.visibility=View.GONE
                     hitApi()
                 }
+            }
+        })
+    }
+
+    private fun getFriendReqObserver() {
+        //observe
+        friendVM!!.isLoadingObservable().observeOn(AndroidSchedulers.mainThread())
+            .subscribe {
+                setIsLoading(it)
+            }
+
+        friendVM!!.getFriendReqLiveData.observe(viewLifecycleOwner, Observer { response ->
+            if (response != null) {
+                Log.e("rspGetaddtodoDetails", response.status.toString())
+                if (response.status == 1) {
+                    hitApi()
+                    showSnackBar(response.message)
+                } else {
+                    showSnackBar(response.message)
+                }
+            } else {
+                showSnackBar(
+                    this.getResources().getString(R.string.error_occured) + "    ${response}"
+                );
+                Log.e("rspGetaddtodoFail", "else error")
+            }
+        })
+    }
+
+    private fun getFollowingReqObserver() {
+        //observe
+        friendVM!!.isLoadingObservable().observeOn(AndroidSchedulers.mainThread())
+            .subscribe {
+                setIsLoading(it)
+            }
+
+        friendVM!!.getFollowingReqLiveData.observe(viewLifecycleOwner, Observer { response ->
+            if (response != null) {
+                Log.e("rspGetaddtodoDetails", response.status.toString())
+                if (response.status == 1) {
+                    hitApi()
+                    showSnackBar(response.message)
+                } else {
+                    showSnackBar(response.message)
+                }
+            } else {
+                showSnackBar(
+                    this.getResources().getString(R.string.error_occured) + "    ${response}"
+                );
+                Log.e("rspGetaddtodoFail", "else error")
             }
         })
     }

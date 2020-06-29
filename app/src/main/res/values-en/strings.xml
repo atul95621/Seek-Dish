@@ -259,4 +259,5 @@
     <string name="date_of_birth">Date of Birth</string>
     <string name="keywords">Keywords</string>
     <string name="description">Description</string>
+    <string name="back_again">Please click BACK again to exit</string>
 </resources>

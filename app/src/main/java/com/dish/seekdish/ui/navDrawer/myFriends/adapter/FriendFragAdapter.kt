@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.ImageView
+import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
@@ -62,13 +63,30 @@ class FriendFragAdapter(
             friendsFragment?.removeFriend(friendDataClass.user_id)
         }
 
-        if (friendsFragment?.sessionManager?.getValue(SessionManager.USER_ID).equals(
-                userIdFromOutside
-            )
-        ) {
+        if (friendsFragment?.sessionManager?.getValue(SessionManager.USER_ID).equals(userIdFromOutside)) {
             holder.btnReplace.visibility = View.VISIBLE
         } else {
             holder.btnReplace.visibility = View.GONE
+            holder.linFollowAdd.visibility = View.VISIBLE
+            if (friendDataClass.already_follower == 1) {
+                holder.btnFollow.visibility = View.GONE
+            } else {
+                holder.btnFollow.visibility = View.VISIBLE
+            }
+            if (friendDataClass.already_friend == 1) {
+                holder.btnAddFriend.visibility = View.GONE
+            } else {
+                holder.btnAddFriend.visibility = View.VISIBLE
+            }
+
+        }
+        holder.btnFollow.setOnClickListener()
+        {
+            friendsFragment?.followFriend(friendDataClass.user_id)
+        }
+        holder.btnAddFriend.setOnClickListener()
+        {
+            friendsFragment?.addFriend(friendDataClass.user_id)
         }
 
     }
@@ -84,11 +102,19 @@ class FriendFragAdapter(
         internal var imgFriend: ImageView
         internal var tvFriendName: TextView
         internal var btnReplace: Button
+        internal var linFollowAdd: LinearLayout
+        internal var btnFollow: Button
+        internal var btnAddFriend: Button
+
 
         init {
             btnReplace = view.findViewById(R.id.btnReplace) as Button
             imgFriend = view.findViewById(R.id.imgFriend) as ImageView
             tvFriendName = view.findViewById(R.id.tvFriendName) as TextView
+            linFollowAdd = view.findViewById(R.id.linFollowAdd) as LinearLayout
+            btnFollow = view.findViewById(R.id.btnFollow) as Button
+            btnAddFriend = view.findViewById(R.id.btnAddFriend) as Button
+
         }
     }
 

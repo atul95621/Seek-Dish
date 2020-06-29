@@ -71,7 +71,12 @@ class FollowingFragment(var userId: String) : BaseFragment() {
 
 
     private fun hitApi() {
-        friendVM?.doGetFriends(userId)
+        if (userId.equals(sessionManager.getValue(SessionManager.USER_ID))) {
+            friendVM?.doGetFriends(userId)
+        } else {
+//            homeActivity.imgFilters.visibility=View.GONE
+            friendVM?.doGetMutualFriends(sessionManager.getValue(SessionManager.USER_ID), userId)
+        }
     }
 
     fun removeFriend(toBeRemovedUserId: Int) {
@@ -101,13 +106,13 @@ class FollowingFragment(var userId: String) : BaseFragment() {
                         adapter = FollowingFragAdapter(arrayList, homeActivity, this, userId)
                         recyclerView!!.setAdapter(adapter)
                     }
-                }
-                else
-                {
+                } else {
                     showSnackBar(response.message)
                 }
             } else {
-                showSnackBar(this.getResources().getString(R.string.error_occured) + "    ${response}");
+                showSnackBar(
+                    this.getResources().getString(R.string.error_occured) + "    ${response}"
+                );
                 Log.e("rspSnak", "else error")
             }
         })
@@ -127,13 +132,14 @@ class FollowingFragment(var userId: String) : BaseFragment() {
                 if (response.status == 1) {
                     hitApi()
                     showSnackBar(response.message)
-                }
-                else {
+                } else {
                     showSnackBar(response.message)
                 }
 
             } else {
-                showSnackBar(this.getResources().getString(R.string.error_occured) + "    ${response}");
+                showSnackBar(
+                    this.getResources().getString(R.string.error_occured) + "    ${response}"
+                );
                 Log.e("rspSnak", "else error")
             }
         })
@@ -152,12 +158,15 @@ class FollowingFragment(var userId: String) : BaseFragment() {
                 Log.e("rspGetaddtodoDetails", response.status.toString())
 
                 if (response.status == 1) {
-                    showSnackBar(response.message)
+                    hitApi()
+//                    showSnackBar(response.message)
                 } else {
                     showSnackBar(response.message)
                 }
             } else {
-                showSnackBar(this.getResources().getString(R.string.error_occured) + "    ${response}");
+                showSnackBar(
+                    this.getResources().getString(R.string.error_occured) + "    ${response}"
+                );
                 Log.e("rspGetaddtodoFail", "else error")
             }
         })
@@ -176,12 +185,15 @@ class FollowingFragment(var userId: String) : BaseFragment() {
                 Log.e("rspGetaddtodoDetails", response.status.toString())
 
                 if (response.status == 1) {
-                    showSnackBar(response.message)
+                    hitApi()
+//                    showSnackBar(response.message)
                 } else {
                     showSnackBar(response.message)
                 }
             } else {
-                showSnackBar(this.getResources().getString(R.string.error_occured) + "    ${response}");
+                showSnackBar(
+                    this.getResources().getString(R.string.error_occured) + "    ${response}"
+                );
                 Log.e("rspGetaddtodoFail", "else error")
             }
         })
@@ -205,7 +217,7 @@ class FollowingFragment(var userId: String) : BaseFragment() {
 
         view.edtSearchFollowing.setOnClickListener()
         {
-            view.edtSearchFollowing.isCursorVisible=true
+            view.edtSearchFollowing.isCursorVisible = true
         }
         view.edtSearchFollowing.addTextChangedListener(object : TextWatcher {
             override fun onTextChanged(
@@ -229,8 +241,8 @@ class FollowingFragment(var userId: String) : BaseFragment() {
                 if (view.edtSearchFollowing.text.isNullOrEmpty() == false) {
                     filter(s.toString())
                 } else {
-                    rvFollowingFrag.visibility=View.VISIBLE
-                    tvFavAlert.visibility=View.GONE
+                    rvFollowingFrag.visibility = View.VISIBLE
+                    tvFavAlert.visibility = View.GONE
                     hitApi()
                 }
             }

@@ -100,13 +100,22 @@ open class BaseActivity : AppCompatActivity() {
 
 
     fun showSnackBar(text: String) {
-        val snackbar = Snackbar.make(
-            activity!!.findViewById(android.R.id.content),
-            text,
-            Snackbar.LENGTH_SHORT
-        )
-        snackbar.view.setBackgroundColor(ContextCompat.getColor(activity!!, R.color.colorPrimary))
-        snackbar.show()
+        try {
+            val snackbar = Snackbar.make(
+                activity!!.findViewById(android.R.id.content),
+                text,
+                Snackbar.LENGTH_SHORT
+            )
+            snackbar.view.setBackgroundColor(
+                ContextCompat.getColor(
+                    activity!!,
+                    R.color.colorPrimary
+                )
+            )
+            snackbar.show()
+        } catch (e: Exception) {
+
+        }
     }
 
 /*    fun showSnackBar( text : String) {
@@ -424,6 +433,7 @@ open class BaseActivity : AppCompatActivity() {
         val outputDateStr: String = outputFormat.format(date)
         return outputDateStr
     }
+
     fun dateParseToSend(dateRaw: String): String {
         val inputFormat: DateFormat = SimpleDateFormat("dd/MM/yyyy")
         val outputFormat: DateFormat = SimpleDateFormat("yyyy-MM-dd")

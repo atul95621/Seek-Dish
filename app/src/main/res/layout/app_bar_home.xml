@@ -30,13 +30,13 @@
 
             <ImageView
                 android:id="@+id/imgHamburger"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
+                android:layout_width="25dp"
+                android:layout_height="20dp"
                 android:layout_gravity="start|center_vertical"
                 android:layout_marginStart="10dp"
-                android:background="@drawable/ic_hamburger"
-                android:gravity="end"
-                android:visibility="gone" />
+                android:src="@drawable/ic_back_black"
+                android:tint="@color/black"
+                android:visibility="visible" />
 
             <TextView
                 android:id="@+id/tvToolbarTitle"

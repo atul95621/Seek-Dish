@@ -18,6 +18,7 @@ import com.dish.seekdish.ui.home.HomeActivity
 import com.dish.seekdish.ui.navDrawer.myFriends.VM.FriendVM
 import com.dish.seekdish.ui.navDrawer.myFriends.adapter.FriendFragAdapter
 import com.dish.seekdish.ui.navDrawer.myFriends.dataModel.Friend
+import com.dish.seekdish.util.SessionManager
 import io.reactivex.android.schedulers.AndroidSchedulers
 import kotlinx.android.synthetic.main.fragment_friends.*
 import kotlinx.android.synthetic.main.fragment_friends.view.*
@@ -55,8 +56,11 @@ class FriendsFragment(var userId: String) : BaseFragment() {
         arrayList.clear()
 
         hitApi()
+
         getFavListObserver()
         getDeleteFriendObserver()
+        getFriendReqObserver()
+        getFollowingReqObserver()
 
         searchTextListner(view)
 
@@ -64,7 +68,13 @@ class FriendsFragment(var userId: String) : BaseFragment() {
     }
 
     private fun hitApi() {
-        friendVM?.doGetFriends(userId)
+        if (userId.equals(sessionManager.getValue(SessionManager.USER_ID))) {
+            friendVM?.doGetFriends(userId)
+        } else {
+          /*  homeActivity.imgFilters.visibility = View.GONE
+            homeActivity.hideHamburgerIcon()*/
+            friendVM?.doGetMutualFriends(sessionManager.getValue(SessionManager.USER_ID), userId)
+        }
     }
 
 
@@ -76,27 +86,20 @@ class FriendsFragment(var userId: String) : BaseFragment() {
     }
 
     fun getFavListObserver() {
-
         //observe
         friendVM!!.isLoadingObservable().observeOn(AndroidSchedulers.mainThread()).subscribe {
             setIsLoading(it)
         }
-
         friendVM!!.getFriendLiveData.observe(viewLifecycleOwner, Observer { response ->
             if (response != null) {
-
-
                 Log.e("rspFavList", response.toString())
-
-
                 if (response.status == 1) {
 
                     arrayList = response.data.friends
-
+                    Log.e("list", "called again");
                     if (arrayList.isEmpty()) {
                         recyclerView?.visibility = View.INVISIBLE
                         tvFavAlert.visibility = View.VISIBLE
-
                     } else {
                         adapter = FriendFragAdapter(arrayList, homeActivity, this, userId)
                         recyclerView!!.setAdapter(adapter)
@@ -114,6 +117,21 @@ class FriendsFragment(var userId: String) : BaseFragment() {
         })
     }
 
+    fun followFriend(userIdToFollow: Int) {
+        friendVM?.doSendFollwoingRequest(
+            sessionManager?.getValue(SessionManager.USER_ID).toString(),
+            userIdToFollow.toString()
+        )
+        var myId = sessionManager?.getValue(SessionManager.USER_ID).toString()
+        Log.e("uee", "myid: $myId  , friendId:$userIdToFollow  ")
+    }
+
+    fun addFriend(userIdToAddFriend: Int) {
+        friendVM?.doSendFriendRequest(
+            sessionManager?.getValue(SessionManager.USER_ID).toString(),
+            userIdToAddFriend.toString()
+        )
+    }
 
     fun getDeleteFriendObserver() {
         //observe
@@ -140,6 +158,55 @@ class FriendsFragment(var userId: String) : BaseFragment() {
         })
     }
 
+    private fun getFriendReqObserver() {
+        //observe
+        friendVM!!.isLoadingObservable().observeOn(AndroidSchedulers.mainThread())
+            .subscribe {
+                setIsLoading(it)
+            }
+
+        friendVM!!.getFriendReqLiveData.observe(viewLifecycleOwner, Observer { response ->
+            if (response != null) {
+                Log.e("rspGetaddtodoDetails", response.status.toString())
+                if (response.status == 1) {
+                    hitApi()
+                    showSnackBar(response.message)
+                } else {
+                    showSnackBar(response.message)
+                }
+            } else {
+                showSnackBar(
+                    this.getResources().getString(R.string.error_occured) + "    ${response}"
+                );
+                Log.e("rspGetaddtodoFail", "else error")
+            }
+        })
+    }
+
+    private fun getFollowingReqObserver() {
+        //observe
+        friendVM!!.isLoadingObservable().observeOn(AndroidSchedulers.mainThread())
+            .subscribe {
+                setIsLoading(it)
+            }
+
+        friendVM!!.getFollowingReqLiveData.observe(viewLifecycleOwner, Observer { response ->
+            if (response != null) {
+                Log.e("rspGetaddtodoDetails", response.status.toString())
+                if (response.status == 1) {
+                    hitApi()
+                    showSnackBar(response.message)
+                } else {
+                    showSnackBar(response.message)
+                }
+            } else {
+                showSnackBar(
+                    this.getResources().getString(R.string.error_occured) + "    ${response}"
+                );
+                Log.e("rspGetaddtodoFail", "else error")
+            }
+        })
+    }
 
     private fun searchTextListner(view: View) {
 

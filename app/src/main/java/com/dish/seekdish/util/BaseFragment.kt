@@ -30,6 +30,7 @@ import com.dish.seekdish.R
 import com.dish.seekdish.ui.navDrawer.myFriends.MyFriendsFragment
 import com.google.android.gms.maps.model.BitmapDescriptor
 import com.google.android.gms.maps.model.BitmapDescriptorFactory
+import java.lang.Exception
 import java.text.ParseException
 import java.util.*
 
@@ -39,13 +40,18 @@ open class BaseFragment : Fragment() {
     //    var utilities: Utilities
     lateinit var sessionManager: SessionManager
     var connectionDetector: ConnectivityManager? = null
+
     //    lateinit var activity: Activity
     lateinit var conxt: Context
     lateinit var progressDialogMvvm: Dialog
     lateinit var utilities: Utilities
 
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
         super.onCreateView(inflater, container, savedInstanceState)
 
 //        activity = getActivity() as Activity
@@ -60,9 +66,22 @@ open class BaseFragment : Fragment() {
     }
 
     fun showSnackBar(text: String) {
-        val snackbar = Snackbar.make(activity!!.findViewById(android.R.id.content), text, Snackbar.LENGTH_SHORT)
-        snackbar.view.setBackgroundColor(ContextCompat.getColor(activity!!, R.color.colorPrimary))
-        snackbar.show()
+        try {
+            val snackbar = Snackbar.make(
+                activity!!.findViewById(android.R.id.content),
+                text,
+                Snackbar.LENGTH_SHORT
+            )
+            snackbar.view.setBackgroundColor(
+                ContextCompat.getColor(
+                    activity!!,
+                    R.color.colorPrimary
+                )
+            )
+            snackbar.show()
+        } catch (e: Exception) {
+
+        }
     }
 
 
@@ -90,7 +109,8 @@ open class BaseFragment : Fragment() {
         var absolutePathOfImage: String? = null
         uri = MediaStore.Images.Media.EXTERNAL_CONTENT_URI
 
-        val projection = arrayOf(MediaStore.MediaColumns.DATA, MediaStore.Images.Media.BUCKET_DISPLAY_NAME)
+        val projection =
+            arrayOf(MediaStore.MediaColumns.DATA, MediaStore.Images.Media.BUCKET_DISPLAY_NAME)
 
         cursor = activity.contentResolver.query(uri, projection, null, null, null)
 
@@ -108,7 +128,8 @@ open class BaseFragment : Fragment() {
     fun getImageUri(inContext: Context, inImage: Bitmap): Uri {
         val bytes = ByteArrayOutputStream()
         inImage.compress(Bitmap.CompressFormat.JPEG, 100, bytes)
-        val path = MediaStore.Images.Media.insertImage(inContext.contentResolver, inImage, "Title", null)
+        val path =
+            MediaStore.Images.Media.insertImage(inContext.contentResolver, inImage, "Title", null)
         return Uri.parse(path)
     }
 
@@ -227,9 +248,17 @@ open class BaseFragment : Fragment() {
 
         if (drawable.intrinsicWidth <= 0 || drawable.intrinsicHeight <= 0) {
             bitmap =
-                Bitmap.createBitmap(1, 1, Bitmap.Config.ARGB_8888) // Single color bitmap will be created of 1x1 pixel
+                Bitmap.createBitmap(
+                    1,
+                    1,
+                    Bitmap.Config.ARGB_8888
+                ) // Single color bitmap will be created of 1x1 pixel
         } else {
-            bitmap = Bitmap.createBitmap(drawable.intrinsicWidth, drawable.intrinsicHeight, Bitmap.Config.ARGB_8888)
+            bitmap = Bitmap.createBitmap(
+                drawable.intrinsicWidth,
+                drawable.intrinsicHeight,
+                Bitmap.Config.ARGB_8888
+            )
         }
 
         val canvas = Canvas(bitmap)
@@ -238,10 +267,11 @@ open class BaseFragment : Fragment() {
         return bitmap
     }
 
-     fun bitmapDescriptorFromVector(context: Context, vectorResId: Int): BitmapDescriptor? {
+    fun bitmapDescriptorFromVector(context: Context, vectorResId: Int): BitmapDescriptor? {
         return ContextCompat.getDrawable(context, vectorResId)?.run {
             setBounds(0, 0, intrinsicWidth, intrinsicHeight)
-            val bitmap = Bitmap.createBitmap(intrinsicWidth, intrinsicHeight, Bitmap.Config.ARGB_8888)
+            val bitmap =
+                Bitmap.createBitmap(intrinsicWidth, intrinsicHeight, Bitmap.Config.ARGB_8888)
             draw(Canvas(bitmap))
             BitmapDescriptorFactory.fromBitmap(bitmap)
         }

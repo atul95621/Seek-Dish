@@ -52,7 +52,7 @@ internal interface APIInterface {
         @Part("country") country_code: RequestBody,
         @Part("fcm_token") fcm_token: RequestBody,
         @Part file: MultipartBody.Part,
-        @Part("language_id")language_id:RequestBody
+        @Part("language_id") language_id: RequestBody
     ): Call<SignUpModel>
 
 
@@ -71,7 +71,7 @@ internal interface APIInterface {
         @Part("bio") bio: RequestBody,
         @Part("country") country_code: RequestBody,
         @Part("fcm_token") fcm_token: RequestBody,
-        @Part("language_id")language_id:RequestBody
+        @Part("language_id") language_id: RequestBody
     ): Call<SignUpModel>
 
 
@@ -84,9 +84,9 @@ internal interface APIInterface {
         @Field("photo") photoUrl: String,
         @Field("fcm_token") fcm_token: String,
         @Field("provider_id") facebook_id: String,
-        @Field("language_id")language_id:String
+        @Field("language_id") language_id: String
     ): Call<SignUpModel>
-    
+
     @FormUrlEncoded
     @POST("twitter_login")
     fun doTwitterSignup(
@@ -96,7 +96,7 @@ internal interface APIInterface {
         @Field("photo") photoUrl: String,
         @Field("fcm_token") fcm_token: String,
         @Field("provider_id") twitter_id: String,
-        @Field("language_id")language_id:String
+        @Field("language_id") language_id: String
     ): Call<SignUpModel>
 
     @FormUrlEncoded
@@ -104,9 +104,9 @@ internal interface APIInterface {
     fun doLogIn(
         @Field("email") email: String,
         @Field("password") password: String,
-        @Field("language_id")language_id:String,
+        @Field("language_id") language_id: String,
         @Field("fcm_token") fcm_token: String
-        ): Call<LoginDataClass>
+    ): Call<LoginDataClass>
 
 
     @POST("create_token")
@@ -124,7 +124,6 @@ internal interface APIInterface {
         @Field("password") password: String,
         @Field("c_password") confirmPassword: String
     ): Call<CancelReModel>
-
 
 
     @FormUrlEncoded
@@ -208,8 +207,8 @@ internal interface APIInterface {
         @Part("weight") weight: RequestBody,
         @Part("height") height: RequestBody,
         @Part("user_id") user_id: RequestBody,
-        @Part("user_category_id" )profession_id:RequestBody,
-        @Part("birth_date" )date_of_birth:RequestBody,
+        @Part("user_category_id") profession_id: RequestBody,
+        @Part("birth_date") date_of_birth: RequestBody,
         @Part file: MultipartBody.Part
     ): Call<ProfileDataClass>
 
@@ -313,7 +312,7 @@ internal interface APIInterface {
         @Field("page_no") page_no: String,
         @Field("per_page") per_page: String,
         @Field("search_text") search_text: String
-        ): Call<TasteFragDataClass>
+    ): Call<TasteFragDataClass>
 
 
     @FormUrlEncoded
@@ -525,19 +524,34 @@ internal interface APIInterface {
         @Field("user_id") userId: String
     ): Call<AddTodoModel>
 
+        @FormUrlEncoded
+        @POST("send_friend_request")
+        fun sendFriendRequest(
+            @Field("sender_id") senderId: String,
+            @Field("receiver_id") receiverId: String
+        ): Call<AddTodoModel>
+
+        @FormUrlEncoded
+        @POST("following_friend_request")
+        fun sendFollowingRequest(
+            @Field("sender_id") senderId: String,
+            @Field("receiver_id") receiverId: String
+        ): Call<AddTodoModel>
+
+   /* // ******************* did vice versa in below files as qaisar told to reverse them.
     @FormUrlEncoded
     @POST("send_friend_request")
     fun sendFriendRequest(
-        @Field("sender_id") senderId: String,
-        @Field("receiver_id") receiverId: String
+        @Field("receiver_id") receiverId: String,
+        @Field("sender_id") senderId: String
     ): Call<AddTodoModel>
 
     @FormUrlEncoded
     @POST("following_friend_request")
     fun sendFollowingRequest(
-        @Field("sender_id") senderId: String,
-        @Field("receiver_id") receiverId: String
-    ): Call<AddTodoModel>
+        @Field("receiver_id") receiverId: String,
+        @Field("sender_id") senderId: String
+    ): Call<AddTodoModel>*/
 
     @FormUrlEncoded
     @POST("restaurant_detail")
@@ -595,6 +609,13 @@ internal interface APIInterface {
     fun getFriendList(
         @Field("user_id") userId: String
     ): Call<FriendDataModel>
+
+    @FormUrlEncoded
+    @POST("mutual_friends")
+    fun getMutualFriendList(
+        @Field("user_id") userId: String,
+        @Field("friend_user_id") friend_user_id: String
+        ): Call<FriendDataModel>
 
     @FormUrlEncoded
     @POST("delete_friend")
@@ -716,7 +737,7 @@ internal interface APIInterface {
         @Field("restro_id") restro_id: String,
         @Field("receiver_id") receiver_id: String,
         @Field("invitation_status") invitation_status: String
-        ): Call<CancelReModel>
+    ): Call<CancelReModel>
 
 
     @FormUrlEncoded

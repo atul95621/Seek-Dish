@@ -21,7 +21,9 @@ data class Follower(
     val phone: String,
     val user_id: Int,
     val user_image: String,
-    val username: String
+    val username: String,
+    val already_friend:Int,
+    val already_follower:Int
 )
 
 data class Friend(
@@ -29,12 +31,16 @@ data class Friend(
     val user_id: Int,
     val user_image: String,
     val username: String,
-    var friendSelected:Boolean= false
+    var friendSelected:Boolean= false,
+    val already_friend:Int,
+    val already_follower:Int
 )
 
 data class Following(
     val phone: String,
     val user_id: Int,
     val user_image: String,
-    val username: String
+    val username: String,
+    val already_friend:Int,
+    val already_follower:Int
 )
