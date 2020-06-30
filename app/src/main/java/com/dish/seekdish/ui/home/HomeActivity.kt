@@ -457,16 +457,23 @@ class HomeActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
         if (drawerLayout.isDrawerOpen(GravityCompat.START)) {
             drawerLayout.closeDrawer(GravityCompat.START)
         } else {
-            // alert for user when backispressed
-            if (doubleBackToExitPressedOnce) {
+            // isTaskRoot tells if the activity is last one in stack
+            if (isTaskRoot()) {
+                // alert for user when backispressed
+                if (doubleBackToExitPressedOnce) {
+                    super.onBackPressed();
+                    finish();
+                    return;
+                }
+                doubleBackToExitPressedOnce = true
+                Toast.makeText(this, getString(R.string.back_again), Toast.LENGTH_SHORT).show()
+
+                Handler().postDelayed({ doubleBackToExitPressedOnce = false }, 2000)
+            } else {
                 super.onBackPressed();
                 finish();
                 return;
             }
-            doubleBackToExitPressedOnce = true
-            Toast.makeText(this, getString(R.string.back_again), Toast.LENGTH_SHORT).show()
-
-            Handler().postDelayed({ doubleBackToExitPressedOnce = false }, 2000)
         }
     }
 

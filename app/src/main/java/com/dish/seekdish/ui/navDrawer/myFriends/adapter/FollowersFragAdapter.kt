@@ -76,6 +76,13 @@ class FollowersFragAdapter(
             }
 
         }
+
+        // this used to hide bcoz a person cant follow or send request to himself
+        if ((followerFragment?.sessionManager?.getValue(SessionManager.USER_ID).toString()).equals(friendDataClass.user_id.toString())
+        ) {
+            holder.linFollowAdd.visibility = View.GONE
+        }
+
         holder.btnFollow.setOnClickListener()
         {
             followerFragment?.followFriend(friendDataClass.user_id)

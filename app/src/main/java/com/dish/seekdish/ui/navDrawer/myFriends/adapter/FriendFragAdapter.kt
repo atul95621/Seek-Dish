@@ -1,6 +1,7 @@
 package com.dish.seekdish.ui.navDrawer.myFriends.adapter
 
 import android.content.Intent
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -62,8 +63,9 @@ class FriendFragAdapter(
         {
             friendsFragment?.removeFriend(friendDataClass.user_id)
         }
-
-        if (friendsFragment?.sessionManager?.getValue(SessionManager.USER_ID).equals(userIdFromOutside)) {
+        if (friendsFragment?.sessionManager?.getValue(SessionManager.USER_ID)
+                .equals(userIdFromOutside)
+        ) {
             holder.btnReplace.visibility = View.VISIBLE
         } else {
             holder.btnReplace.visibility = View.GONE
@@ -78,8 +80,19 @@ class FriendFragAdapter(
             } else {
                 holder.btnAddFriend.visibility = View.VISIBLE
             }
-
         }
+        Log.e(
+            "idss:  ",
+            "  " + position + "  " + friendsFragment?.sessionManager?.getValue(SessionManager.USER_ID) + "   " + friendDataClass.user_id
+        )
+
+        // this used to hide bcoz a person cant follow or send request to himself
+        if ((friendsFragment?.sessionManager?.getValue(SessionManager.USER_ID).toString()).equals(friendDataClass.user_id.toString())
+        ) {
+            holder.linFollowAdd.visibility = View.GONE
+        }
+
+
         holder.btnFollow.setOnClickListener()
         {
             friendsFragment?.followFriend(friendDataClass.user_id)

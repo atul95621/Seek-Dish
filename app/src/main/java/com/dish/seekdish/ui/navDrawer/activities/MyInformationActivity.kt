@@ -726,7 +726,9 @@ class MyInformationActivity : BaseActivity(), IMyInformationView {
                 edtBio.setText(profileDataClass.data.bio)
 
                 var dateRaw = profileDataClass.data.birth_date
-                tvDOB.setText(dateParse(dateRaw))
+                if (!dateRaw.isNullOrEmpty()) {
+                    tvDOB.setText(dateParse(dateRaw))
+                }
 
                 var genderValue: String = profileDataClass.data.gender
                 var bodyFatVal: String = profileDataClass.data.body_fat
