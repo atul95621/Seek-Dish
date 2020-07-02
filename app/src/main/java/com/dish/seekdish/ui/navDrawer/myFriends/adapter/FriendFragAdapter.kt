@@ -50,7 +50,7 @@ class FriendFragAdapter(
         Glide.with(activity).load(imgFriend).placeholder(R.drawable.ic_user).into(holder.imgFriend);
         holder.tvFriendName.text = friendDataClass.username
 
-        holder.imgFriend.setOnClickListener()
+        holder.linLayout.setOnClickListener()
         {
             val intent = Intent(activity, FriendInfoActivity::class.java)
             intent.putExtra("IMAGE", friendDataClass.user_image);
@@ -69,7 +69,7 @@ class FriendFragAdapter(
             holder.btnReplace.visibility = View.VISIBLE
         } else {
             holder.btnReplace.visibility = View.GONE
-            holder.linFollowAdd.visibility = View.VISIBLE
+        /*    holder.linFollowAdd.visibility = View.VISIBLE
             if (friendDataClass.already_follower == 1) {
                 holder.btnFollow.visibility = View.GONE
             } else {
@@ -79,15 +79,11 @@ class FriendFragAdapter(
                 holder.btnAddFriend.visibility = View.GONE
             } else {
                 holder.btnAddFriend.visibility = View.VISIBLE
-            }
+            }*/
         }
-        Log.e(
-            "idss:  ",
-            "  " + position + "  " + friendsFragment?.sessionManager?.getValue(SessionManager.USER_ID) + "   " + friendDataClass.user_id
-        )
 
         // this used to hide bcoz a person cant follow or send request to himself
-        if ((friendsFragment?.sessionManager?.getValue(SessionManager.USER_ID).toString()).equals(friendDataClass.user_id.toString())
+     /*   if ((friendsFragment?.sessionManager?.getValue(SessionManager.USER_ID).toString()).equals(friendDataClass.user_id.toString())
         ) {
             holder.linFollowAdd.visibility = View.GONE
         }
@@ -100,7 +96,7 @@ class FriendFragAdapter(
         holder.btnAddFriend.setOnClickListener()
         {
             friendsFragment?.addFriend(friendDataClass.user_id)
-        }
+        }*/
 
     }
 
@@ -118,6 +114,7 @@ class FriendFragAdapter(
         internal var linFollowAdd: LinearLayout
         internal var btnFollow: Button
         internal var btnAddFriend: Button
+        internal var linLayout:LinearLayout
 
 
         init {
@@ -127,6 +124,7 @@ class FriendFragAdapter(
             linFollowAdd = view.findViewById(R.id.linFollowAdd) as LinearLayout
             btnFollow = view.findViewById(R.id.btnFollow) as Button
             btnAddFriend = view.findViewById(R.id.btnAddFriend) as Button
+            linLayout = view.findViewById(R.id.linLayout) as LinearLayout
 
         }
     }

@@ -71,12 +71,14 @@ class FollowingFragment(var userId: String) : BaseFragment() {
 
 
     private fun hitApi() {
-        if (userId.equals(sessionManager.getValue(SessionManager.USER_ID))) {
+        friendVM?.doGetFriends(userId)
+
+    /*    if (userId.equals(sessionManager.getValue(SessionManager.USER_ID))) {
             friendVM?.doGetFriends(userId)
         } else {
 //            homeActivity.imgFilters.visibility=View.GONE
             friendVM?.doGetMutualFriends(sessionManager.getValue(SessionManager.USER_ID), userId)
-        }
+        }*/
     }
 
     fun removeFriend(toBeRemovedUserId: Int) {

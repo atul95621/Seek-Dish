@@ -7,7 +7,9 @@
 
               android:layout_height="wrap_content"
 >
-    <LinearLayout android:layout_width="match_parent"
+    <LinearLayout
+        android:id="@+id/linLayout"
+        android:layout_width="match_parent"
                   android:orientation="horizontal"
                   android:layout_height="wrap_content">
         <de.hdodenhof.circleimageview.CircleImageView

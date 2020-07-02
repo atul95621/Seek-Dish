@@ -52,7 +52,7 @@ class FollowingFragAdapter(
         holder.tvFriendName.text = followingDataClass.username
 
 
-        holder.imgFriend.setOnClickListener()
+        holder.linLayout.setOnClickListener()
         {
             val intent = Intent(activity, FriendInfoActivity::class.java)
             intent.putExtra("IMAGE", followingDataClass.user_image);
@@ -78,7 +78,7 @@ class FollowingFragAdapter(
             holder.btnReplace.visibility = View.VISIBLE
         } else {
             holder.btnReplace.visibility = View.GONE
-            holder.linFollowAdd.visibility = View.VISIBLE
+         /*   holder.linFollowAdd.visibility = View.VISIBLE
             if (followingDataClass.already_follower == 1) {
                 holder.btnFollow.visibility = View.GONE
             } else {
@@ -88,15 +88,15 @@ class FollowingFragAdapter(
                 holder.btnAddFriend.visibility = View.GONE
             } else {
                 holder.btnAddFriend.visibility = View.VISIBLE
-            }
+            }*/
 
         }
 
         // this used to hide bcoz a person cant follow or send request to himself
-        if ((followingFragment?.sessionManager?.getValue(SessionManager.USER_ID).toString()).equals(followingDataClass.user_id.toString())
+       /* if ((followingFragment?.sessionManager?.getValue(SessionManager.USER_ID).toString()).equals(followingDataClass.user_id.toString())
         ) {
             holder.linFollowAdd.visibility = View.GONE
-        }
+        }*/
      
    /*     if (!followingFragment.sessionManager.getValue(SessionManager.USER_ID).equals(userIdFrom)) {
             holder.btnReplace.visibility = View.GONE
@@ -122,6 +122,7 @@ class FollowingFragAdapter(
         var linFollowAdd: LinearLayout
         internal var btnFollow: Button
         internal var btnAddFriend: Button
+        internal var linLayout:LinearLayout
 
         init {
             btnAddFriend = view.findViewById(R.id.btnAddFriend) as Button
@@ -130,6 +131,8 @@ class FollowingFragAdapter(
             imgFriend = view.findViewById(R.id.imgFriend) as ImageView
             tvFriendName = view.findViewById(R.id.tvFriendName) as TextView
             linFollowAdd = view.findViewById(R.id.linFollowAdd) as LinearLayout
+            linLayout = view.findViewById(R.id.linLayout) as LinearLayout
+
         }
     }
     fun updateList(list: ArrayList<Following>) {

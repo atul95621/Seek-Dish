@@ -113,23 +113,30 @@ class OpinionDetailsActivity : BaseActivity() {
                     var date = response.response.data.published_on
                     tvDateName.setText(datePrase(date) + " - " + response.response.data.username)
 
-                    tvPrice.text = response.response.data.meal_symbol + " " + response.response.data.meal_price
+                    tvPrice.text =
+                        response.response.data.meal_symbol + " " + response.response.data.meal_price
 
                     var firend = response.response.friend
                     var private = response.response.private
                     var follower = response.response.follower
 
-                     image1 = response.response.data.image1
-                     image2 = response.response.data.image2
+                    image1 = response.response.data.image1
+                    image2 = response.response.data.image2
 
                     if (firend == 1) {
                         imgFriendRequest.visibility = View.INVISIBLE
+                    } else {
+                        imgFriendRequest.visibility = View.VISIBLE
                     }
                     if (follower == 1) {
                         imgFollowing.visibility = View.INVISIBLE
+                    } else {
+                        imgFollowing.visibility = View.VISIBLE
                     }
                     if (private == 1) {
                         imgFollowing.visibility = View.INVISIBLE
+                    } else {
+                        imgFollowing.visibility = View.VISIBLE
                     }
 
                     if (image1 != null && image1 != "null" && image1 != "") {
@@ -170,6 +177,8 @@ class OpinionDetailsActivity : BaseActivity() {
             mealId, restaurantId, commentId
         )
 
+        Log.e("idds","  "+ mealId+"   "+restaurantId+"    "+commentId)
+
     }
 
     private fun getFriendReqObserver() {
@@ -187,8 +196,6 @@ class OpinionDetailsActivity : BaseActivity() {
                 if (response.status == 1) {
                     imgFriendRequest.visibility = View.GONE
                     showSnackBar(response.message)
-
-
                 } else {
                     imgFriendRequest.visibility = View.VISIBLE
                     showSnackBar(response.message)
