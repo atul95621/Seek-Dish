@@ -2,6 +2,7 @@ package com.dish.seekdish.retrofit
 
 
 import com.dish.seekdish.ui.home.dataModel.*
+import com.dish.seekdish.ui.login.CheckUpdateModel
 import com.dish.seekdish.ui.login.LoginDataClass
 import com.dish.seekdish.ui.navDrawer.activities.model.ContactModel
 import com.dish.seekdish.ui.navDrawer.activities.model.ProfileDataClass
@@ -756,4 +757,9 @@ internal interface APIInterface {
         @Field("restaurant_id") restaurant_id: String,
         @Field("date") comment_id: String
     ): Call<CallCountModel>
+
+    @GET("checkappupdate")
+    fun checkUpdate(
+    ): Call<CheckUpdateModel>
+
 }

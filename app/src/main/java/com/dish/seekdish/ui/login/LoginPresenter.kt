@@ -53,4 +53,30 @@ class LoginPresenter(private val iSignUpView: ILoginView, val loginActivity: Log
     }
 
 
+    fun checkUpdate(
+    ) {
+//        ProgressBarClass.progressBarCalling(loginActivity)
+        apiInterface = APIClient.getClient(loginActivity).create(APIInterface::class.java)
+        val call = apiInterface.checkUpdate()
+        call.enqueue(object : Callback<CheckUpdateModel> {
+            override fun onResponse(call: Call<CheckUpdateModel>, response: Response<CheckUpdateModel>) {
+
+                if (response.code().toString().equals("200")) {
+                    iSignUpView.checkUpdate(true, response)
+                } else {
+                    iSignUpView.checkUpdate(false, response)
+                }
+                // canceling the progress bar
+//                ProgressBarClass.dialog.dismiss()
+            }
+
+            override fun onFailure(call: Call<CheckUpdateModel>, t: Throwable) {
+                loginActivity.showSnackBar(loginActivity.getResources().getString(R.string.error_occured)  +"   ${t.message}");
+                call.cancel()
+                // canceling the progress bar
+//                ProgressBarClass.dialog.dismiss()
+            }
+        })
+    }
+
 }

@@ -18,6 +18,7 @@ import com.dish.seekdish.custom.CustomListAdapterDialog
 import com.dish.seekdish.walkthrough.WalkThroughActivity
 import kotlinx.android.synthetic.main.activity_language.*
 import com.dish.seekdish.ui.home.HomeActivity
+import com.dish.seekdish.ui.login.LoginActivity
 import com.dish.seekdish.ui.navDrawer.settings.dataModel.LangData
 import com.dish.seekdish.ui.navDrawer.settings.dataModel.LanguageData
 import com.dish.seekdish.ui.navDrawer.settings.dataModel.SaveLanguageModel
@@ -63,7 +64,11 @@ class LanguageActivity : BaseActivity(), ILanguageView {
             val intent = Intent(activity, HomeActivity::class.java)
             intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
             startActivity(intent)
-        } else if (isLanguageSelected.equals("1") && !isLoggedIn.equals("1")) {
+        } else if (isLoggedIn.equals("0")) {
+            // this case when update is available and loggedin is set to 0
+            val intent = Intent(this, LoginActivity::class.java)
+            startActivity(intent)
+        } else if (isLanguageSelected.equals("1") && isLoggedIn.equals("")) {
             val intent = Intent(activity, WalkThroughActivity::class.java)
             intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
             startActivity(intent)

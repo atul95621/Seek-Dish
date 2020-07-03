@@ -19,3 +19,10 @@ data class Data(
     val photo: String,
     val username: String
 )
+
+data class CheckUpdateModel(
+    val Android_version: String,
+    val Ios_version: String,
+    val message: String,
+    val status: Int
+)

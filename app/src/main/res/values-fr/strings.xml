@@ -274,6 +274,8 @@ Le mot de passe et la confirmation ne correspondent pas.
     <string name="description">La description</string>
     <string name="keywords">Mots clés</string>
     <string name="back_again">Veuillez cliquer de nouveau sur BACK pour quitter</string>
+    <string name="update">Une nouvelle version de l\'application est disponible sur la boutique. Veuillez mettre à jour l\'application.</string>
+    <string name="update_str">Mettre à jour</string>
 </resources>
 <!--
 <resources>

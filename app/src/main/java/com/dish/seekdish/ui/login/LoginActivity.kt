@@ -1,25 +1,33 @@
 package com.dish.seekdish.ui.login
 
+import android.app.Dialog
+import android.content.ActivityNotFoundException
 import android.content.Intent
+import android.content.pm.PackageInfo
+import android.content.pm.PackageManager
+import android.net.Uri
 import android.os.Bundle
 import android.text.TextUtils
 import android.util.Log
-import com.dish.seekdish.util.BaseActivity
+import android.view.Window
+import android.widget.Button
+import android.widget.TextView
 import com.dish.seekdish.R
 import com.dish.seekdish.ui.ForgotActivity
 import com.dish.seekdish.ui.home.HomeActivity
+import com.dish.seekdish.util.BaseActivity
 import com.dish.seekdish.util.SessionManager
 import kotlinx.android.synthetic.main.activity_login.*
-import kotlinx.android.synthetic.main.activity_login.edtEmail
-import kotlinx.android.synthetic.main.activity_login.edtPassword
-import kotlinx.android.synthetic.main.activity_login.tvBack
 import retrofit2.Response
+import java.lang.Exception
+import java.lang.reflect.Executable
 
 
 class LoginActivity : BaseActivity(), ILoginView {
 
 
     lateinit var loginPresenter: LoginPresenter
+
     // lateinit var context  : Context
     var sessionManager: SessionManager? = null;
 
@@ -35,7 +43,6 @@ class LoginActivity : BaseActivity(), ILoginView {
 
         getSavedCred()
 
-
         tvValidate.setOnClickListener()
         {
             if (TextUtils.isEmpty(edtEmail!!.text.toString().trim { it <= ' ' })) {
@@ -49,7 +56,10 @@ class LoginActivity : BaseActivity(), ILoginView {
             } else {
 
                 if (connectionDetector.isConnectingToInternet) {
-                    Log.e("langggg","  "+  sessionManager?.getValue(SessionManager.LANGUAGE_ID).toString())
+                    Log.e(
+                        "langggg",
+                        "  " + sessionManager?.getValue(SessionManager.LANGUAGE_ID).toString()
+                    )
                     //calling api
                     loginPresenter.login(
                         edtEmail.text.toString(),
@@ -61,47 +71,31 @@ class LoginActivity : BaseActivity(), ILoginView {
                     showSnackBar(resources.getString(R.string.check_connection))
                 }
             }
-
         }
         tvForgot.setOnClickListener()
         {
             val intent = Intent(this@LoginActivity, ForgotActivity::class.java)
             startActivity(intent)
         }
-
         tvBack.setOnClickListener()
         {
             finish()
         }
-
-
     }
 
     private fun getSavedCred() {
         if (sessionManager?.getLangValue(SessionManager.REMEMBER).equals("1")) {
             edtEmail.setText(sessionManager?.getLangValue(SessionManager.REMEMBER_EMAIL).toString())
-            edtPassword.setText(sessionManager?.getLangValue(SessionManager.REMEMBER_PASSWORD).toString())
+            edtPassword.setText(
+                sessionManager?.getLangValue(SessionManager.REMEMBER_PASSWORD).toString()
+            )
         }
     }
 
     override fun onSetLoggedin(result: Boolean, response: Response<LoginDataClass>) {
-
         if (result == true) {
-
-//            val intent = Intent(this, HomeActivity::class.java)
-//            startActivity(intent)
-
-//
-//            /* Log.e("responseCode", response.code().toString() + "")
-//             Log.e("responseStatus", " " + response.body()?.status)
-//             Log.e("responseString", " " + response.body().toString())
-//             Log.e("responseerror", " " + response.errorBody().toString())*/
-//
-////            Log.e("responseUsername", loginmodel.data.username + "")
-
             val loginmodel = response.body() as LoginDataClass
-
-            if(loginmodel.status==1) {
+            if (loginmodel.status == 1) {
                 sessionManager?.setValues(SessionManager.USERNAME, loginmodel.data.username)
                 sessionManager?.setValues(SessionManager.FIRST_NAME, loginmodel.data.first_name)
                 sessionManager?.setValues(SessionManager.LAST_NAME, loginmodel.data.last_name)
@@ -141,15 +135,90 @@ class LoginActivity : BaseActivity(), ILoginView {
                 val intent = Intent(this@LoginActivity, HomeActivity::class.java)
                 intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
                 startActivity(intent)
-            }
-            else
-            {
+            } else {
                 showSnackBar(loginmodel.message)
             }
 
         } else {
-            showSnackBar(resources.getString(R.string.error_occured)  +"    ${response.code()}")
+            showSnackBar(resources.getString(R.string.error_occured) + "    ${response.code()}")
         }
+    }
+
+    override fun checkUpdate(result: Boolean, response: Response<CheckUpdateModel>) {
+        if (result == true) {
+            val checkUpdateModel = response.body() as CheckUpdateModel
+            if (checkUpdateModel.status == 1) {
+                var version = ""
+                try {
+                    val pInfo: PackageInfo =
+                        this.getPackageManager().getPackageInfo(packageName, 0)
+                    version = pInfo.versionName
+                } catch (e: PackageManager.NameNotFoundException) {
+                    e.printStackTrace()
+                }
+                if (!version.isNullOrEmpty()) {
+                    if (version.toFloat() < checkUpdateModel.Android_version.toFloat()) {
+                        showUpdateDialog(getString(R.string.update))
+                    }
+                }
+            } else {
+                showSnackBar(checkUpdateModel.message)
+            }
+
+        } else {
+            showSnackBar(resources.getString(R.string.error_occured) + "    ${response.code()}")
+        }
+    }
+
+    private fun showUpdateDialog(message: String) {
+        val dialog = Dialog(this)
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
+        dialog.setCancelable(false)
+        dialog.setContentView(R.layout.dialog_email_verify)
+
+        val textViewDescrp = dialog.findViewById<TextView>(R.id.textViewDescrp)
+        val btnAccept = dialog.findViewById<Button>(R.id.btnAccept)
+//        textViewDescrp.setText(message)
+        textViewDescrp.setText(message)
+        // button_yes clk
+        btnAccept.setText(getString(R.string.update_str))
+        btnAccept.setOnClickListener {
+            dialog.dismiss()
+            val appPackageName =
+                packageName // getPackageName() from Context or Activity object
+            try {
+
+
+                try {
+                    startActivity(
+                        Intent(
+                            Intent.ACTION_VIEW,
+                            Uri.parse("market://details?id=$appPackageName")
+                        )
+                    )
+                } catch (anfe: ActivityNotFoundException) {
+                    startActivity(
+                        Intent(
+                            Intent.ACTION_VIEW,
+                            Uri.parse("https://play.google.com/store/apps/details?id=$appPackageName")
+                        )
+                    )
+                }
+            } catch (e: Exception) {
+
+            }
+        }
+        dialog.show()
+    }
+
+    private fun checkIfUpdateAvailable() {
+        loginPresenter?.checkUpdate()
+    }
+
+    override fun onResume() {
+        super.onResume()
+        // checking if new version available
+        checkIfUpdateAvailable()
     }
 
 

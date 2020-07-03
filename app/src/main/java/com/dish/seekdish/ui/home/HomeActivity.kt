@@ -1,14 +1,17 @@
 package com.dish.seekdish.ui.home
 
+import android.app.Dialog
 import android.content.Intent
+import android.content.pm.PackageInfo
+import android.content.pm.PackageManager
 import android.os.Bundle
 import android.os.Handler
 import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
+import android.view.Window
 import android.widget.*
-import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.widget.Toolbar
 import androidx.core.view.GravityCompat
@@ -23,6 +26,7 @@ import com.dish.seekdish.ui.home.adapter.FilterAdapter
 import com.dish.seekdish.ui.home.dataModel.FilterDataModel
 import com.dish.seekdish.ui.home.fragments.HomeFragment
 import com.dish.seekdish.ui.home.viewModel.HomeActivityVM
+import com.dish.seekdish.ui.login.LoginActivity
 import com.dish.seekdish.ui.navDrawer.activities.MyProfileActivity
 import com.dish.seekdish.ui.navDrawer.myFavourite.MyFavouriteFragment
 import com.dish.seekdish.ui.navDrawer.myFriends.MyFriendsFragment
@@ -98,14 +102,12 @@ class HomeActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
         sessionManager = SessionManager(this)
         homeActivityVM = ViewModelProvider(this).get(HomeActivityVM::class.java)
 
-
-
         tvTitle = findViewById(R.id.tvToolbarTitle) as TextView
         tvAdd = findViewById(R.id.tvAdd) as TextView
         imgHamburger = findViewById(R.id.imgHamburger) as ImageView
         imgFilters = findViewById(R.id.imgFilters) as ImageView
 
-
+        checkIfUpdateAvailable()
 // setting imitial fragment to HomeFragment for "HOMEPAGE"
         setInitialFragment()
 
@@ -251,6 +253,8 @@ class HomeActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
 
 
         //=========================== right filter
+        // update observer
+        checkUpdateObserver()
 
         // filter Observer
         getFilterObserver()
@@ -365,6 +369,10 @@ class HomeActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
         }*/
 
 
+    }
+
+    private fun checkIfUpdateAvailable() {
+        homeActivityVM?.checkUpdate()
     }
 
 
@@ -817,6 +825,47 @@ class HomeActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
         })
     }
 
+    private fun checkUpdateObserver() {
+        //observe
+        /*    homeActivityVM!!.isLoadingObservable().observeOn(AndroidSchedulers.mainThread()).subscribe {
+                setIsLoading(it)
+            }*/
+
+        homeActivityVM!!.getUpdateLiveData.observe(this, Observer { response ->
+            if (response != null) {
+                if (response.status == 1) {
+
+                    var version = ""
+                    try {
+                        val pInfo: PackageInfo =
+                            this.getPackageManager().getPackageInfo(packageName, 0)
+                        version = pInfo.versionName
+                    } catch (e: PackageManager.NameNotFoundException) {
+                        e.printStackTrace()
+                    }
+                    if (!version.isNullOrEmpty()) {
+                        if (version.toFloat() < response.Android_version.toFloat()) {
+                            //making the isLoggedIn key to "0"
+                            sessionManager?.setValues(SessionManager.LOGGEDIN, "0")
+                            val intent = Intent(this@HomeActivity, LoginActivity::class.java)
+                            intent.flags =
+                                Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+                            startActivity(intent)
+                        }
+                    }
+
+                } else {
+                    showSnackBar(response.message)
+                }
+            } else {
+                showSnackBar(
+                    this.getResources().getString(R.string.error_occured) + "    $response"
+                );
+            }
+        })
+    }
+
+
     private fun setUpTwitter() {
 
         val config = TwitterConfig.Builder(this)
@@ -873,18 +922,4 @@ class HomeActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
             finish()
         }
     }
-
-
-    /*  fun clearFilterConstValues()
-      {
-         Global.budgetSet.clear()
-         Global.serviceSet.clear()
-         Global.mealSet.clear()
-         Global.compatIntSet.clear()
-          Global.restroSpeclSet.clear()
-           Global.restroAmbiSet.clear()
-           Global.compAmbianceSet.clear()
-           Global.additonalSet.clear()
-           Global.seasonlitySet.clear()
-      }*/
 }
