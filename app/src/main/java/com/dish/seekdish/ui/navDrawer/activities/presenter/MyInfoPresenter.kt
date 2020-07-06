@@ -39,8 +39,8 @@ class MyInfoPresenter(private val iMyInformationView: IMyInformationView, val co
         weight: RequestBody,
         height: RequestBody,
         userId: RequestBody,
-        profession_id:RequestBody,
-        dob:RequestBody,
+        profession_id: RequestBody,
+        dob: RequestBody,
         part: MultipartBody.Part
     ) {
 
@@ -48,7 +48,6 @@ class MyInfoPresenter(private val iMyInformationView: IMyInformationView, val co
 
         apiInterface = APIClient.getClient(contxt).create(APIInterface::class.java)
 
-        Log.e("updateInfoPrams", " " + firstName.toString() + lastName.toString() + username.toString()+ gender.toString() + addressLineOne.toString() + addressLineTwo.toString() + bio.toString() + cityId.toString() + countryId.toString() + zipcode.toString() + bodyFat.toString() + weight.toString() + height.toString() + userId.toString() + part.toString())
 
         val call = apiInterface.doUpdateProfileDetails(
             firstName,
@@ -70,34 +69,21 @@ class MyInfoPresenter(private val iMyInformationView: IMyInformationView, val co
             part
         )
         call.enqueue(object : Callback<ProfileDataClass> {
-            override fun onResponse(call: Call<ProfileDataClass>, response: Response<ProfileDataClass>) {
-
-                Log.e("respUpdateMyInfoCode", response.code().toString() + "")
-                Log.e("respUpdateMyInfoStatus", " " + response.body()?.status)
-                Log.e("respUpdateMyInfoString", " " + response.body().toString())
-                Log.e("respUpdateMyInfoperror", " " + response.code().toString())
-
+            override fun onResponse(
+                call: Call<ProfileDataClass>,
+                response: Response<ProfileDataClass>
+            ) {
+                // canceling the progress bar
+                ProgressBarClass.dialog.dismiss()
                 if (response.code().toString().equals("200")) {
-//                    Log.e("respSignupCode", response.code().toString() + "")
                     iMyInformationView.onSetDataChanged(true, response)
-
-
                 } else {
                     iMyInformationView.onSetDataChanged(false, response)
                 }
-
-                // canceling the progress bar
-                ProgressBarClass.dialog.dismiss()
-
-
             }
 
             override fun onFailure(call: Call<ProfileDataClass>, t: Throwable) {
-
-                Log.e("responUpdateFailure", " " + t.toString())
-
 //                informationActivity.showSnackBar(contxt.getResources().getString(R.string.error_occured));
-
                 call.cancel()
                 // canceling the progress bar
                 ProgressBarClass.dialog.dismiss()
@@ -107,48 +93,92 @@ class MyInfoPresenter(private val iMyInformationView: IMyInformationView, val co
     }
 
 
-    fun getProfileInfo(
-        userId: String
+
+    fun updateInfoWithoutImage(
+        firstName: RequestBody,
+        lastName: RequestBody,
+        username: RequestBody,
+        addressLineOne: RequestBody,
+        addressLineTwo: RequestBody,
+        gender: RequestBody,
+        bio: RequestBody,
+        cityId: RequestBody,
+        countryId: RequestBody,
+        zipcode: RequestBody,
+        bodyFat: RequestBody,
+        weight: RequestBody,
+        height: RequestBody,
+        userId: RequestBody,
+        profession_id: RequestBody,
+        dob: RequestBody
     ) {
-
         ProgressBarClass.progressBarCalling(contxt)
-
         apiInterface = APIClient.getClient(contxt).create(APIInterface::class.java)
-
-        Log.e("savedUserId", " " + userId);
-
-
-        val call = apiInterface.getProfileData(userId)
+        val call = apiInterface.doUpdateProfileDetails(
+            firstName,
+            lastName,
+            username,
+            gender,
+            addressLineOne,
+            addressLineTwo,
+            bio,
+            cityId,
+            countryId,
+            zipcode,
+            bodyFat,
+            weight,
+            height,
+            userId,
+            profession_id,
+            dob
+        )
         call.enqueue(object : Callback<ProfileDataClass> {
-            override fun onResponse(call: Call<ProfileDataClass>, response: Response<ProfileDataClass>) {
-
-                Log.e("respgetProfileCode", response.code().toString() + "")
-                Log.e("respgetProfileStatus", " " + response.body()?.status)
-                Log.e("respgetProfiletring", " " + response.body().toString())
-                Log.e("respgetProfileerror", " " + response.code().toString())
-
-                if (response.code().toString().equals("200")) {
-                    Log.e("respSettPill",  "inside 200")
-                    iMyInformationView.onGetProfileDetailsData(true, response)
-
-
-                } else {
-                    Log.e("respSettingPill",  "false 200")
-
-                    iMyInformationView.onGetProfileDetailsData(false, response)
-                }
-
+            override fun onResponse(
+                call: Call<ProfileDataClass>,
+                response: Response<ProfileDataClass>
+            ) {
                 // canceling the progress bar
                 ProgressBarClass.dialog.dismiss()
-
-
+                if (response.code().toString().equals("200")) {
+                    iMyInformationView.onSetDataChanged(true, response)
+                } else {
+                    iMyInformationView.onSetDataChanged(false, response)
+                }
             }
 
             override fun onFailure(call: Call<ProfileDataClass>, t: Throwable) {
+//                informationActivity.showSnackBar(contxt.getResources().getString(R.string.error_occured));
+                call.cancel()
+                // canceling the progress bar
+                ProgressBarClass.dialog.dismiss()
 
-                Log.e("respgetProfileFailure", " " + t.toString())
+            }
+        })
+    }
+    fun getProfileInfo(
+        userId: String
+    ) {
+        ProgressBarClass.progressBarCalling(contxt)
+        apiInterface = APIClient.getClient(contxt).create(APIInterface::class.java)
+        val call = apiInterface.getProfileData(userId)
+        call.enqueue(object : Callback<ProfileDataClass> {
+            override fun onResponse(
+                call: Call<ProfileDataClass>,
+                response: Response<ProfileDataClass>
+            ) {
+                 // canceling the progress bar
+                ProgressBarClass.dialog.dismiss()
+                if (response.code().toString().equals("200")) {
+                    iMyInformationView.onGetProfileDetailsData(true, response)
+                } else {
+                    iMyInformationView.onGetProfileDetailsData(false, response)
+                }
+            }
 
-                informationActivity.utilities.showSnackBar(contxt.getResources().getString(R.string.error_occured));
+            override fun onFailure(call: Call<ProfileDataClass>, t: Throwable) {
+                informationActivity.utilities.showSnackBar(
+                    contxt.getResources().getString(R.string.error_occured)
+                );
 
                 call.cancel()
                 // canceling the progress bar
@@ -172,13 +202,6 @@ class MyInfoPresenter(private val iMyInformationView: IMyInformationView, val co
         call.enqueue(object : Callback<LanguageData> {
             override fun onResponse(call: Call<LanguageData>, response: Response<LanguageData>) {
 
-
-                Log.e("countryPrams", " " + userId)
-                Log.e("respcountryCode", response.code().toString() + "")
-//                Log.e("respLocationStatus", " " + response.body()?.status)
-                Log.e("respcountrySt", " " + response.body().toString())
-                Log.e("respcountryerror", " " + response.code().toString())
-
                 if (response.code().toString().equals("200")) {
                     iMyInformationView.onGetCountryInfo(true, response)
 
@@ -193,10 +216,9 @@ class MyInfoPresenter(private val iMyInformationView: IMyInformationView, val co
             }
 
             override fun onFailure(call: Call<LanguageData>, t: Throwable) {
-
-                Log.e("responseFailure", " " + t.toString())
-
-                informationActivity.showSnackBar(contxt.getResources().getString(R.string.error_occured));
+                informationActivity.showSnackBar(
+                    contxt.getResources().getString(R.string.error_occured)
+                );
 
                 call.cancel()
                 // canceling the progress bar
@@ -221,12 +243,6 @@ class MyInfoPresenter(private val iMyInformationView: IMyInformationView, val co
             override fun onResponse(call: Call<LanguageData>, response: Response<LanguageData>) {
 
 
-                Log.e("CitiesPrams", " " + userId)
-                Log.e("respCitiesCode", response.code().toString() + "")
-//                Log.e("respLocationStatus", " " + response.body()?.status)
-                Log.e("respCitiesSt", " " + response.body().toString())
-                Log.e("respCitieserror", " " + response.code().toString())
-
                 if (response.code().toString().equals("200")) {
                     iMyInformationView.onGetCitiesInfo(true, response)
 
@@ -241,10 +257,9 @@ class MyInfoPresenter(private val iMyInformationView: IMyInformationView, val co
             }
 
             override fun onFailure(call: Call<LanguageData>, t: Throwable) {
-
-                Log.e("responseFailure", " " + t.toString())
-
-                informationActivity.showSnackBar(contxt.getResources().getString(R.string.error_occured));
+                informationActivity.showSnackBar(
+                    contxt.getResources().getString(R.string.error_occured)
+                );
 
                 call.cancel()
                 // canceling the progress bar

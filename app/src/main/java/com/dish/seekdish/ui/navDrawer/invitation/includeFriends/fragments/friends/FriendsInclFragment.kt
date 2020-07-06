@@ -69,7 +69,6 @@ class FriendsInclFragment : BaseFragment() {
 
         friendVM!!.getFriendLiveData.observe(viewLifecycleOwner, Observer { response ->
             if (response != null) {
-                Log.e("rspFavList", response.toString())
                 if (response.status == 1) {
 
                     arrayList = response.data.friends
@@ -85,12 +84,7 @@ class FriendsInclFragment : BaseFragment() {
                 }
 
             } else {
-
-
                 showSnackBar("OOps! Error Occured.")
-
-                Log.e("rspSnak", "else error")
-
             }
         })
     }

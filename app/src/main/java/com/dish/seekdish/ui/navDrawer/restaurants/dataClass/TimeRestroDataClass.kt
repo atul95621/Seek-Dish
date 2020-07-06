@@ -14,7 +14,7 @@ data class Data_Time_Restro(
     val description: String,
     val distance: Double,
     val id: Int,
-    val zipcode:Int,
+    val zipcode:String,
     val latitude: String,
     val longitude: String,
     val name: String,

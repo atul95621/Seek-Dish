@@ -213,6 +213,29 @@ internal interface APIInterface {
         @Part file: MultipartBody.Part
     ): Call<ProfileDataClass>
 
+
+    @Multipart
+    @POST("update_profile")
+    fun doUpdateProfileDetails(
+
+        @Part("first_name") first_name: RequestBody,
+        @Part("last_name") last_name: RequestBody,
+        @Part("username") username: RequestBody,
+        @Part("gender") gender: RequestBody,
+        @Part("address_line1") addressLineOne: RequestBody,
+        @Part("address_line2") addressLineTwo: RequestBody,
+        @Part("bio") bio: RequestBody,
+        @Part("city") city: RequestBody,
+        @Part("country") country: RequestBody,
+        @Part("zip_code") zip_code: RequestBody,
+        @Part("body_fat") body_fat: RequestBody,
+        @Part("weight") weight: RequestBody,
+        @Part("height") height: RequestBody,
+        @Part("user_id") user_id: RequestBody,
+        @Part("user_category_id") profession_id: RequestBody,
+        @Part("birth_date") date_of_birth: RequestBody
+    ): Call<ProfileDataClass>
+
     @POST("change_password")
     fun changePassword(
         @Field("user") userId: String,

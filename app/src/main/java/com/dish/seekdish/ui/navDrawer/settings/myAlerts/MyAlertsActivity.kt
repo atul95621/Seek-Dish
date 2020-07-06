@@ -75,7 +75,6 @@ class MyAlertsActivity : BaseActivity() {
             ) {
                 // canceling the progress bar
                 ProgressBarClass.dialog.dismiss()
-                Log.e("respStr", " " + response.body().toString())
                 var modelObj = response.body() as CancelReModel
 
                 if (response.code().toString().equals("200")) {
@@ -115,7 +114,6 @@ class MyAlertsActivity : BaseActivity() {
             ) {
                 // canceling the progress bar
                 ProgressBarClass.dialog.dismiss()
-                Log.e("respStr", " " + response.body().toString())
                 if (response.code().toString().equals("200")) {
                     var modelObj = response.body() as MyAlertDataClass
                     if (modelObj.status == 1) {

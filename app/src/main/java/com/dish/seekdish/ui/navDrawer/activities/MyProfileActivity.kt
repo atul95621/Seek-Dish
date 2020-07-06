@@ -51,9 +51,6 @@ class MyProfileActivity : BaseActivity() {
             ) {
                 // canceling the progress bar
                 ProgressBarClass.dialog.dismiss()
-
-                Log.e("respStr", " " + response.body().toString())
-
                 if (response.code().toString().equals("200")) {
 
                     var modelObj = response.body() as ProfileDataClass
@@ -70,7 +67,7 @@ class MyProfileActivity : BaseActivity() {
                         tvDislike.text =
                             modelObj.data.new_info_data.dislike.toString() + " " + getString(R.string.dislikess)
                         tvCheckin.text =
-                            modelObj.data.new_info_data.checkin.toString() + " " + getString(R.string.checkinns)
+                            modelObj.data.new_info_data.checkin.toString() + " " + getString(R.string.opinion)
                         tvProfilePercent.text =
                             modelObj.data.new_info_data.profile_percentage.toString() + " " + getString(
                                 R.string.of_profile

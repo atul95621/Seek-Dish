@@ -66,7 +66,6 @@ class TimeVM : ViewModel() {
                 getTasteLiveData.postValue(response.body())
 
                 getTasteLiveData.value = response.body()
-                Log.e("respoGetTasteMeal", response.body().toString())
 
             }
 
@@ -74,7 +73,6 @@ class TimeVM : ViewModel() {
 
                 // making progress bar invisible
                 isLoadingSubject.onNext(false)
-                Log.e("respoGetTasteMealFail", "failure")
 
                 getTasteLiveData.postValue(null)
 
@@ -117,13 +115,11 @@ class TimeVM : ViewModel() {
                 //finally we are setting the list to our MutableLiveData
                 timeSearchData.postValue(response.body())
                 timeSearchData.value = response.body()
-                Log.e("rspSearch", response.body().toString())
             }
 
             override fun onFailure(call: Call<TimeFragDataClass>, t: Throwable) {
                 // making progress bar invisible
 //                isLoadingSubject.onNext(false)
-                Log.e("rspSearch fail", "failure")
                 timeSearchData.postValue(null)
             }
         })

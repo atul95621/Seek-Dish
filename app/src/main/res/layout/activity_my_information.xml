@@ -290,9 +290,10 @@
                     android:layout_weight=".99"
                     android:background="@color/edt_light_gray"
                     android:hint="@string/zip_code"
-                    android:inputType="number"
-                    android:maxLength="6"
+                    android:inputType="textCapCharacters"
                     android:paddingStart="8dp"
+                    android:maxLines="1"
+                    android:lines="1"
                     android:textColor="@color/black" />
 
                 <View

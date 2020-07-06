@@ -46,9 +46,7 @@ class TodoVM : ViewModel() {
 
                 //finally we are setting the list to our MutableLiveData
                 getTodoLiveData.postValue(response.body())
-
                 getTodoLiveData.value = response.body()
-                Log.e("respoGetTasteMeal", response.body().toString())
 
             }
 
@@ -56,8 +54,6 @@ class TodoVM : ViewModel() {
 
                 // making progress bar invisible
                 isLoadingSubject.onNext(false)
-                Log.e("respoGetTasteMealFail", "failure")
-
                 getTodoLiveData.postValue(null)
 
 
@@ -96,19 +92,12 @@ class TodoVM : ViewModel() {
                 getTodoDeleteLiveData.postValue(response.body())
 
 //                getTodoDeleteLiveData.value = response.body()
-
-                Log.e("respoDeleteMealPrams", meal_id+"    "+restro_id+"    user"+userId)
-
-                Log.e("respoDeleteMeal", response.body().toString())
-
             }
 
             override fun onFailure(call: Call<DeleteTodoList>, t: Throwable) {
 
                 // making progress bar invisible
                 isLoadingSubject.onNext(false)
-                Log.e("respoDeleteMealFail", "failure")
-
                 getTodoDeleteLiveData.postValue(null)
 
 

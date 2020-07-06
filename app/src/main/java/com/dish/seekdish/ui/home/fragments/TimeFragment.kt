@@ -58,8 +58,6 @@ class TimeFragment : BaseFragment() {
         // Inflate the layout for this fragment
         homeActivity = activity as HomeActivity
 
-        Log.e("timee", "onCreateView Called")
-
         // hiding keyboard
         hideKeyBoard()
 
@@ -107,18 +105,17 @@ class TimeFragment : BaseFragment() {
 
 
             override fun loadMoreItems() {
-                Log.e("loadMoreItems ", "hitted")
 
 
                 if (flagSearch == false) {
 
-                    Log.e("loadMoreItems", "entered   " + "isLastPage staus is " + isLastPage)
+//                    Log.e("loadMoreItems", "entered   " + "isLastPage staus is " + isLastPage)
 
 //                    progressBar.setVisibility(View.VISIBLE)
                     isLoading = true
                     if (!isLastPage) {
 
-                        Log.e("loadMoreItems", "entered inide lastpage scope")
+//                        Log.e("loadMoreItems", "entered inide lastpage scope")
 
                         Handler().postDelayed({
 
@@ -174,7 +171,7 @@ class TimeFragment : BaseFragment() {
 
     fun getTimeResponseObserver() {
 
-        Log.e("loadMoreItems", "entered getLikedResponseObserver ")
+//        Log.e("loadMoreItems", "entered getLikedResponseObserver ")
 
         //observe
         timeVM!!.isLoadingObservable().observeOn(AndroidSchedulers.mainThread()).subscribe {
@@ -183,11 +180,6 @@ class TimeFragment : BaseFragment() {
 
         timeVM!!.getTasteLiveData.observe(viewLifecycleOwner, Observer { response ->
             if (response != null) {
-
-
-                Log.e("rspgetLiked", response.toString())
-
-                Log.e("rspgetLikedStat", response.status.toString())
 
                 if (response.status == 1) {
                     if (response.data.isEmpty() && alertShown == false) {
@@ -214,7 +206,6 @@ class TimeFragment : BaseFragment() {
 
             } else {
                 showSnackBar(resources.getString(R.string.error_occured)  +"  $response")
-                Log.e("rspSnakqq", "else error")
 
             }
         })
@@ -222,30 +213,24 @@ class TimeFragment : BaseFragment() {
 
 
     fun resultAction(data: ArrayList<Data_time>) {
-        Log.e("data came", "" + data.toString())
 
 //        progressBar.setVisibility(View.INVISIBLE)
         isLoading = false
         if (data != null) {
             adapter?.addItems(data)
 
-            Log.e("data to bind", "" + data.toString())
             if (data.size == 0) {
                 isLastPage = true
             } else {
                 /* var pos:Int= adapter?.itemCount?.minus(2)!!
                  recyclerView?.scrollToPosition(pos)*/
                 pageNumber = pageNumber + 1
-
-                Log.e("pgNumber", "" + pageNumber)
             }
         }
     }
 
 
     private fun getTimeMeals(page: Int) {
-
-        Log.e("loadMoreItems", "entered getLikedIngre ")
         var radius: String = sessionManager.getValue(SessionManager.RADIUS)
         if (radius != null && radius != "null" && radius != "") {
             radius = sessionManager.getValue(SessionManager.RADIUS)
@@ -288,7 +273,6 @@ class TimeFragment : BaseFragment() {
                 }
             } else {
                 showSnackBar("OOps! Error Occured.")
-                Log.e("rspSnakww", "else error")
 
             }
         })
@@ -355,19 +339,16 @@ class TimeFragment : BaseFragment() {
 
     override fun onResume() {
         super.onResume()
-        Log.e("timee", "onResume Called")
 
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        Log.e("timee", "onActivityCreated Called")
 
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        Log.e("timee", "onViewCreated Called")
 
     }
 }

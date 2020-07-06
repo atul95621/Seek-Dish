@@ -48,7 +48,6 @@ class FriendVM : ViewModel() {
                 //finally we are setting the list to our MutableLiveData
                 getFriendLiveData.postValue(response.body())
                 getFriendLiveData.value = response.body()
-                Log.e("respoGetFav", response.body().toString())
 
             }
 
@@ -56,7 +55,6 @@ class FriendVM : ViewModel() {
 
                 // making progress bar invisible
                 isLoadingSubject.onNext(false)
-                Log.e("respoGetFavFail", "failure")
                 getFriendLiveData.postValue(null)
 
 
@@ -87,7 +85,6 @@ class FriendVM : ViewModel() {
                 //finally we are setting the list to our MutableLiveData
                 getFriendLiveData.postValue(response.body())
                 getFriendLiveData.value = response.body()
-                Log.e("respoGetFav", response.body().toString())
 
             }
 
@@ -95,7 +92,6 @@ class FriendVM : ViewModel() {
 
                 // making progress bar invisible
                 isLoadingSubject.onNext(false)
-                Log.e("respoGetFavFail", "failure")
                 getFriendLiveData.postValue(null)
 
 
@@ -125,7 +121,6 @@ class FriendVM : ViewModel() {
                 //finally we are setting the list to our MutableLiveData
                 getRemoveFrndLiveData.postValue(response.body())
 //                getRemoveFrndLiveData.value = response.body()
-                Log.e("respoGetFav", response.body().toString())
 
             }
 
@@ -133,7 +128,6 @@ class FriendVM : ViewModel() {
 
                 // making progress bar invisible
                 isLoadingSubject.onNext(false)
-                Log.e("respoGetFavFail", "failure")
                 getRemoveFrndLiveData.postValue(null)
             }
         })
@@ -162,7 +156,6 @@ class FriendVM : ViewModel() {
                 //finally we are setting the list to our MutableLiveData
                 getRemoveFollwLiveData.postValue(response.body())
 //                getRemoveFollwLiveData.value = response.body()
-                Log.e("respoGetFav", response.body().toString())
 
             }
 
@@ -170,7 +163,6 @@ class FriendVM : ViewModel() {
 
                 // making progress bar invisible
                 isLoadingSubject.onNext(false)
-                Log.e("respoGetFavFail", "failure")
                 getRemoveFollwLiveData.postValue(null)
             }
         })
@@ -199,7 +191,6 @@ class FriendVM : ViewModel() {
                 getFollowingReqLiveData.postValue(response.body())
 
 //                getFollowingReqLiveData.value = response.body()
-                Log.e("respGetDetails", response.body().toString())
 
             }
 
@@ -207,8 +198,6 @@ class FriendVM : ViewModel() {
 
                 // making progress bar invisible
                 isLoadingSubject.onNext(false)
-                Log.e("respGetDetailsFail", "failure")
-
                 getFollowingReqLiveData.postValue(null)
             }
         })
@@ -237,7 +226,6 @@ class FriendVM : ViewModel() {
                 getFriendReqLiveData.postValue(response.body())
 
 //                getFriendReqLiveData.value = response.body()
-                Log.e("respGetDetails", response.body().toString())
 
             }
 
@@ -245,8 +233,6 @@ class FriendVM : ViewModel() {
 
                 // making progress bar invisible
                 isLoadingSubject.onNext(false)
-                Log.e("respGetDetailsFail", "failure")
-
                 getFriendReqLiveData.postValue(null)
             }
         })

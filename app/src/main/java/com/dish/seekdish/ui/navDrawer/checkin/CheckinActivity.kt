@@ -47,11 +47,11 @@ class CheckinActivity : BaseActivity() {
 
         user_id = intent.getStringExtra("USER_ID").toString()
         if (sessionManager?.getValue(SessionManager.USER_ID).equals(user_id)) {
-            tvTitle.text = resources.getString(R.string.my_check_in_list)
+            tvTitle.text = resources.getString(R.string.opinion)
         } else {
             fromUsername = intent.getStringExtra("fromUsername").toString()
             tvTitle.text =
-                fromUsername + "'s" + " " + resources.getString(R.string.checkinns)
+                fromUsername + "'s" + " " + resources.getString(R.string.opinion)
         }
 
         if (user_id.isNullOrEmpty() == false) {
@@ -78,11 +78,7 @@ class CheckinActivity : BaseActivity() {
             ) {
                 // canceling the progress bar
                 ProgressBarClass.dialog.dismiss()
-
-                Log.e("respStr", " " + response.body().toString())
-
                 if (response.code().toString().equals("200")) {
-
                     var modelObj = response.body() as CheckinModel
                     if (modelObj.status == 1) {
 

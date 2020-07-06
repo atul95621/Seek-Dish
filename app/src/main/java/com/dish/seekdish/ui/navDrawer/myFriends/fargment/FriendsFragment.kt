@@ -94,11 +94,8 @@ class FriendsFragment(var userId: String) : BaseFragment() {
         }
         friendVM!!.getFriendLiveData.observe(viewLifecycleOwner, Observer { response ->
             if (response != null) {
-                Log.e("rspFavList", response.toString())
                 if (response.status == 1) {
-
                     arrayList = response.data.friends
-                    Log.e("list", "called again");
                     if (arrayList.isEmpty()) {
                         recyclerView?.visibility = View.INVISIBLE
                         tvFavAlert.visibility = View.VISIBLE
@@ -114,7 +111,6 @@ class FriendsFragment(var userId: String) : BaseFragment() {
                 showSnackBar(
                     this.getResources().getString(R.string.error_occured) + "    $response"
                 );
-                Log.e("rspSnak", "else error")
             }
         })
     }
@@ -125,7 +121,6 @@ class FriendsFragment(var userId: String) : BaseFragment() {
             userIdToFollow.toString()
         )
         var myId = sessionManager?.getValue(SessionManager.USER_ID).toString()
-        Log.e("uee", "myid: $myId  , friendId:$userIdToFollow  ")
     }
 
     fun addFriend(userIdToAddFriend: Int) {
@@ -143,7 +138,6 @@ class FriendsFragment(var userId: String) : BaseFragment() {
 
         friendVM!!.getRemoveFrndLiveData.observe(viewLifecycleOwner, Observer { response ->
             if (response != null) {
-                Log.e("rspFavList", response.toString())
                 if (response.status == 1) {
                     hitApi()
                     showSnackBar(response.message)
@@ -155,7 +149,6 @@ class FriendsFragment(var userId: String) : BaseFragment() {
                 showSnackBar(
                     this.getResources().getString(R.string.error_occured) + "    $response"
                 );
-                Log.e("rspSnak", "else error")
             }
         })
     }
@@ -169,7 +162,6 @@ class FriendsFragment(var userId: String) : BaseFragment() {
 
         friendVM!!.getFriendReqLiveData.observe(viewLifecycleOwner, Observer { response ->
             if (response != null) {
-                Log.e("rspGetaddtodoDetails", response.status.toString())
                 if (response.status == 1) {
                     hitApi()
                     showSnackBar(response.message)
@@ -180,7 +172,6 @@ class FriendsFragment(var userId: String) : BaseFragment() {
                 showSnackBar(
                     this.getResources().getString(R.string.error_occured) + "    ${response}"
                 );
-                Log.e("rspGetaddtodoFail", "else error")
             }
         })
     }
@@ -194,7 +185,6 @@ class FriendsFragment(var userId: String) : BaseFragment() {
 
         friendVM!!.getFollowingReqLiveData.observe(viewLifecycleOwner, Observer { response ->
             if (response != null) {
-                Log.e("rspGetaddtodoDetails", response.status.toString())
                 if (response.status == 1) {
                     hitApi()
                     showSnackBar(response.message)
@@ -205,7 +195,6 @@ class FriendsFragment(var userId: String) : BaseFragment() {
                 showSnackBar(
                     this.getResources().getString(R.string.error_occured) + "    ${response}"
                 );
-                Log.e("rspGetaddtodoFail", "else error")
             }
         })
     }

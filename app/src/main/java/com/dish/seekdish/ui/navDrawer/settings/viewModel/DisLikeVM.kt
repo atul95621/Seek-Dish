@@ -39,11 +39,7 @@ class DisLikeVM : ViewModel() {
 
 
         var api = APIClientMvvm.client.create(APIInterface::class.java)
-
         val call = api.getDisLikedIngredients(userId,pageNumber,"400")
-
-//        Log.e("pramsGetLiked"," "+userId+"    "+questionId)
-
         call.enqueue(object : Callback<DisLikeDataClass> {
             override fun onResponse(call: Call<DisLikeDataClass>, response: Response<DisLikeDataClass>) {
 
@@ -54,7 +50,7 @@ class DisLikeVM : ViewModel() {
                 getDisLikedLiveData.postValue(response.body())
 
                 getDisLikedLiveData.value = response.body()
-                Log.e("respoGetsDisLike", response.body().toString())
+//                Log.e("respoGetsDisLike", response.body().toString())
 
             }
 
@@ -62,7 +58,6 @@ class DisLikeVM : ViewModel() {
 
                 // making progress bar invisible
                 isLoadingSubject.onNext(false)
-                Log.e("respoGetsDisLikeFail", "failure")
 
                 getDisLikedLiveData.postValue(null)
 
@@ -81,11 +76,7 @@ class DisLikeVM : ViewModel() {
 
 
         var api = APIClientMvvm.client.create(APIInterface::class.java)
-
         val call = api.postSavedDisLikeIngre(userId,ingredients)
-
-//        Log.e("pramsGetLiked"," "+userId+"    "+questionId)
-
         call.enqueue(object : Callback<LikedIngredientsSaved> {
             override fun onResponse(call: Call<LikedIngredientsSaved>, response: Response<LikedIngredientsSaved>) {
 
@@ -96,7 +87,6 @@ class DisLikeVM : ViewModel() {
                 saveDisLikedLiveData.postValue(response.body())
 
 //                saveDisLikedLiveData.value = response.body()
-                Log.e("respoGetDisLiked", response.body().toString())
 
             }
 
@@ -104,8 +94,6 @@ class DisLikeVM : ViewModel() {
 
                 // making progress bar invisible
                 isLoadingSubject.onNext(false)
-                Log.e("respoGetDisLikedFail", "failure")
-
                 saveDisLikedLiveData.postValue(null)
 
 
@@ -135,16 +123,12 @@ class DisLikeVM : ViewModel() {
                 searchDislIngreLiveData.postValue(response.body())
 
                 searchDislIngreLiveData.value = response.body()
-                Log.e("respoGetssearchDislike", response.body().toString())
-
             }
 
             override fun onFailure(call: Call<DisLikeDataClass>, t: Throwable) {
 
                 // making progress bar invisible
 //                isLoadingSubject.onNext(false)
-                Log.e("respoGetsearchDisLiFail", "failure")
-
                 searchDislIngreLiveData.postValue(null)
 
 

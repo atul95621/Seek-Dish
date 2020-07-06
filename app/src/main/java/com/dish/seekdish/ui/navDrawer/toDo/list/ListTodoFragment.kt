@@ -82,12 +82,6 @@ class ListTodoFragment() : BaseFragment() {
 
         todoVM!!.getTodoLiveData.observe(viewLifecycleOwner, Observer { response ->
             if (response != null) {
-
-
-                Log.e("rspgetLiked", response.toString())
-
-                Log.e("rspgetLikedStat", response.status.toString())
-
                 if (response.status == 1) {
 
                     arrayList = response.data
@@ -108,11 +102,7 @@ class ListTodoFragment() : BaseFragment() {
                 }
 
             } else {
-
                 showSnackBar(resources.getString(R.string.error_occured)  +"    ${response}")
-
-                Log.e("rspSnak", "else error")
-
             }
         })
     }
@@ -126,11 +116,6 @@ class ListTodoFragment() : BaseFragment() {
 
         todoVM!!.getTodoDeleteLiveData.observe(viewLifecycleOwner, Observer { response ->
             if (response != null) {
-
-
-                Log.e("rspgetLiked", response.toString())
-
-                Log.e("rspgetLikedStat", response.status.toString())
 
                 if (response.status == 1) {
                     if(adapter!= null) {
@@ -148,7 +133,6 @@ class ListTodoFragment() : BaseFragment() {
 
             } else {
                 showSnackBar(resources.getString(R.string.error_occured)  +"    ${response}")
-                Log.e("rspSnak", "else error")
 
             }
         })

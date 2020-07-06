@@ -97,18 +97,13 @@ class LikeActivity : BaseActivity() {
 
 
             override fun loadMoreItems() {
-                Log.e("loadMoreItems ", "hitted")
-
-
+//                Log.e("loadMoreItems ", "hitted")
                 if (flagSearch == false) {
-
-                    Log.e("loadMoreItems", "entered   " + "isLastPage staus is " + isLastPage)
-
                     progressBar.setVisibility(View.VISIBLE)
                     isLoading = true
                     if (!isLastPage) {
 
-                        Log.e("loadMoreItems", "entered inide lastpage scope")
+//                        Log.e("loadMoreItems", "entered inide lastpage scope")
 
                         Handler().postDelayed({
 
@@ -138,12 +133,8 @@ class LikeActivity : BaseActivity() {
 
                 if (serchedText != null && serchedText != "null" && serchedText != "") {
                     flagSearch = true
-                    Log.e("textWatcher", "entered if scope")
                     getSearchedIngre(serchedText)
                 } else {
-
-                    Log.e("textWatcher", "entered else scope")
-
                     flagSearch = false
 
                     adapter?.clearLikedList()
@@ -166,7 +157,6 @@ class LikeActivity : BaseActivity() {
         tvAdd.setOnClickListener()
         {
             savedIngredients = join1(",", Global.likedItemsSet)
-            Log.e("LikedCommaSepSearch", savedIngredients)
 
             //hitiing save api
             likeVM?.doSaveLikedIngredients(
@@ -185,10 +175,6 @@ class LikeActivity : BaseActivity() {
 
 
     private fun getLikedIngre(page: Int) {
-
-        Log.e("loadMoreItems", "entered getLikedIngre " + "current page no is:" + page)
-
-
         // hitting api
         likeVM?.doGetLikedIngredients(
             sessionManager?.getValue(SessionManager.USER_ID).toString(),
@@ -205,9 +191,6 @@ class LikeActivity : BaseActivity() {
 
 
     private fun getLikedResponseObserver() {
-
-        Log.e("loadMoreItems", "entered getLikedResponseObserver ")
-
         //observe
         likeVM!!.isLoadingObservable().observeOn(AndroidSchedulers.mainThread()).subscribe {
             setIsLoading(it)
@@ -215,12 +198,6 @@ class LikeActivity : BaseActivity() {
 
         likeVM!!.getLikedLiveData.observe(this, Observer { response ->
             if (response != null) {
-
-
-                Log.e("rspgetLiked", response.toString())
-
-                Log.e("rspgetLikedStat", response.status.toString())
-
                 if (response.status == 1) {
 
                     var arrySize = arrayList.size
@@ -232,16 +209,12 @@ class LikeActivity : BaseActivity() {
 
                     if (pageNumber == 1) {
                         adapter?.clearLikedList()
-                        Log.e("TestingLike", "entered in for 1st row")
                         resultAction(response.data)
                     } else {
                         // this does not make 2 copies of item in recyclerview...
                         if (layoutManager.findLastCompletelyVisibleItemPosition() ==
                             adapter?.getItemCount()?.minus(1)
                         ) {
-
-                            Log.e("TestingLike", "entered in last row")
-
                             // loading new items...
                             resultAction(response.data)
                         }
@@ -256,7 +229,6 @@ class LikeActivity : BaseActivity() {
 
             } else {
                 showSnackBar(resources.getString(R.string.error_occured) + "    ${response}");
-                Log.e("rspSnak", "else error")
 
             }
         })
@@ -271,21 +243,11 @@ class LikeActivity : BaseActivity() {
 
         likeVM!!.getSearchLikedLiveData.observe(this, Observer { response ->
             if (response != null) {
-
-
-                Log.e("rspgetsearchLiked", response.toString())
-
-                Log.e("rspgetsearchLikedStat", response.status.toString())
-
                 if (response.status == 1) {
 
 
                     if (response.data.size != 0) {
-
                         arrayList = response.data
-
-                        Log.e("search", "" + "   " + arrayList)
-
                         adapter = LikeAdapter(this, arrayList)
                         recyclerView!!.adapter = adapter
                         adapter!!.notifyDataSetChanged()
@@ -295,7 +257,6 @@ class LikeActivity : BaseActivity() {
             } else {
 
                 showSnackBar(resources.getString(R.string.error_occured) + "    ${response}");
-                Log.e("rspsearchSnak", "else error")
 
             }
         })
@@ -303,18 +264,14 @@ class LikeActivity : BaseActivity() {
 
 
     fun resultAction(data: ArrayList<Data_Liked>) {
-        Log.e("dataCame", "" + data.toString())
-
         progressBar.setVisibility(View.INVISIBLE)
         isLoading = false
         if (data != null) {
             adapter?.addItems(data)
 
-            Log.e("dataBind", "" + data.toString())
             if (data.size == 0) {
                 isLastPage = true
             } else {
-                Log.e("pgNumber_current", "" + pageNumber)
                 pageNumber = pageNumber + 1
 
             }
@@ -331,8 +288,6 @@ class LikeActivity : BaseActivity() {
 
         likeVM!!.saveLikedLiveData.observe(this, Observer { response ->
             if (response != null) {
-                Log.e("rspsaveLiked", response.toString())
-                Log.e("rspsaveLikedStat", response.status.toString())
 
                 if (response.status == 1) {
                     showSnackBar(response.message)
@@ -348,10 +303,7 @@ class LikeActivity : BaseActivity() {
                     showSnackBar(response.message)
                 }
             } else {
-
                 showSnackBar(resources.getString(R.string.error_occured) + "    ${response}");
-                Log.e("rspsaveLikedError", "else error")
-
             }
         })
     }

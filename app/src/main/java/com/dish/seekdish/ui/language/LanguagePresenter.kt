@@ -16,7 +16,6 @@ class LanguagePresenter(private val iLanguageView: ILanguageView, val languageAc
 
     //activity
     internal lateinit var apiInterface: APIInterface
-
     fun getLanguagesInfo(
         userId: String
 
@@ -27,17 +26,9 @@ class LanguagePresenter(private val iLanguageView: ILanguageView, val languageAc
         apiInterface = APIClient.getClient(languageActivity).create(APIInterface::class.java)
 
 
-        val call = apiInterface.getLanguagesData("128")
+        val call = apiInterface.getLanguagesData("")
         call.enqueue(object : Callback<LanguageData> {
             override fun onResponse(call: Call<LanguageData>, response: Response<LanguageData>) {
-
-
-                Log.e("settingSetPrams", " " + userId)
-                Log.e("respSendSettCode", response.code().toString() + "")
-//                Log.e("respLocationStatus", " " + response.body()?.status)
-                Log.e("respSendSettSt", " " + response.body().toString())
-                Log.e("respSendSetterror", " " + response.errorBody().toString())
-
                 if (response.code().toString().equals("200")) {
                     iLanguageView.onGetLanguageInfo(true, response)
 
@@ -47,16 +38,10 @@ class LanguagePresenter(private val iLanguageView: ILanguageView, val languageAc
 
                 // canceling the progress bar
                 ProgressBarClass.dialog.dismiss()
-
-
             }
 
             override fun onFailure(call: Call<LanguageData>, t: Throwable) {
-
-                Log.e("responseFailure", " " + t.toString())
-
                 languageActivity.showSnackBar(languageActivity.getResources().getString(R.string.error_occured));
-
                 call.cancel()
                 // canceling the progress bar
                 ProgressBarClass.dialog.dismiss()

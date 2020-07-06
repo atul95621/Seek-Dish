@@ -135,22 +135,17 @@ class ContactFetchActivity : BaseActivity() {
                        }
                    }*/
                 for (j in 0 until mobileArrayList.size) {
-                    Log.e("resuktt run", "" + j)
-                    Log.e("mobile numbers", "" + mobileArrayList[j].toString())
                     var mobileNo = mobileArrayList[j]
                     if (mobileNo.contains(searchString)) {
-                        Log.e("resuktt succ", "" + mobileArrayList[j])
                         contactMatchedArr.add(arraylist[i])
 //                    contactMatchedArr.add(mobileHashset.elementAt(j))
 
                         break
                     } else {
-                        Log.e("resuktt", "" + mobileArrayList[j] + " not founndd")
                     }
                 }
             }
         }
-        Log.e("array,contactMatchedArr", "" + contactMatchedArr.size)
         for (item in contactMatchedArr) {
             if (item.phone.isNullOrEmpty() == false) {
                 finalArray.add(item)
@@ -239,7 +234,6 @@ class ContactFetchActivity : BaseActivity() {
                 // canceling the progress bar
 //                ProgressBarClass.dialog.dismiss()
 
-                Log.e("respStr", " " + response.body().toString())
 
                 if (response.code().toString().equals("200")) {
 
@@ -250,7 +244,6 @@ class ContactFetchActivity : BaseActivity() {
                             tvAlertContact.visibility == View.VISIBLE
                         } else {
                             arraylist = modelObj.data
-                            Log.e("arraylist no", "" + arraylist.size)
                             fetchContact()
                         }
 
@@ -298,7 +291,6 @@ class ContactFetchActivity : BaseActivity() {
             ) {
                 // canceling the progress bar
                 ProgressBarClass.dialog.dismiss()
-                Log.e("respStr", " " + response.body().toString())
                 if (response.code().toString().equals("200")) {
 
                     var modelObj = response.body() as AddTodoModel
@@ -313,7 +305,6 @@ class ContactFetchActivity : BaseActivity() {
             }
 
             override fun onFailure(call: Call<AddTodoModel>, t: Throwable) {
-                Log.e("responseFailure", " " + t.message)
                 showSnackBar(resources.getString(R.string.error_occured)+"  ${t.message}");
                 call.cancel()
                 // canceling the progress bar

@@ -57,7 +57,6 @@ class RestroTimeVM :ViewModel(){
                 //finally we are setting the list to our MutableLiveData
                 getTimeRestroLiveData.postValue(response.body())
                 getTimeRestroLiveData.value = response.body()
-                Log.e("respoGetTimeRestro", response.body().toString())
 
             }
 
@@ -65,7 +64,6 @@ class RestroTimeVM :ViewModel(){
 
                 // making progress bar invisible
                 isLoadingSubject.onNext(false)
-                Log.e("respoGetTimeRestFail", "failure")
                 getTimeRestroLiveData.postValue(null)
             }
         })
@@ -99,13 +97,11 @@ class RestroTimeVM :ViewModel(){
                 //finally we are setting the list to our MutableLiveData
                 searchTimeRestro.postValue(response.body())
                 searchTimeRestro.value = response.body()
-                Log.e("rspSearch", response.body().toString())
             }
 
             override fun onFailure(call: Call<TimeRestroDataClass>, t: Throwable) {
                 // making progress bar invisible
 //                isLoadingSubject.onNext(false)
-                Log.e("rspSearch fail", "failure")
                 searchTimeRestro.postValue(null)
             }
         })

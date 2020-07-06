@@ -91,7 +91,7 @@ class RadiusCenterActivity : BaseActivity(), OnMapReadyCallback, GoogleMap.OnMyL
                 sessionManager?.setValues(SessionManager.LATITUDE, selectedLat);
                 sessionManager?.setValues(SessionManager.LONGITUDE, selectedLong)
                 sessionManager?.setValues(SessionManager.PLACE_SELECTED, selectedAddress)
-                Log.e("addressSELECTED", "$selectedLat ,  $selectedLong " + selectedAddress)
+//                Log.e("addressSELECTED", "$selectedLat ,  $selectedLong " + selectedAddress)
 
 
 
@@ -127,7 +127,7 @@ class RadiusCenterActivity : BaseActivity(), OnMapReadyCallback, GoogleMap.OnMyL
                 );
                 sessionManager?.setValues(SessionManager.PLACE_SELECTED, currentAddress)
 
-                Log.e("addressCureent", " " + currentAddress)
+//                Log.e("addressCureent", " " + currentAddress)
 
                 // updating coords over the db
                 updateCordsOnServer(sessionManager?.getValue(SessionManager.USER_ID).toString(),sessionManager?.getValue(SessionManager.CURRENT_LONGITUDE).toString(),sessionManager?.getValue(SessionManager.CURRENT_LATITUDE).toString())
@@ -290,9 +290,9 @@ class RadiusCenterActivity : BaseActivity(), OnMapReadyCallback, GoogleMap.OnMyL
                 val place = Autocomplete.getPlaceFromIntent(data!!)
                 val latLngOfPlace = place.latLng
                 if (latLngOfPlace != null) {
-                    Log.e("GooglePlacelat", "Place found: " + latLngOfPlace.latitude)
+                   /* Log.e("GooglePlacelat", "Place found: " + latLngOfPlace.latitude)
                     Log.e("GooglePlacelong", "Place found: " + latLngOfPlace.longitude)
-                    Log.e("GooglePlaceaddress", "Place found: " + place.name)
+                    Log.e("GooglePlaceaddress", "Place found: " + place.name)*/
 
 
                     /*    // savin the selected in session
@@ -320,7 +320,7 @@ class RadiusCenterActivity : BaseActivity(), OnMapReadyCallback, GoogleMap.OnMyL
             } else if (resultCode == AutocompleteActivity.RESULT_ERROR) {
                 // TODO: Handle the error.
                 val status = Autocomplete.getStatusFromIntent(data!!)
-                Log.e("GooglePlaceSDKonAct", status.statusMessage)
+//                Log.e("GooglePlaceSDKonAct", status.statusMessage)
             } else if (resultCode == Activity.RESULT_CANCELED) {
                 // The user canceled the operation.
             }
@@ -352,7 +352,6 @@ class RadiusCenterActivity : BaseActivity(), OnMapReadyCallback, GoogleMap.OnMyL
         call.enqueue(object : Callback<CancelReModel> {
             override fun onResponse(call: Call<CancelReModel>, response: Response<CancelReModel>) {
                 ProgressBarClass.dialog.dismiss()
-                Log.e("respResetSignupCode", response.code().toString() + "")
                 if (response.code().toString().equals("200")) {
                     var model = response.body() as CancelReModel
                     if (model.status == 1) {

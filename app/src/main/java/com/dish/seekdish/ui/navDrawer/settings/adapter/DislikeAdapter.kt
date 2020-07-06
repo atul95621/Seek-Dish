@@ -58,11 +58,9 @@ class DislikeAdapter(
 
 //            disLikedList.get(position).checkForLike = true
             if (friendDataClass.checkForDisLike == false) {
-                Log.e("like", "if entered on " + position)
                 holder.checkBoxLiked.isChecked = true
                 disLikedList.get(position).checkForDisLike = true
             } else {
-                Log.e("like", "else entered on " + position)
                 holder.checkBoxLiked.isChecked = true
                 disLikedList.get(position).checkForDisLike = true
             }
@@ -78,8 +76,6 @@ class DislikeAdapter(
             }
 
         } else if (friendDataClass.liked == 2 || friendDataClass.checkForDisLike) {
-            Log.e("checkbox liked", "" + friendDataClass.liked)
-
             if (friendDataClass.checkForDisLike) {
                 holder.checkBoxLiked.isChecked = true
                 disLikedList.get(position).checkForDisLike = true
@@ -96,20 +92,14 @@ class DislikeAdapter(
         {
 
             if (holder.checkBoxLiked.isChecked == true) {
-                Log.e("checkbox", "turned true")
                 disLikedList.get(position).checkForDisLike = true
-                Log.e(
-                    "statLike",
-                    " " + disLikedList.get(position).checkForDisLike + "psotion" + disLikedList.get(position).id
-                )
+
                 holder.checkBoxLiked.isChecked = true
                 Global.dislikedItemsSet.add(disLikedList.get(position).id.toString())
 
             } else {
-                Log.e("checkbox", "turned false")
                 disLikedList.get(position).checkForDisLike = false
                 holder.checkBoxLiked.isChecked = false
-                Log.e("statLike", " " + disLikedList.get(position).checkForDisLike) + position
                 var ingrId = disLikedList.get(position).id.toString()
 
                 for (i in 0 until Global.dislikedItemsSet.size) {
@@ -117,9 +107,6 @@ class DislikeAdapter(
                         Global.dislikedItemsSet.remove(ingrId)
                     }
                 }
-
-                Log.e("itemsDisliked","  :"+Global.dislikedItemsSet.toString())
-
             }
         }
     }
@@ -131,14 +118,7 @@ class DislikeAdapter(
     }
 
     fun addItems(dataItems: ArrayList<Data_Disliked>) {
-
-        Log.e("size of likelist before", "" + disLikedList.size)
-
-
         disLikedList.addAll(dataItems)
-
-        Log.e("size of likelist after", "" + disLikedList.size)
-
         dislikeActivity.runOnUiThread(Runnable { dislikeActivity.adapter?.notifyDataSetChanged() })
     }
 

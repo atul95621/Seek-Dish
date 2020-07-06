@@ -36,7 +36,8 @@ import com.dish.seekdish.ui.navDrawer.dishDescription.DishDescriptionActivity
 import java.util.HashMap
 
 
-class HomeMapFragment : BaseFragment(), OnMapReadyCallback, GoogleMap.OnMyLocationButtonClickListener,
+class HomeMapFragment : BaseFragment(), OnMapReadyCallback,
+    GoogleMap.OnMyLocationButtonClickListener,
     GoogleMap.OnMyLocationClickListener, GoogleMap.OnMarkerClickListener {
 
     lateinit var marker: Marker
@@ -48,10 +49,15 @@ class HomeMapFragment : BaseFragment(), OnMapReadyCallback, GoogleMap.OnMyLocati
     var bitmapdraw: BitmapDrawable? = null
     var customSizeMarker: Bitmap? = null;
 
-    internal var markerMapHash: MutableMap<Marker, InfoWindowData> = HashMap<Marker, InfoWindowData>()
+    internal var markerMapHash: MutableMap<Marker, InfoWindowData> =
+        HashMap<Marker, InfoWindowData>()
 
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
         super.onCreateView(inflater, container, savedInstanceState)
         myContext = activity as HomeActivity
         mapHomeVM = ViewModelProvider(this).get(MapHomeVM::class.java)
@@ -94,18 +100,23 @@ class HomeMapFragment : BaseFragment(), OnMapReadyCallback, GoogleMap.OnMyLocati
             showSnackBar(getString(R.string.check_connection))
         }
 
-        googleMap.setOnMarkerClickListener {
+// did this because image in infowindow was opening on 2nd click, this make the infowindow to close
+// and open again to show image
+        mMap?.setOnMarkerClickListener { marker ->
 
-
-            false
+            Log.e("infoopened", "  " + marker)
+            if (marker.isInfoWindowShown) {
+                marker.hideInfoWindow()
+            } else {
+                marker.showInfoWindow()
+            }
+            true
         }
 
 
         googleMap.setOnInfoWindowClickListener { marker ->
             val infoModel: InfoWindowData? = marker.tag as InfoWindowData?
 
-            Log.e("ratedd", "info window clicked"+"  "+infoModel?.mealId+"   ${infoModel?.restaurantId}"
-            )
 
             val intent = Intent(myContext, DishDescriptionActivity::class.java)
             intent.putExtra("MEAL_ID", infoModel?.mealId.toString())
@@ -141,9 +152,9 @@ class HomeMapFragment : BaseFragment(), OnMapReadyCallback, GoogleMap.OnMyLocati
         customSizeMarker = Bitmap.createScaledBitmap(b!!, 100, 100, false)
 
 
-      /*  var cameraMove = LatLng(Constants.Latitude.toDouble(), Constants.Longitude.toDouble())
-//        mMap!!.moveCamera(CameraUpdateFactory.newLatLng(cameraMove))
-        mMap!!.animateCamera(CameraUpdateFactory.newLatLngZoom(cameraMove, 14F));*/
+        /*  var cameraMove = LatLng(Constants.Latitude.toDouble(), Constants.Longitude.toDouble())
+  //        mMap!!.moveCamera(CameraUpdateFactory.newLatLng(cameraMove))
+          mMap!!.animateCamera(CameraUpdateFactory.newLatLngZoom(cameraMove, 14F));*/
 
 
         if (ContextCompat.checkSelfPermission(
@@ -192,24 +203,24 @@ class HomeMapFragment : BaseFragment(), OnMapReadyCallback, GoogleMap.OnMyLocati
     }
 
     override fun onMyLocationClick(location: Location) {
- /*       mMap?.setMinZoomPreference(5f)
+        /*       mMap?.setMinZoomPreference(5f)
 
-        val circleOptions = CircleOptions()
-        circleOptions.center(
-            LatLng(
-                location.latitude,
-                location.longitude
-            )
-        )
+               val circleOptions = CircleOptions()
+               circleOptions.center(
+                   LatLng(
+                       location.latitude,
+                       location.longitude
+                   )
+               )
 
-        Log.e("latlong1", " " + location.latitude)
-        Log.e("latlong2", " " + location.longitude)
+               Log.e("latlong1", " " + location.latitude)
+               Log.e("latlong2", " " + location.longitude)
 
-        circleOptions.radius(100.0)
-        circleOptions.fillColor(Color.RED)
-        circleOptions.strokeWidth(6f)
+               circleOptions.radius(100.0)
+               circleOptions.fillColor(Color.RED)
+               circleOptions.strokeWidth(6f)
 
-        mMap?.addCircle(circleOptions)*/
+               mMap?.addCircle(circleOptions)*/
     }
 
 
@@ -223,118 +234,102 @@ class HomeMapFragment : BaseFragment(), OnMapReadyCallback, GoogleMap.OnMyLocati
 
         mapHomeVM!!.getMapData.observe(viewLifecycleOwner, Observer { response ->
             if (response != null) {
-
-
-                Log.e("rspgemap", response.toString())
-
-                Log.e("rspgetmaptat", response.status.toString())
-
                 if (response.status == 1) {
-
                     arrayList = response.data
-
                     if (arrayList.size > 0 && arrayList.isNotEmpty()) {
-                        activity?.runOnUiThread(
-                            object : Runnable {
-                                override fun run() {
-                                    for (i in 0 until arrayList.size) {
+                        Thread(Runnable {
 
-                                        var latititude = arrayList[i].latitude.toDouble()
-                                        var longitude = arrayList[i].longitude.toDouble()
-                                        var imageUrl = arrayList[i].meal_image
-                                        var starRate = arrayList[i].rating.toString()
-                                        var euroRate = arrayList[i].budget.toString()
-                                        var mealName = arrayList[i].name
-                                        var mealId = arrayList[i].meal_id.toString()
-                                        var restroId = arrayList[i].restro_id.toString()
-                                        var mealPrice = arrayList[i].meal_price.toString()
-                                        var mealSymbol = arrayList[i].meal_symbol.toString()
+                            // try to touch View of UI thread
+                            myContext.runOnUiThread(java.lang.Runnable {
+                                for (i in 0 until arrayList.size) {
 
-                                        // adding custom info window
-                                        var locationPos = LatLng(latititude, longitude);
-                                        var markerOptions = MarkerOptions();
-                                        markerOptions.position(locationPos)
-                                            .title(arrayList[i].name)
-                                            .icon(
-                                                bitmapDescriptorFromVector(
-                                                    myContext,
-                                                    R.drawable.ic_markersvg
-                                                )
+                                    var latititude = arrayList[i].latitude.toDouble()
+                                    var longitude = arrayList[i].longitude.toDouble()
+                                    var imageUrl = arrayList[i].meal_image
+                                    var starRate = arrayList[i].rating.toString()
+                                    var euroRate = arrayList[i].budget.toString()
+                                    var mealName = arrayList[i].name
+                                    var mealId = arrayList[i].meal_id.toString()
+                                    var restroId = arrayList[i].restro_id.toString()
+                                    var mealPrice = arrayList[i].meal_price.toString()
+                                    var mealSymbol = arrayList[i].meal_symbol.toString()
+
+                                    // adding custom info window
+                                    var locationPos = LatLng(latititude, longitude);
+                                    var markerOptions = MarkerOptions();
+                                    markerOptions.position(locationPos)
+                                        .title(arrayList[i].name)
+                                        .icon(
+                                            bitmapDescriptorFromVector(
+                                                myContext,
+                                                R.drawable.ic_markersvg
                                             )
-
-                                        var info = InfoWindowData(
-                                            imageUrl,
-                                            starRate,
-                                            euroRate,
-                                            mealName,
-                                            mealId.toString(),
-                                            restroId.toString(),
-                                            mealPrice,
-                                            mealSymbol
                                         )
 
-
-                                        var marker = mMap!!.addMarker(markerOptions);
-                                        marker.setTag(info)
-                                        marker.showInfoWindow()
-
-                                        markerMapHash.put(marker, info)
-                                    }
-
-                                    var cameraMove = LatLng(
-                                        arrayList[0].latitude.toDouble(),
-                                        arrayList[0].longitude.toDouble()
+                                    var info = InfoWindowData(
+                                        imageUrl,
+                                        starRate,
+                                        euroRate,
+                                        mealName,
+                                        mealId.toString(),
+                                        restroId.toString(),
+                                        mealPrice,
+                                        mealSymbol
                                     )
-                                    mMap!!.animateCamera(
-                                        CameraUpdateFactory.newLatLngZoom(
-                                            cameraMove,
-                                            14F
-                                        )
-                                    );
 
+
+                                    var marker = mMap!!.addMarker(markerOptions);
+                                    marker.setTag(info)
+                                    marker.showInfoWindow()
+
+                                    markerMapHash.put(marker, info)
                                 }
-                            }
-                        )
+
+                                var cameraMove = LatLng(
+                                    arrayList[0].latitude.toDouble(),
+                                    arrayList[0].longitude.toDouble()
+                                )
+                                mMap!!.animateCamera(
+                                    CameraUpdateFactory.newLatLngZoom(
+                                        cameraMove,
+                                        14F
+                                    )
+                                );
+                            })
+                        }).start()
+
                     }
 
 
+                    /*   // try to touch View of UI thread
+                       activity?.runOnUiThread(java.lang.Runnable {
+                           // adding custom info window
+                           var locationPos = LatLng(43.3367589, 3.224927999999977);
+                           var markerOptions = MarkerOptions();
+                           markerOptions.position(locationPos)
+                               .title("")
+                               .icon(BitmapDescriptorFactory.fromBitmap(customSizeMarker));   // custom size maekr is used here
 
-                 /*   // try to touch View of UI thread
-                    activity?.runOnUiThread(java.lang.Runnable {
-                        // adding custom info window
-                        var locationPos = LatLng(43.3367589, 3.224927999999977);
-                        var markerOptions = MarkerOptions();
-                        markerOptions.position(locationPos)
-                            .title("")
-                            .icon(BitmapDescriptorFactory.fromBitmap(customSizeMarker));   // custom size maekr is used here
-
-                        var info = InfoWindowData("http://seekdish.com/seekdish_android/public/uploads/images/meals/199_20180909_131056.jpg", "3", "2", "mealName");
+                           var info = InfoWindowData("http://seekdish.com/seekdish_android/public/uploads/images/meals/199_20180909_131056.jpg", "3", "2", "mealName");
 
 
-                        var marker = mMap!!.addMarker(markerOptions);
-                        marker.setTag(info)
-                        marker.showInfoWindow()
+                           var marker = mMap!!.addMarker(markerOptions);
+                           marker.setTag(info)
+                           marker.showInfoWindow()
 
-                    })*/
+                       })*/
 
-                /*    for(key in markerMapHash.keys){
-                        Log.e("Element:   ","Element at key $key : ${markerMapHash[key]}")
-                    }
-*/
+                    /*    for(key in markerMapHash.keys){
+                            Log.e("Element:   ","Element at key $key : ${markerMapHash[key]}")
+                        }
+    */
 
-                }
-                else
-                {
+                } else {
                     showSnackBar(response.message)
                 }
 
             } else {
-
-
-                showSnackBar(resources.getString(R.string.error_occured)+"  $response");
-
-                Log.e("rspMaperror", "else error")
-
+                showSnackBar(resources.getString(R.string.error_occured) + "  $response");
             }
         })
     }

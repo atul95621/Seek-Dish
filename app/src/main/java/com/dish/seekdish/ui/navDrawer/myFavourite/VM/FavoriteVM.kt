@@ -46,9 +46,7 @@ class FavoriteVM : ViewModel() {
 
                 //finally we are setting the list to our MutableLiveData
                 getFavoriteLiveData.postValue(response.body())
-
                 getFavoriteLiveData.value = response.body()
-                Log.e("respoGetFav", response.body().toString())
 
             }
 
@@ -56,8 +54,6 @@ class FavoriteVM : ViewModel() {
 
                 // making progress bar invisible
                 isLoadingSubject.onNext(false)
-                Log.e("respoGetFavFail", "failure")
-
                 getFavoriteLiveData.postValue(null)
 
 
@@ -96,19 +92,12 @@ class FavoriteVM : ViewModel() {
                 getFavDeleteLiveData.postValue(response.body())
 
 //                getFavDeleteLiveData.value = response.body()
-
-                Log.e("respoDeleteMealPrams", meal_id + "    " + restro_id + "    user" + userId)
-
-                Log.e("respoGetDel", response.body().toString())
-
             }
 
             override fun onFailure(call: Call<DeleteTodoList>, t: Throwable) {
 
                 // making progress bar invisible
                 isLoadingSubject.onNext(false)
-                Log.e("respoGetDelFail", "failure")
-
                 getFavDeleteLiveData.postValue(null)
 
 

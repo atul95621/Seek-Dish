@@ -91,7 +91,6 @@ class TodoMap() : BaseFragment(), OnMapReadyCallback, GoogleMap.OnMyLocationButt
 
 
         googleMap.setOnInfoWindowClickListener { marker ->
-            Log.e("rate", "info window clicked")
             val infoModel: InfoWindowData? = marker.tag as InfoWindowData?
 
             val intent = Intent(myContext, DishDescriptionActivity::class.java)
@@ -167,10 +166,6 @@ class TodoMap() : BaseFragment(), OnMapReadyCallback, GoogleMap.OnMyLocationButt
         todoVM!!.getTodoLiveData.observe(viewLifecycleOwner, Observer { response ->
             if (response != null) {
 
-
-                Log.e("rspgemap", response.toString())
-
-                Log.e("rspgetmaptat", response.status.toString())
 
                 if (response.status == 1) {
 
@@ -250,7 +245,6 @@ class TodoMap() : BaseFragment(), OnMapReadyCallback, GoogleMap.OnMyLocationButt
 
             } else {
                 showSnackBar(resources.getString(R.string.error_occured)+"  $response");
-                Log.e("rspMaperror", "else error")
 
             }
         })

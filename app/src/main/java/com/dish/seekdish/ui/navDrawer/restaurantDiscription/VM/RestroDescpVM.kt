@@ -47,18 +47,13 @@ class RestroDescpVM : ViewModel() {
 
                 //finally we are setting the list to our MutableLiveData
                 geRestroDetailLiveData.postValue(response.body())
-
                 geRestroDetailLiveData.value = response.body()
-                Log.e("respGetDetails", response.body().toString())
-
             }
 
             override fun onFailure(call: Call<RestroDescpModel>, t: Throwable) {
 
                 // making progress bar invisible
                 isLoadingSubject.onNext(false)
-                Log.e("respGetDetailsFail", "failure")
-
                 geRestroDetailLiveData.postValue(null)
             }
         })
@@ -86,18 +81,13 @@ class RestroDescpVM : ViewModel() {
 
                 //finally we are setting the list to our MutableLiveData
 //                getAddAlertLiveData.postValue(response.body())
-
                 getAddAlertLiveData.value = response.body()
-                Log.e("respGetDetails", response.body().toString())
-
             }
 
             override fun onFailure(call: Call<CancelReModel>, t: Throwable) {
 
                 // making progress bar invisible
                 isLoadingSubject.onNext(false)
-                Log.e("respGetDetailsFail", "failure")
-
                 getAddAlertLiveData.postValue(null)
             }
         })
@@ -120,13 +110,11 @@ class RestroDescpVM : ViewModel() {
                 //finally we are setting the list to our MutableLiveData
                 getCallCountLiveData.postValue(response.body())
 //                getFollowingReqLiveData.value = response.body()
-                Log.e("respGetDetails", response.body().toString())
             }
 
             override fun onFailure(call: Call<CallCountModel>, t: Throwable) {
                 // making progress bar invisible
                 isLoadingSubject.onNext(false)
-                Log.e("respGetDetailsFail", "failure")
                 getCallCountLiveData.postValue(null)
             }
         })

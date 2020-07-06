@@ -92,9 +92,6 @@ class CheckinRestroActivity : BaseActivity() {
             ) {
                 // canceling the progress bar
                 ProgressBarClass.dialog.dismiss()
-
-                Log.e("respCheckinRestro", " " + response.body().toString())
-
                 if (response.code().toString().equals("200")) {
                     var modelObj = response.body() as CheckinRestroModel
 

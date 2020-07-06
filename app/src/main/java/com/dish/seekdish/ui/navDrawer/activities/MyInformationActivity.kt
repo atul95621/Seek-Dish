@@ -40,13 +40,9 @@ import java.io.IOException
 import java.util.*
 
 class MyInformationActivity : BaseActivity(), IMyInformationView {
-
     lateinit var myInfoPresenter: MyInfoPresenter
-
     // lateinit var context  : Context
     var sessionManager: SessionManager? = null;
-
-
     val PERMISSION_REQUEST_IMG_CODE = 1
     var imagePicker: ImagePicker? = null
     internal var imagePick = false
@@ -131,7 +127,6 @@ class MyInformationActivity : BaseActivity(), IMyInformationView {
                     }
                     // Display Selected date in textbox
                     tvDOB.setText(date + "/" + month + "/" + year.toString())
-
                 },
                 year,
                 month,
@@ -230,12 +225,6 @@ class MyInformationActivity : BaseActivity(), IMyInformationView {
                 dob = date
             }
 
-            Log.e("check22", "Pro  " + profession_id + "  " + dob)
-
-
-
-
-
             if (TextUtils.isEmpty(edtName!!.text.toString().trim { it <= ' ' })) {
                 showSnackBar(getString(R.string.fill_first))
                 edtName!!.requestFocus()
@@ -274,23 +263,15 @@ class MyInformationActivity : BaseActivity(), IMyInformationView {
             }*/ else {
 
                 if (connectionDetector.isConnectingToInternet) {
-
                     var part: MultipartBody.Part? = null
-
                     // making path for image
                     val file = File(path)
-                    Log.e("resppath", "" + path)
-                    Log.e("respbitmap", "" + bitmap)
-                    Log.e("respfile", "" + file)
-
                     // compressing size of the image uploading
 //                    var finalFile = compressFile(file)
                     var finalFile = bitmap?.let { saveBitmap(it, path) }
                     if (finalFile != null) {
                         var sizeAfter = finalFile.length().div(1024)
                         var sizeBefore = file.length().div(1024)
-                        Log.e("sizeAfter", "" + sizeAfter)
-                        Log.e("sizeBefore", "" + sizeBefore)
                     } else {
                         // if finalFile return null then
                         finalFile = file
@@ -303,48 +284,61 @@ class MyInformationActivity : BaseActivity(), IMyInformationView {
                     part = MultipartBody.Part.createFormData("photo", file.getName(), fileReqBody)
 
                     if (path.equals("") || path == null || path == "") {
-                        Log.e("respUpdatePath", "" + path)
-                        val fileReqBody = RequestBody.create(MediaType.parse("image/*"), "")
+//                        val fileReqBody = RequestBody.create(MediaType.parse("image/*"), "")
+//                        part = MultipartBody.Part.createFormData("photo", "", fileReqBody)
 
-                        part = MultipartBody.Part.createFormData("photo", "", fileReqBody)
+                        //calling api
+                        myInfoPresenter.updateInfoWithoutImage(
+                            stringConvertToRequestBody(edtName.text.toString()),
+                            stringConvertToRequestBody(edtLastName.text.toString()),
+                            stringConvertToRequestBody(edtUsername.text.toString()),
+                            stringConvertToRequestBody(edtAddressLineOne.text.toString()),
+                            stringConvertToRequestBody(edtAddressLinetwo.text.toString()),
+                            stringConvertToRequestBody(spinnerGender.selectedItem.toString()),
+                            stringConvertToRequestBody(edtBio.text.toString()),
+                            stringConvertToRequestBody(edtCity.text.toString()),
+                            stringConvertToRequestBody(countryId),
+                            stringConvertToRequestBody(edtZipcode.text.toString()),
+                            stringConvertToRequestBody(bodyFat),
+                            stringConvertToRequestBody(edtWeight.text.toString()),
+                            stringConvertToRequestBody(edtHeight.text.toString()),
+                            stringConvertToRequestBody(sessionManager!!.getValue(SessionManager.USER_ID)),
+                            stringConvertToRequestBody(profession_id),
+                            stringConvertToRequestBody(dob)
+                        )
+                    } else {
+
+                        //calling api
+                        myInfoPresenter.updateInfo(
+                            stringConvertToRequestBody(edtName.text.toString()),
+                            stringConvertToRequestBody(edtLastName.text.toString()),
+                            stringConvertToRequestBody(edtUsername.text.toString()),
+                            stringConvertToRequestBody(edtAddressLineOne.text.toString()),
+                            stringConvertToRequestBody(edtAddressLinetwo.text.toString()),
+                            stringConvertToRequestBody(spinnerGender.selectedItem.toString()),
+                            stringConvertToRequestBody(edtBio.text.toString()),
+                            stringConvertToRequestBody(edtCity.text.toString()),
+                            stringConvertToRequestBody(countryId),
+                            stringConvertToRequestBody(edtZipcode.text.toString()),
+                            stringConvertToRequestBody(bodyFat),
+                            stringConvertToRequestBody(edtWeight.text.toString()),
+                            stringConvertToRequestBody(edtHeight.text.toString()),
+                            stringConvertToRequestBody(sessionManager!!.getValue(SessionManager.USER_ID)),
+                            stringConvertToRequestBody(profession_id),
+                            stringConvertToRequestBody(dob),
+                            part
+                        )
                     }
-
-                    Log.e("respUpdatePart", "" + part)
-
-                    //calling api
-                    myInfoPresenter.updateInfo(
-                        stringConvertToRequestBody(edtName.text.toString()),
-                        stringConvertToRequestBody(edtLastName.text.toString()),
-                        stringConvertToRequestBody(edtUsername.text.toString()),
-                        stringConvertToRequestBody(edtAddressLineOne.text.toString()),
-                        stringConvertToRequestBody(edtAddressLinetwo.text.toString()),
-                        stringConvertToRequestBody(spinnerGender.selectedItem.toString()),
-                        stringConvertToRequestBody(edtBio.text.toString()),
-                        stringConvertToRequestBody(edtCity.text.toString()),
-                        stringConvertToRequestBody(countryId),
-                        stringConvertToRequestBody(edtZipcode.text.toString()),
-                        stringConvertToRequestBody(bodyFat),
-                        stringConvertToRequestBody(edtWeight.text.toString()),
-                        stringConvertToRequestBody(edtHeight.text.toString()),
-                        stringConvertToRequestBody(sessionManager!!.getValue(SessionManager.USER_ID)),
-                        stringConvertToRequestBody(profession_id),
-                        stringConvertToRequestBody(dob),
-                        part
-                    )
                 } else {
                     showSnackBar(getResources().getString(R.string.check_connection));
                 }
-
-
             }
         }
 
     }
 
     private fun getProfileDetails() {
-
         myInfoPresenter.getProfileInfo(sessionManager!!.getValue(SessionManager.USER_ID))
-
     }
 
     //images
@@ -372,7 +366,7 @@ class MyInformationActivity : BaseActivity(), IMyInformationView {
                     //get image path from uri
 //                    val path = getPath(imageUri)
                     path = getRealPathFromURI(imageUri).toString()
-                    Log.e("path", path)
+//                    Log.e("path", path)
 //                     Bitmap bmp = uriToBitmap(imageUri);
                     if (path.isNullOrEmpty() == false) {
                         //get bitmap from file path
@@ -446,9 +440,6 @@ class MyInformationActivity : BaseActivity(), IMyInformationView {
         //Log.e("test", "onactivitycalled");
 
         if (resultCode == RESULT_OK) {
-
-            Log.e("case a", "onactvty")
-
             //Log.e("uri image", "" + resultCode);
             if (imagePicker != null)
                 imagePicker?.handleActivityResult(resultCode, requestCode, result)
@@ -532,7 +523,6 @@ class MyInformationActivity : BaseActivity(), IMyInformationView {
         //        ___________________________________________________________BUSINESS TYPE SPINNER
         //clear list
         bodyFatArr.clear()
-
         //add states to list
         bodyFatArr.add(getString(R.string.body_fat))
         bodyFatArr.add(getString(R.string.slim))
@@ -543,13 +533,10 @@ class MyInformationActivity : BaseActivity(), IMyInformationView {
         // Creating adapter for spinner
         val bodyFatAdapter =
             ArrayAdapter(this, R.layout.spinner_item, bodyFatArr)
-
         // Drop down layout style - list view with radio button
         bodyFatAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-
         // attaching data adapter to spinner
         spinnerBodyFat!!.adapter = bodyFatAdapter
-
         spinnerBodyFatWatcher(spinnerBodyFat)  // to turn the first "select" text to grey color and other to black
     }
 
@@ -589,22 +576,15 @@ class MyInformationActivity : BaseActivity(), IMyInformationView {
         listData: ArrayList<LangData>,
         title: String
     ) {
-
         val dialog = Dialog(this);
-
         val view: View = getLayoutInflater().inflate(R.layout.dialog_language, null);
-
-
         // Change MyActivity.this and myListOfItems to your own values
         val clad: CustomListAdapterDialog = CustomListAdapterDialog(this, listData);
 
         val list = view.findViewById<View>(R.id.custom_list) as ListView
         val tvTittleLang = view.findViewById<View>(R.id.tvTittleLang) as TextView
-
         tvTittleLang.setText(title)
-
         list.setAdapter(clad);
-
         list.setOnItemClickListener(AdapterView.OnItemClickListener { adapter, view, position, arg ->
             // TODO Auto-generated method stub
 //            val tvLanguage = view.findViewById<View>(R.id.tvLanguage) as TextView
@@ -616,27 +596,20 @@ class MyInformationActivity : BaseActivity(), IMyInformationView {
             // making it null if user change the country again...
             /*cityId = ""
             tvCity.setText("")*/
-
             dialog.dismiss()
         }
         )
-
         dialog.setContentView(view);
-
         dialog.show();
-
     }
 
     override fun onSetDataChanged(result: Boolean, response: Response<ProfileDataClass>) {
-
 
         if (result == true) {
             val profileDataClass = response.body() as ProfileDataClass
 
             if (profileDataClass.status == 1) {
-
-                Log.e("respUpdateName", profileDataClass.data.first_name)
-
+                Log.e("photo post", "  ${profileDataClass.data.photo}")
                 sessionManager?.setValues(SessionManager.USERNAME, profileDataClass.data.username)
                 sessionManager?.setValues(
                     SessionManager.FIRST_NAME,
@@ -644,23 +617,16 @@ class MyInformationActivity : BaseActivity(), IMyInformationView {
                 )
                 sessionManager?.setValues(SessionManager.LAST_NAME, profileDataClass.data.last_name)
 //                sessionManager?.setValues(SessionManager.PHONE, profileDataClass.data.phone)
-                sessionManager?.setValues(SessionManager.PHOTO_URL, profileDataClass.data.photo)
 //            sessionManager?.setValues(SessionManager.FCM_TOKEN, signUpModel.data.fcm_token)
                 sessionManager?.setValues(SessionManager.GENDER, profileDataClass.data.gender)
                 sessionManager?.setValues(SessionManager.BIO, profileDataClass.data.bio)
-                sessionManager?.setValues(SessionManager.PHOTO_URL, profileDataClass.data.photo)
 
+                if (profileDataClass.data.photo.isNullOrEmpty() == false) {
+                    sessionManager?.setValues(SessionManager.PHOTO_URL, profileDataClass.data.photo)
+                }
                 countryId = profileDataClass.data.country_id.toString()
 //                cityId = profileDataClass.data.city_id
-
-/*                     if (profileDataClass.data.photo != null && profileDataClass.data.photo != "") {
-                         GlideApp.with(this)
-                             .load(profileDataClass.data.photo)
-                             .into(imgProfile)
-                     }*/
-
                 showSnackBar(profileDataClass.message)
-
             } else {
                 showSnackBar(profileDataClass.message)
             }
@@ -677,13 +643,11 @@ class MyInformationActivity : BaseActivity(), IMyInformationView {
     override fun onGetCountryInfo(result: Boolean, response: Response<LanguageData>) {
         if (result == true) {
             val languageData = response.body() as LanguageData
-
             if (languageData.status == 1) {
                 showDialogList(languageData.data, "Select Country")
             } else {
                 showSnackBar(languageData.message)
             }
-
         } else {
             showSnackBar(
                 this.getResources().getString(R.string.error_occured) + "    ${response.code()}"
@@ -694,11 +658,8 @@ class MyInformationActivity : BaseActivity(), IMyInformationView {
     override fun onGetCitiesInfo(result: Boolean, response: Response<LanguageData>) {
         if (result == true) {
             val languageData = response.body() as LanguageData
-
             if (languageData.status == 1) {
-
 //                showCitiesDialog(languageData.data,"Select City")
-
             } else {
                 showSnackBar(
                     this.getResources().getString(R.string.error_occured) + "    ${response.code()}"
@@ -711,7 +672,6 @@ class MyInformationActivity : BaseActivity(), IMyInformationView {
 
         if (result == true) {
             val profileDataClass = response.body() as ProfileDataClass
-
             if (profileDataClass.status == 1) {
                 edtName.setText(profileDataClass.data.first_name)
                 edtLastName.setText(profileDataClass.data.last_name)
@@ -753,6 +713,9 @@ class MyInformationActivity : BaseActivity(), IMyInformationView {
                 if (bodyFatVal.equals(resources.getString(R.string.fat))) {
                     spinnerBodyFat.setSelection(3)
                 }
+
+                Log.e("photo get", "  ${profileDataClass.data.photo}")
+
                 if (profileDataClass.data.photo.isNullOrEmpty() == false) {
                     GlideApp.with(this)
                         .load(profileDataClass.data.photo)
@@ -767,9 +730,7 @@ class MyInformationActivity : BaseActivity(), IMyInformationView {
 
                 countryId = profileDataClass.data.country_id
 //                cityId = profileDataClass.data.city_id
-
-
-                Log.e("checkforId", " " + "COUNTRYiD: " + countryId + "   CitiId:  " + cityId)
+//                Log.e("checkforId", " " + "COUNTRYiD: " + countryId + "   CitiId:  " + cityId)
 
             } else {
                 showSnackBar(profileDataClass.message)
@@ -794,10 +755,9 @@ class MyInformationActivity : BaseActivity(), IMyInformationView {
         for (item in 0 until arraylistProfession.size) {
             professionArr.add(arraylistProfession[item].name)
             if (arraylistProfession[item].is_selected == 1) {
-                selectedAlready = item
+                selectedAlready = arraylistProfession[item].id
             }
         }
-        Log.e("proID", "  " + selectedAlready)
 
 
         // Creating adapter for spinner
@@ -810,14 +770,10 @@ class MyInformationActivity : BaseActivity(), IMyInformationView {
         spinnerProfession!!.adapter = professionAdapter
 
         if (selectedAlready != 0) {
-            Log.e("proID2", "  " + selectedAlready)
-
             spinnerProfession.setSelection(selectedAlready)
             profession_id = selectedAlready.toString()
         }
-
         spinnerBodyFatWatcher(spinnerProfession)  // to turn the first "select" text to grey color and other to black
-
     }
 }
 

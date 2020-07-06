@@ -44,7 +44,6 @@ class DishDescriptionVM : ViewModel() {
         isLoadingSubject.onNext(true)
         var api = APIClientMvvm.client.create(APIInterface::class.java)
         val call = api.getMealDetails(userId, meal_id, restaurant_id, longitude, latitude)
-        Log.e("respGetDetailsprams","$userId  , $meal_id   ,$restaurant_id   ,$longitude  , $latitude")
         call.enqueue(object : Callback<DishDescpModel> {
             override fun onResponse(call: Call<DishDescpModel>, response: Response<DishDescpModel>) {
 
@@ -53,9 +52,7 @@ class DishDescriptionVM : ViewModel() {
 
                 //finally we are setting the list to our MutableLiveData
                 getDishDetailLiveData.postValue(response.body())
-
                 getDishDetailLiveData.value = response.body()
-                Log.e("respGetDetails", response.body().toString())
 
             }
 
@@ -63,8 +60,6 @@ class DishDescriptionVM : ViewModel() {
 
                 // making progress bar invisible
                 isLoadingSubject.onNext(false)
-                Log.e("respGetDetailsFail", "failure"+t.message)
-
                 getDishDetailLiveData.postValue(null)
             }
         })
@@ -94,16 +89,13 @@ class DishDescriptionVM : ViewModel() {
 
                 //finally we are setting the list to our MutableLiveData
                 getAddTodoLiveData.postValue(response.body())
-
 //                getAddTodoLiveData.value = response.body()
-                Log.e("rspAddtodo", response.body().toString())
             }
 
             override fun onFailure(call: Call<AddTodoModel>, t: Throwable) {
 
                 // making progress bar invisible
                 isLoadingSubject.onNext(false)
-                Log.e("rspAddtodoFail", "failure")
 
                 getAddTodoLiveData.postValue(null)
             }
@@ -134,9 +126,7 @@ class DishDescriptionVM : ViewModel() {
 
                 //finally we are setting the list to our MutableLiveData
                 getAddFavouriteLiveData.postValue(response.body())
-
 //                getAddFavouriteLiveData.value = response.body()
-                Log.e("rspAddtodo", response.body().toString())
 
             }
 
@@ -144,8 +134,6 @@ class DishDescriptionVM : ViewModel() {
 
                 // making progress bar invisible
                 isLoadingSubject.onNext(false)
-                Log.e("rspAddtodoFail", "failure")
-
                 getAddFavouriteLiveData.postValue(null)
             }
         })
@@ -174,9 +162,7 @@ class DishDescriptionVM : ViewModel() {
 
                 //finally we are setting the list to our MutableLiveData
                 getFriendReqLiveData.postValue(response.body())
-
                 getFriendReqLiveData.value = response.body()
-                Log.e("respGetDetails", response.body().toString())
 
             }
 
@@ -184,8 +170,6 @@ class DishDescriptionVM : ViewModel() {
 
                 // making progress bar invisible
                 isLoadingSubject.onNext(false)
-                Log.e("respGetDetailsFail", "failure")
-
                 getFriendReqLiveData.postValue(null)
             }
         })
@@ -208,13 +192,11 @@ class DishDescriptionVM : ViewModel() {
                 //finally we are setting the list to our MutableLiveData
                 getFollowingReqLiveData.postValue(response.body())
 //                getFollowingReqLiveData.value = response.body()
-                Log.e("respGetDetails", response.body().toString())
             }
 
             override fun onFailure(call: Call<AddTodoModel>, t: Throwable) {
                 // making progress bar invisible
                 isLoadingSubject.onNext(false)
-                Log.e("respGetDetailsFail", "failure")
                 getFollowingReqLiveData.postValue(null)
             }
         })
@@ -239,13 +221,11 @@ class DishDescriptionVM : ViewModel() {
                 //finally we are setting the list to our MutableLiveData
                 getCommentLiveData.postValue(response.body())
 //                getFollowingReqLiveData.value = response.body()
-                Log.e("respGetDetails", response.body().toString())
             }
 
             override fun onFailure(call: Call<CommentDetailModel>, t: Throwable) {
                 // making progress bar invisible
                 isLoadingSubject.onNext(false)
-                Log.e("respGetDetailsFail", "failure")
                 getCommentLiveData.postValue(null)
             }
         })
@@ -270,13 +250,11 @@ class DishDescriptionVM : ViewModel() {
                 //finally we are setting the list to our MutableLiveData
                 getCallCountLiveData.postValue(response.body())
 //                getFollowingReqLiveData.value = response.body()
-                Log.e("respGetDetails", response.body().toString())
             }
 
             override fun onFailure(call: Call<CallCountModel>, t: Throwable) {
                 // making progress bar invisible
                 isLoadingSubject.onNext(false)
-                Log.e("respGetDetailsFail", "failure")
                 getCallCountLiveData.postValue(null)
             }
         })

@@ -126,7 +126,7 @@ class TasteFragment : BaseFragment(), GoogleApiClient.ConnectionCallbacks,
                     SessionManager.LONGITUDE
                 ).isNullOrEmpty() == false &&sessionManager.getValue(SessionManager.LOCATION_SELECTED).equals("1")
             ) {
-                Log.e("current_location11", "$currentLatitude ,   $currentLongitude")
+//                Log.e("current_location11", "$currentLatitude ,   $currentLongitude")
 
                 //hitting api
                 getTasteMeals(pageNumber)
@@ -171,18 +171,18 @@ class TasteFragment : BaseFragment(), GoogleApiClient.ConnectionCallbacks,
             }
 
             override fun loadMoreItems() {
-                Log.e("loadMoreItems ", "hitted")
+//                Log.e("loadMoreItems ", "hitted")
 
 
                 if (flagSearch == false) {
 
-                    Log.e("loadMoreItems", "entered   " + "isLastPage staus is " + isLastPage)
+//                    Log.e("loadMoreItems", "entered   " + "isLastPage staus is " + isLastPage)
 
 //                    progressBar.setVisibility(View.VISIBLE)
                     isLoading = true
                     if (!isLastPage) {
 
-                        Log.e("loadMoreItems", "entered inide lastpage scope")
+//                        Log.e("loadMoreItems", "entered inide lastpage scope")
 
                         Handler().postDelayed({
 
@@ -220,7 +220,7 @@ class TasteFragment : BaseFragment(), GoogleApiClient.ConnectionCallbacks,
     // Trigger new location updates at interval
     protected fun startLocationUpdates() {
 
-        Log.e("Loc", "method" + " startLocationUpdates() called")
+//        Log.e("Loc", "method" + " startLocationUpdates() called")
 
 
         mLocationCallback = object : LocationCallback() {
@@ -236,7 +236,7 @@ class TasteFragment : BaseFragment(), GoogleApiClient.ConnectionCallbacks,
             if (location != null) {
                 currentLatitude = location.latitude
                 currentLongitude = location.longitude
-                Log.e("locsss", "${location.latitude},   ${location.longitude}")
+//                Log.e("locsss", "${location.latitude},   ${location.longitude}")
 
 
                 //now loading the meals at current location if user came to app after login
@@ -292,7 +292,7 @@ class TasteFragment : BaseFragment(), GoogleApiClient.ConnectionCallbacks,
                     SessionManager.LOCATION_SELECTED
                 ).equals("0")
             ) {
-                Log.e("current_location22", "$currentLatitude ,   $currentLongitude")
+//                Log.e("current_location22", "$currentLatitude ,   $currentLongitude")
 
                 //hitting api
                 sessionManager.setValues(SessionManager.LATITUDE, currentLatitude.toString())
@@ -367,7 +367,7 @@ class TasteFragment : BaseFragment(), GoogleApiClient.ConnectionCallbacks,
 
     override fun onConnected(p0: Bundle?) {
 
-        Log.e(TAG, "onConnected called")
+//        Log.e(TAG, "onConnected called")
         tryLocation()
     }
 
@@ -394,7 +394,7 @@ class TasteFragment : BaseFragment(), GoogleApiClient.ConnectionCallbacks,
                  */
             } catch (e: IntentSender.SendIntentException) {
                 // Log the error
-                Log.e("errorMessage", "" + e.printStackTrace())
+//                Log.e("errorMessage", "" + e.printStackTrace())
                 e.printStackTrace()
             }
 
@@ -414,8 +414,8 @@ class TasteFragment : BaseFragment(), GoogleApiClient.ConnectionCallbacks,
 
 
 
-        Log.e("onLoc lat", currentLatitude.toString())
-        Log.e("onLoc long", currentLongitude.toString())
+        /*Log.e("onLoc lat", currentLatitude.toString())
+        Log.e("onLoc long", currentLongitude.toString())*/
 
 
 //        if (updateLatLong == false) {
@@ -431,7 +431,7 @@ class TasteFragment : BaseFragment(), GoogleApiClient.ConnectionCallbacks,
             // this will always have current live postition of the user
             sessionManager.setValues(SessionManager.CURRENT_LATITUDE, currentLatitude.toString())
             sessionManager.setValues(SessionManager.CURRENT_LONGITUDE, currentLongitude.toString())
-            Log.e("current_location", "$currentLatitude ,   $currentLongitude")
+//            Log.e("current_location", "$currentLatitude ,   $currentLongitude")
 
         }
 
@@ -442,12 +442,7 @@ class TasteFragment : BaseFragment(), GoogleApiClient.ConnectionCallbacks,
                 sessionManager.getValue(SessionManager.LONGITUDE),
                 sessionManager.getValue(SessionManager.LATITUDE)
             )
-            Log.e(
-                "locationsent",
-                "" + sessionManager.getValue(SessionManager.LATITUDE) + "  " + sessionManager.getValue(
-                    SessionManager.LONGITUDE
-                )
-            )
+
 
         } else {
             showSnackBar(getString(R.string.check_connection))
@@ -601,7 +596,7 @@ class TasteFragment : BaseFragment(), GoogleApiClient.ConnectionCallbacks,
 
 
         } catch (e: SecurityException) {
-            Log.e("errorMess", " " + e.printStackTrace())
+//            Log.e("errorMess", " " + e.printStackTrace())
             e.printStackTrace()
         }
 
@@ -630,8 +625,6 @@ class TasteFragment : BaseFragment(), GoogleApiClient.ConnectionCallbacks,
 
         tasteFragVM!!.getTasteLiveData.observe(viewLifecycleOwner, Observer { response ->
             if (response != null) {
-                Log.e("rspgetLiked", response.toString())
-                Log.e("rspgetLikedStat", response.status.toString())
                 if (response.status == 1) {
                     var arrySize = arrayList.size
                     if (response.data.isEmpty() && alertShown == false) {
@@ -659,7 +652,6 @@ class TasteFragment : BaseFragment(), GoogleApiClient.ConnectionCallbacks,
                 }
             } else {
                 showSnackBar(resources.getString(R.string.error_occured) + "   $response");
-                Log.e("rspSnak", "else error")
             }
         })
     }
@@ -673,7 +665,7 @@ class TasteFragment : BaseFragment(), GoogleApiClient.ConnectionCallbacks,
     */
         tasteFragVM!!.getLiveLocation.observe(viewLifecycleOwner, Observer { response ->
             if (response != null) {
-                Log.e("respLocationString", " " + response.toString())
+//                Log.e("respLocationString", " " + response.toString())
                 if (response.status == 1) {
                     /*  if (sessionManager.getValue(SessionManager.LOCATION_STATUS).equals("0") || sessionManager.getValue(SessionManager.LOCATION_STATUS).equals(""))
                         sessionManager.setValues(SessionManager.LOCATION_STATUS, "1")*/
@@ -699,14 +691,13 @@ class TasteFragment : BaseFragment(), GoogleApiClient.ConnectionCallbacks,
 
 
     fun resultAction(data: ArrayList<Data_Taste>) {
-        Log.e("data came", "" + data.toString())
 
 //        progressBar.setVisibility(View.INVISIBLE)
         isLoading = false
         if (data != null) {
             adapter?.addItems(data)
 
-            Log.e("data to bind", "" + data.toString())
+//            Log.e("data to bind", "" + data.toString())
             if (data.size == 0) {
                 isLastPage = true
             } else {
@@ -714,7 +705,7 @@ class TasteFragment : BaseFragment(), GoogleApiClient.ConnectionCallbacks,
                  recyclerView?.scrollToPosition(pos)*/
                 pageNumber = pageNumber + 1
 
-                Log.e("pgNumber", "" + pageNumber)
+//                Log.e("pgNumber", "" + pageNumber)
             }
         }
     }
@@ -722,7 +713,7 @@ class TasteFragment : BaseFragment(), GoogleApiClient.ConnectionCallbacks,
 
     private fun getTasteMeals(page: Int) {
 
-        Log.e("loadMoreItems", "entered getLikedIngre ")
+//        Log.e("loadMoreItems", "entered getLikedIngre ")
         var radius: String = sessionManager.getValue(SessionManager.RADIUS)
         if (radius != null && radius != "null" && radius != "") {
             radius = sessionManager.getValue(SessionManager.RADIUS)

@@ -45,7 +45,6 @@ class OpinionFragment(var objDishModel: DishDescpModel) : BaseFragment(), Serial
         var opinionDetails = objDishModel.data.user_meal_comments
 
         var sizeComment = objDishModel.data.user_meal_comments.size
-        Log.e("sizeTry", "" + sizeComment)
 
 
         if (sizeComment == null || sizeComment.equals("null") || sizeComment.equals("") || sizeComment == 0) {

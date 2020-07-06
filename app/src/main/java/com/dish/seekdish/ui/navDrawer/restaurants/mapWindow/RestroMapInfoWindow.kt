@@ -2,16 +2,17 @@ package com.dish.seekdish.ui.navDrawer.restaurants.mapWindow
 
 import android.app.Activity
 import android.content.Context
-import android.util.Log
 import android.view.View
 import android.widget.ImageView
-import android.widget.RatingBar
 import android.widget.TextView
 import com.dish.seekdish.R
 import com.dish.seekdish.custom.GlideApp
+import com.dish.seekdish.ui.home.mapInfoWindow.InfoWindowRefresher
+import com.dish.seekdish.ui.navDrawer.restaurants.dataClass.Data_Restro_Map
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.model.Marker
-import com.willy.ratingbar.ScaleRatingBar
+import com.squareup.picasso.Picasso
+
 
 class RestroMapInfoWindow(
     val context: Context
@@ -36,22 +37,12 @@ class RestroMapInfoWindow(
 
         val infoWindowGoogleMap = marker.tag as InfoWindowModel
 
-        /*  val imageId = context.getResources().getIdentifier(
-              infoWindowGoogleMap.imageUrl!!.toLowerCase(),
-              "drawable", context.getPackageName()
-          )*/
-        //        imgUrl.setImageResource(imageId);
-//        imgInfoWindow.setImageResource(R.drawable.ic_foodex)
-
-/*
-        Log.e(
-            "rate",
-            "star:  " + infoWindowGoogleMap.starRating + "\nimageurl :" + infoWindowGoogleMap.imageUrl + "\neuro :" + infoWindowGoogleMap.restroTitle
-        )*/
         GlideApp.with(context)
             .load(infoWindowGoogleMap.imageUrl)
+            .override(50,50)
             .placeholder(R.drawable.app_logo)
             .into(imgInfoWindow)
+
         tvRestro.setText(infoWindowGoogleMap.restroTitle)
 
 //        star_rating.rating= infoWindowGoogleMap.starRating!!.toFloat()

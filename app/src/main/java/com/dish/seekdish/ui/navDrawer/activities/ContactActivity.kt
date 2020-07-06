@@ -78,18 +78,13 @@ class ContactActivity : BaseActivity() {
             ) {
                 // canceling the progress bar
                 ProgressBarClass.dialog.dismiss()
-                Log.e("respStr", " " + response.body().toString())
-                Log.e("respStrcode", " " + response.code().toString())
-
                 if (response.code().toString().equals("200")) {
-
                     var modelObj = response.body() as CancelReModel
                     if (modelObj.status == 1) {
                         showSnackBar(modelObj.message)
                     } else {
                         showSnackBar(modelObj.message)
                     }
-
                 } else {
 //                    iSignUpView.onSetLoggedin(false, response)
                     showSnackBar(resources.getString(R.string.error_occured) + "   ${response.code()}");
@@ -97,8 +92,6 @@ class ContactActivity : BaseActivity() {
             }
 
             override fun onFailure(call: Call<CancelReModel>, t: Throwable) {
-                Log.e("respStrfail", " " + t.message)
-
 //                Log.e("responseFailure", " " + t.toString())
                 showSnackBar(resources.getString(R.string.error_occured)+"  ${t.message}");
                 call.cancel()
@@ -122,7 +115,6 @@ class ContactActivity : BaseActivity() {
             ) {
                 // canceling the progress bar
                 ProgressBarClass.dialog.dismiss()
-                Log.e("respStr", " " + response.body().toString())
 
                 if (response.code().toString().equals("200")) {
 
@@ -154,10 +146,7 @@ class ContactActivity : BaseActivity() {
             }
 
             override fun onFailure(call: Call<ContactModel>, t: Throwable) {
-
-                Log.e("responseFailure", " " + t.message)
                 showSnackBar(resources.getString(R.string.error_occured)+"  ${t.message}");
-
                 call.cancel()
                 // canceling the progress bar
                 ProgressBarClass.dialog.dismiss()

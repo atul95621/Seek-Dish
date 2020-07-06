@@ -13,8 +13,11 @@ import java.util.HashSet;
 
 public class Global {
 
-    public static final String BASE_URL = "http://seekdish.com/seekdish_android/public/api/v1/";
+    //test url
+//    public static final String BASE_URL = "http://seekdish.com/seekdish_android/public/api/v1/";
 
+    // live server
+    public static final String BASE_URL = "http://seekdish.com/api/public/api/v1/";
 
     //required for FCM
     public static final String CHANNEL_ID = "my_channel_seekdish";

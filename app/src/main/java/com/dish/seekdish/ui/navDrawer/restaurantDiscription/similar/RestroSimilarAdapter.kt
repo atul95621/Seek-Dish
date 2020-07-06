@@ -46,13 +46,12 @@ class RestroSimilarAdapter(
         var imageUrl: String = restroSimilarModel.restaurant_image
         GlideApp.with(mcontext)
             .load(imageUrl)
-            .placeholder(R.drawable.app_logo)
+//            .placeholder(R.drawable.app_logo)
             .into(holder.imgFoodImage)
         holder.tvDishName.text = restroSimilarModel.name
         holder.tvAddress.text = restroSimilarModel.street+","+restroSimilarModel.city+","+restroSimilarModel.zipcode
         var review: String="("+restroSimilarModel.no_of_reviews+")"
         var startRating = restroSimilarModel.rating.toFloat()
-        Log.e("rating",""+startRating+"   "+restroSimilarModel.name)
         holder.starScaleRatingBar.rating = startRating
         var dist= restroSimilarModel.distance
         var convertDist= dist.toDouble()
@@ -79,7 +78,6 @@ class RestroSimilarAdapter(
         internal var tvDistance: TextView
         internal var starScaleRatingBar: ScaleRatingBar
         internal var frameTasteDish: FrameLayout
-
         init {
             tvDistance = view.findViewById(R.id.tvDistance) as TextView
             starScaleRatingBar = view.findViewById(R.id.simpleRatingBar) as ScaleRatingBar

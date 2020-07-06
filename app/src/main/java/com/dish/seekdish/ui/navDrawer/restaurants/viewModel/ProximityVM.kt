@@ -63,9 +63,7 @@ class ProximityVM :ViewModel(){
 
                 //finally we are setting the list to our MutableLiveData
                 getProxiRestroLiveData.postValue(response.body())
-
                 getProxiRestroLiveData.value = response.body()
-                Log.e("respoGetProxiyRestro", response.body().toString())
 
             }
 
@@ -73,8 +71,6 @@ class ProximityVM :ViewModel(){
 
                 // making progress bar invisible
                 isLoadingSubject.onNext(false)
-                Log.e("respoGetProxiyRestFail", "failure")
-
                 getProxiRestroLiveData.postValue(null)
 
 
@@ -110,13 +106,11 @@ class ProximityVM :ViewModel(){
                 //finally we are setting the list to our MutableLiveData
                 getProxiSearchData.postValue(response.body())
                 getProxiSearchData.value = response.body()
-                Log.e("rspSearch", response.body().toString())
             }
 
             override fun onFailure(call: Call<ProximityDataClass>, t: Throwable) {
                 // making progress bar invisible
 //                isLoadingSubject.onNext(false)
-                Log.e("rspSearch fail", "failure")
                 getProxiSearchData.postValue(null)
             }
         })

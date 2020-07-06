@@ -83,7 +83,6 @@ class IncludeFriendsActivity : AppCompatActivity() {
             /*val intent = Intent(this, InvitationActivity::class.java)
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK)
             startActivity(intent)*/
-            Log.e("selected_friend",Global.selectedFriends.toString())
             finish()
         }
         tvBack.setOnClickListener()

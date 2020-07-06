@@ -34,8 +34,9 @@ import com.google.android.gms.maps.model.Marker
 import com.google.android.gms.maps.model.MarkerOptions
 import io.reactivex.android.schedulers.AndroidSchedulers
 
-class RestroMapFragment : BaseFragment(), OnMapReadyCallback, GoogleMap.OnMyLocationButtonClickListener,
-GoogleMap.OnMyLocationClickListener, GoogleMap.OnMarkerClickListener  {
+class RestroMapFragment : BaseFragment(), OnMapReadyCallback,
+    GoogleMap.OnMyLocationButtonClickListener,
+    GoogleMap.OnMyLocationClickListener, GoogleMap.OnMarkerClickListener {
 
 
     lateinit var marker: Marker
@@ -47,8 +48,9 @@ GoogleMap.OnMyLocationClickListener, GoogleMap.OnMarkerClickListener  {
     var bitmapdraw: BitmapDrawable? = null
     var customSizeMarker: Bitmap? = null;
 
-    var restroIDInfoWindow=""
-    internal var markerMapHash: MutableMap<Marker, InfoWindowModel> = HashMap<Marker, InfoWindowModel>()
+    var restroIDInfoWindow = ""
+    internal var markerMapHash: MutableMap<Marker, InfoWindowModel> =
+        HashMap<Marker, InfoWindowModel>()
 
 
     override fun onCreateView(
@@ -59,14 +61,11 @@ GoogleMap.OnMyLocationClickListener, GoogleMap.OnMarkerClickListener  {
 
         myContext = activity as HomeActivity
         restroMapVM = ViewModelProvider(this).get(RestroMapVM::class.java)
-
-
         // Inflate the layout for this fragment
         val view = inflater.inflate(R.layout.fragment_restro_map, container, false)
-
-
         //main map fragment
-        val mapFragment = childFragmentManager.findFragmentById(R.id.mapRestro) as SupportMapFragment
+        val mapFragment =
+            childFragmentManager.findFragmentById(R.id.mapRestro) as SupportMapFragment
         mapFragment.getMapAsync(this)
 
         return view
@@ -75,19 +74,15 @@ GoogleMap.OnMyLocationClickListener, GoogleMap.OnMarkerClickListener  {
 
     override fun onMapReady(googleMap: GoogleMap) {
         mMap = googleMap
-
         mMap!!.clear();
-
 
         //check connection
         if (myContext.connectionDetector.isConnectingToInternet) {
 
             //hitting api
             getMapMarkers()
-
             //observer
             getMapRespObserver()
-
 
             var customInfoWindow = RestroMapInfoWindow(conxt)
             mMap!!.setInfoWindowAdapter(customInfoWindow);
@@ -96,19 +91,19 @@ GoogleMap.OnMyLocationClickListener, GoogleMap.OnMarkerClickListener  {
             showSnackBar(getString(R.string.check_connection))
         }
 
-        googleMap.setOnMarkerClickListener {
+        googleMap?.setOnMarkerClickListener { marker ->
 
             false
         }
+
 
 
         googleMap.setOnInfoWindowClickListener { marker ->
 
             val infoModel: InfoWindowModel? = marker.tag as InfoWindowModel?
 
-            Log.e("ratedd", "info window clicked"+"  "+infoModel?.restro_id+"   ${infoModel?.restroTitle}"
-            )
-            var restr_id=infoModel?.restro_id.toString()
+
+            var restr_id = infoModel?.restro_id.toString()
             val intent = Intent(myContext, RestroDescrpActivity::class.java)
             intent.putExtra("RESTAURANT_ID", restr_id)
             myContext.startActivity(intent)
@@ -226,90 +221,98 @@ GoogleMap.OnMyLocationClickListener, GoogleMap.OnMarkerClickListener  {
 
         restroMapVM!!.getMapData.observe(viewLifecycleOwner, Observer { response ->
             if (response != null) {
-                Log.e("rspgemap", response.toString())
-                Log.e("rspgetmaptat", response.status.toString())
-
                 if (response.status == 1) {
 
                     arrayList = response.data
-                    if (arrayList.size > 0 && arrayList.isNotEmpty()) {
 
-                        for (i in 0 until arrayList.size) {
+                    Thread(Runnable {
 
-                            var latititude = arrayList[i].latitude.toDouble()
-                            var longitude = arrayList[i].longitude.toDouble()
-                            var imageUrl = arrayList[i].restaurant_image
-                            var starRate = arrayList[i].rating.toString()
-                            var mealName = arrayList[i].name
-                            var address = arrayList[i].street +", "+arrayList[i].city+", "+arrayList[i].zipcode
-                            var restro_id = arrayList[i].id
+                        // try to touch View of UI thread
+                        myContext.runOnUiThread(java.lang.Runnable {
 
-                            // adding custom info window
-                            var locationPos = LatLng(latititude, longitude);
-                            var markerOptions = MarkerOptions();
-                            markerOptions.position(locationPos)
-                                .title(arrayList[i].name)
-                                .icon(
-                                    bitmapDescriptorFromVector(
-                                        myContext,
-                                        R.drawable.ic_markersvg
+                            if (arrayList.size > 0 && arrayList.isNotEmpty()) {
+
+                                for (i in 0 until arrayList.size) {
+
+                                    var latititude = arrayList[i].latitude.toDouble()
+                                    var longitude = arrayList[i].longitude.toDouble()
+                                    var imageUrl = arrayList[i].restaurant_image
+                                    var starRate = arrayList[i].rating.toString()
+                                    var mealName = arrayList[i].name
+                                    var address =
+                                        arrayList[i].street + ", " + arrayList[i].city + ", " + arrayList[i].zipcode
+                                    var restro_id = arrayList[i].id
+
+                                    // adding custom info window
+                                    var locationPos = LatLng(latititude, longitude);
+                                    var markerOptions = MarkerOptions();
+                                    markerOptions.position(locationPos)
+                                        .title(arrayList[i].name)
+                                        .icon(
+                                            bitmapDescriptorFromVector(
+                                                myContext,
+                                                R.drawable.ic_markersvg
+                                            )
+                                        )  // custom size maekr is used here
+
+                                    var info = InfoWindowModel(
+                                        imageUrl,
+                                        starRate,
+                                        mealName,
+                                        address,
+                                        restro_id
+                                    );
+
+                                    var marker = mMap!!.addMarker(markerOptions);
+                                    marker.setTag(info)
+                                    marker.showInfoWindow()
+
+                                    markerMapHash.put(marker, info)
+                                }
+
+                                var cameraMove = LatLng(
+                                    arrayList[0].latitude.toDouble(),
+                                    arrayList[0].longitude.toDouble()
+                                )
+                                mMap!!.animateCamera(
+                                    CameraUpdateFactory.newLatLngZoom(
+                                        cameraMove,
+                                        14F
                                     )
-                                )  // custom size maekr is used here
+                                );
 
-                            var info = InfoWindowModel(
-                                imageUrl,
-                                starRate,
-                                mealName,
-                                address,
-                                restro_id
-                            );
+                                /*   // try to touch View of UI thread
+                               activity?.runOnUiThread(java.lang.Runnable {
+                                   // adding custom info window
+                                   var locationPos = LatLng(43.3367589, 3.224927999999977);
+                                   var markerOptions = MarkerOptions();
+                                   markerOptions.position(locationPos)
+                                       .title("")
+                                       .icon(BitmapDescriptorFactory.fromBitmap(customSizeMarker));   // custom size maekr is used here
 
-                            var marker = mMap!!.addMarker(markerOptions);
-                            marker.setTag(info)
-                            marker.showInfoWindow()
-
-                            markerMapHash.put(marker, info)
-                        }
-
-                        var cameraMove = LatLng(
-                            arrayList[0].latitude.toDouble(),
-                            arrayList[0].longitude.toDouble()
-                        )
-                        mMap!!.animateCamera(CameraUpdateFactory.newLatLngZoom(cameraMove, 14F));
-
-                        /*   // try to touch View of UI thread
-                       activity?.runOnUiThread(java.lang.Runnable {
-                           // adding custom info window
-                           var locationPos = LatLng(43.3367589, 3.224927999999977);
-                           var markerOptions = MarkerOptions();
-                           markerOptions.position(locationPos)
-                               .title("")
-                               .icon(BitmapDescriptorFactory.fromBitmap(customSizeMarker));   // custom size maekr is used here
-
-                           var info = InfoWindowData("http://seekdish.com/seekdish_android/public/uploads/images/meals/199_20180909_131056.jpg", "3", "2", "mealName");
+                                   var info = InfoWindowData("http://seekdish.com/seekdish_android/public/uploads/images/meals/199_20180909_131056.jpg", "3", "2", "mealName");
 
 
-                           var marker = mMap!!.addMarker(markerOptions);
-                           marker.setTag(info)
-                           marker.showInfoWindow()
+                                   var marker = mMap!!.addMarker(markerOptions);
+                                   marker.setTag(info)
+                                   marker.showInfoWindow()
 
-                       })*/
+                               })*/
 
-                        /*    for(key in markerMapHash.keys){
-                            Log.e("Element:   ","Element at key $key : ${markerMapHash[key]}")
-                        }
-    */
+                                /*    for(key in markerMapHash.keys){
+                                    Log.e("Element:   ","Element at key $key : ${markerMapHash[key]}")
+                                }
+            */
 
-                    }
+                            }
+                        })
+                    }).start()
+                } else {
+                    showSnackBar(response.message)
                 }
 
             } else {
-
-
-                showSnackBar("OOps! Error Occured.")
-
-                Log.e("rspMaperror", "else error")
-
+                showSnackBar(conxt.getString(R.string.error_occured))
             }
         })
     }

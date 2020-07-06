@@ -96,8 +96,6 @@ class RestroDescrpActivity : BaseActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_restro_description)
-
-        Log.e("methodIn", "onCreate")
         mResources.clear()
 
         sessionManager = SessionManager(this)
@@ -249,7 +247,6 @@ class RestroDescrpActivity : BaseActivity() {
 
     private fun getIntents() {
         restro_id = intent.getStringExtra("RESTAURANT_ID")
-        Log.e("resid", restro_id.toString())
     }
 
     private fun onShare() {
@@ -415,9 +412,6 @@ class RestroDescrpActivity : BaseActivity() {
 
         restroDescpVM!!.geRestroDetailLiveData.observe(this, Observer { response ->
             if (response != null) {
-
-                Log.e("rspRestro", response.toString())
-
                 if (response.status == 1) {
 
                     // feeding the image to the list
@@ -473,7 +467,6 @@ class RestroDescrpActivity : BaseActivity() {
                 showSnackBar(
                     this.getResources().getString(R.string.error_occured) + "    $response"
                 );
-                Log.e("rspGetDishDetailsFail", "else error")
 
             }
         })
@@ -486,15 +479,15 @@ class RestroDescrpActivity : BaseActivity() {
         shareDialog = ShareDialog(this)
         shareDialog.registerCallback(callbackManager, object : FacebookCallback<Sharer.Result> {
             override fun onSuccess(result: Sharer.Result) {
-                Log.e("TAG", "Facebook Share Success")
+//                Log.e("TAG", "Facebook Share Success")
             }
 
             override fun onCancel() {
-                Log.e("TAG", "Facebook Sharing Cancelled by User")
+//                Log.e("TAG", "Facebook Sharing Cancelled by User")
             }
 
             override fun onError(error: FacebookException) {
-                Log.e("TAG", "Facebook Share Success: Error: " + error.getLocalizedMessage())
+//                Log.e("TAG", "Facebook Share Success: Error: " + error.getLocalizedMessage())
             }
         })
         if (ShareDialog.canShow(ShareLinkContent::class.java)) {
@@ -520,7 +513,6 @@ class RestroDescrpActivity : BaseActivity() {
 
         Twitter.initialize(config)
 
-        Log.e("TwitterClient1", "" + twitterAuthClient.toString())
         twitterAuthClient = TwitterAuthClient()
         val twitterSession = TwitterCore.getInstance().getSessionManager().getActiveSession()
         if (twitterSession == null) {
@@ -531,7 +523,6 @@ class RestroDescrpActivity : BaseActivity() {
                 }
 
                 override fun failure(e: TwitterException) {
-                    Log.e("TAG", "Twitter Error while authorize user " + e.message)
                 }
             })
         } else {
@@ -572,7 +563,6 @@ class RestroDescrpActivity : BaseActivity() {
 
         restroDescpVM!!.getCallCountLiveData.observe(this, Observer { response ->
             if (response != null) {
-                Log.e("rspCall", response.toString())
                 if (response.status == 1) {
 //                    showSnackBar(response.message)
                 } else {
@@ -580,7 +570,6 @@ class RestroDescrpActivity : BaseActivity() {
                 }
             } else {
                 showSnackBar(getResources().getString(R.string.error_occured) + "   $response ");
-                Log.e("rspCallFail", "else error")
             }
         })
     }

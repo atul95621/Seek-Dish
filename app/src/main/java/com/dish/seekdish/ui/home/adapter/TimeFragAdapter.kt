@@ -20,26 +20,28 @@ import com.willy.ratingbar.ScaleRatingBar
 import java.util.ArrayList
 
 class TimeFragAdapter(
-     context: Context,
+    context: Context,
     arrayList: ArrayList<Data_time>,
     homeActivity: HomeActivity
 ) :
     RecyclerView.Adapter<TimeFragAdapter.RecyclerViewHolder>() {
 
-    var homeActivity:HomeActivity
+    var homeActivity: HomeActivity
     internal var arrayList = ArrayList<Data_time>()
     var context: Context
 
     init {
         this.arrayList = arrayList
-        this.homeActivity=homeActivity
-        this.context=context
+        this.homeActivity = homeActivity
+        this.context = context
     }
 
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int):RecyclerViewHolder {
-        val view = LayoutInflater.from(parent.context).inflate(R.layout.item_layout_time_frag, parent, false)
-        return RecyclerViewHolder(view)    }
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerViewHolder {
+        val view = LayoutInflater.from(parent.context)
+            .inflate(R.layout.item_layout_time_frag, parent, false)
+        return RecyclerViewHolder(view)
+    }
 
 
     override fun onBindViewHolder(holder: TimeFragAdapter.RecyclerViewHolder, position: Int) {
@@ -52,8 +54,8 @@ class TimeFragAdapter(
             .load(imageUrl)
             .into(holder.imgFoodImage)
         holder.tvDishName.text = timeFragDataClass.name
-        var dist= timeFragDataClass.distance
-        holder.tvDistance.text =String.format("%.2f", dist) +" Km"
+        var dist = timeFragDataClass.distance
+        holder.tvDistance.text = String.format("%.2f", dist) + " Km"
         var review: String = "(" + timeFragDataClass.no_of_reviews + ")"
         holder.tvStarReview.text = review
         var startRating = timeFragDataClass.rating!!.toFloat()
@@ -66,8 +68,8 @@ class TimeFragAdapter(
         holder.frameTimeDish.setOnClickListener()
         {
             val intent = Intent(context, DishDescriptionActivity::class.java)
-            intent.putExtra("MEAL_ID",timeFragDataClass.meal_id.toString())
-            intent.putExtra("RESTAURANT_ID",timeFragDataClass.restro_id.toString())
+            intent.putExtra("MEAL_ID", timeFragDataClass.meal_id.toString())
+            intent.putExtra("RESTAURANT_ID", timeFragDataClass.restro_id.toString())
             context.startActivity(intent)
         }
     }
@@ -86,7 +88,7 @@ class TimeFragAdapter(
         internal var starScaleRatingBar: ScaleRatingBar
         internal var euroScaleRatingBar: ScaleRatingBar
         internal var frameTimeDish: FrameLayout
-internal  var tvPrice:TextView
+        internal var tvPrice: TextView
 
         init {
             starScaleRatingBar = view.findViewById(R.id.simpleRatingBar) as ScaleRatingBar
@@ -103,14 +105,7 @@ internal  var tvPrice:TextView
 
 
     fun addItems(dataItems: ArrayList<Data_time>) {
-
-        Log.e("size of likelist before", "" + arrayList.size)
-
-
         arrayList.addAll(dataItems)
-
-        Log.e("size of likelist after", "" + arrayList.size)
-
         homeActivity.runOnUiThread(Runnable { notifyDataSetChanged() })
     }
 

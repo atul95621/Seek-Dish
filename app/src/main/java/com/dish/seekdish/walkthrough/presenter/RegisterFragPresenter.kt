@@ -43,17 +43,6 @@ class RegisterFragPresenter(
             override fun onResponse(call: Call<SignUpModel>, response: Response<SignUpModel>) {
                 // canceling the progress bar
                 ProgressBarClass.dialog.dismiss()
-                Log.e(
-                    "pramsFacebook",
-                    "EMAIL: " + email + " FIRSTNAME  " + firstname + " LASTNAME  " + lastName + "  PHOTO URL  " + photoUrl + "   FCM TOKEN " + fcmToken + " FACEBOOK ID   " + facebookUserId
-                )
-
-
-                Log.e("responseFbSignupCode", response.code().toString() + "")
-                Log.e("responseFbSignupStatus", " " + response.body()?.status)
-                Log.e("responseFbSignupString", " " + response.body().toString())
-                Log.e("responseFbSignuperror", " " + response.errorBody().toString())
-
                 if (response.code().toString().equals("200")) {
                     Log.e("c", response.code().toString() + "")
                     iRegisterFragView.onFacebookSiginDetails(true, response)
@@ -66,9 +55,6 @@ class RegisterFragPresenter(
             }
 
             override fun onFailure(call: Call<SignUpModel>, t: Throwable) {
-
-                Log.e("respFacebookFailure", " " + t.toString())
-
                 call.cancel()
                 // canceling the progress bar
                 ProgressBarClass.dialog.dismiss()
@@ -115,13 +101,9 @@ class RegisterFragPresenter(
                 // canceling the progress bar
                 ProgressBarClass.dialog.dismiss()
 
-                Log.e("responseTwitterSignCode", response.code().toString() + "")
-                Log.e("responseTwitterSignSt", " " + response.body()?.status)
-                Log.e("responseTwitterSignStr", " " + response.body().toString())
-                Log.e("responseTwitterSigner", " " + response.errorBody().toString())
+
 
                 if (response.code().toString().equals("200")) {
-                    Log.e("respTwitter", response.code().toString() + "")
                     iRegisterFragView.onTwitterSiginDetails(true, response)
 
                 } else {
@@ -132,9 +114,6 @@ class RegisterFragPresenter(
             }
 
             override fun onFailure(call: Call<SignUpModel>, t: Throwable) {
-
-                Log.e("respTwitterFailure", " " + t.toString())
-
                 call.cancel()
                 // canceling the progress bar
                 ProgressBarClass.dialog.dismiss()

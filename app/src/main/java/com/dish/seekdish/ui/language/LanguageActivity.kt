@@ -127,7 +127,6 @@ class LanguageActivity : BaseActivity(), ILanguageView {
             val languageData = response.body() as LanguageData
 
             if (languageData.status == 1) {
-                Log.e("langResp", "  " + response)
                 showDialog(languageData.data)
             } else {
                 showSnackBar(languageData.message)

@@ -58,10 +58,6 @@ class SignupPresenter(private val iSignUpView: ISignUpView, val signupActivity: 
         call.enqueue(object : Callback<SignUpModel> {
             override fun onResponse(call: Call<SignUpModel>, response: Response<SignUpModel>) {
 
-                Log.e("responseSignupCode", response.code().toString() + "")
-                Log.e("responseSignupStatus", " " + response.body()?.status)
-                Log.e("responseSignupString", " " + response.body().toString())
-                Log.e("responseSignuperror", " " + response.errorBody().toString())
 
                 if (response.code().toString().equals("200")) {
 //                    Log.e("respSignupCode", response.code().toString() + "")
@@ -79,10 +75,6 @@ class SignupPresenter(private val iSignUpView: ISignUpView, val signupActivity: 
             }
 
             override fun onFailure(call: Call<SignUpModel>, t: Throwable) {
-
-                Log.e("responseSignupFailure", " " + t.toString())
-
-
             /*    Toast.makeText(
                     FacebookSdk.getApplicationContext(),
                     signupActivity.resources.getString(R.string.error_occured),
@@ -136,10 +128,6 @@ class SignupPresenter(private val iSignUpView: ISignUpView, val signupActivity: 
         call.enqueue(object : Callback<SignUpModel> {
             override fun onResponse(call: Call<SignUpModel>, response: Response<SignUpModel>) {
 
-                Log.e("responseSignupCode", response.code().toString() + "")
-                Log.e("responseSignupStatus", " " + response.body()?.status)
-                Log.e("responseSignupString", " " + response.body().toString())
-                Log.e("responseSignuperror", " " + response.errorBody().toString())
 
                 if (response.code().toString().equals("200")) {
 //                    Log.e("respSignupCode", response.code().toString() + "")
@@ -157,10 +145,6 @@ class SignupPresenter(private val iSignUpView: ISignUpView, val signupActivity: 
             }
 
             override fun onFailure(call: Call<SignUpModel>, t: Throwable) {
-
-                Log.e("responseSignupFailure", " " + t.toString())
-
-
               /*  Toast.makeText(
                     FacebookSdk.getApplicationContext(),
                     signupActivity.resources.getString(R.string.error_occured),

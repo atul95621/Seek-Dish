@@ -155,7 +155,7 @@ class HomeActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
             }
 
             override fun onDrawerOpened(p0: View) {
-                Log.e("drawerDirection", ":  " + drawerLayout?.isDrawerOpen(GravityCompat.END))
+//                Log.e("drawerDirection", ":  " + drawerLayout?.isDrawerOpen(GravityCompat.END))
                 if (drawerLayout?.isDrawerOpen(GravityCompat.END) == true) {
                     // hitiing apai if user slide the right drawer
                     getFilterData()
@@ -244,7 +244,6 @@ class HomeActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
             if (drawerLayout?.isDrawerOpen(GravityCompat.END)!!) {
                 drawerLayout?.closeDrawer(GravityCompat.END)
             } else {
-                Log.e("deptList size", " " + deptList.size)
 
 //                getFilterData()
                 drawerLayout?.openDrawer(GravityCompat.END)
@@ -317,10 +316,7 @@ class HomeActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
             /*   if (budgetItems == "" && serviceSpeedItems == "" && mealItems == "" && compatIntolerItems == "" && restroSpecialItems == "" && compAmbianceItems == "" && additonalItems == "" && seasonlityItems == "") {
                    Toast.makeText(this, "Please select filter items first", Toast.LENGTH_LONG).show()
                } else {*/
-            Log.e(
-                "filterItems",
-                "" + "\nbudget   " + budgetItems + "\nservice  " + serviceSpeedItems + "\nmeal   " + mealItems + "\ncompat   " + compatIntolerItems + "\nrestro   " + restroSpecialItems + "\ncompAm  " + compAmbianceItems + "\naddtional   " + additonalItems + "\nseason   " + seasonlityItems
-            )
+
             var switchConsider = "0"
             if (switch_consider_my_profile.isChecked) {
                 switchConsider = "1"
@@ -341,33 +337,6 @@ class HomeActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
                 switchConsider
             )
         }
-//        }
-
-        /*   //drawer set up
-           rightToggle = ActionBarDrawerToggle(
-               this, drawerLayout, toolbar,
-               R.string.app_name, R.string.app_name
-           )
-           rightToggle!!.isDrawerIndicatorEnabled = false
-           rightToggle!!.setHomeAsUpIndicator(R.drawable.ic_settings_button)
-           drawerLayout.addDrawerListener(toggle)
-           rightToggle!!.syncState()
-
-           //toogle listener
-           rightToggle!!.toolbarNavigationClickListener = View.OnClickListener {
-               if (drawerLayout.isDrawerVisible(GravityCompat.END)) {
-                   drawerLayout.closeDrawer(GravityCompat.END)
-               } else {
-                   drawerLayout.openDrawer(GravityCompat.END)
-               }
-           }*/
-
-        /*tvAdd.setOnClickListener()
-        {
-            val intent = Intent(this@HomeActivity, ContactFetchActivity::class.java)
-            startActivity(intent)
-        }*/
-
 
     }
 
@@ -613,7 +582,6 @@ class HomeActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
         if (fragments != null) {
             for (f in fragments) {
                 if (f is SettingsFragment) {
-                    Log.e("Fragment", "SettingsFragment onActivityresult called")
                     f.onActivityResult(requestCode, resultCode, data)
                 }
                 /*else if (f is CreateEventFragment) {
@@ -633,23 +601,12 @@ class HomeActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
 
         homeActivityVM!!.getFilterLiveData.observe(this, Observer { response ->
             if (response != null) {
-
-
-                Log.e("rspFilter", response.toString())
-
-                Log.e("rspFilterStat", response.status.toString())
-
                 if (response.status == 1) {
-
-
                     var arrySize = filterArrayList.size
-
                     if (deptList.size == 0) {
-
                         for (items in response.data.consider_my_profile) {
                             if (items.filter == 1) {
                                 switch_consider_my_profile.isChecked = true
-
                             } else {
                                 switch_consider_my_profile.isChecked = false
                             }
@@ -741,7 +698,6 @@ class HomeActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
                 showSnackBar(
                     this.getResources().getString(R.string.error_occured) + "    $response"
                 );
-                Log.e("rspSnak", "else error")
             }
         })
     }
@@ -754,17 +710,10 @@ class HomeActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
 
         homeActivityVM!!.getLogoutLiveData.observe(this, Observer { response ->
             if (response != null) {
-
-
-                Log.e("rspFilter", response.toString())
-
                 if (response.status == 1) {
-
-                    Log.e("Twitter", "logout")
                     TwitterCore.getInstance().getSessionManager().clearActiveSession()
 
                     if (LoginManager.getInstance() != null) {
-                        Log.e("facebook", "logout")
                         LoginManager.getInstance().logOut();
                     }
 
@@ -783,8 +732,6 @@ class HomeActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
                 showSnackBar(
                     this.getResources().getString(R.string.error_occured) + "    $response"
                 );
-                Log.e("rspSnakuu", "else error")
-
             }
         })
     }
@@ -797,16 +744,10 @@ class HomeActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
 
         homeActivityVM!!.saveFilterLiveData.observe(this, Observer { response ->
             if (response != null) {
-
-
-                Log.e("rspFilter", response.toString())
-
                 if (response.status == 1) {
                     drawerLayout?.closeDrawer(GravityCompat.END)
-
                     val message = response.message
                     showSnackBar(message)
-
                     val finalFrag =
                         Constants.refreshFragment(
                             sessionManager?.getValue(SessionManager.CURRENT_SCREEN).toString()
@@ -820,7 +761,6 @@ class HomeActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
                 showSnackBar(
                     this.getResources().getString(R.string.error_occured) + "    $response"
                 );
-                Log.e("rspSnakrr", "else error")
             }
         })
     }
@@ -881,8 +821,6 @@ class HomeActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
 
         Twitter.initialize(config)
 
-        /*   Log.e("TwitterClient1", "" + client.toString())
-           client = TwitterAuthClient()*/
     }
 
     override fun onResume() {

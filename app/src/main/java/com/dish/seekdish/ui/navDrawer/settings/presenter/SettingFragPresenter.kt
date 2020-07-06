@@ -33,10 +33,7 @@ class SettingFragPresenter(private val iSettingView: ISettingView, val homeActiv
         call.enqueue(object : Callback<SettingDataClass> {
             override fun onResponse(call: Call<SettingDataClass>, response: Response<SettingDataClass>) {
 
-                Log.e("respSettingGeneralCode", response.code().toString() + "")
-//                Log.e("respLocationStatus", " " + response.body()?.status)
-                Log.e("respSettingGeneralSt", " " + response.body().toString())
-                Log.e("respSettingGeneralerror", " " + response.errorBody().toString())
+
 
                 if (response.code().toString().equals("200")) {
                     iSettingView.onGetSettingInfo(true, response)
@@ -52,10 +49,6 @@ class SettingFragPresenter(private val iSettingView: ISettingView, val homeActiv
             }
 
             override fun onFailure(call: Call<SettingDataClass>, t: Throwable) {
-
-                Log.e("responseFailure", " " + t.toString())
-
-
                 homeActivity.showSnackBar(homeActivity.getResources().getString(R.string.error_occured) + "  ${t.message}");
 
                 call.cancel()
@@ -86,10 +79,6 @@ class SettingFragPresenter(private val iSettingView: ISettingView, val homeActiv
                     "settingSetPrams",
                     " " + userId + "     " + geo + "    " + push + "    " + checkboxPrivate + "    " + radius
                 )
-                Log.e("respSendSettCode", response.code().toString() + "")
-//                Log.e("respLocationStatus", " " + response.body()?.status)
-                Log.e("respSendSettSt", " " + response.body().toString())
-                Log.e("respSendSetterror", " " + response.errorBody().toString())
 
                 if (response.code().toString().equals("200")) {
                     iSettingView.onSetSettingInfo(true, response)
@@ -105,9 +94,6 @@ class SettingFragPresenter(private val iSettingView: ISettingView, val homeActiv
             }
 
             override fun onFailure(call: Call<SendUserGeneralSetting>, t: Throwable) {
-
-                Log.e("responseFailure", " " + t.toString())
-
                 homeActivity.showSnackBar(homeActivity.getResources().getString(R.string.error_occured) + "  ${t.message}");
 
                 call.cancel()
@@ -132,14 +118,6 @@ class SettingFragPresenter(private val iSettingView: ISettingView, val homeActiv
         val call = apiInterface.getLanguagesData(userId)
         call.enqueue(object : Callback<LanguageData> {
             override fun onResponse(call: Call<LanguageData>, response: Response<LanguageData>) {
-
-
-                Log.e("settingSetPrams", " " + userId)
-                Log.e("respSendSettCode", response.code().toString() + "")
-//                Log.e("respLocationStatus", " " + response.body()?.status)
-                Log.e("respSendSettSt", " " + response.body().toString())
-                Log.e("respSendSetterror", " " + response.errorBody().toString())
-
                 if (response.code().toString().equals("200")) {
                     iSettingView.onGetLanguageInfo(true, response)
 
@@ -154,9 +132,6 @@ class SettingFragPresenter(private val iSettingView: ISettingView, val homeActiv
             }
 
             override fun onFailure(call: Call<LanguageData>, t: Throwable) {
-
-                Log.e("responseFailure", " " + t.toString())
-
                 homeActivity.showSnackBar(homeActivity.getResources().getString(R.string.error_occured) + "  ${t.message}");
 
                 call.cancel()
@@ -181,13 +156,6 @@ class SettingFragPresenter(private val iSettingView: ISettingView, val homeActiv
         call.enqueue(object : Callback<SaveLanguageModel> {
             override fun onResponse(call: Call<SaveLanguageModel>, response: Response<SaveLanguageModel>) {
 
-
-                Log.e("saveLangPrams", " " + userId)
-                Log.e("respsaveLangCode", response.code().toString() + "")
-//                Log.e("respLocationStatus", " " + response.body()?.status)
-                Log.e("respsaveLangSt", " " + response.body().toString())
-                Log.e("respsaveLangerror", " " + response.errorBody().toString())
-
                 if (response.code().toString().equals("200")) {
                     iSettingView.onSaveLanguageInfo(true, response)
 
@@ -202,7 +170,6 @@ class SettingFragPresenter(private val iSettingView: ISettingView, val homeActiv
             }
 
             override fun onFailure(call: Call<SaveLanguageModel>, t: Throwable) {
-                Log.e("responseFailure", " " + t.toString())
                 homeActivity.showSnackBar(homeActivity.getResources().getString(R.string.error_occured) + "  ${t.message}");
                 call.cancel()
                 // canceling the progress bar

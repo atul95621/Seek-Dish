@@ -68,7 +68,6 @@ class ResetPasswordActivity : BaseActivity() {
         call.enqueue(object : Callback<CancelReModel> {
             override fun onResponse(call: Call<CancelReModel>, response: Response<CancelReModel>) {
                 ProgressBarClass.dialog.dismiss()
-                Log.e("respResetSignupCode", response.code().toString() + "")
                 if (response.code().toString().equals("200")) {
                     var model = response.body() as CancelReModel
                     if (model.status == 1) {

@@ -56,10 +56,6 @@ class LoginActivity : BaseActivity(), ILoginView {
             } else {
 
                 if (connectionDetector.isConnectingToInternet) {
-                    Log.e(
-                        "langggg",
-                        "  " + sessionManager?.getValue(SessionManager.LANGUAGE_ID).toString()
-                    )
                     //calling api
                     loginPresenter.login(
                         edtEmail.text.toString(),

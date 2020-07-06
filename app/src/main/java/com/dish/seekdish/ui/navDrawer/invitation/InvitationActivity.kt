@@ -170,7 +170,6 @@ class InvitationActivity : BaseActivity() {
         imgInvitaionSend.setOnClickListener()
         {
             var recievers_id = TextUtils.join(",", Global.selectedFriends)
-            Log.e("selected_friend_SENDING", recievers_id)
 
             if (recievers_id.isNullOrEmpty()) {
                 showSnackBar("Please choose friends first.")
@@ -257,8 +256,7 @@ class InvitationActivity : BaseActivity() {
         var time: String =
             currentDate.get(Calendar.HOUR_OF_DAY)
                 .toString() + ":" + currentDate.get(Calendar.MINUTE)
-        Log.e("time", time)
-        Log.e("date", date)
+
 
         tvDate.setText(date)
         tvTime.setText(time)
@@ -280,7 +278,6 @@ class InvitationActivity : BaseActivity() {
             ) {
                 // canceling the progress bar
                 ProgressBarClass.dialog.dismiss()
-                Log.e("respStr", " " + response.body().toString())
                 if (response.code().toString().equals("200")) {
                     var modelObj = response.body() as InvitationModel
                     if (modelObj.status == 0) {
@@ -307,7 +304,6 @@ class InvitationActivity : BaseActivity() {
                                 tabLayout
                             )
                         )
-                        Log.e("heii", "enerd")
                     }
                 } else {
                     showSnackBar(resources.getString(R.string.error_occured) + "   ${response.code()}");
@@ -342,7 +338,6 @@ class InvitationActivity : BaseActivity() {
             ) {
                 // canceling the progress bar
                 ProgressBarClass.dialog.dismiss()
-                Log.e("respStr", " " + response.body().toString())
                 if (response.code().toString().equals("200")) {
 
                     var modelObj = response.body() as CancelReModel
@@ -384,7 +379,6 @@ class InvitationActivity : BaseActivity() {
             ) {
                 // canceling the progress bar
                 ProgressBarClass.dialog.dismiss()
-                Log.e("respStrIniv", " " + response.body().toString())
                 if (response.code().toString().equals("200")) {
 
                     var modelObj = response.body() as CancelReModel

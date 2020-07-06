@@ -60,9 +60,7 @@ class RestroMapVM : ViewModel() {
 
                 //finally we are setting the list to our MutableLiveData
                 getMapData.postValue(response.body())
-
                 getMapData.value = response.body()
-                Log.e("respoGetTasteMeal", response.body().toString())
 
             }
 
@@ -70,8 +68,6 @@ class RestroMapVM : ViewModel() {
 
                 // making progress bar invisible
                 isLoadingSubject.onNext(false)
-                Log.e("respoGetTasteMealFail", "failure")
-
                 getMapData.postValue(null)
 
 

@@ -44,8 +44,6 @@ class SimilarFragment(var objDishModel: DishDescpModel) : BaseFragment() {
 
 
         var size = objDishModel.data.similar_meals.size
-        Log.e("sizeTry",""+size)
-
 
         if (size == null || size.equals("null") || size.equals("") || size== 0) {
 

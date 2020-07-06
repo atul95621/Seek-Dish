@@ -44,7 +44,6 @@ class HomeActivityVM : ViewModel() {
                 //finally we are setting the list to our MutableLiveData
                 getFilterLiveData.postValue(response.body())
                 getFilterLiveData.value = response.body()
-                Log.e("respFilter", response.body().toString())
             }
 
             override fun onFailure(call: Call<FilterDataModel>, t: Throwable) {
@@ -117,7 +116,6 @@ class HomeActivityVM : ViewModel() {
                 //finally we are setting the list to our MutableLiveData
                 getLogoutLiveData.postValue(response.body())
                 getLogoutLiveData.value = response.body()
-                Log.e("respLogout", response.body().toString())
             }
             override fun onFailure(call: Call<AddTodoModel>, t: Throwable) {
                 // making progress bar invisible

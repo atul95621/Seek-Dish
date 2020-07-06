@@ -36,9 +36,6 @@ class LikeVM : ViewModel() {
         var api = APIClientMvvm.client.create(APIInterface::class.java)
 
         val call = api.getLikedIngredients(userId,pageNumber,"400")
-
-        Log.e("pramsGetLiked"," "+userId+"    "+pageNumber)
-
         call.enqueue(object : Callback<LikeDataClass> {
             override fun onResponse(call: Call<LikeDataClass>, response: Response<LikeDataClass>) {
 
@@ -47,17 +44,12 @@ class LikeVM : ViewModel() {
 
                 //finally we are setting the list to our MutableLiveData
                 getLikedLiveData.postValue(response.body())
-
                 getLikedLiveData.value = response.body()
-                Log.e("respoGetsLike", response.body().toString())
-
             }
 
             override fun onFailure(call: Call<LikeDataClass>, t: Throwable) {
-
                 // making progress bar invisible
                 isLoadingSubject.onNext(false)
-                Log.e("respoGetsLikeFail", "failure")
 
                 getLikedLiveData.postValue(null)
 
@@ -88,9 +80,7 @@ class LikeVM : ViewModel() {
 
                 //finally we are setting the list to our MutableLiveData
                 getSearchLikedLiveData.postValue(response.body())
-
                 getSearchLikedLiveData.value = response.body()
-                Log.e("respoGetssearchLike", response.body().toString())
 
             }
 
@@ -98,8 +88,6 @@ class LikeVM : ViewModel() {
 
                 // making progress bar invisible
 //                isLoadingSubject.onNext(false)
-                Log.e("respoGetssearchLikeFail", "failure")
-
                 getSearchLikedLiveData.postValue(null)
 
 
@@ -116,11 +104,7 @@ class LikeVM : ViewModel() {
 
 
         var api = APIClientMvvm.client.create(APIInterface::class.java)
-
         val call = api.postSavedLikeIngre(userId,ingredients)
-
-        Log.e("pramsSaveLiked"," "+userId+"    "+ingredients)
-
         call.enqueue(object : Callback<LikedIngredientsSaved> {
             override fun onResponse(call: Call<LikedIngredientsSaved>, response: Response<LikedIngredientsSaved>) {
 
@@ -129,9 +113,7 @@ class LikeVM : ViewModel() {
 
                 //finally we are setting the list to our MutableLiveData
                 saveLikedLiveData.postValue(response.body())
-
 //                saveLikedLiveData.value = response.body()
-                Log.e("respoGetLiked", response.body().toString())
 
             }
 
@@ -139,7 +121,6 @@ class LikeVM : ViewModel() {
 
                 // making progress bar invisible
                 isLoadingSubject.onNext(false)
-                Log.e("respoGetLikedFail", "failure")
                 saveLikedLiveData.postValue(null)
 
 

@@ -30,10 +30,7 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
     @Override
     public void onNewToken(String s) {
         super.onNewToken(s);
-
-
-        Log.e("onNewToken",s);
-
+//        Log.e("onNewToken",s);
         SessionManager sessionManager = new SessionManager(this);
         sessionManager.setValues(SessionManager.FCM_TOKEN, s);
 

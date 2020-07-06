@@ -119,7 +119,6 @@ class DislikeActivity : BaseActivity() {
         tvAdd.setOnClickListener()
         {
             savedIngredients = join1(",", Global.dislikedItemsSet)
-            Log.e("DislikedCommaSepSearch", savedIngredients)
 
             //hitiing save api
             disLikeVM?.doSaveDisLikedIngredients(
@@ -194,12 +193,6 @@ class DislikeActivity : BaseActivity() {
 
         disLikeVM!!.getDisLikedLiveData.observe(this, Observer { response ->
             if (response != null) {
-
-
-                Log.e("rspgetDisLiked", response.toString())
-
-                Log.e("rspgetDisLikedStat", response.status.toString())
-
                 if (response.status == 1) {
 
                     var arrySize = arrayList.size
@@ -211,16 +204,12 @@ class DislikeActivity : BaseActivity() {
 
                     if (pageNumber == 1) {
                         adapter?.clearLikedList()
-                        Log.e("TestingLike", "entered in for 1st row")
                         resultAction(response.data)
                     } else {
                         // this does not make 2 copies of item in recyclerview...
                         if (layoutManager.findLastCompletelyVisibleItemPosition() ==
                             adapter?.getItemCount()?.minus(1)
                         ) {
-
-                            Log.e("TestingLike", "entered in last row")
-
                             // loading new items...
                             resultAction(response.data)
                         }
@@ -232,23 +221,17 @@ class DislikeActivity : BaseActivity() {
 
             } else {
                 showSnackBar(this.getResources().getString(R.string.error_occured) + "    ${response}");
-
-                Log.e("rspSnak", "else error")
-
             }
         })
     }
 
 
     fun resultAction(data: ArrayList<Data_Disliked>) {
-        Log.e("data came", "" + data.toString())
 
         progressBarD.setVisibility(View.INVISIBLE)
         isLoading = false
         if (data != null) {
             adapter?.addItems(data)
-
-            Log.e("data to bind", "" + data.toString())
             if (data.size == 0) {
                 isLastPage = true
             } else {
@@ -270,9 +253,6 @@ class DislikeActivity : BaseActivity() {
         disLikeVM!!.saveDisLikedLiveData.observe(this, Observer { response ->
             if (response != null) {
 
-                Log.e("rspsaveDisLiked", response.toString())
-
-                Log.e("rspsaveDisLikedStat", response.status.toString())
 
                 if (response.status == 1) {
                     showSnackBar(response.message)
@@ -288,7 +268,6 @@ class DislikeActivity : BaseActivity() {
 
             } else {
                 showSnackBar(this.getResources().getString(R.string.error_occured) + "    ${response}");
-                Log.e("rspsaveLikedError", "else error")
             }
         })
     }
@@ -302,21 +281,11 @@ class DislikeActivity : BaseActivity() {
 
         disLikeVM!!.searchDislIngreLiveData.observe(this, Observer { response ->
             if (response != null) {
-
-
-                Log.e("rspgetsearchLiked", response.toString())
-
-                Log.e("rspgetsearchLikedStat", response.status.toString())
-
                 if (response.status == 1) {
 
 
                     if (response.data.size != 0) {
-
                         arrayList = response.data
-
-                        Log.e("search", "" + "   " + arrayList)
-
                         adapter = DislikeAdapter(this, arrayList)
                         recyclerView!!.adapter = adapter
                         adapter!!.notifyDataSetChanged()
@@ -329,7 +298,6 @@ class DislikeActivity : BaseActivity() {
 
             } else {
                 showSnackBar(this.getResources().getString(R.string.error_occured) + "    ${response}");
-                Log.e("rspsearchSnak", "else error")
 
             }
         })

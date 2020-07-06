@@ -77,9 +77,7 @@ class ReceivedRequestActivity : BaseActivity() {
             ) {
                 // canceling the progress bar
                 ProgressBarClass.dialog.dismiss()
-
                 arrayList.clear()
-                Log.e("respStr", " " + response.body().toString())
 
                 if (response.code().toString().equals("200")) {
                     var modelObj = response.body() as ReceivedRequestDataClass

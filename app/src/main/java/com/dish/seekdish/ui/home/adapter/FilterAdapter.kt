@@ -47,10 +47,8 @@ class FilterAdapter(private val context: Context, private val teamName: ArrayLis
 
 
         childItem.text = detailInfo.name.trim { it <= ' ' }
-        Log.e("item", "" + childItem.text)
 
         childDetailItemId.text = detailInfo.itemId.trim { it <= ' ' }
-        Log.e("itemId", "" + childDetailItemId.text)
 
 // if already seleceted or saved on api
         if (detailInfo.selected.equals("1")) {
@@ -124,7 +122,6 @@ class FilterAdapter(private val context: Context, private val teamName: ArrayLis
                     Global.budgetSet.remove(itemId)
                 }
             }
-            Log.e("ListDeleteBudget", TextUtils.join(",", Global.budgetSet))
 
 
         } else if (groupName.equals(context.resources.getString(R.string.service_sped))) {
@@ -134,7 +131,6 @@ class FilterAdapter(private val context: Context, private val teamName: ArrayLis
                     Global.serviceSet.remove(itemId)
                 }
             }
-            Log.e("ListDeleteService", TextUtils.join(",", Global.serviceSet))
 
 
         } else if (groupName.equals(context.resources.getString(R.string.meal_type))) {
@@ -184,7 +180,6 @@ class FilterAdapter(private val context: Context, private val teamName: ArrayLis
                     Global.additonalSet.remove(itemId)
                 }
             }
-            Log.e("ListDeleteAdditonalSet", TextUtils.join(",", Global.additonalSet))
 
 
         } else if (groupName.equals(context.resources.getString(R.string.seasonali))) {
@@ -242,12 +237,10 @@ class FilterAdapter(private val context: Context, private val teamName: ArrayLis
         if (groupName.equals(context.resources.getString(R.string.budget))) {
 
             Global.budgetSet.add(itemId)
-            Log.e("Listaddedbudget", TextUtils.join(",", Global.budgetSet))
 
         } else if (groupName.equals(context.resources.getString(R.string.service_sped))) {
 
             Global.serviceSet.add(itemId)
-            Log.e("ListaddedService", TextUtils.join(",", Global.serviceSet))
 
         } else if (groupName.equals(context.resources.getString(R.string.meal_type))) {
 
@@ -281,8 +274,6 @@ class FilterAdapter(private val context: Context, private val teamName: ArrayLis
     override fun getChildrenCount(groupPosition: Int): Int {
 
         val productList = teamName[groupPosition].playerName
-        Log.e("listsize", productList.size.toString())
-
         return productList.size
 
 

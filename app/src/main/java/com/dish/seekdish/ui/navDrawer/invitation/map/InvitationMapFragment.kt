@@ -140,8 +140,8 @@ class InvitationMapFragment(var invitationModel: InvitationModel) : BaseFragment
             )
         )
 
-        Log.e("latlong1", " " + location.latitude)
-        Log.e("latlong2", " " + location.longitude)
+      /*  Log.e("latlong1", " " + location.latitude)
+        Log.e("latlong2", " " + location.longitude)*/
 
         circleOptions.radius(100.0)
         circleOptions.fillColor(Color.RED)

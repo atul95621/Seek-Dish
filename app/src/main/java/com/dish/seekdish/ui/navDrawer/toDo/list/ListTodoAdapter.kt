@@ -113,7 +113,6 @@ class ListTodoAdapter(
     }
 
     fun removeItem(position: Int) {
-        Log.e("tagh", "position: $position+ totalitem: ${arrayList.size}")
         arrayList.removeAt(position)
         notifyDataSetChanged()
 //        notifyItemRemoved(position)

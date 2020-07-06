@@ -53,7 +53,6 @@ class ProximityAdapter(
         holder.tvAddress.text = proxiModel.street+","+proxiModel.city+","+proxiModel.zipcode
         var review: String="("+proxiModel.no_of_reviews+")"
         var startRating = proxiModel.rating.toFloat()
-        Log.e("rating",""+startRating+"   "+proxiModel.name)
         holder.starScaleRatingBar.rating = startRating
         var dist= proxiModel.distance
         holder.tvDistance.text =String.format("%.2f", dist) +" Km"
@@ -94,14 +93,7 @@ class ProximityAdapter(
     }
 
     fun addItems(dataItems: ArrayList<Data_Proximity>) {
-
-        Log.e("size of likelist before", "" + arrayList.size)
-
-
         arrayList.addAll(dataItems)
-
-        Log.e("size of likelist after", "" + arrayList.size)
-
         homeActivity.runOnUiThread(Runnable { notifyDataSetChanged() })
     }
 

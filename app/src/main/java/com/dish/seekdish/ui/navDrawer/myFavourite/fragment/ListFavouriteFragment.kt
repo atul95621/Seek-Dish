@@ -88,11 +88,6 @@ class ListFavouriteFragment : BaseFragment() {
 
         favoriteVM!!.getFavoriteLiveData.observe(viewLifecycleOwner, Observer { response ->
             if (response != null) {
-
-
-                Log.e("rspFavList", response.toString())
-
-
                 if (response.status == 1) {
 
                     arrayList = response.data
@@ -111,7 +106,6 @@ class ListFavouriteFragment : BaseFragment() {
 
             } else {
                 showSnackBar(this.getResources().getString(R.string.error_occured) + "    $response");
-                Log.e("rspSnak", "else error")
 
             }
         })
@@ -127,11 +121,6 @@ class ListFavouriteFragment : BaseFragment() {
         favoriteVM!!.getFavDeleteLiveData.observe(viewLifecycleOwner, Observer { response ->
             if (response != null) {
 
-
-                Log.e("rspFavListDel", response.toString())
-
-                Log.e("rspFavListDelStat", response.status.toString())
-
                 if (response.status == 1) {
                     if (adapter != null) {
 
@@ -145,7 +134,6 @@ class ListFavouriteFragment : BaseFragment() {
 
             } else {
                 showSnackBar(this.getResources().getString(R.string.error_occured) + "    $response");
-                Log.e("rspSnak", "else error")
 
             }
         })

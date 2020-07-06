@@ -63,8 +63,6 @@ class DishDetailActivity : BaseActivity() {
         val dishMealModel = intent.getSerializableExtra("MEAL_SEARIALIZE") as Meals
         val dishIngredientModel = intent.getSerializableExtra("INGREDIENT_SEARIALIZE") as Ingredients
 
-        Log.e("searilBudget", ":   " + dishMealModel.budget)
-
         // feeding the image to the list
         var imageMeal = dishMealModel.meal_image
         mResources.add(imageMeal)
@@ -83,7 +81,6 @@ class DishDetailActivity : BaseActivity() {
             seasonArr.add(item)
         }
         seasonStr = join1(" | ", seasonArr)
-        Log.e("seasonArr", "" + seasonArr)
         tvSeasonlity.setText(seasonStr)
 
         for (items in dishMealModel.meal_status) {

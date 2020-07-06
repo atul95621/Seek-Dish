@@ -49,25 +49,18 @@ class TasteFragVM() : ViewModel() {
             pageNumber,
             Constants.noOfMeals
         )
-        Log.e(
-            "pramsGetTasteMeal",
-            " " + userId + "    " + pageNumber + "lati   " + latitude + "    longi   " + longitude + "     radius   " + radius
-        )
         call.enqueue(object : Callback<TasteFragDataClass> {
             override fun onResponse(call: Call<TasteFragDataClass>, response: Response<TasteFragDataClass>) {
-
                 // making progress bar invisible
                 isLoadingSubject.onNext(false)
                 //finally we are setting the list to our MutableLiveData
                 getTasteLiveData.postValue(response.body())
                 getTasteLiveData.value = response.body()
-                Log.e("respoGetTasteMeal", response.body().toString())
             }
 
             override fun onFailure(call: Call<TasteFragDataClass>, t: Throwable) {
                 // making progress bar invisible
                 isLoadingSubject.onNext(false)
-                Log.e("respoGetTasteMealFail", "failure "+" ${t.message}")
                 getTasteLiveData.postValue(null)
             }
         })
@@ -77,40 +70,23 @@ class TasteFragVM() : ViewModel() {
     fun getCurrentLocation(userId: String, longitude: String, latitude: String) {
         // making progress bar visible
 //        isLoadingSubject.onNext(true)
-
-
         var api = APIClientMvvm.client.create(APIInterface::class.java)
-
         val call = api.getLocation(userId, longitude,latitude)
-
-        Log.e(
-            "pramsLiveLocation",
-            " " + userId + "  "+"lati   " + latitude + "    longi   " + longitude
-        )
-
         call.enqueue(object : Callback<CancelReModel> {
             override fun onResponse(call: Call<CancelReModel>, response: Response<CancelReModel>) {
-
                 // making progress bar invisible
 //                isLoadingSubject.onNext(false)
 
                 //finally we are setting the list to our MutableLiveData
                 getLiveLocation.postValue(response.body())
-
                 getLiveLocation.value = response.body()
-                Log.e("respoLiveLocation", response.body().toString())
-
             }
 
             override fun onFailure(call: Call<CancelReModel>, t: Throwable) {
 
                 // making progress bar invisible
 //                isLoadingSubject.onNext(false)
-                Log.e("respoLiveLocation", "failure")
-
                 getLiveLocation.postValue(null)
-
-
             }
         })
     }
@@ -139,34 +115,25 @@ class TasteFragVM() : ViewModel() {
             Constants.noOfMeals,
             search_text
             )
-        /*   Log.e(
-               "pramsGetTasteMeal",
-               " " + userId + "    " + pageNumber + "lati   " + latitude + "    longi   " + longitude + "     radius   " + radius
-           )*/
         call.enqueue(object : Callback<TasteFragDataClass> {
             override fun onResponse(call: Call<TasteFragDataClass>, response: Response<TasteFragDataClass>) {
-
                 // making progress bar invisible
 //                isLoadingSubject.onNext(false)
                 //finally we are setting the list to our MutableLiveData
                 tasteSearchData.postValue(response.body())
                 tasteSearchData.value = response.body()
-                Log.e("rspSearch", response.body().toString())
             }
 
             override fun onFailure(call: Call<TasteFragDataClass>, t: Throwable) {
                 // making progress bar invisible
 //                isLoadingSubject.onNext(false)
-                Log.e("rspSearch fail", "failure")
                 tasteSearchData.postValue(null)
             }
         })
     }
 
     fun isLoadingObservable(): Observable<Boolean> {
-
         return isLoadingSubject
-
     }
 
 }

@@ -196,7 +196,7 @@ class RestoRatingActivity : BaseActivity() {
 
 
 
-                Log.e("imagepath", "image1:  $pathImage1    +    image2: $pathImage2")
+//                Log.e("imagepath", "image1:  $pathImage1    +    image2: $pathImage2")
 
 
 
@@ -321,10 +321,6 @@ class RestoRatingActivity : BaseActivity() {
 
         ratingCommentVM!!.getRatingLiveData.observe(this, Observer { response ->
             if (response != null) {
-                Log.e("rspgetLiked", response.toString())
-
-                Log.e("rspgetLikedStat", response.status.toString())
-
                 if (response.status == 1) {
 
                     dialog.dismiss()
@@ -361,12 +357,7 @@ class RestoRatingActivity : BaseActivity() {
                 }
 
             } else {
-
-
                 showSnackBar(resources.getString(R.string.error_occured)  +"  $response")
-
-                Log.e("rspSnak", "else error")
-
             }
         })
     }
@@ -393,7 +384,7 @@ class RestoRatingActivity : BaseActivity() {
             object : OnImagePickedListener {
                 override fun onImagePicked(imageUri: Uri) {
 
-                    Log.e("case b", "onactvty")
+//                    Log.e("case b", "onactvty")
 
                     //set flag to true
                     imagePick = true
@@ -412,7 +403,7 @@ class RestoRatingActivity : BaseActivity() {
                     {
                         showSnackBar("Can't pick data")
                     }
-                    Log.e("path", path)
+//                    Log.e("path", path)
 
                     if (path != null && path != "" && path != "null") {
 
@@ -455,7 +446,7 @@ class RestoRatingActivity : BaseActivity() {
                                 pathImage1 = path
                                 bitmap1 = bitmap
 
-                                Log.e("bitmap1", bitmap.toString())
+//                                Log.e("bitmap1", bitmap.toString())
 
                                 imgOne?.setImageBitmap(bitmap)
                                 flag = true;
@@ -464,7 +455,7 @@ class RestoRatingActivity : BaseActivity() {
                                 pathImage2 = path
                                 bitmap2 = bitmap
 
-                                Log.e("bitmap2", bitmap.toString())
+//                                Log.e("bitmap2", bitmap.toString())
                                 imgTwo?.setImageBitmap(bitmap)
                                 flag = true;
                             } else {
@@ -493,14 +484,14 @@ class RestoRatingActivity : BaseActivity() {
                         )
                         path = imagePicker?.imageFile?.absoluteFile.toString()
 //                        path = getImageUri(this@AnswerActivity, bitmap).toString()
-                        Log.e("path by camera", path)
+//                        Log.e("path by camera", path)
 
 
                         if (flag == false && count == 0 && pathImage1 == "") {
                             pathImage1 = path
                             bitmap1 = bitmap
 
-                            Log.e("bitmap1", bitmap.toString())
+//                            Log.e("bitmap1", bitmap.toString())
 
                             imgOne?.setImageBitmap(bitmap)
                             flag = true;
@@ -509,7 +500,7 @@ class RestoRatingActivity : BaseActivity() {
                             pathImage2 = path
                             bitmap2 = bitmap
 
-                            Log.e("bitmap2", bitmap.toString())
+//                            Log.e("bitmap2", bitmap.toString())
                             imgTwo?.setImageBitmap(bitmap)
                             flag = true;
                         } else {
@@ -556,9 +547,6 @@ class RestoRatingActivity : BaseActivity() {
         }
 
         if (resultCode == RESULT_OK) {
-
-            Log.e("case a", "onactvty")
-
             //Log.e("uri image", "" + resultCode);
             if (imagePicker != null)
                 imagePicker.handleActivityResult(resultCode, requestCode, result)

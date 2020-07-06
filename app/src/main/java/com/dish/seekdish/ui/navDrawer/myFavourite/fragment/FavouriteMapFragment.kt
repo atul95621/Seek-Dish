@@ -95,7 +95,6 @@ class FavouriteMapFragment : BaseFragment(), OnMapReadyCallback, GoogleMap.OnMyL
 
 
         googleMap.setOnInfoWindowClickListener { marker ->
-            Log.e("rate", "info window clicked")
 
             val infoModel: InfoWindowData? = marker.tag as InfoWindowData?
 
@@ -181,16 +180,8 @@ class FavouriteMapFragment : BaseFragment(), OnMapReadyCallback, GoogleMap.OnMyL
 
         favoriteVM!!.getFavoriteLiveData.observe(viewLifecycleOwner, Observer { response ->
             if (response != null) {
-
-
-                Log.e("rspgemap", response.toString())
-
-                Log.e("rspgetmaptat", response.status.toString())
-
                 if (response.status == 1) {
-
                     arrayList = response.data
-
                     if (arrayList.size > 0 && arrayList.isNotEmpty()) {
                         activity?.runOnUiThread(
                             object : Runnable {
@@ -259,9 +250,6 @@ class FavouriteMapFragment : BaseFragment(), OnMapReadyCallback, GoogleMap.OnMyL
 
             } else {
                 showSnackBar("OOps! Error Occured.")
-
-                Log.e("rspMaperror", "else error")
-
             }
         })
     }

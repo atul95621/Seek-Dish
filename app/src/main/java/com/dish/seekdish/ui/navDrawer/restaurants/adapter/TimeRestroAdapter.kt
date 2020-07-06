@@ -93,12 +93,7 @@ class TimeRestroAdapter(
 
 
     fun addItems(dataItems: ArrayList<Data_Time_Restro>) {
-
-        Log.e("size of likelist before", "" + arrayList.size)
         arrayList.addAll(dataItems)
-
-        Log.e("size of likelist after", "" + arrayList.size)
-
         homeActivity.runOnUiThread(Runnable { notifyDataSetChanged() })
     }
 

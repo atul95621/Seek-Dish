@@ -125,7 +125,7 @@ class WalkThroughActivity : BaseActivity() {
         if (fragments != null) {
             for (f in fragments) {
                 if (f is RegisterFragment) {
-                    Log.e("Twitter", "Acitivty onActivityresult called")
+//                    Log.e("Twitter", "Acitivty onActivityresult called")
                     f.onActivityResult(requestCode, resultCode, data)
                 } /*else if (f is CreateEventFragment) {
                       f.onActivityResult(requestCode, resultCode, data)

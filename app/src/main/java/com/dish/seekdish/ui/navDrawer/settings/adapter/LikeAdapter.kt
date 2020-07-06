@@ -46,11 +46,9 @@ class LikeAdapter(
 
 //            likedList.get(position).checkForLike = true
             if (friendDataClass.checkForLike == false) {
-                Log.e("like", "if entered on " + position)
                 holder.checkBoxLiked.isChecked = true
                 likedList.get(position).checkForLike = true
             } else {
-                Log.e("like", "else entered on " + position)
                 holder.checkBoxLiked.isChecked = true
                 likedList.get(position).checkForLike = true
             }
@@ -66,8 +64,6 @@ class LikeAdapter(
             }
 
         } else if (friendDataClass.liked == 2 || friendDataClass.checkForLike) {
-            Log.e("checkbox liked", "" + friendDataClass.liked)
-
             if (friendDataClass.checkForLike) {
                 holder.checkBoxLiked.isChecked = true
                 likedList.get(position).checkForLike = true
@@ -84,15 +80,11 @@ class LikeAdapter(
         {
 
             if (holder.checkBoxLiked.isChecked == true) {
-                Log.e("checkbox", "turned true")
                 likedList.get(position).checkForLike = true
-                Log.e("statLikeif", " " + likedList.get(position).checkForLike +"   "+ "position:  " + likedList.get(position).id+"  name:"+likedList.get(position).name)
                 holder.checkBoxLiked.isChecked = true
                 Global.likedItemsSet.add(likedList.get(position).id.toString())
             } else {
-                Log.e("checkbox", "turned false")
                 likedList.get(position).checkForLike = false
-                Log.e("statLikeelse", " " + likedList.get(position).checkForLike+"   " + "position:  " + likedList.get(position).id+"  name:"+likedList.get(position).name)
                 holder.checkBoxLiked.isChecked = false
                 var ingrId = likedList.get(position).id.toString()
 
@@ -102,9 +94,6 @@ class LikeAdapter(
                     }
                 }
             }
-
-               Log.e("itemsLiked","  :"+Global.likedItemsSet.toString())
-
         }
 
 
@@ -112,14 +101,7 @@ class LikeAdapter(
 
 
     fun addItems(dataItems: ArrayList<Data_Liked>) {
-
-        Log.e("size of likelist before", "" + likedList.size)
-
-
         likedList.addAll(dataItems)
-
-        Log.e("size of likelist after", "" + likedList.size)
-
         likeActivity.runOnUiThread(Runnable { likeActivity.adapter?.notifyDataSetChanged() })
     }
 

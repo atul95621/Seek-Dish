@@ -90,8 +90,6 @@ class OpinionDetailsActivity : BaseActivity() {
 
         dishDescriptionVM!!.getCommentLiveData.observe(this, Observer { response ->
             if (response != null) {
-
-                Log.e("rspComment", response.toString())
                 if (response.status == 1) {
                     val mealImage = response.response.data.meal_image
                     Glide.with(this).load(mealImage).dontAnimate().fitCenter().into(imgMealImage)
@@ -164,7 +162,6 @@ class OpinionDetailsActivity : BaseActivity() {
                 }
             } else {
                 showSnackBar(getResources().getString(R.string.error_occured) + " $response");
-                Log.e("rspComment", "else error")
             }
         })
 
@@ -177,7 +174,6 @@ class OpinionDetailsActivity : BaseActivity() {
             mealId, restaurantId, commentId
         )
 
-        Log.e("idds","  "+ mealId+"   "+restaurantId+"    "+commentId)
 
     }
 
@@ -190,9 +186,6 @@ class OpinionDetailsActivity : BaseActivity() {
 
         dishDescriptionVM!!.getFriendReqLiveData.observe(this, Observer { response ->
             if (response != null) {
-
-                Log.e("rspGetaddtodoDetails", response.status.toString())
-
                 if (response.status == 1) {
                     imgFriendRequest.visibility = View.GONE
                     showSnackBar(response.message)
@@ -202,7 +195,6 @@ class OpinionDetailsActivity : BaseActivity() {
                 }
             } else {
                 showSnackBar(getResources().getString(R.string.error_occured) + " $response");
-                Log.e("rspGetaddtodoFail", "else error")
             }
         })
     }
@@ -216,9 +208,6 @@ class OpinionDetailsActivity : BaseActivity() {
 
         dishDescriptionVM!!.getFollowingReqLiveData.observe(this, Observer { response ->
             if (response != null) {
-
-                Log.e("rspGetaddtodoDetails", response.status.toString())
-
                 if (response.status == 1) {
 
                     imgFollowing.visibility = View.GONE
@@ -231,7 +220,6 @@ class OpinionDetailsActivity : BaseActivity() {
             } else {
 
                 showSnackBar(getResources().getString(R.string.error_occured) + " $response");
-                Log.e("rspGetaddtodoFail", "else error")
             }
         })
     }

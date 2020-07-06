@@ -26,11 +26,6 @@ class LoginPresenter(private val iSignUpView: ILoginView, val loginActivity: Log
         call.enqueue(object : Callback<LoginDataClass> {
             override fun onResponse(call: Call<LoginDataClass>, response: Response<LoginDataClass>) {
 
-                Log.e("responseCode", response.code().toString() + "")
-                Log.e("responseStatus", " " + response.body()?.status)
-                Log.e("responseString", " " + response.body().toString())
-                Log.e("responseerror", " " + response.errorBody().toString())
-
                 if (response.code().toString().equals("200")) {
                     iSignUpView.onSetLoggedin(true, response)
 
@@ -40,7 +35,6 @@ class LoginPresenter(private val iSignUpView: ILoginView, val loginActivity: Log
                 // canceling the progress bar
                 ProgressBarClass.dialog.dismiss()
             }
-
             override fun onFailure(call: Call<LoginDataClass>, t: Throwable) {
 //                Log.e("responseFailure", " " + t.toString())
                 loginActivity.showSnackBar(loginActivity.getResources().getString(R.string.error_occured)  +"   ${t.message}");

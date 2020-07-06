@@ -168,9 +168,7 @@ class SignupActivity : BaseActivity(), ISignUpView {
 
                     // making path for image
                     val file = File(path)
-                    Log.e("resppath", "" + path)
-                    Log.e("respbitmap", "" + bitmap)
-                    Log.e("respfile", "" + file)
+
 
                     // compressing size of the image uploading
 //                    var finalFile = compressFile(file)
@@ -178,8 +176,6 @@ class SignupActivity : BaseActivity(), ISignUpView {
                     if (finalFile != null) {
                         var sizeAfter = finalFile.length().div(1024)
                         var sizeBefore = file.length().div(1024)
-                        Log.e("sizeAfter", "" + sizeAfter)
-                        Log.e("sizeBefore", "" + sizeBefore)
                     } else {
                         // if finalFile return null then
                         finalFile = file
@@ -207,9 +203,6 @@ class SignupActivity : BaseActivity(), ISignUpView {
 
 
                     if (path.equals("") || path == null || path == "") {
-                        Log.e("respUpdatePath", "" + path)
-                        Log.e("respUpd", "" + path + "without image")
-
                         //calling api
                         signupPresenter.signUpWithoutImage(
                             stringConvertToRequestBody(edtEmail.text.toString()),
@@ -234,8 +227,6 @@ class SignupActivity : BaseActivity(), ISignUpView {
 //                        part = MultipartBody.Part.createFormData("photo", "", fileReqBody)
 
                     } else {
-                        Log.e("respUpd", "" + path + "with image")
-
                         //calling api
                         signupPresenter.signUp(
                             stringConvertToRequestBody(edtEmail.text.toString()),
@@ -290,7 +281,6 @@ class SignupActivity : BaseActivity(), ISignUpView {
                     //get image path from uri
 //                    val path = getPath(imageUri)
                     path = getRealPathFromURI(imageUri).toString()
-                    Log.e("path", path)
 //                     Bitmap bmp = uriToBitmap(imageUri);
                     if (path.isNullOrEmpty() == false) {
                         //get bitmap from file path
@@ -462,9 +452,6 @@ class SignupActivity : BaseActivity(), ISignUpView {
         //Log.e("test", "onactivitycalled");
 
         if (resultCode == RESULT_OK) {
-
-            Log.e("case a", "onactvty")
-
             //Log.e("uri image", "" + resultCode);
             if (imagePicker != null)
                 imagePicker?.handleActivityResult(resultCode, requestCode, result)
@@ -502,7 +489,6 @@ class SignupActivity : BaseActivity(), ISignUpView {
         val countryCode = ccp.selectedCountryCode
         val phone = edtPhone.getText().toString()
 
-        Log.e("phone number", countryCode + phone)
         if (TextUtils.isEmpty(edtPhone.getText().toString().trim({ it <= ' ' }))) {
 
             showSnackBar("Enter phone number")

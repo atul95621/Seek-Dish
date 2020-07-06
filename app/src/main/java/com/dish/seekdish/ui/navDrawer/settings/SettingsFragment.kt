@@ -203,7 +203,7 @@ class SettingsFragment(var homeActivity: HomeActivity) : BaseFragment(), ISettin
                 SessionManager.PLACE_SELECTED
             ) != "null"
         ) {
-            Log.e("placelog", " " + sessionManager.getValue(SessionManager.PLACE_SELECTED))
+//            Log.e("placelog", " " + sessionManager.getValue(SessionManager.PLACE_SELECTED))
             var placeSelected = sessionManager.getValue(SessionManager.PLACE_SELECTED)
             view.txtPlace.setText(placeSelected)
         } else {

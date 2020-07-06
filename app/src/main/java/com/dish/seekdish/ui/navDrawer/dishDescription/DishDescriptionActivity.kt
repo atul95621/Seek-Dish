@@ -97,8 +97,6 @@ class DishDescriptionActivity : BaseActivity(), Serializable {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_dish_description)
-
-        Log.e("methodIn", "onCreate")
         mResources.clear()
 
         sessionManager = SessionManager(this)
@@ -306,9 +304,6 @@ class DishDescriptionActivity : BaseActivity(), Serializable {
 
         dishDescriptionVM!!.getDishDetailLiveData.observe(this, Observer { response ->
             if (response != null) {
-
-                Log.e("rspGetDishDetails", response.status.toString())
-
                 if (response.status == 1) {
 
                     tvMealName.setText(response.data.meals.meal_name)
@@ -365,7 +360,6 @@ class DishDescriptionActivity : BaseActivity(), Serializable {
 
             } else {
                 showSnackBar(resources.getString(R.string.error_occured) + "  $response")
-                Log.e("rspGetDishDetailsFail", "else error")
 
             }
         })
@@ -383,8 +377,6 @@ class DishDescriptionActivity : BaseActivity(), Serializable {
         dishDescriptionVM!!.getAddTodoLiveData.observe(this, Observer { response ->
             if (response != null) {
 
-                Log.e("rspGetaddtodoDetails", response.toString())
-
                 if (response.status == 1) {
 //                    onSendClick(response.data.message)
                     actionDialog.dismiss()
@@ -396,7 +388,6 @@ class DishDescriptionActivity : BaseActivity(), Serializable {
             } else {
                 showSnackBar(getResources().getString(R.string.error_occured) + "     $response ");
 //                showSnackBar("OOps! Error Occured.")
-                Log.e("rspGetaddtodoFail", "else error")
             }
         })
     }
@@ -412,7 +403,6 @@ class DishDescriptionActivity : BaseActivity(), Serializable {
 
         dishDescriptionVM!!.getAddFavouriteLiveData.observe(this, Observer { response ->
             if (response != null) {
-                Log.e("rspGetaddtodoDetailsd", response.toString())
                 if (response.status == 1) {
 //                    onSendClick(response.data.message)
                     actionDialog.dismiss()
@@ -422,7 +412,6 @@ class DishDescriptionActivity : BaseActivity(), Serializable {
                 }
             } else {
                 showSnackBar(getResources().getString(R.string.error_occured) + "   $response ");
-                Log.e("rspGetaddtodoFail", "else error")
             }
         })
     }
@@ -437,7 +426,6 @@ class DishDescriptionActivity : BaseActivity(), Serializable {
 
         dishDescriptionVM!!.getCallCountLiveData.observe(this, Observer { response ->
             if (response != null) {
-                Log.e("rspCall", response.toString())
                 if (response.status == 1) {
 //                    showSnackBar(response.message)
                 } else {
@@ -445,7 +433,6 @@ class DishDescriptionActivity : BaseActivity(), Serializable {
                 }
             } else {
                 showSnackBar(getResources().getString(R.string.error_occured) + "   $response ");
-                Log.e("rspCallFail", "else error")
             }
         })
     }
@@ -636,8 +623,6 @@ class DishDescriptionActivity : BaseActivity(), Serializable {
                 .placeholder(R.drawable.app_logo)
                 .into(profile_image)
 
-            Log.e("ResourceSize", "" + mResources.size)
-
 
 //            imageView.setImageBitmap(getBitmapFromUrl(mResources[position]))
 //            profile_image.setImageBitmap(getBitmapFromUrl(mResources[position]))
@@ -661,11 +646,11 @@ class DishDescriptionActivity : BaseActivity(), Serializable {
 
         if (requestCode == TwitterAuthConfig.DEFAULT_AUTH_REQUEST_CODE) {
             if (twitterAuthClient != null) {
-                Log.e("TAG", "Twitter post Sharing called")
+//                Log.e("TAG", "Twitter post Sharing called")
                 twitterAuthClient?.onActivityResult(requestCode, resultCode, data)
             }
         } else {
-            Log.e("TAG", "Facebook post Sharing called")
+//            Log.e("TAG", "Facebook post Sharing called")
             // Use Facebook callback manager here
             callbackManager.onActivityResult(requestCode, resultCode, data)
 
@@ -680,15 +665,15 @@ class DishDescriptionActivity : BaseActivity(), Serializable {
         shareDialog = ShareDialog(this)
         shareDialog.registerCallback(callbackManager, object : FacebookCallback<Sharer.Result> {
             override fun onSuccess(result: Sharer.Result) {
-                Log.e("TAG", "Facebook Share Success")
+//                Log.e("TAG", "Facebook Share Success")
             }
 
             override fun onCancel() {
-                Log.e("TAG", "Facebook Sharing Cancelled by User")
+//                Log.e("TAG", "Facebook Sharing Cancelled by User")
             }
 
             override fun onError(error: FacebookException) {
-                Log.e("TAG", "Facebook Share Success: Error: " + error.getLocalizedMessage())
+//                Log.e("TAG", "Facebook Share Success: Error: " + error.getLocalizedMessage())
             }
         })
 
@@ -716,7 +701,7 @@ class DishDescriptionActivity : BaseActivity(), Serializable {
 
         Twitter.initialize(config)
 
-        Log.e("TwitterClient1", "" + twitterAuthClient.toString())
+//        Log.e("TwitterClient1", "" + twitterAuthClient.toString())
         twitterAuthClient = TwitterAuthClient()
         val twitterSession = TwitterCore.getInstance().getSessionManager().getActiveSession()
         if (twitterSession == null) {
@@ -727,7 +712,7 @@ class DishDescriptionActivity : BaseActivity(), Serializable {
                 }
 
                 override fun failure(e: TwitterException) {
-                    Log.e("TAG", "Twitter Error while authorize user " + e.message)
+//                    Log.e("TAG", "Twitter Error while authorize user " + e.message)
                 }
             })
         } else {
@@ -741,53 +726,10 @@ class DishDescriptionActivity : BaseActivity(), Serializable {
         val tweetUrl = ("https://twitter.com/share?text=SeekDish&url=" + twitterLink)
         val uri = Uri.parse(tweetUrl)
         startActivity(Intent(Intent.ACTION_VIEW, uri))
-
-
-        /*     val session = TwitterCore.getInstance().getSessionManager()
-                 .getActiveSession()
-             val intent: Intent = ComposerActivity.Builder(this)
-                 .session(session)
-                 .image(uri)
-                 .text("Love where you work")
-                 .hashtags("#twitter")
-                 .createIntent()
-     //        startActivity(Intent(Intent.ACTION_VIEW, uri))
-             startActivity(intent)*/
-
-
-        /*     val statusesService = TwitterCore.getInstance().getApiClient().getStatusesService()
-             val tweetCall =
-                 statusesService.update("Seekdish:  ", null, false, null, null, null, false, false, null)
-             tweetCall.enqueue(object : Callback<Tweet>() {
-                 override fun success(result: com.twitter.sdk.android.core.Result<Tweet>?) {
-                     Log.e("TAG", "Twitter Share Success")
-     //                logoutTwitter()            }
-                 }
-
-                 override fun failure(exception: TwitterException) {
-                     Log.e("TAG", "Twitter Share Failed with Error: " + exception.getLocalizedMessage())
-                 }
-             })*/
     }
 
 
-/*    private fun onSendClick(message: String) {
-       messageDialog = Dialog(this)
-        messageDialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
-        messageDialog.setCancelable(false)
-        messageDialog.setContentView(R.layout.dialog_email_verify)
 
-        val textViewDescrp = messageDialog.findViewById<TextView>(R.id.textViewDescrp)
-        val btnAccept = messageDialog.findViewById<Button>(R.id.btnAccept)
-        textViewDescrp.setText(message)
-        // button_yes clk
-        btnAccept.setOnClickListener {
-            messageDialog.dismiss()
-        }
-
-        messageDialog.show()
-
-    }*/
 
     override fun onNewIntent(intent: Intent?) {
         super.onNewIntent(intent)
@@ -795,7 +737,6 @@ class DishDescriptionActivity : BaseActivity(), Serializable {
 
         if (meal_id != null && restro_id != null) {
             getMealDetials(meal_id.toString(), restro_id.toString())
-            Log.e("methodIn", "hit again")
 
         }
     }

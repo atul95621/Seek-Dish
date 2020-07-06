@@ -102,19 +102,10 @@ class TimeRestroFragment : BaseFragment() {
 
 
             override fun loadMoreItems() {
-                Log.e("loadMoreItems ", "hitted")
-
-
                 if (flagSearch == false) {
-
-                    Log.e("loadMoreItems", "entered   " + "isLastPage staus is " + isLastPage)
-
 //                    progressBar.setVisibility(View.VISIBLE)
                     isLoading = true
                     if (!isLastPage) {
-
-                        Log.e("loadMoreItems", "entered inide lastpage scope")
-
                         Handler().postDelayed({
 
                             //hitting api
@@ -135,7 +126,6 @@ class TimeRestroFragment : BaseFragment() {
 
     private fun getTimeRestro(page: Int) {
 
-        Log.e("loadMoreItems", "entered getLikedIngre ")
         var radius: String = sessionManager.getValue(SessionManager.RADIUS)
         if (radius != null && radius != "null" && radius != "") {
             radius = sessionManager.getValue(SessionManager.RADIUS)
@@ -153,9 +143,6 @@ class TimeRestroFragment : BaseFragment() {
     }
 
     fun getTimeRestroRespeObserver() {
-
-        Log.e("loadMoreItems", "entered getLikedResponseObserver ")
-
         //observe
         restroTimeVM!!.isLoadingObservable().observeOn(AndroidSchedulers.mainThread()).subscribe {
             setIsLoading(it)
@@ -163,12 +150,6 @@ class TimeRestroFragment : BaseFragment() {
 
         restroTimeVM!!.getTimeRestroLiveData.observe(viewLifecycleOwner, Observer { response ->
             if (response != null) {
-
-
-                Log.e("rspgetLiked", response.toString())
-
-                Log.e("rspgetLikedStat", response.status.toString())
-
                 if (response.status == 1) {
 
                     var arrySize = arrayList.size
@@ -199,7 +180,6 @@ class TimeRestroFragment : BaseFragment() {
 
             } else {
                 showSnackBar(resources.getString(R.string.error_occured) + "    ${response}");
-                Log.e("rspSnak", "else error")
 
             }
         })
@@ -207,22 +187,17 @@ class TimeRestroFragment : BaseFragment() {
 
 
     fun resultAction(data: ArrayList<Data_Time_Restro>) {
-        Log.e("data came", "" + data.toString())
-
 //        progressBar.setVisibility(View.INVISIBLE)
         isLoading = false
         if (data != null) {
             adapter?.addItems(data)
 
-            Log.e("data to bind", "" + data.toString())
             if (data.size == 0) {
                 isLastPage = true
             } else {
                 /* var pos:Int= adapter?.itemCount?.minus(2)!!
                  recyclerView?.scrollToPosition(pos)*/
                 pageNumber = pageNumber + 1
-
-                Log.e("pgNumber", "" + pageNumber)
             }
         }
     }

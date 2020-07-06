@@ -96,10 +96,6 @@ class SentRequestActivity : BaseActivity() {
             ) {
                 // canceling the progress bar
                 ProgressBarClass.dialog.dismiss()
-
-
-                Log.e("respStr", " " + response.body().toString())
-
                 if (response.code().toString().equals("200")) {
 
                     var modelObj = response.body() as ReceivedRequestDataClass

@@ -95,19 +95,15 @@ class ProximityFragment : BaseFragment() {
 
 
             override fun loadMoreItems() {
-                Log.e("loadMoreItems ", "hitted")
-
-
+//                Log.e("loadMoreItems ", "hitted")
                 if (flagSearch == false) {
 
-                    Log.e("loadMoreItems", "entered   " + "isLastPage staus is " + isLastPage)
+//                    Log.e("loadMoreItems", "entered   " + "isLastPage staus is " + isLastPage)
 
 //                    progressBar.setVisibility(View.VISIBLE)
                     isLoading = true
                     if (!isLastPage) {
-
-                        Log.e("loadMoreItems", "entered inide lastpage scope")
-
+//                        Log.e("loadMoreItems", "entered inide lastpage scope")
                         Handler().postDelayed({
 
                             //hitting api
@@ -124,7 +120,7 @@ class ProximityFragment : BaseFragment() {
 
     private fun getProxiRestro(page: Int) {
 
-        Log.e("loadMoreItems", "entered getLikedIngre ")
+//        Log.e("loadMoreItems", "entered getLikedIngre ")
         var radius: String = sessionManager.getValue(SessionManager.RADIUS)
         if (radius != null && radius != "null" && radius != "") {
             radius = sessionManager.getValue(SessionManager.RADIUS)
@@ -142,8 +138,6 @@ class ProximityFragment : BaseFragment() {
     }
 
     fun getProxiRestroRespeObserver() {
-
-        Log.e("loadMoreItems", "entered getLikedResponseObserver ")
 
         //observe
         proximityVM!!.isLoadingObservable().observeOn(AndroidSchedulers.mainThread()).subscribe {
@@ -182,22 +176,16 @@ class ProximityFragment : BaseFragment() {
 
 
     fun resultAction(data: ArrayList<Data_Proximity>) {
-        Log.e("data came", "" + data.toString())
-
 //        progressBar.setVisibility(View.INVISIBLE)
         isLoading = false
         if (data != null) {
             adapter?.addItems(data)
-
-            Log.e("data to bind", "" + data.toString())
             if (data.size == 0) {
                 isLastPage = true
             } else {
                 /* var pos:Int= adapter?.itemCount?.minus(2)!!
                  recyclerView?.scrollToPosition(pos)*/
                 pageNumber = pageNumber + 1
-
-                Log.e("pgNumber", "" + pageNumber)
             }
         }
     }
