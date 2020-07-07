@@ -24,5 +24,8 @@ data class CheckUpdateModel(
     val Android_version: String,
     val Ios_version: String,
     val message: String,
-    val status: Int
+    val status: Int,
+    val force_update_android:Int,
+    val force_update_ios:Int
+
 )

@@ -783,7 +783,7 @@ class HomeActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
                     } catch (e: PackageManager.NameNotFoundException) {
                         e.printStackTrace()
                     }
-                    if (!version.isNullOrEmpty()) {
+                    if (!version.isNullOrEmpty() && response.force_update_android!=0) {
                         if (version.toFloat() < response.Android_version.toFloat()) {
                             //making the isLoggedIn key to "0"
                             sessionManager?.setValues(SessionManager.LOGGEDIN, "0")

@@ -152,7 +152,7 @@ class LoginActivity : BaseActivity(), ILoginView {
                 } catch (e: PackageManager.NameNotFoundException) {
                     e.printStackTrace()
                 }
-                if (!version.isNullOrEmpty()) {
+                if (!version.isNullOrEmpty()&& checkUpdateModel.force_update_android!=0) {
                     if (version.toFloat() < checkUpdateModel.Android_version.toFloat()) {
                         showUpdateDialog(getString(R.string.update))
                     }
