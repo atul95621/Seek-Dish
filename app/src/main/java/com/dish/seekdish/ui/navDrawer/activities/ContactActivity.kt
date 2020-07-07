@@ -93,7 +93,7 @@ class ContactActivity : BaseActivity() {
 
             override fun onFailure(call: Call<CancelReModel>, t: Throwable) {
 //                Log.e("responseFailure", " " + t.toString())
-                showSnackBar(resources.getString(R.string.error_occured)+"  ${t.message}");
+                showSnackBar(resources.getString(R.string.error_occured) + "  ${t.message}");
                 call.cancel()
                 // canceling the progress bar
                 ProgressBarClass.dialog.dismiss()
@@ -120,17 +120,15 @@ class ContactActivity : BaseActivity() {
 
                     var modelObj = response.body() as ContactModel
                     if (modelObj.status == 1) {
-                        if(modelObj.data.size>0) {
+                        if (modelObj.data.size > 0) {
                             edtTwitter.setText(modelObj.data[0].twitter_id ?: "")
                             edtFacebook.setText(modelObj.data[0].facebook_id ?: "")
                             edtEmail.setText(modelObj.data[0].email ?: "")
                             edtPhone.setText(modelObj.data[0].phone ?: "")
                             edtSkype.setText(modelObj.data[0].skype_id ?: "")
                             ccpContact.setCountryForPhoneCode(modelObj.data[0].callingcode ?: 0)
-                        }
-                        else
-                        {
-                            showSnackBar("data is empty")
+                        } else {
+//                            showSnackBar(getString(R.string.no_one_found))
                         }
                     } else {
                         showSnackBar(modelObj.message)
@@ -146,7 +144,7 @@ class ContactActivity : BaseActivity() {
             }
 
             override fun onFailure(call: Call<ContactModel>, t: Throwable) {
-                showSnackBar(resources.getString(R.string.error_occured)+"  ${t.message}");
+                showSnackBar(resources.getString(R.string.error_occured) + "  ${t.message}");
                 call.cancel()
                 // canceling the progress bar
                 ProgressBarClass.dialog.dismiss()

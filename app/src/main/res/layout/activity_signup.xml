@@ -154,7 +154,6 @@
                     android:background="@color/edt_light_gray"
                     android:hint="@string/phone_number"
                     android:inputType="number"
-                    android:maxLength="10"
                     android:paddingStart="8dp" />
             </LinearLayout>
 

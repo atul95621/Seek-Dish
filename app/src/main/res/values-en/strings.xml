@@ -262,4 +262,8 @@
     <string name="back_again">Please click BACK again to exit</string>
     <string name="update">New version of app is available over the store. Please update the app.</string>
     <string name="update_str">Update</string>
+    <string name="number_length">Please enter password greater than 5 characters.</string>
+    <string name="old_pass">Please fill old password.</string>
+    <string name="new_pass">Please fill new password</string>
+    <string name="confrm_pass">Please fill confirm password</string>
 </resources>

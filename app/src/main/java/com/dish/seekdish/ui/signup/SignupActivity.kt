@@ -149,6 +149,9 @@ class SignupActivity : BaseActivity(), ISignUpView {
             } else if (TextUtils.isEmpty(edtConfirmPasword!!.text.toString().trim { it <= ' ' })) {
                 showSnackBar(getString(R.string.enter_cnfrm))
                 edtConfirmPasword!!.requestFocus()
+            } else if (edtPassword!!.text.toString().trim().length < 5) {
+                showSnackBar(getString(R.string.number_length))
+                edtPassword!!.requestFocus()
             } else if (edtPassword.text.toString()
                     .compareTo(edtConfirmPasword.text.toString()) != 0
             ) {

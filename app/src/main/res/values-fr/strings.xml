@@ -276,6 +276,10 @@ Le mot de passe et la confirmation ne correspondent pas.
     <string name="back_again">Veuillez cliquer de nouveau sur BACK pour quitter</string>
     <string name="update">Une nouvelle version de l\'application est disponible sur la boutique. Veuillez mettre à jour l\'application.</string>
     <string name="update_str">Mettre à jour</string>
+    <string name="number_length">Veuillez saisir un mot de passe de plus de 5 caractères.</string>
+    <string name="old_pass">Veuillez remplir l\'ancien mot de passe.</string>
+    <string name="new_pass">Veuillez saisir un nouveau mot de passe</string>
+    <string name="confrm_pass">Veuillez confirmer le mot de passe</string>
 </resources>
 <!--
 <resources>
