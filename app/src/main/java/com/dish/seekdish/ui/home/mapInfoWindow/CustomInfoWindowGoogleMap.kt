@@ -9,6 +9,7 @@ import android.widget.RatingBar
 import android.widget.TextView
 import com.dish.seekdish.R
 import com.dish.seekdish.custom.GlideApp
+import com.dish.seekdish.ui.navDrawer.restaurants.mapWindow.MarkerCallback
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.model.Marker
 import com.squareup.picasso.Callback
@@ -41,13 +42,10 @@ class CustomInfoWindowGoogleMap(
             "drawable", context.getPackageName()
         )
 
-        GlideApp.with(context)
-            .load(infoWindowGoogleMap.imageUrl)
+        Picasso.with(context).load(infoWindowGoogleMap.imageUrl).resize(50, 50)
+            .centerCrop().noFade()
             .placeholder(R.drawable.app_logo)
-            .override(50,50)
-            .into(imgInfoWindow)
-
-//        Log.e("imageuRL","  "+imageId+"    "+infoWindowGoogleMap.imageUrl)
+            .into(imgInfoWindow,  MarkerCallback(marker));
 
         tvRestro.setText(infoWindowGoogleMap.restroTitle)
         star_rating.rating = infoWindowGoogleMap.starRating!!.toFloat()
@@ -57,11 +55,19 @@ class CustomInfoWindowGoogleMap(
 
 }
 
-class InfoWindowRefresher(private val markerToRefresh: Marker) :
-     Callback {
-    override fun onSuccess() {
-        markerToRefresh.showInfoWindow()
+// introduced as per image was showing when double click, so this solved the issue with picasso
+internal class MarkerCallback(marker:Marker): Callback {
+    var marker: Marker? = null
+    init{
+        this.marker = marker
     }
-
-    override fun onError() {}
+    override fun onError() {
+        Log.e(javaClass.getSimpleName(), "Error loading thumbnail!")
+    }
+    override fun onSuccess() {
+        if (marker != null && marker!!.isInfoWindowShown())
+        {
+            marker!!.showInfoWindow()
+        }
+    }
 }

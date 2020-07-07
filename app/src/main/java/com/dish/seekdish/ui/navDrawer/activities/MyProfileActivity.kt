@@ -36,12 +36,8 @@ class MyProfileActivity : BaseActivity() {
 
 
     fun reqApiHit() {
-
         ProgressBarClass.progressBarCalling(this)
-
         apiInterface = APIClient.getClient(this).create(APIInterface::class.java)
-
-
         val call =
             apiInterface.getProfileData(sessionManager?.getValue(SessionManager.USER_ID).toString())
         call.enqueue(object : Callback<ProfileDataClass> {
@@ -74,25 +70,17 @@ class MyProfileActivity : BaseActivity() {
                             )
                         tvName.text = modelObj.data.first_name
                         tvBio.text = modelObj.data.bio
-
-
                     }
-
                 } else {
 //                    iSignUpView.onSetLoggedin(false, response)
                     showSnackBar(resources.getString(R.string.error_occured));
-
                 }
-
-
             }
 
             override fun onFailure(call: Call<ProfileDataClass>, t: Throwable) {
 
 //                Log.e("responseFailure", " " + t.toString())
-
                 showSnackBar(resources.getString(R.string.error_occured));
-
                 call.cancel()
                 // canceling the progress bar
                 ProgressBarClass.dialog.dismiss()
