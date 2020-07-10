@@ -9,7 +9,6 @@ import android.widget.TextView
 import com.dish.seekdish.R
 import com.dish.seekdish.ui.navDrawer.settings.dataModel.LangData
 
-
 class CustomListAdapterDialog(context: Context, private val listData: ArrayList<LangData>) : BaseAdapter() {
 
     private val layoutInflater: LayoutInflater

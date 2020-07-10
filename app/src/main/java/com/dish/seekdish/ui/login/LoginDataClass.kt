@@ -1,5 +1,8 @@
 package com.dish.seekdish.ui.login
 
+import androidx.annotation.Keep
+
+
 data class LoginDataClass(
     val `data`: Data,
     val status: Int,
@@ -20,12 +23,12 @@ data class Data(
     val username: String
 )
 
+
 data class CheckUpdateModel(
     val Android_version: String,
     val Ios_version: String,
     val message: String,
     val status: Int,
-    val force_update_android:Int,
+    val force_update_android:Int,   //0 if no force update req, 1 if force update to send
     val force_update_ios:Int
-
 )

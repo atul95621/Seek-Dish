@@ -1,11 +1,14 @@
 package com.dish.seekdish.walkthrough.fragments
 
 import android.Manifest
+import android.content.Context
 import android.content.Intent
+import android.content.pm.PackageInfo
 import android.content.pm.PackageManager
 import android.os.Build
 import android.os.Bundle
 import android.text.TextUtils
+import android.util.Base64.encode
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -13,10 +16,10 @@ import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import com.dish.seekdish.R
 import com.dish.seekdish.custom.ProgressBarClass
-import com.dish.seekdish.ui.login.LoginActivity
-import com.dish.seekdish.ui.signup.SignupActivity
 import com.dish.seekdish.ui.home.HomeActivity
+import com.dish.seekdish.ui.login.LoginActivity
 import com.dish.seekdish.ui.signup.SignUpModel
+import com.dish.seekdish.ui.signup.SignupActivity
 import com.dish.seekdish.util.BaseFragment
 import com.dish.seekdish.util.SessionManager
 import com.dish.seekdish.walkthrough.WalkThroughActivity
@@ -26,16 +29,15 @@ import com.facebook.*
 import com.facebook.login.LoginManager
 import com.facebook.login.LoginResult
 import com.google.firebase.iid.FirebaseInstanceId
-
 import com.twitter.sdk.android.core.*
+import com.twitter.sdk.android.core.TwitterAuthConfig
 import com.twitter.sdk.android.core.identity.TwitterAuthClient
 import com.twitter.sdk.android.core.models.User
 import kotlinx.android.synthetic.main.fragment_register.view.*
 import org.json.JSONException
-import com.twitter.sdk.android.core.Twitter
-import com.twitter.sdk.android.core.TwitterConfig
-import com.twitter.sdk.android.core.TwitterAuthConfig
 import retrofit2.Response
+import java.net.URLEncoder.encode
+import java.security.MessageDigest
 import java.util.*
 
 class RegisterFragment : BaseFragment(), IRegisterFragView {
@@ -63,11 +65,12 @@ class RegisterFragment : BaseFragment(), IRegisterFragView {
         setUpFacebook()
 
 //        printHashKey()
-
         val view: View = inflater.inflate(R.layout.fragment_register, container, false)
 
         //activity context
         mcontext = activity as WalkThroughActivity
+
+//        generateSSHKey(mcontext)
 
         //make preseneter
         registerFragPresenter = RegisterFragPresenter(this, mcontext)
@@ -99,6 +102,9 @@ class RegisterFragment : BaseFragment(), IRegisterFragView {
                 // initialising the facebook an twitter again
                 setUpFacebook()
                 setUpTwitter()
+
+               /* FacebookSdk.sdkInitialize(context);
+                Log.d("AppLog", "key:" + FacebookSdk.getApplicationSignature(context));*/
             } else {
                 requestImagePermission()
             }
@@ -158,7 +164,7 @@ class RegisterFragment : BaseFragment(), IRegisterFragView {
 
         Twitter.initialize(config)
 
-        Log.e("TwitterClient1", "" + client.toString())
+//        Log.e("TwitterClient1", "" + client.toString())
         client = TwitterAuthClient()
     }
 
@@ -203,11 +209,11 @@ class RegisterFragment : BaseFragment(), IRegisterFragView {
         // make instance for twitter in ACTIVITY onActivityResult
         if (requestCode == TwitterAuthConfig.DEFAULT_AUTH_REQUEST_CODE) {
             if (client != null) {
-                Log.e("TwitterOnactivity", "Twitter on activity called")
+//                Log.e("TwitterOnactivity", "Twitter on activity called")
                 client?.onActivityResult(requestCode, resultCode, data)
             }
         } else {
-            Log.e("FacebookOnActivity", "Facebook on activity called")
+//            Log.e("FacebookOnActivity", "Facebook on activity called")
             // Use Facebook callback manager here
             callbackManager.onActivityResult(requestCode, resultCode, data)
 
@@ -234,11 +240,11 @@ class RegisterFragment : BaseFragment(), IRegisterFragView {
                     "https://graph.facebook.com/" + facebookUserId + "/picture?type=large"
 
                 val profileImage = mProfile?.getProfilePictureUri(250, 250).toString()
-                Log.e("LoginFacebook", "Email" + email)
+             /*   Log.e("LoginFacebook", "Email" + email)
                 Log.e("LoginFacebook", "FirstName" + firstName)
                 Log.e("LoginFacebook", "LastName" + lastName)
                 Log.e("LoginFacebook", "image" + profileImage)
-                Log.e("LoginFacebook", "imageurl" + imageUrl)
+                Log.e("LoginFacebook", "imageurl" + imageUrl)*/
 
                 // hitting api for facebook
                 registerFragPresenter.facebookSigin(
@@ -308,9 +314,7 @@ class RegisterFragment : BaseFragment(), IRegisterFragView {
         //check if user is already authenticated or not
         if (getTwitterSession() == null) {
 
-            Log.e("TwitterClient2", "" + client.toString())
-
-
+//            Log.e("TwitterClient2", "" + client.toString())
             //if user is not authenticated start authenticating
             client?.authorize(activity, object : Callback<TwitterSession>() {
                 override fun success(result: Result<TwitterSession>) {
@@ -332,7 +336,7 @@ class RegisterFragment : BaseFragment(), IRegisterFragView {
                     // dismissing if the user has backed without loggin
                     ProgressBarClass.dialog.dismiss()
 
-                    Log.e("TwitterException", "" + e.toString() + "    " + e.printStackTrace());
+//                    Log.e("TwitterException", "" + e.toString() + "    " + e.printStackTrace());
                     showSnackBar(resources.getString(R.string.error_occured)+  " "+e.message)
 
                 }
@@ -377,11 +381,11 @@ class RegisterFragment : BaseFragment(), IRegisterFragView {
             call.enqueue(object : Callback<User>() {
                 override fun success(result: Result<User>) {
                     val user = result.data
-                    Log.e("LoginTwImage", "user id" + user.id.toString())
+                  /*  Log.e("LoginTwImage", "user id" + user.id.toString())
                     Log.e("LoginTwImage", "name" + user.name)
-                    Log.e("LoginTwImage", "Email" + user.email)
+                    Log.e("LoginTwImage", "Email" + user.email)*/
                     val imageProfileUrl = user.profileImageUrl.replace("_normal", "")
-                    Log.e("LoginTwImage", "ProfileUrl $imageProfileUrl")
+//                    Log.e("LoginTwImage", "ProfileUrl $imageProfileUrl")
                     //Link : https://developer.twitter.com/en/docs/accounts-and-users/user-profile-images-and-banners
 
 
@@ -420,10 +424,10 @@ class RegisterFragment : BaseFragment(), IRegisterFragView {
 
             var signUpModel = response.body() as SignUpModel
             if (signUpModel.status == 1) {
-                Log.e(
+              /*  Log.e(
                     "respFacebook",
                     "" + response.body().toString()
-                )
+                )*/
                 // saving that user is already logged in
                 sessionManager?.setValues(SessionManager.LOGGEDIN, "1")
                 sessionManager.setValues(SessionManager.USERNAME, signUpModel.data.username)
@@ -488,7 +492,7 @@ class RegisterFragment : BaseFragment(), IRegisterFragView {
                 .addOnSuccessListener(mcontext) { instanceIdResult ->
                     val token = instanceIdResult.token
 
-                    Log.d("LoginActvty fcm new ", "Refreshed token in log: $token")
+//                    Log.d("LoginActvty fcm new ", "Refreshed token in log: $token")
 
                     //save in session manager device token
                     sessionManager.setValues(SessionManager.FCM_TOKEN, token)
@@ -535,5 +539,19 @@ class RegisterFragment : BaseFragment(), IRegisterFragView {
         }
     }*/
 
+/*    fun generateSSHKey(context: Context){
+        try {
+            val info = context.packageManager.getPackageInfo(context.packageName, PackageManager.GET_SIGNATURES)
+            for (signature in info.signatures) {
+                val md = MessageDigest.getInstance("SHA")
+                md.update(signature.toByteArray())
+                val hashKey = String(Base64.getEncoder().encode(md.digest()))
+                Log.i("AppLog", "key:$hashKey=")
+            }
+        } catch (e: Exception) {
+            Log.e("AppLog", "error:", e)
+        }
+
+    }*/
 }
 

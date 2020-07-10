@@ -1,7 +1,10 @@
 package com.dish.seekdish.ui.home.dataModel
 
-// data classcreated replacing the getter and setter  model class.
+import androidx.annotation.Keep
+
+// classcreated replacing the getter and setter  model class.
 /*
+
 data class TasteFragDataClass(
     var foodImageUrl: String? = null,
     var dishName: String? = null,
@@ -30,8 +33,8 @@ data class Data_Taste(
     val rating: String,
     val meal_id: Int,
     val restro_id: Int,
-    val meal_price:String,
-    val meal_symbol:String
+    val meal_price: String,
+    val meal_symbol: String
 
 )
 

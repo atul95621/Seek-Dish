@@ -27,8 +27,6 @@ Più utenti cercano e valutano i piatti, più SeekDish può consigliare i piatti
     <string name="opinion_1">opinioni</string>
     <string name="check_connection">Si prega di controllare la connessione a Internet.</string>
     <string name="error_occured">C\'è stato un\'errore! Prova più tardi.</string>
-    <string name="facebook_app_id">354887285188219</string>
-    <string name="fb_login_protocol_scheme">fb354887285188219</string>
     <string name="CONSUMER_KEY">1ARBEdNpT5aQVFC93wkU0QBDJ</string>
     <string name="CONSUMER_SECRET">qXMNaxLuuaXBgQshSBYACNbdybFM9WrmLc17EGvvWOr6otg7DQ</string>
     <string name="google_maps_api">AIzaSyBnyvVgmXQHim-47zELq4zBH2KwSAOciuk</string>

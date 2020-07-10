@@ -82,7 +82,7 @@ class SignupActivity : BaseActivity(), ISignUpView {
         tvTerms.setOnClickListener()
         {
             val intent = Intent(this@SignupActivity, WebViewActivity::class.java)
-            intent.putExtra("url", "https://seekdish.com/pro/use-conditions.html")
+            intent.putExtra("url", "https://seekdish.com/use-conditions.html")
             intent.putExtra("from", "SignupTerms")
             startActivity(intent)
         }
@@ -90,7 +90,7 @@ class SignupActivity : BaseActivity(), ISignUpView {
         tvPolicy.setOnClickListener()
         {
             val intent = Intent(this@SignupActivity, WebViewActivity::class.java)
-            intent.putExtra("url", "https://seekdish.com/pro/privacy.html")
+            intent.putExtra("url", "https://seekdish.com/privacy.html")
             intent.putExtra("from", "SignupPolicy")
             startActivity(intent)
         }

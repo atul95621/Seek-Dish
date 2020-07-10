@@ -125,6 +125,7 @@ class LanguageActivity : BaseActivity(), ILanguageView {
     override fun onGetLanguageInfo(result: Boolean, response: Response<LanguageData>) {
         if (result == true) {
             val languageData = response.body() as LanguageData
+            Log.e("infff","$response ///// $languageData")
 
             if (languageData.status == 1) {
                 showDialog(languageData.data)

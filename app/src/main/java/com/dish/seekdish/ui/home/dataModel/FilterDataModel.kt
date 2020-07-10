@@ -1,5 +1,7 @@
 package com.dish.seekdish.ui.home.dataModel
 
+import androidx.annotation.Keep
+
 data class FilterDataModel(
     val `data`: Data,
     val status: Int,

@@ -1,7 +1,5 @@
 package com.dish.seekdish.ui.navDrawer.checkin.data
-
-// data classcreated replacing the getter and setter  model class.
-
+import androidx.annotation.Keep
 
 data class CheckinModel(
     val `data`: ArrayList<Data_Checkin>,

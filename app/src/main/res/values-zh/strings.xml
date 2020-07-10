@@ -27,8 +27,6 @@
     <string name="opinion_1">意见</string>
     <string name="check_connection">请检查互联网连接。</string>
     <string name="error_occured">发生了错误！等会再试。</string>
-    <string name="facebook_app_id">354887285188219</string>
-    <string name="fb_login_protocol_scheme">fb354887285188219</string>
     <string name="CONSUMER_KEY">1ARBEdNpT5aQVFC93wkU0QBDJ</string>
     <string name="CONSUMER_SECRET">qXMNaxLuuaXBgQshSBYACNbdybFM9WrmLc17EGvvWOr6otg7DQ</string>
     <string name="google_maps_api">AIzaSyBnyvVgmXQHim-47zELq4zBH2KwSAOciuk</string>

@@ -26,8 +26,8 @@
     <string name="check_connection">Please check Internet Connection.</string>
     <string name="error_occured">Error Occured! Try Later. Error code:</string>
     <!--facebook keys ids-->
-    <string name="facebook_app_id">354887285188219</string>
-    <string name="fb_login_protocol_scheme">fb354887285188219</string>
+    <string name="facebook_app_id" translatable="false">354887285188219</string>
+    <string name="fb_login_protocol_scheme" translatable="false">fb354887285188219</string>
     <!--twitter key ids-->
     <string name="CONSUMER_KEY">1ARBEdNpT5aQVFC93wkU0QBDJ</string>
     <string name="CONSUMER_SECRET">qXMNaxLuuaXBgQshSBYACNbdybFM9WrmLc17EGvvWOr6otg7DQ</string>

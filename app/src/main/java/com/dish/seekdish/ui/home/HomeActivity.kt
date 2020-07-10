@@ -202,6 +202,10 @@ class HomeActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
                 }
             } else if (from.equals("SettingsFragment")) {
                 if (!fromValue.isNullOrEmpty()) {
+                    // showing back button
+                    hideHamburgerIcon()
+                    // disabling the right and left gesture to open nav drawer
+                    drawerLayout?.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
                     tvTitle.setText(resources.getString(R.string.my_friends))
                     tvAdd.visibility = View.VISIBLE
                     imgFilters.visibility = (View.INVISIBLE)
@@ -230,16 +234,15 @@ class HomeActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
         }
 
         // for left drawerr
-        imgHamburger.setOnClickListener(View.OnClickListener {
+      /*  imgHamburger.setOnClickListener(View.OnClickListener {
             if (drawerLayout?.isDrawerOpen(GravityCompat.START)!!) {
                 drawerLayout?.closeDrawer(GravityCompat.START)
             } else {
                 drawerLayout?.openDrawer(GravityCompat.START)
             }
-        })
+        })*/
 
         // for right drawer that is filter
-
         imgFilters.setOnClickListener(View.OnClickListener {
             if (drawerLayout?.isDrawerOpen(GravityCompat.END)!!) {
                 drawerLayout?.closeDrawer(GravityCompat.END)
@@ -793,7 +796,6 @@ class HomeActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
                             startActivity(intent)
                         }
                     }
-
                 } else {
                     showSnackBar(response.message)
                 }

@@ -27,8 +27,6 @@ Mientras más usuarios busquen y califiquen los platos, más SeekDish puede reco
     <string name="opinion_1">Opiniones</string>
     <string name="check_connection">Por favor verifique la conexión a Internet.</string>
     <string name="error_occured">¡Ocurrió un error! Intenta más tarde.</string>
-    <string name="facebook_app_id">354887285188219</string>
-    <string name="fb_login_protocol_scheme">fb354887285188219</string>
     <string name="CONSUMER_KEY">1ARBEdNpT5aQVFC93wkU0QBDJ</string>
     <string name="CONSUMER_SECRET">qXMNaxLuuaXBgQshSBYACNbdybFM9WrmLc17EGvvWOr6otg7DQ</string>
     <string name="google_maps_api">AIzaSyBnyvVgmXQHim-47zELq4zBH2KwSAOciuk</string>

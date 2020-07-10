@@ -27,8 +27,6 @@
     <string name="opinion_1">ความเห็น</string>
     <string name="check_connection">กรุณาตรวจสอบการเชื่อมต่ออินเทอร์เน็ต</string>
     <string name="error_occured">เกิดข้อผิดพลาด! ลองใหม่ภายหลัง</string>
-    <string name="facebook_app_id">354887285188219</string>
-    <string name="fb_login_protocol_scheme">fb354887285188219</string>
     <string name="CONSUMER_KEY">1ARBEdNpT5aQVFC93wkU0QBDJ</string>
     <string name="CONSUMER_SECRET">qXMNaxLuuaXBgQshSBYACNbdybFM9WrmLc17EGvvWOr6otg7DQ</string>
     <string name="google_maps_api">AIzaSyBnyvVgmXQHim-47zELq4zBH2KwSAOciuk</string>

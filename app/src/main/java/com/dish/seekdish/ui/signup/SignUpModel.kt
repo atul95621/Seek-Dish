@@ -1,6 +1,5 @@
 package com.dish.seekdish.ui.signup
 
-
 data class SignUpModel(
     val `data`: Data,
     val status: Int,
