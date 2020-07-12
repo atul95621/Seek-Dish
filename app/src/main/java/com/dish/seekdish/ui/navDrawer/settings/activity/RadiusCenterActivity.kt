@@ -8,10 +8,13 @@ import android.graphics.Color
 import android.location.Address
 import android.location.Geocoder
 import android.location.Location
+import android.net.Uri
 import android.os.Build
 import android.os.Bundle
+import android.provider.Settings
 import android.util.Log
 import android.view.View
+import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import com.dish.seekdish.R
 import com.dish.seekdish.custom.ProgressBarClass
@@ -24,7 +27,10 @@ import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
-import com.google.android.gms.maps.model.*
+import com.google.android.gms.maps.model.CircleOptions
+import com.google.android.gms.maps.model.LatLng
+import com.google.android.gms.maps.model.Marker
+import com.google.android.gms.maps.model.MarkerOptions
 import com.google.android.libraries.places.api.Places
 import com.google.android.libraries.places.api.model.Place
 import com.google.android.libraries.places.widget.Autocomplete
@@ -37,7 +43,8 @@ import retrofit2.Response
 import java.util.*
 import kotlin.collections.ArrayList
 
-class RadiusCenterActivity : BaseActivity(), OnMapReadyCallback, GoogleMap.OnMyLocationButtonClickListener,
+class RadiusCenterActivity : BaseActivity(), OnMapReadyCallback,
+    GoogleMap.OnMyLocationButtonClickListener,
     GoogleMap.OnMyLocationClickListener, GoogleMap.OnMarkerClickListener {
 
 
@@ -94,25 +101,28 @@ class RadiusCenterActivity : BaseActivity(), OnMapReadyCallback, GoogleMap.OnMyL
 //                Log.e("addressSELECTED", "$selectedLat ,  $selectedLong " + selectedAddress)
 
 
-
                 // this way the user can selected a particular location
                 sessionManager?.setValues(SessionManager.LOCATION_SELECTED, "1");
 
-                updateCordsOnServer(sessionManager?.getValue(SessionManager.USER_ID).toString(),selectedLong.toString(),selectedLat.toString())
+                updateCordsOnServer(
+                    sessionManager?.getValue(SessionManager.USER_ID).toString(),
+                    selectedLong.toString(),
+                    selectedLat.toString()
+                )
 
                 val returnIntent = Intent()
                 setResult(Activity.RESULT_CANCELED, returnIntent)
                 finish()
             } else if (!currentAddress.equals("")) {
 
-             /*   sessionManager?.setValues(
-                    SessionManager.LATITUDE_SELECTED,
-                    sessionManager?.getValue(SessionManager.LATITUDE)
-                );
-                sessionManager?.setValues(
-                    SessionManager.LONGITUDE_SELECTED,
-                    sessionManager?.getValue(SessionManager.LONGITUDE)
-                );*/
+                /*   sessionManager?.setValues(
+                       SessionManager.LATITUDE_SELECTED,
+                       sessionManager?.getValue(SessionManager.LATITUDE)
+                   );
+                   sessionManager?.setValues(
+                       SessionManager.LONGITUDE_SELECTED,
+                       sessionManager?.getValue(SessionManager.LONGITUDE)
+                   );*/
 
                 // this way the user can selected current location and it will get updated if user moves with the app
                 sessionManager?.setValues(SessionManager.LOCATION_SELECTED, "0");
@@ -130,7 +140,11 @@ class RadiusCenterActivity : BaseActivity(), OnMapReadyCallback, GoogleMap.OnMyL
 //                Log.e("addressCureent", " " + currentAddress)
 
                 // updating coords over the db
-                updateCordsOnServer(sessionManager?.getValue(SessionManager.USER_ID).toString(),sessionManager?.getValue(SessionManager.CURRENT_LONGITUDE).toString(),sessionManager?.getValue(SessionManager.CURRENT_LATITUDE).toString())
+                updateCordsOnServer(
+                    sessionManager?.getValue(SessionManager.USER_ID).toString(),
+                    sessionManager?.getValue(SessionManager.CURRENT_LONGITUDE).toString(),
+                    sessionManager?.getValue(SessionManager.CURRENT_LATITUDE).toString()
+                )
 
 /*                val intent = Intent()
                 intent.putExtra("ADDRESS", currentAddress)
@@ -145,30 +159,44 @@ class RadiusCenterActivity : BaseActivity(), OnMapReadyCallback, GoogleMap.OnMyL
 
         linCurrentLocation.setOnClickListener()
         {
-            linAddress.visibility = View.GONE
 
-            var lati: Double = sessionManager!!.getValue(SessionManager.CURRENT_LATITUDE).toDouble()
-            var longi: Double = sessionManager!!.getValue(SessionManager.CURRENT_LONGITUDE).toDouble()
+            if (ContextCompat.checkSelfPermission(
+                    this,
+                    Manifest.permission.ACCESS_FINE_LOCATION
+                ) == PackageManager.PERMISSION_GRANTED
+            ) {
 
-            // saing the current cordinate to main session shared prefrences
-            sessionManager?.setValues(SessionManager.LATITUDE,lati.toString())
-            sessionManager?.setValues(SessionManager.LONGITUDE,longi.toString())
+                linAddress.visibility = View.GONE
 
-            addresses = geocoder.getFromLocation(
-                lati,
-                longi,
-                1
-            ) as ArrayList<Address>; // Here 1 represent max location result to returned, by documents it recommended 1 to 5
+                var lattemp = sessionManager?.getValue(SessionManager.CURRENT_LATITUDE)
+                var longtemp = sessionManager?.getValue(SessionManager.CURRENT_LONGITUDE)
 
+                if (lattemp != null && longtemp != null  && !lattemp.equals("") && !longtemp.equals("")) {
 
-            var address = addresses.get(0)
-                .getAddressLine(0); // If any additional address line present than only, check with max available address lines by getMaxAddressLineIndex()
+                    var lati: Double =
+                        lattemp.toDouble()
+                    var longi: Double =
+                        sessionManager!!.getValue(SessionManager.CURRENT_LONGITUDE).toDouble()
 
-            Log.e("curr", " add" + address)
+                    // saing the current cordinate to main session shared prefrences
+                    sessionManager?.setValues(SessionManager.LATITUDE, lati.toString())
+                    sessionManager?.setValues(SessionManager.LONGITUDE, longi.toString())
 
-            // storing the address through current coordinates
-            currentAddress = address
-            tvCurrentAddress.setText(currentAddress)
+                    addresses = geocoder.getFromLocation(
+                        lati,
+                        longi,
+                        1
+                    ) as ArrayList<Address>; // Here 1 represent max location result to returned, by documents it recommended 1 to 5
+                    var address = addresses.get(0)
+                        .getAddressLine(0); // If any additional address line present than only, check with max available address lines by getMaxAddressLineIndex()
+                    // storing the address through current coordinates
+                    currentAddress = address
+                    tvCurrentAddress.setText(currentAddress)
+                }
+            } else {
+                requestImagePermission()
+            }
+
         }
 
         linAddress.setOnClickListener()
@@ -192,7 +220,8 @@ class RadiusCenterActivity : BaseActivity(), OnMapReadyCallback, GoogleMap.OnMyL
     override fun onMapReady(googleMap: GoogleMap) {
         mMap = googleMap
 
-        if (!sessionManager?.getValue(SessionManager.LATITUDE).equals("") && !sessionManager?.getValue(SessionManager.LONGITUDE).equals(
+        if (!sessionManager?.getValue(SessionManager.LATITUDE)
+                .equals("") && !sessionManager?.getValue(SessionManager.LONGITUDE).equals(
                 ""
             )
         ) {
@@ -252,7 +281,6 @@ class RadiusCenterActivity : BaseActivity(), OnMapReadyCallback, GoogleMap.OnMyL
                 ), PERMISSION_REQUEST_LOCATION_CODE
             )
         }
-
     }
 
 
@@ -290,9 +318,9 @@ class RadiusCenterActivity : BaseActivity(), OnMapReadyCallback, GoogleMap.OnMyL
                 val place = Autocomplete.getPlaceFromIntent(data!!)
                 val latLngOfPlace = place.latLng
                 if (latLngOfPlace != null) {
-                   /* Log.e("GooglePlacelat", "Place found: " + latLngOfPlace.latitude)
-                    Log.e("GooglePlacelong", "Place found: " + latLngOfPlace.longitude)
-                    Log.e("GooglePlaceaddress", "Place found: " + place.name)*/
+                    /* Log.e("GooglePlacelat", "Place found: " + latLngOfPlace.latitude)
+                     Log.e("GooglePlacelong", "Place found: " + latLngOfPlace.longitude)
+                     Log.e("GooglePlaceaddress", "Place found: " + place.name)*/
 
 
                     /*    // savin the selected in session
@@ -344,11 +372,12 @@ class RadiusCenterActivity : BaseActivity(), OnMapReadyCallback, GoogleMap.OnMyL
     fun updateCordsOnServer(
         userId: String,
         longitude: String,
-        latitude: String) {
+        latitude: String
+    ) {
         ProgressBarClass.progressBarCalling(this)
 
         apiInterface = APIClient.getClient(this).create(APIInterface::class.java)
-        val call = apiInterface.getLocation(userId, longitude,latitude)
+        val call = apiInterface.getLocation(userId, longitude, latitude)
         call.enqueue(object : Callback<CancelReModel> {
             override fun onResponse(call: Call<CancelReModel>, response: Response<CancelReModel>) {
                 ProgressBarClass.dialog.dismiss()
@@ -364,6 +393,7 @@ class RadiusCenterActivity : BaseActivity(), OnMapReadyCallback, GoogleMap.OnMyL
                     showSnackBar(getResources().getString(R.string.error_occured));
                 }
             }
+
             override fun onFailure(call: Call<CancelReModel>, t: Throwable) {
                 showSnackBar(resources.getString(R.string.error_occured) + "    ${t.message}");
                 call.cancel()
@@ -371,6 +401,48 @@ class RadiusCenterActivity : BaseActivity(), OnMapReadyCallback, GoogleMap.OnMyL
 
             }
         })
+    }
+
+
+    override fun onRequestPermissionsResult(
+        requestCode: Int,
+        permissions: Array<String>, grantResults: IntArray
+    ) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+        if (hasAllPermissionsGranted(grantResults)) {
+//            getLocation()
+        } else {
+            //if both are true
+            val showRationale = ActivityCompat.shouldShowRequestPermissionRationale(
+                this,
+                Manifest.permission.ACCESS_FINE_LOCATION
+            ) && ActivityCompat.shouldShowRequestPermissionRationale(
+                this,
+                Manifest.permission.ACCESS_COARSE_LOCATION
+            )
+            if (!showRationale) {
+
+                showSnackBar("Permission denied, so change from phone settings and Retry !")
+//                sessionManager?.setValues(SessionManager.LOCATION_STATUS, "0")
+                /* val intent = Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS)
+                 val uri: Uri = Uri.fromParts("package", packageName, null)
+                 intent.data = uri
+                 startActivity(intent)*/
+
+            } else {
+                // permissionImportanceAlert();
+            }
+
+        }
+    }
+
+    fun hasAllPermissionsGranted(grantResults: IntArray): Boolean {
+        for (grantResult in grantResults) {
+            if (grantResult == PackageManager.PERMISSION_DENIED) {
+                return false
+            }
+        }
+        return true
     }
 
 }

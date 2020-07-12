@@ -86,12 +86,7 @@ class TasteFragment : BaseFragment(), GoogleApiClient.ConnectionCallbacks,
     var flagSearch: Boolean = false
 
     private var TAG = "TasteFragment"
-
     var alertShown: Boolean = false
-
-
-    // lateinit var context  : Context
-//     var sessionManager: SessionManager? = null;
 
 
     override fun onCreateView(
@@ -114,7 +109,6 @@ class TasteFragment : BaseFragment(), GoogleApiClient.ConnectionCallbacks,
             sessionManager.setValues(SessionManager.LOCATION_SELECTED, "0")
         }
 
-
         // hiding keyboard
         hideKeyBoard()
 
@@ -124,7 +118,9 @@ class TasteFragment : BaseFragment(), GoogleApiClient.ConnectionCallbacks,
             if (sessionManager.getValue(SessionManager.LATITUDE)
                     .isNullOrEmpty() == false && sessionManager.getValue(
                     SessionManager.LONGITUDE
-                ).isNullOrEmpty() == false &&sessionManager.getValue(SessionManager.LOCATION_SELECTED).equals("1")
+                )
+                    .isNullOrEmpty() == false && sessionManager.getValue(SessionManager.LOCATION_SELECTED)
+                    .equals("1")
             ) {
 //                Log.e("current_location11", "$currentLatitude ,   $currentLongitude")
 
@@ -222,7 +218,6 @@ class TasteFragment : BaseFragment(), GoogleApiClient.ConnectionCallbacks,
 
 //        Log.e("Loc", "method" + " startLocationUpdates() called")
 
-
         mLocationCallback = object : LocationCallback() {
             override fun onLocationResult(locationResult: LocationResult?) {
 
@@ -232,6 +227,18 @@ class TasteFragment : BaseFragment(), GoogleApiClient.ConnectionCallbacks,
         }
 
         mFusedLocationClient = LocationServices.getFusedLocationProviderClient(homeActivity)
+        if (ActivityCompat.checkSelfPermission(
+                homeActivity,
+                Manifest.permission.ACCESS_FINE_LOCATION
+            ) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(
+                homeActivity,
+                Manifest.permission.ACCESS_COARSE_LOCATION
+            ) != PackageManager.PERMISSION_GRANTED
+        ) {
+
+            requestPermission()
+//            return
+        }
         mFusedLocationClient?.lastLocation?.addOnSuccessListener { location ->
             if (location != null) {
                 currentLatitude = location.latitude
@@ -413,7 +420,6 @@ class TasteFragment : BaseFragment(), GoogleApiClient.ConnectionCallbacks,
         currentLongitude = location?.longitude
 
 
-
         /*Log.e("onLoc lat", currentLatitude.toString())
         Log.e("onLoc long", currentLongitude.toString())*/
 
@@ -532,7 +538,6 @@ class TasteFragment : BaseFragment(), GoogleApiClient.ConnectionCallbacks,
             ),
             PERMISSION_REQUEST_CODE
         )
-        // }
     }
 
     override fun onRequestPermissionsResult(
@@ -540,7 +545,6 @@ class TasteFragment : BaseFragment(), GoogleApiClient.ConnectionCallbacks,
         permissions: Array<String>, grantResults: IntArray
     ) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
-
         if (hasAllPermissionsGranted(grantResults)) {
 
 //            sessionManager.setValues(SessionManager.LOCATION_STATUS, "1")
@@ -566,6 +570,10 @@ class TasteFragment : BaseFragment(), GoogleApiClient.ConnectionCallbacks,
                 //Toast.makeText(HomeActivity.this, "Permission completely denied, so change from settings and Retry !", Toast.LENGTH_SHORT).show();
                 sessionManager.setValues(SessionManager.LOCATION_STATUS, "0")
 
+                /*  val intent = Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS)
+                  val uri: Uri = Uri.fromParts("package", homeActivity.packageName, null)
+                  intent.data = uri
+                  startActivity(intent)*/
 
             } else {
                 // permissionImportanceAlert();
@@ -605,14 +613,12 @@ class TasteFragment : BaseFragment(), GoogleApiClient.ConnectionCallbacks,
 
     override fun onResume() {
         super.onResume()
-
         if (mGoogleApiClient != null && mFusedLocationClient != null) {
             mGoogleApiClient!!.connect()
 
         } else {
             startLocationUpdates()
         }
-
     }
 
 

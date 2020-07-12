@@ -25,6 +25,7 @@ import com.dish.seekdish.custom.GlideApp
 import com.dish.seekdish.ui.home.adapter.FilterAdapter
 import com.dish.seekdish.ui.home.dataModel.FilterDataModel
 import com.dish.seekdish.ui.home.fragments.HomeFragment
+import com.dish.seekdish.ui.home.fragments.TasteFragment
 import com.dish.seekdish.ui.home.viewModel.HomeActivityVM
 import com.dish.seekdish.ui.login.LoginActivity
 import com.dish.seekdish.ui.navDrawer.activities.MyProfileActivity
