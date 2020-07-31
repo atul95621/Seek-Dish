@@ -17,7 +17,7 @@ data class Data(
 )
 
 data class Meals(
-    val budget: String,
+    val budget: String?="0.0",
     val budget_price: String,
     val phone: String,
     val country_code: Int,
@@ -26,7 +26,7 @@ data class Meals(
     val latitude: String,
     val longitude: String,
     val city: String,
-    val zipcode: Int,
+    val zipcode: String,
     val street: String,
     val meal_avg_rating: String,
     val meal_id: Int,

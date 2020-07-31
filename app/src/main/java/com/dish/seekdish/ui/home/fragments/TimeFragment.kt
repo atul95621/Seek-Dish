@@ -22,7 +22,9 @@ import com.dish.seekdish.ui.home.dataModel.Data_time
 import com.dish.seekdish.ui.home.viewModel.TimeVM
 import com.dish.seekdish.util.SessionManager
 import io.reactivex.android.schedulers.AndroidSchedulers
+import kotlinx.android.synthetic.main.fragment_taste.*
 import kotlinx.android.synthetic.main.fragment_time.*
+import kotlinx.android.synthetic.main.fragment_time.tvItemsAlert
 import kotlinx.android.synthetic.main.fragment_time.view.*
 import java.util.ArrayList
 
@@ -66,7 +68,8 @@ class TimeFragment : BaseFragment() {
 
         //check connection
         if (homeActivity.connectionDetector.isConnectingToInternet) {
-            if (sessionManager.getValue(SessionManager.LATITUDE).isNullOrEmpty() == false && sessionManager.getValue(
+            if (sessionManager.getValue(SessionManager.LATITUDE)
+                    .isNullOrEmpty() == false && sessionManager.getValue(
                     SessionManager.LONGITUDE
                 ).isNullOrEmpty() == false
             ) {
@@ -171,7 +174,6 @@ class TimeFragment : BaseFragment() {
 
     fun getTimeResponseObserver() {
 
-//        Log.e("loadMoreItems", "entered getLikedResponseObserver ")
 
         //observe
         timeVM!!.isLoadingObservable().observeOn(AndroidSchedulers.mainThread()).subscribe {
@@ -181,10 +183,14 @@ class TimeFragment : BaseFragment() {
         timeVM!!.getTasteLiveData.observe(viewLifecycleOwner, Observer { response ->
             if (response != null) {
 
+                Log.e("time", "${response.toString()} ")
+
                 if (response.status == 1) {
                     if (response.data.isEmpty() && alertShown == false) {
                         tvItemsAlert.visibility = View.VISIBLE
                     } else {
+                        tvItemsAlert.visibility = View.GONE
+                        rvTimeFrag.visibility = View.VISIBLE
 
                         // this does not make 2 copies of item in recyclerview...
                         if (layoutManager.findLastCompletelyVisibleItemPosition() ==
@@ -205,7 +211,7 @@ class TimeFragment : BaseFragment() {
                 }
 
             } else {
-                showSnackBar(resources.getString(R.string.error_occured)  +"  $response")
+                showSnackBar(resources.getString(R.string.error_occured) + "  $response")
 
             }
         })

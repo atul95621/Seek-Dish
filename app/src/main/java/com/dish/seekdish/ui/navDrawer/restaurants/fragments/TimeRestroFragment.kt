@@ -149,6 +149,7 @@ class TimeRestroFragment : BaseFragment() {
         }
 
         restroTimeVM!!.getTimeRestroLiveData.observe(viewLifecycleOwner, Observer { response ->
+
             if (response != null) {
                 if (response.status == 1) {
 
@@ -169,7 +170,6 @@ class TimeRestroFragment : BaseFragment() {
                         if (pageNumber == 1) {
                             adapter = TimeRestroAdapter(conxt, arrayList, homeActivity)
                             recyclerView!!.adapter = adapter
-
                         }
                     }
                 }
@@ -177,7 +177,6 @@ class TimeRestroFragment : BaseFragment() {
                 {
                     showSnackBar(response.message)
                 }
-
             } else {
                 showSnackBar(resources.getString(R.string.error_occured) + "    ${response}");
 
@@ -210,6 +209,7 @@ class TimeRestroFragment : BaseFragment() {
         }
 
         restroTimeVM!!.searchTimeRestro.observe(viewLifecycleOwner, Observer { response ->
+
             if (response != null) {
                 if (response.status == 1) {
 //                    var arrySize = arrayList.size

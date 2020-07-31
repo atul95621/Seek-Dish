@@ -50,6 +50,7 @@ import de.hdodenhof.circleimageview.CircleImageView
 import io.reactivex.android.schedulers.AndroidSchedulers
 import kotlinx.android.synthetic.main.activity_dish_description.*
 import java.io.Serializable
+import java.lang.Exception
 import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.collections.HashSet
@@ -119,6 +120,8 @@ class DishDescriptionActivity : BaseActivity(), Serializable {
         getDishDetailsObserver()
         getAddTODOObserver()
         getAddFavoriteObserver()
+
+
         getCallCountCount()
         clickListner()
 
@@ -302,65 +305,74 @@ class DishDescriptionActivity : BaseActivity(), Serializable {
                 setIsLoading(it)
             }
 
+
         dishDescriptionVM!!.getDishDetailLiveData.observe(this, Observer { response ->
             if (response != null) {
-                if (response.status == 1) {
+                try {
+                    if (response.status == 1) {
 
-                    tvMealName.setText(response.data.meals.meal_name)
-                    tvRestaurantName.setText(response.data.meals.restro_name + ", " + response.data.meals.street + ", " + response.data.meals.city + ", " + response.data.meals.zipcode)
-                    ratingStarMeal.rating = response.data.meals.meal_avg_rating.toFloat()
-                    ratingEuroMeal.rating = response.data.meals.budget.toFloat()
+                        tvMealName.setText(response.data.meals.meal_name)
+                        tvRestaurantName.setText(response.data.meals.restro_name + ", " + response.data.meals.street + ", " + response.data.meals.city + ", " + response.data.meals.zipcode)
+                        ratingStarMeal.rating =
+                            response.data.meals.meal_avg_rating.toFloat() ?: 0.0F
+//                        ratingEuroMeal.rating = response.data.meals.budget?.toFloat() ?: 0.0F
 
-                    tvPrice.text =
-                        response.data.meals.meal_symbol + " " + response.data.meals.meal_price
-
-                    // feeding the image to the list
-                    var imageMeal = response.data.meals.meal_image
-                    imageUrl = imageMeal
-                    mResources.add(imageMeal)
-
-                    latitude = response.data.meals.latitude
-                    longitude = response.data.meals.longitude
-
-                    // passing the varibale to DishDeatailActivity with SEARIALIZABLE...
-                    dishInfoDetails = response.data.meals
-                    ingredientSearilize = response.data.Ingredients
-                    // setting up the model classs for dish onClick info...
-                    Log.e("ResourceSizePrev", "" + mResources.size)
-                    facebookLink = response.data.meals.facebook
-                    twitterLink = response.data.meals.twitter
-
-                    phoneNumber = response.data.meals.phone
-
-                    //for swipe images on top
-                    initializeviews()
-
-                    /*    tvRestaurantName.setOnClickListener()
-                        {
-                            startActivity(
-                                Intent(
-                                    Intent.ACTION_VIEW,
-                                    Uri.parse("https://www.google.com/#q=" + tvRestaurantName.getText())
-                                )
-                            );
-                        }*/
-
-                    //++++++++++++++++++++++++ setting the adapter after the responses come in...
-                    adapter =
-                        DishDescpAdapter(this.supportFragmentManager, tabLayout.tabCount, response)
-                    viewPager.adapter = adapter
-                    viewPager.addOnPageChangeListener(
-                        TabLayout.TabLayoutOnPageChangeListener(
-                            tabLayout
+                        tvPrice.setText(
+                            response.data.meals.meal_symbol + " " + response.data.meals.meal_price
                         )
-                    )
-                } else {
-                    showSnackBar(response.message)
-                }
 
+                        // feeding the image to the list
+                        var imageMeal = response.data.meals.meal_image
+                        imageUrl = imageMeal
+                        mResources.add(imageMeal)
+
+                        latitude = response.data.meals.latitude
+                        longitude = response.data.meals.longitude
+
+                        // passing the varibale to DishDeatailActivity with SEARIALIZABLE...
+                        dishInfoDetails = response.data.meals
+                        ingredientSearilize = response.data.Ingredients
+                        // setting up the model classs for dish onClick info...
+                        Log.e("ResourceSizePrev", "" + mResources.size)
+                        facebookLink = response.data.meals.facebook
+                        twitterLink = response.data.meals.twitter
+
+                        phoneNumber = response.data.meals.phone
+
+                        //for swipe images on top
+                        initializeviews()
+
+                        /*    tvRestaurantName.setOnClickListener()
+                    {
+                        startActivity(
+                            Intent(
+                                Intent.ACTION_VIEW,
+                                Uri.parse("https://www.google.com/#q=" + tvRestaurantName.getText())
+                            )
+                        );
+                    }*/
+
+                        //++++++++++++++++++++++++ setting the adapter after the responses come in...
+                        adapter =
+                            DishDescpAdapter(
+                                this.supportFragmentManager,
+                                tabLayout.tabCount,
+                                response
+                            )
+                        viewPager.adapter = adapter
+                        viewPager.addOnPageChangeListener(
+                            TabLayout.TabLayoutOnPageChangeListener(
+                                tabLayout
+                            )
+                        )
+                    } else {
+                        showSnackBar(response.message)
+                    }
+                } catch (e: Exception) {
+                    showSnackBar(e.message.toString())
+                }
             } else {
                 showSnackBar(resources.getString(R.string.error_occured) + "  $response")
-
             }
         })
     }
@@ -727,8 +739,6 @@ class DishDescriptionActivity : BaseActivity(), Serializable {
         val uri = Uri.parse(tweetUrl)
         startActivity(Intent(Intent.ACTION_VIEW, uri))
     }
-
-
 
 
     override fun onNewIntent(intent: Intent?) {

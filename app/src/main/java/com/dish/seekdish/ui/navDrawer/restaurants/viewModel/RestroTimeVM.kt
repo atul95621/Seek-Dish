@@ -79,6 +79,8 @@ class RestroTimeVM :ViewModel(){
     ) {
         // making progress bar visible
 //        isLoadingSubject.onNext(true)
+
+        Log.e("prms2","$latitude    $longitude")
         var api = APIClientMvvm.client.create(APIInterface::class.java)
         val call = api.getTimeRestSearch(
             userId,

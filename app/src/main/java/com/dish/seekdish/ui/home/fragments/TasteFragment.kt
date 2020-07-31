@@ -632,6 +632,8 @@ class TasteFragment : BaseFragment(), GoogleApiClient.ConnectionCallbacks,
         tasteFragVM!!.getTasteLiveData.observe(viewLifecycleOwner, Observer { response ->
             if (response != null) {
                 if (response.status == 1) {
+                            Log.e("rspTaste", "${response.toString()} ")
+
                     var arrySize = arrayList.size
                     if (response.data.isEmpty() && alertShown == false) {
                         tvItemsAlert.visibility = View.VISIBLE

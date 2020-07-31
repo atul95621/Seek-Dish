@@ -450,7 +450,7 @@
                             android:textColor="@color/red_google"
                             android:textSize="26sp" />
 
-                        <com.willy.ratingbar.ScaleRatingBar xmlns:app="http://schemas.android.com/apk/res-auto"
+              <!--          <com.willy.ratingbar.ScaleRatingBar xmlns:app="http://schemas.android.com/apk/res-auto"
                             android:id="@+id/euroRating"
                             android:visibility="gone"
                             android:layout_width="wrap_content"
@@ -467,7 +467,7 @@
                             app:srb_starHeight="20dp"
                             app:srb_starPadding="5dp"
                             app:srb_starWidth="20dp"
-                            app:srb_stepSize="1" />
+                            app:srb_stepSize="1" />-->
 
                     </LinearLayout>
 

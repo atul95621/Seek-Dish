@@ -103,7 +103,7 @@ class DishDetailActivity : BaseActivity() {
 
         tvDishName.setText(dishMealModel.meal_name)
         starRating.rating = dishMealModel.meal_avg_rating.toFloat()
-        euroRating.rating = dishMealModel.budget.toFloat()
+//        euroRating.rating = dishMealModel.budget?.toFloat()?:0.0F
 
     }
 
