@@ -157,11 +157,7 @@ class MyInformationActivity : BaseActivity(), IMyInformationView {
 
         imgProfile.setOnClickListener()
         {
-            if (checkImgPermissionIsEnabledOrNot()) {
-                chooseImage()
-            } else {
-                requestImagePermission()
-            }
+
         }
 
 
