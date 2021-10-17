@@ -267,5 +267,7 @@
     <string name="old_pass">Please fill old password.</string>
     <string name="new_pass">Please fill new password</string>
     <string name="confrm_pass">Please fill confirm password</string>
+    <string name="menu">Menu</string>
+    <string name="menu_click">Click to watch menu</string>
 
 </resources>

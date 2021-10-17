@@ -8,15 +8,15 @@
         android:orientation="vertical">
 
     <TextView
-            android:id="@+id/childDetailItem"
-            android:textColor="@color/dark_gray"
-            android:layout_width="match_parent"
-            android:text="child name"
-            android:textSize="14sp"
-            android:gravity="center_vertical"
-            android:layout_height="35dp"
-            android:layout_alignParentTop="true"
-            android:layout_marginLeft="10dp"
-            android:textAppearance="?android:attr/textAppearanceMedium" />
+        android:id="@+id/childDetailItem"
+        android:layout_width="match_parent"
+        android:layout_height="35dp"
+        android:layout_alignParentTop="true"
+        android:layout_marginLeft="10dp"
+        android:gravity="center_vertical"
+        android:text="child name"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:textColor="@color/dark_gray"
+        android:textSize="14sp" />
 
 </RelativeLayout>

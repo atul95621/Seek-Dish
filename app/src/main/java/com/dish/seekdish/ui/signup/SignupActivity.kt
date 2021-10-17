@@ -123,7 +123,7 @@ class SignupActivity : BaseActivity(), ISignUpView {
                 bio = edtBio.text.toString()
             }
 
-            if (spinnerGender!!.selectedItem == "Select Gender (Optional)") {
+            if (spinnerGender!!.selectedItem == resources.getString(R.string.select_gender_optional)) {
                 gender = ""
             } else {
                 gender = spinnerGender.selectedItem.toString()
@@ -166,6 +166,8 @@ class SignupActivity : BaseActivity(), ISignUpView {
             } */ else {
 
                 if (connectionDetector.isConnectingToInternet) {
+
+                    Log.e("gender_value",""+gender)
 
                     var part: MultipartBody.Part? = null
 

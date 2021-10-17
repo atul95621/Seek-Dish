@@ -25,6 +25,11 @@ class WebViewActivity : AppCompatActivity() {
             loadUrl(urlToLoad)
         }
 
+        if (fromPage.equals("RestroDescrpActivity")) {
+            tvTitle.setText(getString(R.string.menu))
+            loadUrl(urlToLoad)
+        }
+
         tvBack.setOnClickListener()
         {
             finish()
@@ -33,6 +38,7 @@ class WebViewActivity : AppCompatActivity() {
     }
 
     private fun loadUrl(urlToLoad: String) {
+        mywebview.getSettings().setJavaScriptEnabled(true);
         mywebview!!.webViewClient = object : WebViewClient() {
             override fun shouldOverrideUrlLoading(view: WebView?, url: String?): Boolean {
                 view?.loadUrl(url)

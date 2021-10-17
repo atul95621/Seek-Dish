@@ -29,6 +29,8 @@ import androidx.viewpager.widget.ViewPager
 import com.dish.seekdish.R
 import com.dish.seekdish.custom.GlideApp
 import com.dish.seekdish.custom.PagerContainer
+import com.dish.seekdish.ui.WebViewActivity
+import com.dish.seekdish.ui.home.HomeActivity
 import com.dish.seekdish.ui.navDrawer.invitation.InvitationActivity
 import com.dish.seekdish.ui.navDrawer.restaurantDiscription.VM.RestroDescpVM
 import com.dish.seekdish.ui.navDrawer.restaurantDiscription.adapter.RestroDescrpAdapter
@@ -49,6 +51,7 @@ import de.hdodenhof.circleimageview.CircleImageView
 import io.reactivex.android.schedulers.AndroidSchedulers
 import kotlinx.android.synthetic.main.activity_restro_description.*
 import kotlinx.android.synthetic.main.activity_restro_description.tvBack
+import kotlinx.android.synthetic.main.dialog_share_restro.*
 import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.collections.HashSet
@@ -259,11 +262,18 @@ class RestroDescrpActivity : BaseActivity() {
         val btnCancel = actionDialog.findViewById<Button>(R.id.btnCancel)
         val tvAlert = actionDialog.findViewById<TextView>(R.id.tvAlert)
         val tvShowMap = actionDialog.findViewById<TextView>(R.id.tvShowMap)
+        val tvMenu = actionDialog.findViewById<TextView>(R.id.tvMenu)
 
         tvAlert.setOnClickListener()
         {
             addAlertApi(restro_id.toString())
         }
+
+        tvMenu.setOnClickListener()
+        {
+            openPDF("http://www.africau.edu/images/default/sample.pdf")
+        }
+
 
         tvShowMap.setOnClickListener {
             val intent = Intent(
@@ -353,6 +363,16 @@ class RestroDescrpActivity : BaseActivity() {
         }
 
     }
+
+    fun openPDF(url: String) {
+        val browserIntent = Intent(Intent.ACTION_VIEW, Uri.parse(url))
+        startActivity(browserIntent)
+       /* val intent = Intent(this, WebViewActivity::class.java)
+        intent.putExtra("from", "RestroDescrpActivity")
+        intent.putExtra("url", url)
+        startActivity(intent)*/
+    }
+
 
 //Nothing special about this adapterPager, just throwing up colored views for demo
 

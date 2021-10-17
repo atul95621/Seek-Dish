@@ -1,5 +1,7 @@
 package com.dish.seekdish.ui.navDrawer.restaurantDiscription.details
 
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -49,10 +51,18 @@ class RestroDetailsFragment(var response: RestroDescpModel) : Fragment() {
             //get the child info
             val detailInfo = headerInfo.playerName[childPosition]
             //display it or do something with it
-            /*Toast.makeText(
-                context, " Team And Player :: " + headerInfo.name
-                        + "/" + detailInfo.name, Toast.LENGTH_LONG
-            ).show()*/
+            /*        Toast.makeText(
+                        context, " Child name :: "
+                                + "/" + detailInfo.name, Toast.LENGTH_LONG
+                    ).show()*/
+
+            if (detailInfo.name == context?.resources?.getString(R.string.menu_click)) {
+                val browserIntent = Intent(
+                    Intent.ACTION_VIEW,
+                    Uri.parse("http://www.africau.edu/images/default/sample.pdf")
+                )
+                startActivity(browserIntent)
+            }
             false
         })
         // setOnGroupClickListener listener for group heading click
@@ -74,6 +84,8 @@ class RestroDetailsFragment(var response: RestroDescpModel) : Fragment() {
 
     // load some initial data into out list
     private fun loadData() {
+
+        addProduct(getString(R.string.menu), "Click to watch menu")
 
         var email = response.data.restaurant.restaurant_detail.detail[0].email ?: "null"
         addProduct(getString(R.string.email), email)

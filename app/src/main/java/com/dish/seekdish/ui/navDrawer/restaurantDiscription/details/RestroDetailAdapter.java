@@ -5,9 +5,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseExpandableListAdapter;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.dish.seekdish.R;
+import com.dish.seekdish.custom.GlideApp;
+import com.dish.seekdish.util.SessionManager;
 
 
 import java.util.ArrayList;
@@ -83,7 +86,19 @@ public class RestroDetailAdapter extends BaseExpandableListAdapter {
         }
 
         TextView heading = (TextView) view.findViewById(R.id.heading);
+        ImageView imgIcon = (ImageView) view.findViewById(R.id.imgIcon);
+
+
         heading.setText(headerInfo.getName().trim());
+
+        if(headerInfo.getName().equals(context.getResources().getString(R.string.menu)))
+        {
+            imgIcon.setImageResource(R.drawable.ic_baseline_attachment_24);
+        }
+        else
+        {
+            imgIcon.setImageResource(R.drawable.ic_down);
+        }
 
         return view;
     }
