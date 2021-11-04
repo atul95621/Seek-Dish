@@ -22,6 +22,7 @@ class RestroDetailsFragment(var response: RestroDescpModel) : Fragment() {
 
     private var listAdapter: RestroDetailAdapter? = null
     private var simpleExpandableListView: ExpandableListView? = null
+    var pdfURL: String = ""
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -59,7 +60,7 @@ class RestroDetailsFragment(var response: RestroDescpModel) : Fragment() {
             if (detailInfo.name == context?.resources?.getString(R.string.menu_click)) {
                 val browserIntent = Intent(
                     Intent.ACTION_VIEW,
-                    Uri.parse("http://www.africau.edu/images/default/sample.pdf")
+                    Uri.parse(pdfURL)
                 )
                 startActivity(browserIntent)
             }
@@ -85,8 +86,10 @@ class RestroDetailsFragment(var response: RestroDescpModel) : Fragment() {
     // load some initial data into out list
     private fun loadData() {
 
-        addProduct(getString(R.string.menu), "Click to watch menu")
-
+        pdfURL = response.data.restaurant.pdf_url.toString()
+        if (pdfURL.isNullOrEmpty() == false) {
+            addProduct(getString(R.string.menu), getString(R.string.menu_click))
+        }
         var email = response.data.restaurant.restaurant_detail.detail[0].email ?: "null"
         addProduct(getString(R.string.email), email)
         var webs = response.data.restaurant.restaurant_detail.detail[0].website

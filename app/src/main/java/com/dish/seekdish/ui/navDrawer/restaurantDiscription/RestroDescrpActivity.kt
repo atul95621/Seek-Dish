@@ -76,6 +76,7 @@ class RestroDescrpActivity : BaseActivity() {
     var longitude: String? = null
     var facebookLink: String = ""
     var twitterLink: String = ""
+    var pdfURL: String = ""
     private var twitterAuthClient: TwitterAuthClient? = null
 
     internal lateinit var callbackManager: CallbackManager
@@ -271,7 +272,11 @@ class RestroDescrpActivity : BaseActivity() {
 
         tvMenu.setOnClickListener()
         {
-            openPDF("http://www.africau.edu/images/default/sample.pdf")
+            if (pdfURL.isNullOrEmpty() == false) {
+                openPDF(pdfURL)
+            } else {
+                showSnackBar(resources.getString(R.string.not_found))
+            }
         }
 
 
@@ -367,10 +372,10 @@ class RestroDescrpActivity : BaseActivity() {
     fun openPDF(url: String) {
         val browserIntent = Intent(Intent.ACTION_VIEW, Uri.parse(url))
         startActivity(browserIntent)
-       /* val intent = Intent(this, WebViewActivity::class.java)
-        intent.putExtra("from", "RestroDescrpActivity")
-        intent.putExtra("url", url)
-        startActivity(intent)*/
+        /* val intent = Intent(this, WebViewActivity::class.java)
+         intent.putExtra("from", "RestroDescrpActivity")
+         intent.putExtra("url", url)
+         startActivity(intent)*/
     }
 
 
@@ -450,7 +455,7 @@ class RestroDescrpActivity : BaseActivity() {
                     ratingRestro.rating = response.data.restaurant.rating.toFloat()
                     facebookLink = response.data.restaurant.facebook
                     twitterLink = response.data.restaurant.twitter
-
+                    pdfURL = response.data.restaurant.pdf_url
                     phoneNumber = response.data.restaurant.phone
 
                     //for swipe images on top

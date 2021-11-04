@@ -17,6 +17,7 @@ data class Restaurant(
     val city: String,
     val country: String,
     val phone: String,
+    var pdf_url:String,
     val country_code: Int,
     val description: String,
     val distance: Double,

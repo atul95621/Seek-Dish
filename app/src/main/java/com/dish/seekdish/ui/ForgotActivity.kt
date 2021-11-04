@@ -56,6 +56,8 @@ class ForgotActivity : BaseActivity() {
 
     fun forgotPassword(email: String) {
 
+        Log.e("email_sent",""+email)
+
         apiInterface = APIClient.getClient(this).create(APIInterface::class.java)
 
         val call = apiInterface.forgotPassword(email)
