@@ -157,6 +157,14 @@ class MyInformationActivity : BaseActivity(), IMyInformationView {
 
         imgProfile.setOnClickListener()
         {
+            if (checkImgPermissionIsEnabledOrNot()) {
+
+                chooseImage()
+
+            } else {
+
+                requestImagePermission()
+            }
 
         }
 
@@ -231,32 +239,7 @@ class MyInformationActivity : BaseActivity(), IMyInformationView {
                 showSnackBar(getString(R.string.enter_user))
                 edtUsername!!.requestFocus()
             }
-            /*else if (spinnerGender!!.selectedItem === "Select Gender") {
-                showSnackBar("Enter Gender")
-            } else if (TextUtils.isEmpty(edtAddressLineOne!!.text.toString().trim { it <= ' ' })) {
-                showSnackBar("Enter Address Line 1")
-                edtAddressLineOne!!.requestFocus()
-            } else if (TextUtils.isEmpty(edtAddressLinetwo!!.text.toString().trim { it <= ' ' })) {
-                showSnackBar("Enter Address Line 2")
-                edtAddressLineOne!!.requestFocus()
-            } else if (TextUtils.isEmpty(edtZipcode!!.text.toString().trim { it <= ' ' })) {
-                showSnackBar("Enter Zip Code")
-                edtZipcode!!.requestFocus()
-            } else if (TextUtils.isEmpty(edtBodyFat!!.text.toString().trim { it <= ' ' })) {
-                showSnackBar("Enter Body Fat")
-                edtBodyFat!!.requestFocus()
-            } else if (TextUtils.isEmpty(edtWeight!!.text.toString().trim { it <= ' ' })) {
-                showSnackBar("Enter Weight")
-                edtWeight!!.requestFocus()
-            } else if (TextUtils.isEmpty(edtHeight!!.text.toString().trim { it <= ' ' })) {
-                showSnackBar("Enter Height")
-                edtHeight!!.requestFocus()
-            } else if (TextUtils.isEmpty(edtBio!!.text.toString().trim { it <= ' ' })) {
-                showSnackBar("Enter Bio")
-                edtBio!!.requestFocus()
-            } *//*else if (path.equals("") || path.equals(null)) {
-                showSnackBar("Please select an image.")
-            }*/ else {
+           else {
 
                 if (connectionDetector.isConnectingToInternet) {
                     var part: MultipartBody.Part? = null
