@@ -279,7 +279,7 @@ Le mot de passe et la confirmation ne correspondent pas.
     <string name="new_pass">Veuillez saisir un nouveau mot de passe</string>
     <string name="confrm_pass">Veuillez confirmer le mot de passe</string>
     <string name="menu">Menu</string>
-    <string name="menu_click">Cliquez pour regarder le menu</string>
+    <string name="menu_click">"Cliquez pour voir le menu "</string>
 </resources>
 <!--
 <resources>

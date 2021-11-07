@@ -19,7 +19,7 @@ public class RestroDetailAdapter extends BaseExpandableListAdapter {
 
     private Context context;
     private ArrayList<GroupData> teamName;
-    String pos="";
+    String pos = "";
 
     public RestroDetailAdapter(Context context, ArrayList<GroupData> deptList) {
         this.context = context;
@@ -91,12 +91,10 @@ public class RestroDetailAdapter extends BaseExpandableListAdapter {
 
         heading.setText(headerInfo.getName().trim());
 
-        if(headerInfo.getName().equals(context.getResources().getString(R.string.menu)))
-        {
-            imgIcon.setImageResource(R.drawable.ic_baseline_attachment_24);
-        }
-        else
-        {
+        if (headerInfo.getName().equals(context.getResources().getString(R.string.menu))) {
+            imgIcon.setVisibility(View.GONE);
+        } else {
+            imgIcon.setVisibility(View.VISIBLE);
             imgIcon.setImageResource(R.drawable.ic_down);
         }
 
