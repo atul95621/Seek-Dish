@@ -36,94 +36,117 @@
         tools:replace="android:allowBackup">
         <activity
             android:name=".ui.navDrawer.restaurantDiscription.checkInRestro.CheckinRestroActivity"
+            android:configChanges="locale"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".ui.navDrawer.settings.activity.RadiusCenterActivity"
+            android:configChanges="locale"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".ui.ResetPasswordActivity"
+            android:configChanges="locale"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".ui.navDrawer.invitation.includeFriends.IncludeFriendsActivity"
+            android:configChanges="locale"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".ui.navDrawer.invitation.settings.InvitationSettingsActivity"
+            android:configChanges="locale"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".ui.navDrawer.invitation.InvitationActivity"
+            android:configChanges="locale"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".ui.navDrawer.settings.myAlerts.MyAlertsActivity"
+            android:configChanges="locale"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".ui.navDrawer.dishDescription.DishDetailActivity"
+            android:configChanges="locale"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".ui.navDrawer.dishDescription.OpinionDetailsActivity"
+            android:configChanges="locale"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".ui.navDrawer.restaurantDiscription.RestroDescrpActivity"
+            android:configChanges="locale"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".ui.navDrawer.dishDescription.RestoRatingActivity"
+            android:configChanges="locale"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".ui.navDrawer.dishDescription.MealRatingActivity"
+            android:configChanges="locale"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".ui.navDrawer.dishDescription.DishDescriptionActivity"
+            android:configChanges="locale"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".ui.navDrawer.friendInfo.FriendInfoActivity"
+            android:configChanges="locale"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".ui.navDrawer.settings.activity.SentRequestActivity"
+            android:configChanges="locale"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".ui.navDrawer.settings.activity.ReceivedRequestActivity"
+            android:configChanges="locale"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".ui.navDrawer.settings.activity.DislikeActivity"
+            android:configChanges="locale"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".ui.navDrawer.settings.activity.LikeActivity"
+            android:configChanges="locale"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".ui.navDrawer.activities.ContactActivity"
+            android:configChanges="locale"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".ui.navDrawer.activities.ChangePasswordActivity"
+            android:configChanges="locale"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".ui.navDrawer.activities.MyInformationActivity"
+            android:configChanges="locale"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".ui.navDrawer.activities.MyProfileActivity"
+            android:configChanges="locale"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".ui.home.HomeActivity"
+            android:configChanges="locale"
             android:hardwareAccelerated="true"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar">
@@ -138,26 +161,32 @@
         </activity>
         <activity
             android:name=".ui.ForgotActivity"
+            android:configChanges="locale"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".ui.login.LoginActivity"
+            android:configChanges="locale"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".ui.WebViewActivity"
+            android:configChanges="locale"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".ui.signup.SignupActivity"
+            android:configChanges="locale"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".ui.language.LanguageActivity"
+            android:configChanges="locale"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".ui.SplashActivity"
+            android:configChanges="locale"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme_Splash">
             <intent-filter>
@@ -168,10 +197,12 @@
         </activity>
         <activity
             android:name=".walkthrough.WalkThroughActivity"
+            android:configChanges="locale"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".ui.navDrawer.checkin.CheckinActivity"
+            android:configChanges="locale"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
 
@@ -213,6 +244,7 @@
         </activity>
         <activity
             android:name=".ui.navDrawer.myFriends.contactFetch.ContactFetchActivity"
+            android:configChanges="locale"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
     </application>

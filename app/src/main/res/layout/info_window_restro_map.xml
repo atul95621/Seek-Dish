@@ -3,7 +3,6 @@
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:maxWidth="170dp"
-    android:maxHeight="80dp"
     android:layout_weight="5"
     android:background="@drawable/roundege_color_primary"
     android:orientation="horizontal"
@@ -31,12 +30,12 @@
         android:layout_height="match_parent"
         android:orientation="vertical"
         android:paddingEnd="5dp"
-        android:weightSum="2">
+     >
 
         <TextView
             android:id="@+id/tvRestro"
             android:layout_width="wrap_content"
-            android:layout_height="0dp"
+            android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_weight="1"
             android:fontFamily="@font/assistantbold"
@@ -84,7 +83,7 @@
         <TextView
             android:id="@+id/tvAddress"
             android:layout_width="wrap_content"
-            android:layout_height="0dp"
+            android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_weight="1"
             android:fontFamily="@font/assistantregular"
@@ -92,6 +91,7 @@
             android:maxLines="2"
             android:maxWidth="180dp"
             android:text=""
+            android:lines="2"
             android:textSize="12sp"/>
     </LinearLayout>
 

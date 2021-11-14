@@ -252,7 +252,7 @@ class HomeMapFragment : BaseFragment(), OnMapReadyCallback,
                                     var mealName = arrayList[i].name
                                     var mealId = arrayList[i].meal_id.toString()
                                     var restroId = arrayList[i].restro_id.toString()
-                                    var mealPrice = arrayList[i].meal_price.toString()
+                                    var mealPrice = arrayList[i].meal_price.toString()?:"null"
                                     var mealSymbol = arrayList[i].meal_symbol.toString()
 
                                     // adding custom info window

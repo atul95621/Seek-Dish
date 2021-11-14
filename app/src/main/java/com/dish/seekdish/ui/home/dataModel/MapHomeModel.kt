@@ -15,7 +15,7 @@ data class Data_Home_Map(
     val name: String,
     val no_of_reviews: Int,
     val rating: Int,
-    val restro_id:Int,
-    val meal_price:String,
-    val meal_symbol:String
+    val restro_id: Int,
+    val meal_price: String? = "null",
+    val meal_symbol: String
 )
