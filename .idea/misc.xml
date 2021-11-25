@@ -3,6 +3,9 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Android Projects/Android WREED/Seek-Dish/app/src/main/res/drawable/ic_markersvg.xml" value="0.25833333333333336" />
+        <entry key="..\:/Android Projects/Android WREED/Seek-Dish/app/src/main/res/layout/dialog_email_verify.xml" value="0.2421875" />
+        <entry key="..\:/Android Projects/Android WREED/Seek-Dish/app/src/main/res/layout/info_window_restro_map.xml" value="0.2421875" />
         <entry key="..\:/Android Projects/Android WREED/SeekDish/app/src/main/res/layout/activity_dish_description.xml" value="0.2421875" />
         <entry key="..\:/Android Projects/Android WREED/SeekDish/app/src/main/res/layout/activity_dish_detail.xml" value="0.2421875" />
         <entry key="..\:/Android Projects/Android WREED/SeekDish/app/src/main/res/layout/activity_restro_description.xml" value="0.2421875" />

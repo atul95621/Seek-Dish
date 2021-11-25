@@ -98,7 +98,7 @@ class HomeMapFragment : BaseFragment(), OnMapReadyCallback,
             mMap!!.setInfoWindowAdapter(customInfoWindow);
 
         } else {
-            showSnackBar(getString(R.string.check_connection))
+            showSnackBar(myContext, getString(R.string.check_connection))
         }
 
 // did this because image in infowindow was opening on 2nd click, this make the infowindow to close
@@ -117,7 +117,9 @@ class HomeMapFragment : BaseFragment(), OnMapReadyCallback,
 
         googleMap.setOnInfoWindowClickListener { marker ->
             val infoModel: InfoWindowData? = marker.tag as InfoWindowData?
-
+            Log.e("MAP22:  ", "entered setOnInfoWindowClickListener")
+            Log.e("MAP22:  ", "MEAL_ID  ${infoModel?.mealId.toString()}")
+            Log.e("MAP22:  ", "RESTAURANT_ID  ${infoModel?.restaurantId.toString()}")
 
             val intent = Intent(myContext, DishDescriptionActivity::class.java)
             intent.putExtra("MEAL_ID", infoModel?.mealId.toString())
@@ -126,37 +128,9 @@ class HomeMapFragment : BaseFragment(), OnMapReadyCallback,
         }
 
 
-        /*  // Add a marker in Sydney, Australia, and move the camera.
-          val sydney = LatLng(-34.0, 151.0)
-          mMap!!.addMarker(MarkerOptions().position(sydney).title("Marker in Sydney"))
-          mMap!!.moveCamera(CameraUpdateFactory.newLatLng(sydney))*/
-
-
-        /*     // adding custom info window
-             var snowqualmie = LatLng(47.5287132, -121.8253906);
-
-             var markerOptions = MarkerOptions();
-             markerOptions.position(snowqualmie)
-                 .title("Snowqualmie Falls")
-                 .snippet("Snoqualmie Falls is located 25 miles east of Seattle.")
-                 .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE));
-
-             var info = InfoWindowData(" ", "3", "4", "hOTEL tITLE");
-
-
-             var marker = mMap!!.addMarker(markerOptions);
-             marker.setTag(info);*/
-//        marker.showInfoWindow();
-
         var bitmapdraw = ResourcesCompat.getDrawable(getResources(), R.drawable.ic_marker, null);
         val b = bitmapdraw?.let { drawableToBitmap(it) }
         customSizeMarker = Bitmap.createScaledBitmap(b!!, 100, 100, false)
-
-
-        /*  var cameraMove = LatLng(Constants.Latitude.toDouble(), Constants.Longitude.toDouble())
-  //        mMap!!.moveCamera(CameraUpdateFactory.newLatLng(cameraMove))
-          mMap!!.animateCamera(CameraUpdateFactory.newLatLngZoom(cameraMove, 14F));*/
-
 
         if (ContextCompat.checkSelfPermission(
                 myContext,
@@ -204,24 +178,7 @@ class HomeMapFragment : BaseFragment(), OnMapReadyCallback,
     }
 
     override fun onMyLocationClick(location: Location) {
-        /*       mMap?.setMinZoomPreference(5f)
 
-               val circleOptions = CircleOptions()
-               circleOptions.center(
-                   LatLng(
-                       location.latitude,
-                       location.longitude
-                   )
-               )
-
-               Log.e("latlong1", " " + location.latitude)
-               Log.e("latlong2", " " + location.longitude)
-
-               circleOptions.radius(100.0)
-               circleOptions.fillColor(Color.RED)
-               circleOptions.strokeWidth(6f)
-
-               mMap?.addCircle(circleOptions)*/
     }
 
 
@@ -301,36 +258,15 @@ class HomeMapFragment : BaseFragment(), OnMapReadyCallback,
 
                     }
 
-
-                    /*   // try to touch View of UI thread
-                       activity?.runOnUiThread(java.lang.Runnable {
-                           // adding custom info window
-                           var locationPos = LatLng(43.3367589, 3.224927999999977);
-                           var markerOptions = MarkerOptions();
-                           markerOptions.position(locationPos)
-                               .title("")
-                               .icon(BitmapDescriptorFactory.fromBitmap(customSizeMarker));   // custom size maekr is used here
-
-                           var info = InfoWindowData("http://seekdish.com/seekdish_android/public/uploads/images/meals/199_20180909_131056.jpg", "3", "2", "mealName");
-
-
-                           var marker = mMap!!.addMarker(markerOptions);
-                           marker.setTag(info)
-                           marker.showInfoWindow()
-
-                       })*/
-
-                    /*    for(key in markerMapHash.keys){
-                            Log.e("Element:   ","Element at key $key : ${markerMapHash[key]}")
-                        }
-    */
-
                 } else {
-                    showSnackBar(response.message)
+                    showSnackBar(myContext, response.message)
                 }
 
             } else {
-                showSnackBar(resources.getString(R.string.error_occured) + "  $response");
+                showSnackBar(
+                    myContext,
+                    resources.getString(R.string.error_occured) + "  $response"
+                );
             }
         })
     }
@@ -351,8 +287,6 @@ class HomeMapFragment : BaseFragment(), OnMapReadyCallback,
             sessionManager.getValue(SessionManager.LATITUDE), radius
         )
     }
-
-
 }
 
 

@@ -24,15 +24,9 @@ class RestroMapInfoWindow(
     override fun getInfoWindow(marker: Marker): View {
         val view = (context as Activity).layoutInflater
             .inflate(R.layout.info_window_restro_map, null)
-
-
-//        val star_rating=  view.findViewById<RatingBar>(R.id.infowindow_rating)
-//        val euro_rating = view.findViewById<RatingBar>(R.id.euro_rating)
         val tvRestro = view.findViewById<TextView>(R.id.tvRestro)
         val imgInfoWindow = view.findViewById<ImageView>(R.id.imgInfoWindow)
-//        val euroRatingBar = view.findViewById<ScaleRatingBar>(R.id.euroRatingBar)
         val tvAddress = view.findViewById<TextView>(R.id.tvAddress)
-
 
         val infoWindowGoogleMap = marker.tag as InfoWindowModel
 
@@ -41,18 +35,15 @@ class RestroMapInfoWindow(
              .override(50,50)
              .placeholder(R.drawable.app_logo)
              .into(imgInfoWindow)*/
-
+        tvRestro.setText(infoWindowGoogleMap.restroTitle)
+        tvAddress.text = infoWindowGoogleMap.address.toString()
         Picasso.with(context).load(infoWindowGoogleMap.imageUrl).resize(50, 50)
             .centerCrop().noFade()
             .placeholder(R.drawable.app_logo)
             .into(imgInfoWindow,  MarkerCallback(marker));
 
-        tvRestro.setText(infoWindowGoogleMap.restroTitle)
 
-//        star_rating.rating= infoWindowGoogleMap.starRating!!.toFloat()
-//        euro_rating.rating = infoWindowGoogleMap.starRating!!.toFloat()
-        tvAddress.text = infoWindowGoogleMap.address.toString()
-//        euroRatingBar.rating=infoWindowGoogleMap.starRating!!.toFloat()
+
         return view
     }
 

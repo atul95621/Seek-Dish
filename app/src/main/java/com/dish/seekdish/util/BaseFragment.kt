@@ -84,6 +84,25 @@ open class BaseFragment : Fragment() {
         }
     }
 
+    fun showSnackBar(activity: Activity,text: String) {
+        try {
+            val snackbar = Snackbar.make(
+                activity?.findViewById(android.R.id.content),
+                text,
+                Snackbar.LENGTH_SHORT
+            )
+            snackbar.view.setBackgroundColor(
+                ContextCompat.getColor(
+                    activity!!,
+                    R.color.colorPrimary
+                )
+            )
+            snackbar.show()
+        } catch (e: Exception) {
+
+        }
+    }
+
 
     fun hideKeyBoard() {
         activity!!.getWindow().setSoftInputMode(

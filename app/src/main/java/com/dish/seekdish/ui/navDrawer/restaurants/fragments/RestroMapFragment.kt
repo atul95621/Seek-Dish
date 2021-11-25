@@ -11,6 +11,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.core.content.res.ResourcesCompat
 import androidx.lifecycle.Observer
@@ -88,7 +89,7 @@ class RestroMapFragment : BaseFragment(), OnMapReadyCallback,
             mMap!!.setInfoWindowAdapter(customInfoWindow);
 
         } else {
-            showSnackBar(getString(R.string.check_connection))
+            showSnackBar(myContext, getString(R.string.check_connection))
         }
 
         googleMap?.setOnMarkerClickListener { marker ->
@@ -281,38 +282,15 @@ class RestroMapFragment : BaseFragment(), OnMapReadyCallback,
                                     )
                                 );
 
-                                /*   // try to touch View of UI thread
-                               activity?.runOnUiThread(java.lang.Runnable {
-                                   // adding custom info window
-                                   var locationPos = LatLng(43.3367589, 3.224927999999977);
-                                   var markerOptions = MarkerOptions();
-                                   markerOptions.position(locationPos)
-                                       .title("")
-                                       .icon(BitmapDescriptorFactory.fromBitmap(customSizeMarker));   // custom size maekr is used here
-
-                                   var info = InfoWindowData("http://seekdish.com/seekdish_android/public/uploads/images/meals/199_20180909_131056.jpg", "3", "2", "mealName");
-
-
-                                   var marker = mMap!!.addMarker(markerOptions);
-                                   marker.setTag(info)
-                                   marker.showInfoWindow()
-
-                               })*/
-
-                                /*    for(key in markerMapHash.keys){
-                                    Log.e("Element:   ","Element at key $key : ${markerMapHash[key]}")
-                                }
-            */
-
                             }
                         })
                     }).start()
                 } else {
-                    showSnackBar(response.message)
+                    showSnackBar(myContext, response.message)
                 }
 
             } else {
-                showSnackBar(conxt.getString(R.string.error_occured))
+                showSnackBar(myContext, myContext.getString(R.string.error_occured))
             }
         })
     }
