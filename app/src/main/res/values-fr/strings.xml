@@ -280,6 +280,7 @@ Le mot de passe et la confirmation ne correspondent pas.
     <string name="confrm_pass">Veuillez confirmer le mot de passe</string>
     <string name="menu">Menu</string>
     <string name="menu_click">"Cliquez pour voir le menu "</string>
+    <string name="go_playstore">Veuillez mettre à jour depuis Google Play Store.</string>
 </resources>
 <!--
 <resources>

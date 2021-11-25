@@ -44,7 +44,7 @@ class RestroMapVM : ViewModel() {
             Constants.device_token,
             Constants.deviceType,
             Constants.homePage,
-            Constants.noOfItems
+            Constants.noOfMapItems
         )
 
         Log.e(

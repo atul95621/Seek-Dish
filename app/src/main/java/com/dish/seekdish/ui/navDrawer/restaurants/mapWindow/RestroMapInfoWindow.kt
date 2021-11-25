@@ -37,11 +37,14 @@ class RestroMapInfoWindow(
              .into(imgInfoWindow)*/
         tvRestro.setText(infoWindowGoogleMap.restroTitle)
         tvAddress.text = infoWindowGoogleMap.address.toString()
+       /* Picasso.with(context).load(infoWindowGoogleMap.imageUrl).resize(50, 50)
+            .centerCrop().noFade()
+            .placeholder(R.drawable.app_logo)
+            .into(imgInfoWindow,  MarkerCallback(marker));*/
         Picasso.with(context).load(infoWindowGoogleMap.imageUrl).resize(50, 50)
             .centerCrop().noFade()
             .placeholder(R.drawable.app_logo)
-            .into(imgInfoWindow,  MarkerCallback(marker));
-
+            .into(imgInfoWindow);
 
 
         return view

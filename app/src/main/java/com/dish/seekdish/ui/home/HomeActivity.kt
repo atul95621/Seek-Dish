@@ -791,7 +791,7 @@ class HomeActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
                         if (version.toFloat() < response.Android_version.toFloat()) {
                             //making the isLoggedIn key to "0"
                             sessionManager?.setValues(SessionManager.LOGGEDIN, "0")
-                            val intent = Intent(this@HomeActivity, LoginActivity::class.java)
+                            val intent = Intent(this@HomeActivity, WalkThroughActivity::class.java)
                             intent.flags =
                                 Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
                             startActivity(intent)

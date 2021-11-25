@@ -269,5 +269,6 @@
     <string name="confrm_pass">Please fill confirm password</string>
     <string name="menu">Menu</string>
     <string name="menu_click">Click to view menu</string>
+    <string name="go_playstore">Please update from Google Play Store.</string>
 
 </resources>

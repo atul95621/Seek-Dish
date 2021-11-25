@@ -42,10 +42,14 @@ class CustomInfoWindowGoogleMap(
             "drawable", context.getPackageName()
         )
 
+   /*     Picasso.with(context).load(infoWindowGoogleMap.imageUrl).resize(50, 50)
+            .centerCrop().noFade()
+            .placeholder(R.drawable.app_logo)
+            .into(imgInfoWindow,  MarkerCallback(marker));*/
         Picasso.with(context).load(infoWindowGoogleMap.imageUrl).resize(50, 50)
             .centerCrop().noFade()
             .placeholder(R.drawable.app_logo)
-            .into(imgInfoWindow,  MarkerCallback(marker));
+            .into(imgInfoWindow);
 
         tvRestro.setText(infoWindowGoogleMap.restroTitle)
         star_rating.rating = infoWindowGoogleMap.starRating!!.toFloat()
