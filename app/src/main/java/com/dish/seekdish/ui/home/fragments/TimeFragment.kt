@@ -12,6 +12,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.dish.seekdish.Constants
 import com.dish.seekdish.util.BaseFragment
 
 import com.dish.seekdish.R
@@ -241,7 +242,7 @@ class TimeFragment : BaseFragment() {
         if (radius != null && radius != "null" && radius != "") {
             radius = sessionManager.getValue(SessionManager.RADIUS)
         } else {
-            radius = "15"
+            radius = Constants.radius
         }
 
         // hitting api
@@ -329,7 +330,7 @@ class TimeFragment : BaseFragment() {
         if (radius.isNullOrEmpty() == false) {
             radius = sessionManager.getValue(SessionManager.RADIUS)
         } else {
-            radius = "15"
+            radius = Constants.radius
         }
 
         // hitting api

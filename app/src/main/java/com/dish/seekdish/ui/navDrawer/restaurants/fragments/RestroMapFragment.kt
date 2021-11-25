@@ -16,6 +16,7 @@ import androidx.core.content.ContextCompat
 import androidx.core.content.res.ResourcesCompat
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import com.dish.seekdish.Constants
 import com.dish.seekdish.R
 import com.dish.seekdish.ui.home.HomeActivity
 import com.dish.seekdish.ui.home.dataModel.Location
@@ -301,7 +302,7 @@ class RestroMapFragment : BaseFragment(), OnMapReadyCallback,
         if (radius != null && radius != "null" && radius != "") {
             radius = sessionManager.getValue(SessionManager.RADIUS)
         } else {
-            radius = "15"
+            radius = Constants.radius
         }
 
         // hitting api

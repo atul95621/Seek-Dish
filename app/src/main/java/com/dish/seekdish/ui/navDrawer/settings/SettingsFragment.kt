@@ -212,10 +212,6 @@ class SettingsFragment(var homeActivity: HomeActivity) : BaseFragment(), ISettin
 
     }
 
-    private fun getLanguageAndAddress() {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-    }
-
     private fun getSettingInfo() {
 
         //check connection

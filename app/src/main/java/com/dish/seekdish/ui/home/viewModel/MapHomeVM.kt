@@ -37,7 +37,7 @@ class MapHomeVM : ViewModel() {
             Constants.device_token,
             Constants.deviceType,
             Constants.homePage,
-            Constants.noOfMapItems
+            Constants.noOfMapItemsMeals
         )
         call.enqueue(object : Callback<MapHomeModel> {
             override fun onResponse(call: Call<MapHomeModel>, response: Response<MapHomeModel>) {

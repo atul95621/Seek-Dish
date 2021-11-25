@@ -277,7 +277,7 @@ class HomeMapFragment : BaseFragment(), OnMapReadyCallback,
         if (radius != null && radius != "null" && radius != "") {
             radius = sessionManager.getValue(SessionManager.RADIUS)
         } else {
-            radius = "15"
+            radius = Constants.radius
         }
 
         // hitting api

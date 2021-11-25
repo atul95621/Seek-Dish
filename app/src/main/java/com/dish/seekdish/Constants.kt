@@ -15,7 +15,8 @@ class Constants {
         // extra prams
         var type = "type"
         var noOfItems = "1000"
-        var noOfMapItems = "100"
+        var noOfMapItemsMeals = "500"
+        var noOfMapItemsRestro = "100"
         var noOfMeals = "30"
         var device_token = "token"
         var homePage = "1"
@@ -23,7 +24,7 @@ class Constants {
         var name = "Sunny"
         var mealId = "1"
         var restaurant_id = "3"
-        var radius = "15"
+        var radius = "4" // 5km default distance
 
         fun refreshFragment(frag: String): Fragment {
             when (frag) {
