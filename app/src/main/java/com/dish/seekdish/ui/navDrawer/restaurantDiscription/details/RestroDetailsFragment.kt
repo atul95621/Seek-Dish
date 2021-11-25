@@ -108,7 +108,7 @@ class RestroDetailsFragment(var response: RestroDescpModel) : Fragment() {
         var schedule = response.data.restaurant.restaurant_detail.detail[0].schedule ?: "null"
         addProduct(getString(R.string.schedule), schedule)
         for (items in response.data.restaurant.restaurant_detail.additional_services) {
-            addProduct(getString(R.string.additional_Service), items)
+            addProduct(getString(R.string.servic), items)
         }
         for (items in response.data.restaurant.restaurant_detail.restaurant_ambiance) {
             addProduct(getString(R.string.restro_amb), items)
@@ -116,10 +116,6 @@ class RestroDetailsFragment(var response: RestroDescpModel) : Fragment() {
         for (items in response.data.restaurant.restaurant_detail.restaurant_ambiance_complementary) {
             addProduct(getString(R.string.comple), items)
         }
-        for (items in response.data.restaurant.restaurant_detail.additional_services) {
-            addProduct(getString(R.string.servic), items)
-        }
-
     }
 
 
