@@ -6,7 +6,7 @@ import androidx.annotation.Keep
 data class LoginDataClass(
     val `data`: Data,
     val status: Int,
-    val message:String
+    val message: String
 )
 
 data class Data(
@@ -29,6 +29,6 @@ data class CheckUpdateModel(
     val Ios_version: String,
     val message: String,
     val status: Int,
-    val force_update_android:Int,   //0 if no force update req, 1 if force update to send
-    val force_update_ios:Int
+    val force_update_android: Int,   //0 if no force update req, 1 if force update to send
+    val force_update_ios: Int
 )

@@ -23,6 +23,7 @@ class RestroDetailsFragment(var response: RestroDescpModel) : Fragment() {
     private var listAdapter: RestroDetailAdapter? = null
     private var simpleExpandableListView: ExpandableListView? = null
     var pdfURL: String = ""
+    var websiteURL: String = ""
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -57,11 +58,18 @@ class RestroDetailsFragment(var response: RestroDescpModel) : Fragment() {
                                 + "/" + detailInfo.name, Toast.LENGTH_LONG
                     ).show()*/
 
+            // opening pdf file in chrome if available
             if (detailInfo.name == context?.resources?.getString(R.string.menu_click)) {
                 val browserIntent = Intent(
                     Intent.ACTION_VIEW,
                     Uri.parse(pdfURL)
                 )
+                startActivity(browserIntent)
+            }
+
+            // opening in chrome if there is website link
+            if (headerInfo.name == context?.resources?.getString(R.string.website)) {
+                val browserIntent = Intent(Intent.ACTION_VIEW, Uri.parse(websiteURL))
                 startActivity(browserIntent)
             }
             false
@@ -75,6 +83,8 @@ class RestroDetailsFragment(var response: RestroDescpModel) : Fragment() {
                  context, " Team Name :: " + headerInfo.name,
                  Toast.LENGTH_LONG
              ).show()*/
+
+
 
             true
         })
@@ -95,6 +105,7 @@ class RestroDetailsFragment(var response: RestroDescpModel) : Fragment() {
         var webs = response.data.restaurant.restaurant_detail.detail[0].website
         if (!webs.isNullOrEmpty()) {
             var website = response.data.restaurant.restaurant_detail.detail[0].website ?: "null"
+            websiteURL=website
             addProduct(getString(R.string.website), website)
         }
         var serviceSpeed = response.data.restaurant.service_speed

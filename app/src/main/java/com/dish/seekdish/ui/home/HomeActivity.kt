@@ -27,6 +27,7 @@ import com.dish.seekdish.ui.home.dataModel.FilterDataModel
 import com.dish.seekdish.ui.home.fragments.HomeFragment
 import com.dish.seekdish.ui.home.fragments.TasteFragment
 import com.dish.seekdish.ui.home.viewModel.HomeActivityVM
+import com.dish.seekdish.ui.login.CheckUpdateModel
 import com.dish.seekdish.ui.login.LoginActivity
 import com.dish.seekdish.ui.navDrawer.activities.MyProfileActivity
 import com.dish.seekdish.ui.navDrawer.myFavourite.MyFavouriteFragment
@@ -778,7 +779,6 @@ class HomeActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
         homeActivityVM!!.getUpdateLiveData.observe(this, Observer { response ->
             if (response != null) {
                 if (response.status == 1) {
-
                     var version = ""
                     try {
                         val pInfo: PackageInfo =
@@ -787,8 +787,8 @@ class HomeActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
                     } catch (e: PackageManager.NameNotFoundException) {
                         e.printStackTrace()
                     }
-                    if (!version.isNullOrEmpty() && response.force_update_android!=0) {
-                        if (version.toFloat() < response.Android_version.toFloat()) {
+                    if (!version.isNullOrEmpty()) {
+                        if (version.toFloat() < response.Android_version.toFloat() ) {
                             //making the isLoggedIn key to "0"
                             sessionManager?.setValues(SessionManager.LOGGEDIN, "0")
                             val intent = Intent(this@HomeActivity, WalkThroughActivity::class.java)

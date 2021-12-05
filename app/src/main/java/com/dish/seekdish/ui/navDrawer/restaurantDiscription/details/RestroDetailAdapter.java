@@ -1,6 +1,9 @@
 package com.dish.seekdish.ui.navDrawer.restaurantDiscription.details;
 
 import android.content.Context;
+import android.content.Intent;
+import android.graphics.Color;
+import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -48,6 +51,13 @@ public class RestroDetailAdapter extends BaseExpandableListAdapter {
         }
         TextView childItem = (TextView) view.findViewById(R.id.childDetailItem);
         childItem.setText(detailInfo.getName().trim());
+
+        // giving red color if text is for menu
+        if (detailInfo.getName().equals(context.getResources().getString(R.string.menu_click))) {
+            childItem.setTextColor(Color.parseColor("#EF0C1D"));
+        } else {
+            childItem.setTextColor(Color.parseColor("#7E7E7E"));
+        }
 
         return view;
     }

@@ -168,13 +168,9 @@ class WalkThroughActivity : BaseActivity(), IWalkThrough {
                     e.printStackTrace()
                 }
 
-                if (!version.isNullOrEmpty() && checkUpdateModel.force_update_android != 0) {
+                if (!version.isNullOrEmpty()) {
                     if (version.toFloat() < checkUpdateModel.Android_version.toFloat()) {
                         showUpdateDialog(getString(R.string.update))
-                    } else {
-                        if (dialog?.isShowing == true) {
-                            dialog?.dismiss()
-                        }
                     }
                 }
             } else {
@@ -196,8 +192,15 @@ class WalkThroughActivity : BaseActivity(), IWalkThrough {
         checkIfUpdateAvailable()
     }
 
+    override fun onPause() {
+        super.onPause()
+        if (dialog?.isShowing() == true) {
+            dialog?.dismiss()
+        }
+    }
+
     private fun showUpdateDialog(message: String) {
-        dialog?.requestWindowFeature(Window.FEATURE_NO_TITLE)
+//        dialog?.requestWindowFeature(Window.FEATURE_NO_TITLE)
         dialog?.setCancelable(false)
         dialog?.setContentView(R.layout.dialog_email_verify)
 
@@ -209,30 +212,6 @@ class WalkThroughActivity : BaseActivity(), IWalkThrough {
         btnAccept?.setText(getString(R.string.update_str))
         btnAccept?.setOnClickListener {
             Toast.makeText(this, getString(R.string.go_playstore), Toast.LENGTH_SHORT).show()
-            /*     dialog.dismiss()
-                 val appPackageName =
-                     packageName // getPackageName() from Context or Activity object
-                 try {
-
-
-                     try {
-                         startActivity(
-                             Intent(
-                                 Intent.ACTION_VIEW,
-                                 Uri.parse("market://details?id=$appPackageName")
-                             )
-                         )
-                     } catch (anfe: ActivityNotFoundException) {
-                         startActivity(
-                             Intent(
-                                 Intent.ACTION_VIEW,
-                                 Uri.parse("https://play.google.com/store/apps/details?id=$appPackageName")
-                             )
-                         )
-                     }
-                 } catch (e: Exception) {
-
-                 }*/
         }
         dialog?.show()
     }
