@@ -19,9 +19,11 @@ import android.widget.Toolbar
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import com.bumptech.glide.Glide
+import com.dish.seekdish.Constants
 import com.dish.seekdish.R
 import com.google.android.material.snackbar.Snackbar
 import okhttp3.MediaType
+import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.RequestBody
 import java.io.*
 import java.net.HttpURLConnection
@@ -146,7 +148,9 @@ open class BaseActivity : AppCompatActivity() {
 
     // for converting string to requestbody
     fun stringConvertToRequestBody(pram: String): RequestBody {
-        val covertedParam = RequestBody.create(MediaType.parse("text/plain"), pram)
+
+        var mediaType="text/plain"
+        val covertedParam = RequestBody.create(mediaType.toMediaTypeOrNull(), pram)
         return covertedParam
     }
 

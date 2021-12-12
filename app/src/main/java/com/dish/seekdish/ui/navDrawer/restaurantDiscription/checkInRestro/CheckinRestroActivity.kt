@@ -62,7 +62,7 @@ class CheckinRestroActivity : BaseActivity() {
     }
 
     private fun getIntents() {
-        restro_id = intent.getStringExtra("RESTAURANT_ID")
+        restro_id = intent.getStringExtra("RESTAURANT_ID").toString()
     }
 
     private fun initRecyclerView() {

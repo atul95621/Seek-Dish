@@ -436,8 +436,10 @@ class RegisterFragment : BaseFragment(), IRegisterFragView {
                 sessionManager.setValues(SessionManager.EMAIL, signUpModel.data.email)
                 sessionManager.setValues(SessionManager.USER_ID, signUpModel.data.id.toString())
                 sessionManager.setValues(SessionManager.PHOTO_URL, signUpModel.data.photo)
+                sessionManager.setValues(SessionManager.RADIUS, signUpModel.data.radius.toString()) // if new user, by default will be = 4
 
                 sessionManager.setValues(SessionManager.LOGGEDIN_THROUGH, "1")
+
 
                 val intent = Intent(mcontext, HomeActivity::class.java)
                 intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
@@ -465,6 +467,7 @@ class RegisterFragment : BaseFragment(), IRegisterFragView {
                 sessionManager.setValues(SessionManager.EMAIL, signUpModel.data.email)
                 sessionManager.setValues(SessionManager.USER_ID, signUpModel.data.id.toString())
                 sessionManager.setValues(SessionManager.PHOTO_URL, signUpModel.data.photo)
+                sessionManager.setValues(SessionManager.RADIUS, signUpModel.data.radius.toString()) // if new user, by default will be = 4
 
                 sessionManager.setValues(SessionManager.LOGGEDIN_THROUGH, "1")
 

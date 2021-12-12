@@ -20,7 +20,10 @@ data class Data(
     val last_name: String,
     val phone: String,
     val photo: String,
-    val username: String
+    val username: String,
+    val radius:Int,
+    val latitude:String,
+    val longitude:String
 )
 
 

@@ -462,17 +462,6 @@ class RestroDescrpActivity : BaseActivity() {
                     initializeviews(mResources)
 
 
-                    tvRestroName.setOnClickListener()
-                    {
-                        startActivity(
-                            Intent(
-                                Intent.ACTION_VIEW,
-                                Uri.parse("https://www.google.com/#q=" + tvRestroName.getText() + response.data.restaurant.city)
-                            )
-                        );
-                    }
-
-
                     //++++++++++++++++++++++++ setting the adapter after the responses come in...
                     adapter = RestroDescrpAdapter(
                         this.supportFragmentManager,

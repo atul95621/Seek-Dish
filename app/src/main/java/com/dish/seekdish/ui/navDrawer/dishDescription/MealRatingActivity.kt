@@ -50,10 +50,10 @@ class MealRatingActivity : BaseActivity() {
     }
 
     private fun getIntents() {
-        mealId = intent.getStringExtra("MEALID")
-        restId = intent.getStringExtra("RESTROID")
-         imageUrl = intent.getStringExtra("IMAGE")
-        fromScreen = intent.getStringExtra("FROM_SCREEN")
+        mealId = intent.getStringExtra("MEALID").toString()
+        restId = intent.getStringExtra("RESTROID").toString()
+         imageUrl = intent.getStringExtra("IMAGE").toString()
+        fromScreen = intent.getStringExtra("FROM_SCREEN").toString()
 
 
         GlideApp.with(this)

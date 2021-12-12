@@ -18,6 +18,7 @@ import androidx.core.content.ContextCompat
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.bumptech.glide.load.resource.bitmap.TransformationUtils
+import com.dish.seekdish.Constants
 import com.dish.seekdish.util.BaseActivity
 import com.dish.seekdish.R
 import com.dish.seekdish.custom.GlideApp
@@ -31,6 +32,7 @@ import kotlinx.android.synthetic.main.activity_resto_rating.*
 import kotlinx.android.synthetic.main.activity_resto_rating.tvNext
 import kotlinx.android.synthetic.main.dialog_upload_img_comment.tvBack
 import okhttp3.MediaType
+import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
 import java.io.File
@@ -99,11 +101,11 @@ class RestoRatingActivity : BaseActivity() {
         presentation = intent.getFloatExtra("PRESENTATION", 0F)
         texture = intent.getFloatExtra("TEXTURE", 0F)
         ordor = intent.getFloatExtra("ODOR", 0F)
-        mealId = intent.getStringExtra("MEAL_ID")
-        restauId = intent.getStringExtra("RESTAURANT_ID")
+        mealId = intent.getStringExtra("MEAL_ID").toString()
+        restauId = intent.getStringExtra("RESTAURANT_ID").toString()
         var bitM = intent.getStringExtra("IMAGE_Bitmap")
 
-        fromScreen = intent.getStringExtra("FROM_SCREEN")
+        fromScreen = intent.getStringExtra("FROM_SCREEN").toString()
 
 
         GlideApp.with(this)
@@ -211,9 +213,9 @@ class RestoRatingActivity : BaseActivity() {
 
                     if (finalFile1 != null && finalFile2 != null) {
                         val fileReqBody1 =
-                            RequestBody.create(MediaType.parse("image/*"), finalFile1)
+                            RequestBody.create(Constants.mediaType.toMediaTypeOrNull(), finalFile1)
                         val fileReqBody2 =
-                            RequestBody.create(MediaType.parse("image/*"), finalFile2)
+                            RequestBody.create(Constants.mediaType.toMediaTypeOrNull(), finalFile2)
                         partImage1 =
                             MultipartBody.Part.createFormData(
                                 "image1",
@@ -227,8 +229,8 @@ class RestoRatingActivity : BaseActivity() {
                                 fileReqBody2
                             )
                     } else {
-                        var fileReqBody12 = RequestBody.create(MediaType.parse("image/*"), "")
-                        var fileReqBody21 = RequestBody.create(MediaType.parse("image/*"), "")
+                        var fileReqBody12 = RequestBody.create(Constants.mediaType.toMediaTypeOrNull(), "")
+                        var fileReqBody21 = RequestBody.create(Constants.mediaType.toMediaTypeOrNull(), "")
                         partImage1 = MultipartBody.Part.createFormData("image1", "", fileReqBody12)
                         partImage2 = MultipartBody.Part.createFormData("image2", "", fileReqBody21)
                     }
@@ -242,8 +244,8 @@ class RestoRatingActivity : BaseActivity() {
 
 //                        val file2 = File(pathImage2)
                         var fileReqBody12 =
-                            RequestBody.create(MediaType.parse("image/*"), finalFile1)
-                        var fileReqBody21 = RequestBody.create(MediaType.parse("image/*"), "")
+                            RequestBody.create(Constants.mediaType.toMediaTypeOrNull(), finalFile1!!)
+                        var fileReqBody21 = RequestBody.create(Constants.mediaType.toMediaTypeOrNull(), "")
                         partImage1 = MultipartBody.Part.createFormData(
                             "image1",
                             finalFile1?.getName(),
@@ -257,9 +259,9 @@ class RestoRatingActivity : BaseActivity() {
                         var finalFile2 = compressFile(file2)*/
                         var finalFile2= bitmap2?.let { saveBitmap(it,pathImage2) }
 
-                        var fileReqBody12 = RequestBody.create(MediaType.parse("image/*"), "")
+                        var fileReqBody12 = RequestBody.create(Constants.mediaType.toMediaTypeOrNull(), "")
                         var fileReqBody21 =
-                            RequestBody.create(MediaType.parse("image/*"), finalFile2)
+                            RequestBody.create(Constants.mediaType.toMediaTypeOrNull(), finalFile2!!)
                         partImage1 = MultipartBody.Part.createFormData("image1", "", fileReqBody12)
                         partImage2 = MultipartBody.Part.createFormData(
                             "image2",
@@ -270,8 +272,8 @@ class RestoRatingActivity : BaseActivity() {
                         /*// making path for image
                         val file1 = File(pathImage1)
                         val file2 = File(pathImage2)*/
-                        var fileReqBody12 = RequestBody.create(MediaType.parse("image/*"), "")
-                        var fileReqBody21 = RequestBody.create(MediaType.parse("image/*"), "")
+                        var fileReqBody12 = RequestBody.create(Constants.mediaType.toMediaTypeOrNull(), "")
+                        var fileReqBody21 = RequestBody.create(Constants.mediaType.toMediaTypeOrNull(), "")
                         partImage1 = MultipartBody.Part.createFormData("image1", "", fileReqBody12)
                         partImage2 = MultipartBody.Part.createFormData("image2", "", fileReqBody21)
                     }

@@ -18,5 +18,8 @@ data class Data(
     val phone: String,
     val photo: String,
     val username: String,
-    val message:String
+    val message:String,
+    val radius:Int,
+    val latitude:String,
+    val longitude:String
 )

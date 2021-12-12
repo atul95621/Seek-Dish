@@ -61,8 +61,8 @@ class FriendInfoActivity : BaseActivity() {
     }
 
     private fun getIntents() {
-        image = intent.getStringExtra("IMAGE")
-        name = intent.getStringExtra("NAME")
+        image = intent.getStringExtra("IMAGE").toString()
+        name = intent.getStringExtra("NAME").toString()
         user_id = intent.getIntExtra("USER_ID", 0).toString()
 
         setViews()

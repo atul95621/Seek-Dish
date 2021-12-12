@@ -17,6 +17,7 @@ import android.widget.*
 import androidx.core.content.ContextCompat
 import androidx.exifinterface.media.ExifInterface
 import com.bumptech.glide.load.resource.bitmap.TransformationUtils
+import com.dish.seekdish.Constants
 import com.dish.seekdish.R
 import com.dish.seekdish.custom.CustomListAdapterDialog
 import com.dish.seekdish.custom.GlideApp
@@ -32,6 +33,7 @@ import com.myhexaville.smartimagepicker.ImagePicker
 import com.myhexaville.smartimagepicker.OnImagePickedListener
 import kotlinx.android.synthetic.main.activity_my_information.*
 import okhttp3.MediaType
+import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
 import retrofit2.Response
@@ -41,6 +43,7 @@ import java.util.*
 
 class MyInformationActivity : BaseActivity(), IMyInformationView {
     lateinit var myInfoPresenter: MyInfoPresenter
+
     // lateinit var context  : Context
     var sessionManager: SessionManager? = null;
     val PERMISSION_REQUEST_IMG_CODE = 1
@@ -238,8 +241,7 @@ class MyInformationActivity : BaseActivity(), IMyInformationView {
             } else if (TextUtils.isEmpty(edtUsername!!.text.toString().trim { it <= ' ' })) {
                 showSnackBar(getString(R.string.enter_user))
                 edtUsername!!.requestFocus()
-            }
-           else {
+            } else {
 
                 if (connectionDetector.isConnectingToInternet) {
                     var part: MultipartBody.Part? = null
@@ -255,9 +257,9 @@ class MyInformationActivity : BaseActivity(), IMyInformationView {
                         // if finalFile return null then
                         finalFile = file
                     }
-
+                    var mediaTyp = "image/*"
                     // Create a request body with file and image media type
-                    val fileReqBody = RequestBody.create(MediaType.parse("image/*"), finalFile)
+                    val fileReqBody = RequestBody.create(Constants.mediaType.toMediaTypeOrNull(), finalFile)
                     // Create MultipartBody.Part using file request-body,file name and part name
                     //photo is the KEY that is to be sent over server
                     part = MultipartBody.Part.createFormData("photo", file.getName(), fileReqBody)

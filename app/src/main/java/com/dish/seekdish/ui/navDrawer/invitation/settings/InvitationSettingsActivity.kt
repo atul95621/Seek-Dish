@@ -59,8 +59,8 @@ class InvitationSettingsActivity : BaseActivity() {
     }
 
     private fun getIntents() {
-        validity = intent.getStringExtra("VALIDITY")
-        allow = intent.getStringExtra("ALLOW_INVITATION")
+        validity = intent.getStringExtra("VALIDITY").toString()
+        allow = intent.getStringExtra("ALLOW_INVITATION").toString()
     }
 
     fun getInviattionSetting() {

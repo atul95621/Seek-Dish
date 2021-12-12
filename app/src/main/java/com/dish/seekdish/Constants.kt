@@ -25,7 +25,7 @@ class Constants {
         var mealId = "1"
         var restaurant_id = "3"
         var radius = "4" // 5km default distance
-
+        var mediaType = "image/*"
         fun refreshFragment(frag: String): Fragment {
             when (frag) {
                 "HomeFragment" -> return HomeFragment()

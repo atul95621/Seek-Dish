@@ -76,8 +76,8 @@ class InvitationActivity : BaseActivity() {
         if (connectionDetector.isConnectingToInternet) {
             if (from.equals("NotificationAdapter")) {
 
-                userWhoSent = intent.getStringExtra("USER_WHO_SENT_ID")
-                timeDate = intent.getStringExtra("TIME")
+                userWhoSent = intent.getStringExtra("USER_WHO_SENT_ID").toString()
+                timeDate = intent.getStringExtra("TIME").toString()
 //                invitation_status = intent.getStringExtra("TIME")
 
                 //hitting api
@@ -404,8 +404,8 @@ class InvitationActivity : BaseActivity() {
     }
 
     private fun getIntents() {
-        restro_id = intent.getStringExtra("RESTAURANT_ID")
-        from = intent.getStringExtra("FROM")
+        restro_id = intent.getStringExtra("RESTAURANT_ID").toString()
+        from = intent.getStringExtra("FROM").toString()
 
     }
 

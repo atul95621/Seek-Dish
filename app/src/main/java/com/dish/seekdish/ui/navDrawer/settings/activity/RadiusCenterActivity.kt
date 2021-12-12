@@ -348,7 +348,7 @@ class RadiusCenterActivity : BaseActivity(), OnMapReadyCallback,
             } else if (resultCode == AutocompleteActivity.RESULT_ERROR) {
                 // TODO: Handle the error.
                 val status = Autocomplete.getStatusFromIntent(data!!)
-                Log.e("GooglePlaceSDKonAct", status.statusMessage)
+                Log.e("GooglePlaceSDKonAct", status.statusMessage.toString())
             } else if (resultCode == Activity.RESULT_CANCELED) {
                 // The user canceled the operation.
             }

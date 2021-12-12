@@ -13,19 +13,19 @@ class WebViewActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_web_view)
 
-        val urlToLoad = intent.getStringExtra("url")
+        val urlToLoad = intent.getStringExtra("url").toString()
         val fromPage = intent.getStringExtra("from")
 
-        if (fromPage.equals("SignupTerms")) {
+        if (fromPage?.equals("SignupTerms") == true) {
             tvTitle.setText(getString(R.string.terms_of_use))
             loadUrl(urlToLoad)
         }
-        if (fromPage.equals("SignupPolicy")) {
+        if (fromPage?.equals("SignupPolicy")== true) {
             tvTitle.setText(getString(R.string.privacy_policy))
             loadUrl(urlToLoad)
         }
 
-        if (fromPage.equals("RestroDescrpActivity")) {
+        if (fromPage?.equals("RestroDescrpActivity")== true) {
             tvTitle.setText(getString(R.string.menu))
             loadUrl(urlToLoad)
         }
@@ -41,7 +41,7 @@ class WebViewActivity : AppCompatActivity() {
         mywebview.getSettings().setJavaScriptEnabled(true);
         mywebview!!.webViewClient = object : WebViewClient() {
             override fun shouldOverrideUrlLoading(view: WebView?, url: String?): Boolean {
-                view?.loadUrl(url)
+                view?.loadUrl(url.toString())
                 return true
             }
         }

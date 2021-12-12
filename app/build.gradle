@@ -5,13 +5,13 @@ apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
 
 android {
-    compileSdkVersion 29
+    compileSdkVersion 30
     defaultConfig {
         applicationId "com.dish.seekdish"
         minSdkVersion 17
-        targetSdkVersion 29
-        versionCode 3
-        versionName "1.0"
+        targetSdkVersion 30
+        versionCode 5
+        versionName "1.1"
         multiDexEnabled true
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
@@ -32,15 +32,22 @@ android {
     }
     buildTypes {
         release {
-            shrinkResources false
-            minifyEnabled false
+            shrinkResources true
+            minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
             signingConfig signingConfigs.release
         }
     }
-    compileOptions {
+   /* compileOptions {
         sourceCompatibility = '1.8'
         targetCompatibility = '1.8'
+    }*/
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+    kotlinOptions {
+        jvmTarget = JavaVersion.VERSION_1_8.toString()
     }
 }
 
@@ -93,9 +100,9 @@ dependencies {
     implementation 'com.squareup.retrofit2:converter-gson:2.5.0'
     // degraded the interceptor library to get api response faster.
 //    implementation 'com.squareup.okhttp3:logging-interceptor:3.12.0'
-    implementation 'com.squareup.okhttp3:logging-interceptor:3.4.0'
+    implementation 'com.squareup.okhttp3:logging-interceptor:4.4.0'
 
-    implementation 'com.squareup.okhttp3:okhttp:3.14.0'
+    implementation 'com.squareup.okhttp3:okhttp:4.4.0'
     implementation'com.squareup.retrofit2:converter-scalars:2.5.0'
 
     // for cookie isssue 401

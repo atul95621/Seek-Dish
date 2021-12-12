@@ -79,7 +79,6 @@ class FriendsFragment(var userId: String) : BaseFragment() {
         }*/
     }
 
-
     fun removeFriend(toBeRemovedUserId: Int) {
         friendVM?.doRemoveFriend(
             userId,

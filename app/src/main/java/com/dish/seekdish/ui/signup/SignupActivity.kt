@@ -18,6 +18,7 @@ import android.widget.ArrayAdapter
 import android.widget.TextView
 import androidx.core.content.ContextCompat
 import com.bumptech.glide.load.resource.bitmap.TransformationUtils
+import com.dish.seekdish.Constants
 import com.dish.seekdish.R
 import com.dish.seekdish.ui.WebViewActivity
 import com.dish.seekdish.ui.home.HomeActivity
@@ -27,6 +28,7 @@ import com.myhexaville.smartimagepicker.ImagePicker
 import com.myhexaville.smartimagepicker.OnImagePickedListener
 import kotlinx.android.synthetic.main.activity_signup.*
 import okhttp3.MediaType
+import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
 import retrofit2.Response
@@ -187,7 +189,7 @@ class SignupActivity : BaseActivity(), ISignUpView {
                     }
 
                     // Create a request body with file and image media type
-                    val fileReqBody = RequestBody.create(MediaType.parse("image/*"), finalFile)
+                    val fileReqBody = RequestBody.create(Constants.mediaType.toMediaTypeOrNull(), finalFile)
                     // Create MultipartBody.Part using file request-body,file name and part name
                     //photo is the KEY that is to be sent over server
                     part = MultipartBody.Part.createFormData("photo", file.getName(), fileReqBody)
