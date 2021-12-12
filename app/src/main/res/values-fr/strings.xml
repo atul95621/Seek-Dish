@@ -1,57 +1,38 @@
-<?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">SeekDish</string>
     <string name="discover">Découvrir</string>
     <string name="rate">Noter</string>
-    <string name="walk_descrp_1">
-Seekdish est une application gratuite sur smartphone qui permet à son utilisateur de trouver les plats proposés par les restaurants affiliés. Correspondant le plus à leurs goûts.
-</string>
+    <string name="walk_descrp_1"> Seekdish est une application gratuite sur smartphone qui permet à son utilisateur de trouver les plats proposés par les restaurants affiliés. Correspondant le plus à leurs goûts. Si vous êtes restaurateur allez sur le site seekdish.com pour référencer gratuitement votre restaurant. </string>
     <string name="walk_sub1">Comment ça fonctionne?</string>
-    <string name="walk_sub_part2">
-L\'utilisateur indiquera à l\'application les ingrédients qu\'il aime ou qu\'il n\aime pas et les services qu\'il désire. Le moteur d\’analyse de goût SeekDish va utiliser ces données pour proposer les plats compatibles dans les restaurants se trouvant autour de l\’utilisateur. .
-</string>
-    <string name="walk_third">
-Vous pouvez également demander à SeekDish de vous recommander des plats que vous n’avez jamais goûtés. Là encore la communauté des amateurs de ces plats dans SeekDish vous conduira vers les restaurants ayant les meilleures notes.
-</string>
-    <string name="walk_sub_23">
-Plus l\’utilisateur cherchera et notera des plats, plus SeekDish pourra lui recommander des plats qui ont plu à d\’autres utilisateurs aillant des goûts similaires.
-</string>
+    <string name="walk_sub_part2"> L\'utilisateur indiquera à l\'application les ingrédients qu\'il aime ou qu\'il n\aime pas et les services qu\'il désire. Le moteur d\’analyse de goût SeekDish va utiliser ces données pour proposer les plats compatibles dans les restaurants se trouvant autour de l\’utilisateur. . </string>
+    <string name="walk_third"> Vous pouvez également demander à SeekDish de vous recommander des plats que vous n’avez jamais goûtés. Là encore la communauté des amateurs de ces plats dans SeekDish vous conduira vers les restaurants ayant les meilleures notes. </string>
+    <string name="walk_sub_23"> Plus l\’utilisateur cherchera et notera des plats, plus SeekDish pourra lui recommander des plats qui ont plu à d\’autres utilisateurs aillant des goûts similaires. </string>
     <string name="title_activity_home">Accueil Activité</string>
     <string name="navigation_drawer_open">Ouvrir le tiroir de navigation</string>
     <string name="navigation_drawer_close">Fermer le tiroir de navigation</string>
     <string name="action_settings">Paramètres</string>
-    <string name="hello_blank_fragment">Bonjour page vierge</string>
+    <string name="hello_blank_fragment">Bonjour, page vierge</string>
     <string name="_15">(15)</string>
-    <string name="opinion_1">Des avis</string>
+    <string name="opinion_1">Les avis</string>
     <string name="check_connection">Veuillez vérifier la connexion Internet.</string>
-    <string name="error_occured">
-Erreur est survenue! Essayer plus tard. Code d\'erreur:
-</string>
+    <string name="error_occured"> Erreur est survenue! Essayer plus tard. Code d\'erreur: </string>
     <string name="CONSUMER_KEY">1ARBEdNpT5aQVFC93wkU0QBDJ</string>
     <string name="CONSUMER_SECRET">qXMNaxLuuaXBgQshSBYACNbdybFM9WrmLc17EGvvWOr6otg7DQ</string>
     <string name="google_maps_api">AIzaSyBnyvVgmXQHim-47zELq4zBH2KwSAOciuk</string>
     <string name="setting_saved">Les paramètres ont été enregistrés.</string>
-    <string name="no_meals_found">
-Aucun plat trouvé à votre emplacement. Modifiez vos paramètres.
-</string>
-    <string name="no_restro_found">
-Aucun restaurant trouvé à votre emplacement. Modifiez vos paramètres.
-</string>
-    <string name="no_todo_list">
-Vous n\'avez rien ajouté à Todo List pour l\'instant.
-</string>
-    <string name="no_fav_list">
-Vous n\'avez rien ajouté à la liste des favoris pour l\'instant.
-</string>
-    <string name="no_one_found">Personne trouvé.</string>
-    <string name="no_meal_found">Aucun Plat disponible de ce genre.</string>
-    <string name="no_rest_found">Aucun restaurant disponible de ce genre.</string>
+    <string name="no_meals_found"> Aucun plat trouvé à votre emplacement. Modifiez vos paramètres. </string>
+    <string name="no_restro_found"> Aucun restaurant trouvé à votre emplacement. Modifiez vos paramètres. </string>
+    <string name="no_todo_list"> Vous n\'avez rien ajouté à la liste des plast à tester pour l\'instant. </string>
+    <string name="no_fav_list"> Vous n\'avez rien ajouté à la liste des favoris pour l\'instant. </string>
+    <string name="no_one_found">Le restaurant n\'a pas encore mis de plats.</string>
+    <string name="no_meal_found">Aucun Plat disponible.</string>
+    <string name="no_rest_found">Aucun Restaurant disponible.</string>
     <string name="no_todo">Aucun élément trouvé.</string>
     <string name="change_password">Changer mot de passe</string>
     <string name="back">Retour</string>
     <string name="save">Sauvegarder</string>
-    <string name="old_password">ancien mot de passe</string>
-    <string name="new_password">nouveau mot de passe</string>
+    <string name="old_password">Ancien mot de passe</string>
+    <string name="new_password">Nouveau mot de passe</string>
     <string name="confirm_new_password">Confirmer le nouveau mot de passe</string>
     <string name="my_check_in_list">Ma liste d\'avis</string>
     <string name="no_checkin_yet">Pas encore d\'avis</string>
@@ -65,16 +46,14 @@ Vous n\'avez rien ajouté à la liste des favoris pour l\'instant.
     <string name="enter_facebook_profile">Entrez le profil Facebook</string>
     <string name="enter_twitter_profile">Entrez le profil Twitter</string>
     <string name="my_friends">Mes amis</string>
-    <string name="search_friends_contacts_or_relative_who_already_use_seekdish">
-Rechercher des amis, des contacts ou un parent qui utilisent déjà Seekdish
-</string>
+    <string name="search_friends_contacts_or_relative_who_already_use_seekdish"> Rechercher des amis, des contacts ou un parent qui utilisent déjà Seekdish </string>
     <string name="no_alerts_yet">Aucune alerte pour le moment.</string>
     <string name="actions">Actions</string>
     <string name="details">Détails</string>
-    <string name="restaurant">Restaurant</string>
+    <string name="restaurant">Restaurants</string>
     <string name="budget">Budget</string>
     <string name="calories">Calories</string>
-    <string name="number_of_person">Nombre de personne</string>
+    <string name="number_of_person">Nombre de personnes</string>
     <string name="status">Statut</string>
     <string name="speed_of_service">Vitesse de service</string>
     <string name="prepration_time">Temps de préparation</string>
@@ -88,7 +67,7 @@ Rechercher des amis, des contacts ou un parent qui utilisent déjà Seekdish
     <string name="send">Envoyer</string>
     <string name="forgot_password">Mot de passe oublié</string>
     <string name="info">Info</string>
-    <string name="friends">Copains</string>
+    <string name="friends">Amis</string>
     <string name="check_in">Mes Avis</string>
     <string name="contact">Contact</string>
     <string name="do_not_consider_my_profile">Désactiver le filtre</string>
@@ -116,7 +95,7 @@ Rechercher des amis, des contacts ou un parent qui utilisent déjà Seekdish
     <string name="texture">Texture</string>
     <string name="odor">Odeur</string>
     <string name="my_alert">Mes alertes</string>
-    <string name="search_restaurant">Recherche restaurant</string>
+    <string name="search_restaurant">Rechercher un restaurant</string>
     <string name="my_informations">Mes informations</string>
     <string name="first_name">Prénom</string>
     <string name="last_name">Nom de famille</string>
@@ -132,7 +111,7 @@ Rechercher des amis, des contacts ou un parent qui utilisent déjà Seekdish
     <string name="bio">Ma Biographie</string>
     <string name="my_profile">Mon profil</string>
     <string name="update_profile">Mettre à jour le profil</string>
-    <string name="opinion">Opinions</string>
+    <string name="opinion">Avis</string>
     <string name="service">Service</string>
     <string name="decor">Décor</string>
     <string name="cleaniness">Propreté</string>
@@ -158,7 +137,7 @@ Rechercher des amis, des contacts ou un parent qui utilisent déjà Seekdish
     <string name="message">Message</string>
     <string name="ok">D\'accord</string>
     <string name="share">Partager</string>
-    <string name="add_to_my_list_to_do">Ajouter à ma liste des A Tester</string>
+    <string name="add_to_my_list_to_do">Ajouter à ma liste des plats à tester</string>
     <string name="add_to_my_list_favourite">Ajouter à ma liste des Favoris</string>
     <string name="view_detailed_restaurants">Afficher les infos du restaurant</string>
     <string name="show_on_map">Afficher sur la carte</string>
@@ -171,7 +150,7 @@ Rechercher des amis, des contacts ou un parent qui utilisent déjà Seekdish
     <string name="connect_with">S\'inscrire avec</string>
     <string name="facebook">Facebook</string>
     <string name="twitter">Twitter</string>
-    <string name="already_have_an_account_sign_in">Se connecter avec email</string>
+    <string name="already_have_an_account_sign_in">Se connecter avec votre email</string>
     <string name="proximity">Proximité</string>
     <string name="general">Général</string>
     <string name="geolocation">Géolocalisation</string>
@@ -186,9 +165,7 @@ Rechercher des amis, des contacts ou un parent qui utilisent déjà Seekdish
     <string name="alert">Alerte</string>
     <string name="managing_alerts">Gérer les alertes</string>
     <string name="main_dish">Plat principal</string>
-    <string name="after_having_eaten_the_user_will_be_able_to_also_note_his_dish_as_well_as_the_restaturant_according_to_four_criteria">
-Après avoir mangé, l\'utilisateur pourra également noter son plat ainsi que le restaturant selon quatre critères
-</string>
+    <string name="after_having_eaten_the_user_will_be_able_to_also_note_his_dish_as_well_as_the_restaturant_according_to_four_criteria"> Après avoir mangé, l\'utilisateur pourra également noter son plat ainsi que le restaturant selon quatre critères </string>
     <string name="color">Couleur</string>
     <string name="remove">Retirer</string>
     <string name="follow">Suivre</string>
@@ -198,7 +175,7 @@ Après avoir mangé, l\'utilisateur pourra également noter son plat ainsi que l
     <string name="time">Temps</string>
     <string name="map">Carte</string>
     <string name="ingre">Ingrédients</string>
-    <string name="opini">Opinions</string>
+    <string name="opini">Les avis</string>
     <string name="simi">Similaires</string>
     <string name="invited">Invité</string>
     <string name="lists">liste</string>
@@ -207,38 +184,34 @@ Après avoir mangé, l\'utilisateur pourra également noter son plat ainsi que l
     <string name="following">Influenceurs</string>
     <string name="meals">Plats</string>
     <string name="similar">Similaires</string>
-    <string name="please_fill_email">Veuillez saisir votre e-mail.</string>
-    <string name="fill_email">
-Un email vient de vous etre envoyé avec un mot de passe temporaire.
-</string>
+    <string name="please_fill_email">Veuillez saisir votre email.</string>
+    <string name="fill_email"> Un email vient de vous etre envoyé avec un mot de passe temporaire. </string>
     <string name="fill_new_pass">Veuillez saisir un nouveau mot de passe</string>
     <string name="fill_confirm_pass">Veuillez confirmer le mot de passe</string>
-    <string name="pass_not_match">
-Le mot de passe et la confirmation ne correspondent pas.
-</string>
+    <string name="pass_not_match"> Le mot de passe et la confirmation ne correspondent pas. </string>
     <string name="fill_first">Entrez votre prénom</string>
     <string name="fill_last">Entrez le nom de famille</string>
     <string name="valid_email">Entrez un identifiant e-mail valide</string>
     <string name="enter_passss">Entrez le mot de passe</string>
     <string name="enter_cnfrm">Entrez Confirmer le mot de passe</string>
     <string name="enter_user">Saisissez votre nom d\'utilisateur</string>
-    <string name="addtional_service">Service supplémentaire</string>
-    <string name="comp_intolr">Intolérance alimentaire</string>
-    <string name="comp_ambiance">Ambiance complémentaire</string>
+    <string name="addtional_service">Services additionnels</string>
+    <string name="comp_intolr">Intolérances alimentaire</string>
+    <string name="comp_ambiance">Communautés</string>
     <string name="meal_type">Type de plat</string>
-    <string name="restro_ambiance">Ambiance</string>
-    <string name="restro_speacial">Spécialité</string>
-    <string name="seasonali">Saisonnalité</string>
-    <string name="service_sped">Vitesse de service</string>
+    <string name="restro_ambiance">Atmosphères</string>
+    <string name="restro_speacial">Spécialités</string>
+    <string name="seasonali">Saisonnalités</string>
+    <string name="service_sped">Vitesses de service</string>
     <string name="fav_menu">Mes plats préférés</string>
-    <string name="todo">Mes plats A Tester</string>
+    <string name="todo">Mes plats à tester</string>
     <string name="notifications">Notifications</string>
     <string name="logout">Se déconnecter</string>
     <string name="main_ingre">Ingrédient principal</string>
     <string name="element_Ao">Elements AO</string>
     <string name="intol_capa">Intolerances</string>
     <string name="fat_app">Matières grasses AO</string>
-    <string name="secondary_ingre">Ingrédients secondaires</string>
+    <string name="secondary_ingre">Autres Ingrédients</string>
     <string name="fats">Matières grasses</string>
     <string name="alcohol">Les alcools</string>
     <string name="type_of">Type de cuisson</string>
@@ -246,14 +219,14 @@ Le mot de passe et la confirmation ne correspondent pas.
     <string name="restro_tags">Mots clefs restaurant</string>
     <string name="season">Assaisonnements</string>
     <string name="website">Site Internet</string>
-    <string name="guest">Invités</string>
+    <string name="guest">Nombre de couverts</string>
     <string name="origin">Origine</string>
     <string name="phone">Téléphone</string>
     <string name="schedule">Agenda</string>
-    <string name="additional_Service">Services supplémentaires</string>
-    <string name="restro_amb">Ambiance du restaurant</string>
-    <string name="comple">Complémentaire</string>
-    <string name="servic">Prestations de service</string>
+    <string name="additional_Service">Services additionnels</string>
+    <string name="restro_amb">Atmosphère</string>
+    <string name="comple">Communauté</string>
+    <string name="servic">Services</string>
     <string name="likesss">J\'aime</string>
     <string name="dislikess">Je n\'aime pas</string>
     <string name="checkinns">Avis</string>
@@ -266,290 +239,291 @@ Le mot de passe et la confirmation ne correspondent pas.
     <string name="select_gender_optional">Sélectionnez le sexe (facultatif)</string>
     <string name="my_favourites">Mes préférés</string>
     <string name="inviatation_status">"Statut de l'invitation "</string>
-    <string name="inivitee_incorrect">Oops!! Vous avez sélectionné la date du passé. Veuillez sélectionner la date dans Future.</string>
+    <string name="inivitee_incorrect">Oops!! Vous avez sélectionné la date du passé. Veuillez sélectionner une date ultérieure.</string>
     <string name="select_profession">Sélectionner une profession</string>
     <string name="date_of_birth">Date de naissance</string>
     <string name="description">La description</string>
     <string name="keywords">Mots clés</string>
     <string name="back_again">Veuillez cliquer de nouveau sur BACK pour quitter</string>
-    <string name="update">Une nouvelle version de l\'application est disponible sur la boutique. Veuillez mettre à jour l\'application.</string>
+    <string name="update">Une nouvelle version de l\'application est disponible sur Google Play. Veuillez mettre à jour l\'application.</string>
     <string name="update_str">Mettre à jour</string>
     <string name="number_length">Veuillez saisir un mot de passe de plus de 5 caractères.</string>
     <string name="old_pass">Veuillez remplir l\'ancien mot de passe.</string>
     <string name="new_pass">Veuillez saisir un nouveau mot de passe</string>
     <string name="confrm_pass">Veuillez confirmer le mot de passe</string>
-    <string name="menu">Menu</string>
+    <string name="menu">Carte Menu PDF</string>
     <string name="menu_click">"Cliquez pour voir le menu "</string>
     <string name="go_playstore">Veuillez mettre à jour depuis Google Play Store.</string>
+    <string name="specialities">spécialités</string>
 </resources>
-<!--
-<resources>
-    <string name="app_name">SeekDish</string>
-    <string name="discover">Découvrir</string>
-    <string name="rate">Taux</string>
-    <string name="walk_descrp_1">
-Seekdish est une application gratuite sur smartphone qui permet à son utilisateur de retrouver les plats proposés par les restaurants affiliés. Correspondant le plus à leurs goûts.
-</string>
-    <string name="walk_sub1">Comment ça fonctionne?</string>
-    <string name="walk_sub_part2">
-L\'utilisateur indiquera à l\'application les plats ou ingrédients qu\'il aime ou qu\'il aime         pas comme. Le moteur d\'analyse des goûts de SeekDish utilisera ces données pour proposer des plats compatibles dans les restaurants         de l\'utilisateur.
-</string>
-    <string name="walk_third">
-Mais vous pouvez également demander à SeekDish et recommander des plats que vous n\'avez jamais goûtés. Là encore, le         communauté des amoureux de ces plats à SeekDish vous emmènera au restaurant avec les meilleures notes.
-</string>
-    <string name="walk_sub_23">
-Plus l\'utilisateur recherche et évalue les plats, plus SeekDish peut recommander des plats qui ont         est apparu à d\'autres utilisateurs ayant des goûts similaires.
-</string>
-    <string name="title_activity_home">AccueilActivité</string>
-    <string name="navigation_drawer_open">Ouvrir le tiroir de navigation</string>
-    <string name="navigation_drawer_close">Fermer le tiroir de navigation</string>
-    <string name="action_settings">réglage</string>
-    <string name="hello_blank_fragment">Bonjour fragment vierge</string>
-    <string name="_15">(15)</string>
-    <string name="opinion_1">Des avis</string>
-    <string name="check_connection">Veuillez vérifier la connexion Internet.</string>
-    <string name="error_occured">
-Erreur est survenue! Essayer plus tard. Code d\'erreur:
-</string>
-    <string name="facebook_app_id">354887285188219</string>
-    <string name="fb_login_protocol_scheme">fb354887285188219</string>
-    <string name="CONSUMER_KEY">1ARBEdNpT5aQVFC93wkU0QBDJ</string>
-    <string name="CONSUMER_SECRET">qXMNaxLuuaXBgQshSBYACNbdybFM9WrmLc17EGvvWOr6otg7DQ</string>
-    <string name="google_maps_api">AIzaSyBnyvVgmXQHim-47zELq4zBH2KwSAOciuk</string>
-    <string name="setting_saved">Les paramètres ont été enregistrés.</string>
-    <string name="no_meals_found">
-Aucun repas trouvé à votre emplacement. Modifiez votre emplacement dans les paramètres.
-</string>
-    <string name="no_restro_found">
-Aucun restaurant trouvé à votre emplacement. Modifiez votre emplacement dans les paramètres.
-</string>
-    <string name="no_todo_list">
-Vous n\'avez rien ajouté à Todo List pour l\'instant.
-</string>
-    <string name="no_fav_list">
-Vous n\'avez rien ajouté à la liste des favoris pour l\'instant.
-</string>
-    <string name="no_one_found">Personne trouvé.</string>
-    <string name="no_meal_found">Aucun repas disponible de ce genre.</string>
-    <string name="no_rest_found">Aucun restaurant disponible de ce genre.</string>
-    <string name="no_todo">Aucun élément trouvé.</string>
-    <string name="change_password">Changer le mot de passe</string>
-    <string name="back">Retour</string>
-    <string name="save">sauvegarder</string>
-    <string name="old_password">ancien mot de passe</string>
-    <string name="new_password">nouveau mot de passe</string>
-    <string name="confirm_new_password">Confirmer le nouveau mot de passe</string>
-    <string name="my_check_in_list">Ma liste d\'enregistrement</string>
-    <string name="no_checkin_yet">Pas encore d\'enregistrement.</string>
-    <string name="search_meal">Recherche de repas</string>
-    <string name="registered_meals">Repas enregistrés</string>
-    <string name="not_found">Pas trouvé</string>
-    <string name="contact_details">Détails du contact</string>
-    <string name="enter_email">Entrez votre e-mail</string>
-    <string name="enter_phone">Entrez le téléphone</string>
-    <string name="enter_skype_id">Entrez l\'identifiant Skype</string>
-    <string name="enter_facebook_profile">Entrez le profil Facebook</string>
-    <string name="enter_twitter_profile">Entrez le profil Twitter</string>
-    <string name="my_friends">Mes amies</string>
-    <string name="search_friends_contacts_or_relative_who_already_use_seekdish">
-Rechercher des amis, des contacts ou un parent qui utilisent déjà Seekdish
-</string>
-    <string name="no_alerts_yet">Aucune alerte pour le moment.</string>
-    <string name="actions">Actions</string>
-    <string name="details">Détails</string>
-    <string name="restaurant">Restaurant</string>
-    <string name="budget">Budget</string>
-    <string name="calories">Calories</string>
-    <string name="number_of_person">Nombre de personne</string>
-    <string name="status">Statut</string>
-    <string name="speed_of_service">Vitesse de service</string>
-    <string name="prepration_time">Temps de préparation</string>
-    <string name="intolerance">Intolérance</string>
-    <string name="tags">Mots clés</string>
-    <string name="seasonality">Saisonnalité</string>
-    <string name="type_of_dish">Type de plat</string>
-    <string name="i_dislike">Je n\'aime pas</string>
-    <string name="add">Ajouter</string>
-    <string name="search_friends">Rechercher des amis</string>
-    <string name="send">Envoyer</string>
-    <string name="forgot_password">Mot de passe oublié</string>
-    <string name="info">Info</string>
-    <string name="friends">copains</string>
-    <string name="check_in">Enregistrement</string>
-    <string name="contact">Contact</string>
-    <string name="do_not_consider_my_profile">Ne pas considérer mon profil</string>
-    <string name="confirm">Confirmer</string>
-    <string name="include_friends">Inclure des amis</string>
-    <string name="selected">Choisi</string>
-    <string name="settings">Réglages</string>
-    <string name="allow_invitations">Autoriser les invitations</string>
-    <string name="validity_of_invitation">Validité de l\'invitation</string>
-    <string name="hour">heure</string>
-    <string name="select_language">Choisir la langue</string>
-    <string name="next">Prochain</string>
-    <string name="select_language_D">Choisir la langue</string>
-    <string name="i_like">J\'aime</string>
-    <string name="search_ingredients">Rechercher des ingrédients</string>
-    <string name="validate">Valider</string>
-    <string name="login">S\'identifier</string>
-    <string name="email">Email</string>
-    <string name="password">Mot de passe</string>
-    <string name="remember_me">Souviens-toi de moi</string>
-    <string name="forgot_your_password">Mot de passe oublié?</string>
-    <string name="meal_rating">Évaluation des repas</string>
-    <string name="taste">Goût</string>
-    <string name="presentation">Présentation</string>
-    <string name="texture">Texture</string>
-    <string name="odor">Odeur</string>
-    <string name="my_alert">Mon alerte</string>
-    <string name="search_restaurant">Recherche restaurant</string>
-    <string name="my_informations">Mes informations</string>
-    <string name="first_name">Prénom</string>
-    <string name="last_name">Nom de famille</string>
-    <string name="username">Nom d\'utilisateur</string>
-    <string name="gender">Le sexe</string>
-    <string name="address_line_1">Adresse 1</string>
-    <string name="address_line_2">Adresse Ligne 2</string>
-    <string name="country">Pays</string>
-    <string name="zip_code">Code postal</string>
-    <string name="city">Ville</string>
-    <string name="weight_kg">Poids (kg)</string>
-    <string name="height_cm">Hauteur (cm)</string>
-    <string name="bio">Bio</string>
-    <string name="my_profile">Mon profil</string>
-    <string name="update_profile">Mettre à jour le profil</string>
-    <string name="opinion">Opinion</string>
-    <string name="service">Un service</string>
-    <string name="decor">Décor</string>
-    <string name="cleaniness">Propreté</string>
-    <string name="ambience">Ambiance</string>
-    <string name="radius_center">Radius Center</string>
-    <string name="add_address">Ajoutez l\'adresse</string>
-    <string name="select_current_location">Sélectionnez l\'emplacement actuel</string>
-    <string name="received_friend_request">Demande d\'ami reçue</string>
-    <string name="no_request_found">Aucune demande trouvée</string>
-    <string name="reset_password">réinitialiser le mot de passe</string>
-    <string name="random_password">Mot de passe aléatoire</string>
-    <string name="restaurant_rating">Évaluation du restaurant</string>
-    <string name="sent_friend_request">Demande d\'ami envoyé</string>
-    <string name="phone_number">Numéro de téléphone</string>
-    <string name="bio_optional">Bio (facultatif)</string>
-    <string name="by_signing_to_the_seekdish_i_accept_the">En signant sur le Seekdish, j\'accepte les</string>
-    <string name="terms_of_use">Conditions d\'utilisation</string>
-    <string name="and">et</string>
-    <string name="privacy_policy">Politique de confidentialité</string>
-    <string name="seekdish">SeekDish</string>
-    <string name="perfect_register">Parfait! S\'inscrire</string>
-    <string name="home">Accueil</string>
-    <string name="message">Message</string>
-    <string name="ok">D\'accord</string>
-    <string name="share">Partager</string>
-    <string name="add_to_my_list_to_do">Ajouter à ma liste à faire</string>
-    <string name="add_to_my_list_favourite">Ajouter à ma liste favori </string>
-    <string name="view_detailed_restaurants">Afficher les restaurants détaillés</string>
-    <string name="show_on_map">Afficher sur la carte</string>
-    <string name="cancel">Annuler</string>
-    <string name="add_alert">Ajouter une alerte</string>
-    <string name="add_a_comment">Ajouter un commentaire</string>
-    <string name="comment_here">Commentez ici</string>
-    <string name="nobody_invited_yet">Personne n\'a encore été invité.</string>
-    <string name="cold_entrance">Entrée froide</string>
-    <string name="connect_with">Se connecter avec</string>
-    <string name="facebook">Facebook</string>
-    <string name="twitter">Twitter</string>
-    <string name="already_have_an_account_sign_in">Vous avez déjà un compte? se connecter</string>
-    <string name="proximity">Proximité</string>
-    <string name="general">Général</string>
-    <string name="geolocation">Géolocalisation</string>
-    <string name="push_notification">Notification push</string>
-    <string name="private_m">Privé</string>
-    <string name="search_radius">Rayon de recherche</string>
-    <string name="km">Km</string>
-    <string name="language">Langue</string>
-    <string name="profile">Profil</string>
-    <string name="update_my_profile">Mettre à jour mon profil</string>
-    <string name="add_friends">Ajouter des amis</string>
-    <string name="alert">Alerte</string>
-    <string name="managing_alerts">Gérer les alertes</string>
-    <string name="main_dish">Plat principal</string>
-    <string name="after_having_eaten_the_user_will_be_able_to_also_note_his_dish_as_well_as_the_restaturant_according_to_four_criteria">
-Après avoir mangé, l\'utilisateur pourra également noter son plat ainsi que le restaturant selon quatre critères
-</string>
-    <string name="color">Couleur</string>
-    <string name="remove">Retirer</string>
-    <string name="follow">Suivre</string>
-    <string name="add_friend">Ajouter un ami</string>
-    <string name="accept">J\'accepte</string>
-    <string name="decline">Déclin</string>
-    <string name="time">Temps</string>
-    <string name="map">Carte</string>
-    <string name="ingre">Ingrédients</string>
-    <string name="opini">Opinion</string>
-    <string name="simi">Similaire</string>
-    <string name="invited">Invité</string>
-    <string name="lists">liste</string>
-    <string name="friendsss">copains</string>
-    <string name="followers">Suiveurs</string>
-    <string name="following">Suivant</string>
-    <string name="meals">Repas</string>
-    <string name="similar">Similaire</string>
-    <string name="please_fill_email">Veuillez remplir votre e-mail.</string>
-    <string name="fill_email">
-Veuillez remplir un mot de passe aléatoire fourni par e-mail.
-</string>
-    <string name="fill_new_pass">Veuillez saisir un nouveau mot de passe</string>
-    <string name="fill_confirm_pass">Veuillez confirmer le mot de passe</string>
-    <string name="pass_not_match">
-Le mot de passe et la confirmation du mot de passe ne correspondent pas.
-</string>
-    <string name="fill_first">Entrez votre prénom</string>
-    <string name="fill_last">Entrer le nom de famille</string>
-    <string name="valid_email">Entrez un identifiant e-mail valide</string>
-    <string name="enter_passss">Entrer le mot de passe</string>
-    <string name="enter_cnfrm">Entrez Confirmer le mot de passe</string>
-    <string name="enter_user">Saisissez votre nom d\'utilisateur</string>
-    <string name="addtional_service">Des services supplémentaires</string>
-    <string name="comp_intolr">Intolérance à la compatibilité</string>
-    <string name="comp_ambiance">Ambiance complémentaire</string>
-    <string name="meal_type">Type de repas</string>
-    <string name="restro_ambiance">Ambiance restaurant</string>
-    <string name="restro_speacial">Spécialité restaurant</string>
-    <string name="seasonali">Saisonnalité</string>
-    <string name="service_sped">Vitesse de service</string>
-    <string name="fav_menu">Menu préféré</string>
-    <string name="todo">Faire</string>
-    <string name="notifications">Notifications</string>
-    <string name="logout">Se déconnecter</string>
-    <string name="main_ingre">Les ingrédients principaux</string>
-    <string name="element_Ao">Element AO</string>
-    <string name="intol_capa">Compatibilité Intolernace</string>
-    <string name="fat_app">Appellation grasse</string>
-    <string name="secondary_ingre">Ingrédients secondaires</string>
-    <string name="fats">Les graisses</string>
-    <string name="alcohol">De l\'alcool</string>
-    <string name="type_of">Type de cuisine</string>
-    <string name="meal">Étiquettes de repas</string>
-    <string name="restro_tags">Étiquettes de restaurant</string>
-    <string name="season">assaisonnement</string>
-    <string name="website">Site Internet</string>
-    <string name="guest">Invités</string>
-    <string name="origin">Origine</string>
-    <string name="phone">Téléphone</string>
-    <string name="schedule">Programme</string>
-    <string name="additional_Service">Services supplémentaires</string>
-    <string name="restro_amb">Ambiance du restaurant</string>
-    <string name="comple">Complémentaire</string>
-    <string name="servic">Prestations de service</string>
-    <string name="likesss">Aime</string>
-    <string name="dislikess">N\'aime pas</string>
-    <string name="checkinns">Enregistrement</string>
-    <string name="of_profile">de profil</string>
-    <string name="body_fat">Sélectionnez la graisse corporelle</string>
-    <string name="slim">Svelte</string>
-    <string name="medium">Moyen</string>
-    <string name="fat">Graisse</string>
-    <string name="select_genderss">Sélectionnez le sexe</string>
-    <string name="select_gender_optional">Sélectionnez le sexe (facultatif)</string>
-    <string name="my_favourites">Mes préférés</string>
-    <string name="inviatation_status">Invitation Status</string>
-</resources>-->
+    <!--
+    <resources>
+        <string name="app_name">SeekDish</string>
+        <string name="discover">Découvrir</string>
+        <string name="rate">Taux</string>
+        <string name="walk_descrp_1">
+    Seekdish est une application gratuite sur smartphone qui permet à son utilisateur de retrouver les plats proposés par les restaurants affiliés. Correspondant le plus à leurs goûts.
+    </string>
+        <string name="walk_sub1">Comment ça fonctionne?</string>
+        <string name="walk_sub_part2">
+    L\'utilisateur indiquera à l\'application les plats ou ingrédients qu\'il aime ou qu\'il aime         pas comme. Le moteur d\'analyse des goûts de SeekDish utilisera ces données pour proposer des plats compatibles dans les restaurants         de l\'utilisateur.
+    </string>
+        <string name="walk_third">
+    Mais vous pouvez également demander à SeekDish et recommander des plats que vous n\'avez jamais goûtés. Là encore, le         communauté des amoureux de ces plats à SeekDish vous emmènera au restaurant avec les meilleures notes.
+    </string>
+        <string name="walk_sub_23">
+    Plus l\'utilisateur recherche et évalue les plats, plus SeekDish peut recommander des plats qui ont         est apparu à d\'autres utilisateurs ayant des goûts similaires.
+    </string>
+        <string name="title_activity_home">AccueilActivité</string>
+        <string name="navigation_drawer_open">Ouvrir le tiroir de navigation</string>
+        <string name="navigation_drawer_close">Fermer le tiroir de navigation</string>
+        <string name="action_settings">réglage</string>
+        <string name="hello_blank_fragment">Bonjour fragment vierge</string>
+        <string name="_15">(15)</string>
+        <string name="opinion_1">Des avis</string>
+        <string name="check_connection">Veuillez vérifier la connexion Internet.</string>
+        <string name="error_occured">
+    Erreur est survenue! Essayer plus tard. Code d\'erreur:
+    </string>
+        <string name="facebook_app_id">354887285188219</string>
+        <string name="fb_login_protocol_scheme">fb354887285188219</string>
+        <string name="CONSUMER_KEY">1ARBEdNpT5aQVFC93wkU0QBDJ</string>
+        <string name="CONSUMER_SECRET">qXMNaxLuuaXBgQshSBYACNbdybFM9WrmLc17EGvvWOr6otg7DQ</string>
+        <string name="google_maps_api">AIzaSyBnyvVgmXQHim-47zELq4zBH2KwSAOciuk</string>
+        <string name="setting_saved">Les paramètres ont été enregistrés.</string>
+        <string name="no_meals_found">
+    Aucun repas trouvé à votre emplacement. Modifiez votre emplacement dans les paramètres.
+    </string>
+        <string name="no_restro_found">
+    Aucun restaurant trouvé à votre emplacement. Modifiez votre emplacement dans les paramètres.
+    </string>
+        <string name="no_todo_list">
+    Vous n\'avez rien ajouté à Todo List pour l\'instant.
+    </string>
+        <string name="no_fav_list">
+    Vous n\'avez rien ajouté à la liste des favoris pour l\'instant.
+    </string>
+        <string name="no_one_found">Personne trouvé.</string>
+        <string name="no_meal_found">Aucun repas disponible de ce genre.</string>
+        <string name="no_rest_found">Aucun restaurant disponible de ce genre.</string>
+        <string name="no_todo">Aucun élément trouvé.</string>
+        <string name="change_password">Changer le mot de passe</string>
+        <string name="back">Retour</string>
+        <string name="save">sauvegarder</string>
+        <string name="old_password">ancien mot de passe</string>
+        <string name="new_password">nouveau mot de passe</string>
+        <string name="confirm_new_password">Confirmer le nouveau mot de passe</string>
+        <string name="my_check_in_list">Ma liste d\'enregistrement</string>
+        <string name="no_checkin_yet">Pas encore d\'enregistrement.</string>
+        <string name="search_meal">Recherche de repas</string>
+        <string name="registered_meals">Repas enregistrés</string>
+        <string name="not_found">Pas trouvé</string>
+        <string name="contact_details">Détails du contact</string>
+        <string name="enter_email">Entrez votre e-mail</string>
+        <string name="enter_phone">Entrez le téléphone</string>
+        <string name="enter_skype_id">Entrez l\'identifiant Skype</string>
+        <string name="enter_facebook_profile">Entrez le profil Facebook</string>
+        <string name="enter_twitter_profile">Entrez le profil Twitter</string>
+        <string name="my_friends">Mes amies</string>
+        <string name="search_friends_contacts_or_relative_who_already_use_seekdish">
+    Rechercher des amis, des contacts ou un parent qui utilisent déjà Seekdish
+    </string>
+        <string name="no_alerts_yet">Aucune alerte pour le moment.</string>
+        <string name="actions">Actions</string>
+        <string name="details">Détails</string>
+        <string name="restaurant">Restaurant</string>
+        <string name="budget">Budget</string>
+        <string name="calories">Calories</string>
+        <string name="number_of_person">Nombre de personne</string>
+        <string name="status">Statut</string>
+        <string name="speed_of_service">Vitesse de service</string>
+        <string name="prepration_time">Temps de préparation</string>
+        <string name="intolerance">Intolérance</string>
+        <string name="tags">Mots clés</string>
+        <string name="seasonality">Saisonnalité</string>
+        <string name="type_of_dish">Type de plat</string>
+        <string name="i_dislike">Je n\'aime pas</string>
+        <string name="add">Ajouter</string>
+        <string name="search_friends">Rechercher des amis</string>
+        <string name="send">Envoyer</string>
+        <string name="forgot_password">Mot de passe oublié</string>
+        <string name="info">Info</string>
+        <string name="friends">copains</string>
+        <string name="check_in">Enregistrement</string>
+        <string name="contact">Contact</string>
+        <string name="do_not_consider_my_profile">Ne pas considérer mon profil</string>
+        <string name="confirm">Confirmer</string>
+        <string name="include_friends">Inclure des amis</string>
+        <string name="selected">Choisi</string>
+        <string name="settings">Réglages</string>
+        <string name="allow_invitations">Autoriser les invitations</string>
+        <string name="validity_of_invitation">Validité de l\'invitation</string>
+        <string name="hour">heure</string>
+        <string name="select_language">Choisir la langue</string>
+        <string name="next">Prochain</string>
+        <string name="select_language_D">Choisir la langue</string>
+        <string name="i_like">J\'aime</string>
+        <string name="search_ingredients">Rechercher des ingrédients</string>
+        <string name="validate">Valider</string>
+        <string name="login">S\'identifier</string>
+        <string name="email">Email</string>
+        <string name="password">Mot de passe</string>
+        <string name="remember_me">Souviens-toi de moi</string>
+        <string name="forgot_your_password">Mot de passe oublié?</string>
+        <string name="meal_rating">Évaluation des repas</string>
+        <string name="taste">Goût</string>
+        <string name="presentation">Présentation</string>
+        <string name="texture">Texture</string>
+        <string name="odor">Odeur</string>
+        <string name="my_alert">Mon alerte</string>
+        <string name="search_restaurant">Recherche restaurant</string>
+        <string name="my_informations">Mes informations</string>
+        <string name="first_name">Prénom</string>
+        <string name="last_name">Nom de famille</string>
+        <string name="username">Nom d\'utilisateur</string>
+        <string name="gender">Le sexe</string>
+        <string name="address_line_1">Adresse 1</string>
+        <string name="address_line_2">Adresse Ligne 2</string>
+        <string name="country">Pays</string>
+        <string name="zip_code">Code postal</string>
+        <string name="city">Ville</string>
+        <string name="weight_kg">Poids (kg)</string>
+        <string name="height_cm">Hauteur (cm)</string>
+        <string name="bio">Bio</string>
+        <string name="my_profile">Mon profil</string>
+        <string name="update_profile">Mettre à jour le profil</string>
+        <string name="opinion">Opinion</string>
+        <string name="service">Un service</string>
+        <string name="decor">Décor</string>
+        <string name="cleaniness">Propreté</string>
+        <string name="ambience">Ambiance</string>
+        <string name="radius_center">Radius Center</string>
+        <string name="add_address">Ajoutez l\'adresse</string>
+        <string name="select_current_location">Sélectionnez l\'emplacement actuel</string>
+        <string name="received_friend_request">Demande d\'ami reçue</string>
+        <string name="no_request_found">Aucune demande trouvée</string>
+        <string name="reset_password">réinitialiser le mot de passe</string>
+        <string name="random_password">Mot de passe aléatoire</string>
+        <string name="restaurant_rating">Évaluation du restaurant</string>
+        <string name="sent_friend_request">Demande d\'ami envoyé</string>
+        <string name="phone_number">Numéro de téléphone</string>
+        <string name="bio_optional">Bio (facultatif)</string>
+        <string name="by_signing_to_the_seekdish_i_accept_the">En signant sur le Seekdish, j\'accepte les</string>
+        <string name="terms_of_use">Conditions d\'utilisation</string>
+        <string name="and">et</string>
+        <string name="privacy_policy">Politique de confidentialité</string>
+        <string name="seekdish">SeekDish</string>
+        <string name="perfect_register">Parfait! S\'inscrire</string>
+        <string name="home">Accueil</string>
+        <string name="message">Message</string>
+        <string name="ok">D\'accord</string>
+        <string name="share">Partager</string>
+        <string name="add_to_my_list_to_do">Ajouter à ma liste à faire</string>
+        <string name="add_to_my_list_favourite">Ajouter à ma liste favori </string>
+        <string name="view_detailed_restaurants">Afficher les restaurants détaillés</string>
+        <string name="show_on_map">Afficher sur la carte</string>
+        <string name="cancel">Annuler</string>
+        <string name="add_alert">Ajouter une alerte</string>
+        <string name="add_a_comment">Ajouter un commentaire</string>
+        <string name="comment_here">Commentez ici</string>
+        <string name="nobody_invited_yet">Personne n\'a encore été invité.</string>
+        <string name="cold_entrance">Entrée froide</string>
+        <string name="connect_with">Se connecter avec</string>
+        <string name="facebook">Facebook</string>
+        <string name="twitter">Twitter</string>
+        <string name="already_have_an_account_sign_in">Vous avez déjà un compte? se connecter</string>
+        <string name="proximity">Proximité</string>
+        <string name="general">Général</string>
+        <string name="geolocation">Géolocalisation</string>
+        <string name="push_notification">Notification push</string>
+        <string name="private_m">Privé</string>
+        <string name="search_radius">Rayon de recherche</string>
+        <string name="km">Km</string>
+        <string name="language">Langue</string>
+        <string name="profile">Profil</string>
+        <string name="update_my_profile">Mettre à jour mon profil</string>
+        <string name="add_friends">Ajouter des amis</string>
+        <string name="alert">Alerte</string>
+        <string name="managing_alerts">Gérer les alertes</string>
+        <string name="main_dish">Plat principal</string>
+        <string name="after_having_eaten_the_user_will_be_able_to_also_note_his_dish_as_well_as_the_restaturant_according_to_four_criteria">
+    Après avoir mangé, l\'utilisateur pourra également noter son plat ainsi que le restaturant selon quatre critères
+    </string>
+        <string name="color">Couleur</string>
+        <string name="remove">Retirer</string>
+        <string name="follow">Suivre</string>
+        <string name="add_friend">Ajouter un ami</string>
+        <string name="accept">J\'accepte</string>
+        <string name="decline">Déclin</string>
+        <string name="time">Temps</string>
+        <string name="map">Carte</string>
+        <string name="ingre">Ingrédients</string>
+        <string name="opini">Opinion</string>
+        <string name="simi">Similaire</string>
+        <string name="invited">Invité</string>
+        <string name="lists">liste</string>
+        <string name="friendsss">copains</string>
+        <string name="followers">Suiveurs</string>
+        <string name="following">Suivant</string>
+        <string name="meals">Repas</string>
+        <string name="similar">Similaire</string>
+        <string name="please_fill_email">Veuillez remplir votre e-mail.</string>
+        <string name="fill_email">
+    Veuillez remplir un mot de passe aléatoire fourni par e-mail.
+    </string>
+        <string name="fill_new_pass">Veuillez saisir un nouveau mot de passe</string>
+        <string name="fill_confirm_pass">Veuillez confirmer le mot de passe</string>
+        <string name="pass_not_match">
+    Le mot de passe et la confirmation du mot de passe ne correspondent pas.
+    </string>
+        <string name="fill_first">Entrez votre prénom</string>
+        <string name="fill_last">Entrer le nom de famille</string>
+        <string name="valid_email">Entrez un identifiant e-mail valide</string>
+        <string name="enter_passss">Entrer le mot de passe</string>
+        <string name="enter_cnfrm">Entrez Confirmer le mot de passe</string>
+        <string name="enter_user">Saisissez votre nom d\'utilisateur</string>
+        <string name="addtional_service">Des services supplémentaires</string>
+        <string name="comp_intolr">Intolérance à la compatibilité</string>
+        <string name="comp_ambiance">Ambiance complémentaire</string>
+        <string name="meal_type">Type de repas</string>
+        <string name="restro_ambiance">Ambiance restaurant</string>
+        <string name="restro_speacial">Spécialité restaurant</string>
+        <string name="seasonali">Saisonnalité</string>
+        <string name="service_sped">Vitesse de service</string>
+        <string name="fav_menu">Menu préféré</string>
+        <string name="todo">Faire</string>
+        <string name="notifications">Notifications</string>
+        <string name="logout">Se déconnecter</string>
+        <string name="main_ingre">Les ingrédients principaux</string>
+        <string name="element_Ao">Element AO</string>
+        <string name="intol_capa">Compatibilité Intolernace</string>
+        <string name="fat_app">Appellation grasse</string>
+        <string name="secondary_ingre">Ingrédients secondaires</string>
+        <string name="fats">Les graisses</string>
+        <string name="alcohol">De l\'alcool</string>
+        <string name="type_of">Type de cuisine</string>
+        <string name="meal">Étiquettes de repas</string>
+        <string name="restro_tags">Étiquettes de restaurant</string>
+        <string name="season">assaisonnement</string>
+        <string name="website">Site Internet</string>
+        <string name="guest">Invités</string>
+        <string name="origin">Origine</string>
+        <string name="phone">Téléphone</string>
+        <string name="schedule">Programme</string>
+        <string name="additional_Service">Services supplémentaires</string>
+        <string name="restro_amb">Ambiance du restaurant</string>
+        <string name="comple">Complémentaire</string>
+        <string name="servic">Prestations de service</string>
+        <string name="likesss">Aime</string>
+        <string name="dislikess">N\'aime pas</string>
+        <string name="checkinns">Enregistrement</string>
+        <string name="of_profile">de profil</string>
+        <string name="body_fat">Sélectionnez la graisse corporelle</string>
+        <string name="slim">Svelte</string>
+        <string name="medium">Moyen</string>
+        <string name="fat">Graisse</string>
+        <string name="select_genderss">Sélectionnez le sexe</string>
+        <string name="select_gender_optional">Sélectionnez le sexe (facultatif)</string>
+        <string name="my_favourites">Mes préférés</string>
+        <string name="inviatation_status">Invitation Status</string>
+    </resources> -->

@@ -38,7 +38,7 @@ class FriendInfoActivity : BaseActivity() {
             startActivity(intent)
         }
 
-        tvContact.setOnClickListener {
+  /*      tvContact.setOnClickListener {
             if (sessionManager?.getValue(SessionManager.USER_ID).equals(user_id)) {
                 val intent = Intent(this@FriendInfoActivity, ContactActivity::class.java)
                 intent.putExtra("USER_ID", user_id.toString());
@@ -46,7 +46,7 @@ class FriendInfoActivity : BaseActivity() {
             } else {
                 tvContact.visibility = View.GONE
             }
-        }
+        }*/
 
         tvFriend.setOnClickListener()
         {

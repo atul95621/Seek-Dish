@@ -105,7 +105,7 @@ class RestroDetailsFragment(var response: RestroDescpModel) : Fragment() {
         var webs = response.data.restaurant.restaurant_detail.detail[0].website
         if (!webs.isNullOrEmpty()) {
             var website = response.data.restaurant.restaurant_detail.detail[0].website ?: "null"
-            websiteURL=website
+            websiteURL = website
             addProduct(getString(R.string.website), website)
         }
         var serviceSpeed = response.data.restaurant.service_speed
@@ -118,6 +118,9 @@ class RestroDetailsFragment(var response: RestroDescpModel) : Fragment() {
         addProduct(getString(R.string.phone), phone)
         var schedule = response.data.restaurant.restaurant_detail.detail[0].schedule ?: "null"
         addProduct(getString(R.string.schedule), schedule)
+        for (items in response.data.restaurant.restaurant_detail.specialities) {
+            addProduct(getString(R.string.specialities), items)
+        }
         for (items in response.data.restaurant.restaurant_detail.additional_services) {
             addProduct(getString(R.string.servic), items)
         }

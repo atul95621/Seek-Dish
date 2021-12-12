@@ -266,6 +266,7 @@ class MyInformationActivity : BaseActivity(), IMyInformationView {
 //                        val fileReqBody = RequestBody.create(MediaType.parse("image/*"), "")
 //                        part = MultipartBody.Part.createFormData("photo", "", fileReqBody)
 
+
                         //calling api
                         myInfoPresenter.updateInfoWithoutImage(
                             stringConvertToRequestBody(edtName.text.toString()),
