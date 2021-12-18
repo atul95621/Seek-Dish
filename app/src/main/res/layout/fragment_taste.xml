@@ -50,7 +50,8 @@
                 android:paddingStart="10dp"
                 android:paddingEnd="40dp"
                 android:textSize="18sp"
-                tools:ignore="Autofill,LabelFor,RtlHardcoded,TextFields" />
+                tools:ignore="Autofill,LabelFor,RtlHardcoded,TextFields"
+                />
 
         </LinearLayout>
     </LinearLayout>
