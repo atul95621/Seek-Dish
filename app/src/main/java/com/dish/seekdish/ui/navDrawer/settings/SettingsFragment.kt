@@ -347,6 +347,7 @@ class SettingsFragment(var homeActivity: HomeActivity) : BaseFragment(), ISettin
             val sendUserGeneralSetting = response.body() as SendUserGeneralSetting
 
             if (sendUserGeneralSetting.status == 1) {
+                sessionManager.setValues(SessionManager.RADIUS, sendUserGeneralSetting.data.radius.toString())
                 showSnackBar(sendUserGeneralSetting.message);
             } else {
                 showSnackBar(sendUserGeneralSetting.message);

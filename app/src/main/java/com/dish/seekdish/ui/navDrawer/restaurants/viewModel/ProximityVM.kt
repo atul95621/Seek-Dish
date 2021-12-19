@@ -51,7 +51,7 @@ class ProximityVM :ViewModel(){
         )
 
         Log.e(
-            "pramsGetProxiyRestro",
+            "pramsGetProxiyRestro22",
             " " + userId + "    " + pageNumber + "lati   " + latitude + "    longi   " + longitude + "     radius   " + radius
         )
 
