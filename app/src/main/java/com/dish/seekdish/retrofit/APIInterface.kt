@@ -236,6 +236,7 @@ internal interface APIInterface {
         @Part("birth_date") date_of_birth: RequestBody
     ): Call<ProfileDataClass>
 
+    @FormUrlEncoded
     @POST("change_password")
     fun changePassword(
         @Field("user") userId: String,

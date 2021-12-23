@@ -3,6 +3,7 @@ package com.dish.seekdish.ui.navDrawer.activities
 import android.os.Bundle
 import com.dish.seekdish.R
 import com.dish.seekdish.custom.ProgressBarClass
+import com.dish.seekdish.retrofit.APIClient
 import com.dish.seekdish.retrofit.APIInterface
 import com.dish.seekdish.ui.navDrawer.settings.dataModel.CancelReModel
 import com.dish.seekdish.util.BaseActivity
@@ -58,6 +59,8 @@ class ChangePasswordActivity : BaseActivity() {
     }
 
     fun changePass(old: String, new: String, confrmNew: String) {
+        apiInterface = APIClient.getClient(this).create(APIInterface::class.java)
+
         val call =
             apiInterface.changePassword(
                 sessionManager?.getValue(SessionManager.USER_ID).toString(),
