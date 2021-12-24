@@ -149,8 +149,8 @@ internal interface APIInterface {
         @Field("geolocation") geolocation: String,
         @Field("push_notification") push_notification: String,
         @Field("private") private: String,
-        @Field("radius") radius: String
-
+        @Field("radius") radius: String,
+        @Field("radius_center_location") radius_center_location: String
     ): Call<SendUserGeneralSetting>
 
     @FormUrlEncoded

@@ -12,7 +12,8 @@ data class Data(
     val geolocation: Int,
     val liked_count: Int,
     val push_notification: Int,
-    val radius: Int
+    val radius: Int,
+    var radius_center_location:String
 )
 
 

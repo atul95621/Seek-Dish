@@ -172,7 +172,9 @@ class SettingsFragment(var homeActivity: HomeActivity) : BaseFragment(), ISettin
                     geoCheck,
                     pushCheck,
                     privateCheck,
-                    numberPicker!!.value
+                    numberPicker!!.value,
+                    sessionManager.getValue(SessionManager.PLACE_SELECTED).toString()
+
                 )
 
             } else {
@@ -186,30 +188,10 @@ class SettingsFragment(var homeActivity: HomeActivity) : BaseFragment(), ISettin
 
     private fun setAddressRadiusdLang(view: View) {
         var language: String = sessionManager.getLangValue(SessionManager.LANGUAGE_NAME)
-        var radiusCenter: String = sessionManager.getValue(SessionManager.PLACE_SELECTED)
 
         if (language != null && language != "null" && language != "") {
             view.tvLanguage.setText(language)
         }
-        if (radiusCenter != null && radiusCenter != "null" && radiusCenter != "") {
-            view.txtPlace.setText(radiusCenter)
-        }
-
-
-        // setting the address name
-        if (!sessionManager.getValue(SessionManager.PLACE_SELECTED).equals("") && sessionManager.getValue(
-                SessionManager.PLACE_SELECTED
-            ) != null && sessionManager.getValue(
-                SessionManager.PLACE_SELECTED
-            ) != "null"
-        ) {
-//            Log.e("placelog", " " + sessionManager.getValue(SessionManager.PLACE_SELECTED))
-            var placeSelected = sessionManager.getValue(SessionManager.PLACE_SELECTED)
-            view.txtPlace.setText(placeSelected)
-        } else {
-            view.txtPlace.setText(" ")
-        }
-
     }
 
     private fun getSettingInfo() {
@@ -309,8 +291,17 @@ class SettingsFragment(var homeActivity: HomeActivity) : BaseFragment(), ISettin
                     tvLikeCount.setText(settingDataClass.data.liked_count.toString() +" "+ resources.getString(R.string.i_like))
                     tvDisLikeCount.setText(settingDataClass.data.disliked_count.toString() + " "+resources.getString(R.string.i_dislike))
 
-                    numberPicker?.setValue(settingDataClass.data.radius)
+                    if(sessionManager.getValue(SessionManager.PLACE_SELECTED).toString().isNullOrEmpty()==true)
+                    {
+                        txtPlace.setText(settingDataClass.data.radius_center_location.toString())
+                    }
+                    else
+                    {
+                        var placeSelected = sessionManager.getValue(SessionManager.PLACE_SELECTED)
+                        txtPlace.setText(placeSelected)
+                    }
 
+                    numberPicker?.setValue(settingDataClass.data.radius)
                     numberPicker?.isEnabled = true
 
                 } catch (e: Exception) {

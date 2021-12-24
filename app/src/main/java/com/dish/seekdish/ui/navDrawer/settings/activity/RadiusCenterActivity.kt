@@ -102,7 +102,7 @@ class RadiusCenterActivity : BaseActivity(), OnMapReadyCallback,
 
 
                 // this way the user can selected a particular location
-                sessionManager?.setValues(SessionManager.LOCATION_SELECTED, "1");
+//                sessionManager?.setValues(SessionManager.LOCATION_SELECTED, "1");
 
                 updateCordsOnServer(
                     sessionManager?.getValue(SessionManager.USER_ID).toString(),
@@ -125,7 +125,7 @@ class RadiusCenterActivity : BaseActivity(), OnMapReadyCallback,
                    );*/
 
                 // this way the user can selected current location and it will get updated if user moves with the app
-                sessionManager?.setValues(SessionManager.LOCATION_SELECTED, "0");
+//                sessionManager?.setValues(SessionManager.LOCATION_SELECTED, "0");
 
                 sessionManager?.setValues(
                     SessionManager.LATITUDE,

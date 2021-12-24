@@ -1,7 +1,6 @@
 package com.dish.seekdish.ui.navDrawer.settings.presenter
 
 import android.util.Log
-import android.widget.Switch
 import com.dish.seekdish.R
 import com.dish.seekdish.custom.ProgressBarClass
 import com.dish.seekdish.retrofit.APIClient
@@ -64,13 +63,14 @@ class SettingFragPresenter(private val iSettingView: ISettingView, val homeActiv
         geo: String,
         push: String,
         checkboxPrivate: String,
-        radius: Int
+        radius: Int,
+        radius_center_location: String
     ) {
         ProgressBarClass.progressBarCalling(homeActivity)
         apiInterface = APIClient.getClient(homeActivity).create(APIInterface::class.java)
 
 
-        val call = apiInterface.setGeneralSetting(userId, geo, push, checkboxPrivate, radius.toString())
+        val call = apiInterface.setGeneralSetting(userId, geo, push, checkboxPrivate, radius.toString(),radius_center_location)
         call.enqueue(object : Callback<SendUserGeneralSetting> {
             override fun onResponse(call: Call<SendUserGeneralSetting>, response: Response<SendUserGeneralSetting>) {
 

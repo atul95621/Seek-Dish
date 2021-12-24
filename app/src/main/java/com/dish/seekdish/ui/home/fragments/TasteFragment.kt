@@ -106,9 +106,9 @@ class TasteFragment : BaseFragment(), GoogleApiClient.ConnectionCallbacks,
         sessionManager.setValues(SessionManager.CURRENT_SCREEN, "HomeFragment")
 
         /// did this so that if user move when selected current position teh location gets updated if selected then not
-        if (sessionManager.getValue(SessionManager.LOCATION_SELECTED).isNullOrEmpty()) {
-            sessionManager.setValues(SessionManager.LOCATION_SELECTED, "0")
-        }
+//        if (sessionManager.getValue(SessionManager.LOCATION_SELECTED).isNullOrEmpty()) {
+//            sessionManager.setValues(SessionManager.LOCATION_SELECTED, "0")
+//        }
 
         // hiding keyboard
         hideKeyBoard()
@@ -116,13 +116,7 @@ class TasteFragment : BaseFragment(), GoogleApiClient.ConnectionCallbacks,
 
         //check connection
         if (homeActivity.connectionDetector.isConnectingToInternet) {
-            if (sessionManager.getValue(SessionManager.LATITUDE)
-                    .isNullOrEmpty() == false && sessionManager.getValue(
-                    SessionManager.LONGITUDE
-                )
-                    .isNullOrEmpty() == false && sessionManager.getValue(SessionManager.LOCATION_SELECTED)
-                    .equals("1")
-            ) {
+            if (sessionManager.getValue(SessionManager.LATITUDE).isNullOrEmpty() == false && sessionManager.getValue(SessionManager.LONGITUDE).isNullOrEmpty() == false) {
 //                Log.e("current_location11", "$currentLatitude ,   $currentLongitude")
 
                 //hitting api
@@ -248,7 +242,9 @@ class TasteFragment : BaseFragment(), GoogleApiClient.ConnectionCallbacks,
 
 
                 //now loading the meals at current location if user came to app after login
-                mealForCurrentLOcation()
+                if (sessionManager.getValue(SessionManager.LATITUDE).isNullOrEmpty() == true && sessionManager.getValue(SessionManager.LONGITUDE).isNullOrEmpty() == true) {
+                    mealForCurrentLOcation()
+                }
 
                 // providng the slected coordinates to server...
                 checkAndSaveLocation()
@@ -296,26 +292,18 @@ class TasteFragment : BaseFragment(), GoogleApiClient.ConnectionCallbacks,
                 ).isNullOrEmpty() == true
             ) {*/
         if (homeActivity.connectionDetector.isConnectingToInternet) {
-            if (sessionManager.getValue(
-                    SessionManager.LOCATION_SELECTED
-                ).equals("0")
-            ) {
+
 //                Log.e("current_location22", "$currentLatitude ,   $currentLongitude")
 
                 //hitting api
                 sessionManager.setValues(SessionManager.LATITUDE, currentLatitude.toString())
                 sessionManager.setValues(SessionManager.LONGITUDE, currentLongitude.toString())
+            // hit api for current location coordinates...
                 getTasteMeals(pageNumber)
-            } else {
-                sessionManager.setValues(
-                    SessionManager.CURRENT_LATITUDE,
-                    currentLatitude.toString()
-                )
-                sessionManager.setValues(
-                    SessionManager.CURRENT_LONGITUDE,
-                    currentLongitude.toString()
-                )
-            }
+
+                sessionManager.setValues(SessionManager.CURRENT_LATITUDE, currentLatitude.toString())
+                sessionManager.setValues(SessionManager.CURRENT_LONGITUDE, currentLongitude.toString())
+
         } else {
             showSnackBar(getString(R.string.check_connection))
         }

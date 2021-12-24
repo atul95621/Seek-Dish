@@ -437,8 +437,10 @@ class RegisterFragment : BaseFragment(), IRegisterFragView {
                 sessionManager.setValues(SessionManager.USER_ID, signUpModel.data.id.toString())
                 sessionManager.setValues(SessionManager.PHOTO_URL, signUpModel.data.photo)
                 sessionManager.setValues(SessionManager.RADIUS, signUpModel.data.radius.toString()) // if new user, by default will be = 4
-
+                sessionManager.setValues(SessionManager.LATITUDE, signUpModel.data.latitude.toString())
+                sessionManager.setValues(SessionManager.LONGITUDE,  signUpModel.data.longitude.toString())
                 sessionManager.setValues(SessionManager.LOGGEDIN_THROUGH, "1")
+
 
 
                 val intent = Intent(mcontext, HomeActivity::class.java)
@@ -470,7 +472,8 @@ class RegisterFragment : BaseFragment(), IRegisterFragView {
                 sessionManager.setValues(SessionManager.RADIUS, signUpModel.data.radius.toString()) // if new user, by default will be = 4
 
                 sessionManager.setValues(SessionManager.LOGGEDIN_THROUGH, "1")
-
+                sessionManager.setValues(SessionManager.LATITUDE, signUpModel.data.latitude.toString())
+                sessionManager.setValues(SessionManager.LONGITUDE,  signUpModel.data.longitude.toString())
 
 
                 val intent = Intent(mcontext, HomeActivity::class.java)
