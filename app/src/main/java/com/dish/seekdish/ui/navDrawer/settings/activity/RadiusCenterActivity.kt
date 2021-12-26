@@ -21,6 +21,11 @@ import com.dish.seekdish.custom.ProgressBarClass
 import com.dish.seekdish.retrofit.APIClient
 import com.dish.seekdish.retrofit.APIInterface
 import com.dish.seekdish.ui.navDrawer.settings.dataModel.CancelReModel
+import com.dish.seekdish.ui.navDrawer.settings.dataModel.SendUserGeneralSetting
+import com.dish.seekdish.ui.navDrawer.settings.presenter.RadiusPresenter
+import com.dish.seekdish.ui.navDrawer.settings.presenter.SettingFragPresenter
+import com.dish.seekdish.ui.navDrawer.settings.view.IRadiusView
+import com.dish.seekdish.ui.navDrawer.settings.view.ISettingView
 import com.dish.seekdish.util.BaseActivity
 import com.dish.seekdish.util.SessionManager
 import com.google.android.gms.maps.CameraUpdateFactory
@@ -45,7 +50,7 @@ import kotlin.collections.ArrayList
 
 class RadiusCenterActivity : BaseActivity(), OnMapReadyCallback,
     GoogleMap.OnMyLocationButtonClickListener,
-    GoogleMap.OnMyLocationClickListener, GoogleMap.OnMarkerClickListener {
+    GoogleMap.OnMyLocationClickListener, GoogleMap.OnMarkerClickListener, IRadiusView {
 
 
     lateinit var marker: Marker
@@ -64,8 +69,11 @@ class RadiusCenterActivity : BaseActivity(), OnMapReadyCallback,
 
     var sessionManager: SessionManager? = null
 
+    var addressFrom = 0   // 0 - for initialize, 1 - selected address,  2 - current address
+
     lateinit var geocoder: Geocoder;
     var addresses = ArrayList<Address>()
+    lateinit var radiusPresenter: RadiusPresenter
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -74,6 +82,7 @@ class RadiusCenterActivity : BaseActivity(), OnMapReadyCallback,
 
         sessionManager = SessionManager(this)
         geocoder = Geocoder(this, Locale.getDefault());
+        radiusPresenter = RadiusPresenter(this, this)
 
 
         //main map fragment
@@ -110,9 +119,25 @@ class RadiusCenterActivity : BaseActivity(), OnMapReadyCallback,
                     selectedLat.toString()
                 )
 
-                val returnIntent = Intent()
-                setResult(Activity.RESULT_CANCELED, returnIntent)
-                finish()
+                //saving the new location address to the server
+                if (connectionDetector.isConnectingToInternet) {
+
+                    radiusPresenter.setGeneralSettingInfo(
+                        sessionManager?.getValue(SessionManager.USER_ID).toString(),
+                        sessionManager?.getValue(SessionManager.IS_GEOLOCATION).toString(),
+                        sessionManager?.getValue(SessionManager.IS_NOTIFICATION).toString(),
+                        sessionManager?.getValue(SessionManager.IS_PRIVATE).toString(),
+                        sessionManager?.getValue(SessionManager.RADIUS).toString(),
+                        sessionManager?.getValue(SessionManager.PLACE_SELECTED).toString()
+                    )
+
+                } else {
+                    showSnackBar(getString(R.string.check_connection))
+                }
+
+                /*  val returnIntent = Intent()
+                  setResult(Activity.RESULT_CANCELED, returnIntent)
+                  finish()*/
             } else if (!currentAddress.equals("")) {
 
                 /*   sessionManager?.setValues(
@@ -146,10 +171,26 @@ class RadiusCenterActivity : BaseActivity(), OnMapReadyCallback,
                     sessionManager?.getValue(SessionManager.CURRENT_LATITUDE).toString()
                 )
 
+                //saving the new location address to the server
+                if (connectionDetector.isConnectingToInternet) {
+
+                    radiusPresenter.setGeneralSettingInfo(
+                        sessionManager?.getValue(SessionManager.USER_ID).toString(),
+                        sessionManager?.getValue(SessionManager.IS_GEOLOCATION).toString(),
+                        sessionManager?.getValue(SessionManager.IS_NOTIFICATION).toString(),
+                        sessionManager?.getValue(SessionManager.IS_PRIVATE).toString(),
+                        sessionManager?.getValue(SessionManager.RADIUS).toString(),
+                        sessionManager?.getValue(SessionManager.PLACE_SELECTED).toString()
+                    )
+
+                } else {
+                    showSnackBar(getString(R.string.check_connection))
+                }
+
 /*                val intent = Intent()
                 intent.putExtra("ADDRESS", currentAddress)
-                setResult(RESULT_OK, intent);*/
-                finish()
+                setResult(RESULT_OK, intent);
+                finish()*/
             }
 
             if (tvAddAddress.text.equals("") && tvCurrentAddress.text.equals("")) {
@@ -171,7 +212,7 @@ class RadiusCenterActivity : BaseActivity(), OnMapReadyCallback,
                 var lattemp = sessionManager?.getValue(SessionManager.CURRENT_LATITUDE)
                 var longtemp = sessionManager?.getValue(SessionManager.CURRENT_LONGITUDE)
 
-                if (lattemp != null && longtemp != null  && !lattemp.equals("") && !longtemp.equals("")) {
+                if (lattemp != null && longtemp != null && !lattemp.equals("") && !longtemp.equals("")) {
 
                     var lati: Double =
                         lattemp.toDouble()
@@ -443,6 +484,20 @@ class RadiusCenterActivity : BaseActivity(), OnMapReadyCallback,
             }
         }
         return true
+    }
+
+    override fun onSetSettingInfo(result: Boolean, response: Response<SendUserGeneralSetting>) {
+        if (result == true) {
+            val sendUserGeneralSetting = response.body() as SendUserGeneralSetting
+            if (sendUserGeneralSetting.status == 1) {
+                showSnackBar(sendUserGeneralSetting.message);
+                finish()
+            } else {
+                showSnackBar(sendUserGeneralSetting.message);
+            }
+        } else {
+            showSnackBar(getResources().getString(R.string.error_occured) + "   ${response.code()}");
+        }
     }
 
 }

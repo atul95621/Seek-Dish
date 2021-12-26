@@ -27,6 +27,7 @@ import com.dish.seekdish.util.SessionManager
 import com.travijuu.numberpicker.library.NumberPicker
 import kotlinx.android.synthetic.main.fragment_settings.*
 import kotlinx.android.synthetic.main.fragment_settings.view.*
+import okhttp3.internal.notify
 import retrofit2.Response
 import java.util.*
 import kotlin.collections.ArrayList
@@ -287,19 +288,13 @@ class SettingsFragment(var homeActivity: HomeActivity) : BaseFragment(), ISettin
                     val radius = settingDataClass.data.radius
 
                     sessionManager.setValues(SessionManager.RADIUS, radius.toString())
+                    sessionManager.setValues(SessionManager.IS_PRIVATE, settingDataClass.data.private.toString())
+                    sessionManager.setValues(SessionManager.IS_GEOLOCATION, settingDataClass.data.geolocation.toString())
+                    sessionManager.setValues(SessionManager.IS_NOTIFICATION, settingDataClass.data.push_notification.toString())
 
                     tvLikeCount.setText(settingDataClass.data.liked_count.toString() +" "+ resources.getString(R.string.i_like))
                     tvDisLikeCount.setText(settingDataClass.data.disliked_count.toString() + " "+resources.getString(R.string.i_dislike))
-
-                    if(sessionManager.getValue(SessionManager.PLACE_SELECTED).toString().isNullOrEmpty()==true)
-                    {
-                        txtPlace.setText(settingDataClass.data.radius_center_location.toString())
-                    }
-                    else
-                    {
-                        var placeSelected = sessionManager.getValue(SessionManager.PLACE_SELECTED)
-                        txtPlace.setText(placeSelected)
-                    }
+                    txtPlace.setText(settingDataClass.data.radius_center_location.toString())
 
                     numberPicker?.setValue(settingDataClass.data.radius)
                     numberPicker?.isEnabled = true
@@ -332,7 +327,6 @@ class SettingsFragment(var homeActivity: HomeActivity) : BaseFragment(), ISettin
 
 
     override fun onSetSettingInfo(result: Boolean, response: Response<SendUserGeneralSetting>) {
-
 
         if (result == true) {
             val sendUserGeneralSetting = response.body() as SendUserGeneralSetting

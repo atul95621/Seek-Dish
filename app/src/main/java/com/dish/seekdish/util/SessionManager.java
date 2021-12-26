@@ -59,6 +59,10 @@ public class SessionManager {
     public static final String RADIUS = "radius";
     public static final String LANGUAGE_HOME_ACTIVITY = "lang_home";
     public static final String LANGUAGE_CODE = "languageCode";
+    public static final String IS_PRIVATE = "is_private";
+    public static final String IS_GEOLOCATION = "is_geolocation";
+    public static final String IS_NOTIFICATION = "is_notification";
+
 
     // to keep the track of current screen to refresh after saving the filters
     public static final String CURRENT_SCREEN = "current_screen";
