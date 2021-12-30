@@ -33,5 +33,7 @@ data class CheckUpdateModel(
     val message: String,
     val status: Int,
     val force_update_android: Int,   //0 if no force update req, 1 if force update to send
-    val force_update_ios: Int
+    val force_update_ios: Int,
+    val restro_map_qty: Int,
+    val meal_map_qty:Int
 )

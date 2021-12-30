@@ -5,13 +5,11 @@ import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.Bitmap
 import android.graphics.drawable.BitmapDrawable
-import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.core.content.res.ResourcesCompat
 import androidx.lifecycle.Observer
@@ -309,8 +307,11 @@ class RestroMapFragment : BaseFragment(), OnMapReadyCallback,
         restroMapVM?.doGetRestroMapData(
             sessionManager.getValue(SessionManager.USER_ID).toString(),
             sessionManager.getValue(SessionManager.LONGITUDE),
-            sessionManager.getValue(SessionManager.LATITUDE), radius
-        )
+            sessionManager.getValue(SessionManager.LATITUDE),
+            radius,
+            sessionManager.getValue(SessionManager.RESTRO_MAP_QTY),
+
+            )
     }
 }
 

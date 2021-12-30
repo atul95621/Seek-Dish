@@ -1,6 +1,5 @@
 package com.dish.seekdish.ui.home.viewModel
 
-import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.dish.seekdish.Constants
@@ -23,7 +22,8 @@ class MapHomeVM : ViewModel() {
         userId: String,
         longitude: String,
         latitude: String,
-        radius: String
+        radius: String,
+        meal_map_qty: String
     ) {
         // making progress bar visible
         isLoadingSubject.onNext(true)
@@ -37,7 +37,7 @@ class MapHomeVM : ViewModel() {
             Constants.device_token,
             Constants.deviceType,
             Constants.homePage,
-            Constants.noOfMapItemsMeals
+            meal_map_qty
         )
         call.enqueue(object : Callback<MapHomeModel> {
             override fun onResponse(call: Call<MapHomeModel>, response: Response<MapHomeModel>) {

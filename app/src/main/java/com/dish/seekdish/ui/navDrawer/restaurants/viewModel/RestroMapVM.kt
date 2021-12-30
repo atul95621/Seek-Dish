@@ -27,7 +27,8 @@ class RestroMapVM : ViewModel() {
         userId: String,
         longitude: String,
         latitude: String,
-        radius: String
+        radius: String,
+        restro_map_qty: String
     ) {
 
         // making progress bar visible
@@ -44,7 +45,7 @@ class RestroMapVM : ViewModel() {
             Constants.device_token,
             Constants.deviceType,
             Constants.homePage,
-            Constants.noOfMapItemsRestro
+            restro_map_qty
         )
 
         Log.e(

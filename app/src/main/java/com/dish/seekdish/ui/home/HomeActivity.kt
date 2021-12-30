@@ -779,6 +779,9 @@ class HomeActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
         homeActivityVM!!.getUpdateLiveData.observe(this, Observer { response ->
             if (response != null) {
                 if (response.status == 1) {
+
+                    sessionManager?.setValues(SessionManager.RESTRO_MAP_QTY,response.restro_map_qty.toString())
+                    sessionManager?.setValues(SessionManager.MEAL_MAP_QTY,response.meal_map_qty.toString())
                     var version = ""
                     try {
                         val pInfo: PackageInfo =

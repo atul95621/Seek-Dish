@@ -159,6 +159,11 @@ class WalkThroughActivity : BaseActivity(), IWalkThrough {
             val checkUpdateModel = response.body() as CheckUpdateModel
             if (checkUpdateModel.status == 1) {
                 Log.e("up22", "resp :  ${response.body().toString()}")
+
+                //saving configs
+                sessionManager?.setValues(SessionManager.RESTRO_MAP_QTY,checkUpdateModel.restro_map_qty.toString())
+                sessionManager?.setValues(SessionManager.MEAL_MAP_QTY,checkUpdateModel.meal_map_qty.toString())
+
                 var version = ""
                 try {
                     val pInfo: PackageInfo =

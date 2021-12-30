@@ -33,7 +33,6 @@ import android.graphics.Bitmap
 import android.graphics.drawable.BitmapDrawable
 import androidx.core.content.res.ResourcesCompat
 import com.dish.seekdish.ui.navDrawer.dishDescription.DishDescriptionActivity
-import com.squareup.picasso.Callback
 import java.util.HashMap
 
 
@@ -209,7 +208,7 @@ class HomeMapFragment : BaseFragment(), OnMapReadyCallback,
                                     var mealName = arrayList[i].name
                                     var mealId = arrayList[i].meal_id.toString()
                                     var restroId = arrayList[i].restro_id.toString()
-                                    var mealPrice = arrayList[i].meal_price.toString()?:"null"
+                                    var mealPrice = arrayList[i].meal_price.toString() ?: "null"
                                     var mealSymbol = arrayList[i].meal_symbol.toString()
 
                                     // adding custom info window
@@ -284,7 +283,9 @@ class HomeMapFragment : BaseFragment(), OnMapReadyCallback,
         mapHomeVM?.doGetMapData(
             sessionManager.getValue(SessionManager.USER_ID).toString(),
             sessionManager.getValue(SessionManager.LONGITUDE),
-            sessionManager.getValue(SessionManager.LATITUDE), radius
+            sessionManager.getValue(SessionManager.LATITUDE),
+            radius,
+            sessionManager.getValue(SessionManager.MEAL_MAP_QTY),
         )
     }
 }
