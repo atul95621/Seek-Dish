@@ -10,7 +10,7 @@ android {
         applicationId "com.dish.seekdish"
         minSdkVersion 17
         targetSdkVersion 30
-        versionCode 9
+        versionCode 10
         versionName "1.3"
         multiDexEnabled true
 

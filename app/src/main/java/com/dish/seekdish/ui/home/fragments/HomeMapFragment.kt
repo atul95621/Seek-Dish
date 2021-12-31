@@ -33,7 +33,8 @@ import android.graphics.Bitmap
 import android.graphics.drawable.BitmapDrawable
 import androidx.core.content.res.ResourcesCompat
 import com.dish.seekdish.ui.navDrawer.dishDescription.DishDescriptionActivity
-import java.util.HashMap
+import java.util.*
+import kotlin.collections.ArrayList
 
 
 class HomeMapFragment : BaseFragment(), OnMapReadyCallback,
@@ -51,6 +52,7 @@ class HomeMapFragment : BaseFragment(), OnMapReadyCallback,
 
     internal var markerMapHash: MutableMap<Marker, InfoWindowData> =
         HashMap<Marker, InfoWindowData>()
+    var markerSet: Hashtable<String, Boolean> = Hashtable()
 
 
     override fun onCreateView(
@@ -62,40 +64,27 @@ class HomeMapFragment : BaseFragment(), OnMapReadyCallback,
         myContext = activity as HomeActivity
         mapHomeVM = ViewModelProvider(this).get(MapHomeVM::class.java)
 
-
         // Inflate the layout for this fragment
         val view = inflater.inflate(R.layout.fragment_home_map, container, false)
-
 
         //main map fragment
         val mapFragment = childFragmentManager.findFragmentById(R.id.map) as SupportMapFragment
         mapFragment.getMapAsync(this)
-
-
-
         return view
-
     }
 
     override fun onMapReady(googleMap: GoogleMap) {
         mMap = googleMap
-
         mMap!!.clear();
-
 
         //check connection
         if (myContext.connectionDetector.isConnectingToInternet) {
-
             //hitting api
             getMapMarkers()
-
             //observer
             getMapRespObserver()
-
-
-            var customInfoWindow = CustomInfoWindowGoogleMap(conxt)
+            var customInfoWindow = CustomInfoWindowGoogleMap(conxt,markerSet)
             mMap!!.setInfoWindowAdapter(customInfoWindow);
-
         } else {
             showSnackBar(myContext, getString(R.string.check_connection))
         }
@@ -153,6 +142,7 @@ class HomeMapFragment : BaseFragment(), OnMapReadyCallback,
     }
 
     override fun onMarkerClick(p0: Marker?): Boolean {
+        Log.e("infoopened2", "  " + p0)
         marker.showInfoWindow();
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
@@ -237,16 +227,18 @@ class HomeMapFragment : BaseFragment(), OnMapReadyCallback,
 
                                     var marker = mMap!!.addMarker(markerOptions);
                                     marker.setTag(info)
-                                    marker.showInfoWindow()
+//                                    marker.showInfoWindow()
 
                                     markerMapHash.put(marker, info)
+                                    markerSet.put(marker.getId(), false);
+
                                 }
 
                                 var cameraMove = LatLng(
                                     arrayList[0].latitude.toDouble(),
                                     arrayList[0].longitude.toDouble()
                                 )
-                                mMap!!.animateCamera(
+                                mMap!!.moveCamera(
                                     CameraUpdateFactory.newLatLngZoom(
                                         cameraMove,
                                         14F

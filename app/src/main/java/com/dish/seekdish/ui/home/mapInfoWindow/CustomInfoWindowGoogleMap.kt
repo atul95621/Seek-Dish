@@ -8,16 +8,16 @@ import android.widget.ImageView
 import android.widget.RatingBar
 import android.widget.TextView
 import com.dish.seekdish.R
-import com.dish.seekdish.custom.GlideApp
-import com.dish.seekdish.ui.navDrawer.restaurants.mapWindow.MarkerCallback
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.model.Marker
 import com.squareup.picasso.Callback
 import com.squareup.picasso.Picasso
+import java.util.*
 
 
 class CustomInfoWindowGoogleMap(
-    val context: Context
+    val context: Context,
+    var markerSet: Hashtable<String, Boolean>
 ) : GoogleMap.InfoWindowAdapter {
 
     override fun getInfoContents(marker: Marker): View? {
@@ -41,15 +41,30 @@ class CustomInfoWindowGoogleMap(
             infoWindowGoogleMap!!.imageUrl!!.toLowerCase(),
             "drawable", context.getPackageName()
         )
+        var isImageLoaded = markerSet[marker.id]
+        if (isImageLoaded == true) {
+            Picasso.with(context).load(infoWindowGoogleMap.imageUrl).resize(50, 50)
+                .centerCrop().noFade()
+                .placeholder(R.drawable.app_logo)
+                .into(imgInfoWindow);
 
-   /*     Picasso.with(context).load(infoWindowGoogleMap.imageUrl).resize(50, 50)
+        } else {
+            isImageLoaded = true;
+            markerSet.put(marker.getId(), isImageLoaded);
+                 Picasso.with(context).load(infoWindowGoogleMap.imageUrl).resize(50, 50)
+                     .centerCrop().noFade()
+                     .placeholder(R.drawable.app_logo)
+                     .into(imgInfoWindow,  MarkerCallback(marker));
+        }
+
+        /*     Picasso.with(context).load(infoWindowGoogleMap.imageUrl).resize(50, 50)
             .centerCrop().noFade()
             .placeholder(R.drawable.app_logo)
             .into(imgInfoWindow,  MarkerCallback(marker));*/
-        Picasso.with(context).load(infoWindowGoogleMap.imageUrl).resize(50, 50)
+   /*     Picasso.with(context).load(infoWindowGoogleMap.imageUrl).resize(50, 50)
             .centerCrop().noFade()
             .placeholder(R.drawable.app_logo)
-            .into(imgInfoWindow);
+            .into(imgInfoWindow);*/
 
         tvRestro.setText(infoWindowGoogleMap.restroTitle)
         star_rating.rating = infoWindowGoogleMap.starRating!!.toFloat()

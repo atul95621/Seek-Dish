@@ -3,18 +3,15 @@ package com.dish.seekdish.ui.navDrawer.myFavourite.fragment
 import android.Manifest
 import android.content.Intent
 import android.content.pm.PackageManager
-import android.graphics.Color
 import android.location.Location
 import android.os.Build
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import com.dish.seekdish.Constants
 import com.dish.seekdish.util.BaseFragment
 
 import com.dish.seekdish.R
@@ -29,11 +26,13 @@ import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
-import com.google.android.gms.maps.model.CircleOptions
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.Marker
 import com.google.android.gms.maps.model.MarkerOptions
 import io.reactivex.android.schedulers.AndroidSchedulers
+import java.util.*
+import kotlin.collections.ArrayList
+import kotlin.collections.HashMap
 
 
 class FavouriteMapFragment : BaseFragment(), OnMapReadyCallback, GoogleMap.OnMyLocationButtonClickListener,
@@ -51,6 +50,8 @@ class FavouriteMapFragment : BaseFragment(), OnMapReadyCallback, GoogleMap.OnMyL
     internal var arrayList = ArrayList<Data_todo>()
 
     internal var markerMapHash: MutableMap<Marker, InfoWindowData> = HashMap<Marker, InfoWindowData>()
+    var markerSet: Hashtable<String, Boolean> = Hashtable()
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         super.onCreateView(inflater, container, savedInstanceState)
         // Inflate the layout for this fragment
@@ -80,7 +81,7 @@ class FavouriteMapFragment : BaseFragment(), OnMapReadyCallback, GoogleMap.OnMyL
             getMapList()
             getMapRespObserver()
 
-            var customInfoWindow = CustomInfoWindowGoogleMap(conxt)
+            var customInfoWindow = CustomInfoWindowGoogleMap(conxt, markerSet)
             mMap!!.setInfoWindowAdapter(customInfoWindow);
 
         } else {
@@ -227,16 +228,17 @@ class FavouriteMapFragment : BaseFragment(), OnMapReadyCallback, GoogleMap.OnMyL
 
                                         var marker = mMap!!.addMarker(markerOptions);
                                         marker.setTag(info)
-                                        marker.showInfoWindow()
+//                                        marker.showInfoWindow()
 
                                         markerMapHash.put(marker, info)
+                                        markerSet.put(marker.getId(), false);
                                     }
 
                                     var cameraMove = LatLng(
                                         arrayList[0].latitude.toDouble(),
                                         arrayList[0].longitude.toDouble()
                                     )
-                                    mMap!!.animateCamera(
+                                    mMap!!.moveCamera(
                                         CameraUpdateFactory.newLatLngZoom(
                                             cameraMove,
                                             14F

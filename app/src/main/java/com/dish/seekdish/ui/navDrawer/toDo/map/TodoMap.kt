@@ -3,20 +3,15 @@ package com.dish.seekdish.ui.navDrawer.toDo.map
 import android.Manifest
 import android.content.Intent
 import android.content.pm.PackageManager
-import android.graphics.Bitmap
-import android.graphics.drawable.BitmapDrawable
 import android.location.Location
 import android.os.Build
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
-import androidx.core.content.res.ResourcesCompat
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import com.dish.seekdish.Constants
 import com.dish.seekdish.R
 import com.dish.seekdish.ui.home.HomeActivity
 import com.dish.seekdish.ui.home.mapInfoWindow.CustomInfoWindowGoogleMap
@@ -24,7 +19,6 @@ import com.dish.seekdish.ui.home.mapInfoWindow.InfoWindowData
 import com.dish.seekdish.ui.navDrawer.dishDescription.DishDescriptionActivity
 import com.dish.seekdish.ui.navDrawer.toDo.VM.TodoVM
 import com.dish.seekdish.ui.navDrawer.toDo.list.Data_todo
-import com.dish.seekdish.ui.navDrawer.toDo.list.ListTodoDataClass
 import com.dish.seekdish.util.BaseFragment
 import com.dish.seekdish.util.SessionManager
 import com.google.android.gms.maps.CameraUpdateFactory
@@ -33,6 +27,9 @@ import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.*
 import io.reactivex.android.schedulers.AndroidSchedulers
+import java.util.*
+import kotlin.collections.ArrayList
+import kotlin.collections.HashMap
 
 
 class TodoMap() : BaseFragment(), OnMapReadyCallback, GoogleMap.OnMyLocationButtonClickListener,
@@ -49,6 +46,8 @@ class TodoMap() : BaseFragment(), OnMapReadyCallback, GoogleMap.OnMyLocationButt
     internal var arrayList = ArrayList<Data_todo>()
 
     internal var markerMapHash: MutableMap<Marker, InfoWindowData> = HashMap<Marker, InfoWindowData>()
+    var markerSet: Hashtable<String, Boolean> = Hashtable()
+
     var todoVM: TodoVM? = null
 
 
@@ -77,7 +76,7 @@ class TodoMap() : BaseFragment(), OnMapReadyCallback, GoogleMap.OnMyLocationButt
             getMapList()
             getMapRespObserver()
 
-            var customInfoWindow = CustomInfoWindowGoogleMap(conxt)
+            var customInfoWindow = CustomInfoWindowGoogleMap(conxt, markerSet)
             mMap!!.setInfoWindowAdapter(customInfoWindow);
 
         } else {
@@ -218,16 +217,17 @@ class TodoMap() : BaseFragment(), OnMapReadyCallback, GoogleMap.OnMyLocationButt
 
                                         var marker = mMap!!.addMarker(markerOptions);
                                         marker.setTag(info)
-                                        marker.showInfoWindow()
+//                                        marker.showInfoWindow()
 
                                         markerMapHash.put(marker, info)
+                                        markerSet.put(marker.getId(), false);
                                     }
 
                                     var cameraMove = LatLng(
                                         arrayList[0].latitude.toDouble(),
                                         arrayList[0].longitude.toDouble()
                                     )
-                                    mMap!!.animateCamera(
+                                    mMap!!.moveCamera(
                                         CameraUpdateFactory.newLatLngZoom(
                                             cameraMove,
                                             14F

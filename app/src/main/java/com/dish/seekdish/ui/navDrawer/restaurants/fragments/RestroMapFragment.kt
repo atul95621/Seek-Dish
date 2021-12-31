@@ -33,6 +33,9 @@ import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.Marker
 import com.google.android.gms.maps.model.MarkerOptions
 import io.reactivex.android.schedulers.AndroidSchedulers
+import java.util.*
+import kotlin.collections.ArrayList
+import kotlin.collections.HashMap
 
 class RestroMapFragment : BaseFragment(), OnMapReadyCallback,
     GoogleMap.OnMyLocationButtonClickListener,
@@ -51,7 +54,7 @@ class RestroMapFragment : BaseFragment(), OnMapReadyCallback,
     var restroIDInfoWindow = ""
     internal var markerMapHash: MutableMap<Marker, InfoWindowModel> =
         HashMap<Marker, InfoWindowModel>()
-
+    var markerSet: Hashtable<String, Boolean> = Hashtable()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -84,7 +87,7 @@ class RestroMapFragment : BaseFragment(), OnMapReadyCallback,
             //observer
             getMapRespObserver()
 
-            var customInfoWindow = RestroMapInfoWindow(conxt)
+            var customInfoWindow = RestroMapInfoWindow(conxt,markerSet)
             mMap!!.setInfoWindowAdapter(customInfoWindow);
 
         } else {
@@ -265,16 +268,18 @@ class RestroMapFragment : BaseFragment(), OnMapReadyCallback,
 
                                     var marker = mMap!!.addMarker(markerOptions);
                                     marker.setTag(info)
-                                    marker.showInfoWindow()
+//                                    marker.showInfoWindow()
 
                                     markerMapHash.put(marker, info)
+                                    markerSet.put(marker.getId(), false);
+
                                 }
 
                                 var cameraMove = LatLng(
                                     arrayList[0].latitude.toDouble(),
                                     arrayList[0].longitude.toDouble()
                                 )
-                                mMap!!.animateCamera(
+                                mMap!!.moveCamera(
                                     CameraUpdateFactory.newLatLngZoom(
                                         cameraMove,
                                         14F
