@@ -70,6 +70,7 @@ class TasteFragVM() : ViewModel() {
     fun getCurrentLocation(userId: String, longitude: String, latitude: String) {
         // making progress bar visible
 //        isLoadingSubject.onNext(true)
+        Log.e("coords_resp","${userId}, long: ${longitude}   lat: ${latitude}")
         var api = APIClientMvvm.client.create(APIInterface::class.java)
         val call = api.getLocation(userId, longitude,latitude)
         call.enqueue(object : Callback<CancelReModel> {
