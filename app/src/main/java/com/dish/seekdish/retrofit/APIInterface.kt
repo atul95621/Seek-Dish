@@ -25,11 +25,8 @@ import com.dish.seekdish.ui.navDrawer.settings.myAlerts.MyAlertDataClass
 import com.dish.seekdish.ui.navDrawer.toDo.list.DeleteTodoList
 import com.dish.seekdish.ui.navDrawer.toDo.list.ListTodoDataClass
 import com.dish.seekdish.ui.signup.SignUpModel
-import com.google.gson.JsonElement
-import com.google.gson.JsonObject
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
-import okhttp3.Response
 import retrofit2.Call
 import retrofit2.http.*
 import retrofit2.http.GET
@@ -132,7 +129,10 @@ internal interface APIInterface {
     fun getLocation(
         @Field("user_id") userId: String,
         @Field("longitude") longitude: String,
-        @Field("latitude") latitude: String
+        @Field("latitude") latitude: String,
+        @Field("appVersion") appVersion: String,
+        @Field("osVersion") osVersion: String,
+        @Field("osDevice") osDevice: String
     ): Call<CancelReModel>
 
 
@@ -549,34 +549,34 @@ internal interface APIInterface {
         @Field("user_id") userId: String
     ): Call<AddTodoModel>
 
-        @FormUrlEncoded
-        @POST("send_friend_request")
-        fun sendFriendRequest(
-            @Field("sender_id") senderId: String,
-            @Field("receiver_id") receiverId: String
-        ): Call<AddTodoModel>
-
-        @FormUrlEncoded
-        @POST("following_friend_request")
-        fun sendFollowingRequest(
-            @Field("sender_id") senderId: String,
-            @Field("receiver_id") receiverId: String
-        ): Call<AddTodoModel>
-
-   /* // ******************* did vice versa in below files as qaisar told to reverse them.
     @FormUrlEncoded
     @POST("send_friend_request")
     fun sendFriendRequest(
-        @Field("receiver_id") receiverId: String,
-        @Field("sender_id") senderId: String
+        @Field("sender_id") senderId: String,
+        @Field("receiver_id") receiverId: String
     ): Call<AddTodoModel>
 
     @FormUrlEncoded
     @POST("following_friend_request")
     fun sendFollowingRequest(
-        @Field("receiver_id") receiverId: String,
-        @Field("sender_id") senderId: String
-    ): Call<AddTodoModel>*/
+        @Field("sender_id") senderId: String,
+        @Field("receiver_id") receiverId: String
+    ): Call<AddTodoModel>
+
+    /* // ******************* did vice versa in below files as qaisar told to reverse them.
+     @FormUrlEncoded
+     @POST("send_friend_request")
+     fun sendFriendRequest(
+         @Field("receiver_id") receiverId: String,
+         @Field("sender_id") senderId: String
+     ): Call<AddTodoModel>
+
+     @FormUrlEncoded
+     @POST("following_friend_request")
+     fun sendFollowingRequest(
+         @Field("receiver_id") receiverId: String,
+         @Field("sender_id") senderId: String
+     ): Call<AddTodoModel>*/
 
     @FormUrlEncoded
     @POST("restaurant_detail")
@@ -640,7 +640,7 @@ internal interface APIInterface {
     fun getMutualFriendList(
         @Field("user_id") userId: String,
         @Field("friend_user_id") friend_user_id: String
-        ): Call<FriendDataModel>
+    ): Call<FriendDataModel>
 
     @FormUrlEncoded
     @POST("delete_friend")
@@ -783,7 +783,6 @@ internal interface APIInterface {
     ): Call<CallCountModel>
 
     @GET("checkappupdate")
-    fun checkUpdate(
-    ): Call<CheckUpdateModel>
+    fun checkUpdate(): Call<CheckUpdateModel>
 
 }

@@ -5,6 +5,7 @@ import android.app.Dialog
 import android.content.Intent
 import android.content.res.Configuration
 import android.content.res.Resources
+import android.os.Build
 import android.os.Bundle
 import android.util.DisplayMetrics
 import android.util.Log
@@ -13,6 +14,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.AdapterView
 import android.widget.ListView
+import com.dish.seekdish.BuildConfig
 import com.dish.seekdish.R
 import com.dish.seekdish.custom.CustomListAdapterDialog
 import com.dish.seekdish.ui.home.HomeActivity
@@ -74,9 +76,6 @@ class SettingsFragment(var homeActivity: HomeActivity) : BaseFragment(), ISettin
 
         // set address, language, radius center...
         setAddressRadiusdLang(view)
-
-
-
 
         view.frameLike.setOnClickListener()
         {
@@ -188,6 +187,10 @@ class SettingsFragment(var homeActivity: HomeActivity) : BaseFragment(), ISettin
     }
 
     private fun setAddressRadiusdLang(view: View) {
+        val versionName: String = BuildConfig.VERSION_NAME
+        val osVersion = Build.VERSION.SDK_INT
+        view.tvVersion.text= "App / OS Version  : " +versionName +" / "+osVersion
+
         var language: String = sessionManager.getLangValue(SessionManager.LANGUAGE_NAME)
 
         if (language != null && language != "null" && language != "") {

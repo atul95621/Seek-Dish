@@ -64,11 +64,7 @@ class LanguageActivity : BaseActivity(), ILanguageView {
             val intent = Intent(activity, HomeActivity::class.java)
             intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
             startActivity(intent)
-        } else if (isLoggedIn.equals("0")) {
-            // this case when update is available and loggedin is set to 0
-            val intent = Intent(this, LoginActivity::class.java)
-            startActivity(intent)
-        } else if (isLanguageSelected.equals("1") && isLoggedIn.equals("")) {
+        } else if (isLanguageSelected.equals("1") && (isLoggedIn.equals("") || isLoggedIn.equals("0"))) {
             val intent = Intent(activity, WalkThroughActivity::class.java)
             intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
             startActivity(intent)

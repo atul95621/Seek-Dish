@@ -15,39 +15,20 @@ class SplashActivity : AppCompatActivity() {
 
         val background = object : Thread() {
             override fun run() {
-
                 try {
                     // Thread will sleep for 5 seconds
                     Thread.sleep((2 * 1000).toLong())
-
-//                    if (!sessionManager.getValue(SessionManager.CUSTOMER_ID).toString().equals("")) {
-//                        Log.e("sessioncustomer", sessionManager.getValue(SessionManager.CUSTOMER_ID).equals("").toString())
-//                        val intent = Intent(this@SplashActivity, HomeActivity::class.java)
-//                        startActivity(intent)
-//
-//                        finish()
-//                    } else {
                     val intent = Intent(this@SplashActivity, LanguageActivity::class.java)
                     startActivity(intent)
 
-
-                    // After 5 seconds redirect to another intent
-
-
                     //Remove activity
                     finish()
-//                    }
-
                 } catch (e: Exception) {
 
                 }
-
             }
         }
-
         // start thread
         background.start()
-
-
     }
 }

@@ -10,8 +10,8 @@ android {
         applicationId "com.dish.seekdish"
         minSdkVersion 17
         targetSdkVersion 30
-        versionCode 11
-        versionName "1.4"
+        versionCode 12
+        versionName "1.41"
         multiDexEnabled true
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
@@ -24,6 +24,12 @@ android {
 //      added for the language support and issue that was coming
         resConfigs("ar", "de","en","es","fr","hi-rIN","it","iw","ja","km","ko","pt","ru","yh","vi","zh")
 
+    }
+
+    bundle {
+        language {
+            enableSplit = false
+        }
     }
 
     signingConfigs {

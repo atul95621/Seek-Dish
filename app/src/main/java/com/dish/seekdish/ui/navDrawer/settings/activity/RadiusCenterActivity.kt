@@ -16,6 +16,8 @@ import android.util.Log
 import android.view.View
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
+import com.dish.seekdish.BuildConfig
+import com.dish.seekdish.Constants
 import com.dish.seekdish.R
 import com.dish.seekdish.custom.ProgressBarClass
 import com.dish.seekdish.retrofit.APIClient
@@ -418,7 +420,10 @@ class RadiusCenterActivity : BaseActivity(), OnMapReadyCallback,
         ProgressBarClass.progressBarCalling(this)
 
         apiInterface = APIClient.getClient(this).create(APIInterface::class.java)
-        val call = apiInterface.getLocation(userId, longitude, latitude)
+        val appVersion: String = BuildConfig.VERSION_NAME
+        val osVersion  = Build.VERSION.SDK_INT
+        val osDevice  = Constants.osDevice
+        val call = apiInterface.getLocation(userId, longitude, latitude,appVersion,osVersion.toString(),osDevice)
         call.enqueue(object : Callback<CancelReModel> {
             override fun onResponse(call: Call<CancelReModel>, response: Response<CancelReModel>) {
                 ProgressBarClass.dialog.dismiss()

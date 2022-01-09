@@ -7,6 +7,7 @@ import com.dish.seekdish.ui.navDrawer.restaurants.fragments.ProximityFragment
 
 class Constants {
     companion object {
+
         // taste api constants
         var Longitude = "3.2158"
         var Latitude = "43.3442"
@@ -26,6 +27,8 @@ class Constants {
         var restaurant_id = "3"
         var radius = "4" // 5km default distance
         var mediaType = "image/*"
+        val osDevice = "Android"
+
         fun refreshFragment(frag: String): Fragment {
             when (frag) {
                 "HomeFragment" -> return HomeFragment()

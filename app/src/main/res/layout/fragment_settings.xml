@@ -1,23 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-            xmlns:tools="http://schemas.android.com/tools"
-            android:layout_width="match_parent"
-            android:background="@color/white"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
 
-            android:layout_height="match_parent">
-    <LinearLayout android:layout_width="match_parent"
-                  android:layout_height="match_parent"
-                  android:orientation="vertical"
-                  tools:context=".ui.navDrawer.settings.SettingsFragment">
-        <TextView android:layout_width="match_parent"
-                  android:text="@string/general"
-                  android:textColor="@color/dark_gray"
-                  android:layout_gravity="center_vertical"
-                  android:gravity="center_vertical"
-                  android:paddingStart="20dp"
-                  android:textSize="18sp"
-                  android:background="@color/gray_lighter"
-                  android:layout_height="48dp"/>
+    android:background="@color/white">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        tools:context=".ui.navDrawer.settings.SettingsFragment">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:layout_gravity="center_vertical"
+            android:background="@color/gray_lighter"
+            android:gravity="center_vertical"
+            android:paddingStart="20dp"
+            android:text="@string/general"
+            android:textColor="@color/dark_gray"
+            android:textSize="18sp" />
 
         <!--autocomplete -->
         <!--     <fragment
@@ -28,180 +32,202 @@
                              "com.google.android.libraries.places.widget.AutocompleteSupportFragment"
              />-->
 
-        <FrameLayout android:layout_width="match_parent"
-                     android:layout_height="48dp"
-                     android:orientation="horizontal">
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:orientation="horizontal">
+
             <TextView
-                    android:paddingStart="20dp"
-                    android:layout_width="match_parent"
-                    android:textSize="16sp"
-                    android:fontFamily="@font/assistantbold"
-                    android:gravity="center_vertical"
-                    android:text="@string/geolocation"
-                    android:layout_height="match_parent"
-            />
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:fontFamily="@font/assistantbold"
+                android:gravity="center_vertical"
+                android:paddingStart="20dp"
+                android:text="@string/geolocation"
+                android:textSize="16sp" />
 
             <Switch
-                    android:id="@+id/switchGeo"
-                    android:layout_width="match_parent"
-                    android:paddingEnd="20dp"
-                    android:layout_height="match_parent"
-                    android:gravity="end|center_vertical"/>
+                android:id="@+id/switchGeo"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="end|center_vertical"
+                android:paddingEnd="20dp" />
         </FrameLayout>
-        <View android:layout_width="match_parent" android:layout_height="1dp"
-              android:background="@color/gray_lighter"
-              android:layout_marginStart="10dp"
-              android:layout_marginEnd="10dp"/>
 
-        <FrameLayout android:layout_width="match_parent"
-                     android:layout_height="48dp"
-                     android:orientation="horizontal">
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="10dp"
+            android:background="@color/gray_lighter" />
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:orientation="horizontal">
+
             <TextView
-                    android:paddingStart="20dp"
-                    android:layout_width="match_parent"
-                    android:textSize="16sp"
-                    android:fontFamily="@font/assistantbold"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:fontFamily="@font/assistantbold"
+                android:gravity="center_vertical"
 
-                    android:gravity="center_vertical"
-                    android:text="@string/push_notification"
-                    android:layout_height="match_parent"
-            />
+                android:paddingStart="20dp"
+                android:text="@string/push_notification"
+                android:textSize="16sp" />
 
             <Switch
-                    android:id="@+id/switchPush"
-                    android:layout_width="match_parent"
-                    android:paddingEnd="20dp"
-                    android:layout_height="match_parent"
-                    android:gravity="end|center_vertical"/>
+                android:id="@+id/switchPush"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="end|center_vertical"
+                android:paddingEnd="20dp" />
         </FrameLayout>
-        <View android:layout_width="match_parent" android:layout_height="1dp"
-              android:background="@color/gray_lighter"
-              android:layout_marginStart="10dp"
-              android:layout_marginEnd="10dp"/>
 
-        <FrameLayout android:layout_width="match_parent"
-                     android:layout_height="48dp"
-                     android:orientation="horizontal">
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="10dp"
+            android:background="@color/gray_lighter" />
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:orientation="horizontal">
+
             <TextView
-                    android:paddingStart="20dp"
-                    android:layout_width="match_parent"
-                    android:textSize="16sp"
-                    android:gravity="center_vertical"
-                    android:fontFamily="@font/assistantbold"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:fontFamily="@font/assistantbold"
+                android:gravity="center_vertical"
+                android:paddingStart="20dp"
 
-                    android:text="@string/private_m"
-                    android:layout_height="match_parent"
-            />
+                android:text="@string/private_m"
+                android:textSize="16sp" />
 
             <Switch
-                    android:id="@+id/switchPrivate"
-                    android:layout_width="match_parent"
-                    android:paddingEnd="20dp"
-                    android:layout_height="match_parent"
-                    android:gravity="end|center_vertical"/>
+                android:id="@+id/switchPrivate"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="end|center_vertical"
+                android:paddingEnd="20dp" />
         </FrameLayout>
-        <View android:layout_width="match_parent" android:layout_height="1dp"
-              android:background="@color/gray_lighter"
-              android:layout_marginStart="10dp"
-              android:layout_marginEnd="10dp"/>
 
-        <FrameLayout android:layout_width="match_parent"
-                     android:layout_height="48dp"
-                     android:orientation="horizontal">
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="10dp"
+            android:background="@color/gray_lighter" />
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:orientation="horizontal">
+
             <TextView
-                    android:paddingStart="20dp"
-                    android:layout_width="match_parent"
-                    android:textSize="16sp"
-                    android:fontFamily="@font/assistantbold"
-                    android:gravity="center_vertical"
-                    android:text="@string/search_radius"
-                    android:layout_height="match_parent"
-            />
-            <LinearLayout
-                    xmlns:numberpicker="http://schemas.android.com/apk/res-auto"
-                    android:layout_marginEnd="45dp"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:orientation="vertical"
-                    android:gravity="end|center_vertical"
-                    tools:context="com.travijuu.numberpicker.sample.MainActivity">
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:fontFamily="@font/assistantbold"
+                android:gravity="center_vertical"
+                android:paddingStart="20dp"
+                android:text="@string/search_radius"
+                android:textSize="16sp" />
+
+            <LinearLayout xmlns:numberpicker="http://schemas.android.com/apk/res-auto"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginEnd="45dp"
+                android:gravity="end|center_vertical"
+                android:orientation="vertical"
+                tools:context="com.travijuu.numberpicker.sample.MainActivity">
 
                 <com.travijuu.numberpicker.library.NumberPicker
-                        android:id="@+id/number_picker"
-                        android:layout_width="130dp"
-                        android:layout_height="40dp"
-                        numberpicker:min="0"
-                        numberpicker:max="10"
-                        numberpicker:unit="1"
-                        numberpicker:focusable="false"
-                        numberpicker:custom_layout="@layout/number_picker_custom_layout"/>
+                    android:id="@+id/number_picker"
+                    android:layout_width="130dp"
+                    android:layout_height="40dp"
+                    numberpicker:custom_layout="@layout/number_picker_custom_layout"
+                    numberpicker:focusable="false"
+                    numberpicker:max="10"
+                    numberpicker:min="0"
+                    numberpicker:unit="1" />
 
             </LinearLayout>
-            <TextView android:layout_width="match_parent"
-                      android:visibility="visible"
-                      android:layout_gravity="end|center_vertical"
-                      android:textColor="@color/gray"
-                      android:layout_height="match_parent"
-                      android:text="@string/km"
-                      android:layout_marginEnd="20dp"
-                      android:gravity="end|center_vertical"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="end|center_vertical"
+                android:layout_marginEnd="20dp"
+                android:gravity="end|center_vertical"
+                android:text="@string/km"
+                android:textColor="@color/gray"
+                android:visibility="visible" />
 
 
         </FrameLayout>
-        <View android:layout_width="match_parent" android:layout_height="1dp"
-              android:background="@color/gray_lighter"
-              android:layout_marginStart="10dp"
-              android:layout_marginEnd="10dp"/>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="10dp"
+            android:background="@color/gray_lighter" />
 
         <LinearLayout
-                android:id="@+id/linRadiusCenter"
-                android:layout_width="match_parent"
-                android:layout_height="48dp"
-                android:orientation="horizontal">
-            <TextView
-                    android:paddingStart="20dp"
-                    android:layout_width="wrap_content"
-                    android:textSize="16sp"
-                    android:layout_weight="1"
-                    android:fontFamily="@font/assistantbold"
-                    android:gravity="center_vertical"
-                    android:text="@string/radius_center"
-                    android:layout_height="match_parent"
-            />
+            android:id="@+id/linRadiusCenter"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:orientation="horizontal">
 
             <TextView
-                    android:id="@+id/txtPlace"
-                    android:layout_width="200dp"
-                    android:layout_weight="1"
-                    android:visibility="visible"
-                    android:layout_marginEnd="20dp"
-                    android:layout_gravity="end|center_vertical"
-                    android:textColor="@color/gray"
-                    android:layout_height="match_parent"
-                    android:gravity="end|center_vertical"/>
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:fontFamily="@font/assistantbold"
+                android:gravity="center_vertical"
+                android:paddingStart="20dp"
+                android:text="@string/radius_center"
+                android:textSize="16sp" />
+
+            <TextView
+                android:id="@+id/txtPlace"
+                android:layout_width="200dp"
+                android:layout_height="match_parent"
+                android:layout_gravity="end|center_vertical"
+                android:layout_marginEnd="20dp"
+                android:layout_weight="1"
+                android:gravity="end|center_vertical"
+                android:textColor="@color/gray"
+                android:visibility="visible" />
 
 
         </LinearLayout>
-        <View android:layout_width="match_parent" android:layout_height="1dp"
-              android:background="@color/gray_lighter"
-              android:layout_marginStart="10dp"
-              android:layout_marginEnd="10dp"/>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="10dp"
+            android:background="@color/gray_lighter" />
+
         <LinearLayout
-                android:id="@+id/linLanguage"
-                android:layout_width="match_parent"
-                android:layout_height="48dp"
-                android:orientation="horizontal"
-                android:weightSum="2">
+            android:id="@+id/linLanguage"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:orientation="horizontal"
+            android:weightSum="2">
+
             <TextView
-                    android:paddingStart="20dp"
-                    android:layout_width="0dp"
-                    android:textSize="16sp"
-                    android:layout_weight="1"
-                    android:fontFamily="@font/assistantbold"
-                    android:gravity="center_vertical"
-                    android:text="@string/language"
-                    android:layout_height="match_parent"
-            />
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:fontFamily="@font/assistantbold"
+                android:gravity="center_vertical"
+                android:paddingStart="20dp"
+                android:text="@string/language"
+                android:textSize="16sp" />
 
             <!--            <Spinner
                                 android:visibility="visible"
@@ -214,183 +240,220 @@
                                 android:gravity="end|center_vertical"/>-->
 
             <TextView
-                    android:visibility="visible"
-                    android:id="@+id/tvLanguage"
-                    android:layout_width="0dp"
-                    android:paddingEnd="20dp"
-                    android:layout_marginStart="10dp"
-                    android:layout_weight="1"
-                    android:textColor="@color/gray"
-                    android:layout_height="match_parent"
-                    android:gravity="end|center_vertical"/>
+                android:id="@+id/tvLanguage"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_marginStart="10dp"
+                android:layout_weight="1"
+                android:gravity="end|center_vertical"
+                android:paddingEnd="20dp"
+                android:textColor="@color/gray"
+                android:visibility="visible" />
         </LinearLayout>
-        <View android:layout_width="match_parent" android:layout_height="1dp"
-              android:background="@color/gray_lighter"
-              android:layout_marginStart="10dp"
-              android:layout_marginEnd="10dp"/>
 
-        <TextView android:layout_width="match_parent"
-                  android:text="@string/profile"
-                  android:textColor="@color/dark_gray"
-                  android:layout_gravity="center_vertical"
-                  android:gravity="center_vertical"
-                  android:paddingStart="20dp"
-                  android:textSize="18sp"
-                  android:background="@color/gray_lighter"
-                  android:layout_height="48dp"/>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="10dp"
+            android:background="@color/gray_lighter" />
 
         <TextView
-                android:id="@+id/tvUpdateProfile"
-                android:layout_width="match_parent"
-                android:text="@string/update_my_profile"
-                android:textColor="@color/dark_gray"
-                android:layout_gravity="center_vertical"
-                android:gravity="center_vertical"
-                android:fontFamily="@font/assistantbold"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:layout_gravity="center_vertical"
+            android:background="@color/gray_lighter"
+            android:gravity="center_vertical"
+            android:paddingStart="20dp"
+            android:text="@string/profile"
+            android:textColor="@color/dark_gray"
+            android:textSize="18sp" />
 
-                android:paddingStart="20dp"
-                android:textSize="16sp"
-                android:layout_height="48dp"/>
-        <View android:layout_width="match_parent" android:layout_height="1dp"
-              android:background="@color/gray_lighter"
-              android:layout_marginStart="10dp"
-              android:layout_marginEnd="10dp"/>
+        <TextView
+            android:id="@+id/tvUpdateProfile"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:layout_gravity="center_vertical"
+            android:fontFamily="@font/assistantbold"
+            android:gravity="center_vertical"
+            android:paddingStart="20dp"
+
+            android:text="@string/update_my_profile"
+            android:textColor="@color/dark_gray"
+            android:textSize="16sp" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="10dp"
+            android:background="@color/gray_lighter" />
 
         <TextView
             android:id="@+id/tvAddFriends"
             android:layout_width="match_parent"
-                  android:text="@string/add_friends"
-                  android:textColor="@color/dark_gray"
-                  android:layout_gravity="center_vertical"
-                  android:gravity="center_vertical"
-                  android:fontFamily="@font/assistantbold"
+            android:layout_height="48dp"
+            android:layout_gravity="center_vertical"
+            android:fontFamily="@font/assistantbold"
+            android:gravity="center_vertical"
+            android:paddingStart="20dp"
 
-                  android:paddingStart="20dp"
-                  android:textSize="16sp"
-                  android:layout_height="48dp"/>
-        <View android:layout_width="match_parent" android:layout_height="1dp"
-              android:background="@color/gray_lighter"
-              android:layout_marginStart="10dp"
-              android:layout_marginEnd="10dp"/>
+            android:text="@string/add_friends"
+            android:textColor="@color/dark_gray"
+            android:textSize="16sp" />
 
-        <FrameLayout
-                android:id="@+id/frameLike"
-                android:layout_width="match_parent"
-                android:layout_height="48dp"
-                android:orientation="horizontal">
-            <TextView
-                    android:paddingStart="20dp"
-                    android:layout_width="match_parent"
-                    android:textSize="16sp"
-                    android:gravity="center_vertical"
-                    android:text="@string/i_like"
-                    android:fontFamily="@font/assistantbold"
-                    android:layout_height="match_parent"
-            />
-
-            <TextView android:layout_width="match_parent"
-                      android:paddingEnd="20dp"
-                      android:text=""
-                      android:id="@+id/tvLikeCount"
-                      android:textColor="@color/gray"
-                      android:layout_height="match_parent"
-                      android:gravity="end|center_vertical"/>
-        </FrameLayout>
-        <View android:layout_width="match_parent" android:layout_height="1dp"
-              android:background="@color/gray_lighter"
-              android:layout_marginStart="10dp"
-              android:layout_marginEnd="10dp"/>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="10dp"
+            android:background="@color/gray_lighter" />
 
         <FrameLayout
-                android:id="@+id/frameDislike"
-                android:layout_width="match_parent"
-                android:layout_height="48dp"
-                android:orientation="horizontal">
+            android:id="@+id/frameLike"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:orientation="horizontal">
+
             <TextView
-                    android:paddingStart="20dp"
-                    android:layout_width="match_parent"
-                    android:textSize="16sp"
-                    android:gravity="center_vertical"
-                    android:text="@string/i_dislike"
-                    android:fontFamily="@font/assistantbold"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:fontFamily="@font/assistantbold"
+                android:gravity="center_vertical"
+                android:paddingStart="20dp"
+                android:text="@string/i_like"
+                android:textSize="16sp" />
 
-                    android:layout_height="match_parent"
-            />
-
-            <TextView android:layout_width="match_parent"
-                      android:paddingEnd="20dp"
-                      android:text=""
-                      android:id="@+id/tvDisLikeCount"
-
-                      android:textColor="@color/gray"
-                      android:layout_height="match_parent"
-                      android:gravity="end|center_vertical"/>
+            <TextView
+                android:id="@+id/tvLikeCount"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="end|center_vertical"
+                android:paddingEnd="20dp"
+                android:text=""
+                android:textColor="@color/gray" />
         </FrameLayout>
-        <View android:layout_width="match_parent" android:layout_height="1dp"
-              android:background="@color/gray_lighter"
-              android:layout_marginStart="10dp"
-              android:layout_marginEnd="10dp"/>
 
-        <TextView android:layout_width="match_parent"
-                  android:text="@string/alert"
-                  android:textColor="@color/dark_gray"
-                  android:layout_gravity="center_vertical"
-                  android:gravity="center_vertical"
-                  android:paddingStart="20dp"
-                  android:textSize="18sp"
-                  android:background="@color/gray_lighter"
-                  android:layout_height="48dp"/>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="10dp"
+            android:background="@color/gray_lighter" />
 
-        <TextView
-                android:fontFamily="@font/assistantbold"
+        <FrameLayout
+            android:id="@+id/frameDislike"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:orientation="horizontal">
 
-                android:id="@+id/tvAlert"
+            <TextView
                 android:layout_width="match_parent"
-                android:text="@string/managing_alerts"
-                android:textColor="@color/dark_gray"
-                android:layout_gravity="center_vertical"
+                android:layout_height="match_parent"
+                android:fontFamily="@font/assistantbold"
                 android:gravity="center_vertical"
                 android:paddingStart="20dp"
-                android:textSize="16sp"
-                android:layout_height="48dp"/>
-        <View android:layout_width="match_parent" android:layout_height="1dp"
-              android:background="@color/gray_lighter"
-              android:layout_marginStart="10dp"
-              android:layout_marginEnd="10dp"/>
+                android:text="@string/i_dislike"
+
+                android:textSize="16sp" />
+
+            <TextView
+                android:id="@+id/tvDisLikeCount"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="end|center_vertical"
+
+                android:paddingEnd="20dp"
+                android:text=""
+                android:textColor="@color/gray" />
+        </FrameLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="10dp"
+            android:background="@color/gray_lighter" />
 
         <TextView
-                android:fontFamily="@font/assistantbold"
-
-                android:id="@+id/tvRecievedReq"
-                android:layout_width="match_parent"
-                android:text="@string/received_friend_request"
-                android:textColor="@color/dark_gray"
-                android:layout_gravity="center_vertical"
-                android:gravity="center_vertical"
-                android:paddingStart="20dp"
-                android:textSize="16sp"
-                android:layout_height="48dp"/>
-        <View android:layout_width="match_parent" android:layout_height="1dp"
-              android:background="@color/gray_lighter"
-              android:layout_marginStart="10dp"
-              android:layout_marginEnd="10dp"/>
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:layout_gravity="center_vertical"
+            android:background="@color/gray_lighter"
+            android:gravity="center_vertical"
+            android:paddingStart="20dp"
+            android:text="@string/alert"
+            android:textColor="@color/dark_gray"
+            android:textSize="18sp" />
 
         <TextView
-                android:id="@+id/tvSentReq"
-                android:fontFamily="@font/assistantbold"
+            android:id="@+id/tvAlert"
 
-                android:layout_width="match_parent"
-                android:text="@string/sent_friend_request"
-                android:textColor="@color/dark_gray"
-                android:layout_gravity="center_vertical"
-                android:gravity="center_vertical"
-                android:paddingStart="20dp"
-                android:textSize="16sp"
-                android:layout_height="48dp"/>
-        <View android:layout_width="match_parent" android:layout_height="1dp"
-              android:background="@color/gray_lighter"
-              android:layout_marginStart="10dp"
-              android:layout_marginEnd="10dp"/>
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:layout_gravity="center_vertical"
+            android:fontFamily="@font/assistantbold"
+            android:gravity="center_vertical"
+            android:paddingStart="20dp"
+            android:text="@string/managing_alerts"
+            android:textColor="@color/dark_gray"
+            android:textSize="16sp" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="10dp"
+            android:background="@color/gray_lighter" />
+
+        <TextView
+            android:id="@+id/tvRecievedReq"
+
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:layout_gravity="center_vertical"
+            android:fontFamily="@font/assistantbold"
+            android:gravity="center_vertical"
+            android:paddingStart="20dp"
+            android:text="@string/received_friend_request"
+            android:textColor="@color/dark_gray"
+            android:textSize="16sp" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="10dp"
+            android:background="@color/gray_lighter" />
+
+        <TextView
+            android:id="@+id/tvSentReq"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:layout_gravity="center_vertical"
+            android:fontFamily="@font/assistantbold"
+            android:gravity="center_vertical"
+            android:paddingStart="20dp"
+            android:text="@string/sent_friend_request"
+            android:textColor="@color/dark_gray"
+            android:textSize="16sp" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="10dp"
+            android:background="@color/gray_lighter" />
+        <TextView
+            android:id="@+id/tvVersion"
+            android:layout_width="match_parent"
+            android:layout_height="25dp"
+            android:layout_gravity="center"
+            android:background="@color/dark_gray"
+            android:gravity="center"
+            android:text="Version : "
+            android:textColor="@color/white"
+            android:textSize="12sp"/>
     </LinearLayout>
 
 </ScrollView>

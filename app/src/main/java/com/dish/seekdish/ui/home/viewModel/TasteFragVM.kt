@@ -1,8 +1,10 @@
 package com.dish.seekdish.ui.home.viewModel
 
+import android.os.Build
 import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.dish.seekdish.BuildConfig
 import com.dish.seekdish.Constants
 import com.dish.seekdish.retrofit.APIClientMvvm
 import com.dish.seekdish.retrofit.APIInterface
@@ -72,7 +74,10 @@ class TasteFragVM() : ViewModel() {
 //        isLoadingSubject.onNext(true)
         Log.e("coords_resp","${userId}, long: ${longitude}   lat: ${latitude}")
         var api = APIClientMvvm.client.create(APIInterface::class.java)
-        val call = api.getLocation(userId, longitude,latitude)
+        val appVersion: String = BuildConfig.VERSION_NAME
+        val osVersion  = Build.VERSION.SDK_INT
+        val osDevice  = Constants.osDevice
+        val call = api.getLocation(userId, longitude,latitude,appVersion,osVersion.toString(),osDevice)
         call.enqueue(object : Callback<CancelReModel> {
             override fun onResponse(call: Call<CancelReModel>, response: Response<CancelReModel>) {
                 // making progress bar invisible

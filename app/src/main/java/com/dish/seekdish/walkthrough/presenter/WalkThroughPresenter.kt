@@ -1,5 +1,7 @@
 package com.dish.seekdish.walkthrough.presenter
 
+import android.os.Build
+import com.dish.seekdish.BuildConfig
 import com.dish.seekdish.R
 import com.dish.seekdish.retrofit.APIClient
 import com.dish.seekdish.retrofit.APIInterface
