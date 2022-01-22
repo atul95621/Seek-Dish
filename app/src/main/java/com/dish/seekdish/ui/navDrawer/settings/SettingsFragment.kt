@@ -137,7 +137,7 @@ class SettingsFragment(var homeActivity: HomeActivity) : BaseFragment(), ISettin
 
         }
 
-        numberPicker!!.setMax(25)
+//        numberPicker!!.setMax(25)
         numberPicker!!.setMin(1)
         numberPicker!!.setUnit(1)
 //        numberPicker.setValue(15)

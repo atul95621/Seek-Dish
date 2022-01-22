@@ -149,7 +149,6 @@
                     android:layout_height="40dp"
                     numberpicker:custom_layout="@layout/number_picker_custom_layout"
                     numberpicker:focusable="false"
-                    numberpicker:max="10"
                     numberpicker:min="0"
                     numberpicker:unit="1" />
 

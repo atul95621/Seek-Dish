@@ -109,7 +109,13 @@ class OpinionDetailsActivity : BaseActivity() {
                     tvComment.setText(response.response.data.comment)
 
                     var date = response.response.data.published_on
-                    tvDateName.setText(datePrase(date) + " - " + response.response.data.username)
+                    var username = ""
+                    if (response.response.data.anonymous == 1) {
+                        username = "Anonymous"
+                    } else {
+                        username = response.response.data.username
+                    }
+                    tvDateName.setText(datePrase(date) + " - " + username)
 
                     tvPrice.text =
                         response.response.data.meal_symbol + " " + response.response.data.meal_price
