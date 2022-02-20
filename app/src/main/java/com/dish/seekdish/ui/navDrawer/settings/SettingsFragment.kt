@@ -39,6 +39,7 @@ class SettingsFragment(var homeActivity: HomeActivity) : BaseFragment(), ISettin
 
 
     internal var langArr: ArrayList<String> = ArrayList<String>()
+
     //     lateinit var homeActivity: HomeActivity
     internal var PLACE_PICKER_REQUEST = 1
 
@@ -167,14 +168,25 @@ class SettingsFragment(var homeActivity: HomeActivity) : BaseFragment(), ISettin
             //check connection
             if (homeActivity.connectionDetector.isConnectingToInternet) {
 
+                var curentPlaceStatus = sessionManager?.getValue(
+                    SessionManager.IS_CURRENT_LOCATION_SELECTED
+                );
+
+                var sendlocation = ""
+                if (curentPlaceStatus.isNullOrEmpty() || curentPlaceStatus == "true") {
+                    sendlocation = ""
+                } else {
+                    sendlocation = sessionManager.getValue(SessionManager.PLACE_SELECTED).toString()
+                }
+
                 settingFragPresenter.setGeneralSettingInfo(
                     sessionManager.getValue(SessionManager.USER_ID),
                     geoCheck,
                     pushCheck,
                     privateCheck,
                     numberPicker!!.value,
-                    sessionManager.getValue(SessionManager.PLACE_SELECTED).toString()
-
+                    sendlocation,
+                    sessionManager.getValue(SessionManager.IS_CURRENT_LOCATION_SELECTED).toString()
                 )
 
             } else {
@@ -189,7 +201,7 @@ class SettingsFragment(var homeActivity: HomeActivity) : BaseFragment(), ISettin
     private fun setAddressRadiusdLang(view: View) {
         val versionName: String = BuildConfig.VERSION_NAME
         val osVersion = Build.VERSION.SDK_INT
-        view.tvVersion.text= "App / OS Version  : " +versionName +" / "+osVersion
+        view.tvVersion.text = "App / OS Version  : " + versionName + " / " + osVersion
 
         var language: String = sessionManager.getLangValue(SessionManager.LANGUAGE_NAME)
 
@@ -291,12 +303,29 @@ class SettingsFragment(var homeActivity: HomeActivity) : BaseFragment(), ISettin
                     val radius = settingDataClass.data.radius
 
                     sessionManager.setValues(SessionManager.RADIUS, radius.toString())
-                    sessionManager.setValues(SessionManager.IS_PRIVATE, settingDataClass.data.private.toString())
-                    sessionManager.setValues(SessionManager.IS_GEOLOCATION, settingDataClass.data.geolocation.toString())
-                    sessionManager.setValues(SessionManager.IS_NOTIFICATION, settingDataClass.data.push_notification.toString())
+                    sessionManager.setValues(
+                        SessionManager.IS_PRIVATE,
+                        settingDataClass.data.private.toString()
+                    )
+                    sessionManager.setValues(
+                        SessionManager.IS_GEOLOCATION,
+                        settingDataClass.data.geolocation.toString()
+                    )
+                    sessionManager.setValues(
+                        SessionManager.IS_NOTIFICATION,
+                        settingDataClass.data.push_notification.toString()
+                    )
 
-                    tvLikeCount.setText(settingDataClass.data.liked_count.toString() +" "+ resources.getString(R.string.i_like))
-                    tvDisLikeCount.setText(settingDataClass.data.disliked_count.toString() + " "+resources.getString(R.string.i_dislike))
+                    tvLikeCount.setText(
+                        settingDataClass.data.liked_count.toString() + " " + resources.getString(
+                            R.string.i_like
+                        )
+                    )
+                    tvDisLikeCount.setText(
+                        settingDataClass.data.disliked_count.toString() + " " + resources.getString(
+                            R.string.i_dislike
+                        )
+                    )
                     txtPlace.setText(settingDataClass.data.radius_center_location.toString())
 
                     numberPicker?.setValue(settingDataClass.data.radius)
@@ -310,7 +339,10 @@ class SettingsFragment(var homeActivity: HomeActivity) : BaseFragment(), ISettin
                 showSnackBar(settingDataClass.message);
             }
         } else {
-            showSnackBar(homeActivity.getResources().getString(R.string.error_occured) + "   ${response.code()}");
+            showSnackBar(
+                homeActivity.getResources()
+                    .getString(R.string.error_occured) + "   ${response.code()}"
+            );
         }
     }
 
@@ -335,13 +367,19 @@ class SettingsFragment(var homeActivity: HomeActivity) : BaseFragment(), ISettin
             val sendUserGeneralSetting = response.body() as SendUserGeneralSetting
 
             if (sendUserGeneralSetting.status == 1) {
-                sessionManager.setValues(SessionManager.RADIUS, sendUserGeneralSetting.data.radius.toString())
+                sessionManager.setValues(
+                    SessionManager.RADIUS,
+                    sendUserGeneralSetting.data.radius.toString()
+                )
                 showSnackBar(sendUserGeneralSetting.message);
             } else {
                 showSnackBar(sendUserGeneralSetting.message);
             }
         } else {
-            showSnackBar(homeActivity.getResources().getString(R.string.error_occured) + "   ${response.code()}");
+            showSnackBar(
+                homeActivity.getResources()
+                    .getString(R.string.error_occured) + "   ${response.code()}"
+            );
         }
     }
 
@@ -359,7 +397,10 @@ class SettingsFragment(var homeActivity: HomeActivity) : BaseFragment(), ISettin
             }
 
         } else {
-            showSnackBar(homeActivity.getResources().getString(R.string.error_occured) + "   ${response.code()}");
+            showSnackBar(
+                homeActivity.getResources()
+                    .getString(R.string.error_occured) + "   ${response.code()}"
+            );
         }
     }
 

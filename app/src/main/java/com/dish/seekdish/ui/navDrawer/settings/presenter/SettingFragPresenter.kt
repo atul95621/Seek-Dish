@@ -64,13 +64,22 @@ class SettingFragPresenter(private val iSettingView: ISettingView, val homeActiv
         push: String,
         checkboxPrivate: String,
         radius: Int,
-        radius_center_location: String
+        radius_center_location: String,
+        isCurrentLocation:String
     ) {
         ProgressBarClass.progressBarCalling(homeActivity)
         apiInterface = APIClient.getClient(homeActivity).create(APIInterface::class.java)
 
 
-        val call = apiInterface.setGeneralSetting(userId, geo, push, checkboxPrivate, radius.toString(),radius_center_location)
+        val call = apiInterface.setGeneralSetting(
+            userId,
+            geo,
+            push,
+            checkboxPrivate,
+            radius.toString(),
+            radius_center_location,
+            isCurrentLocation
+        )
         call.enqueue(object : Callback<SendUserGeneralSetting> {
             override fun onResponse(call: Call<SendUserGeneralSetting>, response: Response<SendUserGeneralSetting>) {
 

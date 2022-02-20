@@ -109,6 +109,8 @@ class LoginActivity : BaseActivity(), ILoginView {
                 sessionManager?.setValues(SessionManager.RADIUS, loginmodel.data.radius.toString()) // if new user, by default will be = 4
                 sessionManager?.setValues(SessionManager.LATITUDE, loginmodel.data.latitude.toString())
                 sessionManager?.setValues(SessionManager.LONGITUDE,  loginmodel.data.longitude.toString())
+                sessionManager?.setValues(SessionManager.LOCATION_SAVED,  loginmodel.data.radius_center_location.toString())
+                sessionManager?.setValues(SessionManager.IS_CURRENT_LOCATION_SELECTED,  loginmodel.data.isCurrentLocation.toString())
 
                 if (checkboxRememberMe.isChecked) {
                     sessionManager?.setValues(SessionManager.LOGGEDIN, "1")

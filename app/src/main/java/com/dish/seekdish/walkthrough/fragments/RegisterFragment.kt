@@ -439,6 +439,9 @@ class RegisterFragment : BaseFragment(), IRegisterFragView {
                 sessionManager.setValues(SessionManager.RADIUS, signUpModel.data.radius.toString()) // if new user, by default will be = 4
                 sessionManager.setValues(SessionManager.LATITUDE, signUpModel.data.latitude.toString())
                 sessionManager.setValues(SessionManager.LONGITUDE,  signUpModel.data.longitude.toString())
+                sessionManager.setValues(SessionManager.LOCATION_SAVED,  signUpModel.data.radius_center_location.toString())
+                sessionManager.setValues(SessionManager.IS_CURRENT_LOCATION_SELECTED,  signUpModel.data.isCurrentLocation.toString())
+
                 sessionManager.setValues(SessionManager.LOGGEDIN_THROUGH, "1")
 
 
@@ -474,7 +477,8 @@ class RegisterFragment : BaseFragment(), IRegisterFragView {
                 sessionManager.setValues(SessionManager.LOGGEDIN_THROUGH, "1")
                 sessionManager.setValues(SessionManager.LATITUDE, signUpModel.data.latitude.toString())
                 sessionManager.setValues(SessionManager.LONGITUDE,  signUpModel.data.longitude.toString())
-
+                sessionManager.setValues(SessionManager.LOCATION_SAVED,  signUpModel.data.radius_center_location.toString())
+                sessionManager.setValues(SessionManager.IS_CURRENT_LOCATION_SELECTED,  signUpModel.data.isCurrentLocation.toString())
 
                 val intent = Intent(mcontext, HomeActivity::class.java)
                 intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK

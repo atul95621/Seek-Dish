@@ -43,7 +43,10 @@ import com.google.android.gms.location.*
 import io.reactivex.android.schedulers.AndroidSchedulers
 import kotlinx.android.synthetic.main.fragment_taste.*
 import kotlinx.android.synthetic.main.fragment_taste.view.*
-import java.util.ArrayList
+import android.location.Geocoder
+import android.widget.Toast
+import com.google.android.gms.identity.intents.Address
+import java.util.*
 
 
 class TasteFragment : BaseFragment(), GoogleApiClient.ConnectionCallbacks,
@@ -116,28 +119,41 @@ class TasteFragment : BaseFragment(), GoogleApiClient.ConnectionCallbacks,
 
         //check connection
         if (homeActivity.connectionDetector.isConnectingToInternet) {
-            if (sessionManager.getValue(SessionManager.LATITUDE).isNullOrEmpty() == false && sessionManager.getValue(SessionManager.LONGITUDE).isNullOrEmpty() == false) {
+            var isCurrentLocation =
+                sessionManager.getValue(SessionManager.IS_CURRENT_LOCATION_SELECTED)
+            Log.e("isCurrentLocation_val", ": " + isCurrentLocation)
+            if (isCurrentLocation.isNullOrEmpty() == false && isCurrentLocation == Constants.FALSE_BOOLEAN) {
+                if (sessionManager.getValue(SessionManager.LATITUDE)
+                        .isNullOrEmpty() == false && sessionManager.getValue(SessionManager.LONGITUDE)
+                        .isNullOrEmpty() == false
+                ) {
 //                Log.e("current_location11", "$currentLatitude ,   $currentLongitude")
 
-                //hitting api
-                getTasteMeals(pageNumber)
+                    //hitting api
+                    getTasteMeals(pageNumber)
 
-            } else {
-                //location
+                } else {
+                    //location
 //                startLocationUpdates()
+                }
+            } else if (isCurrentLocation.isNullOrEmpty() == false && isCurrentLocation == Constants.TRUE_BOOLEAN) {
+                //location
+                startLocationUpdates()
+                getLiveLocationObserver()
             }
+
         } else {
             showSnackBar(getString(R.string.check_connection))
         }
 
         //location
-        startLocationUpdates()
+//        startLocationUpdates()
 
         searchTextListner(view)
 
         //observer
         getTasteResponseObserver()
-        getLiveLocationObserver()
+//        getLiveLocationObserver()
         getSearchObserver()
 
 
@@ -238,14 +254,34 @@ class TasteFragment : BaseFragment(), GoogleApiClient.ConnectionCallbacks,
             if (location != null) {
                 currentLatitude = location.latitude
                 currentLongitude = location.longitude
-//                Log.e("locsss", "${location.latitude},   ${location.longitude}")
+                Log.e("locsss22", "${location.latitude},   ${location.longitude}")
 
+               /* var longi = currentLongitude.toString()
+                var lati = currentLatitude.toString()
+                var geocoder = Geocoder(context, Locale.getDefault());
+                var  addresses = geocoder.getFromLocation(
+                    lati.toDouble(),
+                    longi.toDouble(),
+                    1
+                ) as ArrayList<android.location.Address>; // Here 1 represent max location result to returned, by documents it recommended 1 to 5
+                var address = addresses.get(0).getAddressLine(0)
+                var coords =
+                    "longitude: ${longi} \n  latitude: ${lati}  \n address: ${address}"
+
+                Toast.makeText(context, coords, Toast.LENGTH_LONG).show()*/
 
                 //now loading the meals at current location if user came to app after login
-                if (sessionManager.getValue(SessionManager.LATITUDE).isNullOrEmpty() == true && sessionManager.getValue(SessionManager.LONGITUDE).isNullOrEmpty() == true) {
+                /* if (sessionManager.getValue(SessionManager.LATITUDE)
+                         .isNullOrEmpty() == true && sessionManager.getValue(SessionManager.LONGITUDE)
+                         .isNullOrEmpty() == true
+                 ) {
+                     mealForCurrentLOcation()
+                 }*/
+                var isCurrentLocation =
+                    sessionManager.getValue(SessionManager.IS_CURRENT_LOCATION_SELECTED)
+                if (isCurrentLocation.isNullOrEmpty() == false && isCurrentLocation == Constants.TRUE_BOOLEAN) {
                     mealForCurrentLOcation()
                 }
-
                 // providng the slected coordinates to server...
                 checkAndSaveLocation()
 
@@ -265,7 +301,7 @@ class TasteFragment : BaseFragment(), GoogleApiClient.ConnectionCallbacks,
         mLocationRequest = LocationRequest()
         mLocationRequest?.priority = LocationRequest.PRIORITY_HIGH_ACCURACY
         mLocationRequest?.interval = (10 * 1000).toLong()        // 10 seconds, in milliseconds
-        mLocationRequest?.fastestInterval = (2 * 1000).toLong() // 1 second, in milliseconds
+        mLocationRequest?.fastestInterval = (1 * 1000).toLong() // 1 second, in milliseconds
         mLocationRequest?.setNumUpdates(4)   // 4 no of times you want to fetch location request
 
         // Create LocationSettingsRequest object using location request
@@ -293,16 +329,16 @@ class TasteFragment : BaseFragment(), GoogleApiClient.ConnectionCallbacks,
             ) {*/
         if (homeActivity.connectionDetector.isConnectingToInternet) {
 
-//                Log.e("current_location22", "$currentLatitude ,   $currentLongitude")
+            Log.e("current_location22", "$currentLatitude ,   $currentLongitude")
 
-                //hitting api
-                sessionManager.setValues(SessionManager.LATITUDE, currentLatitude.toString())
-                sessionManager.setValues(SessionManager.LONGITUDE, currentLongitude.toString())
+            //hitting api
+            sessionManager.setValues(SessionManager.LATITUDE, currentLatitude.toString())
+            sessionManager.setValues(SessionManager.LONGITUDE, currentLongitude.toString())
             // hit api for current location coordinates...
-                getTasteMeals(pageNumber)
+            getTasteMeals(pageNumber)
 
-                sessionManager.setValues(SessionManager.CURRENT_LATITUDE, currentLatitude.toString())
-                sessionManager.setValues(SessionManager.CURRENT_LONGITUDE, currentLongitude.toString())
+            sessionManager.setValues(SessionManager.CURRENT_LATITUDE, currentLatitude.toString())
+            sessionManager.setValues(SessionManager.CURRENT_LONGITUDE, currentLongitude.toString())
 
         } else {
             showSnackBar(getString(R.string.check_connection))
@@ -621,7 +657,7 @@ class TasteFragment : BaseFragment(), GoogleApiClient.ConnectionCallbacks,
         tasteFragVM!!.getTasteLiveData.observe(viewLifecycleOwner, Observer { response ->
             if (response != null) {
                 if (response.status == 1) {
-                            Log.e("rspTaste", "${response.toString()} ")
+                    Log.e("rspTaste", "${response.toString()} ")
 
                     var arrySize = arrayList.size
                     if (response.data.isEmpty() && alertShown == false) {
@@ -709,6 +745,19 @@ class TasteFragment : BaseFragment(), GoogleApiClient.ConnectionCallbacks,
 
 
     private fun getTasteMeals(page: Int) {
+        var longi = sessionManager.getValue(SessionManager.LONGITUDE)
+        var lati = sessionManager.getValue(SessionManager.LATITUDE)
+        var geocoder = Geocoder(context, Locale.getDefault());
+       var  addresses = geocoder.getFromLocation(
+            lati.toDouble(),
+            longi.toDouble(),
+            1
+        ) as ArrayList<android.location.Address>; // Here 1 represent max location result to returned, by documents it recommended 1 to 5
+        var address = addresses.get(0).getAddressLine(0)
+        var coords =
+            "X: ${longi}\nY: ${lati}\n${address}"
+
+        Toast.makeText(context, coords, Toast.LENGTH_LONG).show()
 
 //        Log.e("loadMoreItems", "entered getLikedIngre ")
         var radius: String = sessionManager.getValue(SessionManager.RADIUS)

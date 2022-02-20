@@ -28,6 +28,8 @@ class Constants {
         var radius = "4" // 5km default distance
         var mediaType = "image/*"
         val osDevice = "Android"
+        val TRUE_BOOLEAN = "true"
+        val FALSE_BOOLEAN = "false"
 
         fun refreshFragment(frag: String): Fragment {
             when (frag) {

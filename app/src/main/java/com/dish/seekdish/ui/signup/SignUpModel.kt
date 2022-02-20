@@ -21,5 +21,7 @@ data class Data(
     val message:String,
     val radius:Int,
     val latitude:String,
-    val longitude:String
+    val longitude:String,
+    val radius_center_location:String,
+    val isCurrentLocation: Boolean
 )

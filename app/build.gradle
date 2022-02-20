@@ -10,8 +10,8 @@ android {
         applicationId "com.dish.seekdish"
         minSdkVersion 17
         targetSdkVersion 30
-        versionCode 13
-        versionName "1.42"
+        versionCode 14
+        versionName "1.43"
         multiDexEnabled true
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
@@ -68,6 +68,7 @@ dependencies {
     implementation 'androidx.constraintlayout:constraintlayout:2.1.2'
 
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
+    implementation 'com.google.android.gms:play-services-identity:18.0.1'
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test:runner:1.4.0'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'

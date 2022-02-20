@@ -2,6 +2,7 @@ package com.dish.seekdish.ui.home.viewModel
 
 import android.os.Build
 import android.util.Log
+import android.widget.Toast
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.dish.seekdish.BuildConfig
@@ -12,6 +13,7 @@ import com.dish.seekdish.ui.home.dataModel.Location
 import com.dish.seekdish.ui.home.dataModel.TasteFragDataClass
 import com.dish.seekdish.ui.home.fragments.TasteFragment
 import com.dish.seekdish.ui.navDrawer.settings.dataModel.CancelReModel
+import com.dish.seekdish.util.SessionManager
 import io.reactivex.Observable
 import io.reactivex.subjects.BehaviorSubject
 import retrofit2.Call
@@ -37,6 +39,8 @@ class TasteFragVM() : ViewModel() {
         latitude: String,
         radius: String
     ) {
+        Log.e("coordsTASTE33","latit:  ${latitude}  --   longitu:  ${longitude}")
+
         // making progress bar visible
         isLoadingSubject.onNext(true)
         var api = APIClientMvvm.client.create(APIInterface::class.java)

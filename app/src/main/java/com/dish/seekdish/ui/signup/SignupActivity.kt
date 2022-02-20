@@ -35,6 +35,7 @@ import retrofit2.Response
 import java.io.File
 import java.io.IOException
 import java.util.*
+import kotlin.math.sign
 
 class SignupActivity : BaseActivity(), ISignUpView {
 
@@ -588,6 +589,8 @@ class SignupActivity : BaseActivity(), ISignUpView {
                 sessionManager.setValues(SessionManager.BIO, signUpModel.data.bio)
 
                 sessionManager.setValues(SessionManager.LOGGEDIN_THROUGH, "0")
+                sessionManager.setValues(SessionManager.LOCATION_SAVED,  signUpModel.data.radius_center_location.toString())
+                sessionManager.setValues(SessionManager.IS_CURRENT_LOCATION_SELECTED,  signUpModel.data.isCurrentLocation.toString())
 
 
                 val intent = Intent(this@SignupActivity, HomeActivity::class.java)

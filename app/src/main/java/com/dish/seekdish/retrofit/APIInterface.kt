@@ -150,7 +150,8 @@ internal interface APIInterface {
         @Field("push_notification") push_notification: String,
         @Field("private") private: String,
         @Field("radius") radius: String,
-        @Field("radius_center_location") radius_center_location: String
+        @Field("radius_center_location") radius_center_location: String,
+        @Field("isCurrentLocation") isCurrentLocation: String
     ): Call<SendUserGeneralSetting>
 
     @FormUrlEncoded

@@ -8,10 +8,8 @@ import android.graphics.Color
 import android.location.Address
 import android.location.Geocoder
 import android.location.Location
-import android.net.Uri
 import android.os.Build
 import android.os.Bundle
-import android.provider.Settings
 import android.util.Log
 import android.view.View
 import androidx.core.app.ActivityCompat
@@ -25,9 +23,7 @@ import com.dish.seekdish.retrofit.APIInterface
 import com.dish.seekdish.ui.navDrawer.settings.dataModel.CancelReModel
 import com.dish.seekdish.ui.navDrawer.settings.dataModel.SendUserGeneralSetting
 import com.dish.seekdish.ui.navDrawer.settings.presenter.RadiusPresenter
-import com.dish.seekdish.ui.navDrawer.settings.presenter.SettingFragPresenter
 import com.dish.seekdish.ui.navDrawer.settings.view.IRadiusView
-import com.dish.seekdish.ui.navDrawer.settings.view.ISettingView
 import com.dish.seekdish.util.BaseActivity
 import com.dish.seekdish.util.SessionManager
 import com.google.android.gms.maps.CameraUpdateFactory
@@ -115,6 +111,10 @@ class RadiusCenterActivity : BaseActivity(), OnMapReadyCallback,
                 // this way the user can selected a particular location
 //                sessionManager?.setValues(SessionManager.LOCATION_SELECTED, "1");
 
+                sessionManager?.setValues(
+                    SessionManager.IS_CURRENT_LOCATION_SELECTED, Constants.FALSE_BOOLEAN
+                );
+
                 updateCordsOnServer(
                     sessionManager?.getValue(SessionManager.USER_ID).toString(),
                     selectedLong.toString(),
@@ -130,7 +130,9 @@ class RadiusCenterActivity : BaseActivity(), OnMapReadyCallback,
                         sessionManager?.getValue(SessionManager.IS_NOTIFICATION).toString(),
                         sessionManager?.getValue(SessionManager.IS_PRIVATE).toString(),
                         sessionManager?.getValue(SessionManager.RADIUS).toString(),
-                        sessionManager?.getValue(SessionManager.PLACE_SELECTED).toString()
+                        sessionManager?.getValue(SessionManager.PLACE_SELECTED).toString(),
+                        sessionManager?.getValue(SessionManager.IS_CURRENT_LOCATION_SELECTED)
+                            .toString()
                     )
 
                 } else {
@@ -141,6 +143,10 @@ class RadiusCenterActivity : BaseActivity(), OnMapReadyCallback,
                   setResult(Activity.RESULT_CANCELED, returnIntent)
                   finish()*/
             } else if (!currentAddress.equals("")) {
+
+                sessionManager?.setValues(
+                    SessionManager.IS_CURRENT_LOCATION_SELECTED, Constants.TRUE_BOOLEAN
+                );
 
                 /*   sessionManager?.setValues(
                        SessionManager.LATITUDE_SELECTED,
@@ -173,16 +179,18 @@ class RadiusCenterActivity : BaseActivity(), OnMapReadyCallback,
                     sessionManager?.getValue(SessionManager.CURRENT_LATITUDE).toString()
                 )
 
-                //saving the new location address to the server
-                if (connectionDetector.isConnectingToInternet) {
 
+                //saving the new location address  empty according to new requirement if location is choosen the current one, to the server
+                if (connectionDetector.isConnectingToInternet) {
                     radiusPresenter.setGeneralSettingInfo(
                         sessionManager?.getValue(SessionManager.USER_ID).toString(),
                         sessionManager?.getValue(SessionManager.IS_GEOLOCATION).toString(),
                         sessionManager?.getValue(SessionManager.IS_NOTIFICATION).toString(),
                         sessionManager?.getValue(SessionManager.IS_PRIVATE).toString(),
                         sessionManager?.getValue(SessionManager.RADIUS).toString(),
-                        sessionManager?.getValue(SessionManager.PLACE_SELECTED).toString()
+                        "",
+                        sessionManager?.getValue(SessionManager.IS_CURRENT_LOCATION_SELECTED)
+                            .toString()
                     )
 
                 } else {
@@ -198,6 +206,8 @@ class RadiusCenterActivity : BaseActivity(), OnMapReadyCallback,
             if (tvAddAddress.text.equals("") && tvCurrentAddress.text.equals("")) {
                 showSnackBar("Please select any address first.")
             }
+
+            Log.e("coords33","latit:  ${sessionManager?.getValue(SessionManager.LATITUDE)}  --   longitu:  ${sessionManager?.getValue(SessionManager.LONGITUDE)}")
         }
 
         linCurrentLocation.setOnClickListener()
@@ -418,12 +428,20 @@ class RadiusCenterActivity : BaseActivity(), OnMapReadyCallback,
         latitude: String
     ) {
         ProgressBarClass.progressBarCalling(this)
+        Log.e("coords_resp_radius", "${userId}, long: ${longitude}   lat: ${latitude}")
 
         apiInterface = APIClient.getClient(this).create(APIInterface::class.java)
         val appVersion: String = BuildConfig.VERSION_NAME
-        val osVersion  = Build.VERSION.SDK_INT
-        val osDevice  = Constants.osDevice
-        val call = apiInterface.getLocation(userId, longitude, latitude,appVersion,osVersion.toString(),osDevice)
+        val osVersion = Build.VERSION.SDK_INT
+        val osDevice = Constants.osDevice
+        val call = apiInterface.getLocation(
+            userId,
+            longitude,
+            latitude,
+            appVersion,
+            osVersion.toString(),
+            osDevice
+        )
         call.enqueue(object : Callback<CancelReModel> {
             override fun onResponse(call: Call<CancelReModel>, response: Response<CancelReModel>) {
                 ProgressBarClass.dialog.dismiss()
@@ -441,9 +459,9 @@ class RadiusCenterActivity : BaseActivity(), OnMapReadyCallback,
             }
 
             override fun onFailure(call: Call<CancelReModel>, t: Throwable) {
+                ProgressBarClass.dialog.dismiss()
                 showSnackBar(resources.getString(R.string.error_occured) + "    ${t.message}");
                 call.cancel()
-                ProgressBarClass.dialog.dismiss()
 
             }
         })

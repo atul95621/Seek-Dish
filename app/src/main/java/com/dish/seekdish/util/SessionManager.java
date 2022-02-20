@@ -39,7 +39,12 @@ public class SessionManager {
     public static final String LATITUDE_SELECTED = "lattitude_selected";
     public static final String LONGITUDE_SELECTED = "longitude_selected";
     public static final String PLACE_SELECTED = "place_selected";  // selected with aadress to show address only in textview
-   //------------------
+
+
+    public static final String LOCATION_SAVED = "location_saved";  // location saved on server
+    public static final String IS_CURRENT_LOCATION_SELECTED = "current_location";  // key to select current location
+
+    //------------------
 //    public static final String LOCATION_SELECTED = "location_selected";   // selected a particular location,
     // 1- means he has selected particular location, 0 - means its current location wherever he will go it gets updated.
     /// did this so that if user move when selected current position teh location gets updated if selected then not
