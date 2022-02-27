@@ -96,7 +96,7 @@ data class ContactModel(
 )
 
 data class Data_Contact(
-    val callingcode: Int?,
+    val callingcode: String?,
     val email: String?,
     val facebook_id: String?,
     val phone: String?,

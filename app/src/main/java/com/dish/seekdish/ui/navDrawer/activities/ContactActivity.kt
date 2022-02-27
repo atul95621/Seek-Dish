@@ -25,9 +25,7 @@ class ContactActivity : BaseActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_contact)
 
-
         sessionManager = SessionManager(this)
-
         hideKeyBoard()
 
         if (connectionDetector.isConnectingToInternet) {
@@ -40,7 +38,6 @@ class ContactActivity : BaseActivity() {
         } else {
             showSnackBar(resources.getString(R.string.check_connection))
         }
-
 
         tvBack.setOnClickListener()
         {
@@ -126,7 +123,10 @@ class ContactActivity : BaseActivity() {
                             edtEmail.setText(modelObj.data[0].email ?: "")
                             edtPhone.setText(modelObj.data[0].phone ?: "")
                             edtSkype.setText(modelObj.data[0].skype_id ?: "")
-                            ccpContact.setCountryForPhoneCode(modelObj.data[0].callingcode ?: 0)
+                            var c_code = modelObj.data[0].callingcode ?: "0"
+                            if (!c_code.isNullOrEmpty()) {
+                                ccpContact.setCountryForPhoneCode(c_code.toInt())
+                            }
                         } else {
 //                            showSnackBar(getString(R.string.no_one_found))
                         }
@@ -137,10 +137,7 @@ class ContactActivity : BaseActivity() {
                 } else {
 //                    iSignUpView.onSetLoggedin(false, response)
                     showSnackBar(resources.getString(R.string.error_occured) + "   ${response.code()}");
-
                 }
-
-
             }
 
             override fun onFailure(call: Call<ContactModel>, t: Throwable) {
@@ -148,7 +145,6 @@ class ContactActivity : BaseActivity() {
                 call.cancel()
                 // canceling the progress bar
                 ProgressBarClass.dialog.dismiss()
-
             }
         })
     }

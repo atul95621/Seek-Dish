@@ -538,7 +538,7 @@ class DishDescriptionActivity : BaseActivity(), Serializable {
     private fun onShareSocial() {
         val dialog = Dialog(this)
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
-        dialog.setCancelable(false)
+        dialog.setCancelable(true)
         dialog.setContentView(R.layout.dialog_social_share)
         dialog.window!!.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))   // making backgrnd color tarnsparent code begind progress circle bar
         dialog.window!!.setLayout(
