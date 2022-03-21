@@ -110,8 +110,14 @@ class HomeActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
         imgFilters = findViewById(R.id.imgFilters) as ImageView
 
         checkIfUpdateAvailable()
+
+        from = intent.getStringExtra("from")
+
 // setting imitial fragment to HomeFragment for "HOMEPAGE"
-        setInitialFragment()
+        if (from == null) {
+            setInitialFragment()
+        }
+
 
         // hiding custom icon
         imgHamburger.visibility = View.GONE
@@ -173,7 +179,6 @@ class HomeActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
 
 
 // callbacks from activities
-        from = intent.getStringExtra("from")
         fromValue = intent.getStringExtra("fromValue")
         fromUsername = intent.getStringExtra("fromUsername")
 
@@ -236,13 +241,13 @@ class HomeActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
         }
 
         // for left drawerr
-      /*  imgHamburger.setOnClickListener(View.OnClickListener {
-            if (drawerLayout?.isDrawerOpen(GravityCompat.START)!!) {
-                drawerLayout?.closeDrawer(GravityCompat.START)
-            } else {
-                drawerLayout?.openDrawer(GravityCompat.START)
-            }
-        })*/
+        /*  imgHamburger.setOnClickListener(View.OnClickListener {
+              if (drawerLayout?.isDrawerOpen(GravityCompat.START)!!) {
+                  drawerLayout?.closeDrawer(GravityCompat.START)
+              } else {
+                  drawerLayout?.openDrawer(GravityCompat.START)
+              }
+          })*/
 
         // for right drawer that is filter
         imgFilters.setOnClickListener(View.OnClickListener {
@@ -780,8 +785,14 @@ class HomeActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
             if (response != null) {
                 if (response.status == 1) {
 
-                    sessionManager?.setValues(SessionManager.RESTRO_MAP_QTY,response.restro_map_qty.toString())
-                    sessionManager?.setValues(SessionManager.MEAL_MAP_QTY,response.meal_map_qty.toString())
+                    sessionManager?.setValues(
+                        SessionManager.RESTRO_MAP_QTY,
+                        response.restro_map_qty.toString()
+                    )
+                    sessionManager?.setValues(
+                        SessionManager.MEAL_MAP_QTY,
+                        response.meal_map_qty.toString()
+                    )
                     var version = ""
                     try {
                         val pInfo: PackageInfo =
@@ -791,7 +802,7 @@ class HomeActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
                         e.printStackTrace()
                     }
                     if (!version.isNullOrEmpty()) {
-                        if (version.toFloat() < response.Android_version.toFloat() ) {
+                        if (version.toFloat() < response.Android_version.toFloat()) {
                             //making the isLoggedIn key to "0"
                             sessionManager?.setValues(SessionManager.LOGGEDIN, "0")
                             val intent = Intent(this@HomeActivity, WalkThroughActivity::class.java)

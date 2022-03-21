@@ -3,13 +3,19 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Android Projects/Android WREED/SeekDish/app/src/main/res/layout/activity_checkin.xml" value="0.23794871794871794" />
+        <entry key="..\:/Android Projects/Android WREED/SeekDish/app/src/main/res/layout/activity_forgot.xml" value="0.23846153846153847" />
         <entry key="..\:/Android Projects/Android WREED/SeekDish/app/src/main/res/layout/activity_home.xml" value="0.2421875" />
         <entry key="..\:/Android Projects/Android WREED/SeekDish/app/src/main/res/layout/activity_language.xml" value="0.2421875" />
+        <entry key="..\:/Android Projects/Android WREED/SeekDish/app/src/main/res/layout/activity_my_profile.xml" value="0.23846153846153847" />
         <entry key="..\:/Android Projects/Android WREED/SeekDish/app/src/main/res/layout/activity_opinion_details.xml" value="0.23846153846153847" />
         <entry key="..\:/Android Projects/Android WREED/SeekDish/app/src/main/res/layout/activity_radius_center.xml" value="0.2421875" />
+        <entry key="..\:/Android Projects/Android WREED/SeekDish/app/src/main/res/layout/activity_signup.xml" value="0.23846153846153847" />
         <entry key="..\:/Android Projects/Android WREED/SeekDish/app/src/main/res/layout/dialog_language.xml" value="0.25862068965517243" />
+        <entry key="..\:/Android Projects/Android WREED/SeekDish/app/src/main/res/layout/fragment_meals.xml" value="0.23846153846153847" />
         <entry key="..\:/Android Projects/Android WREED/SeekDish/app/src/main/res/layout/fragment_settings.xml" value="0.2421875" />
         <entry key="..\:/Android Projects/Android WREED/SeekDish/app/src/main/res/layout/fragment_similar.xml" value="0.22037037037037038" />
+        <entry key="..\:/Android Projects/Android WREED/SeekDish/app/src/main/res/layout/item_layout_restro_meal_frag.xml" value="0.23846153846153847" />
         <entry key="..\:/Android Projects/Android WREED/SeekDish/app/src/main/res/layout/list_languages_dialog.xml" value="0.2421875" />
         <entry key="..\:/Android Projects/Android WREED/SeekDish/app/src/main/res/layout/nav_header_home.xml" value="0.2421875" />
         <entry key="..\:/Android Projects/Android WREED/SeekDish/app/src/main/res/menu/activity_home_drawer.xml" value="0.2421875" />
