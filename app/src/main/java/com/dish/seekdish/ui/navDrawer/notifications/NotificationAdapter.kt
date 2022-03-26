@@ -4,15 +4,15 @@ import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.FrameLayout
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
-import android.widget.Toast
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.dish.seekdish.R
 import com.dish.seekdish.ui.home.HomeActivity
-import com.dish.seekdish.ui.navDrawer.activities.MyProfileActivity
 import com.dish.seekdish.ui.navDrawer.dishDescription.DishDescriptionActivity
 import com.dish.seekdish.ui.navDrawer.friendInfo.FriendInfoActivity
 import com.dish.seekdish.ui.navDrawer.invitation.InvitationActivity
@@ -20,7 +20,8 @@ import com.dish.seekdish.ui.navDrawer.settings.activity.ReceivedRequestActivity
 
 class NotificationAdapter(
     arrayList: ArrayList<Data_Notify>,
-    activity: HomeActivity
+    activity: HomeActivity,
+    var notificationFarg: NotificationFarg
 ) :
     RecyclerView.Adapter<NotificationAdapter.RecyclerViewHolder>() {
     internal var arrayList = ArrayList<Data_Notify>()
@@ -46,6 +47,23 @@ class NotificationAdapter(
         Glide.with(activity).load(imgFriend).placeholder(R.drawable.ic_user).into(holder.imgUser);
         holder.tvNotifi.text = notifyModel.notification_message
         holder.tvTime.text = activity.dateTimePrase(notifyModel.date_and_time)
+        var is_read = notifyModel.is_read
+        if (is_read == "no") {
+            holder.frameLayoutNotify.setBackgroundColor(
+                ContextCompat.getColor(
+                    activity,
+                    R.color.white
+                )
+            )
+        } else {
+            holder.frameLayoutNotify.setBackgroundColor(
+                ContextCompat.getColor(
+                    activity,
+                    R.color.notification_read
+                )
+            )
+        }
+
         var noti_type = notifyModel.notification_type
         holder.linLayout.setOnClickListener()
         {
@@ -60,20 +78,20 @@ class NotificationAdapter(
                 intent.putExtra("RESTAURANT_ID", notifyModel.restaurant_id.toString())
                 activity.startActivity(intent)
             } else if (noti_type.equals("decline_invitation")) {
-                    val intent = Intent(activity, InvitationActivity::class.java)
-                    intent.putExtra("RESTAURANT_ID", notifyModel.restaurant_id.toString())
-                    intent.putExtra("FROM", "")
-                    intent.putExtra("USER_WHO_SENT_ID", "");
-                    intent.putExtra("TIME", "");
-                    activity.startActivity(intent)
+                val intent = Intent(activity, InvitationActivity::class.java)
+                intent.putExtra("RESTAURANT_ID", notifyModel.restaurant_id.toString())
+                intent.putExtra("FROM", "")
+                intent.putExtra("USER_WHO_SENT_ID", "");
+                intent.putExtra("TIME", "");
+                activity.startActivity(intent)
 
             } else if (noti_type.equals("accept_invitation")) {
-                    val intent = Intent(activity, InvitationActivity::class.java)
-                    intent.putExtra("RESTAURANT_ID", notifyModel.restaurant_id.toString())
-                    intent.putExtra("FROM", "")
-                    intent.putExtra("USER_WHO_SENT_ID", "");
-                    intent.putExtra("TIME", "");
-                    activity.startActivity(intent)
+                val intent = Intent(activity, InvitationActivity::class.java)
+                intent.putExtra("RESTAURANT_ID", notifyModel.restaurant_id.toString())
+                intent.putExtra("FROM", "")
+                intent.putExtra("USER_WHO_SENT_ID", "");
+                intent.putExtra("TIME", "");
+                activity.startActivity(intent)
             } else if (noti_type.equals("send_friend_request")) {
 // no action
                 val intent = Intent(activity, ReceivedRequestActivity::class.java)
@@ -107,11 +125,16 @@ class NotificationAdapter(
             }
         }
 
+        holder.imgDelete.setOnClickListener()
+        {
+            var notificationId = notifyModel.notification_id.toString()
+            notificationFarg.deleteItemFromTodoList(notificationId, position)
+        }
+
     }
 
 
     override fun getItemCount(): Int {
-
         return arrayList.size
     }
 
@@ -121,12 +144,17 @@ class NotificationAdapter(
         internal var tvNotifi: TextView
         internal var tvTime: TextView
         internal var linLayout: LinearLayout
+        internal var imgDelete: ImageView
+        internal var frameLayoutNotify: FrameLayout
+
 
         init {
             imgUser = view.findViewById(R.id.imgUser) as ImageView
             tvNotifi = view.findViewById(R.id.tvNotifi) as TextView
             tvTime = view.findViewById(R.id.tvTime) as TextView
             linLayout = view.findViewById(R.id.linLayout) as LinearLayout
+            imgDelete = view.findViewById(R.id.imgDelete) as ImageView
+            frameLayoutNotify = view.findViewById(R.id.frameLayoutNotify) as FrameLayout
 
         }
     }

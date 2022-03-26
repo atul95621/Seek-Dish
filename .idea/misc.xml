@@ -15,9 +15,14 @@
         <entry key="..\:/Android Projects/Android WREED/SeekDish/app/src/main/res/layout/dialog_language.xml" value="0.25862068965517243" />
         <entry key="..\:/Android Projects/Android WREED/SeekDish/app/src/main/res/layout/fragment_follower.xml" value="0.2421875" />
         <entry key="..\:/Android Projects/Android WREED/SeekDish/app/src/main/res/layout/fragment_friends.xml" value="0.23703703703703705" />
+        <entry key="..\:/Android Projects/Android WREED/SeekDish/app/src/main/res/layout/fragment_list_todo.xml" value="0.2421875" />
         <entry key="..\:/Android Projects/Android WREED/SeekDish/app/src/main/res/layout/fragment_meals.xml" value="0.23846153846153847" />
+        <entry key="..\:/Android Projects/Android WREED/SeekDish/app/src/main/res/layout/fragment_notification_farg.xml" value="0.2421875" />
         <entry key="..\:/Android Projects/Android WREED/SeekDish/app/src/main/res/layout/fragment_settings.xml" value="0.2421875" />
         <entry key="..\:/Android Projects/Android WREED/SeekDish/app/src/main/res/layout/fragment_similar.xml" value="0.22037037037037038" />
+        <entry key="..\:/Android Projects/Android WREED/SeekDish/app/src/main/res/layout/item_layout_list_frag.xml" value="0.23703703703703705" />
+        <entry key="..\:/Android Projects/Android WREED/SeekDish/app/src/main/res/layout/item_layout_list_todo_frag.xml" value="0.23703703703703705" />
+        <entry key="..\:/Android Projects/Android WREED/SeekDish/app/src/main/res/layout/item_layout_notification_frag.xml" value="0.2421875" />
         <entry key="..\:/Android Projects/Android WREED/SeekDish/app/src/main/res/layout/item_layout_restro_meal_frag.xml" value="0.23846153846153847" />
         <entry key="..\:/Android Projects/Android WREED/SeekDish/app/src/main/res/layout/list_languages_dialog.xml" value="0.2421875" />
         <entry key="..\:/Android Projects/Android WREED/SeekDish/app/src/main/res/layout/nav_header_home.xml" value="0.2421875" />

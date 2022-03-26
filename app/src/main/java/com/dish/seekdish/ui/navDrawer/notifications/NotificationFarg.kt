@@ -1,7 +1,6 @@
 package com.dish.seekdish.ui.navDrawer.notifications
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -93,7 +92,7 @@ class NotificationFarg : BaseFragment() {
                             tvNotifiAlert.visibility = View.VISIBLE
 
                         } else {
-                            adapter = NotificationAdapter(arrayList, homeActivity)
+                            adapter = NotificationAdapter(arrayList, homeActivity,this@NotificationFarg)
                             recyclerView!!.setAdapter(adapter)
                         }
                     } else {
@@ -113,6 +112,53 @@ class NotificationFarg : BaseFragment() {
 
             }
         })
+    }
+
+
+    fun deleteNotificationApi( notificationId: String) {
+        ProgressBarClass.progressBarCalling(homeActivity)
+        apiInterface = APIClient.getClient(homeActivity).create(APIInterface::class.java)
+        val call =
+            apiInterface.deleteNotification(
+                sessionManager.getValue(SessionManager.USER_ID), notificationId
+            )
+        call.enqueue(object : Callback<NotifyDeleteModel> {
+            override fun onResponse(
+                call: Call<NotifyDeleteModel>,
+                response: Response<NotifyDeleteModel>
+            ) {
+                // canceling the progress bar
+                ProgressBarClass.dialog.dismiss()
+                if (response.code().toString().equals("200")) {
+
+                    var modelObj = response.body() as NotifyDeleteModel
+                    if (modelObj.status == 1) {
+                        showSnackBar(modelObj.message);
+                        arrayList.clear()
+                        hitApi()
+
+                    } else {
+                        showSnackBar(modelObj.message);
+                    }
+                } else {
+                    showSnackBar(resources.getString(R.string.error_occured)+"  ${response.code()}");
+                }
+            }
+
+            override fun onFailure(call: Call<NotifyDeleteModel>, t: Throwable) {
+                showSnackBar(resources.getString(R.string.error_occured)+"  ${t.message}");
+
+                call.cancel()
+                // canceling the progress bar
+                ProgressBarClass.dialog.dismiss()
+
+            }
+        })
+    }
+
+
+    fun deleteItemFromTodoList( notificationId: String, position: Int) {
+        deleteNotificationApi( notificationId)
     }
 
 }

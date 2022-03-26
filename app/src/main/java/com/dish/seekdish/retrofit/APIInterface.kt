@@ -13,6 +13,7 @@ import com.dish.seekdish.ui.navDrawer.dishDescription.model.DishDescpModel
 import com.dish.seekdish.ui.navDrawer.dishDescription.opinion.CommentDetailModel
 import com.dish.seekdish.ui.navDrawer.myFriends.contactFetch.ContactsDetailsModel
 import com.dish.seekdish.ui.navDrawer.myFriends.dataModel.FriendDataModel
+import com.dish.seekdish.ui.navDrawer.notifications.NotifyDeleteModel
 import com.dish.seekdish.ui.navDrawer.notifications.NotifyModel
 import com.dish.seekdish.ui.navDrawer.restaurantDiscription.RestroDescpModel
 import com.dish.seekdish.ui.navDrawer.restaurantDiscription.checkInRestro.CheckinRestroModel
@@ -786,4 +787,10 @@ internal interface APIInterface {
     @GET("checkappupdate")
     fun checkUpdate(): Call<CheckUpdateModel>
 
+    @FormUrlEncoded
+    @POST("deleteNotification")
+    fun deleteNotification(
+        @Field("userId") userId: String,
+        @Field("notificationId") notificationId: String
+    ): Call<NotifyDeleteModel>
 }

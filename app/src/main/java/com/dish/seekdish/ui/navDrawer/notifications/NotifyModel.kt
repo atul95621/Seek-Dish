@@ -16,5 +16,13 @@ data class Data_Notify(
     val invitation_status:String,
     val follower_name:String,
     val username:String,
-    val user_id: Int
+    val user_id: Int,
+    val notification_id:Int,
+    val is_read: String
+)
+
+
+data class NotifyDeleteModel(
+    val status: Int,
+    val message: String
 )
