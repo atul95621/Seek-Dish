@@ -149,6 +149,10 @@ class HomeActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
 
 //        drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED,right_drawer);
 
+        // making the navigation view item dynamic and providing the dynamic notification
+        val menu: Menu = navigationView.getMenu()
+        val nav_login = menu.findItem(R.id.nav_notifications)
+        nav_login.title = getString(R.string.notifications) + " (2)"
 
         //hitting api when drawer gets opened...
         drawerLayout?.addDrawerListener(object : DrawerLayout.DrawerListener {
@@ -222,6 +226,13 @@ class HomeActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
                         MyFriendsFragment(fromValue.toString())
                     ).commit()
                 }
+            } else if (from.equals("Notification")) {
+                tvTitle.setText(resources.getString(R.string.notifications))
+                val fragmentManager = supportFragmentManager
+                fragmentManager.beginTransaction().replace(
+                    R.id.content_frame,
+                    NotificationFarg()
+                ).commit()
             }
         }
 
@@ -384,7 +395,7 @@ class HomeActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
                 .into(imageViewNavDrawer)
         }
 
-        tvName.setText(sessionManager?.getValue(SessionManager.FIRST_NAME) ?: "Null")
+        tvName.setText(sessionManager?.getValue(SessionManager.USERNAME) ?: "Null")
 
     }
 
@@ -574,7 +585,6 @@ class HomeActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
                 }
             }
         }, 300)
-
 
 //        val drawerLayout: DrawerLayout = findViewById(R.id.drawer_layout)
 //        drawerLayout.closeDrawer(GravityCompat.START)
@@ -853,10 +863,10 @@ class HomeActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
                 .placeholder(R.drawable.ic_user)
                 .into(imageViewNavDrawer)
 
-            tvName.setText(sessionManager?.getValue(SessionManager.FIRST_NAME))
+            tvName.setText(sessionManager?.getValue(SessionManager.USERNAME))
         }
         if (name != null && name != "null" && name != "") {
-            tvName.setText(sessionManager?.getValue(SessionManager.FIRST_NAME))
+            tvName.setText(sessionManager?.getValue(SessionManager.USERNAME))
         }
     }
 

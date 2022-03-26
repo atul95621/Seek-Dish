@@ -243,7 +243,7 @@ class FriendsFragment(var userId: String) : BaseFragment() {
             if (filteredItems.size == 0) {
                 rvMyFriendsFrag.visibility = View.GONE
                 tvFavAlert.visibility = View.VISIBLE
-                tvFavAlert.text = getResources().getString(R.string.no_todo)
+                tvFavAlert.text = getResources().getString(R.string.no_friend_alert)
             } else {
                 rvMyFriendsFrag.visibility = View.VISIBLE
                 tvFavAlert.visibility = View.GONE

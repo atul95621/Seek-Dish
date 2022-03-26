@@ -49,7 +49,6 @@ public class MyNotificationManager {
         * */
 
         Intent resultIntent = new Intent(mCtx, HomeActivity.class);
-
         /*
         *  Now we will create a pending intent
         *  The method getActivity is taking 4 parameters

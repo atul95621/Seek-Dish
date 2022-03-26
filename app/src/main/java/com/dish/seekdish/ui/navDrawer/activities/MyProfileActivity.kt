@@ -68,7 +68,7 @@ class MyProfileActivity : BaseActivity() {
                             modelObj.data.new_info_data.profile_percentage.toString() + " " + getString(
                                 R.string.of_profile
                             )
-                        tvName.text = modelObj.data.first_name
+                        tvName.text = modelObj.data.username
                         tvBio.text = modelObj.data.bio
                     }
                 } else {

@@ -268,4 +268,7 @@
     <string name="menu_click">Click to view menu</string>
     <string name="go_playstore">Please update from Google Play Store.</string>
     <string name="specialities">Specialities</string>
+    <string name="no_follower_alert">No subscribers yet</string>
+    <string name="no_following_alert">You don\'t follow anyone</string>
+    <string name="no_friend_alert">No friends yet</string>
 </resources>

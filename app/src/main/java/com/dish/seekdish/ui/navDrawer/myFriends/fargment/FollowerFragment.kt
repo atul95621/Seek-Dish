@@ -208,7 +208,7 @@ class FollowerFragment(var userId: String) : BaseFragment() {
         {
             rvFollowerFrag.visibility=View.GONE
             tvFavAlert.visibility=View.VISIBLE
-            tvFavAlert.text=getResources().getString(R.string.no_todo)
+            tvFavAlert.text=getResources().getString(R.string.no_follower_alert)
         }
         else
         {

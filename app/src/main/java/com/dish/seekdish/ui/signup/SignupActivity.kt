@@ -160,10 +160,11 @@ class SignupActivity : BaseActivity(), ISignUpView {
             ) {
                 showSnackBar(getString(R.string.pass_not_match))
                 edtConfirmPasword!!.requestFocus()
-            } else if (TextUtils.isEmpty(edtUsername!!.text.toString().trim { it <= ' ' })) {
+            }
+            /*else if (TextUtils.isEmpty(edtUsername!!.text.toString().trim { it <= ' ' })) {
                 showSnackBar(getString(R.string.enter_user))
                 edtUsername!!.requestFocus()
-            }
+            }*/
             /*else if (path.equals("") || path.equals(null)) {
                 showSnackBar("Please select an image.")
             } */ else {

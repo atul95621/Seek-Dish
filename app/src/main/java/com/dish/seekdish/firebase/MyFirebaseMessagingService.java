@@ -17,11 +17,6 @@ import com.dish.seekdish.util.SessionManager;
 import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
 
-
-/**
- * Created by Belal on 5/27/2016.
- */
-
 public class MyFirebaseMessagingService extends FirebaseMessagingService {
 
     private static final String TAG = "MyFirebaseMsgService";
@@ -33,14 +28,10 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
 //        Log.e("onNewToken",s);
         SessionManager sessionManager = new SessionManager(this);
         sessionManager.setValues(SessionManager.FCM_TOKEN, s);
-
-
     }
 
     @Override
     public void onMessageReceived(RemoteMessage remoteMessage) {
-
-
         try {
            // Map<String,String> datamap=remoteMessage.getData();
             //Log.d("Notify", "MyFirebaseMessagingService: " + remoteMessage.getData());
@@ -76,7 +67,6 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
         } catch (Exception e) {
             e.printStackTrace();
         }
-
     }
 
     //This method is only generating push notification
@@ -86,6 +76,7 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
 
         try {
             Intent intent = new Intent(this, HomeActivity.class);
+            intent. putExtra("from", "Notification");
             intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
 
             PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, intent,
@@ -110,7 +101,5 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
         } catch (Exception e) {
             e.printStackTrace();
         }
-
-
     }
 }

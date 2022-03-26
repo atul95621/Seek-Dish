@@ -247,7 +247,7 @@ class FollowingFragment(var userId: String) : BaseFragment() {
         if (filteredItems.size == 0) {
             rvFollowingFrag.visibility = View.GONE
             tvFavAlert.visibility = View.VISIBLE
-            tvFavAlert.text = getResources().getString(R.string.no_todo)
+            tvFavAlert.text = getResources().getString(R.string.no_following_alert)
         } else {
             rvFollowingFrag.visibility = View.VISIBLE
             tvFavAlert.visibility = View.GONE
