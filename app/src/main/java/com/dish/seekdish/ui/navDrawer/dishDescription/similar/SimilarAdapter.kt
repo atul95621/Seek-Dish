@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.FrameLayout
 import android.widget.ImageView
+import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
@@ -38,6 +39,19 @@ class SimilarAdapter(
 
     override fun onBindViewHolder(holder: RecyclerViewHolder, position: Int) {
         val tasteDataClass = arrayList[position]
+
+        // for making the sections
+        if (position == 0) {
+            holder.linHeader.visibility = View.VISIBLE
+            holder.tvTypeOfMeal.setText(tasteDataClass.meal_type)
+        } else {
+            if (arrayList[position].meal_type.equals(arrayList[position.minus(1)].meal_type)) {
+                holder.linHeader.visibility = View.GONE
+            } else {
+                holder.linHeader.visibility = View.VISIBLE
+                holder.tvTypeOfMeal.setText(tasteDataClass.meal_type)
+            }
+        }
 
         // getting all vales and storing in val...
         var imageUrl: String = tasteDataClass.foodImageUrl.toString()
@@ -79,6 +93,8 @@ class SimilarAdapter(
         internal var euroScaleRatingBar: ScaleRatingBar
         internal var frameTasteDish: FrameLayout
         internal  var tvPrice:TextView
+        internal var tvTypeOfMeal: TextView
+        internal var linHeader: LinearLayout
 
         init {
             starScaleRatingBar = view.findViewById(R.id.simpleRatingBar) as ScaleRatingBar
@@ -89,7 +105,8 @@ class SimilarAdapter(
             tvDishName = view.findViewById(R.id.tvDishName) as TextView
             frameTasteDish = view.findViewById(R.id.frameTasteDish) as FrameLayout
             tvPrice = view.findViewById(R.id.tvPrice) as TextView
-
+            tvTypeOfMeal = view.findViewById(R.id.tvTypeOfMeal) as TextView
+            linHeader = view.findViewById(R.id.linHeader) as LinearLayout
         }
     }
 

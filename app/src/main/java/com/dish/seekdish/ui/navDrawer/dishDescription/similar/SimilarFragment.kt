@@ -45,13 +45,9 @@ class SimilarFragment(var objDishModel: DishDescpModel) : BaseFragment() {
 
         var size = objDishModel.data.similar_meals.size
 
-        if (size == null || size.equals("null") || size.equals("") || size== 0) {
-
-            view.tvMainDish.visibility=View.GONE
-            view.tvSimilarAlert.visibility=View.VISIBLE
-        }
-        else
-        {
+        if (size == null || size.equals("null") || size.equals("") || size == 0) {
+            view.tvSimilarAlert.visibility = View.VISIBLE
+        } else {
             for (item in objDishModel.data.similar_meals) {
                 val similarDataClass = SimilarDataClass(
                     item.meal_image,
@@ -63,9 +59,8 @@ class SimilarFragment(var objDishModel: DishDescpModel) : BaseFragment() {
                     item.meal_id.toString(),
                     item.restro_id.toString(),
                     item.meal_price.toString(),
-                    item.meal_symbol.toString()
-
-
+                    item.meal_symbol.toString(),
+                    item.meal_type.toString()
                 );
                 arrayList.add(similarDataClass)
             }

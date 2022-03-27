@@ -75,7 +75,8 @@ data class SimilarMeal(
     val restro_id: Int,
     val restro_name: String,
     val meal_price:String,
-    val meal_symbol:String
+    val meal_symbol:String,
+    val meal_type:String
 ) : Serializable
 
 data class UserMealComment(

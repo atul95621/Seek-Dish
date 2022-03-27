@@ -10,5 +10,6 @@ data class SimilarDataClass(
     var mealId: String? = null,
     var restroId: String? = null,
     var price: String? = null,
-    var symbol: String? = null
+    var symbol: String? = null,
+    var meal_type: String? = null
 )
