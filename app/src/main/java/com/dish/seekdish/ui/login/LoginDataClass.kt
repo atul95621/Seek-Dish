@@ -39,3 +39,13 @@ data class CheckUpdateModel(
     val restro_map_qty: Int,
     val meal_map_qty:Int
 )
+
+data class NotificationQtyModel(
+    val `data`: Data_Noti,
+    val message: String,
+    val status: Int
+)
+
+data class Data_Noti(
+    val quantityOfNotification: Int
+)

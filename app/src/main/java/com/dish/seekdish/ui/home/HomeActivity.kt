@@ -4,8 +4,12 @@ import android.app.Dialog
 import android.content.Intent
 import android.content.pm.PackageInfo
 import android.content.pm.PackageManager
+import android.graphics.Color
 import android.os.Bundle
 import android.os.Handler
+import android.text.SpannableString
+import android.text.Spanned
+import android.text.style.ForegroundColorSpan
 import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
@@ -94,6 +98,7 @@ class HomeActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
     var fromValue: String? = null
     var fromUsername: String? = null
     var drawerLayout: DrawerLayout? = null
+    var navView: NavigationView? = null
     private var doubleBackToExitPressedOnce = false
 
 
@@ -125,7 +130,7 @@ class HomeActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
         val toolbar = findViewById(R.id.toolbar) as Toolbar
 
         drawerLayout = findViewById(R.id.drawer_layout)
-        val navView: NavigationView = findViewById(R.id.nav_view)
+        navView = findViewById<NavigationView>(R.id.nav_view)
         toggle = ActionBarDrawerToggle(
             this,
             drawerLayout,
@@ -139,20 +144,15 @@ class HomeActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
 
         toggle.syncState()
 
-        navView.setNavigationItemSelectedListener(this)
+        navView?.setNavigationItemSelectedListener(this)
 
         // setting  text to navigation header
-        val navigationView = findViewById(R.id.nav_view) as NavigationView
-        val headerView = navigationView.getHeaderView(0)
-        imageViewNavDrawer = headerView.findViewById(R.id.imageViewNavDrawer) as CircleImageView
-        tvName = headerView.findViewById(R.id.tvName) as TextView
+        val headerView = navView?.getHeaderView(0)
+        imageViewNavDrawer = headerView?.findViewById(R.id.imageViewNavDrawer) as CircleImageView
+        tvName = headerView?.findViewById(R.id.tvName) as TextView
 
 //        drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED,right_drawer);
 
-        // making the navigation view item dynamic and providing the dynamic notification
-        val menu: Menu = navigationView.getMenu()
-        val nav_login = menu.findItem(R.id.nav_notifications)
-        nav_login.title = getString(R.string.notifications) + " (2)"
 
         //hitting api when drawer gets opened...
         drawerLayout?.addDrawerListener(object : DrawerLayout.DrawerListener {
@@ -284,6 +284,9 @@ class HomeActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
 
         // filter save observer
         saveFilterObserver()
+
+        // to get unread notification
+        getNotificationQtyOberver()
 
         //get reference of the ExpandableListView
         simpleExpandableListView = findViewById(R.id.filterExpandableListView) as ExpandableListView
@@ -832,6 +835,37 @@ class HomeActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
         })
     }
 
+    private fun getNotificationQtyOberver() {
+
+        homeActivityVM!!.getNotificationQtyLiveData.observe(this, Observer { response ->
+            if (response != null) {
+                if (response.status == 1) {
+                    // making the navigation view item dynamic and providing the dynamic notification
+                    if (navView != null) {
+                        var menu: Menu = navView!!.getMenu()
+                        val nav_login = menu.findItem(R.id.nav_notifications)
+
+                        var text =
+                            getString(R.string.notifications) + " (${response.data.quantityOfNotification})  "
+                        var spannableString = SpannableString(text);
+                        var green = ForegroundColorSpan(Color.RED);
+                        spannableString.setSpan(
+                            green,
+                            13, 19, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE
+                        );
+                        nav_login.title = spannableString
+                    }
+                } else {
+                    showSnackBar(response.message)
+                }
+            } else {
+                showSnackBar(
+                    this.getResources().getString(R.string.error_occured) + "    $response"
+                );
+            }
+        })
+    }
+
 
     private fun setUpTwitter() {
 
@@ -855,6 +889,10 @@ class HomeActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
 
         var photoUrl = sessionManager?.getValue(SessionManager.PHOTO_URL);
         var name = sessionManager?.getValue(SessionManager.FIRST_NAME);
+        var USER_ID = sessionManager?.getValue(SessionManager.USER_ID);
+
+        // fetching notifications quantity
+        homeActivityVM?.notificationCount(USER_ID.toString())
 
         if (photoUrl != null && photoUrl != "null" && photoUrl != "") {
 

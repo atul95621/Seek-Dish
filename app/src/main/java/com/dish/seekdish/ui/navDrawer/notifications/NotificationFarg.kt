@@ -156,6 +156,49 @@ class NotificationFarg : BaseFragment() {
         })
     }
 
+    fun markReadNotificationApi( notificationId: String) {
+        ProgressBarClass.progressBarCalling(homeActivity)
+        apiInterface = APIClient.getClient(homeActivity).create(APIInterface::class.java)
+        val call =
+            apiInterface.markReadNotification(
+                sessionManager.getValue(SessionManager.USER_ID), notificationId
+            )
+        call.enqueue(object : Callback<NotifyMarkReadModel> {
+            override fun onResponse(
+                call: Call<NotifyMarkReadModel>,
+                response: Response<NotifyMarkReadModel>
+            ) {
+                // canceling the progress bar
+                ProgressBarClass.dialog.dismiss()
+                if (response.code().toString().equals("200")) {
+
+                    var modelObj = response.body() as NotifyMarkReadModel
+                    if (modelObj.status == 1) {
+//                        showSnackBar(modelObj.message);
+                        arrayList.clear()
+                        hitApi()
+                    } else {
+//                        showSnackBar(modelObj.message);
+                    }
+                } else {
+                    showSnackBar(resources.getString(R.string.error_occured)+"  ${response.code()}");
+                }
+            }
+
+            override fun onFailure(call: Call<NotifyMarkReadModel>, t: Throwable) {
+                showSnackBar(resources.getString(R.string.error_occured)+"  ${t.message}");
+
+                call.cancel()
+                // canceling the progress bar
+                ProgressBarClass.dialog.dismiss()
+
+            }
+        })
+    }
+
+    fun markReadNotificationMethod( notificationId: String) {
+        markReadNotificationApi( notificationId)
+    }
 
     fun deleteItemFromTodoList( notificationId: String, position: Int) {
         deleteNotificationApi( notificationId)

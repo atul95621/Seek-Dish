@@ -10,6 +10,7 @@ import com.dish.seekdish.retrofit.APIInterface
 import com.dish.seekdish.ui.home.dataModel.FilterDataModel
 import com.dish.seekdish.ui.home.dataModel.SaveFilterModel
 import com.dish.seekdish.ui.login.CheckUpdateModel
+import com.dish.seekdish.ui.login.NotificationQtyModel
 import com.dish.seekdish.ui.navDrawer.dishDescription.model.AddTodoModel
 import io.reactivex.Observable
 import io.reactivex.subjects.BehaviorSubject
@@ -24,6 +25,7 @@ class HomeActivityVM : ViewModel() {
     var getLogoutLiveData: MutableLiveData<AddTodoModel> = MutableLiveData<AddTodoModel>()
     var saveFilterLiveData: MutableLiveData<SaveFilterModel> = MutableLiveData<SaveFilterModel>()
     var getUpdateLiveData: MutableLiveData<CheckUpdateModel> = MutableLiveData<CheckUpdateModel>()
+    var getNotificationQtyLiveData: MutableLiveData<NotificationQtyModel> = MutableLiveData<NotificationQtyModel>()
 
 
     val isLoadingSubject = BehaviorSubject.create<Boolean>()
@@ -149,6 +151,28 @@ class HomeActivityVM : ViewModel() {
         })
     }
 
+
+    //ntoification count
+    fun notificationCount(userId: String) {
+        // making progress bar visible
+//        isLoadingSubject.onNext(true)
+        var api = APIClientMvvm.client.create(APIInterface::class.java)
+        val call = api.notificationCount(userId)
+        call.enqueue(object : Callback<NotificationQtyModel> {
+            override fun onResponse(call: Call<NotificationQtyModel>, response: Response<NotificationQtyModel>) {
+                // making progress bar invisible
+//                isLoadingSubject.onNext(false)
+                //finally we are setting the list to our MutableLiveData
+                getNotificationQtyLiveData.postValue(response.body())
+                getNotificationQtyLiveData.value = response.body()
+            }
+            override fun onFailure(call: Call<NotificationQtyModel>, t: Throwable) {
+                // making progress bar invisible
+                isLoadingSubject.onNext(false)
+                getNotificationQtyLiveData.postValue(null)
+            }
+        })
+    }
     fun isLoadingObservable(): Observable<Boolean> {
 
         return isLoadingSubject

@@ -67,6 +67,11 @@ class NotificationAdapter(
         var noti_type = notifyModel.notification_type
         holder.linLayout.setOnClickListener()
         {
+            // hitting notification read api
+            var notificationId = notifyModel.notification_id.toString()
+            notificationFarg.markReadNotificationMethod(notificationId)
+
+
             if (noti_type.equals("rating_notification_to_followers")) {
                 val intent = Intent(activity, DishDescriptionActivity::class.java)
                 intent.putExtra("MEAL_ID", notifyModel.meal_id.toString())

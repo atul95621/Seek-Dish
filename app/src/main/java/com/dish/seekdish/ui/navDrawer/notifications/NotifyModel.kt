@@ -26,3 +26,8 @@ data class NotifyDeleteModel(
     val status: Int,
     val message: String
 )
+
+data class NotifyMarkReadModel(
+    val status: Int,
+    val message: String
+)

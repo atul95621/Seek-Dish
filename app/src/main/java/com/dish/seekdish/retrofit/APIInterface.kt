@@ -4,6 +4,7 @@ package com.dish.seekdish.retrofit
 import com.dish.seekdish.ui.home.dataModel.*
 import com.dish.seekdish.ui.login.CheckUpdateModel
 import com.dish.seekdish.ui.login.LoginDataClass
+import com.dish.seekdish.ui.login.NotificationQtyModel
 import com.dish.seekdish.ui.navDrawer.activities.model.ContactModel
 import com.dish.seekdish.ui.navDrawer.activities.model.ProfileDataClass
 import com.dish.seekdish.ui.navDrawer.checkin.data.CheckinModel
@@ -14,6 +15,7 @@ import com.dish.seekdish.ui.navDrawer.dishDescription.opinion.CommentDetailModel
 import com.dish.seekdish.ui.navDrawer.myFriends.contactFetch.ContactsDetailsModel
 import com.dish.seekdish.ui.navDrawer.myFriends.dataModel.FriendDataModel
 import com.dish.seekdish.ui.navDrawer.notifications.NotifyDeleteModel
+import com.dish.seekdish.ui.navDrawer.notifications.NotifyMarkReadModel
 import com.dish.seekdish.ui.navDrawer.notifications.NotifyModel
 import com.dish.seekdish.ui.navDrawer.restaurantDiscription.RestroDescpModel
 import com.dish.seekdish.ui.navDrawer.restaurantDiscription.checkInRestro.CheckinRestroModel
@@ -793,4 +795,17 @@ internal interface APIInterface {
         @Field("userId") userId: String,
         @Field("notificationId") notificationId: String
     ): Call<NotifyDeleteModel>
+
+    @FormUrlEncoded
+    @POST("quantityNotificationUnread")
+    fun notificationCount(
+        @Field("user_id") user_id: String
+        ): Call<NotificationQtyModel>
+
+    @FormUrlEncoded
+    @POST("markReadNotification")
+    fun markReadNotification(
+        @Field("userId") userId: String,
+        @Field("notificationId") notificationId: String
+    ): Call<NotifyMarkReadModel>
 }
