@@ -26,7 +26,7 @@
             android:paddingStart="30dp"
             android:paddingEnd="30dp"
             android:layout_height="match_parent"
-            android:text="@string/no_one_found"/>
+            android:text="@string/no_notification"/>
     </FrameLayout>
 
 </LinearLayout>

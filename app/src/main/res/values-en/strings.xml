@@ -271,4 +271,5 @@
     <string name="no_follower_alert">No subscribers yet</string>
     <string name="no_following_alert">You don\'t follow anyone</string>
     <string name="no_friend_alert">No friends yet</string>
+    <string name="no_notification">No notification</string>
 </resources>

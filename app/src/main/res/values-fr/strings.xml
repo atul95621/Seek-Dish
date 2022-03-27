@@ -68,7 +68,7 @@
     <string name="forgot_password">Mot de passe oublié</string>
     <string name="info">Info</string>
     <string name="friends">Amis</string>
-    <string name="check_in">Mes Avis</string>
+    <string name="check_in">Avis</string>
     <string name="contact">Contact</string>
     <string name="do_not_consider_my_profile">Désactiver le filtre</string>
     <string name="confirm">Confirmer</string>
@@ -258,4 +258,5 @@
     <string name="no_follower_alert">Aucun abonné pour le moment</string>
     <string name="no_following_alert">Vous ne suivez personne</string>
     <string name="no_friend_alert">Pas encore d\'amis</string>
+    <string name="no_notification">"Pas de notifications "</string>
 </resources>

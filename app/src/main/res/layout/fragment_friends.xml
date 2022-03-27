@@ -78,7 +78,7 @@
             android:lineSpacingExtra="2dp"
             android:paddingStart="30dp"
             android:paddingEnd="30dp"
-            android:text="@string/no_one_found"
+            android:text="@string/no_friend_alert"
             android:visibility="invisible" />
     </FrameLayout>
 
