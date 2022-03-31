@@ -1,12 +1,13 @@
 package com.dish.seekdish.ui.home
 
-import android.app.Dialog
 import android.content.Intent
 import android.content.pm.PackageInfo
 import android.content.pm.PackageManager
 import android.graphics.Color
 import android.os.Bundle
 import android.os.Handler
+import android.text.Html
+import android.text.Spannable
 import android.text.SpannableString
 import android.text.Spanned
 import android.text.style.ForegroundColorSpan
@@ -14,7 +15,6 @@ import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
-import android.view.Window
 import android.widget.*
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.widget.Toolbar
@@ -29,10 +29,7 @@ import com.dish.seekdish.custom.GlideApp
 import com.dish.seekdish.ui.home.adapter.FilterAdapter
 import com.dish.seekdish.ui.home.dataModel.FilterDataModel
 import com.dish.seekdish.ui.home.fragments.HomeFragment
-import com.dish.seekdish.ui.home.fragments.TasteFragment
 import com.dish.seekdish.ui.home.viewModel.HomeActivityVM
-import com.dish.seekdish.ui.login.CheckUpdateModel
-import com.dish.seekdish.ui.login.LoginActivity
 import com.dish.seekdish.ui.navDrawer.activities.MyProfileActivity
 import com.dish.seekdish.ui.navDrawer.myFavourite.MyFavouriteFragment
 import com.dish.seekdish.ui.navDrawer.myFriends.MyFriendsFragment
@@ -835,6 +832,10 @@ class HomeActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
         })
     }
 
+    private fun getColoredSpanned(text: String, color: String): String {
+        return "<font color=$color>$text</font>"
+    }
+
     private fun getNotificationQtyOberver() {
 
         homeActivityVM!!.getNotificationQtyLiveData.observe(this, Observer { response ->
@@ -844,16 +845,10 @@ class HomeActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
                     if (navView != null) {
                         var menu: Menu = navView!!.getMenu()
                         val nav_login = menu.findItem(R.id.nav_notifications)
-
-                        var text =
-                            getString(R.string.notifications) + " (${response.data.quantityOfNotification})  "
-                        var spannableString = SpannableString(text);
-                        var green = ForegroundColorSpan(Color.RED);
-                        spannableString.setSpan(
-                            green,
-                            13, 19, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE
-                        );
-                        nav_login.title = spannableString
+                        var qtyNotify = "(" + response.data.quantityOfNotification.toString() + ")"
+                        val surName: String = getColoredSpanned(qtyNotify, "#FF0000")
+                        nav_login.title =
+                            Html.fromHtml(getString(R.string.notifications) + " " + surName)
                     }
                 } else {
                     showSnackBar(response.message)
