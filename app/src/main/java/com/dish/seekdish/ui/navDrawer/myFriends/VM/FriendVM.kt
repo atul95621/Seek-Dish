@@ -23,7 +23,6 @@ class FriendVM : ViewModel() {
     var getFollowingReqLiveData: MutableLiveData<AddTodoModel> = MutableLiveData<AddTodoModel>()
     var getFriendReqLiveData: MutableLiveData<AddTodoModel> = MutableLiveData<AddTodoModel>()
 
-
     val isLoadingSubject = BehaviorSubject.create<Boolean>()
 
 

@@ -1,44 +1,46 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:orientation="vertical"
-              android:layout_width="match_parent"
-              android:padding="5dp"
-              android:background="@color/white"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/white"
+    android:orientation="vertical"
 
-              android:layout_height="wrap_content"
->
+    android:padding="5dp">
+
     <LinearLayout
         android:id="@+id/linLayout"
         android:layout_width="match_parent"
-                  android:orientation="horizontal"
-                  android:layout_height="wrap_content">
-        <de.hdodenhof.circleimageview.CircleImageView
-                xmlns:app="http://schemas.android.com/apk/res-auto"
-                android:id="@+id/imgFriend"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                android:src="@drawable/ic_user"
-                app:civ_border_color="#ffffff"
-                app:civ_border_width="0dp"/>
-        <TextView android:layout_width="0dp"
-                  android:maxLines="2"
-                  android:id="@+id/tvFriendName"
-                  android:gravity="center_vertical"
-                  android:textSize="14sp"
-                  android:layout_weight="1"
-                  android:layout_marginStart="10dp"
-                  android:fontFamily="@font/assistantbold"
-                  android:layout_gravity="center_vertical"
-                  android:text=""
-                  android:layout_height="wrap_content"/>
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <de.hdodenhof.circleimageview.CircleImageView xmlns:app="http://schemas.android.com/apk/res-auto"
+            android:id="@+id/imgFriend"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:src="@drawable/ic_user"
+            app:civ_border_color="#ffffff"
+            app:civ_border_width="0dp" />
+
+        <TextView
+            android:id="@+id/tvFriendName"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginStart="10dp"
+            android:layout_weight="1"
+            android:fontFamily="@font/assistantbold"
+            android:gravity="center_vertical"
+            android:maxLines="2"
+            android:text=""
+            android:textSize="14sp" />
 
         <LinearLayout
             android:id="@+id/linFollowAdd"
-            android:visibility="gone"
-            android:gravity="center"
-            android:layout_gravity="center"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:visibility="gone">
 
             <Button
                 android:id="@+id/btnFollow"
@@ -65,10 +67,28 @@
                 android:textAllCaps="false"
                 android:textColor="@color/white"
                 android:textSize="14sp" />
+
         </LinearLayout>
+
+        <Button
+            android:id="@+id/btnRemoveFollower"
+            android:layout_width="wrap_content"
+            android:layout_height="30dp"
+            android:layout_gravity="center_vertical|end"
+            android:layout_marginStart="5dp"
+            android:layout_marginEnd="5dp"
+            android:background="@drawable/roundedge_btn_primary_fill"
+            android:text="@string/remove"
+            android:textAllCaps="false"
+            android:textColor="@color/white"
+            android:textSize="14sp"
+            android:visibility="gone"/>
     </LinearLayout>
-    <View android:layout_width="match_parent"
-          android:layout_marginTop="5dp" android:layout_height="1dp"
-          android:background="@color/dark_gray"/>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginTop="5dp"
+        android:background="@color/dark_gray" />
 
 </LinearLayout>

@@ -81,7 +81,7 @@ class FollowingFragment(var userId: String) : BaseFragment() {
         }*/
     }
 
-    fun removeFriend(toBeRemovedUserId: Int) {
+    fun removeFollowingFriend(toBeRemovedUserId: Int) {
         friendVM?.doRemoveFollowing(
             userId,
             toBeRemovedUserId.toString()

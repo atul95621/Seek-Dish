@@ -80,8 +80,13 @@ class ContactFetchActivity : BaseActivity() {
         while (phones!!.moveToNext()) {
             /*val name =
                 phones.getString(phones.getColumnIndex(ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME))*/
-            val phoneNumber =
+            var phoneNumber =
                 phones.getString(phones.getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER))
+
+            Log.e("old44","${phoneNumber}")
+            phoneNumber= removeLeadingZeros(phoneNumber).toString()
+            Log.e("old44_new","${phoneNumber}")
+
 //            mobileHashset.add(phoneNumber.replace(Regex("[()\\-\\s]"), ""))
             mobileArrayList.add(phoneNumber.replace(Regex("[()\\-\\s]"), ""))
 
@@ -114,12 +119,28 @@ class ContactFetchActivity : BaseActivity() {
 
     }
 
+    fun removeLeadingZeros(str: String): String {
+        // Regex to remove leading
+        // zeros from a string
+        var str = str
+        val regex = "^0+(?!$)"
+
+        // Replaces the matched
+        // value with given string
+        Log.e("original","${str}")
+        str = str.replace(regex.toRegex(), "").filter { !it.isWhitespace() }
+        Log.e("original_ new","${str}")
+        return str
+    }
+
     private fun compareNumbers() {
         val contactModel = ContactModel()
 
         for (i in 0 until arraylist.size) {
             if (arraylist[i].phone != null) {
                 var searchString = arraylist[i].phone.trim()
+                searchString= removeLeadingZeros(searchString).toString()
+
                 /*   for (j in 0 until mobileHashset.size) {
                        Log.e("resuktt run", "" + j)
                        Log.e("mobile numbers", "" + mobileHashset.elementAt(j).toString())

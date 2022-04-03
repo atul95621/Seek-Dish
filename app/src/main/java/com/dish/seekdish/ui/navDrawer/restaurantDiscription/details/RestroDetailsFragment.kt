@@ -11,6 +11,7 @@ import android.widget.ExpandableListView
 import android.widget.Toast
 
 import com.dish.seekdish.R
+import com.dish.seekdish.ui.WebViewActivity
 import com.dish.seekdish.ui.navDrawer.restaurantDiscription.RestroDescpModel
 import java.util.ArrayList
 import java.util.LinkedHashMap
@@ -60,11 +61,16 @@ class RestroDetailsFragment(var response: RestroDescpModel) : Fragment() {
 
             // opening pdf file in chrome if available
             if (detailInfo.name == context?.resources?.getString(R.string.menu_click)) {
-                val browserIntent = Intent(
+              /*  val browserIntent = Intent(
                     Intent.ACTION_VIEW,
                     Uri.parse(pdfURL)
                 )
-                startActivity(browserIntent)
+                startActivity(browserIntent)*/
+
+                val intent = Intent(activity, WebViewActivity::class.java)
+                intent.putExtra("url", pdfURL)
+                intent.putExtra("from", "RestroDetailsFragment")
+                startActivity(intent)
             }
 
             // opening in chrome if there is website link

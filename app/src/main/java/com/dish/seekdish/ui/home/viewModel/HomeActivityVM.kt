@@ -145,7 +145,7 @@ class HomeActivityVM : ViewModel() {
             }
             override fun onFailure(call: Call<CheckUpdateModel>, t: Throwable) {
                 // making progress bar invisible
-                isLoadingSubject.onNext(false)
+//                isLoadingSubject.onNext(false)
                 getUpdateLiveData.postValue(null)
             }
         })
@@ -168,15 +168,14 @@ class HomeActivityVM : ViewModel() {
             }
             override fun onFailure(call: Call<NotificationQtyModel>, t: Throwable) {
                 // making progress bar invisible
-                isLoadingSubject.onNext(false)
+//                isLoadingSubject.onNext(false)
                 getNotificationQtyLiveData.postValue(null)
             }
         })
     }
+
     fun isLoadingObservable(): Observable<Boolean> {
-
         return isLoadingSubject
-
     }
 
 }

@@ -58,6 +58,7 @@ class FollowerFragment(var userId: String) : BaseFragment() {
         getFriendReqObserver()
         getFollowingReqObserver()
         searchTextListner(view)
+        getRemoveFollowerReqObserver()
 
         return view
 
@@ -100,6 +101,7 @@ class FollowerFragment(var userId: String) : BaseFragment() {
             }
         })
     }
+
     fun followFriend(userIdToFollow: Int) {
         friendVM?.doSendFollwoingRequest(
             sessionManager?.getValue(SessionManager.USER_ID).toString(),
@@ -112,6 +114,13 @@ class FollowerFragment(var userId: String) : BaseFragment() {
         friendVM?.doSendFriendRequest(
             sessionManager?.getValue(SessionManager.USER_ID).toString(),
             userIdToAddFriend.toString()
+        )
+    }
+
+    fun removeFollower(userIdToAddFriend: Int) {
+        friendVM?.doRemoveFollowing(
+            userIdToAddFriend.toString(),
+            sessionManager?.getValue(SessionManager.USER_ID).toString()
         )
     }
 
@@ -182,6 +191,29 @@ class FollowerFragment(var userId: String) : BaseFragment() {
             }
 
         friendVM!!.getFollowingReqLiveData.observe(viewLifecycleOwner, Observer { response ->
+            if (response != null) {
+                if (response.status == 1) {
+                    hitApi()
+                    showSnackBar(response.message)
+                } else {
+                    showSnackBar(response.message)
+                }
+            } else {
+                showSnackBar(
+                    this.getResources().getString(R.string.error_occured) + "    ${response}"
+                );
+            }
+        })
+    }
+
+    private fun getRemoveFollowerReqObserver() {
+        //observe
+        friendVM!!.isLoadingObservable().observeOn(AndroidSchedulers.mainThread())
+            .subscribe {
+                setIsLoading(it)
+            }
+
+        friendVM!!.getRemoveFollwLiveData.observe(viewLifecycleOwner, Observer { response ->
             if (response != null) {
                 if (response.status == 1) {
                     hitApi()

@@ -67,6 +67,9 @@ class ContFetchAdapter(
         var imageUrl = contactModelArrayList.elementAt(position).user_image
         var userIdToSend = contactModelArrayList.elementAt(position).id
 
+        Log.e("cnum",""+contactModelArrayList.elementAt(position).phone)
+
+
         if (imageUrl.isNullOrEmpty() == false) {
             GlideApp.with(context)
                 .load(imageUrl)

@@ -39,10 +39,10 @@ class NotificationFarg : BaseFragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        val view= inflater.inflate(R.layout.fragment_notification_farg, container, false)
+        val view = inflater.inflate(R.layout.fragment_notification_farg, container, false)
 
         homeActivity = activity as HomeActivity
-        sessionManager=SessionManager(context)
+        sessionManager = SessionManager(context)
 //        friendVM = ViewModelProvider(this).get(FriendVM::class.java)
 
         // hiding keyboard
@@ -58,19 +58,18 @@ class NotificationFarg : BaseFragment() {
         )
         recyclerView!!.addItemDecoration(dividerItemDecoration)
 
+        return view
+    }
+
+    override fun onResume() {
+        super.onResume()
         arrayList.clear()
         hitApi()
-
-        return view
     }
 
     fun hitApi() {
         ProgressBarClass.progressBarCalling(homeActivity)
         apiInterface = APIClient.getClient(homeActivity).create(APIInterface::class.java)
-       /* val call =
-            apiInterface.getNotificationList(
-                sessionManager.getValue(SessionManager.USER_ID)
-            )*/
         val call =
             apiInterface.getNotificationList(
                 sessionManager.getValue(SessionManager.USER_ID)
@@ -92,30 +91,30 @@ class NotificationFarg : BaseFragment() {
                             tvNotifiAlert.visibility = View.VISIBLE
 
                         } else {
-                            adapter = NotificationAdapter(arrayList, homeActivity,this@NotificationFarg)
+                            adapter =
+                                NotificationAdapter(arrayList, homeActivity, this@NotificationFarg)
                             recyclerView!!.setAdapter(adapter)
                         }
                     } else {
                         showSnackBar(modelObj.message);
                     }
                 } else {
-                    showSnackBar(resources.getString(R.string.error_occured)+"  ${response.code()}");
+                    showSnackBar(resources.getString(R.string.error_occured) + "  ${response.code()}");
                 }
             }
 
             override fun onFailure(call: Call<NotifyModel>, t: Throwable) {
-                showSnackBar(resources.getString(R.string.error_occured)+"  ${t.message}");
-
-                call.cancel()
                 // canceling the progress bar
                 ProgressBarClass.dialog.dismiss()
+                showSnackBar(resources.getString(R.string.error_occured) + "  ${t.message}");
+                call.cancel()
+
 
             }
         })
     }
 
-
-    fun deleteNotificationApi( notificationId: String) {
+    fun deleteNotificationApi(notificationId: String) {
         ProgressBarClass.progressBarCalling(homeActivity)
         apiInterface = APIClient.getClient(homeActivity).create(APIInterface::class.java)
         val call =
@@ -141,12 +140,12 @@ class NotificationFarg : BaseFragment() {
                         showSnackBar(modelObj.message);
                     }
                 } else {
-                    showSnackBar(resources.getString(R.string.error_occured)+"  ${response.code()}");
+                    showSnackBar(resources.getString(R.string.error_occured) + "  ${response.code()}");
                 }
             }
 
             override fun onFailure(call: Call<NotifyDeleteModel>, t: Throwable) {
-                showSnackBar(resources.getString(R.string.error_occured)+"  ${t.message}");
+                showSnackBar(resources.getString(R.string.error_occured) + "  ${t.message}");
 
                 call.cancel()
                 // canceling the progress bar
@@ -156,8 +155,8 @@ class NotificationFarg : BaseFragment() {
         })
     }
 
-    fun markReadNotificationApi( notificationId: String) {
-        ProgressBarClass.progressBarCalling(homeActivity)
+    fun markReadNotificationApi(notificationId: String) {
+//        ProgressBarClass.progressBarCalling(homeActivity)
         apiInterface = APIClient.getClient(homeActivity).create(APIInterface::class.java)
         val call =
             apiInterface.markReadNotification(
@@ -169,7 +168,7 @@ class NotificationFarg : BaseFragment() {
                 response: Response<NotifyMarkReadModel>
             ) {
                 // canceling the progress bar
-                ProgressBarClass.dialog.dismiss()
+//                ProgressBarClass.dialog.dismiss()
                 if (response.code().toString().equals("200")) {
 
                     var modelObj = response.body() as NotifyMarkReadModel
@@ -181,27 +180,24 @@ class NotificationFarg : BaseFragment() {
 //                        showSnackBar(modelObj.message);
                     }
                 } else {
-                    showSnackBar(resources.getString(R.string.error_occured)+"  ${response.code()}");
+                    showSnackBar(resources.getString(R.string.error_occured) + "  ${response.code()}");
                 }
             }
 
             override fun onFailure(call: Call<NotifyMarkReadModel>, t: Throwable) {
-                showSnackBar(resources.getString(R.string.error_occured)+"  ${t.message}");
-
+//                ProgressBarClass.dialog.dismiss()
+                showSnackBar(resources.getString(R.string.error_occured) + "  ${t.message}");
                 call.cancel()
-                // canceling the progress bar
-                ProgressBarClass.dialog.dismiss()
-
             }
         })
     }
 
-    fun markReadNotificationMethod( notificationId: String) {
-        markReadNotificationApi( notificationId)
+    fun markReadNotificationMethod(notificationId: String) {
+        markReadNotificationApi(notificationId)
     }
 
-    fun deleteItemFromTodoList( notificationId: String, position: Int) {
-        deleteNotificationApi( notificationId)
+    fun deleteItemFromTodoList(notificationId: String, position: Int) {
+        deleteNotificationApi(notificationId)
     }
 
 }

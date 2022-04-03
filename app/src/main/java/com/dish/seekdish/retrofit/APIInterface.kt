@@ -724,7 +724,6 @@ internal interface APIInterface {
     fun getInvitation(
         @Field("user_id") userId: String,
         @Field("restro_id") restaurant_id: String
-
     ): Call<InvitationModel>
 
     @FormUrlEncoded
@@ -739,7 +738,6 @@ internal interface APIInterface {
         @Field("user_id") userId: String,
         @Field("allow_invitation") restaurant: String,
         @Field("validity_of_invitation") validity: String
-
     ): Call<CancelReModel>
 
     @FormUrlEncoded

@@ -59,17 +59,15 @@ class FriendFragAdapter(
             activity.startActivity(intent)
         }
 
-        holder.btnReplace.setOnClickListener()
-        {
-            friendsFragment?.removeFriend(friendDataClass.user_id)
-        }
+
+
         if (friendsFragment?.sessionManager?.getValue(SessionManager.USER_ID)
                 .equals(userIdFromOutside)
         ) {
             holder.btnReplace.visibility = View.VISIBLE
         } else {
             holder.btnReplace.visibility = View.GONE
-        /*    holder.linFollowAdd.visibility = View.VISIBLE
+            holder.linFollowAdd.visibility = View.VISIBLE
             if (friendDataClass.already_follower == 1) {
                 holder.btnFollow.visibility = View.GONE
             } else {
@@ -79,11 +77,13 @@ class FriendFragAdapter(
                 holder.btnAddFriend.visibility = View.GONE
             } else {
                 holder.btnAddFriend.visibility = View.VISIBLE
-            }*/
+            }
         }
 
         // this used to hide bcoz a person cant follow or send request to himself
-     /*   if ((friendsFragment?.sessionManager?.getValue(SessionManager.USER_ID).toString()).equals(friendDataClass.user_id.toString())
+        if ((friendsFragment?.sessionManager?.getValue(SessionManager.USER_ID).toString()).equals(
+                friendDataClass.user_id.toString()
+            )
         ) {
             holder.linFollowAdd.visibility = View.GONE
         }
@@ -96,7 +96,11 @@ class FriendFragAdapter(
         holder.btnAddFriend.setOnClickListener()
         {
             friendsFragment?.addFriend(friendDataClass.user_id)
-        }*/
+        }
+        holder.btnReplace.setOnClickListener()
+        {
+            friendsFragment?.removeFriend(friendDataClass.user_id)
+        }
 
     }
 
@@ -114,7 +118,7 @@ class FriendFragAdapter(
         internal var linFollowAdd: LinearLayout
         internal var btnFollow: Button
         internal var btnAddFriend: Button
-        internal var linLayout:LinearLayout
+        internal var linLayout: LinearLayout
 
 
         init {

@@ -446,7 +446,7 @@ class RestroDescrpActivity : BaseActivity() {
 //                    var imageMeal = response.data.restaurant.restaurant_image
 
                     tvRestroName.setText(response.data.restaurant.name)
-                    tvRestroAddress.setText(response.data.restaurant.street + ", " + response.data.restaurant.city + ", " + response.data.restaurant.zipcode)
+                    tvRestroAddress.setText(response.data.restaurant.street + " " + response.data.restaurant.city + " " + response.data.restaurant.zipcode)
                     tvRestroReview.setText("(" + response.data.restaurant.no_of_reviews + ")")
 
 

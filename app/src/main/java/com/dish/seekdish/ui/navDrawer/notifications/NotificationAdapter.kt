@@ -105,7 +105,7 @@ class NotificationAdapter(
                 val intent = Intent(activity, FriendInfoActivity::class.java)
                 intent.putExtra("IMAGE", notifyModel.image);
                 intent.putExtra("NAME", notifyModel.username);
-                intent.putExtra("USER_ID", notifyModel.user_id);
+                intent.putExtra("USER_ID", notifyModel.sender);
                 activity.startActivity(intent)
             } else if (noti_type.equals("decline_friend_request")) {
 // no action
@@ -114,7 +114,7 @@ class NotificationAdapter(
                     val intent = Intent(activity, InvitationActivity::class.java)
                     intent.putExtra("RESTAURANT_ID", notifyModel.restaurant_id.toString())
                     intent.putExtra("FROM", "NotificationAdapter")
-                    intent.putExtra("USER_WHO_SENT_ID", notifyModel.user_id.toString());
+                    intent.putExtra("USER_WHO_SENT_ID", notifyModel.sender.toString());
 //                    intent.putExtra("INVITATION_STATUS", notifyModel.invitation_status.toString());
                     intent.putExtra("TIME", notifyModel.date_and_time);
                     activity.startActivity(intent)
@@ -125,7 +125,7 @@ class NotificationAdapter(
                 val intent = Intent(activity, FriendInfoActivity::class.java)
                 intent.putExtra("IMAGE", notifyModel.image);
                 intent.putExtra("NAME", notifyModel.follower_name.toString());
-                intent.putExtra("USER_ID", notifyModel.user_id);
+                intent.putExtra("USER_ID", notifyModel.sender);
                 activity.startActivity(intent)
             }
         }
