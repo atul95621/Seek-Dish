@@ -7,6 +7,11 @@ import android.webkit.WebView
 import android.webkit.WebViewClient
 import com.dish.seekdish.R
 import kotlinx.android.synthetic.main.activity_web_view.*
+import android.net.http.SslError
+import android.util.Log
+
+import android.webkit.SslErrorHandler
+
 
 class WebViewActivity : AppCompatActivity() {
 
@@ -26,9 +31,9 @@ class WebViewActivity : AppCompatActivity() {
         } else if (fromPage?.equals("RestroDescrpActivity") == true) {
             tvTitle.setText(getString(R.string.menu))
             loadUrl(urlToLoad)
-        } else if (fromPage?.equals("RestroDetailsFragment") == true) {
+        } else if (fromPage?.equals("RestroDetailsFragment") == true || fromPage?.equals("NotificationFarg") == true) {
             tvTitle.setText(getString(R.string.menu))
-            loadUrl("https://docs.google.com/gview?embedded=true&url=$urlToLoad")
+            loadUrl("https://docs.google.com/gview?embedded=true&url=$urlToLoad" + "&embedded=true")
         }
 
         tvBack.setOnClickListener()
@@ -42,6 +47,7 @@ class WebViewActivity : AppCompatActivity() {
         mywebview.getSettings().setJavaScriptEnabled(true);
         mywebview.settings.setSupportZoom(true)
         mywebview.getSettings().setLoadWithOverviewMode(true);
+        mywebview.getSettings().setDomStorageEnabled(true); // Add this
 
         mywebview!!.webViewClient = object : WebViewClient() {
             override fun shouldOverrideUrlLoading(view: WebView?, url: String?): Boolean {
@@ -50,7 +56,19 @@ class WebViewActivity : AppCompatActivity() {
             }
 
             override fun onPageFinished(view: WebView?, url: String?) {
+                if (view?.getTitle().equals("")) {
+                    Log.e("pdf55",url.toString())
+                    view?.reload();
+                }
                 progressWeb.visibility = View.GONE
+            }
+
+            override fun onReceivedSslError(
+                view: WebView?,
+                handler: SslErrorHandler,
+                error: SslError?
+            ) {
+                handler.proceed() // Ignore SSL certificate errors
             }
         }
         mywebview!!.loadUrl(urlToLoad)

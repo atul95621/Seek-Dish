@@ -19,7 +19,8 @@ data class Data_Notify(
     val user_id: Int,
     val notification_id: Int,
     val is_read: String,
-    var sender: Int
+    var sender: Int,
+    var menu_link: String?
 )
 
 

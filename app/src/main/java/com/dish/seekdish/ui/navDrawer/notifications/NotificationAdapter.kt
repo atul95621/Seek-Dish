@@ -12,6 +12,7 @@ import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.dish.seekdish.R
+import com.dish.seekdish.ui.WebViewActivity
 import com.dish.seekdish.ui.home.HomeActivity
 import com.dish.seekdish.ui.navDrawer.dishDescription.DishDescriptionActivity
 import com.dish.seekdish.ui.navDrawer.friendInfo.FriendInfoActivity
@@ -127,6 +128,13 @@ class NotificationAdapter(
                 intent.putExtra("NAME", notifyModel.follower_name.toString());
                 intent.putExtra("USER_ID", notifyModel.sender);
                 activity.startActivity(intent)
+            } else if (noti_type.equals("notification_pdf_show")) {
+                if (!notifyModel.menu_link.isNullOrEmpty()) {
+                    val intent = Intent(activity, WebViewActivity::class.java)
+                    intent.putExtra("url", notifyModel.menu_link.toString())
+                    intent.putExtra("from", "NotificationFarg")
+                    activity.startActivity(intent)
+                }
             }
         }
 

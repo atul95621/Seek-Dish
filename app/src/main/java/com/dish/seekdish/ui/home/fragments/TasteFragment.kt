@@ -256,19 +256,19 @@ class TasteFragment : BaseFragment(), GoogleApiClient.ConnectionCallbacks,
                 currentLongitude = location.longitude
                 Log.e("locsss22", "${location.latitude},   ${location.longitude}")
 
-               /* var longi = currentLongitude.toString()
-                var lati = currentLatitude.toString()
-                var geocoder = Geocoder(context, Locale.getDefault());
-                var  addresses = geocoder.getFromLocation(
-                    lati.toDouble(),
-                    longi.toDouble(),
-                    1
-                ) as ArrayList<android.location.Address>; // Here 1 represent max location result to returned, by documents it recommended 1 to 5
-                var address = addresses.get(0).getAddressLine(0)
-                var coords =
-                    "longitude: ${longi} \n  latitude: ${lati}  \n address: ${address}"
+                /* var longi = currentLongitude.toString()
+                 var lati = currentLatitude.toString()
+                 var geocoder = Geocoder(context, Locale.getDefault());
+                 var  addresses = geocoder.getFromLocation(
+                     lati.toDouble(),
+                     longi.toDouble(),
+                     1
+                 ) as ArrayList<android.location.Address>; // Here 1 represent max location result to returned, by documents it recommended 1 to 5
+                 var address = addresses.get(0).getAddressLine(0)
+                 var coords =
+                     "longitude: ${longi} \n  latitude: ${lati}  \n address: ${address}"
 
-                Toast.makeText(context, coords, Toast.LENGTH_LONG).show()*/
+                 Toast.makeText(context, coords, Toast.LENGTH_LONG).show()*/
 
                 //now loading the meals at current location if user came to app after login
                 /* if (sessionManager.getValue(SessionManager.LATITUDE)
@@ -747,17 +747,23 @@ class TasteFragment : BaseFragment(), GoogleApiClient.ConnectionCallbacks,
     private fun getTasteMeals(page: Int) {
         var longi = sessionManager.getValue(SessionManager.LONGITUDE)
         var lati = sessionManager.getValue(SessionManager.LATITUDE)
-        var geocoder = Geocoder(context, Locale.getDefault());
-       var  addresses = geocoder.getFromLocation(
-            lati.toDouble(),
-            longi.toDouble(),
-            1
-        ) as ArrayList<android.location.Address>; // Here 1 represent max location result to returned, by documents it recommended 1 to 5
-        var address = addresses.get(0).getAddressLine(0)
-        var coords =
-            "X: ${longi}\nY: ${lati}\n${address}"
+        try {
 
-        Toast.makeText(context, coords, Toast.LENGTH_LONG).show()
+
+            var geocoder = Geocoder(context, Locale.getDefault());
+            var addresses = geocoder.getFromLocation(
+                lati.toDouble(),
+                longi.toDouble(),
+                1
+            ) as ArrayList<android.location.Address>; // Here 1 represent max location result to returned, by documents it recommended 1 to 5
+            var address = addresses.get(0).getAddressLine(0)
+            var coords =
+                "X: ${longi}\nY: ${lati}\n${address}"
+
+            Toast.makeText(context, coords, Toast.LENGTH_LONG).show()
+        } catch (e: Exception) {
+            Toast.makeText(context, e.message, Toast.LENGTH_LONG).show()
+        }
 
 //        Log.e("loadMoreItems", "entered getLikedIngre ")
         var radius: String = sessionManager.getValue(SessionManager.RADIUS)

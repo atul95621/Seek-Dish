@@ -117,11 +117,6 @@ class TimeRestroFragment : BaseFragment() {
             }
         })
 
-        recyclerView = view.findViewById(R.id.rvtimeRestroFrag) as RecyclerView
-        recyclerView!!.setHasFixedSize(true)
-        layoutManager = LinearLayoutManager(activity)
-        recyclerView!!.setLayoutManager(layoutManager)
-
         return view
     }
 

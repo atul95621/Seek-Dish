@@ -20,7 +20,7 @@ abstract class PaginationScrollListener(internal var layoutManager: LinearLayout
     override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
         super.onScrolled(recyclerView, dx, dy)
 
-        Log.e("coor", "" + "dx   " + dx + "dy   " + dy)
+//        Log.e("coor", "" + "dx   " + dx + "dy   " + dy)
 
 
         val visibleItemCount = layoutManager.childCount
