@@ -18,12 +18,14 @@ data class Data_Proximity(
     val description: String,
     val distance: Double,
     val id: Int,
-    val zipcode:String,
+    val zipcode: String,
     val latitude: String,
     val longitude: String,
     val name: String,
     val no_of_reviews: Int,
     val rating: String,
     val restaurant_image: String,
-    val street: String
+    val street: String,
+    val menu_link: String?,
+    var meal_count: Int
 )

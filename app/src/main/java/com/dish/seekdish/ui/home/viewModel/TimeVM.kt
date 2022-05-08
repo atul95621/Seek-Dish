@@ -7,7 +7,7 @@ import com.dish.seekdish.Constants
 import com.dish.seekdish.retrofit.APIClientMvvm
 import com.dish.seekdish.retrofit.APIInterface
 import com.dish.seekdish.ui.home.dataModel.Location
-import com.dish.seekdish.ui.home.dataModel.TimeFragDataClass
+import com.dish.seekdish.ui.navDrawer.restaurants.dataClass.ProximityDataClass
 import io.reactivex.Observable
 import io.reactivex.subjects.BehaviorSubject
 import retrofit2.Call
@@ -18,8 +18,8 @@ import retrofit2.Response
 class TimeVM : ViewModel() {
 
     //this is the data that we will fetch asynchronously
-    var getTasteLiveData: MutableLiveData<TimeFragDataClass> = MutableLiveData<TimeFragDataClass>()
-    var timeSearchData: MutableLiveData<TimeFragDataClass> = MutableLiveData<TimeFragDataClass>()
+    var getTasteLiveData: MutableLiveData<ProximityDataClass> = MutableLiveData<ProximityDataClass>()
+    var timeSearchData: MutableLiveData<ProximityDataClass> = MutableLiveData<ProximityDataClass>()
 
 
     val isLoadingSubject = BehaviorSubject.create<Boolean>()
@@ -56,8 +56,8 @@ class TimeVM : ViewModel() {
             " " + userId + "    " + pageNumber + "lati   " + latitude + "    longi   " + longitude + "     radius   " + radius
         )
 
-        call.enqueue(object : Callback<TimeFragDataClass> {
-            override fun onResponse(call: Call<TimeFragDataClass>, response: Response<TimeFragDataClass>) {
+        call.enqueue(object : Callback<ProximityDataClass> {
+            override fun onResponse(call: Call<ProximityDataClass>, response: Response<ProximityDataClass>) {
 
                 // making progress bar invisible
                 isLoadingSubject.onNext(false)
@@ -69,7 +69,7 @@ class TimeVM : ViewModel() {
 
             }
 
-            override fun onFailure(call: Call<TimeFragDataClass>, t: Throwable) {
+            override fun onFailure(call: Call<ProximityDataClass>, t: Throwable) {
 
                 // making progress bar invisible
                 isLoadingSubject.onNext(false)
@@ -96,7 +96,7 @@ class TimeVM : ViewModel() {
             userId,
             latitude,
             longitude,
-            "2",// 2 is for time meal search
+            "1",// 2 is for time meal search,, NEW-> after time tab became menu, Michel changed api and type to 1
             radius,
             Constants.deviceType,
             pageNumber,
@@ -107,8 +107,8 @@ class TimeVM : ViewModel() {
                "pramsGetTasteMeal",
                " " + userId + "    " + pageNumber + "lati   " + latitude + "    longi   " + longitude + "     radius   " + radius
            )*/
-        call.enqueue(object : Callback<TimeFragDataClass> {
-            override fun onResponse(call: Call<TimeFragDataClass>, response: Response<TimeFragDataClass>) {
+        call.enqueue(object : Callback<ProximityDataClass> {
+            override fun onResponse(call: Call<ProximityDataClass>, response: Response<ProximityDataClass>) {
 
                 // making progress bar invisible
 //                isLoadingSubject.onNext(false)
@@ -117,7 +117,7 @@ class TimeVM : ViewModel() {
                 timeSearchData.value = response.body()
             }
 
-            override fun onFailure(call: Call<TimeFragDataClass>, t: Throwable) {
+            override fun onFailure(call: Call<ProximityDataClass>, t: Throwable) {
                 // making progress bar invisible
 //                isLoadingSubject.onNext(false)
                 timeSearchData.postValue(null)

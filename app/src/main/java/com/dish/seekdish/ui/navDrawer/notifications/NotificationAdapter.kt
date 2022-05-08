@@ -132,7 +132,7 @@ class NotificationAdapter(
                 if (!notifyModel.menu_link.isNullOrEmpty()) {
                     val intent = Intent(activity, WebViewActivity::class.java)
                     intent.putExtra("url", notifyModel.menu_link.toString())
-                    intent.putExtra("from", "NotificationFarg")
+                    intent.putExtra("from", "OPEN_PDF")
                     activity.startActivity(intent)
                 }
             }

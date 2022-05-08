@@ -12,6 +12,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.dish.seekdish.R
 import com.dish.seekdish.custom.GlideApp
+import com.dish.seekdish.ui.WebViewActivity
 import com.dish.seekdish.ui.home.HomeActivity
 import com.dish.seekdish.ui.navDrawer.restaurantDiscription.RestroDescrpActivity
 import com.dish.seekdish.ui.navDrawer.restaurants.dataClass.Data_Time_Restro
@@ -62,6 +63,30 @@ class TimeRestroAdapter(
             intent.putExtra("RESTAURANT_ID",restroTimeModel.id.toString())
             homeActivity.startActivity(intent)
         }
+
+        if (restroTimeModel.meal_count != null && restroTimeModel.meal_count > 0) {
+            holder.frameMealCount.visibility = View.VISIBLE
+            if (restroTimeModel.meal_count > 99) {
+                holder.tvMealCount.text = "99+"
+            } else {
+                holder.tvMealCount.text = restroTimeModel.meal_count.toString()
+            }
+        } else {
+            holder.frameMealCount.visibility = View.GONE
+        }
+
+        if (restroTimeModel.menu_link != null) {
+            holder.imgMenu.visibility = View.VISIBLE
+            holder.imgMenu.setOnClickListener()
+            {
+                val intent = Intent(homeActivity, WebViewActivity::class.java)
+                intent.putExtra("url", restroTimeModel.menu_link)
+                intent.putExtra("from", "OPEN_PDF")
+                homeActivity.startActivity(intent)
+            }
+        } else {
+            holder.imgMenu.visibility = View.GONE
+        }
     }
 
 
@@ -78,7 +103,9 @@ class TimeRestroAdapter(
 
         internal var starScaleRatingBar: ScaleRatingBar
         internal var frameTasteDish: FrameLayout
-
+        internal var tvMealCount: TextView
+        internal var frameMealCount: FrameLayout
+        internal var imgMenu: ImageView
         init {
             starScaleRatingBar = view.findViewById(R.id.simpleRatingBar) as ScaleRatingBar
             imgFoodImage = view.findViewById(R.id.imgFoodImage) as ImageView
@@ -86,6 +113,9 @@ class TimeRestroAdapter(
             tvDistance = view.findViewById(R.id.tvDistance) as TextView
             tvDishName = view.findViewById(R.id.tvDishName) as TextView
             frameTasteDish = view.findViewById(R.id.frameTasteDish) as FrameLayout
+            tvMealCount = view.findViewById(R.id.tvMealCount) as TextView
+            frameMealCount = view.findViewById(R.id.frameMealCount) as FrameLayout
+            imgMenu = view.findViewById(R.id.imgMenu) as ImageView
 
         }
     }

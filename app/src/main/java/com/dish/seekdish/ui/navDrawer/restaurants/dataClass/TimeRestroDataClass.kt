@@ -1,7 +1,6 @@
 package com.dish.seekdish.ui.navDrawer.restaurants.dataClass
 
 
-
 data class TimeRestroDataClass(
     val `data`: ArrayList<Data_Time_Restro>,
     val status: Int,
@@ -14,7 +13,7 @@ data class Data_Time_Restro(
     val description: String,
     val distance: Double,
     val id: Int,
-    val zipcode:String,
+    val zipcode: String,
     val latitude: String,
     val longitude: String,
     val name: String,
@@ -22,5 +21,7 @@ data class Data_Time_Restro(
     val rating: String,
     val restaurant_image: String,
     val service_speed: Int,
-    val street: String
+    val street: String,
+    val menu_link: String,
+    val meal_count: Int
 )

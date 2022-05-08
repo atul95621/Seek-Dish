@@ -21,6 +21,7 @@ import com.dish.seekdish.ui.home.HomeActivity
 import com.dish.seekdish.ui.home.adapter.TimeFragAdapter
 import com.dish.seekdish.ui.home.dataModel.Data_time
 import com.dish.seekdish.ui.home.viewModel.TimeVM
+import com.dish.seekdish.ui.navDrawer.restaurants.dataClass.Data_Proximity
 import com.dish.seekdish.util.SessionManager
 import io.reactivex.android.schedulers.AndroidSchedulers
 import kotlinx.android.synthetic.main.fragment_taste.*
@@ -40,7 +41,7 @@ class TimeFragment : BaseFragment() {
 
 
     private lateinit var homeActivity: HomeActivity
-    internal var arrayList = ArrayList<Data_time>()
+    internal var arrayList = ArrayList<Data_Proximity>()
 
 
     private var isLoading: Boolean = false
@@ -49,7 +50,7 @@ class TimeFragment : BaseFragment() {
     var flagSearch: Boolean = false
 
     var alertShown: Boolean = false
-    internal var searchArrayList = ArrayList<Data_time>()
+    internal var searchArrayList = ArrayList<Data_Proximity>()
 
 
     override fun onCreateView(
@@ -219,7 +220,7 @@ class TimeFragment : BaseFragment() {
     }
 
 
-    fun resultAction(data: ArrayList<Data_time>) {
+    fun resultAction(data: ArrayList<Data_Proximity>) {
 
 //        progressBar.setVisibility(View.INVISIBLE)
         isLoading = false

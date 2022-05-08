@@ -32,7 +32,7 @@ class HomeFragment : BaseFragment() {
         this.tabLayout = view.findViewById(R.id.tabLayoutHomeFrag)
 
         tabLayout.addTab(tabLayout.newTab().setText(getString(R.string.taste)),true)
-        tabLayout.addTab(tabLayout.newTab().setText(getString(R.string.time)))
+        tabLayout.addTab(tabLayout.newTab().setText(getString(R.string.menu)))
         tabLayout.addTab(tabLayout.newTab().setText(getString(R.string.map)))
 
         //setting initialfragment...

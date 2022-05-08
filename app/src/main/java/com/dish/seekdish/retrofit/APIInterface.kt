@@ -345,7 +345,7 @@ internal interface APIInterface {
 
 
     @FormUrlEncoded
-    @POST("home_meals_time")
+    @POST("home_restaurants_menu")
     fun getTimeMeal(
         @Field("user_id") userId: String,
         @Field("latitude") latitude: String,
@@ -356,11 +356,10 @@ internal interface APIInterface {
         @Field("device_type") device_type: String,
         @Field("page_no") page_no: String,
         @Field("per_page") per_page: String
-
-    ): Call<TimeFragDataClass>
+    ): Call<ProximityDataClass>
 
     @FormUrlEncoded
-    @POST("home_meals_search")
+    @POST("home_restaurants_search")
     fun getTimeSearch(
         @Field("user_id") userId: String,
         @Field("latitude") latitude: String,
@@ -371,7 +370,7 @@ internal interface APIInterface {
         @Field("page_no") page_no: String,
         @Field("per_page") per_page: String,
         @Field("search_text") search_text: String
-    ): Call<TimeFragDataClass>
+    ): Call<ProximityDataClass>
 
 
     @FormUrlEncoded

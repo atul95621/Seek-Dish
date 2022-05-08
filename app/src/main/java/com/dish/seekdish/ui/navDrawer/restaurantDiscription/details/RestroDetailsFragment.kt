@@ -69,7 +69,7 @@ class RestroDetailsFragment(var response: RestroDescpModel) : Fragment() {
 
                 val intent = Intent(activity, WebViewActivity::class.java)
                 intent.putExtra("url", pdfURL)
-                intent.putExtra("from", "RestroDetailsFragment")
+                intent.putExtra("from", "OPEN_PDF")
                 startActivity(intent)
             }
 

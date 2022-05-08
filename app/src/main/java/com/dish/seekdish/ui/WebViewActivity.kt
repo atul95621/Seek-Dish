@@ -31,7 +31,7 @@ class WebViewActivity : AppCompatActivity() {
         } else if (fromPage?.equals("RestroDescrpActivity") == true) {
             tvTitle.setText(getString(R.string.menu))
             loadUrl(urlToLoad)
-        } else if (fromPage?.equals("RestroDetailsFragment") == true || fromPage?.equals("NotificationFarg") == true) {
+        } else if (fromPage?.equals("OPEN_PDF") == true) {
             tvTitle.setText(getString(R.string.menu))
             loadUrl("https://docs.google.com/gview?embedded=true&url=$urlToLoad" + "&embedded=true")
         }
@@ -57,7 +57,7 @@ class WebViewActivity : AppCompatActivity() {
 
             override fun onPageFinished(view: WebView?, url: String?) {
                 if (view?.getTitle().equals("")) {
-                    Log.e("pdf55",url.toString())
+                    Log.e("pdf55", url.toString())
                     view?.reload();
                 }
                 progressWeb.visibility = View.GONE
