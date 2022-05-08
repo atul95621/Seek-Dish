@@ -47,7 +47,6 @@ class WebViewActivity : AppCompatActivity() {
         mywebview.getSettings().setJavaScriptEnabled(true);
         mywebview.settings.setSupportZoom(true)
         mywebview.getSettings().setLoadWithOverviewMode(true);
-        mywebview.getSettings().setDomStorageEnabled(true); // Add this
 
         mywebview!!.webViewClient = object : WebViewClient() {
             override fun shouldOverrideUrlLoading(view: WebView?, url: String?): Boolean {
@@ -61,14 +60,6 @@ class WebViewActivity : AppCompatActivity() {
                     view?.reload();
                 }
                 progressWeb.visibility = View.GONE
-            }
-
-            override fun onReceivedSslError(
-                view: WebView?,
-                handler: SslErrorHandler,
-                error: SslError?
-            ) {
-                handler.proceed() // Ignore SSL certificate errors
             }
         }
         mywebview!!.loadUrl(urlToLoad)
