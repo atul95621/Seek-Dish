@@ -25,6 +25,7 @@
     <color name="blue_dark">#2874A6</color>
     <color name="orange_price">#ff8a33</color>
     <color name="notification_read">#D8D2D2</color>
+    <color name="screens_background">#f9f9f9</color>
 
 
 </resources>

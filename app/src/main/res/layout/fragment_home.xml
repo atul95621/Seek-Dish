@@ -1,58 +1,63 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              xmlns:app="http://schemas.android.com/apk/res-auto"
-              xmlns:tools="http://schemas.android.com/tools"
-              android:layout_width="match_parent"
-              android:layout_height="match_parent"
-              android:background="@color/white"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:orientation="vertical">
 
-              android:orientation="vertical"
->
+    <FrameLayout
+        android:background="@color/screens_background"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
 
-    <LinearLayout
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
+            android:background="@color/colorPrimary" />
+
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/colorPrimary"
             android:gravity="center"
             android:orientation="vertical"
-            android:paddingLeft="16dp"
-            android:paddingTop="12dp"
-            android:paddingRight="16dp"
+            android:paddingLeft="20dp"
+            android:paddingTop="8dp"
+            android:paddingRight="20dp"
             android:paddingBottom="12dp"
             tools:ignore="MissingConstraints">
 
-        <!--"tabMinWidth" is used to increase the width of indivisual tabs-->
+            <!--"tabMinWidth" is used to increase the width of indivisual tabs-->
 
-        <com.google.android.material.tabs.TabLayout
-
+            <com.google.android.material.tabs.TabLayout
                 android:id="@+id/tabLayoutHomeFrag"
-                android:layout_width="wrap_content"
-                android:layout_height="36dp"
-                app:tabMinWidth="100dp"
+                android:layout_width="match_parent"
+                android:layout_height="45dp"
                 android:background="@drawable/tab_layout_background"
                 app:tabBackground="@drawable/tab_layout_selector"
                 app:tabGravity="center"
                 app:tabIndicatorHeight="0dp"
+                app:tabMinWidth="100dp"
                 app:tabMode="fixed"
                 app:tabRippleColor="@null"
                 app:tabSelectedTextColor="@color/white"
                 app:tabTextAppearance="@style/TabTextAppearance"
-
-        />
-
-
-    </LinearLayout>
+                app:tabTextColor="#9E9999"
+                />
+        </LinearLayout>
+    </FrameLayout>
 
     <androidx.viewpager.widget.ViewPager
-        android:visibility="gone"
-            android:id="@+id/viewPagerHomeFrag"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-    />
+        android:id="@+id/viewPagerHomeFrag"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone" />
+
     <FrameLayout
-        android:background="@color/white"
         android:id="@+id/content_home_fragment"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+        android:layout_height="match_parent"
+        android:background="@color/screens_background" />
 
 </LinearLayout>

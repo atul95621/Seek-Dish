@@ -10,8 +10,8 @@
     <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:theme="@style/AppTheme.AppBarOverlay">
-
+        android:theme="@style/AppTheme.AppBarOverlay"
+        app:elevation="0dp">
 
         <!--toolbar-->
         <FrameLayout
@@ -25,7 +25,6 @@
                 android:id="@+id/toolbar"
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
-                android:background="@color/white"
                 app:popupTheme="@style/AppTheme.PopupOverlay" />
 
             <ImageView
@@ -35,8 +34,8 @@
                 android:layout_gravity="start|center_vertical"
                 android:layout_marginStart="10dp"
                 android:src="@drawable/ic_back_black"
-                android:tint="@color/black"
-                android:visibility="visible" />
+                android:visibility="visible"
+                app:tint="@color/white" />
 
             <TextView
                 android:id="@+id/tvToolbarTitle"
@@ -45,7 +44,7 @@
                 android:layout_gravity="center"
                 android:fontFamily="@font/assistantbold"
                 android:text="@string/home"
-                android:textColor="@color/black"
+                android:textColor="@color/white"
                 android:textSize="20sp" />
 
             <ImageView
@@ -54,9 +53,10 @@
                 android:layout_height="30dp"
                 android:layout_gravity="end|center_vertical"
                 android:layout_marginEnd="10dp"
-                android:background="@drawable/ic_settings_button"
                 android:gravity="end"
-                android:visibility="visible" />
+                android:src="@drawable/ic_settings_button"
+                android:visibility="visible"
+                app:tint="@color/white" />
 
             <TextView
                 android:id="@+id/tvAdd"
@@ -64,14 +64,14 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="end|center_vertical"
                 android:layout_marginEnd="5dp"
-                android:padding="5dp"
-                android:minWidth="80dp"
-                android:maxWidth="120dp"
                 android:background="@drawable/roundedge_gray_border"
                 android:fontFamily="@font/assistantbold"
                 android:gravity="center_vertical|center"
+                android:maxWidth="120dp"
+                android:minWidth="80dp"
+                android:padding="5dp"
                 android:text="@string/add"
-                android:textColor="@color/colorPrimary"
+                android:textColor="@color/white"
                 android:textSize="16sp"
                 android:visibility="gone" />
         </FrameLayout>

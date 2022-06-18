@@ -18,7 +18,7 @@
 
             <solid
                     android:width="@dimen/divider_height_thick"
-                    android:color="@color/colorPrimary"/>
+                    android:color="@color/colorPrimaryDark"/>
 
         </shape>
 

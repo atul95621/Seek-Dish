@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.FrameLayout
 import android.widget.ImageView
+import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.dish.seekdish.R
@@ -58,9 +59,7 @@ class TasteFragAdapter(
         var review: String = "(" + tasteDataClass.no_of_reviews + ")"
         holder.tvStarReview.text = review
         var startRating = tasteDataClass.rating!!.toFloat()
-        holder.starScaleRatingBar.rating = startRating
-        var euroScaleRatingBar = tasteDataClass.budget!!.toFloat()
-        holder.euroScaleRatingBar.rating = euroScaleRatingBar
+        holder.tvSimpleRatingBar.text = startRating.toString()
 
         holder.tvPrice.text = tasteDataClass.meal_symbol + " " + tasteDataClass.meal_price
 
@@ -85,19 +84,17 @@ class TasteFragAdapter(
         internal var tvStarReview: TextView
         internal var tvDistance: TextView
         internal var tvDishName: TextView
-        internal var starScaleRatingBar: ScaleRatingBar
-        internal var euroScaleRatingBar: ScaleRatingBar
-        internal var frameTasteDish: FrameLayout
+        internal var tvSimpleRatingBar: TextView
+        internal var frameTasteDish: LinearLayout
         internal var tvPrice: TextView
 
         init {
-            starScaleRatingBar = view.findViewById(R.id.simpleRatingBar) as ScaleRatingBar
-            euroScaleRatingBar = view.findViewById(R.id.euroSignRatingBar) as ScaleRatingBar
+            tvSimpleRatingBar = view.findViewById(R.id.tvSimpleRatingBar) as TextView
             imgFoodImage = view.findViewById(R.id.imgFoodImage) as ImageView
             tvDistance = view.findViewById(R.id.tvDistance) as TextView
             tvStarReview = view.findViewById(R.id.tvStarReview) as TextView
             tvDishName = view.findViewById(R.id.tvDishName) as TextView
-            frameTasteDish = view.findViewById(R.id.frameTasteDish) as FrameLayout
+            frameTasteDish = view.findViewById(R.id.frameTasteDish) as LinearLayout
             tvPrice = view.findViewById(R.id.tvPrice) as TextView
 
         }

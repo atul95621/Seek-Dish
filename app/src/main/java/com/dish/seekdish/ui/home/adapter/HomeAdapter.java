@@ -33,6 +33,10 @@ public class HomeAdapter extends FragmentStatePagerAdapter {
                 HomeMapFragment mapFragment = new HomeMapFragment();
                 return mapFragment;
 
+            case 3:
+                TimeFragment timeFragment22 = new TimeFragment();
+                return timeFragment22;
+
             default:
                 return null;
         }
