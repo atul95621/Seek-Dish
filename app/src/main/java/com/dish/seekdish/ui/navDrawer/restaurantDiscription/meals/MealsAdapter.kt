@@ -52,10 +52,8 @@ class MealsAdapter(
         var review: String = "(" + tasteDataClass.startReview + ")"
         holder.tvStarReview.text = review
         var startRating = tasteDataClass.startRating!!.toFloat()
-        holder.starScaleRatingBar.rating = startRating
+        holder.tvSimpleRatingBar.text = startRating.toString()
         var euroScaleRatingBar = tasteDataClass.euroRating!!.toFloat()
-        holder.euroScaleRatingBar.rating = euroScaleRatingBar
-
         holder.tvPrice.text = tasteDataClass.symbol + " " + tasteDataClass.price
 
         // for making the sections
@@ -93,23 +91,21 @@ class MealsAdapter(
         internal var tvStarReview: TextView
         internal var tvDistance: TextView
         internal var tvDishName: TextView
-        internal var starScaleRatingBar: ScaleRatingBar
-        internal var euroScaleRatingBar: ScaleRatingBar
-        internal var frameTasteDish: FrameLayout
+        internal var tvSimpleRatingBar: TextView
+        internal var frameTasteDish: LinearLayout
         internal var tvPrice: TextView
         internal var tvTypeOfMeal: TextView
         internal var linHeader: LinearLayout
 
         init {
-            starScaleRatingBar =
-                view.findViewById(com.dish.seekdish.R.id.simpleRatingBar) as ScaleRatingBar
-            euroScaleRatingBar =
-                view.findViewById(com.dish.seekdish.R.id.euroSignRatingBar) as ScaleRatingBar
+            tvSimpleRatingBar =
+                view.findViewById(com.dish.seekdish.R.id.tvSimpleRatingBar) as TextView
             imgFoodImage = view.findViewById(com.dish.seekdish.R.id.imgFoodImage) as ImageView
             tvDistance = view.findViewById(com.dish.seekdish.R.id.tvDistance) as TextView
             tvStarReview = view.findViewById(com.dish.seekdish.R.id.tvStarReview) as TextView
             tvDishName = view.findViewById(com.dish.seekdish.R.id.tvDishName) as TextView
-            frameTasteDish = view.findViewById(com.dish.seekdish.R.id.frameTasteDish) as FrameLayout
+            frameTasteDish =
+                view.findViewById(com.dish.seekdish.R.id.frameTasteDish) as LinearLayout
             tvPrice = view.findViewById(R.id.tvPrice) as TextView
             tvTypeOfMeal = view.findViewById(R.id.tvTypeOfMeal) as TextView
             linHeader = view.findViewById(R.id.linHeader) as LinearLayout

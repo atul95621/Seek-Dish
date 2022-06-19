@@ -401,16 +401,17 @@ class RestroDescrpActivity : BaseActivity() {
             val itemView = mLayoutInflater.inflate(R.layout.pager_item, container, false)
 
             val imageView = itemView.findViewById(R.id.imageView) as ImageView
-            val profile_image = itemView.findViewById(R.id.profile_image) as CircleImageView
+//            val profile_image = itemView.findViewById(R.id.profile_image) as CircleImageView
 
             GlideApp.with(this@RestroDescrpActivity)
                 .load(mResources.elementAt(position))
                 .placeholder(R.drawable.app_logo)
                 .into(imageView)
+
             GlideApp.with(this@RestroDescrpActivity)
                 .load(mResources.elementAt(position))
                 .placeholder(R.drawable.app_logo)
-                .into(profile_image)
+                .into(imgRestroLogo)
 
 
             /*val imageView = itemView.findViewById(R.id.imageView) as ImageView
@@ -447,12 +448,12 @@ class RestroDescrpActivity : BaseActivity() {
 
                     tvRestroName.setText(response.data.restaurant.name)
                     tvRestroAddress.setText(response.data.restaurant.street + " " + response.data.restaurant.city + " " + response.data.restaurant.zipcode)
-                    tvRestroReview.setText("(" + response.data.restaurant.no_of_reviews + ")")
+                    tvStarReview.setText("(" + response.data.restaurant.no_of_reviews + ")")
 
 
                     latitude = response.data.restaurant.latitude
                     longitude = response.data.restaurant.longitude
-                    ratingRestro.rating = response.data.restaurant.rating.toFloat()
+                    tvSimpleRatingBar.text = response.data.restaurant.rating.toString()
                     facebookLink = response.data.restaurant.facebook
                     twitterLink = response.data.restaurant.twitter
                     pdfURL = response.data.restaurant.pdf_url
@@ -461,6 +462,10 @@ class RestroDescrpActivity : BaseActivity() {
                     //for swipe images on top
                     initializeviews(mResources)
 
+                   /* GlideApp.with(this)
+                        .load(imageUrl)
+                        .placeholder(R.drawable.app_logo)
+                        .into(imgRestroLogo)*/
 
                     //++++++++++++++++++++++++ setting the adapter after the responses come in...
                     adapter = RestroDescrpAdapter(

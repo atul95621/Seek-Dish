@@ -1,277 +1,301 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white"
     android:orientation="vertical"
-    android:weightSum="10"
-
     tools:context=".ui.navDrawer.restaurantDiscription.RestroDescrpActivity">
 
-
-    <!--<ScrollView android:layout_width="match_parent"-->
-    <!--android:layout_height="match_parent">-->
-    <!--<LinearLayout-->
-    <!--android:layout_width="match_parent"-->
-    <!--android:layout_height="wrap_content"-->
-    <!--android:orientation="vertical">-->
-
-    <!--upperpart-->
     <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="5"
-        android:orientation="vertical"
-        android:weightSum="5">
-        <!--toolbar-->
-        <FrameLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <!--upperpart-->
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="5"
-            android:orientation="horizontal">
-
-            <com.dish.seekdish.custom.PagerContainer
-                android:id="@+id/pager_container"
+            android:layout_height="250dp"
+            android:orientation="vertical">
+            <!--toolbar-->
+            <FrameLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
 
-                <androidx.viewpager.widget.ViewPager
+                <com.dish.seekdish.custom.PagerContainer
+                    android:id="@+id/pager_container"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent" />
+                    android:layout_height="match_parent">
 
-            </com.dish.seekdish.custom.PagerContainer>
+                    <androidx.viewpager.widget.ViewPager
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent" />
 
-            <ImageView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:scaleType="centerCrop"
-                android:src="@drawable/ic_foodex"
-                android:visibility="gone" />
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:alpha=".3"
-                android:background="@color/white"
-                android:visibility="gone" />
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="bottom"
-                android:layout_marginBottom="15dp"
-                android:orientation="vertical">
-
+                </com.dish.seekdish.custom.PagerContainer>
 
                 <TextView
-                    android:id="@+id/tvRestroName"
+                    android:id="@+id/tvActions"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:text=""
-                    android:fontFamily="@font/assistantbold"
-                    android:textColor="@color/black"
-                    android:textSize="18sp" />
-
-                <TextView
-                    android:id="@+id/tvRestroAddress"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_marginTop="10dp"
-                    android:gravity="center"
-                    android:maxLines="2"
-                    android:paddingStart="10dp"
-                    android:paddingEnd="10dp"
-                    android:text=""
+                    android:layout_gravity="end|top"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginEnd="10dp"
+                    android:gravity="end|top"
+                    android:text="@string/actions"
                     android:textColor="@color/black"
                     android:textSize="16sp" />
+
+                <TextView
+                    android:id="@+id/tvBack"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="start|top"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginTop="8dp"
+                    android:gravity="start"
+                    android:text="@string/back"
+                    android:textColor="@color/black"
+                    android:textSize="16sp" />
+
+
+                <!--//space for the dots-->
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="30dp"
-                    android:layout_gravity="center"
-                    android:layout_marginTop="5dp"
+                    android:layout_marginTop="10dp"
                     android:gravity="center"
                     android:orientation="horizontal">
 
-                    <com.willy.ratingbar.ScaleRatingBar xmlns:app="http://schemas.android.com/apk/res-auto"
-                        android:id="@+id/ratingRestro"
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:layout_marginStart="5dp"
-                        android:gravity="center"
-                        app:srb_clearRatingEnabled="false"
-                        app:srb_clickable="false"
-                        app:srb_drawableEmpty="@drawable/ic_empty_star"
-                        app:srb_drawableFilled="@drawable/ic_filled_star"
-                        app:srb_isIndicator="false"
-                        app:srb_scrollable="false"
-                        app:srb_starHeight="20dp"
-                        app:srb_starPadding="3dp"
-                        app:srb_starWidth="20dp"
-                        app:srb_stepSize="1"></com.willy.ratingbar.ScaleRatingBar>
-
-                    <TextView
-                        android:id="@+id/tvRestroReview"
+                    <com.tbuonomo.viewpagerdotsindicator.SpringDotsIndicator
+                        android:id="@+id/springDotsIndicator"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="10dp"
-                        android:text="@string/_15"
-                        android:textColor="@color/red_google" />
-
+                        app:dampingRatio="0.5"
+                        app:dotsColor="@color/dark_gray"
+                        app:dotsCornerRadius="8dp"
+                        app:dotsSize="10dp"
+                        app:dotsSpacing="4dp"
+                        app:dotsStrokeWidth="1dp"
+                        app:stiffness="300" />
                 </LinearLayout>
+            </FrameLayout>
+        </LinearLayout>
 
-            </LinearLayout>
-
-            <TextView
-                android:id="@+id/tvActions"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="end|top"
-                android:layout_marginTop="8dp"
-                android:layout_marginEnd="10dp"
-                android:gravity="end|top"
-                android:text="@string/actions"
-                android:textColor="@color/black"
-                android:textSize="16sp" />
-
-            <TextView
-                android:id="@+id/tvBack"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="start|top"
-                android:layout_marginStart="10dp"
-                android:layout_marginTop="8dp"
-                android:gravity="start"
-                android:text="@string/back"
-                android:textColor="@color/black"
-                android:textSize="16sp" />
-
-
-            <!--//space for the dots-->
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="30dp"
-                android:layout_marginTop="10dp"
-                android:layout_marginBottom="15dp"
-                android:gravity="center"
-                android:orientation="horizontal">
-
-                <com.tbuonomo.viewpagerdotsindicator.SpringDotsIndicator
-                    android:id="@+id/springDotsIndicator"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    app:dampingRatio="0.5"
-                    app:dotsColor="@color/dark_gray"
-                    app:dotsCornerRadius="8dp"
-                    app:dotsSize="10dp"
-                    app:dotsSpacing="4dp"
-                    app:dotsStrokeWidth="1dp"
-                    app:stiffness="300" />
-            </LinearLayout>
-        </FrameLayout>
-
-    </LinearLayout>
-
-    <!--tablayout-->
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="4.9"
-        android:orientation="vertical">
-
+        <!--tablayout-->
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:background="@color/screens_background"
             android:orientation="vertical">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@color/colorPrimary"
-                android:gravity="center|top"
-                android:orientation="vertical"
-                android:paddingLeft="16dp"
-                android:paddingTop="5dp"
-                android:paddingRight="16dp"
-                android:paddingBottom="5dp"
-                tools:ignore="MissingConstraints">
+                android:padding="10dp">
 
-                <!--"tabMinWidth" is used to increase the width of indivisual tabs-->
-
-                <com.google.android.material.tabs.TabLayout
-                    android:id="@+id/tabLayoutRestroActivity"
+                <LinearLayout
                     android:layout_width="wrap_content"
-                    android:layout_height="36dp"
-                    android:background="@drawable/tab_layout_background"
-                    app:tabBackground="@drawable/tab_layout_selector"
-                    app:tabGravity="center"
-                    app:tabIndicatorHeight="0dp"
-                    app:tabMinWidth="100dp"
-                    app:tabMode="fixed"
-                    app:tabRippleColor="@null"
-                    app:tabSelectedTextColor="@color/white"
-                    app:tabTextAppearance="@style/TabTextAppearance"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:orientation="horizontal">
 
-                    />
+                    <ImageView
+                        android:layout_width="15dp"
+                        android:layout_height="15dp"
+                        android:src="@drawable/star_filled_gold" />
+
+                    <TextView
+                        android:id="@+id/tvSimpleRatingBar"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginStart="5dp"
+                        android:gravity="center_vertical"
+                        android:text="0"
+                        android:textColor="@color/gold" />
+
+                    <TextView
+                        android:id="@+id/tvStarReview"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginStart="5dp"
+                        android:gravity="center_vertical"
+                        android:text="@string/_15"
+                        android:textColor="@color/black" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="end"
+                    android:gravity="end">
+
+                    <ImageView
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:src="@drawable/addmenu" />
+
+                    <ImageView
+                        android:layout_width="35dp"
+                        android:layout_height="35dp"
+                        android:layout_marginStart="20dp"
+                        android:src="@drawable/addmeal" />
+                </LinearLayout>
             </LinearLayout>
 
-            <androidx.viewpager.widget.ViewPager
-                android:id="@+id/viewPagerRestroActivity"
+            <TextView
+                android:id="@+id/tvRestroName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="10dp"
+                android:fontFamily="@font/assistantbold"
+                android:text=""
+                android:textColor="@color/black"
+                android:textSize="18sp" />
+
+            <TextView
+                android:id="@+id/tvRestroAddress"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="5dp"
+                android:layout_marginBottom="10dp"
+                android:fontFamily="@font/assistantregular"
+                android:gravity="center"
+                android:maxLines="2"
+                android:paddingStart="10dp"
+                android:paddingEnd="10dp"
+                android:text=""
+                android:textColor="@color/tabUnselectedText"
+                android:textSize="16sp" />
+
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent" />
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center|top"
+                    android:orientation="vertical"
+                    android:paddingLeft="16dp"
+                    android:paddingTop="5dp"
+                    android:paddingRight="16dp"
+                    android:paddingBottom="5dp"
+                    tools:ignore="MissingConstraints">
+
+                    <!--"tabMinWidth" is used to increase the width of indivisual tabs-->
+
+                    <com.google.android.material.tabs.TabLayout
+                        android:id="@+id/tabLayoutRestroActivity"
+                        android:layout_width="wrap_content"
+                        android:layout_height="45dp"
+                        android:background="@drawable/tab_layout_background"
+                        app:tabBackground="@drawable/tab_layout_selector"
+                        app:tabGravity="center"
+                        app:tabIndicatorHeight="0dp"
+                        app:tabMinWidth="100dp"
+                        app:tabMode="fixed"
+                        app:tabRippleColor="@null"
+                        app:tabSelectedTextColor="@color/white"
+                        app:tabTextAppearance="@style/TabTextAppearance"
+                        app:tabTextColor="@color/tabUnselectedText" />
+                </LinearLayout>
+
+                <androidx.viewpager.widget.ViewPager
+                    android:id="@+id/viewPagerRestroActivity"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" />
 
 
+            </LinearLayout>
         </LinearLayout>
+        <!--</LinearLayout>-->
+        <!--</ScrollView>-->
     </LinearLayout>
-
 
     <!--three options-->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
+        android:layout_gravity="bottom"
         android:layout_marginStart="30dp"
         android:layout_marginEnd="30dp"
-        android:layout_weight=".1"
         android:background="@android:color/transparent"
         android:gravity="center"
+        android:padding="10dp"
         android:weightSum="3">
 
-        <ImageView
-            android:id="@+id/imgGoogleApp"
-            android:layout_width="0dp"
+        <androidx.cardview.widget.CardView
+            android:layout_width="55dp"
             android:layout_height="55dp"
-            android:layout_weight="1"
-            android:src="@drawable/ic_direction_button" />
+            android:elevation="5dp"
+            app:cardCornerRadius="4dp"
+            app:cardUseCompatPadding="true">
 
-        <ImageView
-            android:id="@+id/imgRatings"
-            android:layout_width="0dp"
-            android:layout_height="55dp"
-            android:layout_marginStart="30dp"
-            android:layout_weight="1"
-            android:src="@drawable/ic_checkin_button" />
+            <ImageView
+                android:id="@+id/imgGoogleApp"
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:layout_gravity="center"
+                android:src="@drawable/ic_location_gmap" />
+        </androidx.cardview.widget.CardView>
 
-      <!--  <ImageView
-            android:id="@+id/imgInvitation"
-            android:layout_width="0dp"
+        <androidx.cardview.widget.CardView
+            android:layout_width="55dp"
             android:layout_height="55dp"
-            android:layout_marginStart="30dp"
-            android:layout_weight="1"
-            android:src="@drawable/ic_invitation_button" />-->
-        <ImageView
-            android:id="@+id/imgCallRestro"
-            android:layout_width="0dp"
+            android:layout_marginStart="20dp"
+            android:elevation="5dp"
+            app:cardCornerRadius="4dp"
+            app:cardUseCompatPadding="true">
+
+            <ImageView
+                android:id="@+id/imgRatings"
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:layout_gravity="center"
+                android:src="@drawable/ic_checlin_option" />
+        </androidx.cardview.widget.CardView>
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="55dp"
             android:layout_height="55dp"
-            android:layout_marginStart="30dp"
-            android:layout_weight="1"
-            android:src="@drawable/ic_call_icon" />
+            android:layout_marginStart="20dp"
+            android:elevation="5dp"
+            app:cardCornerRadius="4dp"
+            app:cardUseCompatPadding="true">
+
+            <ImageView
+                android:id="@+id/imgCallRestro"
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:layout_gravity="center"
+                android:src="@drawable/ic_call_option" />
+        </androidx.cardview.widget.CardView>
+
+        <!--  <ImageView
+              android:id="@+id/imgInvitation"
+              android:layout_width="0dp"
+              android:layout_height="55dp"
+              android:layout_marginStart="30dp"
+              android:layout_weight="1"
+              android:src="@drawable/ic_invitation_button" />-->
+
     </LinearLayout>
-    <!--</LinearLayout>-->
-    <!--</ScrollView>-->
-</LinearLayout>
+
+    <de.hdodenhof.circleimageview.CircleImageView xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/imgRestroLogo"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="200dp"
+        app:civ_border_color="#ffffff"
+        app:civ_border_width="1dp" />
+</FrameLayout>

@@ -28,6 +28,7 @@
     <color name="screens_background">#f9f9f9</color>
     <color name="purple">#7d5aa8</color>
     <color name="gold">#fec570</color>
+    <color name="tabUnselectedText">#9E9999</color>
 
 
 </resources>

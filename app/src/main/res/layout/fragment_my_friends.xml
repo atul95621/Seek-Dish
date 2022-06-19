@@ -37,7 +37,7 @@
                 app:tabRippleColor="@null"
                 app:tabSelectedTextColor="@color/white"
                 app:tabTextAppearance="@style/TabTextAppearance"
-
+            app:tabTextColor="@color/tabUnselectedText"
         />
 
 

@@ -49,19 +49,20 @@ class RestroSimilarAdapter(
 //            .placeholder(R.drawable.app_logo)
             .into(holder.imgFoodImage)
         holder.tvDishName.text = restroSimilarModel.name
-        holder.tvAddress.text = restroSimilarModel.street+","+restroSimilarModel.city+","+restroSimilarModel.zipcode
-        var review: String="("+restroSimilarModel.no_of_reviews+")"
+        holder.tvAddress.text =
+            restroSimilarModel.street + "," + restroSimilarModel.city + "," + restroSimilarModel.zipcode
+        var review: String = "(" + restroSimilarModel.no_of_reviews + ")"
         var startRating = restroSimilarModel.rating.toFloat()
-        holder.starScaleRatingBar.rating = startRating
-        var dist= restroSimilarModel.distance
-        var convertDist= dist.toDouble()
-        var floatDista=convertDist.toFloat()
-        holder.tvDistance.text =String.format("%.2f", floatDista) +" Km"
+        holder.tvSimpleRatingBar.text = startRating.toString()
+        var dist = restroSimilarModel.distance
+        var convertDist = dist.toDouble()
+        var floatDista = convertDist.toFloat()
+        holder.tvDistance.text = String.format("%.2f", floatDista) + " Km"
 
         holder.frameTasteDish.setOnClickListener()
         {
             val intent = Intent(mcontext, RestroDescrpActivity::class.java)
-            intent.putExtra("RESTAURANT_ID",restroSimilarModel.id.toString())
+            intent.putExtra("RESTAURANT_ID", restroSimilarModel.id.toString())
             mcontext.startActivity(intent)
         }
     }
@@ -76,16 +77,16 @@ class RestroSimilarAdapter(
         internal var tvAddress: TextView
         internal var tvDishName: TextView
         internal var tvDistance: TextView
-        internal var starScaleRatingBar: ScaleRatingBar
-        internal var frameTasteDish: FrameLayout
+        internal var tvSimpleRatingBar: TextView
+        internal var frameTasteDish: LinearLayout
+
         init {
             tvDistance = view.findViewById(R.id.tvDistance) as TextView
-            starScaleRatingBar = view.findViewById(R.id.simpleRatingBar) as ScaleRatingBar
+            tvSimpleRatingBar = view.findViewById(R.id.tvSimpleRatingBar) as TextView
             imgFoodImage = view.findViewById(R.id.imgFoodImage) as ImageView
             tvAddress = view.findViewById(R.id.tvAddress) as TextView
             tvDishName = view.findViewById(R.id.tvDishName) as TextView
-            frameTasteDish = view.findViewById(R.id.frameTasteDish) as FrameLayout
-
+            frameTasteDish = view.findViewById(R.id.frameTasteDish) as LinearLayout
         }
     }
 }

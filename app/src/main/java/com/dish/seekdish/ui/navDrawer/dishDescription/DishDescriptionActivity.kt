@@ -615,7 +615,7 @@ class DishDescriptionActivity : BaseActivity(), Serializable {
             val itemView = mLayoutInflater.inflate(R.layout.pager_item, container, false)
 
             val imageView = itemView.findViewById(R.id.imageView) as ImageView
-            val profile_image = itemView.findViewById(R.id.profile_image) as CircleImageView
+//            val profile_image = itemView.findViewById(R.id.profile_image) as CircleImageView
 
             profile_image.setOnClickListener()
             {
@@ -630,11 +630,11 @@ class DishDescriptionActivity : BaseActivity(), Serializable {
                 .load(mResources.elementAt(position))
                 .placeholder(R.drawable.app_logo)
                 .into(imageView)
-            GlideApp.with(this@DishDescriptionActivity)
+           /* GlideApp.with(this@DishDescriptionActivity)
                 .load(mResources.elementAt(position))
                 .placeholder(R.drawable.app_logo)
                 .into(profile_image)
-
+*/
 
 //            imageView.setImageBitmap(getBitmapFromUrl(mResources[position]))
 //            profile_image.setImageBitmap(getBitmapFromUrl(mResources[position]))

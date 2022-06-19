@@ -43,7 +43,7 @@
                 app:tabRippleColor="@null"
                 app:tabSelectedTextColor="@color/white"
                 app:tabTextAppearance="@style/TabTextAppearance"
-                app:tabTextColor="#9E9999"/>
+                app:tabTextColor="@color/tabUnselectedText"/>
         </LinearLayout>
     </FrameLayout>
 
