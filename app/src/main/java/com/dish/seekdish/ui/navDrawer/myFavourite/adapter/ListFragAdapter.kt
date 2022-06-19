@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.FrameLayout
 import android.widget.ImageView
+import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.dish.seekdish.R
@@ -21,7 +22,7 @@ import java.util.ArrayList
 class ListFragAdapter(
     arrayList: ArrayList<Data_todo>,
     activity: HomeActivity,
-   var listFavouriteFragment: ListFavouriteFragment
+    var listFavouriteFragment: ListFavouriteFragment
 ) :
     RecyclerView.Adapter<ListFragAdapter.RecyclerViewHolder>() {
     internal var arrayList = ArrayList<Data_todo>()
@@ -35,7 +36,8 @@ class ListFragAdapter(
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerViewHolder {
-        val view = LayoutInflater.from(parent.context).inflate(R.layout.item_layout_list_frag, parent, false)
+        val view = LayoutInflater.from(parent.context)
+            .inflate(R.layout.item_layout_list_frag, parent, false)
         return RecyclerViewHolder(view)
     }
 
@@ -72,9 +74,8 @@ class ListFragAdapter(
         var review: String = "(" + listDataClass.no_of_reviews + ")"
         holder.tvStarReview.text = review
         var startRating = listDataClass.meal_avg_rating.toFloat()
-        holder.starScaleRatingBar.rating = startRating
+        holder.tvSimpleRatingBar.text = startRating.toString()
         var euroScaleRatingBar = listDataClass.budget_rating.toFloat()
-        holder.euroScaleRatingBar.rating = euroScaleRatingBar
 
         holder.tvPrice.text = listDataClass.meal_symbol + " " + listDataClass.meal_price
 
@@ -110,29 +111,26 @@ class ListFragAdapter(
         internal var tvStarReview: TextView
         internal var tvDistance: TextView
         internal var tvDishName: TextView
-        internal var starScaleRatingBar: ScaleRatingBar
-        internal var euroScaleRatingBar: ScaleRatingBar
-        internal var frameTasteDish: FrameLayout
+        internal var tvSimpleRatingBar: TextView
+        internal var frameTasteDish: LinearLayout
         internal var tvPrice: TextView
 
         init {
-            starScaleRatingBar = view.findViewById(R.id.simpleRatingBar) as ScaleRatingBar
-            euroScaleRatingBar = view.findViewById(R.id.euroSignRatingBar) as ScaleRatingBar
+            tvSimpleRatingBar = view.findViewById(R.id.tvSimpleRatingBar) as TextView
             imgFoodImage = view.findViewById(R.id.imgFoodImage) as ImageView
             imgDelete = view.findViewById(R.id.imgDelete) as ImageView
             tvDistance = view.findViewById(R.id.tvDistance) as TextView
             tvStarReview = view.findViewById(R.id.tvStarReview) as TextView
             tvDishName = view.findViewById(R.id.tvDishName) as TextView
-            frameTasteDish = view.findViewById(R.id.frameTasteDish) as FrameLayout
+            frameTasteDish = view.findViewById(R.id.frameTasteDish) as LinearLayout
             tvPrice = view.findViewById(R.id.tvPrice) as TextView
-
         }
     }
+
     fun updateList(list: ArrayList<Data_todo>) {
         arrayList = list
         notifyDataSetChanged()
     }
-
 
 
     /*   fun removeItem(position: Int) {
