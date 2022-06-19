@@ -72,6 +72,7 @@ class HomeFragment : BaseFragment() {
             0 -> replaceFragment(TasteFragment())
             1 -> replaceFragment(TimeFragment())
             2 -> replaceFragment(HomeMapFragment())
+            3 -> replaceFragment(BlogFragment())
         }
     }
     fun replaceFragment(fragment: Fragment) {

@@ -3,6 +3,7 @@ package com.dish.seekdish.ui.navDrawer.restaurants.adapter;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentStatePagerAdapter;
+
 import com.dish.seekdish.ui.navDrawer.myFavourite.fragment.FavouriteMapFragment;
 import com.dish.seekdish.ui.navDrawer.myFavourite.fragment.ListFavouriteFragment;
 import com.dish.seekdish.ui.navDrawer.restaurants.fragments.ProximityFragment;
@@ -33,7 +34,6 @@ public class RestaurantAdapter extends FragmentStatePagerAdapter {
             case 2:
                 RestroMapFragment restroMapFragment = new RestroMapFragment();
                 return restroMapFragment;
-
 
             default:
                 return null;

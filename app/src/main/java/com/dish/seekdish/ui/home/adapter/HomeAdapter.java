@@ -4,6 +4,8 @@ package com.dish.seekdish.ui.home.adapter;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentStatePagerAdapter;
+
+import com.dish.seekdish.ui.home.fragments.BlogFragment;
 import com.dish.seekdish.ui.home.fragments.HomeMapFragment;
 import com.dish.seekdish.ui.home.fragments.TasteFragment;
 import com.dish.seekdish.ui.home.fragments.TimeFragment;
@@ -34,8 +36,8 @@ public class HomeAdapter extends FragmentStatePagerAdapter {
                 return mapFragment;
 
             case 3:
-                TimeFragment timeFragment22 = new TimeFragment();
-                return timeFragment22;
+                BlogFragment blogFragment = new BlogFragment();
+                return blogFragment;
 
             default:
                 return null;

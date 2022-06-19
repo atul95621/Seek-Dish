@@ -1,144 +1,175 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="200dp"
-    android:background="@color/white"
-
+    android:layout_height="wrap_content"
+    android:layout_marginStart="10dp"
+    android:layout_marginEnd="10dp"
     android:orientation="vertical">
 
-    <FrameLayout
-        android:id="@+id/frameTasteDish"
+    <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
-        <ImageView
-            android:id="@+id/imgFoodImage"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:scaleType="centerCrop"
-            android:src="@drawable/ic_foodimg" />
-
-        <ImageView
-            android:layout_width="match_parent"
-            android:layout_height="80dp"
-            android:layout_gravity="bottom"
-            android:scaleType="fitXY"
-            android:src="@drawable/ic_white_shadow" />
+        android:layout_height="wrap_content"
+        app:cardCornerRadius="8dp"
+        app:cardElevation="8dp"
+        app:cardUseCompatPadding="true">
 
         <LinearLayout
+            android:id="@+id/frameTasteDish"
             android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:layout_gravity="bottom"
-            android:layout_marginStart="10dp"
-            android:layout_marginEnd="10dp"
+            android:layout_height="match_parent"
             android:orientation="vertical">
 
-            <TextView
-                android:id="@+id/tvDishName"
+            <FrameLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/assistantbold"
-                android:maxLines="1"
-                android:text="Brochette De Boeuf"
-                android:textColor="@color/black"
-                android:textSize="16sp" />
+                android:layout_height="wrap_content">
+
+                <ImageView
+                    android:id="@+id/imgFoodImage"
+                    android:layout_width="match_parent"
+                    android:layout_height="200dp"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/ic_foodimg" />
+
+                <TextView
+                    android:id="@+id/tvDishName"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="bottom"
+                    android:layout_marginStart="10dp"
+                    android:fontFamily="@font/assistantbold"
+                    android:maxLines="1"
+                    android:paddingBottom="5dp"
+                    android:text="Brochette De Boeuf"
+                    android:textColor="@color/white"
+                    android:textSize="16sp" />
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical|end"
+                    android:orientation="vertical">
+
+                    <ImageView
+                        android:id="@+id/imgMenu"
+                        android:layout_width="65dp"
+                        android:layout_height="65dp"
+                        android:src="@drawable/ic_menu" />
+
+                    <FrameLayout
+                        android:id="@+id/frameMealCount"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center">
+
+                        <ImageView
+                            android:id="@+id/imgMealCount"
+                            android:layout_width="65dp"
+                            android:layout_height="65dp"
+                            android:src="@drawable/ic_meal_count" />
+
+                        <TextView
+                            android:id="@+id/tvMealCount"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:fontFamily="@font/assistantbold"
+                            android:maxLines="1"
+                            android:text="1"
+                            android:textColor="@color/red_google"
+                            android:textSize="18sp" />
+
+                    </FrameLayout>
+
+                </LinearLayout>
+            </FrameLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="horizontal">
+                android:layout_height="50dp"
+                android:layout_gravity="bottom"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="10dp"
+                android:orientation="vertical">
 
-                <TextView
-                    android:id="@+id/tvDistance"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical|start"
-                    android:text="1.73 Km" />
 
-                <View
-                    android:layout_width="2dp"
+                <LinearLayout
+                    android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_marginStart="10dp"
-                    android:layout_marginTop="5dp"
-                    android:layout_marginBottom="5dp"
-                    android:background="@color/dark_gray" />
+                    android:orientation="horizontal">
 
-                <com.willy.ratingbar.ScaleRatingBar xmlns:app="http://schemas.android.com/apk/res-auto"
-                    android:id="@+id/simpleRatingBar"
-                    android:layout_width="110dp"
-                    android:layout_height="match_parent"
-                    android:layout_marginStart="5dp"
-                    android:gravity="center"
-                    app:srb_clearRatingEnabled="false"
-                    app:srb_clickable="false"
-                    app:srb_drawableEmpty="@drawable/ic_empty_star"
-                    app:srb_drawableFilled="@drawable/ic_filled_star"
-                    app:srb_isIndicator="false"
-                    app:srb_scrollable="false"
-                    app:srb_starHeight="15dp"
-                    app:srb_starPadding="3dp"
-                    app:srb_starWidth="15dp"
-                    app:srb_stepSize="1"></com.willy.ratingbar.ScaleRatingBar>
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:orientation="horizontal">
+
+                        <ImageView
+                            android:layout_width="15dp"
+                            android:layout_height="15dp"
+                            android:src="@drawable/star_filled_gold" />
+
+                        <TextView
+                            android:id="@+id/tvSimpleRatingBar"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:layout_gravity="center"
+                            android:layout_marginStart="5dp"
+                            android:gravity="center_vertical"
+                            android:text="0"
+                            android:textColor="@color/gold" />
+
+                        <TextView
+                            android:id="@+id/tvStarReview"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_marginStart="5dp"
+                            android:gravity="center_vertical"
+                            android:text="@string/_15"
+                            android:textColor="@color/black" />
+                    </LinearLayout>
+
+                    <TextView
+                        android:id="@+id/tvAddress"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical|start"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginEnd="10dp"
+                        android:layout_weight="1"
+                        android:maxLines="2"
+                        android:text="Bizers,3400, Occtine BOJUAN"
+                        android:textSize="12sp" />
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:gravity="center"
+                        android:orientation="horizontal">
+
+                        <ImageView
+                            android:layout_width="15dp"
+                            android:layout_height="15dp"
+                            android:src="@drawable/location_pin"
+                            app:tint="@color/purple" />
+
+                        <TextView
+                            android:id="@+id/tvDistance"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_vertical|start"
+                            android:layout_marginStart="5dp"
+                            android:text="1.73 Km"
+                            android:textColor="@color/purple" />
+                    </LinearLayout>
 
 
-                <View
-                    android:layout_width="2dp"
-                    android:layout_height="match_parent"
-                    android:layout_marginStart="15dp"
-                    android:layout_marginTop="5dp"
-                    android:layout_marginBottom="5dp"
-                    android:background="@color/dark_gray" />
+                </LinearLayout>
 
-                <TextView
-                    android:id="@+id/tvAddress"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical|start"
-                    android:layout_marginStart="10dp"
-                    android:maxLines="2"
-                    android:textSize="12sp"
-                    android:text="Bizers,3400, Occtine BOJUAN" />
             </LinearLayout>
 
-
         </LinearLayout>
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical|end"
-            android:orientation="vertical">
-
-            <ImageView
-                android:id="@+id/imgMenu"
-                android:layout_width="65dp"
-                android:layout_height="65dp"
-                android:src="@drawable/ic_menu" />
-
-            <FrameLayout
-                android:id="@+id/frameMealCount"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center">
-
-                <ImageView
-                    android:id="@+id/imgMealCount"
-                    android:layout_width="65dp"
-                    android:layout_height="65dp"
-                    android:src="@drawable/ic_meal_count" />
-
-                <TextView
-                    android:id="@+id/tvMealCount"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:fontFamily="@font/assistantbold"
-                    android:maxLines="1"
-                    android:text="1"
-                    android:textColor="@color/red_google"
-                    android:textSize="18sp" />
-
-            </FrameLayout>
-
-        </LinearLayout>
-    </FrameLayout>
+    </androidx.cardview.widget.CardView>
 </LinearLayout>

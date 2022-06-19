@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.FrameLayout
 import android.widget.ImageView
+import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.dish.seekdish.R
@@ -29,14 +30,16 @@ class TimeRestroAdapter(
 
     var context: Context
     var homeActivity: HomeActivity
+
     init {
         this.arrayList = arrayList
-        this.homeActivity=homeActivity
-        this.context=context
+        this.homeActivity = homeActivity
+        this.context = context
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerViewHolder {
-        val view = LayoutInflater.from(parent.context).inflate(R.layout.item_layout_time_restro_frag, parent, false)
+        val view = LayoutInflater.from(parent.context)
+            .inflate(R.layout.item_layout_time_restro_frag, parent, false)
         return RecyclerViewHolder(view)
     }
 
@@ -49,18 +52,19 @@ class TimeRestroAdapter(
             .load(imageUrl)
             .into(holder.imgFoodImage)
         holder.tvDishName.text = restroTimeModel.name
-        holder.tvAddress.text = restroTimeModel.street+","+restroTimeModel.city+","+restroTimeModel.zipcode
-        var review: String="("+restroTimeModel.no_of_reviews+")"
+        holder.tvAddress.text =
+            restroTimeModel.street + "," + restroTimeModel.city + "," + restroTimeModel.zipcode
+        var review: String = "(" + restroTimeModel.no_of_reviews + ")"
         var startRating = restroTimeModel.rating.toFloat()
-        holder.starScaleRatingBar.rating = startRating
-        var dist= restroTimeModel.distance
-        holder.tvDistance.text =String.format("%.2f", dist) +" Km"
+        holder.tvSimpleRatingBar.text = startRating.toString()
+        var dist = restroTimeModel.distance
+        holder.tvDistance.text = String.format("%.2f", dist) + " Km"
 
 
         holder.frameTasteDish.setOnClickListener()
         {
             val intent = Intent(homeActivity, RestroDescrpActivity::class.java)
-            intent.putExtra("RESTAURANT_ID",restroTimeModel.id.toString())
+            intent.putExtra("RESTAURANT_ID", restroTimeModel.id.toString())
             homeActivity.startActivity(intent)
         }
 
@@ -100,26 +104,24 @@ class TimeRestroAdapter(
         internal var tvAddress: TextView
         internal var tvDishName: TextView
         internal var tvDistance: TextView
-
-        internal var starScaleRatingBar: ScaleRatingBar
-        internal var frameTasteDish: FrameLayout
+        internal var tvSimpleRatingBar: TextView
+        internal var frameTasteDish: LinearLayout
         internal var tvMealCount: TextView
         internal var frameMealCount: FrameLayout
         internal var imgMenu: ImageView
+
         init {
-            starScaleRatingBar = view.findViewById(R.id.simpleRatingBar) as ScaleRatingBar
+            tvSimpleRatingBar = view.findViewById(R.id.tvSimpleRatingBar) as TextView
             imgFoodImage = view.findViewById(R.id.imgFoodImage) as ImageView
             tvAddress = view.findViewById(R.id.tvAddress) as TextView
             tvDistance = view.findViewById(R.id.tvDistance) as TextView
             tvDishName = view.findViewById(R.id.tvDishName) as TextView
-            frameTasteDish = view.findViewById(R.id.frameTasteDish) as FrameLayout
+            frameTasteDish = view.findViewById(R.id.frameTasteDish) as LinearLayout
             tvMealCount = view.findViewById(R.id.tvMealCount) as TextView
             frameMealCount = view.findViewById(R.id.frameMealCount) as FrameLayout
             imgMenu = view.findViewById(R.id.imgMenu) as ImageView
-
         }
     }
-
 
 
     fun addItems(dataItems: ArrayList<Data_Time_Restro>) {

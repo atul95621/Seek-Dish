@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.FrameLayout
 import android.widget.ImageView
+import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.dish.seekdish.R
@@ -56,7 +57,7 @@ class ProximityAdapter(
         holder.tvAddress.text = proxiModel.street + "," + proxiModel.city + "," + proxiModel.zipcode
         var review: String = "(" + proxiModel.no_of_reviews + ")"
         var startRating = proxiModel.rating.toFloat()
-        holder.starScaleRatingBar.rating = startRating
+        holder.tvSimpleRatingBar.text = startRating.toString()
         var dist = proxiModel.distance
         holder.tvDistance.text = String.format("%.2f", dist) + " Km"
 
@@ -104,8 +105,8 @@ class ProximityAdapter(
         internal var tvAddress: TextView
         internal var tvDishName: TextView
         internal var tvDistance: TextView
-        internal var starScaleRatingBar: ScaleRatingBar
-        internal var frameTasteDish: FrameLayout
+        internal var tvSimpleRatingBar: TextView
+        internal var frameTasteDish: LinearLayout
         internal var tvMealCount: TextView
         internal var frameMealCount: FrameLayout
         internal var imgMenu: ImageView
@@ -113,11 +114,11 @@ class ProximityAdapter(
 
         init {
             tvDistance = view.findViewById(R.id.tvDistance) as TextView
-            starScaleRatingBar = view.findViewById(R.id.simpleRatingBar) as ScaleRatingBar
+            tvSimpleRatingBar = view.findViewById(R.id.tvSimpleRatingBar) as TextView
             imgFoodImage = view.findViewById(R.id.imgFoodImage) as ImageView
             tvAddress = view.findViewById(R.id.tvAddress) as TextView
             tvDishName = view.findViewById(R.id.tvDishName) as TextView
-            frameTasteDish = view.findViewById(R.id.frameTasteDish) as FrameLayout
+            frameTasteDish = view.findViewById(R.id.frameTasteDish) as LinearLayout
             tvMealCount = view.findViewById(R.id.tvMealCount) as TextView
             frameMealCount = view.findViewById(R.id.frameMealCount) as FrameLayout
             imgMenu = view.findViewById(R.id.imgMenu) as ImageView
