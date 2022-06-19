@@ -26,6 +26,8 @@
     <color name="orange_price">#ff8a33</color>
     <color name="notification_read">#D8D2D2</color>
     <color name="screens_background">#f9f9f9</color>
+    <color name="purple">#7d5aa8</color>
+    <color name="gold">#fec570</color>
 
 
 </resources>
