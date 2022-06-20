@@ -52,7 +52,7 @@ class OpinionFragment(var objDishModel: DishDescpModel) : BaseFragment(), Serial
             view.tvOpinionHeader.visibility = View.GONE
             view.tvOpinionAlert.visibility = View.VISIBLE
         } else {
-            view.tvOpinionHeader.setText(resources.getString(R.string.opinion)+ "("+ sizeComment + ")")
+            view.tvOpinionHeader.setText(resources.getString(R.string.opinion) + "(" + sizeComment + ")")
 
             for (item in objDishModel.data.user_meal_comments) {
 
@@ -62,12 +62,18 @@ class OpinionFragment(var objDishModel: DishDescpModel) : BaseFragment(), Serial
                     image = item.rating_image1
                 }
 
-                val OpinionDataClass = OpinionDataClass(item.username, newDate, image, item.comment, item.anonymous);
+                val OpinionDataClass =
+                    OpinionDataClass(item.username, newDate, image, item.comment, item.anonymous);
                 arrayList.add(OpinionDataClass)
             }
 
 
-            adapter = OpinionAdapter(arrayList, mcontext, opinionDetails,objDishModel.data.user_meal_comments)
+            adapter = OpinionAdapter(
+                arrayList,
+                mcontext,
+                opinionDetails,
+                objDishModel.data.user_meal_comments
+            )
             recyclerView!!.setAdapter(adapter)
         }
 

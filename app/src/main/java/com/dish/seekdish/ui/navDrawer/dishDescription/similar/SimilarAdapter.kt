@@ -16,7 +16,6 @@ import com.willy.ratingbar.ScaleRatingBar
 import java.util.ArrayList
 
 
-
 class SimilarAdapter(
     arrayList: ArrayList<SimilarDataClass>,
     activity: DishDescriptionActivity
@@ -33,7 +32,8 @@ class SimilarAdapter(
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerViewHolder {
-        val view = LayoutInflater.from(parent.context).inflate(R.layout.item_layout_similar_frag, parent, false)
+        val view = LayoutInflater.from(parent.context)
+            .inflate(R.layout.item_layout_similar_frag, parent, false)
         return RecyclerViewHolder(view)
     }
 
@@ -55,24 +55,24 @@ class SimilarAdapter(
 
         // getting all vales and storing in val...
         var imageUrl: String = tasteDataClass.foodImageUrl.toString()
-        Glide.with(activity).load(imageUrl).placeholder(R.drawable.app_logo).into(holder.imgFoodImage);
+        Glide.with(activity).load(imageUrl).placeholder(R.drawable.app_logo)
+            .into(holder.imgFoodImage);
         holder.tvDishName.text = tasteDataClass.dishName
         var dist = tasteDataClass.distance
-        holder.tvDistance.text =String.format("%.2f", dist) +" Km"
+        holder.tvDistance.text = String.format("%.2f", dist) + " Km"
         var review: String = "(" + tasteDataClass.startReview + ")"
         holder.tvStarReview.text = review
         var startRating = tasteDataClass.startRating!!.toFloat()
-        holder.starScaleRatingBar.rating = startRating
+        holder.tvSimpleRatingBar.text = startRating.toString()
         var euroScaleRatingBar = tasteDataClass.euroRating!!.toFloat()
-        holder.euroScaleRatingBar.rating = euroScaleRatingBar
 
         holder.tvPrice.text = tasteDataClass.symbol + " " + tasteDataClass.price
 
         holder.frameTasteDish.setOnClickListener()
         {
             val intent = Intent(activity, DishDescriptionActivity::class.java)
-            intent.putExtra("MEAL_ID",tasteDataClass.mealId)
-            intent.putExtra("RESTAURANT_ID",tasteDataClass.restroId)
+            intent.putExtra("MEAL_ID", tasteDataClass.mealId)
+            intent.putExtra("RESTAURANT_ID", tasteDataClass.restroId)
             activity.startActivity(intent)
         }
     }
@@ -89,21 +89,19 @@ class SimilarAdapter(
         internal var tvStarReview: TextView
         internal var tvDistance: TextView
         internal var tvDishName: TextView
-        internal var starScaleRatingBar: ScaleRatingBar
-        internal var euroScaleRatingBar: ScaleRatingBar
-        internal var frameTasteDish: FrameLayout
-        internal  var tvPrice:TextView
+        internal var tvSimpleRatingBar: TextView
+        internal var frameTasteDish: LinearLayout
+        internal var tvPrice: TextView
         internal var tvTypeOfMeal: TextView
         internal var linHeader: LinearLayout
 
         init {
-            starScaleRatingBar = view.findViewById(R.id.simpleRatingBar) as ScaleRatingBar
-            euroScaleRatingBar = view.findViewById(R.id.euroSignRatingBar) as ScaleRatingBar
+            tvSimpleRatingBar = view.findViewById(R.id.tvSimpleRatingBar) as TextView
             imgFoodImage = view.findViewById(R.id.imgFoodImage) as ImageView
             tvDistance = view.findViewById(R.id.tvDistance) as TextView
             tvStarReview = view.findViewById(R.id.tvStarReview) as TextView
             tvDishName = view.findViewById(R.id.tvDishName) as TextView
-            frameTasteDish = view.findViewById(R.id.frameTasteDish) as FrameLayout
+            frameTasteDish = view.findViewById(R.id.frameTasteDish) as LinearLayout
             tvPrice = view.findViewById(R.id.tvPrice) as TextView
             tvTypeOfMeal = view.findViewById(R.id.tvTypeOfMeal) as TextView
             linHeader = view.findViewById(R.id.linHeader) as LinearLayout

@@ -173,7 +173,7 @@
                 android:paddingEnd="10dp"
                 android:text=""
                 android:textColor="@color/tabUnselectedText"
-                android:textSize="16sp" />
+                android:textSize="14sp" />
 
             <LinearLayout
                 android:layout_width="match_parent"

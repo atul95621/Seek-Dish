@@ -9,7 +9,7 @@
 
     <TextView
         android:id="@+id/childItem"
-        android:textColor="@color/dark_gray"
+        android:textColor="@color/tabUnselectedText"
         android:layout_width="match_parent"
         android:text=""
         android:textSize="14sp"

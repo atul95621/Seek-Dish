@@ -312,9 +312,10 @@ class DishDescriptionActivity : BaseActivity(), Serializable {
                     if (response.status == 1) {
 
                         tvMealName.setText(response.data.meals.meal_name)
-                        tvRestaurantName.setText(response.data.meals.restro_name + ", " + response.data.meals.street + ", " + response.data.meals.city + ", " + response.data.meals.zipcode)
-                        ratingStarMeal.rating =
-                            response.data.meals.meal_avg_rating.toFloat() ?: 0.0F
+                        tvRestaurantName.text = response.data.meals.restro_name ?: ""
+                        tvRestroAddrss.setText(response.data.meals.street + ", " + response.data.meals.city + ", " + response.data.meals.zipcode)
+                        tvSimpleRatingBar.text =
+                            response.data.meals.meal_avg_rating ?: ""
 //                        ratingEuroMeal.rating = response.data.meals.budget?.toFloat() ?: 0.0F
 
                         tvPrice.setText(
@@ -617,7 +618,7 @@ class DishDescriptionActivity : BaseActivity(), Serializable {
             val imageView = itemView.findViewById(R.id.imageView) as ImageView
 //            val profile_image = itemView.findViewById(R.id.profile_image) as CircleImageView
 
-            profile_image.setOnClickListener()
+            imgRestroLogo.setOnClickListener()
             {
                 val intent = Intent(this@DishDescriptionActivity, DishDetailActivity::class.java)
                 intent.putExtra("MEAL_SEARIALIZE", dishInfoDetails as Serializable)
@@ -630,11 +631,10 @@ class DishDescriptionActivity : BaseActivity(), Serializable {
                 .load(mResources.elementAt(position))
                 .placeholder(R.drawable.app_logo)
                 .into(imageView)
-           /* GlideApp.with(this@DishDescriptionActivity)
+            GlideApp.with(this@DishDescriptionActivity)
                 .load(mResources.elementAt(position))
                 .placeholder(R.drawable.app_logo)
-                .into(profile_image)
-*/
+                .into(imgRestroLogo)
 
 //            imageView.setImageBitmap(getBitmapFromUrl(mResources[position]))
 //            profile_image.setImageBitmap(getBitmapFromUrl(mResources[position]))

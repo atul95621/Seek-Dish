@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="48dp"
-
-    android:background="@color/gray_lighter"
+    android:background="@color/screens_background"
     android:orientation="vertical">
 
     <FrameLayout
@@ -11,25 +11,26 @@
         android:layout_height="match_parent">
 
         <TextView
-            android:layout_marginTop="5dp"
-            android:layout_marginBottom="5dp"
             android:id="@+id/heading"
             android:layout_width="wrap_content"
-            android:fontFamily="@font/assistantregular"
             android:layout_height="match_parent"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="5dp"
+            android:fontFamily="@font/assistantregular"
             android:gravity="center_vertical"
-            android:textSize="18sp"
             android:paddingLeft="10sp"
             android:text=""
             android:textAppearance="?android:attr/textAppearanceLarge"
-            android:textColor="@color/dark_gray" />
+            android:textColor="@color/black"
+            android:textSize="18sp" />
 
         <ImageView
-            android:layout_marginEnd="20dp"
-            android:layout_gravity="end|center_vertical"
             android:layout_width="15dp"
             android:layout_height="15dp"
-            android:src="@drawable/ic_down"/>
+            android:layout_gravity="end|center_vertical"
+            android:layout_marginEnd="20dp"
+            android:src="@drawable/ic_down"
+            app:tint="@color/dark_gray" />
     </FrameLayout>
 
 </LinearLayout>
