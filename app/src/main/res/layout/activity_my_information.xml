@@ -15,16 +15,16 @@
         android:gravity="center"
         android:orientation="horizontal">
 
-        <TextView
-            android:id="@+id/tvSave"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+        <ImageView
+            android:id="@+id/imgSave"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
             android:layout_gravity="end|center_vertical"
             android:layout_marginEnd="10dp"
             android:gravity="end"
-            android:text="@string/save"
-            android:textColor="@color/white"
-            android:textSize="18sp" />
+            android:src="@drawable/ic_filter"
+            android:visibility="visible" />
+
 
         <TextView
             android:layout_width="wrap_content"
@@ -153,9 +153,9 @@
             </LinearLayout>
             <!--            DOB-->
             <LinearLayout
-                android:layout_marginTop="3dp"
                 android:layout_width="match_parent"
-                android:layout_height="48dp">
+                android:layout_height="48dp"
+                android:layout_marginTop="3dp">
 
                 <TextView
                     android:id="@+id/tvDOB"
@@ -166,16 +166,16 @@
                     android:hint="@string/date_of_birth"
                     android:inputType="numberDecimal"
                     android:paddingStart="8dp"
-                    android:textSize="18sp"
                     android:singleLine="true"
-                    android:textColor="@color/black" />
+                    android:textColor="@color/black"
+                    android:textSize="18sp" />
             </LinearLayout>
 
             <!--            SPINNER PROFESSION-->
             <LinearLayout
-                android:layout_marginTop="3dp"
                 android:layout_width="match_parent"
-                android:layout_height="48dp">
+                android:layout_height="48dp"
+                android:layout_marginTop="3dp">
 
                 <Spinner
                     android:id="@+id/spinnerProfession"
@@ -291,9 +291,9 @@
                     android:background="@color/edt_light_gray"
                     android:hint="@string/zip_code"
                     android:inputType="textCapCharacters"
-                    android:paddingStart="8dp"
-                    android:maxLines="1"
                     android:lines="1"
+                    android:maxLines="1"
+                    android:paddingStart="8dp"
                     android:textColor="@color/black" />
 
                 <View

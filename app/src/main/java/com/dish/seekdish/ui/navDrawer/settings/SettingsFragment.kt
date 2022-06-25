@@ -143,7 +143,7 @@ class SettingsFragment(var homeActivity: HomeActivity) : BaseFragment(), ISettin
         numberPicker!!.setUnit(1)
 //        numberPicker.setValue(15)
 
-        homeActivity.tvAdd.setOnClickListener()
+        homeActivity.imgFilters.setOnClickListener()
         {
 
             val geoCheck: String

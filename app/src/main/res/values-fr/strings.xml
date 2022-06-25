@@ -251,7 +251,7 @@
     <string name="old_pass">Veuillez remplir l\'ancien mot de passe.</string>
     <string name="new_pass">Veuillez saisir un nouveau mot de passe</string>
     <string name="confrm_pass">Veuillez confirmer le mot de passe</string>
-    <string name="menu">Carte Menu</string>
+    <string name="menu">Menus</string>
     <string name="menu_click">"Cliquez pour voir le menu "</string>
     <string name="go_playstore">Veuillez mettre à jour depuis Google Play Store.</string>
     <string name="specialities">spécialités</string>

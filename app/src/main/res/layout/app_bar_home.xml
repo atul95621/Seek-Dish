@@ -49,14 +49,14 @@
 
             <ImageView
                 android:id="@+id/imgFilters"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
+                android:layout_width="25dp"
+                android:layout_height="25dp"
                 android:layout_gravity="end|center_vertical"
                 android:layout_marginEnd="10dp"
                 android:gravity="end"
-                android:src="@drawable/ic_settings_button"
+                android:src="@drawable/ic_filter"
                 android:visibility="visible"
-                app:tint="@color/white" />
+                />
 
             <TextView
                 android:id="@+id/tvAdd"

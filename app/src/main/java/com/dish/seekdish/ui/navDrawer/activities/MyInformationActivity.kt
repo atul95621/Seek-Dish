@@ -173,7 +173,7 @@ class MyInformationActivity : BaseActivity(), IMyInformationView {
 
 
         // saving the data of user...
-        tvSave.setOnClickListener()
+        imgSave.setOnClickListener()
         {
 
             if (TextUtils.isEmpty(edtAddressLineOne!!.text.toString().trim { it <= ' ' })) {

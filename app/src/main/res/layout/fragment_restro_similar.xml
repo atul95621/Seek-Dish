@@ -1,39 +1,46 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              xmlns:tools="http://schemas.android.com/tools"
-              android:layout_width="match_parent"
-              android:layout_height="match_parent"
-              android:orientation="vertical"
-              android:background="@color/white"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:orientation="vertical"
 
-              tools:context=".ui.navDrawer.dishDescription.opinion.OpinionFragment">
-    <TextView android:layout_width="match_parent"
-              android:layout_height="wrap_content"
-              android:background="@color/light_gray"
-              android:textSize="18sp"
-              android:padding="2dp"
-        android:visibility="gone"
-              android:text="@string/proximity"/>
+    tools:context=".ui.navDrawer.dishDescription.opinion.OpinionFragment">
 
-    <FrameLayout android:layout_width="match_parent" android:layout_height="match_parent">
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/light_gray"
+        android:padding="2dp"
+        android:text="@string/proximity"
+        android:textSize="18sp"
+        android:visibility="gone" />
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rvRestroSimilarFrag"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:scrollbars="vertical"
             tools:layout_editor_absoluteX="0dp"
-            tools:layout_editor_absoluteY="0dp"/>
-        <TextView android:layout_width="match_parent"
-            android:visibility="invisible"
+            tools:layout_editor_absoluteY="0dp" />
+
+        <TextView
             android:id="@+id/tvFavSiml"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
             android:layout_gravity="center"
-            android:gravity="center"
             android:fontFamily="@font/assistantregular"
+            android:gravity="center"
             android:lineSpacingExtra="2dp"
             android:paddingStart="30dp"
             android:paddingEnd="30dp"
-            android:layout_height="match_parent"
-            android:text="@string/no_one_found"/>
+            android:text="@string/no_one_found"
+            android:visibility="invisible" />
     </FrameLayout>
 
 </LinearLayout>

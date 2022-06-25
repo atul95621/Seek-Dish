@@ -61,7 +61,7 @@ class HomeActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
 
     private var listAdapter: FilterAdapter? = null
     private var simpleExpandableListView: ExpandableListView? = null
-    private var btnSaveFilterItems: Button? = null
+    private var btnSaveFilterItems: ImageView? = null
 
     //    private var rightToggle: ActionBarDrawerToggle? = null
     lateinit var toggle: ActionBarDrawerToggle
@@ -287,7 +287,7 @@ class HomeActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
 
         //get reference of the ExpandableListView
         simpleExpandableListView = findViewById(R.id.filterExpandableListView) as ExpandableListView
-        btnSaveFilterItems = findViewById(R.id.btnSaveFilterItems) as Button
+        btnSaveFilterItems = findViewById(R.id.btnSaveFilterItems) as ImageView
 
         // to open all the childs
         /*  val count = listAdapter!!.getGroupCount()
@@ -503,6 +503,7 @@ class HomeActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
             // Handle navigation view item clicks here.
             when (item.itemId) {
                 R.id.nav_home -> {
+                    imgFilters.setImageResource(R.drawable.ic_filter);
                     imgFilters.visibility = (View.VISIBLE)
                     tvAdd.visibility = (View.INVISIBLE)
                     tvTitle.setText(resources.getString(R.string.home))
@@ -515,6 +516,8 @@ class HomeActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
                 R.id.nav_restaurants -> {
                     tvAdd.visibility = (View.INVISIBLE)
                     tvTitle.setText(resources.getString(R.string.restaurant))
+                    imgFilters.setImageResource(R.drawable.ic_filter);
+                    imgFilters.visibility = (View.VISIBLE)
                     val fragmentManager = supportFragmentManager
                     fragmentManager.beginTransaction()
                         .replace(R.id.content_frame, RestaurantsFragment())
@@ -566,10 +569,10 @@ class HomeActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
                 }
                 R.id.nav_settings -> {
 
-                    tvAdd.visibility = (View.VISIBLE)
-                    tvAdd.setText(resources.getString(R.string.save))
-
-                    imgFilters.visibility = (View.INVISIBLE)
+                    tvAdd.visibility = (View.GONE)
+//                    tvAdd.setText(resources.getString(R.string.save))
+                    imgFilters.setImageResource(R.drawable.ic_save_new);
+                    imgFilters.visibility = (View.VISIBLE)
                     tvTitle.setText(resources.getString(R.string.settings))
 
                     val fragmentManager = supportFragmentManager

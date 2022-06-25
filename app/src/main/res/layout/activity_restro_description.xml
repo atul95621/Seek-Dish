@@ -212,7 +212,75 @@
                 <androidx.viewpager.widget.ViewPager
                     android:id="@+id/viewPagerRestroActivity"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent" />
+                    android:layout_height="0dp"
+                    android:layout_weight="1" />
+                <!--three options-->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp"
+                    android:layout_gravity="bottom"
+                    android:layout_marginStart="30dp"
+                    android:layout_marginEnd="30dp"
+                    android:background="@android:color/transparent"
+                    android:gravity="center"
+                    android:weightSum="3">
+
+                    <androidx.cardview.widget.CardView
+                        android:layout_width="55dp"
+                        android:layout_height="55dp"
+                        android:elevation="5dp"
+                        app:cardCornerRadius="4dp"
+                        app:cardUseCompatPadding="true">
+
+                        <ImageView
+                            android:id="@+id/imgGoogleApp"
+                            android:layout_width="25dp"
+                            android:layout_height="25dp"
+                            android:layout_gravity="center"
+                            android:src="@drawable/ic_location_gmap" />
+                    </androidx.cardview.widget.CardView>
+
+                    <androidx.cardview.widget.CardView
+                        android:layout_width="55dp"
+                        android:layout_height="55dp"
+                        android:layout_marginStart="20dp"
+                        android:elevation="5dp"
+                        app:cardCornerRadius="4dp"
+                        app:cardUseCompatPadding="true">
+
+                        <ImageView
+                            android:id="@+id/imgRatings"
+                            android:layout_width="25dp"
+                            android:layout_height="25dp"
+                            android:layout_gravity="center"
+                            android:src="@drawable/ic_checlin_option" />
+                    </androidx.cardview.widget.CardView>
+
+                    <androidx.cardview.widget.CardView
+                        android:layout_width="55dp"
+                        android:layout_height="55dp"
+                        android:layout_marginStart="20dp"
+                        android:elevation="5dp"
+                        app:cardCornerRadius="4dp"
+                        app:cardUseCompatPadding="true">
+
+                        <ImageView
+                            android:id="@+id/imgCallRestro"
+                            android:layout_width="25dp"
+                            android:layout_height="25dp"
+                            android:layout_gravity="center"
+                            android:src="@drawable/ic_call_option" />
+                    </androidx.cardview.widget.CardView>
+
+                    <!--  <ImageView
+                          android:id="@+id/imgInvitation"
+                          android:layout_width="0dp"
+                          android:layout_height="55dp"
+                          android:layout_marginStart="30dp"
+                          android:layout_weight="1"
+                          android:src="@drawable/ic_invitation_button" />-->
+
+                </LinearLayout>
 
 
             </LinearLayout>
@@ -221,74 +289,6 @@
         <!--</ScrollView>-->
     </LinearLayout>
 
-    <!--three options-->
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom"
-        android:layout_marginStart="30dp"
-        android:layout_marginEnd="30dp"
-        android:background="@android:color/transparent"
-        android:gravity="center"
-        android:padding="10dp"
-        android:weightSum="3">
-
-        <androidx.cardview.widget.CardView
-            android:layout_width="55dp"
-            android:layout_height="55dp"
-            android:elevation="5dp"
-            app:cardCornerRadius="4dp"
-            app:cardUseCompatPadding="true">
-
-            <ImageView
-                android:id="@+id/imgGoogleApp"
-                android:layout_width="25dp"
-                android:layout_height="25dp"
-                android:layout_gravity="center"
-                android:src="@drawable/ic_location_gmap" />
-        </androidx.cardview.widget.CardView>
-
-        <androidx.cardview.widget.CardView
-            android:layout_width="55dp"
-            android:layout_height="55dp"
-            android:layout_marginStart="20dp"
-            android:elevation="5dp"
-            app:cardCornerRadius="4dp"
-            app:cardUseCompatPadding="true">
-
-            <ImageView
-                android:id="@+id/imgRatings"
-                android:layout_width="25dp"
-                android:layout_height="25dp"
-                android:layout_gravity="center"
-                android:src="@drawable/ic_checlin_option" />
-        </androidx.cardview.widget.CardView>
-
-        <androidx.cardview.widget.CardView
-            android:layout_width="55dp"
-            android:layout_height="55dp"
-            android:layout_marginStart="20dp"
-            android:elevation="5dp"
-            app:cardCornerRadius="4dp"
-            app:cardUseCompatPadding="true">
-
-            <ImageView
-                android:id="@+id/imgCallRestro"
-                android:layout_width="25dp"
-                android:layout_height="25dp"
-                android:layout_gravity="center"
-                android:src="@drawable/ic_call_option" />
-        </androidx.cardview.widget.CardView>
-
-        <!--  <ImageView
-              android:id="@+id/imgInvitation"
-              android:layout_width="0dp"
-              android:layout_height="55dp"
-              android:layout_marginStart="30dp"
-              android:layout_weight="1"
-              android:src="@drawable/ic_invitation_button" />-->
-
-    </LinearLayout>
 
     <de.hdodenhof.circleimageview.CircleImageView xmlns:app="http://schemas.android.com/apk/res-auto"
         android:id="@+id/imgRestroLogo"

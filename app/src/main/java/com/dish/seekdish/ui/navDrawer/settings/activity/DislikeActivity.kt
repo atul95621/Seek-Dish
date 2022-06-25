@@ -116,7 +116,7 @@ class DislikeActivity : BaseActivity() {
             edtSearch.isCursorVisible = true
         }
 
-        tvAdd.setOnClickListener()
+        imgSave.setOnClickListener()
         {
             savedIngredients = join1(",", Global.dislikedItemsSet)
 

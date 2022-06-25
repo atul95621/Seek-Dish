@@ -34,7 +34,7 @@ class HomeFragment : BaseFragment() {
         tabLayout.addTab(tabLayout.newTab().setText(getString(R.string.taste)),true)
         tabLayout.addTab(tabLayout.newTab().setText(getString(R.string.menu)))
         tabLayout.addTab(tabLayout.newTab().setText(getString(R.string.map)))
-        tabLayout.addTab(tabLayout.newTab().setText("Blog"))
+        tabLayout.addTab(tabLayout.newTab().setText("Blogs"))
 
         //setting initialfragment...
         replaceFragment(TasteFragment())

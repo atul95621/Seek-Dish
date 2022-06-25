@@ -154,7 +154,7 @@ class LikeActivity : BaseActivity() {
         })
 
 
-        tvAdd.setOnClickListener()
+        imgSave.setOnClickListener()
         {
             savedIngredients = join1(",", Global.likedItemsSet)
 
