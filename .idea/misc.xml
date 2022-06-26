@@ -3,6 +3,8 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Android Projects/Android WREED/SeekDish/app/src/main/res/drawable/border_primary.xml" value="0.25435897435897437" />
+        <entry key="..\:/Android Projects/Android WREED/SeekDish/app/src/main/res/drawable/rect_curve_gray_border.xml" value="0.25435897435897437" />
         <entry key="..\:/Android Projects/Android WREED/SeekDish/app/src/main/res/drawable/tab_background.xml" value="0.25833333333333336" />
         <entry key="..\:/Android Projects/Android WREED/SeekDish/app/src/main/res/drawable/tab_background_selected.xml" value="0.25833333333333336" />
         <entry key="..\:/Android Projects/Android WREED/SeekDish/app/src/main/res/drawable/tab_layout_background.xml" value="0.25833333333333336" />
@@ -17,7 +19,7 @@
         <entry key="..\:/Android Projects/Android WREED/SeekDish/app/src/main/res/layout/activity_language.xml" value="0.2421875" />
         <entry key="..\:/Android Projects/Android WREED/SeekDish/app/src/main/res/layout/activity_like.xml" value="0.2421875" />
         <entry key="..\:/Android Projects/Android WREED/SeekDish/app/src/main/res/layout/activity_my_information.xml" value="0.22685185185185186" />
-        <entry key="..\:/Android Projects/Android WREED/SeekDish/app/src/main/res/layout/activity_my_profile.xml" value="0.23846153846153847" />
+        <entry key="..\:/Android Projects/Android WREED/SeekDish/app/src/main/res/layout/activity_my_profile.xml" value="0.2" />
         <entry key="..\:/Android Projects/Android WREED/SeekDish/app/src/main/res/layout/activity_opinion_details.xml" value="0.23846153846153847" />
         <entry key="..\:/Android Projects/Android WREED/SeekDish/app/src/main/res/layout/activity_radius_center.xml" value="0.2421875" />
         <entry key="..\:/Android Projects/Android WREED/SeekDish/app/src/main/res/layout/activity_restro_description.xml" value="0.22314814814814815" />

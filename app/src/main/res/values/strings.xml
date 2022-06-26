@@ -276,5 +276,6 @@
     <string name="no_friend_alert">"No friends yet "</string>
     <string name="no_notification">"No notification"</string>
     <string name="_0">(0)</string>
+    <string name="remove_my_account">Remove my account</string>
 
 </resources>

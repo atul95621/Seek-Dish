@@ -96,9 +96,9 @@ class MyProfileActivity : BaseActivity() {
         initView()
 
         if (sessionManager?.getValue(SessionManager.LOGGEDIN_THROUGH).equals("0")) {
-            btnChnagePassword.visibility = View.VISIBLE
+            cardviewChangePassword.visibility = View.VISIBLE
         } else {
-            btnChnagePassword.visibility = View.GONE
+            cardviewChangePassword.visibility = View.GONE
         }
 
         if (connectionDetector.isConnectingToInternet) {

@@ -237,14 +237,14 @@ class DishDescriptionActivity : BaseActivity(), Serializable {
 
         tvRestaurantName.setOnClickListener()
         {
-            if (connectionDetector.isConnectingToInternet) {
-                val intent = Intent(this, RestroDescrpActivity::class.java)
-                intent.putExtra("RESTAURANT_ID", restro_id.toString())
-                startActivity(intent)
-            } else {
-                showSnackBar(getString(R.string.check_connection))
-            }
+            openRestro()
         }
+
+        tvRestroAddrss.setOnClickListener()
+        {
+            openRestro()
+        }
+
         tvMealName.setOnClickListener()
         {
             if (connectionDetector.isConnectingToInternet) {
@@ -254,6 +254,16 @@ class DishDescriptionActivity : BaseActivity(), Serializable {
             } else {
                 showSnackBar(getString(R.string.check_connection))
             }
+        }
+    }
+
+    fun openRestro() {
+        if (connectionDetector.isConnectingToInternet) {
+            val intent = Intent(this, RestroDescrpActivity::class.java)
+            intent.putExtra("RESTAURANT_ID", restro_id.toString())
+            startActivity(intent)
+        } else {
+            showSnackBar(getString(R.string.check_connection))
         }
     }
 
