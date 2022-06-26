@@ -97,7 +97,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:gravity="center_vertical"
-                    android:text="@string/_15"
+                    android:text="@string/_0"
                     android:textColor="@color/red_google" />
 
                 <View

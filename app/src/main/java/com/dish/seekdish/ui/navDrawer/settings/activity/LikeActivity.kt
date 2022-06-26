@@ -122,7 +122,7 @@ class LikeActivity : BaseActivity() {
         }
         edtSearch.setOnClickListener()
         {
-            edtSearch.isCursorVisible=true
+            edtSearch.isCursorVisible = true
         }
 
         edtSearch.addTextChangedListener(object : TextWatcher {
@@ -163,11 +163,11 @@ class LikeActivity : BaseActivity() {
                 sessionManager?.getValue(SessionManager.USER_ID).toString(),
                 savedIngredients
             )
-         /*   if (savedIngredients != null && savedIngredients != "null" && savedIngredients != "") {
+            /*   if (savedIngredients != null && savedIngredients != "null" && savedIngredients != "") {
 
-            } else {
-                showSnackBar("Please select atleast one ingredient.")
-            }*/
+               } else {
+                   showSnackBar("Please select atleast one ingredient.")
+               }*/
 
         }
 
@@ -221,9 +221,7 @@ class LikeActivity : BaseActivity() {
                     }
 
 
-                }
-                else
-                {
+                } else {
                     showSnackBar(response.message)
                 }
 
@@ -297,9 +295,7 @@ class LikeActivity : BaseActivity() {
                         setResult(Activity.RESULT_CANCELED, returnIntent)
                         finish()
                     }, 1000)
-                }
-                else
-                {
+                } else {
                     showSnackBar(response.message)
                 }
             } else {

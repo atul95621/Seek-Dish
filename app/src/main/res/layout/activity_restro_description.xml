@@ -125,7 +125,7 @@
                         android:layout_gravity="center"
                         android:layout_marginStart="5dp"
                         android:gravity="center_vertical"
-                        android:text="@string/_15"
+                        android:text="@string/_0"
                         android:textColor="@color/black" />
                 </LinearLayout>
 
@@ -217,7 +217,7 @@
                 <!--three options-->
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="60dp"
+                    android:layout_height="55dp"
                     android:layout_gravity="bottom"
                     android:layout_marginStart="30dp"
                     android:layout_marginEnd="30dp"
