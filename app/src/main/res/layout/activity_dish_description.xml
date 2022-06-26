@@ -193,6 +193,7 @@
                     android:layout_gravity="center"
                     android:layout_marginStart="20dp"
                     android:layout_marginEnd="20dp"
+                    android:gravity="center"
                     android:fontFamily="@font/assistantregular"
                     android:text=""
                     android:textColor="@color/tabUnselectedText"
