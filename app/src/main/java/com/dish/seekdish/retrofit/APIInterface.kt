@@ -697,7 +697,6 @@ internal interface APIInterface {
     fun getAlertDlete(
         @Field("user_id") userId: String,
         @Field("restaurant_id") restaurant_id: String
-
     ): Call<CancelReModel>
 
     @FormUrlEncoded
@@ -805,4 +804,10 @@ internal interface APIInterface {
         @Field("userId") userId: String,
         @Field("notificationId") notificationId: String
     ): Call<NotifyMarkReadModel>
+
+    @FormUrlEncoded
+    @POST("remove_user")
+    fun deleteUser(
+        @Field("user_id") userId: String
+    ): Call<RemoveUserModel>
 }

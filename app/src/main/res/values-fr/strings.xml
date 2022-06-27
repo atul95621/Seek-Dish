@@ -260,4 +260,5 @@
     <string name="no_friend_alert">Pas encore d\'amis</string>
     <string name="no_notification">"Pas de notifications "</string>
     <string name="remove_my_account">Supprimer mon compte</string>
+    <string name="are_you_sure">Êtes-vous sûr de vouloir supprimer votre compte de Seekdish ?</string>
 </resources>

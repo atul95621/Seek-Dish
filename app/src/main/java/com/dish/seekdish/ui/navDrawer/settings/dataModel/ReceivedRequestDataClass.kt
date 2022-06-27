@@ -24,3 +24,15 @@ data class Cancel_Req(
     val message: String
 )
 
+
+
+data class RemoveUserModel(
+    val status: Int,
+    val message: String,
+    val data: DataRemove
+)
+
+data class DataRemove(
+    val message: String
+)
+

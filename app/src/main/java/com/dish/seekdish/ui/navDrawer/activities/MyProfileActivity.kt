@@ -1,22 +1,29 @@
 package com.dish.seekdish.ui.navDrawer.activities
 
+import android.app.Dialog
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import android.view.Window
+import android.widget.Button
+import android.widget.TextView
 import com.dish.seekdish.R
 import com.dish.seekdish.custom.GlideApp
 import com.dish.seekdish.custom.ProgressBarClass
 import com.dish.seekdish.retrofit.APIClient
 import com.dish.seekdish.retrofit.APIInterface
 import com.dish.seekdish.ui.home.HomeActivity
+import com.dish.seekdish.ui.login.LoginActivity
 import com.dish.seekdish.ui.navDrawer.activities.model.ProfileDataClass
 import com.dish.seekdish.ui.navDrawer.checkin.CheckinActivity
 import com.dish.seekdish.ui.navDrawer.settings.activity.DislikeActivity
 import com.dish.seekdish.ui.navDrawer.settings.activity.LikeActivity
+import com.dish.seekdish.ui.navDrawer.settings.dataModel.RemoveUserModel
 import com.dish.seekdish.util.BaseActivity
 import com.dish.seekdish.util.SessionManager
+import com.dish.seekdish.walkthrough.WalkThroughActivity
 import kotlinx.android.synthetic.main.activity_my_profile.*
 import kotlinx.android.synthetic.main.activity_my_profile.tvBack
 import kotlinx.android.synthetic.main.activity_received_request.*
@@ -89,6 +96,48 @@ class MyProfileActivity : BaseActivity() {
         })
     }
 
+    fun deleteMyProfile() {
+        ProgressBarClass.progressBarCalling(this)
+        apiInterface = APIClient.getClient(this).create(APIInterface::class.java)
+        val call =
+            apiInterface.deleteUser(sessionManager?.getValue(SessionManager.USER_ID).toString())
+        call.enqueue(object : Callback<RemoveUserModel> {
+            override fun onResponse(
+                call: Call<RemoveUserModel>,
+                response: Response<RemoveUserModel>
+            ) {
+                // canceling the progress bar
+                ProgressBarClass.dialog.dismiss()
+                if (response.code().toString().equals("200")) {
+
+                    var modelObj = response.body() as RemoveUserModel
+                    if (modelObj.status == 1) {
+                        showSnackBar(modelObj.data.message)
+                        val intent = Intent(this@MyProfileActivity, WalkThroughActivity::class.java)
+                        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK)
+                        startActivity(intent)
+                        //clearing the shared prefernces
+                        sessionManager?.clearValues()
+                        finish() // finish the current activity
+                    } else {
+                        showSnackBar(modelObj.message)
+                    }
+                } else {
+                    showSnackBar(resources.getString(R.string.error_occured));
+                }
+            }
+
+            override fun onFailure(call: Call<RemoveUserModel>, t: Throwable) {
+                showSnackBar(resources.getString(R.string.error_occured));
+                call.cancel()
+                // canceling the progress bar
+                ProgressBarClass.dialog.dismiss()
+
+            }
+        })
+    }
+
+
     override fun onResume() {
         super.onResume()
 
@@ -131,8 +180,40 @@ class MyProfileActivity : BaseActivity() {
         sessionManager = SessionManager(this)
     }
 
+    private fun onRemoveUser() {
+        val dialog = Dialog(this)
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
+        dialog.setCancelable(false)
+        dialog.setContentView(R.layout.dialog_remove_user)
+
+        val btnYes = dialog.findViewById<Button>(R.id.btnYes)
+        val btnNo = dialog.findViewById<Button>(R.id.btnNo)
+        // button_yes clk
+        btnYes.setOnClickListener {
+            dialog.dismiss()
+            deleteMyProfile()
+        }
+        btnNo.setOnClickListener {
+            dialog.dismiss()
+        }
+
+        dialog.show()
+
+    }
+
 
     private fun clickListners() {
+
+
+        layoutRemoveAccount.setOnClickListener()
+        {
+            onRemoveUser()
+        }
+
+        btnRemoveAccount.setOnClickListener()
+        {
+            onRemoveUser()
+        }
 
         btnUpdateProfile.setOnClickListener()
         {
