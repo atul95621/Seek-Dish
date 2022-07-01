@@ -275,8 +275,10 @@
     <string name="no_following_alert">You don\'t follow anyone</string>
     <string name="no_friend_alert">"No friends yet "</string>
     <string name="no_notification">"No notification"</string>
-    <string name="_0">(0)</string>
+    <string name="_0" translatable="false">(0)</string>
     <string name="remove_my_account">Remove my account</string>
     <string name="are_you_sure">Are you sure, you want to remove your account from Seekdish?</string>
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
 
 </resources>

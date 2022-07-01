@@ -261,4 +261,6 @@
     <string name="no_notification">"Pas de notifications "</string>
     <string name="remove_my_account">Supprimer mon compte</string>
     <string name="are_you_sure">Êtes-vous sûr de vouloir supprimer votre compte de Seekdish ?</string>
+    <string name="yes">Oui</string>
+    <string name="no">Non</string>
 </resources>

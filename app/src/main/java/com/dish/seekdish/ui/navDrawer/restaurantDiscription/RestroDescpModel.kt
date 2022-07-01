@@ -17,7 +17,7 @@ data class Restaurant(
     val city: String,
     val country: String,
     val phone: String,
-    var pdf_url:String,
+    var pdf_url: String,
     val country_code: Int,
     val description: String,
     val distance: Double,
@@ -94,5 +94,7 @@ data class SimilarRestaurant(
     val service_speed: String,
     val street: String,
     val website: String,
-    val distance: String
+    val distance: String,
+    var meal_count: Int,
+    var menu_link: String
 ) : Serializable

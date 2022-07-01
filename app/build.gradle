@@ -10,8 +10,8 @@ android {
         applicationId "com.dish.seekdish"
         minSdkVersion 17
         targetSdkVersion 30
-        versionCode 19
-        versionName "1.48"
+        versionCode 21
+        versionName "1.50"
         multiDexEnabled true
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"

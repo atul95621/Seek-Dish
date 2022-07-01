@@ -12,6 +12,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.dish.seekdish.R
 import com.dish.seekdish.custom.GlideApp
+import com.dish.seekdish.ui.WebViewActivity
 import com.dish.seekdish.ui.navDrawer.restaurantDiscription.RestroDescrpActivity
 import com.dish.seekdish.ui.navDrawer.restaurantDiscription.SimilarRestaurant
 import com.willy.ratingbar.ScaleRatingBar
@@ -65,6 +66,30 @@ class RestroSimilarAdapter(
             intent.putExtra("RESTAURANT_ID", restroSimilarModel.id.toString())
             mcontext.startActivity(intent)
         }
+
+        if (restroSimilarModel.meal_count != null && restroSimilarModel.meal_count > 0) {
+            holder.frameMealCount.visibility = View.VISIBLE
+            if (restroSimilarModel.meal_count > 99) {
+                holder.tvMealCount.text = "99+"
+            } else {
+                holder.tvMealCount.text = restroSimilarModel.meal_count.toString()
+            }
+        } else {
+            holder.frameMealCount.visibility = View.GONE
+        }
+
+        if (restroSimilarModel.menu_link != null) {
+            holder.imgMenu.visibility = View.VISIBLE
+            holder.imgMenu.setOnClickListener()
+            {
+                val intent = Intent(mcontext, WebViewActivity::class.java)
+                intent.putExtra("url", restroSimilarModel.menu_link)
+                intent.putExtra("from", "OPEN_PDF")
+                mcontext.startActivity(intent)
+            }
+        } else {
+            holder.imgMenu.visibility = View.GONE
+        }
     }
 
     override fun getItemCount(): Int {
@@ -79,6 +104,9 @@ class RestroSimilarAdapter(
         internal var tvDistance: TextView
         internal var tvSimpleRatingBar: TextView
         internal var frameTasteDish: LinearLayout
+        internal var tvMealCount: TextView
+        internal var frameMealCount: FrameLayout
+        internal var imgMenu: ImageView
 
         init {
             tvDistance = view.findViewById(R.id.tvDistance) as TextView
@@ -87,6 +115,9 @@ class RestroSimilarAdapter(
             tvAddress = view.findViewById(R.id.tvAddress) as TextView
             tvDishName = view.findViewById(R.id.tvDishName) as TextView
             frameTasteDish = view.findViewById(R.id.frameTasteDish) as LinearLayout
+            tvMealCount = view.findViewById(R.id.tvMealCount) as TextView
+            frameMealCount = view.findViewById(R.id.frameMealCount) as FrameLayout
+            imgMenu = view.findViewById(R.id.imgMenu) as ImageView
         }
     }
 }

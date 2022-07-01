@@ -273,7 +273,7 @@
                             android:layout_width="25dp"
                             android:layout_height="25dp"
                             android:layout_gravity="center"
-                            android:src="@drawable/ic_checlin_option" />
+                            android:src="@drawable/ic_star_rating" />
                     </androidx.cardview.widget.CardView>
 
                     <androidx.cardview.widget.CardView

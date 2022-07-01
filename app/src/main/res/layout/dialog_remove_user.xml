@@ -68,7 +68,7 @@
                     android:layout_weight="1"
                     android:background="@android:color/transparent"
                     android:fontFamily="@font/assistantbold"
-                    android:text="Yes"
+                    android:text="@string/yes"
                     android:textColor="@android:color/holo_blue_light"
                     android:textSize="18sp" />
 
@@ -79,7 +79,7 @@
                     android:layout_weight="1"
                     android:background="@android:color/transparent"
                     android:fontFamily="@font/assistantbold"
-                    android:text="No"
+                    android:text="@string/no"
                     android:textColor="@android:color/holo_blue_light"
                     android:textSize="18sp" />
             </LinearLayout>

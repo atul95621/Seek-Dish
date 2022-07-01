@@ -9,6 +9,7 @@ import android.view.View
 import android.view.Window
 import android.widget.Button
 import android.widget.TextView
+import androidx.core.content.ContextCompat
 import com.dish.seekdish.R
 import com.dish.seekdish.custom.GlideApp
 import com.dish.seekdish.custom.ProgressBarClass
@@ -22,8 +23,10 @@ import com.dish.seekdish.ui.navDrawer.settings.activity.DislikeActivity
 import com.dish.seekdish.ui.navDrawer.settings.activity.LikeActivity
 import com.dish.seekdish.ui.navDrawer.settings.dataModel.RemoveUserModel
 import com.dish.seekdish.util.BaseActivity
+import com.dish.seekdish.util.ConnectivityManager
 import com.dish.seekdish.util.SessionManager
 import com.dish.seekdish.walkthrough.WalkThroughActivity
+import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.activity_my_profile.*
 import kotlinx.android.synthetic.main.activity_my_profile.tvBack
 import kotlinx.android.synthetic.main.activity_received_request.*
@@ -31,9 +34,10 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class MyProfileActivity : BaseActivity() {
+class MyProfileActivity : AppCompatActivity() {
     var sessionManager: SessionManager? = null;
     internal lateinit var apiInterface: APIInterface
+    lateinit var connectionDetector: ConnectivityManager
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -138,6 +142,26 @@ class MyProfileActivity : BaseActivity() {
     }
 
 
+    fun showSnackBar(text: String) {
+        try {
+            val snackbar = Snackbar.make(
+                this.findViewById(android.R.id.content),
+                text,
+                Snackbar.LENGTH_SHORT
+            )
+            snackbar.view.setBackgroundColor(
+                ContextCompat.getColor(
+                    this,
+                    R.color.colorPrimary
+                )
+            )
+            snackbar.show()
+        } catch (e: Exception) {
+
+        }
+    }
+
+
     override fun onResume() {
         super.onResume()
 
@@ -177,6 +201,7 @@ class MyProfileActivity : BaseActivity() {
     }
 
     private fun initView() {
+        connectionDetector = ConnectivityManager(this)
         sessionManager = SessionManager(this)
     }
 
